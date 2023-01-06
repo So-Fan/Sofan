@@ -1,0 +1,22 @@
+.searchbar-container{
+    /* width: 500px;
+    height: 30px;
+    border: solid 1px #9B9B9B; */
+    position: relative;
+}
+.searchbar-img{
+    width: 15px;
+    position: absolute;
+    left: 9px;
+    top: 10px;
+}
+.searchbar-input{
+    width: 500px;
+    height: 30px;
+    border: solid 1px #9B9B9B;
+    border-radius: 10px;
+    padding-left: 30px;
+}
+.searchbar-input:focus::placeholder{
+    color: transparent;
+}
