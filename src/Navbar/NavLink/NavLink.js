@@ -1,6 +1,6 @@
 import React from 'react'
-import "./NavIcon.css"
-const NavIcon = ({name, link}) => {
+import "./NavLink.css"
+const NavLink = ({name, link}) => {
   return (
     <a className='navbar-navicon' href={link}>
       {name}
@@ -8,4 +8,4 @@ const NavIcon = ({name, link}) => {
   )
 }
 
-export default NavIcon
+export default NavLink
