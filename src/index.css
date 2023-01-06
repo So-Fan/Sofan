@@ -46,3 +46,19 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+@font-face {
+	font-family: "britanica-black";
+	src: url("./Assets/Police/Britanica-Black.ttf");
+}
+@font-face {
+	font-family: "britanica-heavy";
+	src: url("./Assets/Police/Britanica-Heavy.ttf");
+}
+@font-face {
+	font-family: "britanica-light";
+	src: url("./Assets/Police/Britanica-Light.ttf");
+}
+@font-face {
+	font-family: "britanica-regular";
+	src: url("./Assets/Police/Britanica-Regular.ttf");
+}
