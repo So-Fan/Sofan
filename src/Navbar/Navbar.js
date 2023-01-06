@@ -9,6 +9,7 @@ const Navbar = () => {
       <img className='navbar-main-logo' src={SofanLogoBlack} alt="Sofan" />
       <Searchbar />
       <NavIcon name="Home" link="/"/>
+      <NavIcon name="Launchpad" link="/Launchpad"/>
     </section>
   )
 }
