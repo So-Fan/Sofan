@@ -10,10 +10,23 @@ button {
   align-items: center;
   flex-direction: column;
 }
-
+.thirdstep-title-container{
+  height: 15%;
+  width: 100%;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .title-lvl-blockchain {
   font-weight: 800;
   font-size: 30px;
+  height: 13%;
+  width: 100%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .lvl-blockchain-buttons-container {

@@ -11,3 +11,8 @@
     align-items: center;
     text-align: center;
 }
+
+.navbar-container svg {
+    /* fill: #F6D463; */
+    fill: black;
+}

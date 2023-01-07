@@ -9,36 +9,69 @@ function SignUpAthlete() {
   const [buttonNextSelected, setButtonNextSelected] = useState(false);
   const [pageNumberState, setPageNumberState] = useState(1);
   const [allPagesNumber, setAllPagesNumber] = useState({
-    stepOne: false,
+    stepOne: true,
     stepTwo: false,
     stepThree: false,
     stepFour: false,
   });
   function stepDisplayer() {
-    console.log("pgkjigjroj")
     if (pageNumberState === 1) {
-      setAllPagesNumber(allPagesNumber.stepOne === true);
-    }
-    else if (pageNumberState === 2) {
-      setAllPagesNumber(allPagesNumber.stepTwo ===true )
+      setAllPagesNumber({
+        ...allPagesNumber,
+        stepOne: true,
+        stepTwo: false,
+        stepThree: false,
+        stepFour: false,
+      });
+    } else if (pageNumberState === 2) {
+      setAllPagesNumber({
+        ...allPagesNumber,
+        stepOne: false,
+        stepTwo: true,
+        stepThree: false,
+        stepFour: false,
+      });
+    } else if (pageNumberState === 3) {
+      setAllPagesNumber({
+        ...allPagesNumber,
+        stepOne: false,
+        stepTwo: false,
+        stepThree: true,
+        stepFour: false,
+      });
+    } else if (pageNumberState === 4) {
+      setAllPagesNumber({
+        ...allPagesNumber,
+        stepOne: false,
+        stepTwo: false,
+        stepThree: false,
+        stepFour: true,
+      });
     }
   }
   return (
     <>
       <div onClick={stepDisplayer} className="page-container">
-      
         <PageNumber pageNumberState={pageNumberState} />
-        {allPagesNumber.stepOne && 
-        <>LA VIE Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim non quia similique dolorum accusamus delectus animi fugit cum neque, saepe voluptatem vero cumque architecto debitis recusandae. Quo aliquam accusantium debitis.</>
-        }
-        <FirstStep
-          pageNumberState={pageNumberState}
-          setPageNumberState={setPageNumberState}
-          buttonNextSelected={buttonNextSelected}
-          setButtonNextSelected={setButtonNextSelected}
-        />
-        {/* <SecondStep /> */}
-        {/* <ThirdStep/> */}
+        {allPagesNumber.stepOne && (
+          <FirstStep
+            pageNumberState={pageNumberState}
+            setPageNumberState={setPageNumberState}
+            buttonNextSelected={buttonNextSelected}
+            setButtonNextSelected={setButtonNextSelected}
+          />
+        )}
+
+        {allPagesNumber.stepTwo && (
+          <>
+            <SecondStep />
+          </>
+        )}
+        {allPagesNumber.stepThree && (
+          <>
+            <ThirdStep />
+          </>
+        )}
       </div>
     </>
   );

@@ -49,9 +49,11 @@ function ThirdStep() {
 
   return (
     <section className="form-lvl-blockchain-container">
-      <h2 className="title-lvl-blockchain">
-        Votre niveau de connaissance en Blockchain, NFT est...
-      </h2>
+      <div className="thirdstep-title-container">
+        <h2 className="title-lvl-blockchain">
+          Votre niveau de connaissance en Blockchain, NFT est...
+        </h2>
+      </div>
       <form className="form-lvl-blockchain">
         <div className="lvl-blockchain-buttons-container">
           <button

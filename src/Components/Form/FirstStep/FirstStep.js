@@ -1,6 +1,6 @@
 import React from "react";
 import "./FirstStep.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function FirstStep({
   buttonNextSelected,
@@ -9,10 +9,8 @@ function FirstStep({
 }) {
   const handleNextStep = (e) => {
     e.preventDefault();
-    if (booleanObject.button1 === true || booleanObject.button2 === true) {
-      if (pageNumberState < 4) {
+    if ((booleanObject.button1 === true || booleanObject.button2 === true) && pageNumberState < 4) {
         setPageNumberState(pageNumberState + 1);
-      }
     }
   };
   const [booleanObject, setBooleanObject] = useState({
@@ -34,11 +32,13 @@ function FirstStep({
         button2: true,
       });
     }
+    // console.log("button1 est "+booleanObject.button1)
+    // console.log("button2 est "+booleanObject.button2)
   };
 
   return (
     <>
-      <>{buttonNextSelected ? <>Suivant ! </> : <>Pas suivant !</>}</>
+      {/* <>{buttonNextSelected ? <>Suivant ! </> : <>Pas suivant !</>}</> */}
       <section className="firststep-container">
         <h2 className="title-firststep">Vous êtes..</h2>
         <form>
@@ -81,5 +81,4 @@ function FirstStep({
     </>
   );
 }
-
 export default FirstStep;
