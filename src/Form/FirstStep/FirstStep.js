@@ -14,7 +14,6 @@ function FirstStep({
         setPageNumberState(pageNumberState + 1);
       }
     }
-    // console.log(pageNumberState);
   };
   const [booleanObject, setBooleanObject] = useState({
     button1: false,
