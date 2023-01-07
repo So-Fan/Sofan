@@ -1,0 +1,52 @@
+button {
+  outline: none;
+}
+.form-lvl-blockchain-container {
+  height: 80%;
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title-lvl-blockchain {
+  font-weight: 800;
+  font-size: 30px;
+}
+
+.lvl-blockchain-buttons-container {
+  height: 80%;
+  width: 100%;
+  /* background-color: green; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lvl-blockchain-button {
+  width: 70%;
+  height: 15%;
+  border: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffff;
+  opacity: 1 !important;
+  border-radius: 10px;
+  cursor: pointer;
+  /* font-weight: 800; */
+}
+.lvl-blockchain-button:hover {
+  background-color: #f6d463af !important;
+}
+.lvl-blockchain-button-selected {
+  width: 70%;
+  height: 15%;
+  border: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f6d463 !important;
+  opacity: 1 !important;
+  border-radius: 10px;
+  cursor: pointer;
+}
