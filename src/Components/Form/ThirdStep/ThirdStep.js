@@ -101,7 +101,9 @@ function ThirdStep({setStep}) {
               Totalement, je sais tout ce qu'il faut savoir !
             </button>
           </div>
-          <button onClick={handleNext}></button>
+          <button 
+          className="next-button"
+          onClick={handleNext}>Étape suivante</button>
         </form>
       </section>
     </section>
