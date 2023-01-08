@@ -52,7 +52,6 @@ function FirstStep({
               </div>
             </button>
           </div>
-          <div className="figma"></div>
           <button onClick={handleNext} className="form-button">
             Étape suivante
           </button>

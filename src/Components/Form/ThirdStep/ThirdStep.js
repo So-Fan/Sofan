@@ -2,7 +2,7 @@ import React from "react";
 import "./ThirdStep.css";
 import { useState } from "react";
 
-function ThirdStep() {
+function ThirdStep({setStep}) {
   const [veryLowLvlBlockchain, setVeryLowLvlBlockchain] = useState(false);
   const [lowLvlBlockchain, setLowLvlBlockchain] = useState(false);
   const [mediumLowLvlBlockchain, setMediumLowLvlBlockchain] = useState(false);
@@ -37,59 +37,74 @@ function ThirdStep() {
     setMediumHighLvlBlockchain(true);
   };
 
+  function handleNext(e) {
+    // vérification que l'un des deux boutons est sélectionné avant de passer à la seconde page
+    e.preventDefault();
+    if (
+      veryLowLvlBlockchain ||
+      lowLvlBlockchain ||
+      mediumLowLvlBlockchain ||
+      mediumHighLvlBlockchain
+    ) {
+      setStep(4);
+    }
+  }
+
   return (
-    <section className="form-lvl-blockchain-container">
-      <div className="thirdstep-title-container">
-        <h2 className="title-lvl-blockchain">
-          Votre niveau de connaissance en Blockchain, NFT est...
-        </h2>
-      </div>
-      <form className="form-lvl-blockchain">
-        <div className="lvl-blockchain-buttons-container">
-          <button
-            className={
-              veryLowLvlBlockchain
-                ? "lvl-blockchain-button-selected"
-                : "lvl-blockchain-button"
-            }
-            onClick={handleClickVeryLow}
-          >
-            Non, absolument pas. C'est tout à fait nouveau pour moi
-          </button>
-          <button
-            onClick={handleClickLow}
-            className={
-              lowLvlBlockchain
-                ? "lvl-blockchain-button-selected"
-                : "lvl-blockchain-button"
-            }
-          >
-            Oui, un peu. J'en ai entendu parler par-ici par là
-          </button>
-          <button
-            onClick={handleClickMedium}
-            className={
-              mediumLowLvlBlockchain
-                ? "lvl-blockchain-button-selected"
-                : "lvl-blockchain-button"
-            }
-          >
-            Oui, sans être un expert, je sais en parler
-          </button>
-          <button
-            onClick={handleClickMediumHigh}
-            className={
-              mediumHighLvlBlockchain
-                ? "lvl-blockchain-button-selected"
-                : "lvl-blockchain-button"
-            }
-          >
-            Totalement, je sais tout ce qu'il faut savoir !
-          </button>
+    <section className="container-thirdstep">
+      <section className="form-lvl-blockchain-container">
+        <div className="thirdstep-title-container">
+          <h2 className="title-lvl-blockchain">
+            Votre niveau de connaissance en Blockchain, NFT est...
+          </h2>
         </div>
-      </form>
+        <form className="form-lvl-blockchain">
+          <div className="lvl-blockchain-buttons-container">
+            <button
+              className={
+                veryLowLvlBlockchain
+                  ? "lvl-blockchain-button-selected"
+                  : "lvl-blockchain-button"
+              }
+              onClick={handleClickVeryLow}
+            >
+              Non, absolument pas. C'est tout à fait nouveau pour moi
+            </button>
+            <button
+              onClick={handleClickLow}
+              className={
+                lowLvlBlockchain
+                  ? "lvl-blockchain-button-selected"
+                  : "lvl-blockchain-button"
+              }
+            >
+              Oui, un peu. J'en ai entendu parler par-ici par là
+            </button>
+            <button
+              onClick={handleClickMedium}
+              className={
+                mediumLowLvlBlockchain
+                  ? "lvl-blockchain-button-selected"
+                  : "lvl-blockchain-button"
+              }
+            >
+              Oui, sans être un expert, je sais en parler
+            </button>
+            <button
+              onClick={handleClickMediumHigh}
+              className={
+                mediumHighLvlBlockchain
+                  ? "lvl-blockchain-button-selected"
+                  : "lvl-blockchain-button"
+              }
+            >
+              Totalement, je sais tout ce qu'il faut savoir !
+            </button>
+          </div>
+          <button onClick={handleNext}></button>
+        </form>
+      </section>
     </section>
   );
 }
-
 export default ThirdStep;
