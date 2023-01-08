@@ -1,0 +1,18 @@
+.navbar-container{
+    height: 7%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(218, 151, 151);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.navbar-container svg {
+    /* fill: #F6D463; */
+    fill: black;
+}

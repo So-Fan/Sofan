@@ -1,0 +1,69 @@
+.fourthstep-container{
+    height: 80%;
+    width: 80%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title-fourthstep{
+    font-family: 'britanica-heavy'!important;
+    font-size: 30px;
+}
+.fourthstep-form-container{
+    height: 70%;
+    width: 100%;
+}
+.fourthstep-container form {
+    height: 100%;
+    width: 100%;
+    /* background-color: green; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.fourthstep-container button {
+    width: 20%;
+    height: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    border: none;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    background-image: #FFFFFF;
+    opacity: 1 !important;
+    background: none ;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.fourthstep-container button:hover {
+    background-color: #f6d463 !important;
+}
+.validation-button-container {
+    height: 10%;
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.validation-button {
+    font-family: "britanica-heavy";
+    width: 196px !important;
+    height: 67px !important;
+    font-size: 20px;
+    background-color: #F6D463 !important;
+}
+
+
+.validation-button:hover {
+    background-color: #2f2606 !important;
+}

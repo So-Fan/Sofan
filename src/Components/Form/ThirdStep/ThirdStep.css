@@ -1,0 +1,88 @@
+.container-thirdstep {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button {
+  outline: none;
+}
+.form-lvl-blockchain-container {
+  height: 75%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+.form-lvl-blockchain-container form {
+  height: 90%;
+  width: 80%;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.thirdstep-title-container {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title-lvl-blockchain {
+  font-weight: 800;
+  font-size: 30px;
+  height: 13%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lvl-blockchain-buttons-container {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lvl-blockchain-button {
+  width: 70%;
+  height: 15%;
+  border: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffff;
+  opacity: 1 !important;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.lvl-blockchain-button:hover {
+  background-color: #f6d463 !important;
+}
+.lvl-blockchain-button-selected {
+  width: 70%;
+  height: 15%;
+  border: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f6d463 !important;
+  opacity: 1 !important;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.next-button {
+  font-family: "britanica-heavy";
+  width: 196px !important;
+  height: 67px !important;
+  font-size: 20px;
+  background-color: #f6d463 !important;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}

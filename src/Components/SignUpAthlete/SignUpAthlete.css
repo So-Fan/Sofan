@@ -1,0 +1,10 @@
+ body .page-container {
+    height: 100vh !important;
+    width: 100vw !important;
+    /* background-color: red;  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'britanica-regular' !important;
+    flex-direction: column;
+  }
