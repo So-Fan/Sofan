@@ -1,0 +1,16 @@
+.navbar-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 1020px;
+    max-width: 1020px;
+    background-color: red;
+}
+.navbar-main-logo{
+    width: 80.75px;
+}
+.navbar-vertical{
+    width: 0;
+    height: 21.25px;
+    border: 0.3px solid #000000;
+}
