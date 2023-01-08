@@ -3,48 +3,38 @@ import "./ThirdStep.css";
 import { useState } from "react";
 
 function ThirdStep() {
-  const [booleanObject, setBooleanObject] = useState({
-    button1: false,
-    button2: false,
-    button3: false,
-    button4: false,
-  });
+  const [veryLowLvlBlockchain, setVeryLowLvlBlockchain] = useState(false);
+  const [lowLvlBlockchain, setLowLvlBlockchain] = useState(false);
+  const [mediumLowLvlBlockchain, setMediumLowLvlBlockchain] = useState(false);
+  const [mediumHighLvlBlockchain, setMediumHighLvlBlockchain] = useState(false);
 
-  const handleClick = (e) => {
+  const handleClickVeryLow = (e) => {
     e.preventDefault();
-    if (e.target.id === "btn1") {
-      setBooleanObject({
-        ...booleanObject,
-        button1: true,
-        button2: false,
-        button3: false,
-        button4: false,
-      });
-    } else if (e.target.id === "btn2") {
-      setBooleanObject({
-        ...booleanObject,
-        button1: false,
-        button2: true,
-        button3: false,
-        button4: false,
-      });
-    } else if (e.target.id === "btn3") {
-      setBooleanObject({
-        ...booleanObject,
-        button1: false,
-        button2: false,
-        button3: true,
-        button4: false,
-      });
-    } else if (e.target.id === "btn4") {
-      setBooleanObject({
-        ...booleanObject,
-        button1: false,
-        button2: false,
-        button3: false,
-        button4: true,
-      });
-    }
+    setVeryLowLvlBlockchain(true);
+    setLowLvlBlockchain(false);
+    setMediumLowLvlBlockchain(false);
+    setMediumHighLvlBlockchain(false);
+  };
+  const handleClickLow = (e) => {
+    e.preventDefault();
+    setVeryLowLvlBlockchain(false);
+    setLowLvlBlockchain(true);
+    setMediumLowLvlBlockchain(false);
+    setMediumHighLvlBlockchain(false);
+  };
+  const handleClickMedium = (e) => {
+    e.preventDefault();
+    setVeryLowLvlBlockchain(false);
+    setLowLvlBlockchain(false);
+    setMediumLowLvlBlockchain(true);
+    setMediumHighLvlBlockchain(false);
+  };
+  const handleClickMediumHigh = (e) => {
+    e.preventDefault();
+    setVeryLowLvlBlockchain(false);
+    setLowLvlBlockchain(false);
+    setMediumLowLvlBlockchain(false);
+    setMediumHighLvlBlockchain(true);
   };
 
   return (
@@ -57,21 +47,19 @@ function ThirdStep() {
       <form className="form-lvl-blockchain">
         <div className="lvl-blockchain-buttons-container">
           <button
-            id="btn1"
             className={
-              booleanObject.button1
+              veryLowLvlBlockchain
                 ? "lvl-blockchain-button-selected"
                 : "lvl-blockchain-button"
             }
-            onClick={handleClick}
+            onClick={handleClickVeryLow}
           >
             Non, absolument pas. C'est tout à fait nouveau pour moi
           </button>
           <button
-            id="btn2"
-            onClick={handleClick}
+            onClick={handleClickLow}
             className={
-              booleanObject.button2
+              lowLvlBlockchain
                 ? "lvl-blockchain-button-selected"
                 : "lvl-blockchain-button"
             }
@@ -79,10 +67,9 @@ function ThirdStep() {
             Oui, un peu. J'en ai entendu parler par-ici par là
           </button>
           <button
-            id="btn3"
-            onClick={handleClick}
+            onClick={handleClickMedium}
             className={
-              booleanObject.button3
+              mediumLowLvlBlockchain
                 ? "lvl-blockchain-button-selected"
                 : "lvl-blockchain-button"
             }
@@ -90,10 +77,9 @@ function ThirdStep() {
             Oui, sans être un expert, je sais en parler
           </button>
           <button
-            id="btn4"
-            onClick={handleClick}
+            onClick={handleClickMediumHigh}
             className={
-              booleanObject.button4
+              mediumHighLvlBlockchain
                 ? "lvl-blockchain-button-selected"
                 : "lvl-blockchain-button"
             }

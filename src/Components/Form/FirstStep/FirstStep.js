@@ -1,56 +1,41 @@
 import React from "react";
 import "./FirstStep.css";
-import { useState, useRef } from "react";
 
 function FirstStep({
-  buttonNextSelected,
-  pageNumberState,
-  setPageNumberState,
+  agent,
+  setAgent,
+  sportif,
+  setSportif,
+  setStep,
 }) {
-  const handleNextStep = (e) => {
+  const handleClickAgent = (e) => {
     e.preventDefault();
-    if ((booleanObject.button1 === true || booleanObject.button2 === true) && pageNumberState < 4) {
-        setPageNumberState(pageNumberState + 1);
-    }
+    setAgent(true);
+    setSportif(false);
   };
-  const [booleanObject, setBooleanObject] = useState({
-    button1: false,
-    button2: false,
-  });
-  const handleClick = (e) => {
+  const handleClickSportif = (e) => {
     e.preventDefault();
-    if (e.target.id === "btn1-firststep") {
-      setBooleanObject({
-        ...booleanObject,
-        button1: true,
-        button2: false,
-      });
-    } else if (e.target.id === "btn2-firststep") {
-      setBooleanObject({
-        ...booleanObject,
-        button1: false,
-        button2: true,
-      });
-    }
-    // console.log("button1 est "+booleanObject.button1)
-    // console.log("button2 est "+booleanObject.button2)
+    setAgent(false);
+    setSportif(true);
   };
 
+  // gestionnaire de clic sur le bouton "suivant"
+  function handleNext(e) {
+    // vérification que l'un des deux boutons est sélectionné avant de passer à la seconde page
+    e.preventDefault();
+    if (agent || sportif) {
+      setStep(2);
+    }
+  }
   return (
     <>
-      {/* <>{buttonNextSelected ? <>Suivant ! </> : <>Pas suivant !</>}</> */}
       <section className="firststep-container">
         <h2 className="title-firststep">Vous êtes..</h2>
         <form>
           <div className="btns-firststep-container">
             <button
-              onClick={handleClick}
-              id="btn1-firststep"
-              className={
-                booleanObject.button1
-                  ? "btn-firststep-selected"
-                  : "btn-firststep"
-              }
+              onClick={handleClickAgent}
+              className={agent ? "btn-firststep-selected" : "btn-firststep"}
             >
               <div className="title-btn-firststep">L'agent</div>
               <div className="content-btn-firststep">
@@ -58,13 +43,8 @@ function FirstStep({
               </div>
             </button>
             <button
-              onClick={handleClick}
-              id="btn2-firststep"
-              className={
-                booleanObject.button2
-                  ? "btn-firststep-selected"
-                  : "btn-firststep"
-              }
+              onClick={handleClickSportif}
+              className={sportif ? "btn-firststep-selected" : "btn-firststep"}
             >
               <div className="title-btn-firststep">Le sportif</div>
               <div className="content-btn-firststep">
@@ -73,7 +53,7 @@ function FirstStep({
             </button>
           </div>
           <div className="figma"></div>
-          <button onClick={handleNextStep} className="form-button">
+          <button onClick={handleNext} className="form-button">
             Étape suivante
           </button>
         </form>

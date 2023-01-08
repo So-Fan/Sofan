@@ -2,78 +2,53 @@ import React, { useState } from "react";
 import FirstStep from "../Form/FirstStep/FirstStep";
 import SecondStep from "../Form/SecondStep/SecondStep";
 import ThirdStep from "../Form/ThirdStep/ThirdStep";
-import PageNumber from "../Form/PageNumber/PageNumber";
 import "./SignUpAthlete.css";
 
 function SignUpAthlete() {
   const [buttonNextSelected, setButtonNextSelected] = useState(false);
   const [pageNumberState, setPageNumberState] = useState(1);
-  const [allPagesNumber, setAllPagesNumber] = useState({
-    stepOne: true,
-    stepTwo: false,
-    stepThree: false,
-    stepFour: false,
-  });
-  function stepDisplayer() {
-    if (pageNumberState === 1) {
-      setAllPagesNumber({
-        ...allPagesNumber,
-        stepOne: true,
-        stepTwo: false,
-        stepThree: false,
-        stepFour: false,
-      });
-    } else if (pageNumberState === 2) {
-      setAllPagesNumber({
-        ...allPagesNumber,
-        stepOne: false,
-        stepTwo: true,
-        stepThree: false,
-        stepFour: false,
-      });
-    } else if (pageNumberState === 3) {
-      setAllPagesNumber({
-        ...allPagesNumber,
-        stepOne: false,
-        stepTwo: false,
-        stepThree: true,
-        stepFour: false,
-      });
-    } else if (pageNumberState === 4) {
-      setAllPagesNumber({
-        ...allPagesNumber,
-        stepOne: false,
-        stepTwo: false,
-        stepThree: false,
-        stepFour: true,
-      });
-    }
-  }
-  return (
-    <>
-      <div onClick={stepDisplayer} className="page-container">
-        <PageNumber pageNumberState={pageNumberState} />
-        {allPagesNumber.stepOne && (
+  const [step, setStep] = useState(1);
+  const [agent, setAgent] = useState(false);
+  const [sportif, setSportif] = useState(false);
+
+  if (step === 1) {
+    return (
+      <>
+        <div className="page-container">
+          <div style={{ fontSize: "18px" }}>{step}/3</div>
           <FirstStep
+            // état sélections boutons en props
+            agent={agent}
+            setAgent={setAgent}
+            sportif={sportif}
+            setSportif={setSportif}
+            setStep={setStep}
             pageNumberState={pageNumberState}
             setPageNumberState={setPageNumberState}
             buttonNextSelected={buttonNextSelected}
             setButtonNextSelected={setButtonNextSelected}
           />
-        )}
-
-        {allPagesNumber.stepTwo && (
-          <>
-            <SecondStep />
-          </>
-        )}
-        {allPagesNumber.stepThree && (
-          <>
-            <ThirdStep />
-          </>
-        )}
-      </div>
-    </>
-  );
+        </div>
+      </>
+    );
+  } else if (step === 2) {
+    return (
+      <>
+        <div className="page-container">
+          <div style={{ fontSize: "18px" }}>{step}/3</div>
+          <SecondStep setStep={setStep} />
+        </div>
+      </>
+    );
+  } else if (step === 3) {
+    return (
+      <>
+        <div className="page-container">
+          <div style={{ fontSize: "18px" }}>{step}/3</div>
+          <ThirdStep />
+        </div>
+      </>
+    );
+  }
 }
 export default SignUpAthlete;
