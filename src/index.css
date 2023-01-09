@@ -6,12 +6,32 @@
   font-family: "britanica-heavy";
   src: url("./Assets/Fonts/britanica-heavy.ttf") format("truetype");
 }
+@font-face {
+  font-family: "britanica-black";
+  src: url("./Assets/Fonts/Britanica-Black.ttf") format("truetype");
+}
+@font-face {
+  font-family: "britanica-light";
+  src: url("./Assets/Fonts/Britanica-Light.ttf") format("truetype");
+}
+
+
+
+/* RESET CSS DEFAULT VALUE */
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
 
+<<<<<<< HEAD
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+=======
+>>>>>>> d45a682ff1d658eb56b51760b0d73f42eca05fa5
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -56,6 +76,7 @@ table {
 	border-spacing: 0;
 }
 
+/* END OF RESET */
 body {
   height: 100%;
   width: 100%;
