@@ -1,7 +1,7 @@
 .navbar-container{
-    height: 7%;
+    height: 100px;
     width: 100%;
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;

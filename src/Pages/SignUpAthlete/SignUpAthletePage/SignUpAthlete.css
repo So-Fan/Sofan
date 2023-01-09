@@ -1,5 +1,5 @@
  body .page-container {
-    height: 100vh !important;
+    height: 90vh !important;
     width: 100vw !important;
     /* background-color: red;  */
     display: flex;
@@ -19,7 +19,6 @@
   padding: 40px;
   /* background-color: red;  */
 }
-
 
 .progress-bar {
   background-color: #FFF2C7;

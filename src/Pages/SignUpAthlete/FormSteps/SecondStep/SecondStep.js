@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import "./SecondStep.css";
 import { v4 as uuidV4 } from "uuid";
 
-function SecondStep({setStep}) {
+function SecondStep({setSecondStepValidated, handleNext}) {
   const inputRef = useRef([]);
 
   const defaultValue = {
@@ -75,7 +75,8 @@ function SecondStep({setStep}) {
       }
     }
     if (formIsValid) {
-      setStep(3);
+      // setStep(3);
+      setSecondStepValidated(true)
     }
   }
   
@@ -104,13 +105,13 @@ function SecondStep({setStep}) {
               })}
             </div>
             <div className="button-container">
-              <button
+              {/* <button
                 onClick={handleNext}
                 className="form-button"
                 type="submit"
               >
                 Étape suivante
-              </button>
+              </button> */}
             </div>
           </form>
         </div>
