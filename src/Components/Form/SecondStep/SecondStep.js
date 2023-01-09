@@ -109,7 +109,7 @@ function SecondStep({setStep}) {
                 className="form-button"
                 type="submit"
               >
-                Next Step
+                Étape suivante
               </button>
             </div>
           </form>

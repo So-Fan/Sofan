@@ -8,3 +8,28 @@
     font-family: 'britanica-regular' !important;
     flex-direction: column;
   }
+
+.progress-bar-container{
+  width: 80%;
+  height: 3%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  /* background-color: red;  */
+}
+
+
+.progress-bar {
+  background-color: #FFF2C7;
+  height: 25px;
+  /* z-index: 1; */
+}
+
+
+
+/* .bg-progress-bar:hover {
+  background-color: red;
+  cursor: pointer;
+} */
