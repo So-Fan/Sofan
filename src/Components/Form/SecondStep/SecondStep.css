@@ -89,8 +89,9 @@ form > .form-and-title input:active {
   background-color: #f6d463;
   cursor: pointer;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 24px;
+  font-family: 'britanica-heavy';
 }
 
 .form-button:hover {
