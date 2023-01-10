@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import AppProgressBar from "../../Components/AppProgressBar/AppProgressBar";
-import FirstStep from "./FormSteps/FirstStep/FirstStep";
-import SecondStep from "./FormSteps/SecondStep/SecondStep";
-import ThirdStep from "./FormSteps/ThirdStep/ThirdStep";
-import FourthStep from "./FormSteps/FourthStep/FourthStep";
-import "../SignUpAthlete/SignUpAthletePage/SignUpAthlete.css";
+import AppProgressBar from "../../../Components/AppProgressBar/AppProgressBar";
+import FirstStep from "../FormSteps/FirstStep/FirstStep";
+import SecondStep from "../FormSteps/SecondStep/SecondStep";
+import ThirdStep from "../FormSteps/ThirdStep/ThirdStep";
+import FourthStep from "../FormSteps/FourthStep/FourthStep";
+import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
+
   const [step, setStep] = useState(1);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
@@ -14,6 +15,8 @@ function SignUpAthletePage() {
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
+   
+  const [isButtonSecondStepClicked, setIsButtonSecondStepClicked] = useState(false);
   
   const handleStepPages = () => {
     if (step === 1) {
@@ -25,9 +28,15 @@ function SignUpAthletePage() {
           setSportif={setSportif}
           setIsFirstStepValidated={setIsFirstStepValidated}
         />
-      );
-    } else if (step === 2) {
-      return <SecondStep setSecondStepValidated={setSecondStepValidated} />;
+        );
+        
+      } else if (step === 2) {
+        // console.log(step)
+        return <SecondStep 
+      setIsButtonSecondStepClicked={setIsButtonSecondStepClicked}
+      // setSecondStepValidated={setSecondStepValidated}
+      
+      />;
     } else if (step === 3) {
       return <ThirdStep setIsThirdStepValidated={setIsThirdStepValidated} />;
     } else if (step === 4) {
@@ -35,32 +44,37 @@ function SignUpAthletePage() {
         <FourthStep
         // setIsFourthStepValidated={setIsFourthStepValidated}
         />
-      );
-    }
-  };
-  const progressBar = () => {
-    if (step === 1) return 10;
-    else if (step === 2) {
-      return 25;
-    } else if (step === 3) {
-      return 50;
-    } else if (step === 4) {
-      return 75;
+        );
+      }
+    };
+    const progressBar = () => {
+      if (step === 1) return 10;
+      else if (step === 2) {
+        return 25;
+      } else if (step === 3) {
+        return 50;
+      } else if (step === 4) {
+        return 75;
     }
   };
 
-  const handleNextStep = () => {
+  
+  const handleNextStep = (e) => {
+console.log(e)
+    setIsButtonSecondStepClicked(true);
     if (isFirstStepValidated) {
       setStep(2);
-      console.log("isFirstStepValidated est " + isFirstStepValidated);
+      // console.log("isFirstStepValidated est " + isFirstStepValidated);
     } else if (isSecondStepValidated) {
-      console.log("isSecondStepValidated est " + isSecondStepValidated);
+      // console.log("isSecondStepValidated est " + isSecondStepValidated);
       setStep(3);
     } else if (isThirdStepValidated) {
       setStep(4);
     }
   };
 
+
+const buttonClicked = true ;   
   return (
     <>
       {/* rename class of container */}
@@ -69,7 +83,9 @@ function SignUpAthletePage() {
         {handleStepPages()}
         {/* move location of css class for button and container + change font */}
         <div className="button-container">
-          <button className="form-button" onClick={handleNextStep}>
+          <button 
+          // disabled={true} 
+          className="form-button" onClick={handleNextStep}>
             Étape suivante
           </button>
         </div>
