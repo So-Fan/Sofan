@@ -4,8 +4,6 @@ import { v4 as uuidV4 } from "uuid";
 
 function SecondStep({
   setSecondStepValidated,
-  setIsButtonSecondStepClicked,
-  isButtonSecondStepClicked,
 }) {
   const inputRef = useRef([]);
 
@@ -38,6 +36,7 @@ function SecondStep({
     ) {
       e.target.className = "typed";
     }
+    verifierValidation()
   };
   const handleFocus = (e) => {
     const inputName = e.target.name;
@@ -65,8 +64,23 @@ function SecondStep({
       e.target.className = "";
     }
   };
-  // const [isButtonSecondStepClicked, setIsButtonSecondStepClicked] = useState(false);
-  isButtonSecondStepClicked && handleNext();
+  
+  function verifierValidation() {
+    let formIsValid = true;
+    for (let i = 0; i < inputRef.current.length; i++) {
+      if (
+        inputRef.current[i].value === "" ||
+        inputRef.current[i].value === defaultValue[inputRef.current[i].name]
+      ) {
+        formIsValid = false;
+        break;
+      }
+      setSecondStepValidated(true);
+      console.log("omg ?")
+    }
+    return formIsValid;
+  }
+
   function handleNext(e) {
     // vérification que l'un des deux boutons est sélectionné avant de passer à la seconde page
     e.preventDefault();

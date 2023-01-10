@@ -16,7 +16,7 @@ function SignUpAthletePage() {
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
    
-  const [isButtonSecondStepClicked, setIsButtonSecondStepClicked] = useState(false);
+  
   
   const handleStepPages = () => {
     if (step === 1) {
@@ -33,8 +33,8 @@ function SignUpAthletePage() {
       } else if (step === 2) {
         // console.log(step)
         return <SecondStep 
-      setIsButtonSecondStepClicked={setIsButtonSecondStepClicked}
-      // setSecondStepValidated={setSecondStepValidated}
+     
+      setSecondStepValidated={setSecondStepValidated}
       
       />;
     } else if (step === 3) {
@@ -61,7 +61,7 @@ function SignUpAthletePage() {
   
   const handleNextStep = (e) => {
 console.log(e)
-    setIsButtonSecondStepClicked(true);
+    
     if (isFirstStepValidated) {
       setStep(2);
       // console.log("isFirstStepValidated est " + isFirstStepValidated);
