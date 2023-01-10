@@ -1,7 +1,9 @@
 .navbar-container{
-    height: 70px;
+    /* height: 70px; */
+    height: 10vh;
     width: 100%;
-    position: sticky;
+    /* position: sticky; */
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -13,6 +15,5 @@
 }
 
 .navbar-container svg {
-    /* fill: #F6D463; */
     fill: black;
 }

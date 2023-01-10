@@ -2,7 +2,7 @@ import React from "react";
 import "./ThirdStep.css";
 import { useState } from "react";
 
-function ThirdStep({setIsThirdStepValidated}) {
+function ThirdStep({ setIsThirdStepValidated }) {
   const [veryLowLvlBlockchain, setVeryLowLvlBlockchain] = useState(false);
   const [lowLvlBlockchain, setLowLvlBlockchain] = useState(false);
   const [mediumLowLvlBlockchain, setMediumLowLvlBlockchain] = useState(false);
@@ -47,7 +47,6 @@ function ThirdStep({setIsThirdStepValidated}) {
       mediumHighLvlBlockchain
     ) {
       // setStep(4);
-      
     }
   }
 
@@ -102,9 +101,6 @@ function ThirdStep({setIsThirdStepValidated}) {
               Totalement, je sais tout ce qu'il faut savoir !
             </button>
           </div>
-          <button 
-          className="next-button"
-          onClick={handleNext}>Étape suivante</button>
         </form>
       </section>
     </section>

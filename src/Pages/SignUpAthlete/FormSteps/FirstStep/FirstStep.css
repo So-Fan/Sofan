@@ -67,11 +67,13 @@
 
 .title-btn-firststep {
   font-size: 25px;
-  font-weight: 600;
+  font-family: 'britanica-heavy';
+  font-weight: 400;
 }
 
 .content-btn-firststep {
   font-size: 16px;
+  font-family: 'britanica-regular';
   font-weight: 400;
   width: 50%;
 }

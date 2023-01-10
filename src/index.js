@@ -5,5 +5,7 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+    <section className='page-container' >
     <App />
+    </section>
 );

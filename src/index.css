@@ -83,3 +83,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: "britanica-regular" !important;
 }
+
+.page-container {
+  height: 100vh!important;
+  width: 100vw !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* background-color: red; */
+}

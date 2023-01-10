@@ -2,9 +2,7 @@ import React, { useRef, useState } from "react";
 import "./SecondStep.css";
 import { v4 as uuidV4 } from "uuid";
 
-function SecondStep({
-  setSecondStepValidated,
-}) {
+function SecondStep({ setSecondStepValidated }) {
   const inputRef = useRef([]);
 
   const defaultValue = {
@@ -36,7 +34,7 @@ function SecondStep({
     ) {
       e.target.className = "typed";
     }
-    verifierValidation()
+    verifierValidation();
   };
   const handleFocus = (e) => {
     const inputName = e.target.name;
@@ -64,7 +62,7 @@ function SecondStep({
       e.target.className = "";
     }
   };
-  
+
   function verifierValidation() {
     let formIsValid = true;
     for (let i = 0; i < inputRef.current.length; i++) {
@@ -76,7 +74,7 @@ function SecondStep({
         break;
       }
       setSecondStepValidated(true);
-      console.log("omg ?")
+      console.log("omg ?");
     }
     return formIsValid;
   }
@@ -109,7 +107,9 @@ function SecondStep({
           {/* <div className="page-number">1/4</div> */}
           <form>
             <div className="form-and-title">
-              <h2 className="title-form">Vos informations personnelles</h2>
+              <h2 className="title-signup-athlete-form">
+                Vos informations personnelles
+              </h2>
               {array.map((element, index) => {
                 return (
                   <input

@@ -1,14 +1,32 @@
- body .page-container {
-    height: 90vh !important;
+ body .signup-athlete-page {
+    height: 100% !important;
     width: 100vw !important;
-    /* background-color: red;  */
+    /* background-color: aqua;  */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     font-family: 'britanica-regular' !important;
     flex-direction: column;
   }
+.signup-athlete-elements
+{
+  height: 88%;
+  width: 100%;
+  /* background-color: green; */
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
 
+.steps-signup{
+  height: 60px;
+  font-family: "britanica-heavy";
+  width: 100%;
+  text-align: center;
+  opacity: 0.5;
+  
+}
 .progress-bar-container{
   width: 80%;
   height: 3%;
