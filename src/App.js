@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Sofan
+          Sofan Web App
         </p>
       </header>
     </div>
