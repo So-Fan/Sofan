@@ -2,7 +2,7 @@ import React from "react";
 import "./ThirdStep.css";
 import { useState } from "react";
 
-function ThirdStep({setStep}) {
+function ThirdStep({setIsThirdStepValidated}) {
   const [veryLowLvlBlockchain, setVeryLowLvlBlockchain] = useState(false);
   const [lowLvlBlockchain, setLowLvlBlockchain] = useState(false);
   const [mediumLowLvlBlockchain, setMediumLowLvlBlockchain] = useState(false);
@@ -46,7 +46,8 @@ function ThirdStep({setStep}) {
       mediumLowLvlBlockchain ||
       mediumHighLvlBlockchain
     ) {
-      setStep(4);
+      // setStep(4);
+      
     }
   }
 

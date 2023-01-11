@@ -10,6 +10,7 @@ function AppProgressBar({progressValue, min = 0}) {
       width: "100%",
       borderRadius: 10,
       overflow: 'hidden',
+      // animamiton : .5s
     }
   }
 
