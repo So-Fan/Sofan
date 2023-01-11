@@ -1,0 +1,28 @@
+.searchbar-container {
+  /* width: 500px;
+    height: 30px;
+    border: solid 1px #9B9B9B; */
+  position: relative;
+}
+.searchbar-img {
+  width: 15px;
+  position: absolute;
+  left: 9px;
+  top: 10px;
+}
+.searchbar-input {
+  width: 323px;
+  height: 30px;
+  border: solid 1px #9b9b9b;
+  border-radius: 10px;
+  padding-left: 30px;
+  font-family: "Britanica-Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #9b9b9b;
+}
+.searchbar-input:focus::placeholder {
+  color: transparent;
+}

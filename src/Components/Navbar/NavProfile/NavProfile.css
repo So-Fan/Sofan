@@ -1,0 +1,43 @@
+.navbar-navprofile-container {
+  width: 30px;
+  height: 30px;
+}
+.navbar-navprofile {
+  display: flex;
+  border-radius: 999px;
+}
+.navbar-navprofile > img {
+  width: 30px;
+  border-radius: 999px;
+}
+.navbar-navprofile-container:hover .navbar-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: .5s;
+}
+.navbar-dropdown {
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  transition: visibility 0s, opacity 0.5s linear;
+  position: absolute;
+  margin-left: -69px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100px;
+  height: 100px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+.navbar-dropdown > a {
+  text-decoration: none;
+  font-family: "britanica-black";
+  color: #000000;
+}
+.navbar-dropdown > a:hover {
+  color: #f6d463;
+  transition: 0.3s;
+}
