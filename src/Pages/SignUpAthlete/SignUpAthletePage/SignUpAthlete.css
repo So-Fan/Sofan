@@ -43,7 +43,23 @@
   height: 25px;
   /* z-index: 1; */
 }
+.signup-athlete-button {
+  width: 196px;
+  height: 67px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f6d463;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: "britanica-heavy";
+}
 
+.signup-athlete-button:hover {
+  background-color: #f7c520;
+  transition: 500ms;
+}
 
 
 /* .bg-progress-bar:hover {

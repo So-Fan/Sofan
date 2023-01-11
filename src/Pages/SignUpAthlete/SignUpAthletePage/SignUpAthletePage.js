@@ -7,13 +7,14 @@ import FourthStep from "../FormSteps/FourthStep/FourthStep";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [progressValue, setProgressValue] = useState(5);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
+  const [fourthState, setFourthState] = useState(false); // for disable next step button to submit button
 
   const handleStepPages = () => {
     if (step === 1) {
@@ -31,11 +32,7 @@ function SignUpAthletePage() {
     } else if (step === 3) {
       return <ThirdStep setIsThirdStepValidated={setIsThirdStepValidated} />;
     } else if (step === 4) {
-      return (
-        <FourthStep
-        // setIsFourthStepValidated={setIsFourthStepValidated}
-        />
-      );
+      return <FourthStep step={step} />;
     }
   };
   const progressBar = () => {
@@ -51,7 +48,7 @@ function SignUpAthletePage() {
 
   const handleNextStep = (e) => {
     console.log(e);
-
+    lastStepFormValidation();
     if (isFirstStepValidated) {
       setStep(2);
     } else if (isSecondStepValidated) {
@@ -61,7 +58,10 @@ function SignUpAthletePage() {
     }
   };
 
-  const buttonClicked = true;
+  const lastStepFormValidation = () => {
+    if (step === 4) setFourthState(true);
+  };
+
   return (
     <>
       <div className="signup-athlete-page">
@@ -70,17 +70,28 @@ function SignUpAthletePage() {
             {step}/4
           </div>
           {/* {handleStepPages()} */}
-          <ThirdStep/>
+          {/* <FirstStep/> */}
+          {/* <SecondStep/> */}
+          {/* <ThirdStep/> */}
+          <FourthStep />
+
           {/* move location of css class for button and container */}
+          {fourthState ? <></> : <>
+          
           <div className="button-container">
             <button
               // disabled={true}
-              className="signup-athlete-button"
+              className={
+                fourthState
+                  ? "hide-textbutton-signup-athlete"
+                  : "signup-athlete-button"
+              }
               onClick={handleNextStep}
             >
               Étape suivante
             </button>
           </div>
+          </>}
           <div className="progress-bar-container">
             <AppProgressBar min={5} progressValue={progressBar()} />
           </div>

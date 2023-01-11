@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FourthStep.css";
-function FourthStep() {
-    const handleValidation = (e) => {
-        e.preventDefault()
-        console.log("validate")
+function FourthStep({ step }) {
+  const handleValidation = (e) => {
+    e.preventDefault();
+    console.log("validate");
+  };
+  const [hover, setHover] = useState(false);
+  const style = {
+    backgroundColor: '#f6d463',
+    width: '100px',
+    height: '100px',
+    ':hover': {
+        backgroundColor: '#f7c520'
     }
+  };
+
   return (
     <section className="fourthstep-container">
       <div className="title-fourthstep">
@@ -12,7 +22,7 @@ function FourthStep() {
       </div>
       <div className="fourthstep-form-container">
         <form>
-          <button className="">
+          <button className="button-counterpart-fourthstep">
             <svg
               width="43"
               height="35"
@@ -27,7 +37,7 @@ function FourthStep() {
             </svg>
             Meetings
           </button>
-          <button className="">
+          <button className="button-counterpart-fourthstep">
             <svg
               width="49"
               height="35"
@@ -42,7 +52,7 @@ function FourthStep() {
             </svg>
             Live
           </button>
-          <button className="">
+          <button className="button-counterpart-fourthstep">
             <svg
               width="37"
               height="39"
@@ -59,8 +69,13 @@ function FourthStep() {
           </button>
         </form>
         <div className="validation-button-container">
-
-          <button className="validation-button" onClick={handleValidation}>Valider</button>
+          <button
+            // style={style}
+            className="validation-button"
+            onClick={handleValidation}
+          >
+            Valider
+          </button>
         </div>
       </div>
     </section>
