@@ -1,18 +1,35 @@
 import React, { useState } from "react";
 import "./FourthStep.css";
-function FourthStep({ step }) {
+function FourthStep() {
+  // insert submit form here for backend
   const handleValidation = (e) => {
     e.preventDefault();
-    console.log("validate");
   };
-  const [hover, setHover] = useState(false);
-  const style = {
-    backgroundColor: '#f6d463',
-    width: '100px',
-    height: '100px',
-    ':hover': {
-        backgroundColor: '#f7c520'
-    }
+
+  const [meetingsButton, setMeetingsButton] = useState(false);
+  const [liveButton, setLiveButton] = useState(false);
+  const [merchButton, setMerchButton] = useState(false);
+
+  const handleMeetingButton = (e) => {
+    e.preventDefault();
+    setMeetingsButton(true);
+    setLiveButton(false);
+    setMerchButton(false);
+  };
+
+  const handleLiveButton = (e) => {
+    e.preventDefault();
+    setMeetingsButton(false);
+    setLiveButton(true);
+    setMerchButton(false);
+    console.log(liveButton);
+  };
+
+  const handleMerchButton = (e) => {
+    e.preventDefault();
+    setMeetingsButton(false);
+    setLiveButton(false);
+    setMerchButton(true);
   };
 
   return (
@@ -22,7 +39,14 @@ function FourthStep({ step }) {
       </div>
       <div className="fourthstep-form-container">
         <form>
-          <button className="button-counterpart-fourthstep">
+          <button
+            onClick={handleMeetingButton}
+            className={
+              meetingsButton
+                ? "button-counterpart-fourthstep-selected"
+                : "button-counterpart-fourthstep"
+            }
+          >
             <svg
               width="43"
               height="35"
@@ -37,7 +61,14 @@ function FourthStep({ step }) {
             </svg>
             Meetings
           </button>
-          <button className="button-counterpart-fourthstep">
+          <button
+            onClick={handleLiveButton}
+            className={
+              liveButton
+                ? "button-counterpart-fourthstep-selected"
+                : "button-counterpart-fourthstep"
+            }
+          >
             <svg
               width="49"
               height="35"
@@ -52,7 +83,14 @@ function FourthStep({ step }) {
             </svg>
             Live
           </button>
-          <button className="button-counterpart-fourthstep">
+          <button
+            onClick={handleMerchButton}
+            className={
+              merchButton
+                ? "button-counterpart-fourthstep-selected"
+                : "button-counterpart-fourthstep"
+            }
+          >
             <svg
               width="37"
               height="39"
@@ -69,11 +107,7 @@ function FourthStep({ step }) {
           </button>
         </form>
         <div className="validation-button-container">
-          <button
-            // style={style}
-            className="validation-button"
-            onClick={handleValidation}
-          >
+          <button className="validation-button" onClick={handleValidation}>
             Valider
           </button>
         </div>

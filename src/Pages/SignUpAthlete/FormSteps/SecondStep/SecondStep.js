@@ -102,28 +102,29 @@ function SecondStep({ setSecondStepValidated }) {
 
   return (
     <>
-      <div className="form-page">
+      <div className="secondstep-container">
         <div className="form-container">
-          {/* <div className="page-number">1/4</div> */}
           <form>
             <div className="form-and-title">
               <h2 className="title-signup-athlete-form">
                 Vos informations personnelles
               </h2>
-              {array.map((element, index) => {
-                return (
-                  <input
-                    name={element.name}
-                    type="text"
-                    onFocus={handleFocus}
-                    ref={(el) => (inputRef.current[index] = el)}
-                    onBlur={handleBlur}
-                    defaultValue={element.defaultValue}
-                    onChange={handleChange}
-                    key={uuidV4()}
-                  />
-                );
-              })}
+              <div className="input-container-secondstep">
+                {array.map((element, index) => {
+                  return (
+                    <input
+                      name={element.name}
+                      type="text"
+                      onFocus={handleFocus}
+                      ref={(el) => (inputRef.current[index] = el)}
+                      onBlur={handleBlur}
+                      defaultValue={element.defaultValue}
+                      onChange={handleChange}
+                      key={uuidV4()}
+                    />
+                  );
+                })}
+              </div>
             </div>
             <div className="button-container"></div>
           </form>

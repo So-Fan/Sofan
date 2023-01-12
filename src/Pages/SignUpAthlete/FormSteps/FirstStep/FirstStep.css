@@ -1,11 +1,11 @@
 .title-firststep {
-  font-weight: 800;
   font-size: 30px;
+  font-family: "britanica-heavy";
 }
 .firststep-container {
   height: 70%;
   width: 90%;
-  /* background-color: red; */
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@
 .firststep-container form {
   height: 90%;
   width: 80%;
-  /* background-color: red; */
+  
   display: flex;
   flex-direction: column;
   align-items: center;

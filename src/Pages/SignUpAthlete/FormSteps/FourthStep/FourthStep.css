@@ -19,7 +19,6 @@
 .fourthstep-container form {
   height: 100%;
   width: 100%;
-  /* background-color: green; */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -41,28 +40,41 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.button-counterpart-fourthstep-selected {
+  width: 20%;
+  height: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f6d463 !important;
+  opacity: 1 !important;
+  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
 .fourthstep-container button:hover {
   background-color: #f6d463 !important;
 }
 .validation-button-container {
-    
   /* height: 10%; */
-  height: 150px;
+  /* height: 150px; */
   width: 100%;
-  /* background-color: red; */
+
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
 .validation-button {
-    
   width: 196px !important;
   height: 67px !important;
   border-radius: 10px;
   border: none;
-  background-color: #f6d463 ;
+  background-color: #f6d463;
   cursor: pointer;
   font-size: 20px;
   font-weight: 400;
