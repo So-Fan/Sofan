@@ -44,7 +44,7 @@ button {
 }
 
 .lvl-blockchain-buttons-container {
-  height: 450px;
+  height: 400px;
   width: 100%;
   display: flex;
   justify-content: space-evenly;

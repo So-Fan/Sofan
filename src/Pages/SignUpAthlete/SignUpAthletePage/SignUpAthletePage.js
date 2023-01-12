@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppProgressBar from "../../../Components/AppProgressBar/AppProgressBar";
+// import AppProgressBar from "../../../Components/AppProgressBar/AppProgressBar";
 import FirstStep from "../FormSteps/FirstStep/FirstStep";
 import SecondStep from "../FormSteps/SecondStep/SecondStep";
 import ThirdStep from "../FormSteps/ThirdStep/ThirdStep";
@@ -7,7 +7,7 @@ import FourthStep from "../FormSteps/FourthStep/FourthStep";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [progressValue, setProgressValue] = useState(5);
@@ -37,13 +37,13 @@ function SignUpAthletePage() {
     }
   };
   const progressBar = () => {
-    if (step === 1) return "10%";
+    if (step === 1) return "25%";
     else if (step === 2) {
-      return "25%";
-    } else if (step === 3) {
       return "50%";
-    } else if (step === 4) {
+    } else if (step === 3) {
       return "75%";
+    } else if (step === 4) {
+      return "90%";
     }
   };
 
