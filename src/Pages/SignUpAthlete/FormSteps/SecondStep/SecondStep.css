@@ -26,7 +26,6 @@
 .form-and-title {
   height: 100%;
   width: 100%;
-  /* background-color: yellow; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +34,6 @@
 
 .title-signup-athlete-form {
   height: 100%;
-  /* background-color: red; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -49,7 +47,7 @@
 .input-container-secondstep {
   height: 900px;
   width: 100%;
-  /* background-color: red; */
+  
 
   display: flex;
   justify-content: center;

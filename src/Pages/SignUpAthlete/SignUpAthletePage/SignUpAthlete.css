@@ -27,6 +27,12 @@
   opacity: 0.5;
   
 }
+.button-and-progressbar-container{
+  height: 190px;
+  width: 100%;
+  /* background-color: red; */
+}
+
 .button-container {
   height: 130px;
   width: 100%;

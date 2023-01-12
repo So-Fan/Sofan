@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./FourthStep.css";
-function FourthStep() {
+function FourthStep({lastStepFormValidation}) {
   // insert submit form here for backend
   const handleValidation = (e) => {
     e.preventDefault();
@@ -34,6 +34,7 @@ function FourthStep() {
 
   return (
     <section className="fourthstep-container">
+      {lastStepFormValidation()}
       <div className="title-fourthstep">
         Quel genre de contreparties souhaitez-vous offrir à vos fans ?{" "}
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import "./ThirdStep.css";
 import { useState } from "react";
 
-function ThirdStep({ setIsThirdStepValidated }) {
+function ThirdStep({setIsThirdStepValidated}) {
   const [veryLowLvlBlockchain, setVeryLowLvlBlockchain] = useState(false);
   const [lowLvlBlockchain, setLowLvlBlockchain] = useState(false);
   const [mediumLowLvlBlockchain, setMediumLowLvlBlockchain] = useState(false);
@@ -14,6 +14,7 @@ function ThirdStep({ setIsThirdStepValidated }) {
     setLowLvlBlockchain(false);
     setMediumLowLvlBlockchain(false);
     setMediumHighLvlBlockchain(false);
+    setIsThirdStepValidated(true);
   };
   const handleClickLow = (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ function ThirdStep({ setIsThirdStepValidated }) {
     setLowLvlBlockchain(true);
     setMediumLowLvlBlockchain(false);
     setMediumHighLvlBlockchain(false);
+    setIsThirdStepValidated(true);
   };
   const handleClickMedium = (e) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ function ThirdStep({ setIsThirdStepValidated }) {
     setLowLvlBlockchain(false);
     setMediumLowLvlBlockchain(true);
     setMediumHighLvlBlockchain(false);
+    setIsThirdStepValidated(true);
   };
   const handleClickMediumHigh = (e) => {
     e.preventDefault();
@@ -35,6 +38,7 @@ function ThirdStep({ setIsThirdStepValidated }) {
     setLowLvlBlockchain(false);
     setMediumLowLvlBlockchain(false);
     setMediumHighLvlBlockchain(true);
+    setIsThirdStepValidated(true);
   };
 
   function handleNext(e) {
