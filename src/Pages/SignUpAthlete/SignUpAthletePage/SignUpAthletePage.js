@@ -1,27 +1,26 @@
 import React, { useState } from "react";
-// import AppProgressBar from "../../../Components/AppProgressBar/AppProgressBar";
 import FirstStep from "../FormSteps/FirstStep/FirstStep";
 import SecondStep from "../FormSteps/SecondStep/SecondStep";
 import ThirdStep from "../FormSteps/ThirdStep/ThirdStep";
 import FourthStep from "../FormSteps/FourthStep/FourthStep";
+import FormValidation from "../FormSteps/FormValidation/FormValidation";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(5);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
-  // const [progressValue, setProgressValue] = useState(5);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
   const [fourthState, setFourthState] = useState(false); // for disable next step button to submit button
-  // const [progressBarState, setProgressBarState] = useState();
-
+  const [isFormValidated, setIsFormValidated] = useState(false);
   const handleStepPages = () => {
+    // displayValidationPage()
     if (step === 1) {
       return (
         <FirstStep
-          agent={agent}
+        agent={agent}
           setAgent={setAgent}
           sportif={sportif}
           setSportif={setSportif}
@@ -33,8 +32,17 @@ function SignUpAthletePage() {
     } else if (step === 3) {
       return <ThirdStep setIsThirdStepValidated={setIsThirdStepValidated} />;
     } else if (step === 4) {
-      return <FourthStep lastStepFormValidation={lastStepFormValidation} step={step} />;
+      return (
+        <FourthStep
+          lastStepFormValidation={lastStepFormValidation}
+          step={step}
+        />
+      );
+    } else if (step === 5) {
+      // Last page after form submitted
+      return <FormValidation />;
     }
+    // render different html
   };
   const progressBar = () => {
     if (step === 1) return "25%";
@@ -62,6 +70,17 @@ function SignUpAthletePage() {
   const lastStepFormValidation = () => {
     if (step === 4) setFourthState(true);
   };
+
+  const displayValidationPage = () => {
+    if (step === 5) {
+      setIsFormValidated(true);
+      console.log("le state est de 5");
+      // console.log("le state est de 5");
+    }
+    else {
+      setIsFormValidated(false)
+    }
+  }
   return (
     <>
       <div className="signup-athlete-page">
@@ -70,6 +89,7 @@ function SignUpAthletePage() {
             {step}/4
           </div>
           {handleStepPages()}
+          {/* {displayValidationPage()} */}
           {fourthState ? (
             <>
               <div className="progress-bar-container">
