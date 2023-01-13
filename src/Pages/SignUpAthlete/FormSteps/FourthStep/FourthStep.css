@@ -1,7 +1,6 @@
 .fourthstep-container {
   height: 80%;
   width: 80%;
-  /* background-color: red; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,13 +81,6 @@
   line-height: 24px;
   font-family: "britanica-heavy";
 }
-
-/* .validation-button:hover{
-    font-size: 30px;
-    background-color: #0c0c0a;
-    transition: 500ms;
-    color: red;
-} */
 
 .hide-textbutton-signup-athlete {
   display: none;

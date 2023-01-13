@@ -7,14 +7,13 @@ import FormValidation from "../FormSteps/FormValidation/FormValidation";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(5);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
   const [fourthState, setFourthState] = useState(false); // for disable next step button to submit button
-  const [isFormValidated, setIsFormValidated] = useState(false);
   const handleStepPages = () => {
     // displayValidationPage()
     if (step === 1) {
@@ -42,7 +41,6 @@ function SignUpAthletePage() {
       // Last page after form submitted
       return <FormValidation />;
     }
-    // render different html
   };
   const progressBar = () => {
     if (step === 1) return "25%";
@@ -72,16 +70,6 @@ function SignUpAthletePage() {
       setFourthState(true);
     }
   };
-
-  const displayValidationPage = () => {
-    if (step === 5) {
-      setIsFormValidated(true);
-      console.log("le state est de 5");
-      // console.log("le state est de 5");
-    } else {
-      setIsFormValidated(false);
-    }
-  };
   return (
     <>
       <div className="signup-athlete-page">
@@ -98,7 +86,6 @@ function SignUpAthletePage() {
 
           {handleStepPages()}
 
-          {/* {displayValidationPage()} */}
           {fourthState ? (
             <>
               <div className="progress-bar-container">
@@ -113,30 +100,7 @@ function SignUpAthletePage() {
           ) : (
             <>
               {step === 5 ? (
-                <>
-                  {/* <div className="button-and-progressbar-container">
-                    <div className="button-container">
-                      <button
-                        className={
-                          fourthState
-                            ? "hide-textbutton-signup-athlete"
-                            : "signup-athlete-button"
-                        }
-                        onClick={handleNextStep}
-                      >
-                        Étape suivante
-                      </button>
-                    </div>
-                    <div className="progress-bar-container">
-                      <div className="progress-bar-total">
-                        <div
-                          className="progress-bar-current"
-                          style={{ width: progressBar(), transition: "500ms" }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div> */}
-                </>
+                <></>
               ) : (
                 <>
                   <div className="button-and-progressbar-container">
