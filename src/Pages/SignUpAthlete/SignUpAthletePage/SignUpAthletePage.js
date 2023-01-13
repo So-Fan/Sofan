@@ -7,7 +7,7 @@ import FormValidation from "../FormSteps/FormValidation/FormValidation";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(4);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
@@ -20,7 +20,7 @@ function SignUpAthletePage() {
     if (step === 1) {
       return (
         <FirstStep
-        agent={agent}
+          agent={agent}
           setAgent={setAgent}
           sportif={sportif}
           setSportif={setSportif}
@@ -68,7 +68,9 @@ function SignUpAthletePage() {
   };
 
   const lastStepFormValidation = () => {
-    if (step === 4) setFourthState(true);
+    if (step === 4) {
+      setFourthState(true);
+    }
   };
 
   const displayValidationPage = () => {
@@ -76,19 +78,26 @@ function SignUpAthletePage() {
       setIsFormValidated(true);
       console.log("le state est de 5");
       // console.log("le state est de 5");
+    } else {
+      setIsFormValidated(false);
     }
-    else {
-      setIsFormValidated(false)
-    }
-  }
+  };
   return (
     <>
       <div className="signup-athlete-page">
         <div className="signup-athlete-elements">
-          <div className="steps-signup" style={{ fontSize: "18px" }}>
-            {step}/4
-          </div>
+          {step === 5 ? (
+            <></>
+          ) : (
+            <>
+              <div className="steps-signup" style={{ fontSize: "18px" }}>
+                {step}/4
+              </div>
+            </>
+          )}
+
           {handleStepPages()}
+
           {/* {displayValidationPage()} */}
           {fourthState ? (
             <>
@@ -103,28 +112,57 @@ function SignUpAthletePage() {
             </>
           ) : (
             <>
-              <div className="button-and-progressbar-container">
-                <div className="button-container">
-                  <button
-                    className={
-                      fourthState
-                        ? "hide-textbutton-signup-athlete"
-                        : "signup-athlete-button"
-                    }
-                    onClick={handleNextStep}
-                  >
-                    Étape suivante
-                  </button>
-                </div>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-total">
-                    <div
-                      className="progress-bar-current"
-                      style={{ width: progressBar(), transition: "500ms" }}
-                    ></div>
+              {step === 5 ? (
+                <>
+                  {/* <div className="button-and-progressbar-container">
+                    <div className="button-container">
+                      <button
+                        className={
+                          fourthState
+                            ? "hide-textbutton-signup-athlete"
+                            : "signup-athlete-button"
+                        }
+                        onClick={handleNextStep}
+                      >
+                        Étape suivante
+                      </button>
+                    </div>
+                    <div className="progress-bar-container">
+                      <div className="progress-bar-total">
+                        <div
+                          className="progress-bar-current"
+                          style={{ width: progressBar(), transition: "500ms" }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div> */}
+                </>
+              ) : (
+                <>
+                  <div className="button-and-progressbar-container">
+                    <div className="button-container">
+                      <button
+                        className={
+                          fourthState
+                            ? "hide-textbutton-signup-athlete"
+                            : "signup-athlete-button"
+                        }
+                        onClick={handleNextStep}
+                      >
+                        Étape suivante
+                      </button>
+                    </div>
+                    <div className="progress-bar-container">
+                      <div className="progress-bar-total">
+                        <div
+                          className="progress-bar-current"
+                          style={{ width: progressBar(), transition: "500ms" }}
+                        ></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
             </>
           )}
         </div>
