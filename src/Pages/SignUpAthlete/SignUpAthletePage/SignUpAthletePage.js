@@ -10,12 +10,12 @@ function SignUpAthletePage() {
   const [step, setStep] = useState(1);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
-  const [progressValue, setProgressValue] = useState(5);
+  // const [progressValue, setProgressValue] = useState(5);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
   const [fourthState, setFourthState] = useState(false); // for disable next step button to submit button
-  const [progressBarState, setProgressBarState] = useState();
+  // const [progressBarState, setProgressBarState] = useState();
 
   const handleStepPages = () => {
     if (step === 1) {
@@ -75,7 +75,7 @@ function SignUpAthletePage() {
               <div className="progress-bar-container">
                 <div className="progress-bar-total">
                   <div
-                    className="progress-bar-first"
+                    className="progress-bar-current"
                     style={{ width: progressBar(), transition: "500ms" }}
                   ></div>
                 </div>
@@ -99,7 +99,7 @@ function SignUpAthletePage() {
                 <div className="progress-bar-container">
                   <div className="progress-bar-total">
                     <div
-                      className="progress-bar-first"
+                      className="progress-bar-current"
                       style={{ width: progressBar(), transition: "500ms" }}
                     ></div>
                   </div>

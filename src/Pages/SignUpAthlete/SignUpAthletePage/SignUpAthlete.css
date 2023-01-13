@@ -55,7 +55,7 @@
   background-color: #fff2C7 ;
   border-radius: 10px ;
 }
-.progress-bar-first{
+.progress-bar-current{
   height: 25px;
   /* width: 50%; */
   /* width: 10%; */
@@ -65,47 +65,7 @@
   border-radius:10px ;
   /* transition: 500ms; */
 }
-.progress-bar-second{
-  height: 25px;
-  /* width: 50%; */
-  width: 25%;
-  display: flex;
-  justify-content: flex-start;
-  background-color: #f6d463;
-  border-radius:10px ;
-  transition: 500ms;
-}
-.progress-bar-third{
-  height: 25px;
-  /* width: 50%; */
-  width: 50%;
-  display: flex;
-  justify-content: flex-start;
-  background-color: #f6d463;
-  border-radius:10px ;
-  transition: 500ms;
-}
-.progress-bar-fourth{
-  height: 25px;
-  /* width: 50%; */
-  width: 75%;
-  display: flex;
-  justify-content: flex-start;
-  background-color: #f6d463;
-  border-radius:10px ;
-  transition: 500ms;
-}
 
-.progress-bar-completed{
-  height: 25px;
-  /* width: 50%; */
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  background-color: #f6d463;
-  border-radius:10px ;
-  transition: 500ms;
-}
 .progress-bar {
   background-color: #FFF2C7;
   height: 25px;
@@ -134,3 +94,14 @@
   background-color: red;
   cursor: pointer;
 } */
+@media (max-width:1131px) {
+  .progress-bar-total{
+    width: 800px;
+  }
+}
+@media (max-width:850px) {
+  .progress-bar-total{
+    width: 600px;
+    /* background-color: red; */
+  }
+}

@@ -11,6 +11,8 @@
 .title-fourthstep {
   font-family: "britanica-heavy" !important;
   font-size: 30px;
+  text-align: center;
+  line-height: ;
 }
 .fourthstep-form-container {
   height: 70%;
@@ -90,4 +92,10 @@
 
 .hide-textbutton-signup-athlete {
   display: none;
+}
+
+@media (max-width: 1012px) {
+ .fourthstep-container form {
+  height: 90%;
+ } 
 }
