@@ -2,7 +2,9 @@ import React from "react";
 import "./Navbar.css";
 function Navbar() {
   return (
-    <nav className="navbar-container">
+    <nav 
+    className="navbar-container"
+    >
       <svg className="ouistiti"
         width="113"
         height="21"

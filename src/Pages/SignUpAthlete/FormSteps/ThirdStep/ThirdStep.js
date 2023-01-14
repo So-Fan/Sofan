@@ -14,6 +14,7 @@ function ThirdStep({setIsThirdStepValidated}) {
     setLowLvlBlockchain(false);
     setMediumLowLvlBlockchain(false);
     setMediumHighLvlBlockchain(false);
+    setIsThirdStepValidated(true);
   };
   const handleClickLow = (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ function ThirdStep({setIsThirdStepValidated}) {
     setLowLvlBlockchain(true);
     setMediumLowLvlBlockchain(false);
     setMediumHighLvlBlockchain(false);
+    setIsThirdStepValidated(true);
   };
   const handleClickMedium = (e) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ function ThirdStep({setIsThirdStepValidated}) {
     setLowLvlBlockchain(false);
     setMediumLowLvlBlockchain(true);
     setMediumHighLvlBlockchain(false);
+    setIsThirdStepValidated(true);
   };
   const handleClickMediumHigh = (e) => {
     e.preventDefault();
@@ -35,6 +38,7 @@ function ThirdStep({setIsThirdStepValidated}) {
     setLowLvlBlockchain(false);
     setMediumLowLvlBlockchain(false);
     setMediumHighLvlBlockchain(true);
+    setIsThirdStepValidated(true);
   };
 
   function handleNext(e) {
@@ -47,7 +51,6 @@ function ThirdStep({setIsThirdStepValidated}) {
       mediumHighLvlBlockchain
     ) {
       // setStep(4);
-      
     }
   }
 
@@ -102,9 +105,6 @@ function ThirdStep({setIsThirdStepValidated}) {
               Totalement, je sais tout ce qu'il faut savoir !
             </button>
           </div>
-          <button 
-          className="next-button"
-          onClick={handleNext}>Étape suivante</button>
         </form>
       </section>
     </section>

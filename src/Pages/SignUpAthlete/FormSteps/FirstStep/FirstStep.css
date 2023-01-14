@@ -1,11 +1,11 @@
 .title-firststep {
-  font-weight: 800;
   font-size: 30px;
+  font-family: "britanica-heavy";
 }
 .firststep-container {
   height: 70%;
   width: 90%;
-  /* background-color: red; */
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@
 .firststep-container form {
   height: 90%;
   width: 80%;
-  /* background-color: red; */
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,11 +67,13 @@
 
 .title-btn-firststep {
   font-size: 25px;
-  font-weight: 600;
+  font-family: 'britanica-heavy';
+  font-weight: 400;
 }
 
 .content-btn-firststep {
   font-size: 16px;
+  font-family: 'britanica-regular';
   font-weight: 400;
   width: 50%;
 }

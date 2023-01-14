@@ -1,17 +1,15 @@
-.form-page {
-  height: 80%;
+.secondstep-container {
+  height: 60%;
   width: 100%;
-  /* background-color: blue; */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* color: red; */
 }
 
 .form-container {
   width: 100%;
-  height: 90%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,28 +19,38 @@
 .form-container > form {
   height: 100%;
   width: 80%;
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .form-and-title {
-  height: 80%;
+  height: 100%;
   width: 100%;
-  /* background-color: yellow; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.title-form {
-  height: 20%;
+.title-signup-athlete-form {
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 30px;
+  font-family: "britanica-heavy";
+  font-weight: 400;
+  line-height: 36px;
+  height: 40px;
+}
+.input-container-secondstep {
+  height: 900px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 form input {
@@ -74,27 +82,8 @@ form > .form-and-title input:active {
 
 .button-container {
   width: 100%;
-  height: 20%;
+  /* height: 20%; */
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  /* background-color: red; */
-}
-
-.form-button {
-  width: 196px;
-  height: 67px;
-  border-radius: 10px;
-  border: none;
-  background-color: #f6d463;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
-  font-family: 'britanica-heavy';
-}
-
-.form-button:hover {
-  background-color: #f7c520;
-  transition: 500ms;
+  align-items: center;
 }
