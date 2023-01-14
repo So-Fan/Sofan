@@ -6,9 +6,17 @@ function Home() {
     <>
       <h1>Home</h1>
       <h1>
-        <a href="http://localhost:3000/signupathlete"> Sign up Athlete</a>
+        <ul>
+          <li>
+            <a href="http://localhost:3000/signupathlete"> Sign up Athlete</a>
+          </li>
+          <li>
+            <a href="http://localhost:3000/publication">
+              Publication component
+            </a>
+          </li>
+        </ul>
       </h1>
-      
     </>
   );
 }
