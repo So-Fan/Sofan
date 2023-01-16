@@ -2,6 +2,8 @@
     /* height: 70px; */
     height: 10vh;
     width: 100%;
+    /* "sticky" work ONLY when there is a component under */
+    /* but fixed create issue */
     position: sticky;
     /* position: fixed; */
     top: 0;

@@ -149,6 +149,14 @@
 }
 
 .logo-likes-publication {
+  /* background-color: red; */
+}
+
+.button-like-toggle-color{
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .likes-counter-publication {
