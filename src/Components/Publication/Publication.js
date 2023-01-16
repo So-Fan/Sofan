@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./Publication.css";
-// import testLogo from "../../Assets/Image/likelogorouge.svg"
-import logo from "../../Assets/Image/likelogo.svg";
-// import logoLikeRed from "../../Assets/Image/likelogo-red.svg";
+
 function Publication() {
   const [athleteName, setAthleteName] = useState("Romain Attanasio");
   const [isPostLiked, setIsPostedLiked] = useState(false);
@@ -50,7 +48,10 @@ function Publication() {
                   <>
                     <>
                       <div className="logo-like-red">
-                        <button className="button-like-toggle-color"  onClick={handleClick}>
+                        <button
+                          className="button-like-toggle-color"
+                          onClick={handleClick}
+                        >
                           <svg
                             width={22}
                             height={19}
@@ -81,7 +82,10 @@ function Publication() {
                   </>
                 ) : (
                   <>
-                    <button className="button-like-toggle-color" onClick={handleClick}>
+                    <button
+                      className="button-like-toggle-color"
+                      onClick={handleClick}
+                    >
                       <svg
                         width="22"
                         height="19"
