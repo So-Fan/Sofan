@@ -1,9 +1,13 @@
 import React from "react";
 import "./Home.css";
+import WaitingPage from "../WaitingPage/WaitingPage";
 
-function Home() {
+function Home({waitingPage}) {
+  // const [waitingPage, setWaitingPage] = useState(true)
   return (
     <>
+    {waitingPage ? <><WaitingPage/></> : <>
+    
       <h1>Home</h1>
       <h1>
         <ul>
@@ -17,6 +21,7 @@ function Home() {
           </li>
         </ul>
       </h1>
+    </>}
     </>
   );
 }
