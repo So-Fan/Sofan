@@ -1,16 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ReactDOM from "react-dom/client"
+import Home from "./Pages/Home/Home";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Sofan Web App
-        </p>
-      </header>
-    </div>
+    // <>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
