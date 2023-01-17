@@ -56,3 +56,47 @@
 .svg-socials-waiting-page:hover{
     fill: #f7c520;
 }
+
+@media (min-width: 200px) {
+    /* .error-mobile{
+      
+      display: none;
+      
+    } */
+    .error-mobile-waiting-page{
+      
+      display: none;
+    }
+    .waiting-page-container{
+      
+      display: flex;
+    }
+  }
+
+  @media (max-width: 740px) {
+  
+    .error-mobile-waiting-page{
+      height: 60vh;
+      width: 100vw;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      line-height: 40px;
+      font-family: 'britanica-heavy';
+    }
+    .socials-network-waiting-page{
+     height: 45%;   
+    }
+    .logo-socials-waiting-page{
+        width: 60%;
+    }
+    .svg-socials-waiting-page{
+        height: 25px;
+        width: 25px;
+    }
+    .waiting-page-container{
+      display: none;
+    }
+  }
