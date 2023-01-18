@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./Publication.css";
-
-function Publication() {
-  const [athleteName, setAthleteName] = useState("Romain Attanasio");
+import "./PostsFeed.css";
+import HeadOfPost from "../HeadOfPost/HeadOfPost";
+import PublicationDescription from "../PostsDescription/PostsDescription";
+function PostsFeed() {
   const [isPostLiked, setIsPostedLiked] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
@@ -14,31 +14,12 @@ function Publication() {
       <div className="publication-container">
         <div className="publication-content">
           <div className="publication-head-container">
-            <div className="publication-head-left-container">
-              {/* Backend here */}
-              <div className="profilepic-athlete-publication">IMG</div>
-              {/* Backend here */}
-              <div className="athlete-name-publication">{athleteName}</div>
-              {/* Backend here */}
-              <div className="age-publication">3h</div>
-            </div>
-            <div className="publication-head-right-container">
-              {/* Backend here si contenu PREMIUM ou FREE */}
-              <div className="publication-type">Free</div>
-              <div className="dropdown-button-publication">
-                <div className="dropdown-button-point"></div>
-                <div className="dropdown-button-point"></div>
-                <div className="dropdown-button-point"></div>
-              </div>
-            </div>
+            {/* Choose size with: 
+              - "dropdown-button-point-size"
+            */}
+            <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
           </div>
-          <div className="publication-description">
-            <p>
-              Lorem Ipsum has been the industry's standard dummy text ever since
-              the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book
-            </p>
-          </div>
+          <PublicationDescription />
           {/* Backend here */}
           <div className="publication-media">MEDIA</div>
           <div className="likes-comments-container-publication">
@@ -166,4 +147,4 @@ function Publication() {
   );
 }
 
-export default Publication;
+export default PostsFeed;

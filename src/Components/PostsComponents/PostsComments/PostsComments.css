@@ -1,0 +1,15 @@
+.posts-comments-container{
+ width: 475px;
+ height: 60px;
+ background-color: blue;
+}
+
+.profilepic-fan-posts-comments{
+    height: 30px;
+    width: 30px;
+}
+
+.fan-username-posts-comments{
+    font-size: 16px;
+    font-family: 'britanica-heavy';
+}

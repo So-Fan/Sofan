@@ -1,0 +1,8 @@
+.publication-description {
+    height: 85px;
+    width: 100%;
+    /* background-color: grey; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

@@ -1,0 +1,22 @@
+.dropdown-button-publication{
+    height: 40px;
+    width: 35px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown-button-point{
+    border-radius: 20px;
+    background-color: black;
+}
+
+.dropdown-button-point-size-M{
+    width: 5px;
+    height: 5px;
+}
+.dropdown-button-point-size-XL{
+    width: 10px;
+    height: 10px;
+}

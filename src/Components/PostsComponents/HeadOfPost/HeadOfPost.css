@@ -1,0 +1,11 @@
+.publication-container {
+  max-height: 900px;
+  max-width: 550px;
+  height: 100%;
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
