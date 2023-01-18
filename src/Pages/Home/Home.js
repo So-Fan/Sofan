@@ -6,7 +6,7 @@ function Home() {
     <>
       <h1>Home</h1>
       <h1>
-        <a href="http://localhost:3000/signupathlete"> Sign up Athlete</a>
+        <a href="/signupathlete"> Sign up Athlete</a>
       </h1>
       
     </>
