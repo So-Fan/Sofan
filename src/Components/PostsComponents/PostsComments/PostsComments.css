@@ -1,15 +1,52 @@
 .posts-comments-container{
- width: 475px;
- height: 60px;
- background-color: blue;
+ width: 500px;
+ height: 100px;
+ /* background-color: blue; */
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: row;
 }
-
+.all-elements-of-comments{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .profilepic-fan-posts-comments{
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
 }
 
 .fan-username-posts-comments{
     font-size: 16px;
     font-family: 'britanica-heavy';
+}
+
+.fan-username-and-comments{
+    height: 60px;
+    width: 100%;
+    /* background-color: pink; */
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+.fan-username-posts-comments{
+    line-height: 19px;
+}
+
+.fan-comments-posts{
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.like-posts-comments{
+    height: 40px;
+    width: 40px;
+    /* background-color: blue; */
+    display: flex;
+    align-items: flex-end;
 }
