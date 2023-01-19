@@ -20,8 +20,15 @@ function PostsComments() {
             </div>
           </div>
           <div className="like-posts-comments">
-            <LikeButton />
+            <LikeButton likeButtonSize="likeButton-S-size" />
           </div>
+        </div>
+        <div className="likes-comments-times-of-comments-container">
+          <div className="likes-counter-and-answer-comments">
+            <button className="">12 Likes</button>
+            <button className="">Répondre</button>
+          </div>
+          <div className="comments-time-posts-comments">28min</div>
         </div>
       </>
     </>

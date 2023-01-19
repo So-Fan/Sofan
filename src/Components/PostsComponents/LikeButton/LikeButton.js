@@ -1,14 +1,30 @@
 import React, { useState } from "react";
 import "./LikeButton.css";
-function LikeButton() {
+
+function LikeButton({ likeButtonSize }) {
   const [isPostLiked, setIsPostedLiked] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
     setIsPostedLiked(!isPostLiked);
   };
+  const handleSizeWidth = () => {
+    if (likeButtonSize === "likeButton-M-size") {
+      return 22;
+    } else if (likeButtonSize === "likeButton-S-size") {
+      return 15;
+    }
+  };
+  const handleSizeHeight = () => {
+    if (likeButtonSize === "likeButton-M-size") {
+      return 19;
+    } else if (likeButtonSize === "likeButton-S-size") {
+      return 13;
+    }
+  };
+
   return (
     <>
-      <div className="logo-likes-publication">
+      <div className="logo-likes">
         {isPostLiked ? (
           <>
             <>
@@ -18,8 +34,8 @@ function LikeButton() {
                   onClick={handleClick}
                 >
                   <svg
-                    width={22}
-                    height={19}
+                    width={handleSizeWidth()}
+                    height={handleSizeHeight()}
                     viewBox="0 0 22 19"
                     fill="none"
                     version="1.1"
@@ -49,8 +65,8 @@ function LikeButton() {
           <>
             <button className="button-like-toggle-color" onClick={handleClick}>
               <svg
-                width="22"
-                height="19"
+                width={handleSizeWidth()}
+                height={handleSizeHeight()}
                 viewBox="0 0 22 19"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

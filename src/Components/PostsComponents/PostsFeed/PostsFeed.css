@@ -80,24 +80,6 @@
   transition: 500ms;
 }
 
-/* .dropdown-button-publication {
-  height: 40px;
-  width: 35px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  cursor: pointer;
-} */
-
-/* .dropdown-button-point {
-  width: 5px;
-  height: 5px;
-  border-radius: 20px;
-  background-color: black;
-} */
-
-
-
 .publication-media {
   max-height: 517px;
   max-width: 517px;
@@ -108,42 +90,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.likes-comments-container-publication {
-  /* width: 280px; */
-  width: 90%;
-  height: 70px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.likes-publication {
-  width: 100px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.likes-counter-publication {
-  font-family: "britanica-heavy";
-  font-size: 14px;
-}
-
-.comments-publication {
-  width: 140px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
-.comments-counter-publication {
-  font-family: "britanica-heavy";
-  font-size: 14px;
 }
 
 .show-comments-button-publication {
@@ -161,52 +107,4 @@
   border: 0.29829px solid rgba(0, 0, 0, 0.2);
 }
 
-.input-comment-container-publication {
-  height: 80px;
-  /* background-color: red; */
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.input-comment-elements {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  /* flex-direction: column; */
-  background: rgba(60, 64, 69, 0.04);
-  border-radius: 10px;
-  height: 50px;
-  width: 100%;
-}
-
-.emoji-comment-publication {
-}
-
-.input-comment-publication {
-  width: 60%;
-  border: none;
-  background: none;
-  height: 100%;
-}
-.input-comment-publication:focus{
-border: none;
-outline: none;
-}
-.input-comment-publication::placeholder{
-  font-family: 'britanica-regular';
-  color: #9B9B9B;
-  font-size: 16px;
-}
-.publish-comments-button-container-publication {
-}
-
-.publish-comments-button-container-publication > a > button {
-  /* outline: none; */
-  border: none;
-  background: none;
-  font-family: "britanica-black";
-  cursor: pointer;
-  font-size: 16px;
-}

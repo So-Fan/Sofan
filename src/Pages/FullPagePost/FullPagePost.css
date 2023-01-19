@@ -1,64 +1,75 @@
-.fullpagepost-container{
-    position: absolute;
-    height: 100%;
+.fullpagepost-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-container-fullpagepost {
+  height: 90%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: green; */
+}
+
+.media-fullpagepost {
+
+  height: 795px;
+  width: 795px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: antiquewhite;
+}
+
+.desc-likes-comments-container-fullpagepost {
+  width: 552px;
+  height: 795px;
+  /* background-color: aqua; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.bloc-content-fullpagepost {
+  width: 530px;
+  height: 750px;
+  /* background-color: coral; */
+}
+
+.headofpost-container {
+  width: 500px;
+  height: 60px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.separation-line-fullpagepost {
+  width: 100%;
+  border-top: 0.3px solid rgba(0, 0, 0, 0.2);
+}
+
+.likes-comments-counter-container-fullpagepost{
+    height: 6% !important;
     width: 100%;
-    background-color: yellow;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     
 }
 
-
-.post-container-fullpagepost{
-    height: 90%;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: green;
-}
-
-.media-fullpagepost{
-    /* height:100% ; */
-    /* width: 50%; */
-    height: 795px;
-    width: 795px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: antiquewhite;
-}
-
-.desc-likes-comments-container-fullpagepost{
-    width: 552px;
-    height: 795px;
-    background-color: aqua;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction:column ;
-    
-}
-
-.bloc-content-fullpagepost{
-    width: 530px;
-    height: 750px;
-    background-color: coral;
-
-}
-
-.headofpost-container{
-    width: 500px;
-    height: 60px;
-    /* background-color: red; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.separation-line-fullpagepost{
+.add-comment-input-container-fullpagepost{
     width: 100%;
- border-top: 0.3px solid rgba(0, 0, 0, 0.2);   
- height: 20px;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    
 }
