@@ -6,9 +6,17 @@ function Home() {
     <>
       <h1>Home</h1>
       <h1>
-        <a href="/signupathlete"> Sign up Athlete</a>
+        <ul>
+          <li>
+            <a href="/signupathlete">Sign up Athlete</a>
+          </li>
+          <li>
+            <a href="/publication">
+              Publication component
+            </a>
+          </li>
+        </ul>
       </h1>
-      
     </>
   );
 }
