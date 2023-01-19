@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client"
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home"
 import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAthletePage";
+import Publication from "./Components/Publication/Publication";
 function App() {
   return (
     // <>
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="/signupathlete" element={<SignUpAthletePage />} />
+        <Route path="/publication" element={<Publication/>}/>
       </Routes>
     </BrowserRouter>
   );

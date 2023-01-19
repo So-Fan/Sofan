@@ -1,0 +1,245 @@
+.publication-container {
+  max-height: 900px;
+  max-width: 550px;
+  height: 100%;
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.publication-content {
+  max-height: 863px;
+  max-width: 517px;
+  height: 90%;
+  width: 90%;
+  /* background-color: green; */
+  padding: 20px;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
+  border-radius: 9.94299px;
+}
+
+.publication-head-container {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.publication-head-left-container {
+  max-height: 40px;
+  height: 40px;
+  width: 40%;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.athlete-name-publication {
+  font-size: 16px;
+  font-family: "britanica-heavy";
+}
+
+.profilepic-athlete-publication {
+  height: 40px;
+  width: 40px;
+  background-color: rgb(187, 204, 204);
+  /* color: white; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.age-publication {
+  font-size: 14px;
+  /* font-family: 'Montserrat'; */
+  line-height: 17px;
+  opacity: 0.5;
+}
+
+.publication-head-right-container {
+  height: 25px;
+  width: 150px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.publication-type {
+  border-radius: 10px;
+  background-color: #f6d463;
+  width: 84px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "britanica-regular";
+  font-size: 14px;
+  cursor: pointer;
+}
+.publication-type:hover {
+  background-color: #f7c520;
+
+  transition: 500ms;
+}
+
+.dropdown-button-publication {
+  height: 40px;
+  width: 35px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+}
+/* .dropdown-button-publication:hover {
+  border-radius: 100px;
+  background-color: rgb(248, 223, 190);
+  transition: background-color 500ms;
+} */
+
+.dropdown-button-point {
+  width: 5px;
+  height: 5px;
+  border-radius: 20px;
+  background-color: black;
+}
+
+.publication-description {
+  height: 85px;
+  width: 100%;
+  /* background-color: grey; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.publication-media {
+  max-height: 517px;
+  max-width: 517px;
+  width: 100%;
+  height: 60%;
+  background-color: rgb(187, 204, 204);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.likes-comments-container-publication {
+  /* width: 280px; */
+  width: 90%;
+  height: 70px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.likes-publication {
+  width: 100px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+/* .logo-likes-publication {
+  background-color: red;
+} */
+
+.button-like-toggle-color{
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.likes-counter-publication {
+  font-family: "britanica-heavy";
+  font-size: 14px;
+}
+
+.comments-publication {
+  width: 140px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.comments-counter-publication {
+  font-family: "britanica-heavy";
+  font-size: 14px;
+}
+
+.show-comments-button-publication {
+  font-size: 17px;
+  font-family: "britanica-black";
+  line-height: 20px;
+  height: 35px;
+}
+.show-comments-button-publication:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.line-separation-comments-publication {
+  border: 0.29829px solid rgba(0, 0, 0, 0.2);
+}
+
+.input-comment-container-publication {
+  height: 80px;
+  /* background-color: red; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-comment-elements {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* flex-direction: column; */
+  background: rgba(60, 64, 69, 0.04);
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+}
+
+.emoji-comment-publication {
+}
+
+.input-comment-publication {
+  width: 60%;
+  border: none;
+  background: none;
+  height: 100%;
+}
+.input-comment-publication:focus{
+border: none;
+outline: none;
+}
+.input-comment-publication::placeholder{
+  font-family: 'britanica-regular';
+  color: #9B9B9B;
+  font-size: 16px;
+}
+.publish-comments-button-container-publication {
+}
+
+.publish-comments-button-container-publication > a > button {
+  /* outline: none; */
+  border: none;
+  background: none;
+  font-family: "britanica-black";
+  cursor: pointer;
+  font-size: 16px;
+}
