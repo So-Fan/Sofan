@@ -2,7 +2,7 @@ import React from "react";
 import "./FullPagePost.css";
 import HeadOfPost from "../../Components/PostsComponents/HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../../Components/PostsComponents/LikesCommentsCounter/LikesCommentsCounter";
-import PublicationDescription from "../../Components/PostsComponents/PostsDescription/PostsDescription";
+import PostsDescription from "../../Components/PostsComponents/PostsDescription/PostsDescription";
 import PostsComments from "../../Components/PostsComponents/PostsComments/PostsComments";
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
@@ -35,7 +35,7 @@ function FullPagePost() {
               <div className="headofpost-container">
                 <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
               </div>
-              <PublicationDescription />
+              <PostsDescription />
               <div className="likes-comments-counter-container-fullpagepost">
                 <LikesCommentsCounter />
               </div>
@@ -44,7 +44,9 @@ function FullPagePost() {
               <PostsComments />
               <PostsComments />
               <PostsComments />
+              <div className="responsive-display-toggle-comments-fullpagepost">
               <PostsComments />
+              </div>
               <div className="separation-line-fullpagepost"></div>
               <div className="add-comment-input-container-fullpagepost">
                 <AddCommentInput />
