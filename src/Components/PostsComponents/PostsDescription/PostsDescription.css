@@ -13,3 +13,8 @@
       height: 60px;
     }
   }
+  @media (max-width: 1150px) {
+    .publication-description{
+      height: 90px;
+    }
+  }

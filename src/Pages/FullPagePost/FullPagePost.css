@@ -129,7 +129,7 @@
   .separation-line-fullpagepost{
     height: 10px;
   }
-  .responsive-display-toggle-comments-fullpagepost{
+  #responsive-display-toggle-comments-fullpagepost1{
     display: none;
   }
   .add-comment-input-container-fullpagepost {
@@ -162,7 +162,41 @@
       .separation-line-fullpagepost{
         height: 10px;
       }
-      .responsive-display-toggle-comments-fullpagepost{
+      #responsive-display-toggle-comments-fullpagepost1{
+        display: none;
+      }
+      .add-comment-input-container-fullpagepost {
+        width: 100%;
+        height: 70px;
+      }
+}
+@media (max-width:1150px) {
+    .media-fullpagepost {
+        width: 600px;
+        height: 600px;
+      }
+      .img-fullpagepost {
+        width: 600px;
+        height: 600px;
+      }
+      .desc-likes-comments-container-fullpagepost {
+        width: 417px !important;
+        height: 600px;
+      }
+      .headofpost-container{
+        width: 400px;
+      }
+      .bloc-content-fullpagepost{
+        max-width: 400px;
+        max-height: 580px;
+      }
+      .separation-line-fullpagepost{
+        height: 10px;
+      }
+      #responsive-display-toggle-comments-fullpagepost1{
+        display: none;
+      }
+      #responsive-display-toggle-comments-fullpagepost2{
         display: none;
       }
       .add-comment-input-container-fullpagepost {

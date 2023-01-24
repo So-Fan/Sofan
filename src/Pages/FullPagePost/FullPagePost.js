@@ -43,8 +43,10 @@ function FullPagePost() {
               <PostsComments />
               <PostsComments />
               <PostsComments />
+              <div id="responsive-display-toggle-comments-fullpagepost2">
               <PostsComments />
-              <div className="responsive-display-toggle-comments-fullpagepost">
+              </div>
+              <div id="responsive-display-toggle-comments-fullpagepost1">
               <PostsComments />
               </div>
               <div className="separation-line-fullpagepost"></div>

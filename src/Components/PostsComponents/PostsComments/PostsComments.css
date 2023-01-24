@@ -118,3 +118,24 @@
     /* background-color: red; */
 }
 }
+@media (max-width: 1150px) {
+  .all-elements-of-comments{
+    /* background-color: aqua; */
+    height: 80%;
+  }
+  .posts-comments-container{
+    width: 400px;
+  }
+  .likes-comments-times-of-comments-container{
+    height: 50px;
+    /* background-color: red; */
+  }
+  .fan-comments-posts > div {
+    height: 45px;
+    /* background-color: red; */
+}
+.profilepic-fan-posts-comments {
+  height: 100px;
+  width: 50px;
+}
+}
