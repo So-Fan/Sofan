@@ -1,7 +1,7 @@
 import React from 'react';
 import LikeButton from '../LikeButton/LikeButton';
 import './LikesCommentsCounter.css'
-function LikesCommentsCounter() {
+function LikesCommentsCounter({likeButtonSize}) {
   return (
     <div className="likes-comments-container-publication">
             <div className="likes-publication">

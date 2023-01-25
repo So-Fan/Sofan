@@ -79,4 +79,23 @@
     width: 69px;
     height: 22px;
   }
+  @media (max-width:1050px) {
+    .publication-head-left-container{
+      width: 55%;
+    }
+    .athlete-name-publication{
+      font-size: 14px;
+    }
+    .age-publication{
+      font-size: 12px;
+    }
+    .publication-type{
+      font-size: 12px;
+      width: 60px;
+      height: 18px;
+    }
+    .publication-head-right-container{
+     max-width: 100px;
+    }
+  }
 }

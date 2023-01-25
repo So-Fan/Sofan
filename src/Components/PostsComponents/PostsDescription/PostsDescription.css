@@ -18,3 +18,11 @@
       height: 90px;
     }
   }
+  @media (max-width: 1050px) {
+    .publication-description{
+      height: 70px;
+    }
+    .publication-description > p {
+      font-size: 14px;
+    }
+  }

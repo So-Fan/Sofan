@@ -27,7 +27,6 @@
 .fan-username-and-comments {
   height: 60px;
   width: 100%;
-  
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -138,4 +137,34 @@
   height: 100px;
   width: 50px;
 }
+}
+@media (max-width: 1050px) {
+  .all-elements-of-comments{
+    height: 80%;
+  }
+  .posts-comments-container{
+    width: 320px;
+  }
+  .likes-comments-times-of-comments-container{
+    height: 40px !important;
+    /* background-color: red; */
+  }
+  .likes-comments-times-of-comments-container button{
+   font-size: 12px !important;
+  }
+  .fan-comments-posts > div {
+    height: 45px;
+}
+.profilepic-fan-posts-comments {
+  height: 100px;
+  width: 50px;
+}
+.fan-username-posts-comments {
+  line-height: 12px;
+  font-size: 14px;
+}
+.fan-comments-posts > div {
+    font-size: 12px;
+}
+
 }

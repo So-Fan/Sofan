@@ -3,7 +3,6 @@ import "./Home.css";
 import WaitingPage from "../WaitingPage/WaitingPage";
 
 function Home({ waitingPage }) {
-  // const [waitingPage, setWaitingPage] = useState(true)
   return (
     <>
       {waitingPage ? (
