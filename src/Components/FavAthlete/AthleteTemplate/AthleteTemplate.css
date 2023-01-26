@@ -4,8 +4,8 @@
   position: relative;
   display: flex;
   justify-content: center;
-  background: center linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)
-  ,center url("../fakeData/lebron.svg")
+  /* background: center linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%) */
+  /* ,center url("../fakeData/lebron.svg") */
   ;
   filter: drop-shadow(0px 0px 24px rgba(0, 0, 0, 0.08));
 }
