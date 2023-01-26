@@ -8,11 +8,11 @@
   width: 15px;
   position: absolute;
   left: 9px;
-  top: 10px;
+  top: 13px;
 }
 .searchbar-input {
-  width: 323px;
-  height: 30px;
+  width: 466px;
+  height: 36px;
   border: solid 1px #9b9b9b;
   border-radius: 10px;
   padding-left: 30px;
@@ -23,6 +23,16 @@
   line-height: 19px;
   color: #9b9b9b;
 }
+.searchbar-input:focus {
+  outline: none !important;
+  border: solid 2px #9b9b9b;
+}
 .searchbar-input:focus::placeholder {
   color: transparent;
+}
+
+@media (max-width: 1060px) {
+    .searchbar-input{
+      width: 338px;
+    }
 }
