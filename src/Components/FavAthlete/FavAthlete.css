@@ -1,0 +1,18 @@
+.favAthlete-container{
+    width: 288px;
+    height: 239px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.favAthlete-horizontal{
+    border: 0.3px solid rgba(0, 0, 0, 0.5);
+}
+.favAthlete-wrap{
+    display: flex;
+    flex-direction: column;
+}
+.favAthlete-subwrap{
+    display: flex;
+    justify-content: space-between;
+}
