@@ -13,7 +13,6 @@ const Navbar = () => {
       <div className="navbar-wrap">
         <div className="navbar-wrap-1">
           <img className="navbar-main-logo" src={SofanLogo2} alt="Sofan" />
-
           <Searchbar />
         </div>
         <div className="navbar-wrap-2">
