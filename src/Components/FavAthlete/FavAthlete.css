@@ -11,6 +11,7 @@
 .favAthlete-wrap{
     display: flex;
     flex-direction: column;
+    /* overflow: hidden; */
 }
 .favAthlete-subwrap{
     display: flex;
