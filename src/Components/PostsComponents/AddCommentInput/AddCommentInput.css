@@ -80,3 +80,36 @@
   font-size: 14px !important;
   }
 }
+@media (max-width: 900px) {
+  .input-comment-container-publication{
+    height: 40px;
+    width: 95%;
+  }
+  .input-comment-elements {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: rgba(60, 64, 69, 0.04);
+    height: 40px;
+    width:100%;
+  }
+  .input-comment-publication{
+    width: 90%;
+    height: 100%;
+    font-size: 14px !important;
+  }
+  .input-comment-publication::placeholder{
+    font-size: 14px;
+  }
+  .emoji-comment-publication svg {
+    width: 16px;
+    position: relative;
+    /* left: -70% !important; */
+  }
+  .publish-comments-button-container-publication{
+    width: 40%;
+  }
+  .publish-comments-button-container-publication button {
+  font-size: 14px !important;
+  }
+}

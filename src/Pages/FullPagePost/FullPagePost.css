@@ -87,13 +87,13 @@
   width: 100%;
   border-top: 0.3px solid rgba(0, 0, 0, 0.2);
 }
-.comments-container-fullpagepost{
-  /* overflow: scroll; */
+.comments-container-fullpagepost {
+  /* overflow-y: scroll; */
   max-height: 100% !important;
 }
- #dropdown-small {
-    display: none;
-  }
+#dropdown-small {
+  display: none;
+}
 
 .likes-comments-counter-container-fullpagepost {
   height: 6% !important;
@@ -223,8 +223,6 @@
     height: 500px;
   }
 
-
-  
   .desc-likes-comments-container-fullpagepost {
     width: 347px !important;
     height: 500px;
@@ -233,7 +231,7 @@
   .headofpost-container {
     width: 320px;
   }
-  
+
   #dropdown-medium {
     display: none;
     width: 320px;
@@ -248,9 +246,79 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    align-items: center;
   }
   /* test gpg */
+  .separation-line-fullpagepost {
+    height: 10px;
+  }
+  #responsive-display-toggle-comments-fullpagepost1 {
+    display: none;
+  }
+  #responsive-display-toggle-comments-fullpagepost2 {
+    display: none;
+  }
+  #responsive-display-toggle-comments-fullpagepost3 {
+    display: none;
+  }
+  #responsive-display-toggle-comments-fullpagepost {
+    display: none;
+  }
+  .add-comment-input-container-fullpagepost {
+    width: 100%;
+    height: 70px;
+  }
+}
+@media (max-width: 900px) {
+  .media-fullpagepost {
+    width: 400px;
+    height: 400px;
+  }
+
+  .img-fullpagepost {
+    width: 400px;
+    height: 400px;
+  }
+
+  .desc-likes-comments-container-fullpagepost {
+    width: 257px !important;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .comments-container-fullpagepost {
+    /* overflow: scroll; */
+    max-height: 100% !important;
+    /* background-color: red; */
+    height: 50% !important;
+    
+    display: flex;
+    justify-content: space-around !important;
+    align-items: flex-start;
+  }
+
+  .headofpost-container {
+    width: 245px;
+  }
+
+  #dropdown-medium {
+    display: none;
+    width: 320px;
+  }
+  #dropdown-small {
+    display: flex;
+  }
+  .bloc-content-fullpagepost {
+    max-width: 247px;
+    max-height: 580px;
+    height: 370px;
+    display: flex;
+    justify-content: space-around;
+    /* background-color: red; */
+    flex-direction: column;
+    align-items: center;
+  }
   .separation-line-fullpagepost {
     height: 10px;
   }

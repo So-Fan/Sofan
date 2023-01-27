@@ -6,7 +6,8 @@ import PostsDescription from "../../Components/PostsComponents/PostsDescription/
 import PostsComments from "../../Components/PostsComponents/PostsComments/PostsComments";
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
-function FullPagePost({ likeButtonSize }) {
+
+function FullPagePost() {
   return (
     <div className="opacitychange-fullpagepost">
       <section className="fullpagepost-container">

@@ -67,3 +67,26 @@
     width: 18px !important;
   }
 }
+
+@media (max-width: 900px) {
+  .likes-comments-container-publication{
+    /* height: 75px; */
+    /* background-color: red; */
+    width: 200px;
+  }
+  .comments-publication {
+    width: 120px;
+    height: 20px;
+  }
+  .likes-counter-publication,
+  .comments-counter-publication {
+    font-size: 10px;
+  }
+  .logo-comments-publication {
+    width: 0px !important;
+  }
+  .logo-comments-publication svg {
+    /* background-color: red; */
+    width: 16px !important;
+  }
+}

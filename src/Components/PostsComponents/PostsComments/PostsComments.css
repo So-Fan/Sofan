@@ -1,7 +1,7 @@
 .posts-comments-container {
   width: 500px;
   height: 100px;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,14 +40,11 @@
   font-size: 14px;
   line-height: 17px;
   /* height: 90px; */
-  
 }
 
 .fan-comments-posts > div {
-    
-    height: 35px;
+  height: 35px;
 }
-
 
 .like-posts-comments {
   height: 40px;
@@ -55,13 +52,13 @@
   display: flex;
   align-items: flex-end;
 }
-.likes-comments-times-of-comments-container{
-    width: 100%;
-    height: 8px;
-    display: flex;
-    /* justify-content: flex-start; */
-    justify-content: flex-start;
-    align-items: center;
+.likes-comments-times-of-comments-container {
+  width: 100%;
+  height: 8px;
+  display: flex;
+  /* justify-content: flex-start; */
+  justify-content: flex-start;
+  align-items: center;
 }
 .likes-counter-and-answer-comments {
 }
@@ -69,102 +66,182 @@
   cursor: pointer;
   border: none;
   background: none;
-  font-family: 'britanica-black';
+  font-family: "britanica-black";
   margin: 0;
 }
 
-.likes-counter-and-answer-comments button:hover{
-    text-decoration: underline;
+.likes-counter-and-answer-comments button:hover {
+  text-decoration: underline;
 }
-.comments-time-posts-comments{
-    /* max-width: 47px; */
-    width: 80px;
-    color: #555555;
-    font-size: 12px;
-    text-align: center;
-    display: flex;
+.comments-time-posts-comments {
+  /* max-width: 47px; */
+  width: 80px;
+  color: #555555;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
 }
 
 @media (max-width: 1350px) {
-  .all-elements-of-comments{
+  .all-elements-of-comments {
     /* background-color: aqua; */
     height: 80%;
   }
-  .posts-comments-container{
+  .posts-comments-container {
     width: 450px;
   }
-  .likes-comments-times-of-comments-container{
+  .likes-comments-times-of-comments-container {
     height: 50px;
   }
   .fan-comments-posts > div {
     height: 40px;
-}
+  }
 }
 @media (max-width: 1250px) {
-  .all-elements-of-comments{
+  .all-elements-of-comments {
     /* background-color: aqua; */
     height: 80%;
   }
-  .posts-comments-container{
+  .posts-comments-container {
     width: 430px;
   }
-  .likes-comments-times-of-comments-container{
+  .likes-comments-times-of-comments-container {
     height: 50px;
     /* background-color: red; */
   }
   .fan-comments-posts > div {
     height: 45px;
     /* background-color: red; */
-}
+  }
 }
 @media (max-width: 1150px) {
-  .all-elements-of-comments{
+  .all-elements-of-comments {
     /* background-color: aqua; */
     height: 80%;
   }
-  .posts-comments-container{
+  .posts-comments-container {
     width: 400px;
   }
-  .likes-comments-times-of-comments-container{
+  .likes-comments-times-of-comments-container {
     height: 50px;
     /* background-color: red; */
   }
   .fan-comments-posts > div {
     height: 45px;
     /* background-color: red; */
-}
-.profilepic-fan-posts-comments {
-  height: 100px;
-  width: 50px;
-}
+  }
+  .profilepic-fan-posts-comments {
+    height: 100px;
+    width: 50px;
+  }
 }
 @media (max-width: 1050px) {
-  .all-elements-of-comments{
+  .all-elements-of-comments {
     height: 80%;
   }
-  .posts-comments-container{
+  .posts-comments-container {
     width: 320px;
   }
-  .likes-comments-times-of-comments-container{
+  .likes-comments-times-of-comments-container {
     height: 40px !important;
     /* background-color: red; */
   }
-  .likes-comments-times-of-comments-container button{
-   font-size: 12px !important;
+  .likes-comments-times-of-comments-container button {
+    font-size: 12px !important;
   }
   .fan-comments-posts > div {
     height: 45px;
-}
-.profilepic-fan-posts-comments {
-  height: 100px;
-  width: 50px;
-}
-.fan-username-posts-comments {
-  line-height: 12px;
-  font-size: 14px;
-}
-.fan-comments-posts > div {
+  }
+  .profilepic-fan-posts-comments {
+    height: 100px;
+    width: 50px;
+  }
+  .fan-username-posts-comments {
+    line-height: 12px;
+    font-size: 14px;
+  }
+  .fan-comments-posts > div {
     font-size: 12px;
+  }
 }
-
+@media (max-width: 900px) {
+  .all-elements-of-comments {
+    height: 100%;
+    /* background-color: yellow; */
+  }
+  .comments-container-fullpagepost {
+    height: 70%;
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .posts-comments-container {
+    width: 245px;
+    height: 60px;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .likes-comments-times-of-comments-container {
+    height: 20px !important;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+  .likes-counter-and-answer-comments {
+    display: flex;
+    flex-direction: row;
+    height: 12px;
+    /* background-color: blueviolet; */
+  }
+  .fan-username-and-comments {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    /* background-color: red; */
+  }
+  .fan-comments-posts{
+    /* background-color: coral; */
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .likes-comments-times-of-comments-container button {
+    font-size: 10px !important;
+    height: 100%;
+    width: 50%;
+    text-align: start;
+  }
+  .comments-time-posts-comments {
+    font-size: 10px;
+    width: 40%;
+  }
+  .profilepic-fan-posts-comments {
+    height: 60px;
+    width: 50px;
+  }
+  .fan-username-posts-comments {
+    line-height: 0px;
+    height: 8px;
+    font-size: 12px;
+  }
+  .fan-comments-posts > div {
+    font-size: 10px;
+    padding: 0px;
+    margin: 0px;
+    line-height: 10px;
+    height: 40px;
+    /* background-color: aqua; */
+  }
 }
