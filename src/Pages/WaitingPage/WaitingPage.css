@@ -73,7 +73,7 @@
     }
   }
 
-  @media (max-width: 740px) {
+  @media (max-width: 800px) {
   
     .error-mobile-waiting-page{
       height: 60vh;
