@@ -82,9 +82,9 @@
   display: flex;
 }
 
-@media (max-width: 1350px) {
+/* @media (max-width: 1350px) {
   .all-elements-of-comments {
-    /* background-color: aqua; */
+    
     height: 80%;
   }
   .posts-comments-container {
@@ -99,7 +99,7 @@
 }
 @media (max-width: 1250px) {
   .all-elements-of-comments {
-    /* background-color: aqua; */
+    
     height: 80%;
   }
   .posts-comments-container {
@@ -107,16 +107,16 @@
   }
   .likes-comments-times-of-comments-container {
     height: 50px;
-    /* background-color: red; */
+    
   }
   .fan-comments-posts > div {
     height: 45px;
-    /* background-color: red; */
+    
   }
-}
-@media (max-width: 1150px) {
+} */
+@media (max-width: 1450px) {
   .all-elements-of-comments {
-    /* background-color: aqua; */
+    
     height: 80%;
   }
   .posts-comments-container {

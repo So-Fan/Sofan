@@ -112,7 +112,7 @@
 }
 
 /* 1470x754 */
-@media (max-width: 1350px) {
+/* @media (max-width: 1350px) {
   .media-fullpagepost {
     width: 700px;
     height: 700px;
@@ -174,8 +174,8 @@
     width: 100%;
     height: 70px;
   }
-}
-@media (max-width: 1150px) {
+} */
+@media (max-width: 1450px) {
   .media-fullpagepost {
     width: 600px;
     height: 600px;
@@ -208,9 +208,6 @@
     width: 100%;
     height: 70px;
   }
-  /* #dropdown-small {
-    display: none;
-  } */
 }
 @media (max-width: 1050px) {
   .media-fullpagepost {
