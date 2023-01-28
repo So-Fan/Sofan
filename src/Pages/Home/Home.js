@@ -29,6 +29,9 @@ function Home({ waitingPage }) {
                 <li>
                   <a href="http://localhost:3000/post938098">Full Page Post</a>
                 </li>
+                <li>
+                  <a href="http://localhost:3000/pollpost">PollPost</a>
+                </li>
               </ul>
             </h1>
           </section>
