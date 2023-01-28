@@ -6,12 +6,12 @@
 .carroussel-athlete-wrap{
     width: 288px;
     overflow: hidden;
-    overflow-x: scroll;
+    /* overflow-x: scroll;
     -ms-overflow-style: none;
-    scrollbar-width: none;
+    scrollbar-width: none; */
 }
 .carroussel-athlete-wrap::-webkit-scrollbar{
-    display: none;
+    /* display: none; */
 }
 .carroussel-athlete-subwrap{
     display: flex;
