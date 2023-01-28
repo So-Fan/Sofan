@@ -6,12 +6,20 @@
 .carroussel-athlete-wrap{
     width: 288px;
     overflow: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.carroussel-athlete-wrap::-webkit-scrollbar{
+    display: none;
 }
 .carroussel-athlete-subwrap{
     display: flex;
     justify-content: space-between;
-    min-width: 350px;
     animation: 1s ease-in-out;
+}
+.athlete-template-container{
+    padding-right: 10px;
 }
 .carroussel-right-arrow-wrap{
     position: absolute;
