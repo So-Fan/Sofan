@@ -9,7 +9,7 @@
 
 .dropdown-button-point{
     border-radius: 20px;
-    background-color: black;
+    background-color: black !important;
 }
 .dropdown-button-point-size-S {
     width: 3px;
