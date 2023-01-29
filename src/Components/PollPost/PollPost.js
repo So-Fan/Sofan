@@ -43,7 +43,7 @@ const PollPost = (choiceNumber) => {
       <div className="headofpost-pollpost-container">
         <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
       </div>
-      <div className="logique container"></div>
+      <div className="description-pollpost">Qui est le gagnant ?</div>
       <div className="pollpost-wrap">
         <div className="progressbar-poll-subwrap">
           <div className="progressbar-poll">
