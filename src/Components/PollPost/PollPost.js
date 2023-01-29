@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { ProgressBar } from "react-bootstrap";
 import "./PollPost.css";
 import HeadOfPost from "../PostsComponents/HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../PostsComponents/LikesCommentsCounter/LikesCommentsCounter";
-import AppProgressBar from "../AppProgressBar/AppProgressBar";
+import AddCommentInput from "../PostsComponents/AddCommentInput/AddCommentInput";
 
-const PollPost = () => {
+const PollPost = (choiceNumber) => {
   const [surveyResults, setSurveyResults] = useState([57, 98, 120, 302]);
-
-  const surveyCalc = () => {
+  const [choiceName, setChoiceName] = useState(["Barrier", "Attanasio"]);
+  const surveyCalc = (choiceNumber) => {
     const totalPropositions = surveyResults.length;
     console.log(totalPropositions);
     const sum = surveyResults.reduce((acc, currentValue) => acc + currentValue);
@@ -19,89 +18,105 @@ const PollPost = () => {
       percentage.toFixed(1)
     );
     console.log(roundedPercentages);
+    console.log(roundedPercentages[0]);
+    if (choiceNumber == 1) {
+      return roundedPercentages[0];
+    } else if (choiceNumber == 2) {
+      return roundedPercentages[1];
+    } else if (choiceNumber == 3) {
+      return roundedPercentages[2];
+    } else if (choiceNumber == 4) {
+      return roundedPercentages[3];
+    } else {
+      return "ERROR";
+    }
   };
+  const choiceNumber1 = surveyCalc((choiceNumber = 1));
+  const choiceNumber2 = surveyCalc((choiceNumber = 2));
+  const choiceNumber3 = surveyCalc((choiceNumber = 3));
+  const choiceNumber4 = surveyCalc((choiceNumber = 4));
   //   const totalVotes = Object.values(surveyResults).reduce((a, b) => a + b, 0);
 
   return (
     <section className="pollpost-container">
+      {/* <div className="pollpost-wrap"> */}
+      <div className="headofpost-pollpost-container">
+        <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
+      </div>
+      <div className="logique container"></div>
       <div className="pollpost-wrap">
-        <div className="headofpost-pollpost-container">
-          <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
-        </div>
-        {surveyCalc()}
-        <div className="logique container">
-          {/* <h1>Survey Results</h1>
-        <p>Question: What is your favorite color?</p>
-        <div>
-        <div>
-        Rouge: {((surveyResults.red / totalVotes) * 100).toFixed(2)}%
-        </div>
-        <ProgressBar now={(surveyResults.red / totalVotes) * 100} />
-        </div>
-        <div>
-        <div>
-        Vert: {((surveyResults.green / totalVotes) * 100).toFixed(2)}%
-        </div>
-        <ProgressBar now={(surveyResults.green / totalVotes) * 100} />
-        </div>
-        <div>
-        <div>
-        Bleu: {((surveyResults.blue / totalVotes) * 100).toFixed(2)}%
-        </div>
-        <ProgressBar now={(surveyResults.blue / totalVotes) * 100} />
-    </div> */}
-          {/* <div>
-            <div>
-              Orange: {((surveyResults.orange / totalVotes) * 100).toFixed(2)}%
-            </div>
-            <ProgressBar now={(surveyResults.orange / totalVotes) * 100} />
-          </div> */}
-        </div>
-        <div className="pollpost-wrap">
-          <div className="progressbar-poll-subwrap">
-            <div className="progressbar-poll">
-              <div className="pollstate-bar" style={{}}>
-                Choix 1
-              </div>
-              <div className="progressbar-bootstrap-container">
-                {/* <ProgressBar
-                  now={(surveyResults.orange / totalVotes) * 100}
-                  style={{ height: "40px"}}
-                /> */}
-                {/* <ProgressBar
-                  variant="success"
-                  style={{ height: "40px" }}
-                  now={(surveyResults.orange / totalVotes) * 100}
-                /> */}
-              </div>
+        <div className="progressbar-poll-subwrap">
+          <div className="progressbar-poll">
+            <div
+              className="pollstate-bar"
+              style={{ width: `${choiceNumber1}%` }}
+            >
+              <div className="survey-percent">{choiceNumber1}%</div>
+              <div className="choice-name">{choiceName[1]}</div>
             </div>
           </div>
-          <div className="progressbar-poll-subwrap">
-            <div className="progressbar-poll"></div>
-          </div>
-          <div className="progressbar-poll-subwrap">
-            <div className="progressbar-poll"></div>
-          </div>
-          <div className="progressbar-poll-subwrap">
-            <div className="progressbar-poll"></div>
-          </div>
-          <div className="ageofpost-poll-container">
-            <div className="ageofpost-poll-wrap">
-              <div className="ageofpost-and-timeleft-poll">
-                <div>2456 votes</div>
-                <div>-</div>
-                <div>1 day</div>
-              </div>
+        </div>
+        <div className="progressbar-poll-subwrap">
+          <div className="progressbar-poll">
+            <div
+              className="pollstate-bar"
+              style={{ width: `${choiceNumber2}%` }}
+            >
+              <div className="survey-percent">{choiceNumber2}%</div>
+              <div className="choice-name">{choiceName[1]}</div>
             </div>
           </div>
-          <div className="line-separation-pollpost-container">
-            <div className="line-separation-pollpost"></div>
+        </div>
+        <div className="progressbar-poll-subwrap">
+          <div className="progressbar-poll">
+            <div
+              className="pollstate-bar"
+              style={{ width: `${choiceNumber3}%` }}
+            >
+              <div className="survey-percent">{choiceNumber3}%</div>
+              <div className="choice-name">{choiceName[0]}</div>
+            </div>
           </div>
+        </div>
+        <div className="progressbar-poll-subwrap">
+          <div className="progressbar-poll">
+            <div
+              className="pollstate-bar"
+              style={{ width: `${choiceNumber4}%` }}
+            >
+              <div className="survey-percent">{choiceNumber4}%</div>
+              <div className="choice-name">{choiceName[0]}</div>
+            </div>
+          </div>
+        </div>
+        <div className="ageofpost-poll-container">
+          <div className="ageofpost-poll-wrap">
+            <div className="ageofpost-and-timeleft-poll">
+              <div>2456 votes</div>
+              <div>-</div>
+              <div>1 day</div>
+            </div>
+          </div>
+        </div>
+        <div className="line-separation-pollpost-container">
+          <div className="line-separation-pollpost"></div>
+        </div>
+        <div className="likes-comments-counter-pollpost-container">
           <LikesCommentsCounter />
         </div>
+        <div className="likes-comments-container-pollpost">
+          <div className="show-comments-button-publication-pollpost-container">
+            <div className="show-comments-button-publication-pollpost">
+              <a href="">Show 10 comments</a>
+            </div>
+          </div>
+        </div>
+        <div className="add-comment-pollpost-container-pollpost">
+          <AddCommentInput />
+        </div>
       </div>
+      {/* </div> */}
     </section>
   );
 };
-
 export default PollPost;
