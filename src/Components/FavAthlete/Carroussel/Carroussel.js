@@ -9,6 +9,50 @@ const Carroussel = () => {
   const [leftArrowClicked, setLeftArrowClicked] = useState(false);
   const [counter, setCounter] = useState(0);
 
+  const fakeArray = [
+    {
+      firstName: "James",
+      surName: "Lebron",
+      img: LeBron,
+      id: 0,
+      interaction: 15,
+      isFan: false,
+    },
+    {
+      firstName: "Kylian",
+      surName: "Mbappe",
+      img: Mbappe,
+      id: 1,
+      interaction: 18,
+      isFan: true,
+    },
+    {
+      firstName: "James2",
+      surName: "Lebron2",
+      img: LeBron,
+      id: 2,
+      interaction: 12,
+      isFan: true,
+    },
+    {
+      firstName: "Kylian2",
+      surName: "Mbappe2",
+      img: Mbappe,
+      id: 3,
+      interaction: 8,
+      isFan: false,
+    },
+  ];
+  const userFanAthlete = fakeArray.filter( athlete => athlete.isFan === true);
+  const userRecommandationAthlete = fakeArray.filter( athlete => athlete.isFan === false);
+
+  userRecommandationAthlete.sort(function(a, b) {
+    return b.interaction - a.interaction;
+  });
+
+  const filteredArray = [...userFanAthlete, ...userRecommandationAthlete];
+  const arrayLength = fakeArray.length;
+
   const handleRightArrowClicked = () => {
     setRightArrowClicked(true);
   };
@@ -17,70 +61,39 @@ const Carroussel = () => {
   };
 
   const style = {
-    transform: `translateX(${counter + 60}px)`,
+    transform: `translateX(${counter + 60 - (userFanAthlete.length * 5)}px)`,
     transition: "all .5s ease-in-out",
   };
   const style2 = {
     transform: `translateX(${counter}px)`,
     transition: "all .5s ease-in-out",
   };
+
   useEffect(() => {
     if (rightArrowClicked) {
-      setCounter(counter - 120);
-      setRightArrowClicked(false);
+        setCounter(counter - 120);
+        setRightArrowClicked(false);
     }
     if (leftArrowClicked) {
       setCounter(counter + 120);
       setLeftArrowClicked(false);
     }
-  }, [rightArrowClicked, leftArrowClicked]);
+  }, [rightArrowClicked, leftArrowClicked, counter]);
 
-  const fakeArray = [
-    {
-      firstName: "James",
-      surName: "Lebron",
-      img: LeBron,
-      id: 0,
-      interaction: 15,
-    },
-    {
-      firstName: "Kylian",
-      surName: "Mbappe",
-      img: Mbappe,
-      id: 1,
-      interaction: 18,
-    },
-    {
-      firstName: "James",
-      surName: "Lebron",
-      img: LeBron,
-      id: 2,
-      interaction: 12,
-    },
-    {
-      firstName: "Kylian",
-      surName: "Mbappe",
-      img: Mbappe,
-      id: 3,
-      interaction: 8,
-    },
-  ];
-  fakeArray.forEach((athlete)=> {
-    
-  })
-  const arrayLength = fakeArray.length;
 
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">
-        <div className="carroussel-athlete-subwrap" style={counter !== ((arrayLength - 2) * 120) * -1 ? style2 : style}>
-          {fakeArray.map((athlete) => {
+        <div className="carroussel-athlete-subwrap" style={counter !== ((filteredArray.length - 2) * 120) * -1 ? style2 : style}>
+          {filteredArray.map((athlete, index) => {
             return (
               <div className="athlete-template-container">
                 <AthleteTemplate
+                  key={index}
                   href={`/profile/${athlete.id}`}
                   src={athlete.img}
                   athleteName={athlete.surName + " " + athlete.firstName}
+                  isFan={athlete.isFan}
                 />
               </div>
             );
