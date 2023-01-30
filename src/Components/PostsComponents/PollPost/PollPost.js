@@ -21,7 +21,7 @@ const PollPost = (choiceNumber) => {
     choice3: false,
     choice4: false,
   });
-  console.log(choiceSelected.choice2)
+  console.log(choiceSelected.choice2);
   // This function calculate the percent of survey and return the result for 4
   const surveyCalc = (choiceNumber) => {
     const totalPropositions = surveyResults.length;
@@ -95,14 +95,27 @@ const PollPost = (choiceNumber) => {
           <div className="progressbar-poll">
             {isVoted ? (
               <>
-                <div
-                  className="pollstate-bar"
-                  style={{ width: `${choiceNumber1}%` }}
-                >
-                  {choiceSelected.choice1 && <><img className="checkmark-logo" src={checkMark} alt="" /></>}
-                  <div className="survey-percent">{choiceNumber1}%</div>
-                  <div className="choice-name">{choiceName[0]}</div>
-                </div>
+                {/* <div className="resizing-element-bar"> */}
+                  <div
+                    className="pollstate-bar"
+                    style={{ width: `${choiceNumber1}%` }}
+                  >
+                    <div className="choice-name">
+                      {choiceName[0]}
+
+                      {choiceSelected.choice1 && (
+                        <>
+                          <img
+                            className="checkmark-logo"
+                            src={checkMark}
+                            alt=""
+                          />
+                        </>
+                      )}
+                    </div>
+                    <div className="survey-percent">{choiceNumber1}%</div>
+                  </div>
+                {/* </div> */}
               </>
             ) : (
               <>
@@ -123,10 +136,21 @@ const PollPost = (choiceNumber) => {
                 <div
                   className="pollstate-bar"
                   style={{ width: `${choiceNumber2}%` }}
-                  >
-                  {choiceSelected.choice2 && <><img className="checkmark-logo" src={checkMark} alt="" /></>}
+                >
                   <div className="survey-percent">{choiceNumber2}%</div>
-                  <div className="choice-name">{choiceName[1]}</div>
+                  <div className="choice-name">
+                    {choiceName[1]}
+
+                    {choiceSelected.choice2 && (
+                      <>
+                        <img
+                          className="checkmark-logo"
+                          src={checkMark}
+                          alt=""
+                        />
+                      </>
+                    )}
+                  </div>
                 </div>
               </>
             ) : (
@@ -141,7 +165,7 @@ const PollPost = (choiceNumber) => {
             )}
           </div>
         </div>
-        
+
         <div className="progressbar-poll-subwrap">
           <div className="progressbar-poll">
             {isVoted ? (
@@ -150,9 +174,19 @@ const PollPost = (choiceNumber) => {
                   className="pollstate-bar"
                   style={{ width: `${choiceNumber3}%` }}
                 >
-                  {choiceSelected.choice3 && <><img className="checkmark-logo" src={checkMark} alt="" /></>}
                   <div className="survey-percent">{choiceNumber3}%</div>
-                  <div className="choice-name">{choiceName[2]}</div>
+                  <div className="choice-name">
+                    {choiceName[2]}
+                    {choiceSelected.choice3 && (
+                      <>
+                        <img
+                          className="checkmark-logo"
+                          src={checkMark}
+                          alt=""
+                        />
+                      </>
+                    )}
+                  </div>
                 </div>
               </>
             ) : (
@@ -176,9 +210,19 @@ const PollPost = (choiceNumber) => {
                   className="pollstate-bar"
                   style={{ width: `${choiceNumber4}%` }}
                 >
-                  {choiceSelected.choice4 && <><img className="checkmark-logo" src={checkMark} alt="" /></>}
                   <div className="survey-percent">{choiceNumber4}%</div>
-                  <div className="choice-name">{choiceName[3]}</div>
+                  <div className="choice-name">
+                    {choiceName[3]}
+                    {choiceSelected.choice4 && (
+                      <>
+                        <img
+                          className="checkmark-logo"
+                          src={checkMark}
+                          alt=""
+                        />
+                      </>
+                    )}
+                  </div>
                 </div>
               </>
             ) : (
