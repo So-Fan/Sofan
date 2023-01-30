@@ -3,18 +3,36 @@
   /* height: 369px; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  background-color: red;
 }
-.post-poll-file{
-    width: 459px;
-    height: 459px;
+.post-poll-file-wrap{
+  width: 459px;
+  height: 459px;
+  background-color: rebeccapurple;
+  position: relative;
+}
+.post-poll-file {
+  width: 459px;
+  height: 459px;
+}
+.post-poll-file-cross{
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 .post-poll-component > textarea {
   width: 100%;
   /* height: 349px; */
   resize: none;
   border: none;
+  font-family: "Britanica-Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  background-color: rgba(255, 255, 0, 0.452); /* A retirer*/
 }
 .post-poll-component > textarea:focus {
   border: none;
@@ -52,7 +70,7 @@
   line-height: 19px;
 }
 .post-poll-add-picture-wrap > input {
-    display: none;
+  display: none;
 }
 .post-poll-add-poll-wrap {
   width: 101px;
