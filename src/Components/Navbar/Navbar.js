@@ -7,7 +7,7 @@ import NavIcon from "./NavIcon/NavIcon";
 import notification from "../../Assets/Image/notification.svg";
 import NavProfile from "./NavProfile/NavProfile";
 import profile from "../../Assets/Image/profile.svg";
-const Navbar = () => {
+const Navbar = ({isProfileClickcd, setIsProfileClicked}) => {
   return (
     <section className="navbar-section">
       <div className="navbar-wrap">
@@ -24,7 +24,7 @@ const Navbar = () => {
               <NavIcon src={notification} />
               <div className="navbar-vertical"></div>
             </div>
-            <NavProfile src={profile} />
+            <NavProfile isProfileClickcd={isProfileClickcd} setIsProfileClicked={setIsProfileClicked} src={profile} />
           </div>
         </div>
       </div>
