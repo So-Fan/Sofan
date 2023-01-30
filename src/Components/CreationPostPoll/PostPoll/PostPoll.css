@@ -16,6 +16,7 @@
 .post-poll-file {
   width: 459px;
   height: 459px;
+  border-radius: 10px;
 }
 .post-poll-file-cross{
   position: absolute;
