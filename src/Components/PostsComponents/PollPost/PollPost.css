@@ -57,6 +57,7 @@
   height: 40px;
   border: 1px solid #f6d463;
   border-radius: 5px;
+  position: relative;
 }
 .pollstate-bar {
   height: 40px;
@@ -71,12 +72,14 @@
 .survey-percent {
   position: absolute;
   /* left: 62%; */
-  left: 860px;
+  /* left: 860px; */
+  right: 10px;
   font-size: 14px;
 }
 .choice-name {
   position: absolute;
-  left: 35%;
+  left: 10px;
+  /* left: 35%; */
   display: flex;
   align-items: center;
   /* left: 490px; */
@@ -87,8 +90,9 @@
   width: 15px;
   color: #F6D463;
   fill: #F6D463;
-  position: relative;
-  left: 50px;
+  margin-left: 0.5em;
+  /* position: absolute;
+  left: 50px; */
 }
 .ageofpost-poll-container {
   width: 100%;
