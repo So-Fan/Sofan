@@ -81,6 +81,13 @@
   font-size: 14px;
   font-family: "britanica-heavy";
 }
+.checkmark-logo{
+  width: 15px;
+  color: #F6D463;
+  fill: #F6D463;
+  position: absolute;
+  left: 40%;
+}
 .ageofpost-poll-container {
   width: 100%;
   /* background-color: green; */
