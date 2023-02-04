@@ -12,10 +12,10 @@ function Home({waitingPage}) {
       <h1>
         <ul>
           <li>
-            <a href="http://localhost:3000/signupathlete"> Sign up Athlete</a>
+            <a href="/signupathlete">Sign up Athlete</a>
           </li>
           <li>
-            <a href="http://localhost:3000/publication">
+            <a href="/publication">
               Publication component
             </a>
           </li>
