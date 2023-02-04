@@ -18,7 +18,7 @@ function Home({ waitingPage }) {
                 <li>
                   <a href="/signupathlete">
                     {" "}
-                    Sign up Athlete
+                    Sign-up Athlete
                   </a>
                 </li>
                 <li>
