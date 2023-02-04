@@ -89,6 +89,12 @@
   .publication-head-left-container {
     width: 55%;
   }
+  .publication-head-left-container-size-pollpost{
+    width: 40%;
+  }
+  .age-publication-pollpost{
+    font-size: 14px ;
+  }
   .athlete-name-publication {
     font-size: 14px;
   }

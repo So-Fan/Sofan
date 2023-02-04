@@ -89,7 +89,8 @@ const PollPost = (choiceNumber) => {
         <HeadOfPost
           dropDownMenuSize="dropdown-button-point-size-M"
           headOfPostSize="publication-head-left-container-size-pollpost"
-          publicationTypeHeadOfPostSize="publication-type-pollpost"
+          publicationTypeHeadOfPostPollPost="publication-type-pollpost"
+          agePublicationPollPost="age-publication-pollpost"
         />
       </div>
       <div className="description-pollpost">Qui est le gagnant ?</div>
