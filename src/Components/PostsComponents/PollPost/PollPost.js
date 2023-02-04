@@ -74,7 +74,7 @@ const PollPost = (choiceNumber) => {
         choice3: true,
         choice4: false,
       });
-    } else if (choiceNameEl.innerText === choiceName[3]){
+    } else if (choiceNameEl.innerText === choiceName[3]) {
       setChoiceSelected({
         choice1: false,
         choice2: false,
@@ -85,9 +85,12 @@ const PollPost = (choiceNumber) => {
   };
   return (
     <section className="pollpost-container">
-      {/* <div className="pollpost-wrap"> */}
       <div className="headofpost-pollpost-container">
-        <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
+        <HeadOfPost
+          dropDownMenuSize="dropdown-button-point-size-M"
+          headOfPostSize="publication-head-left-container-size-pollpost"
+          publicationTypeHeadOfPostSize="publication-type-pollpost"
+        />
       </div>
       <div className="description-pollpost">Qui est le gagnant ?</div>
       <div className="pollpost-wrap">
@@ -95,27 +98,24 @@ const PollPost = (choiceNumber) => {
           <div className="progressbar-poll">
             {isVoted ? (
               <>
-                {/* <div className="resizing-element-bar"> */}
-                  <div
-                    className="pollstate-bar"
-                    style={{ width: `${choiceNumber1}%` }}
-                  >
-                    <div className="choice-name">
-                      {choiceName[0]}
-
-                      {choiceSelected.choice1 && (
-                        <>
-                          <img
-                            className="checkmark-logo"
-                            src={checkMark}
-                            alt=""
-                          />
-                        </>
-                      )}
-                    </div>
-                    <div className="survey-percent">{choiceNumber1}%</div>
+                <div
+                  className="pollstate-bar"
+                  style={{ width: `${choiceNumber1}%` }}
+                >
+                  <div className="choice-name">
+                    {choiceName[0]}
+                    {choiceSelected.choice1 && (
+                      <>
+                        <img
+                          className="checkmark-logo"
+                          src={checkMark}
+                          alt=""
+                        />
+                      </>
+                    )}
                   </div>
-                {/* </div> */}
+                  <div className="survey-percent">{choiceNumber1}%</div>
+                </div>
               </>
             ) : (
               <>

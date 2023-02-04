@@ -159,31 +159,5 @@
 .likes-comments-container-pollpost {
   width: 90%;
 }
-/* .resizing-element-bar{
-  width: 100%;
-  background-color: red;
-  height: 100%;
-} */
 
-/* @media (max-width: 1350px) {
-  .choice-name{
-    left: 460px;
-  }
-  .survey-percent{
- left: 840px;
-  }
-  .checkmark-logo{
-
-  }
-}
-@media (max-width: 1300px) {
-  .choice-name{
-    left: 430px;
-  }
-  .survey-percent{
- left: 810px;
-  }
-  .checkmark-logo{
-
-  }
-} */
+/* Faire passer en props */

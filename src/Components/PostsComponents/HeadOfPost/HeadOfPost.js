@@ -3,12 +3,12 @@ import "./HeadOfPost.css";
 import DropDownButtonMenu from "../../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg"
 
-function HeadOfPost({ dropDownMenuSize }) {
+function HeadOfPost({ dropDownMenuSize, headOfPostSize, publicationTypeHeadOfPostSize }) {
   const [athleteName, setAthleteName] = useState("Romain Attanasio");
 
   return (
     <div className="publication-head-container">
-      <div className="publication-head-left-container">
+      <div className={`publication-head-left-container ${headOfPostSize}`}>
         {/* Backend here */}
         <div className="profilepic-athlete-publication"><img src={profilePicAttanasio} alt="" /></div>
         {/* Backend here */}
@@ -18,7 +18,7 @@ function HeadOfPost({ dropDownMenuSize }) {
       </div>
       <div className="publication-head-right-container">
         {/* Backend here si contenu PREMIUM ou FREE */}
-        <div className="publication-type">Free</div>
+        <div className={`publication-type ${publicationTypeHeadOfPostSize}`}>Free</div>
         <DropDownButtonMenu dropDownMenuSize={dropDownMenuSize} />
       </div>
     </div>
