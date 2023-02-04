@@ -7,7 +7,6 @@ import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAth
 import Publication from "./Components/Publication/Publication";
 function App() {
   return (
-    // <>
     <BrowserRouter>
       <Navbar />
       <Routes>
