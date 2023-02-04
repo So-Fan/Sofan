@@ -16,18 +16,18 @@ function Home({ waitingPage }) {
             <h1>
               <ul>
                 <li>
-                  <a href="http://localhost:3000/signupathlete">
+                  <a href="/signupathlete">
                     {" "}
                     Sign up Athlete
                   </a>
                 </li>
                 <li>
-                  <a href="http://localhost:3000/publication">
+                  <a href="/publication">
                     Publication component
                   </a>
                 </li>
                 <li>
-                  <a href="http://localhost:3000/post938098">Full Page Post</a>
+                  <a href="/post938098">Full Page Post</a>
                 </li>
               </ul>
             </h1>
