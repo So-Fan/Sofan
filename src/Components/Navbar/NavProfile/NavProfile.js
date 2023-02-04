@@ -3,10 +3,11 @@ import "./NavProfile.css";
 const NavProfile = ({ isProfileClickcd, setIsProfileClicked, src }) => {
 
   
-  const handleProfileClick = () => {
+  const handleProfileClick = (e) => {
+    
     setIsProfileClicked(true)
   }
-  
+
   return (
     <div onClick={handleProfileClick} className="navbar-navprofile-container">
       <div className="navbar-navprofile" href="/my-profile">
