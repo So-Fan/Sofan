@@ -1,10 +1,10 @@
 import React from "react";
 import "./Home.css";
 
-function Home() {
+function Home({handleProfileOutClick}) {
   return (
     <>
-      <h1>Home</h1>
+      <h1 onClick={handleProfileOutClick}>Home</h1>
       <h1>
         <ul>
           <li>
