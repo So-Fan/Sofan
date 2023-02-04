@@ -85,7 +85,6 @@ function SignUpAthletePage() {
           )}
 
           {handleStepPages()}
-
           {fourthState ? (
             <>
               <div className="progress-bar-container">
