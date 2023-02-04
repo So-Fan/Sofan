@@ -105,7 +105,7 @@ body {
   height: 100vh!important;
   width: 100vw !important;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   /* background-color: red; */

@@ -9,6 +9,6 @@ function Navbar() {
       <img src={sofanLogo} alt="sofan logo" />
     </nav>
   );
-}
+};
 
 export default Navbar;
