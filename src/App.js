@@ -7,12 +7,17 @@ import Publication from "./Components/Publication/Publication";
 import { useState } from "react";
 
 function App() {
+  const [waitingPage, setWaitingPage] = useState(true)
   const [isProfileClickcd, setIsProfileClicked] = useState(false);
   const handleProfileOutClick = () => {
     setIsProfileClicked(false);
   };
   return (
     <BrowserRouter>
+    {/* {waitingPage ? <></> :  <Navbar /> } */}
+      
+      {/* <Routes> */}
+        {/* <Route index element={<Home waitingPage={waitingPage}/>} /> */}
       <Navbar
         isProfileClickcd={isProfileClickcd}
         setIsProfileClicked={setIsProfileClicked}

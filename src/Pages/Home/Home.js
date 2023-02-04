@@ -1,10 +1,14 @@
 import React from "react";
 import "./Home.css";
+import WaitingPage from "../WaitingPage/WaitingPage";
 
-function Home({handleProfileOutClick}) {
+function Home({waitingPage}) {
+  // const [waitingPage, setWaitingPage] = useState(true)
   return (
     <>
-      <h1 onClick={handleProfileOutClick}>Home</h1>
+    {waitingPage ? <><WaitingPage/></> : <>
+    
+      <h1>Home</h1>
       <h1>
         <ul>
           <li>
@@ -17,6 +21,7 @@ function Home({handleProfileOutClick}) {
           </li>
         </ul>
       </h1>
+    </>}
     </>
   );
 }
