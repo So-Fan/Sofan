@@ -38,6 +38,11 @@ function Home({ waitingPage }) {
                   Fav Athlete
                   </Link>
                 </li>
+                <li>
+                  <Link to="/sidenavlink">
+                  Side Nav Link
+                  </Link>
+                </li>
               </ul>
             </h1>
           </section>
