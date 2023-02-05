@@ -33,3 +33,8 @@
   text-decoration: none;
   color: #000000;
 }
+
+.favAthlete-subwrap > a:hover {
+  text-decoration: underline;
+  color: black;
+}
