@@ -15,7 +15,19 @@
   src: url("./Assets/Fonts/Britanica-Light.ttf") format("truetype");
 }
 
-
+@media (max-width: 800px) {
+  .error-mobile-waiting-page{
+    height: 60vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    line-height: 40px;
+    font-family: 'britanica-heavy';
+  }
+}
 
 /* RESET CSS DEFAULT VALUE */
 
@@ -82,4 +94,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "britanica-regular" !important;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap; */
+}
+
+.page-container {
+  height: 100vh!important;
+  width: 100vw !important;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  /* background-color: red; */
 }

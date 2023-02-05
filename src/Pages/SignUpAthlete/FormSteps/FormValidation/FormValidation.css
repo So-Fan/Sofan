@@ -1,0 +1,55 @@
+.form-validation-signup-athlete-container {
+  height: 80%;
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+.form-validation-signup-athlete-container > div {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo-validation-and-title-signup-athlete{
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+.title-validation-signup-athlete {
+  font-size: 30px;
+  font-family: "britanica-heavy";
+}
+
+.content-validation-signup-athlete {
+  font-size: 16px;
+  font-family: "britanica-regular";
+  text-align: center;
+}
+
+.back-to-feed-button {
+  width: 196px !important;
+  height: 67px !important;
+  border-radius: 10px;
+  border: none;
+  background-color: #f6d463;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: "britanica-heavy";
+}
+
+.back-to-feed-button:hover{
+    background-color: #f7c520 !important;
+    transition: 500ms;
+}
