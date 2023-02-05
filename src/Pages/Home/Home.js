@@ -29,7 +29,10 @@ function Home({ waitingPage }) {
                   <a href="/post938098">Full Page Post</a>
                 </li>
                 <li>
-                  <a href="http://localhost:3000/pollpost">PollPost</a>
+                  <a href="/pollpost">PollPost</a>
+                </li>
+                <li>
+                  <a href="/favathlete">Fav Athlete</a>
                 </li>
               </ul>
             </h1>
