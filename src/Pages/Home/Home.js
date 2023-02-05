@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import WaitingPage from "../WaitingPage/WaitingPage";
-
+import { Link } from  "react-router-dom"
 function Home({ waitingPage }) {
   return (
     <>
@@ -16,23 +16,27 @@ function Home({ waitingPage }) {
             <h1>
               <ul>
                 <li>
-                  <a href="/signupathlete">
+                  <Link to="/signupathlete">
                     Sign-up Athlete
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/publication">
+                  <Link to="/publication">
                     Publication component
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/post938098">Full Page Post</a>
+                  <Link to="/post938098">Full Page Post</Link>
                 </li>
                 <li>
-                  <a href="/pollpost">PollPost</a>
+                  <Link to="/pollpost">
+                  PollPost
+                  </Link>
                 </li>
                 <li>
-                  <a href="/favathlete">Fav Athlete</a>
+                  <Link to="/favathlete">
+                  Fav Athlete
+                  </Link>
                 </li>
               </ul>
             </h1>
