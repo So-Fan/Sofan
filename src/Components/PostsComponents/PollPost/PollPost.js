@@ -3,7 +3,7 @@ import "./PollPost.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
-import checkMark from "../../../Assets/Image/checkmark.svg";
+import checkMark from "../../../Assets/image/checkmark.svg";
 
 const PollPost = (choiceNumber) => {
   const [surveyResults, setSurveyResults] = useState([57, 98, 120, 302]);
@@ -32,13 +32,13 @@ const PollPost = (choiceNumber) => {
       percentage.toFixed(1)
     );
 
-    if (choiceNumber == 1) {
+    if (choiceNumber === 1) {
       return roundedPercentages[0];
-    } else if (choiceNumber == 2) {
+    } else if (choiceNumber === 2) {
       return roundedPercentages[1];
-    } else if (choiceNumber == 3) {
+    } else if (choiceNumber === 3) {
       return roundedPercentages[2];
-    } else if (choiceNumber == 4) {
+    } else if (choiceNumber === 4) {
       return roundedPercentages[3];
     } else {
       return "ERROR";
@@ -257,7 +257,7 @@ const PollPost = (choiceNumber) => {
         <div className="likes-comments-container-pollpost">
           <div className="show-comments-button-publication-pollpost-container">
             <div className="show-comments-button-publication-pollpost">
-              <a href="">Show 10 comments</a>
+              <a href="/">Show 10 comments</a>
             </div>
           </div>
         </div>

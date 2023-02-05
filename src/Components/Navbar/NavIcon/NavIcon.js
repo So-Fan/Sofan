@@ -6,7 +6,7 @@ const NavIcon = ({ src }) => {
     <img
       className="navbar-icon"
       src={src}
-      alt={`${src.split("/").pop().split(".")[0]} image`}
+      alt={`${src.split("/").pop().split(".")[0]}`}
     />
   );
 };

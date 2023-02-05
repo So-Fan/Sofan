@@ -1,0 +1,35 @@
+.favAthlete-container {
+  width: 288px;
+  height: 239px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.favAthlete-horizontal {
+  border: 0.3px solid rgba(0, 0, 0, 0.5);
+}
+.favAthlete-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 95%;
+}
+.favAthlete-subwrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.favAthlete-subwrap {
+  font-family: "Britanica-Heavy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+.favAthlete-subwrap > a {
+  font-family: "Britanica-Regular";
+  font-size: 13px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #000000;
+}

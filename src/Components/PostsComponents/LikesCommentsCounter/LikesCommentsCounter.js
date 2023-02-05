@@ -7,7 +7,7 @@ function LikesCommentsCounter({likeButtonSize}) {
             <div className="likes-publication">
               <LikeButton likeButtonSize={"likeButton-M-size"} />
               <div className="likes-counter-publication">
-                <a href="">29 likes</a>
+                <a href="/">29 likes</a>
               </div>
             </div>
             <div className="comments-publication">
@@ -27,7 +27,7 @@ function LikesCommentsCounter({likeButtonSize}) {
               </div>
               {/* Backend here */}
               <div className="comments-counter-publication">
-                <a href="">10 comments</a>
+                <a href="/">10 comments</a>
               </div>
             </div>
           </div>
