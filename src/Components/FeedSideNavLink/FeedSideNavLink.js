@@ -9,4 +9,4 @@ const FeedSideNavLink = ({href, svg, alt, title, imgWidth, gap}) => {
   )
 }
 
-export default FeedSideNavLink
+export default FeedSideNavLink;

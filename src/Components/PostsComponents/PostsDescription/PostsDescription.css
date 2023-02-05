@@ -1,0 +1,36 @@
+.publication-description {
+    height: 85px;
+    width: 100%;
+    /* background-color: grey; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 1350px) {
+    .publication-description{
+      width: 100%;
+      height: 60px;
+    }
+  }
+  @media (max-width: 1150px) {
+    .publication-description{
+      height: 90px;
+    }
+  }
+  @media (max-width: 1050px) {
+    .publication-description{
+      height: 70px;
+    }
+    .publication-description > p {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 900px) {
+    .publication-description{
+      height: 70px;
+    }
+    .publication-description > p {
+      font-size: 12px;
+    }
+  }

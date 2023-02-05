@@ -1,0 +1,79 @@
+.title-firststep {
+  font-size: 30px;
+  font-family: "britanica-heavy";
+}
+.firststep-container {
+  height: 70%;
+  width: 90%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.firststep-container form {
+  height: 90%;
+  width: 80%;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btns-firststep-container{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+.btn-firststep {
+  width: 40%;
+  height: 60%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  background-image: #FFFFFF;
+  opacity: 1 !important;
+  background: none ;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn-firststep:hover {
+  background-color: #f6d463 !important;
+}
+
+.btn-firststep-selected {
+    width: 40%;
+    height: 60%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    border: none;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    background-color: #f6d463!important;
+    opacity: 1 !important;
+    background: none ;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+.title-btn-firststep {
+  font-size: 25px;
+  font-family: 'britanica-heavy';
+  font-weight: 400;
+}
+
+.content-btn-firststep {
+  font-size: 16px;
+  font-family: 'britanica-regular';
+  font-weight: 400;
+  width: 50%;
+}
