@@ -1,6 +1,6 @@
 import React from "react";
 import "./PostsComments.css";
-import profilePicFan from "../../../Assets/Image/profilepicmbappecomments.svg";
+import profilePicFan from "../../../Assets/image/profilepicmbappecomments.svg";
 import LikeButton from "../LikeButton/LikeButton";
 function PostsComments() {
   return (

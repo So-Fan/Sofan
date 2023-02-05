@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./NavProfile.css";
 const NavProfile = ({ isProfileClickcd, setIsProfileClicked, src }) => {
 
@@ -11,7 +11,7 @@ const NavProfile = ({ isProfileClickcd, setIsProfileClicked, src }) => {
   return (
     <div onClick={handleProfileClick} className="navbar-navprofile-container">
       <div className="navbar-navprofile" href="/my-profile">
-        <img src={src} alt={`${src.split("/").pop().split(".")[0]} image`} />
+        <img src={src} alt={`${src.split("/").pop().split(".")[0]}`} />
       </div>
       {isProfileClickcd && <div className="navbar-dropdown">
         <a href="/profile">Voir profil</a>

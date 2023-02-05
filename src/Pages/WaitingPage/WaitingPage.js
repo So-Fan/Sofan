@@ -1,7 +1,7 @@
 import React from "react";
-import sofanLogo from "../../Assets/Image/sofanlogo.svg";
+import sofanLogo from "../../Assets/image/sofanlogo.svg";
 import "./WaitingPage.css";
-import explorePicture from "../../Assets/Image/explorepicture.svg";
+import explorePicture from "../../Assets/image/explorepicture.svg";
 
 function WaitingPage() {
   return (
