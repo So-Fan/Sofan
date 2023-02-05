@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../../DropDownButtonMenu/DropDownButtonMenu";
-import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
+import profilePicAttanasio from "../../../Assets/image/profilepicattanasio.svg";
 
 function HeadOfPost({
   dropDownMenuSize,
@@ -9,14 +9,14 @@ function HeadOfPost({
   publicationTypeHeadOfPostPollPost,
   agePublicationPollPost,
 }) {
-  const [athleteName, setAthleteName] = useState("Romain Attanasio");
+  const [athleteName, setAthleteName] = useState("Romain Attanasio"); // A supprimer quand data reçu du Backend
 
   return (
     <div className="publication-head-container">
       <div className={`publication-head-left-container ${headOfPostSize}`}>
         {/* Backend here */}
         <div className="profilepic-athlete-publication">
-          <img src={profilePicAttanasio} alt="" />
+          <img src={profilePicAttanasio} alt="profil utilisateur" />
         </div>
         {/* Backend here */}
         <div className="athlete-name-publication">{athleteName}</div>

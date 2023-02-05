@@ -5,14 +5,14 @@ import LikesCommentsCounter from "../../Components/PostsComponents/LikesComments
 import PostsDescription from "../../Components/PostsComponents/PostsDescription/PostsDescription";
 import PostsComments from "../../Components/PostsComponents/PostsComments/PostsComments";
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
-import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
+import mediaPostAttanasio from "../../Assets/image/mediapostattanasio.svg";
 
 function FullPagePost() {
   return (
     <div className="opacitychange-fullpagepost">
       <section className="fullpagepost-container">
         <div className="cancel-fullpagepost">
-          <a href="">
+          <a href="/">
             <svg
               width="20"
               height="20"
