@@ -3,7 +3,7 @@ import "./PollPost.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
-import checkMark from "../../../Assets/Image/checkmark.svg";
+import checkMark from "../../../Assets/image/checkmark.svg";
 
 const PollPost = (choiceNumber) => {
   const [surveyResults, setSurveyResults] = useState([57, 98, 120, 302]);
