@@ -6,21 +6,25 @@ import Home from "./Pages/Home/Home";
 import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage";
 import { useState } from "react";
 function App() {
-  const [isProfileClickcd, setIsProfileClicked] = useState(false);
-  const handleProfileOutClick = () => {
-    setIsProfileClicked(false);
+  const [isProfileClicked, setIsProfileClicked] = useState(false);
+  const handleProfileClick = (e) => {
+    console.log(e.target.id);
+    if (e.target.id === "navbar-user-profile-img") {
+      setIsProfileClicked(true);
+    } else {
+      setIsProfileClicked(false);
+    }
   };
   return (
     // <>
     <BrowserRouter>
-      <Navbar
-        isProfileClickcd={isProfileClickcd}
-        setIsProfileClicked={setIsProfileClicked}
-      />
-      <Routes>
-          <Route index element={<Home handleProfileOutClick={handleProfileOutClick}/>} />
+      <div onClick={handleProfileClick}>
+        <Navbar isProfileClicked={isProfileClicked} />
+        <Routes>
+          <Route index element={<Home />} />
           <Route path="/signupathlete" element={<SignUpAthletePage />} />
-      </Routes>
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }
