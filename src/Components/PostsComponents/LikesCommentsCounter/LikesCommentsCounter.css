@@ -59,6 +59,10 @@
   .comments-counter-publication {
     font-size: 12px;
   }
+  .likes-counter-publication-pollpost,
+  .comments-counter-publication-pollpost {
+    font-size: 14px;
+  }
   .logo-comments-publication {
     width: 0px !important;
   }

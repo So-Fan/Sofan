@@ -88,8 +88,10 @@ const PollPost = (choiceNumber) => {
       <div className="headofpost-pollpost-container">
         <HeadOfPost
           dropDownMenuSize="dropdown-button-point-size-M"
-          headOfPostSize="publication-head-left-container-size-pollpost"
+          headOfPostSizeLeft="publication-head-left-container-size-pollpost"
+          headOfPostSizeRight="publication-head-right-container-pollpost"
           publicationTypeHeadOfPostPollPost="publication-type-pollpost"
+          athleteNamePollPost="athlete-name-publication-pollpost"
           agePublicationPollPost="age-publication-pollpost"
         />
       </div>
@@ -252,7 +254,10 @@ const PollPost = (choiceNumber) => {
           <div className="line-separation-pollpost"></div>
         </div>
         <div className="likes-comments-counter-pollpost-container">
-          <LikesCommentsCounter />
+          <LikesCommentsCounter
+          likesCounterPublicationPollPost="likes-counter-publication-pollpost"
+          commentsCounterPublicationPollPost="comments-counter-publication-pollpost"
+          />
         </div>
         <div className="likes-comments-container-pollpost">
           <div className="show-comments-button-publication-pollpost-container">
