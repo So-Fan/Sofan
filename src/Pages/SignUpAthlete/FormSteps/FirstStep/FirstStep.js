@@ -20,18 +20,6 @@ function FirstStep({
     setSportif(true);
     setIsFirstStepValidated(true)
   };
-
-  // gestionnaire de clic sur le bouton "suivant"
-  // function handleNext(e) {
-  //   // vérification que l'un des deux boutons est sélectionné avant de passer à la seconde page
-  //   e.preventDefault();
-  //   if (agent || sportif) {
-  //     // setStep(2);
-  //     setIsFirstStepValidated(true)
-  //   }
-  // }
-  
-
   return (
     <>
       <section className="firststep-container">
@@ -57,9 +45,6 @@ function FirstStep({
               </div>
             </button>
           </div>
-          {/* <button onClick={handleNext} className="form-button">
-            Étape suivante
-          </button> */}
         </form>
       </section>
     </>
