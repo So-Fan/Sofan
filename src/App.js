@@ -11,6 +11,8 @@ import FavAthlete from './Components/FavAthlete/FavAthlete';
 import FeedSideNavLink from './Components/FeedSideNavLink/FeedSideNavLink';
 import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
+import 'bootstrap/dist/css/bootstrap.css';
+
 function App() {
   // const [waitingPage, setWaitingPage] = useState(true)
   const [isProfileClickcd, setIsProfileClicked] = useState(false);
