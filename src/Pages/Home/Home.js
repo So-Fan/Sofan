@@ -22,7 +22,7 @@ function Home({ waitingPage }) {
                 </li>
                 <li>
                   <Link to="/publication">
-                    Publication component
+                    PostFeed
                   </Link>
                 </li>
                 <li>

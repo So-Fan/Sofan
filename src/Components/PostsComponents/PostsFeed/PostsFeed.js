@@ -4,6 +4,7 @@ import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import PublicationDescription from "../PostsDescription/PostsDescription";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
+import AppModal from "../../AppModal/AppModal";
 
 function PostsFeed() {
   // const handleChange = (e) => {};
@@ -29,6 +30,7 @@ function PostsFeed() {
           <AddCommentInput />
         </div>
       </div>
+        <AppModal/>
     </>
   );
 }
