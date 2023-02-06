@@ -9,9 +9,9 @@ import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 
 function FullPagePost() {
   return (
-    <div className="opacitychange-fullpagepost">
+    // <div className="opacitychange-fullpagepost">
       <section className="fullpagepost-container">
-        <div className="cancel-fullpagepost">
+        {/* <div className="cancel-fullpagepost">
           <a href="/">
             <svg
               width="20"
@@ -26,7 +26,7 @@ function FullPagePost() {
               />
             </svg>
           </a>
-        </div>
+        </div> */}
         <div className="post-container-fullpagepost">
           <div className="media-fullpagepost">
             <img className="img-fullpagepost" src={mediaPostAttanasio} alt="" />
@@ -65,7 +65,7 @@ function FullPagePost() {
           </div>
         </div>
       </section>
-    </div>
+    // </div>
   );
 }
 

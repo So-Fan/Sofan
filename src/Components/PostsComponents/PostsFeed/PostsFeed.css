@@ -9,6 +9,7 @@
   background: #ffffff;
   box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
   border-radius: 9.94299px;
+  box-sizing: none !important;
 }
 
 .publication-head-container {

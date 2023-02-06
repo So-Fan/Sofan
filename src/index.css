@@ -110,3 +110,7 @@ body {
   flex-direction: column;
   /* background-color: red; */
 }
+
+*, *::before, *::after {
+  box-sizing: unset!important;
+}

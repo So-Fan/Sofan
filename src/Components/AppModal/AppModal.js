@@ -10,19 +10,16 @@ function AppModal(props) {
       size={props.size}
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      dialogClassName={props.class}
+      dialogClassName={props.ModalClass}
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+      {/* <Modal.Header closeButton>
+        </Modal.Header> */}
+      <Modal.Body style={{padding: 0}}>
         {props.children}
       </Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 }

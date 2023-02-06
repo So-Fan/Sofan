@@ -35,7 +35,7 @@ function PostsFeed() {
           <AddCommentInput />
         </div>
       </div>
-      <AppModal class="rami-modal" size="xl" show={modalShow} onHide={() => setModalShow(false)}>
+      <AppModal ModalClass="rami-modal" size="xl" show={modalShow} onHide={() => setModalShow(false)}>
         <FullPagePost />
       </AppModal>
     </>

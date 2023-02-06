@@ -1,18 +1,18 @@
 /* 1470x920 */
 .opacitychange-fullpagepost {
-  position: absolute;
+  /* position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8); */
 }
 
 .fullpagepost-container {
-  position: relative;
+  /* position: relative;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .post-container-fullpagepost {
