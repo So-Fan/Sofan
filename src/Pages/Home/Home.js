@@ -43,10 +43,10 @@ function Home({ waitingPage }) {
                 </li>
               </ul>
             </h1>
-            <AppModal show={modalShow} onHide={() => setModalShow(false)}>
-              <PollPost />
-            </AppModal>
           </section>
+          <AppModal size="lg" show={modalShow} onHide={() => setModalShow(false)}>
+            <PollPost />
+          </AppModal>
         </>
       )}
     </>

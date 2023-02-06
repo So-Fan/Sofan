@@ -48,3 +48,7 @@
 .line-separation-comments-publication {
   border: 0.29829px solid rgba(0, 0, 0, 0.2);
 }
+
+.rami-modal {
+  max-width: 1357px;
+}

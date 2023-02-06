@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
@@ -11,7 +12,6 @@ import FavAthlete from './Components/FavAthlete/FavAthlete';
 import FeedSideNavLink from './Components/FeedSideNavLink/FeedSideNavLink';
 import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
-import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   // const [waitingPage, setWaitingPage] = useState(true)
