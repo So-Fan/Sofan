@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AthleteTemplate from "../AthleteTemplate/AthleteTemplate";
 import LeBron from "../fakeData/lebron.svg";
 import Mbappe from "../fakeData/mbappe.svg";
-import RightArrow from "../../../Assets/Image/right_arrow.svg";
+import RightArrow from "../../../Assets/image/right_arrow.svg";
 import "./Carroussel.css";
 const Carroussel = () => {
   const [rightArrowClicked, setRightArrowClicked] = useState(false);
@@ -43,10 +43,12 @@ const Carroussel = () => {
       isFan: false,
     },
   ];
-  const userFanAthlete = fakeArray.filter( athlete => athlete.isFan === true);
-  const userRecommandationAthlete = fakeArray.filter( athlete => athlete.isFan === false);
+  const userFanAthlete = fakeArray.filter((athlete) => athlete.isFan === true);
+  const userRecommandationAthlete = fakeArray.filter(
+    (athlete) => athlete.isFan === false
+  );
 
-  userRecommandationAthlete.sort(function(a, b) {
+  userRecommandationAthlete.sort(function (a, b) {
     return b.interaction - a.interaction;
   });
 
@@ -61,7 +63,7 @@ const Carroussel = () => {
   };
 
   const style = {
-    transform: `translateX(${counter + 60 - (userFanAthlete.length * 5)}px)`,
+    transform: `translateX(${counter + 60 - userFanAthlete.length * 5}px)`,
     transition: "all .5s ease-in-out",
   };
   const style2 = {
@@ -71,8 +73,8 @@ const Carroussel = () => {
 
   useEffect(() => {
     if (rightArrowClicked) {
-        setCounter(counter - 120);
-        setRightArrowClicked(false);
+      setCounter(counter - 120);
+      setRightArrowClicked(false);
     }
     if (leftArrowClicked) {
       setCounter(counter + 120);
@@ -80,11 +82,15 @@ const Carroussel = () => {
     }
   }, [rightArrowClicked, leftArrowClicked, counter]);
 
-
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">
-        <div className="carroussel-athlete-subwrap" style={counter !== ((filteredArray.length - 2) * 120) * -1 ? style2 : style}>
+        <div
+          className="carroussel-athlete-subwrap"
+          style={
+            counter !== (filteredArray.length - 2) * 120 * -1 ? style2 : style
+          }
+        >
           {filteredArray.map((athlete, index) => {
             return (
               <div className="athlete-template-container">
@@ -100,18 +106,22 @@ const Carroussel = () => {
           })}
         </div>
       </div>
-      {counter !== ((arrayLength - 2) * 120) * -1 &&<div
-        onClick={handleRightArrowClicked}
-        className="carroussel-right-arrow-wrap"
-      >
-        <img src={RightArrow} alt="right arrow" />
-      </div>}
-      {counter <= -120 && <div
-        onClick={handleLeftArrowClicked}
-        className="carroussel-left-arrow-wrap"
-      >
-        <img src={RightArrow} alt="left arrow" />
-      </div>}
+      {counter !== (arrayLength - 2) * 120 * -1 && (
+        <div
+          onClick={handleRightArrowClicked}
+          className="carroussel-right-arrow-wrap"
+        >
+          <img src={RightArrow} alt="right arrow" />
+        </div>
+      )}
+      {counter <= -120 && (
+        <div
+          onClick={handleLeftArrowClicked}
+          className="carroussel-left-arrow-wrap"
+        >
+          <img src={RightArrow} alt="left arrow" />
+        </div>
+      )}
     </div>
   );
 };
