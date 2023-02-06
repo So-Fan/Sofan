@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../../DropDownButtonMenu/DropDownButtonMenu";
-import profilePicAttanasio from "../../../Assets/image/profilepicattanasio.svg";
+import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
 
 function HeadOfPost({
   dropDownMenuSize,

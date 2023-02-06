@@ -43,6 +43,9 @@ function Home({ waitingPage }) {
                   Side Nav Link
                   </Link>
                 </li>
+                <li>
+                  
+                </li>
               </ul>
             </h1>
           </section>
