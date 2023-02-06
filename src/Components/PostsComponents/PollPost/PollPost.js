@@ -257,6 +257,7 @@ const PollPost = (choiceNumber) => {
           <LikesCommentsCounter
           likesCounterPublicationPollPost="likes-counter-publication-pollpost"
           commentsCounterPublicationPollPost="comments-counter-publication-pollpost"
+          commentPublicationPollPost="comments-publication-pollpost"
           />
         </div>
         <div className="likes-comments-container-pollpost">

@@ -36,6 +36,7 @@
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
+  /* background-color: red; */
 }
 
 .comments-counter-publication {
@@ -55,6 +56,10 @@
     width: 120px;
     height: 20px;
   }
+  .comments-publication-pollpost {
+    width: 140px;
+    height: 20px;
+  }
   .likes-counter-publication,
   .comments-counter-publication {
     font-size: 12px;
@@ -66,9 +71,12 @@
   .logo-comments-publication {
     width: 0px !important;
   }
+  /* MODIFIER NOM QUAND BACKEND DISPO */
   .logo-comments-publication svg {
-    
     width: 18px !important;
+  }
+  .logo-comments-publication{
+    
   }
 }
 
