@@ -1,6 +1,6 @@
 import React from 'react'
 import "./AthleteTemplate.css"
-import Star from "../../../Assets/image/star.svg";
+import Star from "../../../Assets/Image/star.svg";
 const AthleteTemplate = ({href, src, athleteName, isFan}) => {
   return (
     <a href={href} className={isFan ? "athleteTemplate-container athleteTemplate-container-fan" : "athleteTemplate-container"}

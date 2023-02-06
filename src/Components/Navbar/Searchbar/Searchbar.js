@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Searchbar.css"
-import magnifyingGlass from "../../../Assets/image/magnifying_glass.svg"
+import magnifyingGlass from "../../../Assets/Image/magnifying_glass.svg"
 const Searchbar = () => {
   return (
     <div className='searchbar-container'>

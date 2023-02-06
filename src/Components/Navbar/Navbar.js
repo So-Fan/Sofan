@@ -1,12 +1,12 @@
 import React from "react";
 import "./Navbar.css";
-import SofanLogo2 from "../../Assets/image/sofanlogo2.svg";
+import SofanLogo2 from "../../Assets/Image/sofanlogo2.svg";
 import Searchbar from "./Searchbar/Searchbar";
 import NavLink from "./NavLink/NavLink";
 import NavIcon from "./NavIcon/NavIcon";
-import notification from "../../Assets/image/notification.svg";
+import notification from "../../Assets/Image/notification.svg";
 import NavProfile from "./NavProfile/NavProfile";
-import profile from "../../Assets/image/profile.svg";
+import profile from "../../Assets/Image/profile.svg";
 const Navbar = ({isProfileClickcd, setIsProfileClicked}) => {
   return (
     <section className="navbar-section">

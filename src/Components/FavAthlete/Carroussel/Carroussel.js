@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AthleteTemplate from "../AthleteTemplate/AthleteTemplate";
 import LeBron from "../fakeData/lebron.svg";
 import Mbappe from "../fakeData/mbappe.svg";
-import RightArrow from "../../../Assets/image/right_arrow.svg";
+import RightArrow from "../../../Assets/Image/right_arrow.svg";
 import "./Carroussel.css";
 const Carroussel = () => {
   const [rightArrowClicked, setRightArrowClicked] = useState(false);
