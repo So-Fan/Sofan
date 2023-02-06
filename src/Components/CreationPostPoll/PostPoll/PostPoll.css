@@ -5,12 +5,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: red;
+  /* background-color: red; */
 }
 .post-poll-file-wrap{
   width: 459px;
   height: 459px;
-  background-color: rebeccapurple;
+  /* background-color: rebeccapurple; */
   position: relative;
 }
 .post-poll-file {

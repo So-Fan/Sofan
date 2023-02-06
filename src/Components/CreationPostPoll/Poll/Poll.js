@@ -1,7 +1,7 @@
 import React from "react";
 import "./Poll.css";
-import ArrowBottom from "../../../Assets/image/arrow_bottom.svg";
-import YellowCross from "../../../Assets/image/cross_add_yellow.svg";
+import ArrowBottom from "../../../Assets/Image/arrow_bottom.svg";
+import YellowCross from "../../../Assets/Image/cross_add_yellow.svg";
 const Poll = () => {
   return (
     <div className="poll-component">
@@ -11,8 +11,8 @@ const Poll = () => {
           <div className="poll-choice-wrap">
             <div>
               {/* faire un mapping */}
-              <input type="text" placeholder="choix 1" />
-              <input type="text" placeholder="choix 2" />
+              <input type="text" placeholder="Choix 1" />
+              <input type="text" placeholder="Choix 2" />
             </div>
             <button>
               <img src={YellowCross} alt="yellow cross" />
@@ -51,7 +51,9 @@ const Poll = () => {
             </div>
           </div>
         </div>
-        <button><span>Remove the poll</span></button>
+        <button>
+          <span>Remove the poll</span>
+        </button>
       </div>
     </div>
   );

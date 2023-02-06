@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./CreationPostPoll.css";
-import Cross from "../../Assets/image/cross.svg";
+import Cross from "../../Assets/Image/cross.svg";
 import PostPoll from "./PostPoll/PostPoll";
 
 const CreationPostPoll = () => {

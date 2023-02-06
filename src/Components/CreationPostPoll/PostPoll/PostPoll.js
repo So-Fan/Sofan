@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./PostPoll.css";
-import Img from "../../../Assets/image/img.svg";
-import Form from "../../../Assets/image/form.svg";
-import ImgCross from "../../../Assets/image/cross_background_white.svg";
+import Img from "../../../Assets/Image/img.svg";
+import Form from "../../../Assets/Image/form.svg";
+import ImgCross from "../../../Assets/Image/cross_background_white.svg";
 import Poll from "../Poll/Poll";
 const PostPoll = ({
   file,

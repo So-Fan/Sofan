@@ -1,5 +1,5 @@
 .poll-component {
-  background-color: yellow;
+  /* background-color: yellow; */
   height: 327px;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@
 .poll-choice-container {
   height: 85%; /* height variable*/
   width: 439px;
-  background-color: green;
+  /* background-color: green; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -37,7 +37,7 @@
   align-items: flex-end;
   justify-content: space-between;
   width: 100%;
-  background-color: aqua;
+  /* background-color: aqua; */
 }
 .poll-choice-wrap > div {
   display: flex;
@@ -62,6 +62,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
+  padding-left: 10px;
 }
 .poll-choice-wrap > div > input:focus::placeholder {
   color: transparent;
@@ -75,6 +76,8 @@
 .poll-duration-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 70px;
 }
 .poll-duration-container > span {
   font-family: "Britanica-Heavy";
@@ -128,4 +131,15 @@
 .poll-container > button {
   width: 459px;
   height: 48px;
+  border: solid #000000;
+  border-width: 0.3px 0px 0px 0px;
+  border-radius: 0 0 5px 5px;
+}
+.poll-container > button > span {
+  color: #ee4d4d;
+  font-family: "Britanica-Heavy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
 }
