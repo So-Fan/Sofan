@@ -105,7 +105,6 @@ function SecondStep({ setSecondStepValidated }) {
                 })}
               </div>
             </div>
-            <div className="button-container"></div>
           </form>
         </div>
       </div>

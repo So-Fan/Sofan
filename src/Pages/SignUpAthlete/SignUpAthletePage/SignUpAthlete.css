@@ -25,7 +25,8 @@
   width: 100%;
   text-align: center;
   opacity: 0.5;
-  
+  position: absolute;
+  top: 15%;
 }
 .button-and-progressbar-container{
   height: 190px;
