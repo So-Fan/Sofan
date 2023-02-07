@@ -36,11 +36,8 @@
   color: #9b9b9b;
   font-size: 16px;
 }
-.publish-comments-button-container-publication {
-}
 
 .publish-comments-button-container-publication > a > button {
-  /* outline: none; */
   border: none;
   background: none;
   font-family: "britanica-black";
@@ -54,30 +51,26 @@
   } */
 }
 @media (max-width: 1050px) {
-  .input-comment-elements {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background: rgba(60, 64, 69, 0.04);
-    height: 50px;
-    width:100%;
-    /* background-color: red; */
-  }
-  .input-comment-publication{
-    width: 60%;
-    height: 100%;
-    
-  }
+ 
   .emoji-comment-publication svg {
     width: 18px;
     position: relative;
     /* left: -70% !important; */
   }
-  .publish-comments-button-container-publication{
+  .emoji-comment-publication-pollpost svg {
+    width: 25px;
+  }
+  .publish-comments-button-container-publication {
     width: 20%;
   }
+  .publish-comments-button-container-publication-pollpost {
+    width: auto;
+  }
   .publish-comments-button-container-publication button {
-  font-size: 14px !important;
+    font-size: 14px !important;
+  }
+  .publish-comments-button-container-publication-pollpost button {
+    font-size: 16px !important;
   }
 }
 @media (max-width: 900px) {
@@ -105,6 +98,9 @@
     width: 16px;
     position: relative;
     /* left: -70% !important; */
+  }
+  .emoji-comment-publication-pollpost svg {
+    width: 25px;
   }
   .publish-comments-button-container-publication{
     width: 40%;

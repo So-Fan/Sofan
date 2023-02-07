@@ -271,7 +271,10 @@ const PollPost = (choiceNumber) => {
           </div>
         </div>
         <div className="add-comment-pollpost-container-pollpost">
-          <AddCommentInput />
+          <AddCommentInput
+          emojiCommentPublicationPollPost="emoji-comment-publication-pollpost"
+          publishButtonAddCommentPollPost="publish-comments-button-container-publication-pollpost"
+          />
         </div>
       </div>
       {/* </div> */}

@@ -1,12 +1,12 @@
 import React from "react";
 import "./AddCommentInput.css";
 
-function AddCommentInput() {
+function AddCommentInput({emojiCommentPublicationPollPost,publishButtonAddCommentPollPost}) {
   const handleChange = (e) => {};
   return (
     <div className="input-comment-container-publication">
       <div className="input-comment-elements">
-        <div className="emoji-comment-publication">
+        <div className={`emoji-comment-publication ${emojiCommentPublicationPollPost}`}>
           <a href="/">
             <svg
               width="25"
@@ -28,7 +28,7 @@ function AddCommentInput() {
           type="text"
           onChange={handleChange}
         />
-        <div className="publish-comments-button-container-publication">
+        <div className={`publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`}>
           <a href="/">
             {/* Backend here */}
             <button>Publish</button>
