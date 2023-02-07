@@ -5,7 +5,6 @@
 .firststep-container {
   height: 70%;
   width: 90%;
-  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,4 +75,20 @@
   font-family: 'britanica-regular';
   font-weight: 400;
   width: 50%;
+}
+
+@media (min-width:1900px) {
+  .title-firststep{
+    font-size: 3rem;
+  }
+  .firststep-container{
+    /* background-color: red; */
+    height: 100%;
+  }
+  .title-btn-firststep{
+    font-size: 2.5rem;
+  }
+  .content-btn-firststep{
+    font-size: 1.4rem;
+  }
 }

@@ -108,3 +108,11 @@
     /* background-color: red; */
   }
 }
+@media (min-width:1900px) {
+  .steps-signup{
+    font-size: 1.6rem !important;
+  }
+  .signup-athlete-button{
+    font-size: 1.45rem;
+  }
+}

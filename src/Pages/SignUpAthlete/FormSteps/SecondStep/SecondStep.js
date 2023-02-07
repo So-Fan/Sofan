@@ -82,7 +82,7 @@ function SecondStep({ setSecondStepValidated }) {
   return (
     <>
       <div className="secondstep-container">
-        <div className="form-container">
+        <div className="second-step-form-container">
           <form>
             <div className="form-and-title">
               <h2 className="title-signup-athlete-form">
