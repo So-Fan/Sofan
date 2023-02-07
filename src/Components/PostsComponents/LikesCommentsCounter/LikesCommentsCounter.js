@@ -5,11 +5,18 @@ function LikesCommentsCounter({
   likesCounterPublicationPollPost,
   commentsCounterPublicationPollPost,
   commentPublicationPollPost,
+  likeButtonSizePollPost,
+  likeButtonContainerPollPost,
+  logoCommentsPublicationPollPost
 }) {
   return (
     <div className="likes-comments-container-publication">
-      <div className="likes-publication">
-        <LikeButton likeButtonSize={"likeButton-M-size"} />
+      <div className={`like-button-container ${likeButtonContainerPollPost}`}>
+        <LikeButton
+          likeButtonSizePollPost={likeButtonSizePollPost}
+          likeButtonSize={"likeButton-M-size"}
+          // likeButtonContainerPollPost={likeButtonContainerPollPost}
+        />
         <div
           className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
         >
@@ -17,7 +24,7 @@ function LikesCommentsCounter({
         </div>
       </div>
       <div className={`comments-publication ${commentPublicationPollPost} `}>
-        <div className="logo-comments-publication">
+        <div className={`logo-comments-publication ${logoCommentsPublicationPollPost}`}>
           <svg
             width="21"
             height="20"

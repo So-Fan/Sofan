@@ -255,9 +255,12 @@ const PollPost = (choiceNumber) => {
         </div>
         <div className="likes-comments-counter-pollpost-container">
           <LikesCommentsCounter
+          likeButtonSizePollPost="logo-likes-pollpost"
           likesCounterPublicationPollPost="likes-counter-publication-pollpost"
           commentsCounterPublicationPollPost="comments-counter-publication-pollpost"
           commentPublicationPollPost="comments-publication-pollpost"
+          likeButtonContainerPollPost="like-button-container-pollpost"
+          logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
           />
         </div>
         <div className="likes-comments-container-pollpost">

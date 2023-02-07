@@ -1,10 +1,10 @@
 @font-face {
   font-family: "britanica-regular";
-  src: url("./Assets/Fonts/britanica-regular.ttf") format("truetype");
+  src: url("./Assets/Fonts/Britanica-Regular.ttf") format("truetype");
 }
 @font-face {
   font-family: "britanica-heavy";
-  src: url("./Assets/Fonts/britanica-heavy.ttf") format("truetype");
+  src: url("./Assets/Fonts/Britanica-Heavy.ttf") format("truetype");
 }
 @font-face {
   font-family: "britanica-black";
