@@ -255,12 +255,13 @@ const PollPost = (choiceNumber) => {
         </div>
         <div className="likes-comments-counter-pollpost-container">
           <LikesCommentsCounter
-          likeButtonSizePollPost="logo-likes-pollpost"
-          likesCounterPublicationPollPost="likes-counter-publication-pollpost"
-          commentsCounterPublicationPollPost="comments-counter-publication-pollpost"
-          commentPublicationPollPost="comments-publication-pollpost"
-          likeButtonContainerPollPost="like-button-container-pollpost"
-          logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
+          likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
+            likeButtonSizePollPost="logo-likes-pollpost"
+            likesCounterPublicationPollPost="likes-counter-publication-pollpost"
+            commentsCounterPublicationPollPost="comments-counter-publication-pollpost"
+            commentPublicationPollPost="comments-publication-pollpost"
+            likeButtonContainerPollPost="like-button-container-pollpost"
+            logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
           />
         </div>
         <div className="likes-comments-container-pollpost">
@@ -272,8 +273,11 @@ const PollPost = (choiceNumber) => {
         </div>
         <div className="add-comment-pollpost-container-pollpost">
           <AddCommentInput
-          emojiCommentPublicationPollPost="emoji-comment-publication-pollpost"
-          publishButtonAddCommentPollPost="publish-comments-button-container-publication-pollpost"
+            inputAddCommentContainer="input-comment-container-publication-pollpost"
+            inputCommentElementsPollPost="input-comment-elements-pollpost"
+            emojiCommentPublicationPollPost="emoji-comment-publication-pollpost"
+            inputCommentPublicationPollPost="input-comment-publication-pollpost"
+            publishButtonAddCommentPollPost="publish-comments-button-container-publication-pollpost"
           />
         </div>
       </div>

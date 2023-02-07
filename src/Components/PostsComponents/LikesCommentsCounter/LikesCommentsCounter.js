@@ -2,6 +2,7 @@ import React from "react";
 import LikeButton from "../LikeButton/LikeButton";
 import "./LikesCommentsCounter.css";
 function LikesCommentsCounter({
+  likesCommentsContainerPublicationPollPost,
   likesCounterPublicationPollPost,
   commentsCounterPublicationPollPost,
   commentPublicationPollPost,
@@ -10,7 +11,7 @@ function LikesCommentsCounter({
   logoCommentsPublicationPollPost
 }) {
   return (
-    <div className="likes-comments-container-publication">
+    <div className={`likes-comments-container-publication ${likesCommentsContainerPublicationPollPost} `}>
       <div className={`like-button-container ${likeButtonContainerPollPost}`}>
         <LikeButton
           likeButtonSizePollPost={likeButtonSizePollPost}
