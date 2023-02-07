@@ -30,6 +30,8 @@
 .button-and-progressbar-container{
   height: 190px;
   width: 100%;
+  position: absolute;
+  bottom: 2.5%;
   /* background-color: red; */
 }
 
