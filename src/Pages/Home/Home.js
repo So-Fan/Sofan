@@ -44,7 +44,9 @@ function Home({ waitingPage, handleProfileOutClick }) {
                   </Link>
                 </li>
                 <li>
-                  
+                  <Link to="/dropdown">
+                  DropDonwMenu
+                  </Link>
                 </li>
               </ul>
             </h1>

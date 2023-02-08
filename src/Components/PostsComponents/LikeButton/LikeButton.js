@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./LikeButton.css";
 
-function LikeButton({ likeButtonSize }) {
+function LikeButton({ likeButtonSize, likeButtonSizePollPost }) {
   const [isPostLiked, setIsPostedLiked] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ function LikeButton({ likeButtonSize }) {
 
   return (
     <>
-      <div className="logo-likes">
+      <div className={`logo-likes ${likeButtonSizePollPost}`}>
         {isPostLiked ? (
           <>
             <>

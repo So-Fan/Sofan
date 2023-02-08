@@ -24,7 +24,11 @@ const Navbar = ({isProfileClickcd, setIsProfileClicked}) => {
               <NavIcon src={notification} />
               <div className="navbar-vertical"></div>
             </div>
-            <NavProfile isProfileClickcd={isProfileClickcd} setIsProfileClicked={setIsProfileClicked} src={profile} />
+            <NavProfile
+              isProfileClickcd={isProfileClickcd}
+              setIsProfileClicked={setIsProfileClicked}
+              src={profile}
+            />
           </div>
         </div>
       </div>
