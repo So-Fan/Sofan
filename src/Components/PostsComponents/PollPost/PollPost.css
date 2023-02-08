@@ -65,7 +65,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: rgba(246, 212, 99, 0.5); */
+  background: rgba(246, 212, 99, 0.5);
   border-radius: 5px 0px 0px 5px;
   transition: 500ms;
   max-width: 464px;
