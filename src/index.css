@@ -204,22 +204,22 @@ body {
     height: 100vh !important;
     width: 100vw !important;
     display: flex !important;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    line-height: 40px;
+    line-height: 40px !important;
     font-family: "britanica-heavy";
   }
   .socials-network-waiting-page {
-    height: 45%;
+    height: 45% !important;
   }
   .logo-socials-waiting-page {
-    width: 60%;
+    width: 60% !important;
   }
   .svg-socials-waiting-page {
-    height: 25px;
-    width: 25px;
+    height: 25px !important;
+    width: 25px !important;
   }
   .page-container {
     display: none !important;
