@@ -11,7 +11,6 @@
   font-family: "britanica-heavy" !important;
   font-size: 30px;
   text-align: center;
-  line-height: ;
 }
 .fourthstep-form-container {
   height: 70%;
@@ -28,6 +27,8 @@
 
 .button-counterpart-fourthstep {
   width: 20%;
+  max-width: 341px;
+  max-height: 260px;
   height: 40%;
   display: flex;
   justify-content: space-evenly;
@@ -43,6 +44,8 @@
 }
 .button-counterpart-fourthstep-selected {
   width: 20%;
+  max-width: 341px;
+  max-height: 260px;
   height: 40%;
   display: flex;
   justify-content: space-evenly;

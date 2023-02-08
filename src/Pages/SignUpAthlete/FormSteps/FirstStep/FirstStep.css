@@ -32,6 +32,8 @@
 .btn-firststep {
   width: 40%;
   height: 60%;
+  max-width: 350px;
+  max-height: 230px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -51,6 +53,8 @@
 .btn-firststep-selected {
     width: 40%;
     height: 60%;
+    max-width: 320px;
+    max-height: 230px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
