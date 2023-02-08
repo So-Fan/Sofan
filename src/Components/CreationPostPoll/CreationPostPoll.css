@@ -17,16 +17,25 @@
   align-items: center;
   justify-content: center;
 }
-.creation-post-wrap{
-    width: 461px;
-    /* height: 524px; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* background-color: blue; */
+.creation-post-wrap {
+  width: 461px;
+  /* height: 524px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* background-color: blue; */
 }
 .creation-post-wrap > button {
-    height: 56px;
+  height: 56px;
+  background: #f6d463;
+  border-radius: 10px;
+  border: none;
+  color: #000000;
+  font-family: 'Britanica-Heavy';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
 }
 .creation-text-wrap {
   display: flex;
@@ -42,6 +51,6 @@
   line-height: 30px;
 }
 .creation-text-wrap > img {
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 }
