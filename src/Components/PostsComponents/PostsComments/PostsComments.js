@@ -15,8 +15,9 @@ function PostsComments() {
               <div className="fan-username-posts-comments">DonOfSomething</div>
               <div className="fan-comments-posts">
                 <div>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dumm…
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dumm…
                 </div>
                 <div className="likes-comments-times-of-comments-container">
                   <div className="likes-counter-and-answer-comments">

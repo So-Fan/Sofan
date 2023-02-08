@@ -92,27 +92,40 @@
   .publication-head-left-container-size-pollpost{
     width: 40%;
   }
+  .age-publication {
+    font-size: 12px;
+  }
   .age-publication-pollpost{
     font-size: 14px ;
   }
   .athlete-name-publication {
     font-size: 14px;
   }
-  .age-publication {
-    font-size: 12px;
+  .athlete-name-publication-pollpost {
+    font-size: 16px;
   }
   .publication-type {
     font-size: 12px;
     width: 60px;
     height: 18px;
   }
+  .publication-type-pollpost {
+    width: 84px;
+    height: 25px;
+  }
   .publication-head-right-container {
     max-width: 100px;
+  }
+  .publication-head-right-container-pollpost{
+    max-width: 150px;
   }
 }
 @media (max-width: 900px) {
   .publication-head-left-container {
     width: 55%;
+  }
+  .publication-head-left-container-size-pollpost{
+    width: 40%;
   }
   .profilepic-athlete-publication {
     width: 35px !important;
@@ -125,15 +138,29 @@
   .athlete-name-publication {
     font-size: 12px;
   }
+  .athlete-name-publication-pollpost {
+    font-size: 16px;
+  }
   .age-publication {
     font-size: 10px;
+  }
+  .age-publication-pollpost{
+    font-size: 14px ;
   }
   .publication-type {
     font-size: 10px;
     width: 50px;
     height: 18px;
   }
+  .publication-type-pollpost {
+    width: 84px;
+    height: 25px;
+    font-size: 14px;
+  }
   .publication-head-right-container {
     max-width: 100px;
+  }
+  .publication-head-right-container-pollpost{
+    max-width: 150px;
   }
 }
