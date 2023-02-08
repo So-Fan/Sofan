@@ -14,7 +14,6 @@
 .firststep-container form {
   height: 90%;
   width: 80%;
-  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,7 +52,7 @@
 .btn-firststep-selected {
     width: 40%;
     height: 60%;
-    max-width: 320px;
+    max-width: 350px;
     max-height: 230px;
     display: flex;
     justify-content: space-evenly;
@@ -82,17 +81,7 @@
 }
 
 @media (min-width:1900px) {
-  .title-firststep{
-    font-size: 3rem;
-  }
   .firststep-container{
-    /* background-color: red; */
-    height: 100%;
-  }
-  .title-btn-firststep{
-    font-size: 2.5rem;
-  }
-  .content-btn-firststep{
-    font-size: 1.4rem;
+    height: 90%;
   }
 }
