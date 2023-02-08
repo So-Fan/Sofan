@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 
 function SecondStep({ setSecondStepValidated }) {
   const inputRef = useRef([]);
-
+// Backend here
   const defaultValue = {
     name: "Votre nom",
     athletename: "Nom d'athlete",
