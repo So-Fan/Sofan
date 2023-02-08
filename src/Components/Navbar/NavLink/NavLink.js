@@ -1,11 +1,12 @@
-import React from 'react'
-import "./NavLink.css"
-const NavLink = ({name, link}) => {
+import React from "react";
+import "./NavLink.css";
+import { Link } from "react-router-dom";
+const NavLink = ({ name, link }) => {
   return (
-    <a className='navbar-navicon' href={link}>
+    <Link className="navbar-navicon" to={link}>
       {name}
-    </a>
-  )
-}
+    </Link>
+  );
+};
 
-export default NavLink
+export default NavLink;
