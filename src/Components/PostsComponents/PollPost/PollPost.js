@@ -119,7 +119,7 @@ const PollPost = (choiceNumber) => {
                   className="pollstate-bar"
                   style={{ width: `${choiceNumber1}%` }}
                 >
-                  <div className="choice-name">
+                  <div className="choice-name" style={{top: "11px"}}>
                     {choiceName[0]}
                     {choiceSelected.choice1 && (
                       <>
@@ -139,7 +139,7 @@ const PollPost = (choiceNumber) => {
                 <button onClick={showSurveyResult}>
                   <div className="pollstate-bar" style={{ width: "0%" }}>
                     <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[0]}</div>
+                    <div className="choice-name" style={{top: "9px"}}>{choiceName[0]}</div>
                   </div>
                 </button>
               </>
@@ -155,7 +155,7 @@ const PollPost = (choiceNumber) => {
                   style={{ width: `${choiceNumber2}%` }}
                 >
                   <div className="survey-percent">{choiceNumber2}%</div>
-                  <div className="choice-name">
+                  <div className="choice-name" style={{top: "11px"}}>
                     {choiceName[1]}
 
                     {choiceSelected.choice2 && (
@@ -175,7 +175,7 @@ const PollPost = (choiceNumber) => {
                 <button onClick={showSurveyResult}>
                   <div className="pollstate-bar" style={{ width: "0%" }}>
                     <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[1]}</div>
+                    <div className="choice-name" style={{top: "9px"}}>{choiceName[1]}</div>
                   </div>
                 </button>
               </>
@@ -192,7 +192,7 @@ const PollPost = (choiceNumber) => {
                   style={{ width: `${choiceNumber3}%` }}
                 >
                   <div className="survey-percent">{choiceNumber3}%</div>
-                  <div className="choice-name">
+                  <div className="choice-name" style={{top: "11px"}}>
                     {choiceName[2]}
                     {choiceSelected.choice3 && (
                       <>
@@ -211,7 +211,7 @@ const PollPost = (choiceNumber) => {
                 <button onClick={showSurveyResult}>
                   <div className="pollstate-bar" style={{ width: "0%" }}>
                     <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[2]}</div>
+                    <div className="choice-name" style={{top: "9px"}}>{choiceName[2]}</div>
                   </div>
                 </button>
               </>
@@ -228,7 +228,7 @@ const PollPost = (choiceNumber) => {
                   style={{ width: `${choiceNumber4}%` }}
                 >
                   <div className="survey-percent">{choiceNumber4}%</div>
-                  <div className="choice-name">
+                  <div className="choice-name" style={{top: "11px"}}>
                     {choiceName[3]}
                     {choiceSelected.choice4 && (
                       <>
@@ -247,7 +247,7 @@ const PollPost = (choiceNumber) => {
                 <button onClick={showSurveyResult}>
                   <div className="pollstate-bar" style={{ width: "0%" }}>
                     <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[3]}</div>
+                    <div className="choice-name" style={{top: "9px"}}>{choiceName[3]}</div>
                   </div>
                 </button>
               </>
