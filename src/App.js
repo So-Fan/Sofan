@@ -10,8 +10,8 @@ import FullPagePost from "./Pages/FullPagePost/FullPagePost";
 import PollPost from "./Components/PostsComponents/PollPost/PollPost";
 import FavAthlete from "./Components/FavAthlete/FavAthlete";
 import FeedSideNavLink from "./Components/FeedSideNavLink/FeedSideNavLink";
-import Star from "./Assets/image/star.svg";
-import World from "./Assets/image/world.svg";
+import Star from "./Assets/Image/star.svg";
+import World from "./Assets/Image/world.svg";
 
 function App() {
   // const [waitingPage, setWaitingPage] = useState(true)
