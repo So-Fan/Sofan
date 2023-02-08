@@ -39,7 +39,7 @@ function FullPagePost() {
               <div className="headofpost-container" id="dropdown-small">
                 <HeadOfPost dropDownMenuSize="dropdown-button-point-size-S" />
               </div>
-              <PostsDescription />
+              <PostsDescription postFeedDescription="post-feed-description-resize-fullpage" />
               <div className="likes-comments-counter-container-fullpagepost">
                 <LikesCommentsCounter likeButtonSize={"likeButton-S-size"} />
               </div>

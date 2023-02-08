@@ -16,6 +16,9 @@
       height: 85px;
       font-size: 16px;
     }
+    .post-feed-description-resize-fullpage{
+      /* font-size: ; */
+    }
   }
   @media (max-width: 1150px) {
     .post-feed-description{
@@ -49,6 +52,10 @@
     .post-feed-description-resize{
       height: 85px;
       font-size: 16px;
+    }
+    .post-feed-description-resize-fullpage{
+      font-size: 12px !important ;
+      background-color: red;
     }
     .post-feed-description > p {
       font-size: 12px;

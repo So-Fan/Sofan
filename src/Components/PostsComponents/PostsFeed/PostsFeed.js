@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./PostsFeed.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
-import PublicationDescription from "../PostsDescription/PostsDescription";
+import PostsDescription from "../PostsDescription/PostsDescription";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
@@ -32,7 +32,7 @@ function PostsFeed() {
               agePublicationPollPost="age-publication-pollpost"
             />
           </div>
-          <PublicationDescription
+          <PostsDescription
           postFeedDescription="post-feed-description-resize"
           />
           {/* Backend here */}
