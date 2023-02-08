@@ -5,7 +5,7 @@ import LikesCommentsCounter from "../../Components/PostsComponents/LikesComments
 import PostsDescription from "../../Components/PostsComponents/PostsDescription/PostsDescription";
 import PostsComments from "../../Components/PostsComponents/PostsComments/PostsComments";
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
-import mediaPostAttanasio from "../../Assets/image/mediapostattanasio.svg";
+import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 
 function FullPagePost() {
   return (

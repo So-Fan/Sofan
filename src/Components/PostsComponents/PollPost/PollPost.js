@@ -3,9 +3,20 @@ import "./PollPost.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
-import checkMark from "../../../Assets/image/checkmark.svg";
+import checkMark from "../../../Assets/Image/checkmark.svg";
+import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
 
 const PollPost = (choiceNumber) => {
+  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
+  function displayDropDown() {
+    if (isDropDownButtonClicked){
+      return <DropDownMenu/>
+    }
+    else {
+      return <></>
+    }
+  }
   const [surveyResults, setSurveyResults] = useState([57, 98, 120, 302]);
   // Reçu de la BDD
   const [choiceName, setChoiceName] = useState([
@@ -21,7 +32,7 @@ const PollPost = (choiceNumber) => {
     choice3: false,
     choice4: false,
   });
-  console.log(choiceSelected.choice2);
+  
   // This function calculate the percent of survey and return the result for 4
   const surveyCalc = (choiceNumber) => {
     const totalPropositions = surveyResults.length;
@@ -85,8 +96,11 @@ const PollPost = (choiceNumber) => {
   };
   return (
     <section className="pollpost-container">
+      {displayDropDown()}
       <div className="headofpost-pollpost-container">
         <HeadOfPost
+        isDropDownButtonClicked={isDropDownButtonClicked}
+        setIsDropDownButtonClicked={setIsDropDownButtonClicked}
           dropDownMenuSize="dropdown-button-point-size-M"
           headOfPostSizeLeft="publication-head-left-container-size-pollpost"
           headOfPostSizeRight="publication-head-right-container-pollpost"
@@ -255,7 +269,7 @@ const PollPost = (choiceNumber) => {
         </div>
         <div className="likes-comments-counter-pollpost-container">
           <LikesCommentsCounter
-          likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
+            likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
             likeButtonSizePollPost="logo-likes-pollpost"
             likesCounterPublicationPollPost="likes-counter-publication-pollpost"
             commentsCounterPublicationPollPost="comments-counter-publication-pollpost"

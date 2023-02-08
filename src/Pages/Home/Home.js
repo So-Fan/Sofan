@@ -43,6 +43,11 @@ function Home({ waitingPage }) {
                   Side Nav Link
                   </Link>
                 </li>
+                <li>
+                  <Link to="/dropdown">
+                  DropDonwMenu
+                  </Link>
+                </li>
               </ul>
             </h1>
           </section>
