@@ -12,17 +12,12 @@ import FeedSideNavLink from './Components/FeedSideNavLink/FeedSideNavLink';
 import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
 function App() {
-  // const [waitingPage, setWaitingPage] = useState(true)
   const [isProfileClickcd, setIsProfileClicked] = useState(false);
   const handleProfileOutClick = () => {
     setIsProfileClicked(false);
   };
   return (
     <BrowserRouter>
-    {/* {waitingPage ? <></> :  <Navbar /> } */}
-      
-      {/* <Routes> */}
-        {/* <Route index element={<Home waitingPage={waitingPage}/>} /> */}
       <Navbar
         isProfileClickcd={isProfileClickcd}
         setIsProfileClicked={setIsProfileClicked}

@@ -15,67 +15,6 @@
   src: url("./Assets/Fonts/Britanica-Light.ttf") format("truetype");
 }
 
-@media (max-width: 800px) {
-  .error-mobile-waiting-page {
-    height: 60vh;
-    width: 100vw;
-    display: flex;
-    /* justify-content: space-around; */
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    line-height: 40px;
-    font-family: "britanica-heavy";
-  }
-  .socials-network-waiting-page {
-    height: 45%;
-  }
-  .logo-socials-waiting-page {
-    width: 60%;
-  }
-  .svg-socials-waiting-page {
-    height: 25px;
-    width: 25px;
-  }
-  .waiting-page-container {
-    display: none;
-  }
-  .page-container {
-    display: none !important;
-  }
-}
-@media (max-height: 700px) {
-  .error-mobile-waiting-page {
-    height: 60vh;
-    width: 100vw;
-    display: flex;
-    /* justify-content: space-around; */
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    line-height: 40px;
-    font-family: "britanica-heavy";
-  }
-  .socials-network-waiting-page {
-    height: 45%;
-  }
-  .logo-socials-waiting-page {
-    width: 60%;
-  }
-  .svg-socials-waiting-page {
-    height: 25px;
-    width: 25px;
-  }
-  .waiting-page-container {
-    display: none;
-  }
-  .page-container {
-    display: none !important;
-  }
-}
-
 /* RESET CSS DEFAULT VALUE */
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -209,6 +148,8 @@ table {
 }
 
 /* END OF RESET */
+
+
 body {
   height: 100%;
   width: 100%;
@@ -222,19 +163,65 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "britanica-regular" !important;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex-wrap: wrap; */
 }
 
 .page-container {
   height: 100vh !important;
   width: 100vw !important;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
-  /* background-color: red; */
+}
+
+@media (max-width: 800px) {
+  .error-mobile-waiting-page {
+    height: 60vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    line-height: 40px;
+    font-family: "britanica-heavy";
+  }
+  .socials-network-waiting-page {
+    height: 45%;
+  }
+  .logo-socials-waiting-page {
+    width: 60%;
+  }
+  .svg-socials-waiting-page {
+    height: 25px;
+    width: 25px;
+  }
+  .page-container {
+    display: none !important;
+  }
+}
+@media (max-height: 700px) {
+  .error-mobile-waiting-page {
+    height: 100vh !important;
+    width: 100vw !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    line-height: 40px;
+    font-family: "britanica-heavy";
+  }
+  .socials-network-waiting-page {
+    height: 45%;
+  }
+  .logo-socials-waiting-page {
+    width: 60%;
+  }
+  .svg-socials-waiting-page {
+    height: 25px;
+    width: 25px;
+  }
+  .page-container {
+    display: none !important;
+  }
 }
