@@ -34,14 +34,13 @@ function SecondStep({ setSecondStepValidated }) {
     ) {
       e.target.className = "typed";
     }
-    verifierValidation();
   };
   const handleFocus = (e) => {
     const inputName = e.target.name;
 
     array.forEach((element) => {
       const i = array.indexOf(element);
-
+      console.log(defaultValue[inputName]);
       if (inputRef.current[i].value === defaultValue[inputName]) {
         inputRef.current[i].value = "";
         inputRef.current[i].className = "typed";
@@ -63,21 +62,7 @@ function SecondStep({ setSecondStepValidated }) {
     }
   };
 
-  function verifierValidation() {
-    let formIsValid = true;
-    for (let i = 0; i < inputRef.current.length; i++) {
-      if (
-        inputRef.current[i].value === "" ||
-        inputRef.current[i].value === defaultValue[inputRef.current[i].name]
-      ) {
-        formIsValid = false;
-        break;
-      }
-      setSecondStepValidated(true);
-      console.log("omg ?");
-    }
-    return formIsValid;
-  }
+
 
   return (
     <>
