@@ -41,18 +41,6 @@ function ThirdStep({setIsThirdStepValidated}) {
     setIsThirdStepValidated(true);
   };
 
-  function handleNext(e) {
-    // vérification que l'un des deux boutons est sélectionné avant de passer à la seconde page
-    e.preventDefault();
-    if (
-      veryLowLvlBlockchain ||
-      lowLvlBlockchain ||
-      mediumLowLvlBlockchain ||
-      mediumHighLvlBlockchain
-    ) {
-      // setStep(4);
-    }
-  }
 
   return (
     <section className="container-thirdstep">

@@ -12,7 +12,7 @@ function FullPagePost() {
     <div className="opacitychange-fullpagepost">
       <section className="fullpagepost-container">
         <div className="cancel-fullpagepost">
-          <a href="">
+          <a href="/">
             <svg
               width="20"
               height="20"

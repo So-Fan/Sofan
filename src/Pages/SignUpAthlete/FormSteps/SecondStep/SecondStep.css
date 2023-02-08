@@ -1,6 +1,6 @@
 .secondstep-container {
   height: 60%;
-  width: 100%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +45,7 @@
   height: 40px;
 }
 .input-container-secondstep {
-  height: 900px;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;

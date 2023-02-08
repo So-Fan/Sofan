@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./SecondStep.css";
 import { v4 as uuidV4 } from "uuid";
 
@@ -78,27 +78,6 @@ function SecondStep({ setSecondStepValidated }) {
     }
     return formIsValid;
   }
-
-  // function handleNext(e) {
-  //   // vérification que l'un des deux boutons est sélectionné avant de passer à la seconde page
-  //   e.preventDefault();
-  //   let formIsValid = true;
-  //   for (let i = 0; i < inputRef.current.length; i++) {
-  //     if (
-  //       inputRef.current[i].value === "" ||
-  //       inputRef.current[i].value === defaultValue[inputRef.current[i].name]
-  //     ) {
-  //       formIsValid = false;
-  //       break;
-  //     }
-  //   }
-  //   console.log(formIsValid);
-  //   if (formIsValid) {
-  //     // setStep(3);
-  //     console.log("?????????");
-  //     setSecondStepValidated(true);
-  //   }
-  // }
 
   return (
     <>

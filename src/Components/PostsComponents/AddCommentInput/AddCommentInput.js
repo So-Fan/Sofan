@@ -7,7 +7,7 @@ function AddCommentInput() {
     <div className="input-comment-container-publication">
       <div className="input-comment-elements">
         <div className="emoji-comment-publication">
-          <a href="">
+          <a href="/">
             <svg
               width="25"
               height="24"
@@ -29,7 +29,7 @@ function AddCommentInput() {
           onChange={handleChange}
         />
         <div className="publish-comments-button-container-publication">
-          <a href="">
+          <a href="/">
             {/* Backend here */}
             <button>Publish</button>
           </a>

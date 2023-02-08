@@ -6,7 +6,7 @@ import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 
 function PostsFeed() {
-  const handleChange = (e) => {};
+  // const handleChange = (e) => {};
   return (
     <>
       <div className="publication-container">

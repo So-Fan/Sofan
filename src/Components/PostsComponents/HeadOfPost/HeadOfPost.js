@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../../DropDownButtonMenu/DropDownButtonMenu";
-import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg"
+import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
 
-function HeadOfPost({ dropDownMenuSize }) {
-  const [athleteName, setAthleteName] = useState("Romain Attanasio");
+function HeadOfPost({
+  dropDownMenuSize,
+  headOfPostSize,
+  publicationTypeHeadOfPostPollPost,
+  agePublicationPollPost,
+}) {
+  const [athleteName, setAthleteName] = useState("Romain Attanasio"); // A supprimer quand data reçu du Backend
 
   return (
     <div className="publication-head-container">
-      <div className="publication-head-left-container">
+      <div className={`publication-head-left-container ${headOfPostSize}`}>
         {/* Backend here */}
-        <div className="profilepic-athlete-publication"><img src={profilePicAttanasio} alt="" /></div>
+        <div className="profilepic-athlete-publication">
+          <img src={profilePicAttanasio} alt="profil utilisateur" />
+        </div>
         {/* Backend here */}
         <div className="athlete-name-publication">{athleteName}</div>
         {/* Backend here */}
@@ -18,7 +25,11 @@ function HeadOfPost({ dropDownMenuSize }) {
       </div>
       <div className="publication-head-right-container">
         {/* Backend here si contenu PREMIUM ou FREE */}
-        <div className="publication-type">Free</div>
+        <div
+          className={`publication-type ${publicationTypeHeadOfPostPollPost}`}
+        >
+          Free
+        </div>
         <DropDownButtonMenu dropDownMenuSize={dropDownMenuSize} />
       </div>
     </div>

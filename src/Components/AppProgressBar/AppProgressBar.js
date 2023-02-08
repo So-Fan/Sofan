@@ -6,11 +6,13 @@ function AppProgressBar({progressValue, min = 0}) {
 
   const style = {
     barSize: {
-      height: 25,
-      width: "100%",
-      borderRadius: 10,
+      height: 40,
+      width: "80%",
+      // borderRadius: 10,
       overflow: 'hidden',
-      // transition : "500ms"
+      transition: "500ms",
+      background: "rgba(246, 212, 99, 0.5)"
+      // background: rgba(246, 212, 99, 0.5); border-radius: 5px 0px 0px 5px;
     }
   }
 
@@ -22,5 +24,4 @@ function AppProgressBar({progressValue, min = 0}) {
     variant="progress-bar"
   />;
 }
-
 export default AppProgressBar;

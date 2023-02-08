@@ -1,8 +1,8 @@
 import React from "react";
 import "./Home.css";
 import WaitingPage from "../WaitingPage/WaitingPage";
-
-function Home({ waitingPage }) {
+import { Link } from  "react-router-dom"
+function Home({ waitingPage, handleProfileOutClick }) {
   return (
     <>
       {waitingPage ? (
@@ -11,23 +11,40 @@ function Home({ waitingPage }) {
         </>
       ) : (
         <>
-          <section className="sofan-webapp-container">
+          <section className="sofan-webapp-container" onClick={handleProfileOutClick}>
             <h1>Home</h1>
             <h1>
               <ul>
                 <li>
-                  <a href="/signupathlete">
-                    {" "}
-                    Sign up Athlete
-                  </a>
+                  <Link to="/signupathlete">
+                    Sign-up Athlete
+                  </Link>
                 </li>
                 <li>
-                  <a href="/publication">
+                  <Link to="/publication">
                     Publication component
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/post938098">Full Page Post</a>
+                  <Link to="/post938098">Full Page Post</Link>
+                </li>
+                <li>
+                  <Link to="/pollpost">
+                  PollPost
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/favathlete">
+                  Fav Athlete
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/sidenavlink">
+                  Side Nav Link
+                  </Link>
+                </li>
+                <li>
+                  
                 </li>
               </ul>
             </h1>
