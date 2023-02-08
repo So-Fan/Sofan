@@ -44,9 +44,14 @@
   background: none ;
   border-radius: 10px;
   cursor: pointer;
+  opacity: 1;
 }
 .btn-firststep:hover {
   background-color: #f6d463 !important;
+  transition: .2s ease-in-out;
+}
+.btn-firststep:active{
+  background-color: #fff2C7 !important;
 }
 
 .btn-firststep-selected {

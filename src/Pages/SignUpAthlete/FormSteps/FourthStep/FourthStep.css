@@ -15,10 +15,15 @@
 .fourthstep-form-container {
   height: 70%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .fourthstep-container form {
   height: 100%;
   width: 100%;
+  max-width: 1100px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -61,7 +66,7 @@
 }
 
 .fourthstep-container button:hover {
-  background-color: #f7c520 !important;
+  background-color: #f6d463 !important;
 }
 .validation-button-container {
   /* height: 200px; */
