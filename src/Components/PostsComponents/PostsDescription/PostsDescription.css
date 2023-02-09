@@ -53,15 +53,17 @@
       height: 85px;
       font-size: 16px;
     }
-    .post-feed-description-resize-fullpage{
-      font-size: 12px !important ;
-      background-color: red;
-    }
     .post-feed-description > p {
       font-size: 12px;
     }
     .post-feed-description-resize > p {
       
       font-size: 16px;
+    }
+    .post-feed-description-resize-fullpage > p {
+      font-size: 10px !important ;
+      height: 50px;
+      display: flex;
+      align-items: center;
     }
   }

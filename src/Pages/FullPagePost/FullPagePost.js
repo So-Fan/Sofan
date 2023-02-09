@@ -33,10 +33,16 @@ function FullPagePost() {
           </div>
           <div className="desc-likes-comments-container-fullpagepost">
             <div className="bloc-content-fullpagepost">
-              <div className="headofpost-container" id="dropdown-medium">
+              <div
+                className="headofpost-container-fullpagepost"
+                id="dropdown-medium"
+              >
                 <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
               </div>
-              <div className="headofpost-container" id="dropdown-small">
+              <div
+                className="headofpost-container-fullpagepost"
+                id="dropdown-small"
+              >
                 <HeadOfPost dropDownMenuSize="dropdown-button-point-size-S" />
               </div>
               <PostsDescription postFeedDescription="post-feed-description-resize-fullpage" />
