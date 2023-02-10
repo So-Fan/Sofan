@@ -1,7 +1,7 @@
 import React from "react";
-import sofanLogo from "../../Assets/image/sofanlogo.svg";
+import sofanLogo from "../../Assets/Image/sofanlogo.svg";
 import "./WaitingPage.css";
-import explorePicture from "../../Assets/image/explorepicture.svg";
+import explorePicture from "../../Assets/Image/explorepicture.svg";
 
 function WaitingPage() {
   return (
@@ -9,7 +9,10 @@ function WaitingPage() {
       {/* Mobile display */}
       <section className="error-mobile-waiting-page">
         <img src={sofanLogo} alt="" />
-        <div>Oops, SoFan n'est pas conçu pour mobile, veuillez passer sur ordinateur ou agrandissez votre fenêtre.</div>
+        <div>
+          Oops, SoFan n'est pas conçu pour mobile, veuillez passer sur
+          ordinateur ou agrandissez votre fenêtre.
+        </div>
         <div className="socials-network-waiting-page">
           Restez au courant en nous suivant sur les réseaux sociaux !
           <div className="logo-socials-waiting-page">
