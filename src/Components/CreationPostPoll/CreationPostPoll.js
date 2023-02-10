@@ -6,6 +6,8 @@ import PostPoll from "./PostPoll/PostPoll";
 const CreationPostPoll = () => {
   const [file, setFile] = useState(null);
   const [isFile, setIsFile] = useState(0);
+  const [step, setStep] = useState(0)
+  const [isVisibilityClicked, setIsVisibilityClicked] = useState({0: {backgroundColor: "white"}, 1: {backgroundColor: "white"}})
   const handleFileUpload = (e) => {
     setFile(URL.createObjectURL(e.target.files[0]));
   };
@@ -14,11 +16,26 @@ const CreationPostPoll = () => {
     // setIsFile(0);
     setFile(null);
   }
+
+  const handleNextClick = () => {
+    if (step === 0){
+      setStep(step +1)
+    }else{
+      // Publier le contenu dans la BDD
+    }
+  }
+  const handleVisibilityClicked = e => {
+    if (e.target.id === "0") {
+      setIsVisibilityClicked({0: {backgroundColor: "#F6D463"}, 1: {backgroundColor: "white"}})
+    } else {
+      setIsVisibilityClicked({0: {backgroundColor: "white"}, 1: {backgroundColor: "#F6D463"}})
+    }
+  }
   const select = {
     creationPostContainer: [{ height: "566px" }, { minHeight: "771px" }],
     creationPostWrap: [{ height: "524px" }, { minHeight: "728px" }],
     postPollComponent: [{height: "369px"}, { minHeight: "610px" }],
-    postPollComponentTextArea: [{ height: "349px" }, { minHeight: "70px" }],
+    postPollComponentTextArea: [{ height: "349px" }, { minHeight: "70px" }, {maxHeight: "30px"}],
   };
   useEffect(() => {
     if(isFile === 0){
@@ -31,6 +48,7 @@ const CreationPostPoll = () => {
   useEffect(() => {
     setIsFile(0);
   }, []);
+  
  
   return (
     <div className="creation-post-component" >
@@ -43,10 +61,10 @@ const CreationPostPoll = () => {
           style={select.creationPostWrap[isFile]}
         >
           <div className="creation-text-wrap">
-            <span>Create a post</span>
+            <span>{step !=1 ? "Create a post" : "Who can see your post"}</span>
             <img src={Cross} alt="a cross" />
           </div>
-          <PostPoll
+          {step !== 1 ? <PostPoll
             file={file}
             setFile={setFile}
             setIsFile={setIsFile}
@@ -54,8 +72,15 @@ const CreationPostPoll = () => {
             handleImgCrossClick={(e) => handleImgCrossClick(e)}
             postPollComponent={select.postPollComponent[isFile]}
             postPollComponentTextArea={select.postPollComponentTextArea[isFile]}
-          />
-          <button>{/* replaced by button component*/}Next</button>
+            postPollPollTextArea={select.postPollComponentTextArea[2]}
+          /> 
+          :
+          <div className="creation-visibility-choice-container">
+            <div id="0" onClick={handleVisibilityClicked} style={isVisibilityClicked[0]}><span>Only my fans</span></div>
+            <div id="1" onClick={handleVisibilityClicked} style={isVisibilityClicked[1]}><span>All SoFan users</span></div>
+          </div>
+          }
+          <button onClick={handleNextClick}>{step !=1 ? "Next" : "Publish"}</button>
         </div>
       </div>
     </div>

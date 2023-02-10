@@ -33,7 +33,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  background-color: rgba(255, 255, 0, 0.452); /* A retirer*/
+  background-color: rgba(255, 255, 0, 0.452); 
 }
 .post-poll-component > textarea:focus {
   border: none;

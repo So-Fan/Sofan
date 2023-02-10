@@ -12,26 +12,34 @@ const PostPoll = ({
   handleImgCrossClick,
   postPollComponent,
   postPollComponentTextArea,
+  postPollPollTextArea
 }) => {
+  const [addOption, setAddOption] = useState(0)
   const ref = useRef();
   const handleAddPictureClick = () => {
     ref.current.click();
+    setAddOption(1);
   };
+  const handleAddPollClick = () => {
+    setAddOption(2);
+  }
 
   return (
     <div style={postPollComponent} className="post-poll-component">
-      <Poll />
-      {/* <textarea
-        style={postPollComponentTextArea}
+      <textarea
+        style={addOption !== 2 ? postPollComponentTextArea : postPollPollTextArea}
         type="text"
         placeholder="Write your thoughts.."
       />
+
+      {addOption === 2 && <Poll setAddOption={setAddOption} />}
+
       {file != null && (
         <div className="post-poll-file-wrap">
           <img src={file} alt="your file" className="post-poll-file" />
           <img onClick={handleImgCrossClick} src={ImgCross} alt="black cross with white background" className="post-poll-file-cross" />
         </div>
-      )} */}
+      )}
       <div className="post-poll-add-container">
         <div
           onClick={handleAddPictureClick}
@@ -46,7 +54,7 @@ const PostPoll = ({
             accept="image/*"
           />
         </div>
-        <div className="post-poll-add-poll-wrap">
+        <div onClick={handleAddPollClick} className="post-poll-add-poll-wrap">
           <img src={Form} alt="form" />
           <span>Add a Poll</span>
         </div>
