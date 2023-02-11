@@ -4,6 +4,8 @@
   justify-content: center;
   width: 100%;
   height: 90px;
+  /* position: fixed;
+  top: 0; */
 }
 .navbar-wrap {
   display: flex;
