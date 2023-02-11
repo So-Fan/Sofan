@@ -4,8 +4,10 @@
     border-radius: 6.22px;
     display: flex;
     align-items: flex-end;
+    margin-bottom: 10px;
   }
   .evenement-content-wrap {
+    width: 100%;
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0%,

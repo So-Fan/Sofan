@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 249px;
-  height: 258px;
+  min-height: 258px;
 }
 .evenement-header-container {
   display: flex;
