@@ -8,25 +8,9 @@ import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/Ad
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 
 function FullPagePost({ modal, setModal, toggleModal }) {
-  // const [modal, setModal] = useState(true);
-  // const toggleModal = (e) => {
-  //   e.preventDefault();
-  //   setModal(!modal);
-  //   console.log("bonjour");
-  // };
 
-  // {/* <>
-  //   {modal ? (
-  //     <>
-  //       <div onClick={toggleModal} className="overlay-postfeed"></div>
-  //     </>
-  //   ) : (
-  //     <> </>
-  //   )}
-  // </> */}
   function detectingClick(e) {
     if (e.target.className === "fullpagepost-container") {
-      console.log("la classe est bien fullpagepost-container");
       setModal(false);
     }
   }

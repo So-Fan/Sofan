@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./PollPost.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
@@ -257,7 +258,9 @@ const PollPost = (choiceNumber) => {
         <div className="likes-comments-container-pollpost">
           <div className="show-comments-button-publication-pollpost-container">
             <div className="show-comments-button-publication-pollpost">
-              <a href="/">Show 10 comments</a>
+              <Link>
+              Show 10 comments
+              </Link>
             </div>
           </div>
         </div>
