@@ -13,17 +13,17 @@ import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
 import "./App.css";
 import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
-function App() {
-  const [isProfileClicked, setIsProfileClicked] = useState(false);
+function App({isProfileClicked}) {
+  // const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [waitingPage, setWaitingPage] = useState(true);
-  const handleProfileClick = (e) => {
-    console.log(e.target.id);
-    if (e.target.id === "navbar-user-profile-img") {
-      setIsProfileClicked(true);
-    } else {
-      setIsProfileClicked(false);
-    }
-  };
+  // const handleProfileClick = (e) => {
+  //   console.log(e.target.id);
+  //   if (e.target.id === "navbar-user-profile-img") {
+  //     setIsProfileClicked(true);
+  //   } else {
+  //     setIsProfileClicked(false);
+  //   }
+  // };
 
   return (
     <BrowserRouter>
@@ -31,7 +31,7 @@ function App() {
 
       {/* <Routes> */}
       {/* <Route index element={<Home waitingPage={waitingPage}/>} /> */}
-      <div className="App" onClick={handleProfileClick}>
+      {/* <div className="App" onClick={handleProfileClick}> */}
         <Navbar isProfileClicked={isProfileClicked} />
         <Routes>
           <Route index element={<Home />} />
@@ -43,7 +43,7 @@ function App() {
         <Route path="/dropdown" element={<DropDownMenu />} />
         <Route path="/sidenavlink" element={<><FeedSideNavLink href={"/feed/decouverte"} svg={World} alt="World" title="Découverte" imgWidth={"20px"} gap={"11px"} /><FeedSideNavLink href={"/feed/abonnement"} svg={Star} alt="Star" title="Abonnement" imgWidth={"22.83px"} gap={"8.59px"} /></>} />
         </Routes>
-      </div>
+      {/* </div> */}
     </BrowserRouter>
   );
 }
