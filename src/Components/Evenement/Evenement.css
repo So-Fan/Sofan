@@ -1,0 +1,23 @@
+.evenement-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 249px;
+  height: 258px;
+}
+.evenement-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+.evenement-header-title {
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+}
+.evenement-header-button {
+  font-family: "Britanica-Regular";
+  line-height: 19px;
+  color: #000000;
+  text-decoration: none;
+}
