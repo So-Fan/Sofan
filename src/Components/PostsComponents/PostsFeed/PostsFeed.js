@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./PostsFeed.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import PublicationDescription from "../PostsDescription/PostsDescription";
@@ -9,16 +10,16 @@ import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 function PostsFeed() {
   const [modal, setModal] = useState(true);
   const toggleModal = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setModal(!modal);
-    console.log("bonjour");
+    console.log(e.currentTarget);
   };
+
   return (
     <>
       <div className="publication-container">
         <div className="publication-content">
           <div className="publication-head-container">
-            
             <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
           </div>
           <PublicationDescription />
@@ -27,10 +28,18 @@ function PostsFeed() {
           {/* Backend here */}
           <LikesCommentsCounter />
           <div className="show-comments-button-publication">
-            <a onClick={toggleModal} href="">
-            Show 10 comments
-            </a>
-            {modal && (<FullPagePost modal={modal} setModal={setModal} toggleModal={toggleModal}/>)}
+            <Link onClick={toggleModal}>Show 10 comments</Link>
+            {modal && (
+              <>
+                {/* <div className="modal-component-postfeed"> */}
+                <FullPagePost
+                  modal={modal}
+                  setModal={setModal}
+                  toggleModal={toggleModal}
+                />
+                {/* </div> */}
+              </>
+            )}
           </div>
           <div className="line-separation-comments-publication"></div>
           <AddCommentInput />
