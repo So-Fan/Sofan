@@ -49,7 +49,7 @@ function Home({ waitingPage, handleProfileOutClick }) {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/suggestions">
+                  <Link to="/feedsuggestions">
                   Suggestions
                   </Link>
                 </li>

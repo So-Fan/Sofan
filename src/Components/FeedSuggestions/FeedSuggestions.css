@@ -1,0 +1,20 @@
+.feedsuggestions-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 286px;
+  min-height: 280px;
+}
+.feedlaunchpad-header-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+.feedlaunchpad-header-container > span {
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+}
+.feedlaunchpad-header-container > a {
+  font-family: "Britanica-Regular";
+  text-decoration: none;
+}
