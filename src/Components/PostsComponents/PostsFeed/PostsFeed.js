@@ -8,12 +8,20 @@ import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 
 function PostsFeed() {
-  const [modal, setModal] = useState(true);
-  const toggleModal = (e) => {
-    // e.preventDefault();
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    console.log("toggleModal test")
+
     setModal(!modal);
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
   };
+  const callToggleModal = () => {
+    console.log("callToggleModal réussi")
+    toggleModal();
+  }
+  function testFunction() {
+    console.log("test reussi")
+  }
 
   return (
     <>
@@ -26,9 +34,12 @@ function PostsFeed() {
           {/* Backend here */}
           <div className="publication-media">MEDIA</div>
           {/* Backend here */}
-          <LikesCommentsCounter />
+          <LikesCommentsCounter
+          callToggleModal={callToggleModal}
+          togglemodal={toggleModal} 
+          testFunction={testFunction}/>
           <div className="show-comments-button-publication">
-            <Link onClick={toggleModal}>Show 10 comments</Link>
+            <Link  onClick={toggleModal}>Show 10 comments</Link>
             {modal && (
               <>
                 {/* <div className="modal-component-postfeed"> */}
