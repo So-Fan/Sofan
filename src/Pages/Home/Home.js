@@ -48,6 +48,16 @@ function Home({ waitingPage, handleProfileOutClick }) {
                   DropDonwMenu
                   </Link>
                 </li>
+                <li>
+                  <Link to="/evenement">
+                  Evenement
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/launchpad">
+                  Launchpad
+                  </Link>
+                </li>
               </ul>
             </h1>
           </section>
