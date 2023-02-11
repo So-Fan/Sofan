@@ -10,7 +10,7 @@ function PostsFeed() {
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   function displayDropDown() {
     if (isDropDownButtonClicked) {
-      return <DropDownMenu />;
+      return <DropDownMenu setIsDropDownButtonClicked={setIsDropDownButtonClicked} />;
     } else {
       return <></>;
     }
