@@ -13,6 +13,7 @@ import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
 import "./App.css";
 import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
+import FeedSuggestions from "./Components/FeedSuggestions/FeedSuggestions";
 function App() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [waitingPage, setWaitingPage] = useState(true);
@@ -39,9 +40,32 @@ function App() {
           <Route path="/publication" element={<PostsFeed />} />
           <Route path="/post938098" element={<FullPagePost />} />
           <Route path="/pollpost" element={<PollPost />} />
-        <Route path="/favathlete" element={<FavAthlete />} />
-        <Route path="/dropdown" element={<DropDownMenu />} />
-        <Route path="/sidenavlink" element={<><FeedSideNavLink href={"/feed/decouverte"} svg={World} alt="World" title="Découverte" imgWidth={"20px"} gap={"11px"} /><FeedSideNavLink href={"/feed/abonnement"} svg={Star} alt="Star" title="Abonnement" imgWidth={"22.83px"} gap={"8.59px"} /></>} />
+          <Route path="/favathlete" element={<FavAthlete />} />
+          <Route path="/dropdown" element={<DropDownMenu />} />
+          <Route path="/feedsuggestions" element={<FeedSuggestions />} />
+          <Route
+            path="/sidenavlink"
+            element={
+              <>
+                <FeedSideNavLink
+                  href={"/feed/decouverte"}
+                  svg={World}
+                  alt="World"
+                  title="Découverte"
+                  imgWidth={"20px"}
+                  gap={"11px"}
+                />
+                <FeedSideNavLink
+                  href={"/feed/abonnement"}
+                  svg={Star}
+                  alt="Star"
+                  title="Abonnement"
+                  imgWidth={"22.83px"}
+                  gap={"8.59px"}
+                />
+              </>
+            }
+          />
         </Routes>
       </div>
     </BrowserRouter>
