@@ -42,6 +42,9 @@ function Home({ waitingPage, handleProfileOutClick }) {
                     <Link to="/createpostpoll">CreationPostPoll</Link>
                   </li>
                 </li>
+                <li>
+                  <Link to="/eventcomponent">EventComponent</Link>
+                </li>
               </ul>
             </h1>
           </section>
