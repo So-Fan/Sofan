@@ -19,14 +19,13 @@ function FormValidation() {
           />
       </svg>
       <strong className="title-validation-signup-athlete">
-        We thank you for this information
+      Votre formulaire a bien été envoyé
       </strong>
           </div>
       <p className="content-validation-signup-athlete">
-        An agent will come back to you within 48 hours to validate your
-        registration within SoFan
+      Un agent reviendra vers vous dans les 48 heures pour valider votre inscription au sein de SoFan.
       </p>
-      <button className="back-to-feed-button">Back to feed</button>
+      <button className="back-to-feed-button">Retour à l'accueil</button>
           </div>
     </div>
   );
