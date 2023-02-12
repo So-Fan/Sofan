@@ -1,8 +1,8 @@
 import React from 'react'
 import "./PostsDescription.css"
-function PostsDescription() {
+function PostsDescription({postFeedDescription}) {
   return (
-    <div className="publication-description">
+    <div className={`post-feed-description ${postFeedDescription}`}>
       {/* Backend here */}
             <p>
               Lorem Ipsum has been the industry's standard dummy text ever since

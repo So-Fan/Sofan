@@ -25,11 +25,13 @@
   width: 100%;
   text-align: center;
   opacity: 0.5;
-  
+  position: absolute;
+  top: 15%;
 }
 .button-and-progressbar-container{
   height: 190px;
   width: 100%;
+  position: absolute;
   /* background-color: red; */
 }
 
@@ -103,5 +105,13 @@
   .progress-bar-total{
     width: 600px;
     /* background-color: red; */
+  }
+}
+@media (min-width:1900px) {
+  .steps-signup{
+    font-size: 1.6rem !important;
+  }
+  .signup-athlete-button{
+    font-size: 1.45rem;
   }
 }

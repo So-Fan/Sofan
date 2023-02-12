@@ -14,6 +14,9 @@
   line-height: 19px;
   color: #000000;
 }
+.feedlaunchpad-header-button:hover{
+  text-decoration: underline;
+}
 .feedsuggestions-content-type {
   font-family: "Britanica-Regular";
   font-size: 14px;
