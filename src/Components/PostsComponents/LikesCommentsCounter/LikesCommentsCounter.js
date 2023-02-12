@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
 import "./LikesCommentsCounter.css";
@@ -18,6 +19,35 @@ function LikesCommentsCounter({
       </div>
       <div className="comments-publication">
         <div className="logo-comments-publication">
+=======
+import LikeButton from "../LikeButton/LikeButton";
+import "./LikesCommentsCounter.css";
+function LikesCommentsCounter({
+  likesCommentsContainerPublicationPollPost,
+  likesCounterPublicationPollPost,
+  commentsCounterPublicationPollPost,
+  commentPublicationPollPost,
+  likeButtonSizePollPost,
+  likeButtonContainerPollPost,
+  logoCommentsPublicationPollPost
+}) {
+  return (
+    <div className={`likes-comments-container-publication ${likesCommentsContainerPublicationPollPost} `}>
+      <div className={`like-button-container ${likeButtonContainerPollPost}`}>
+        <LikeButton
+          likeButtonSizePollPost={likeButtonSizePollPost}
+          likeButtonSize={"likeButton-M-size"}
+          // likeButtonContainerPollPost={likeButtonContainerPollPost}
+        />
+        <div
+          className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
+        >
+          <a href="/">29 likes</a>
+        </div>
+      </div>
+      <div className={`comments-publication ${commentPublicationPollPost} `}>
+        <div className={`logo-comments-publication ${logoCommentsPublicationPollPost}`}>
+>>>>>>> staging
           <svg
             width="21"
             height="20"
@@ -31,14 +61,26 @@ function LikesCommentsCounter({
             />
           </svg>
         </div>
+<<<<<<< HEAD
 
         {/* Backend here */}
         <div onClick={callToggleModal} className="comments-counter-publication">
           <Link>10 comments</Link>
+=======
+        {/* Backend here */}
+        <div
+          className={`comments-counter-publication ${commentsCounterPublicationPollPost}`}
+        >
+          <a href="/">10 comments</a>
+>>>>>>> staging
         </div>
       </div>
     </div>
   );
 }
 
+<<<<<<< HEAD
 export default LikesCommentsCounter;
+=======
+export default LikesCommentsCounter;
+>>>>>>> staging
