@@ -14,7 +14,7 @@ function ProgressBarPollPost({isVoted, choiceNumberArray, choiceName, choiceSele
           >
             <div className="choice-name">
               {choiceName}
-              {choiceSelected.choice1 && (
+              {choiceSelected && (
                 <>
                   <img
                     className="checkmark-logo"

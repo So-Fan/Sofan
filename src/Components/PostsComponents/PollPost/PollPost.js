@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PollPost.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
@@ -19,12 +19,12 @@ const PollPost = (choiceNumber) => {
   }
   const [surveyResults, setSurveyResults] = useState([570, 98, 120, 302]);
   // Reçu de la BDD
-  const [choiceName, setChoiceName] = useState([
+  const choiceName = [
     "Barrier",
     "Attanasio",
     "John",
     "Arthur",
-  ]);
+  ]
   const [isVoted, setIsVoted] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState({
     choice1: false,
@@ -101,6 +101,7 @@ const PollPost = (choiceNumber) => {
       });
     }
   };
+
   return (
     <section className="pollpost-container">
       {displayDropDown()}
@@ -118,11 +119,12 @@ const PollPost = (choiceNumber) => {
       </div>
       <div className="description-pollpost">Qui est le gagnant ?</div>
       <div className="pollpost-wrap">
+
         <ProgressBarPollPost
           isVoted={isVoted}
           choiceNumberArray={choiceNumberArray[0]}
           choiceName={choiceName[0]}
-          choiceSelected={choiceSelected}
+          choiceSelected={choiceSelected.choice1}
           checkMark={checkMark}
           showSurveyResult={showSurveyResult}
         />
@@ -130,7 +132,7 @@ const PollPost = (choiceNumber) => {
           isVoted={isVoted}
           choiceNumberArray={choiceNumberArray[1]}
           choiceName={choiceName[1]}
-          choiceSelected={choiceSelected}
+          choiceSelected={choiceSelected.choice2}
           checkMark={checkMark}
           showSurveyResult={showSurveyResult}
         />
@@ -138,7 +140,7 @@ const PollPost = (choiceNumber) => {
           isVoted={isVoted}
           choiceNumberArray={choiceNumberArray[2]}
           choiceName={choiceName[2]}
-          choiceSelected={choiceSelected}
+          choiceSelected={choiceSelected.choice3}
           checkMark={checkMark}
           showSurveyResult={showSurveyResult}
         />
@@ -146,7 +148,7 @@ const PollPost = (choiceNumber) => {
           isVoted={isVoted}
           choiceNumberArray={choiceNumberArray[3]}
           choiceName={choiceName[3]}
-          choiceSelected={choiceSelected}
+          choiceSelected={choiceSelected.choice4}
           checkMark={checkMark}
           showSurveyResult={showSurveyResult}
         />
