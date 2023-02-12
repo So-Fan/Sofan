@@ -16,4 +16,8 @@
   .feedlaunchpad-header-button {
     font-family: "Britanica-Regular";
     text-decoration: none;
+    color: black;
+  }
+  .feedlaunchpad-header-button:hover {
+    text-decoration: underline;
   }
