@@ -15,7 +15,6 @@ import "./App.css";
 import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
 function App() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
-  const [waitingPage, setWaitingPage] = useState(true);
   const handleProfileClick = (e) => {
     console.log(e.target.id);
     if (e.target.id === "navbar-user-profile-img") {
@@ -27,10 +26,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* {waitingPage ? <></> :  <Navbar /> } */}
 
-      {/* <Routes> */}
-      {/* <Route index element={<Home waitingPage={waitingPage}/>} /> */}
       <div className="App" onClick={handleProfileClick}>
         <Navbar isProfileClicked={isProfileClicked} />
         <Routes>

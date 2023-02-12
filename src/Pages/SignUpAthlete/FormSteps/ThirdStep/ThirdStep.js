@@ -55,8 +55,8 @@ function ThirdStep({setIsThirdStepValidated}) {
             <button
               className={
                 veryLowLvlBlockchain
-                  ? "lvl-blockchain-button-selected"
-                  : "lvl-blockchain-button"
+                  ? "lvl-blockchain-text lvl-blockchain-button-selected"
+                  : "lvl-blockchain-text lvl-blockchain-button"
               }
               onClick={handleClickVeryLow}
             >
@@ -66,8 +66,8 @@ function ThirdStep({setIsThirdStepValidated}) {
               onClick={handleClickLow}
               className={
                 lowLvlBlockchain
-                  ? "lvl-blockchain-button-selected"
-                  : "lvl-blockchain-button"
+                  ? "lvl-blockchain-text lvl-blockchain-button-selected"
+                  : "lvl-blockchain-text lvl-blockchain-button"
               }
             >
               Oui, un peu. J'en ai entendu parler par-ici par là
@@ -76,8 +76,8 @@ function ThirdStep({setIsThirdStepValidated}) {
               onClick={handleClickMedium}
               className={
                 mediumLowLvlBlockchain
-                  ? "lvl-blockchain-button-selected"
-                  : "lvl-blockchain-button"
+                  ? "lvl-blockchain-text lvl-blockchain-button-selected"
+                  : "lvl-blockchain-text lvl-blockchain-button"
               }
             >
               Oui, sans être un expert, je sais en parler
@@ -86,8 +86,8 @@ function ThirdStep({setIsThirdStepValidated}) {
               onClick={handleClickMediumHigh}
               className={
                 mediumHighLvlBlockchain
-                  ? "lvl-blockchain-button-selected"
-                  : "lvl-blockchain-button"
+                  ? "lvl-blockchain-text lvl-blockchain-button-selected"
+                  : "lvl-blockchain-text lvl-blockchain-button"
               }
             >
               Totalement, je sais tout ce qu'il faut savoir !
