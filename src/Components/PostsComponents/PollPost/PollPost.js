@@ -18,7 +18,7 @@ const PollPost = (choiceNumber) => {
     }
   }
   const [surveyResults, setSurveyResults] = useState([57, 98, 120, 302]);
-  // Reçu de la BDD
+  // Backend here
   const [choiceName, setChoiceName] = useState([
     "Barrier",
     "Attanasio",
