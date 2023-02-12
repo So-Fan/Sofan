@@ -1,12 +1,22 @@
 import React from "react";
 import "./AddCommentInput.css";
 
-function AddCommentInput() {
+function AddCommentInput({
+  inputAddCommentContainer,
+  inputCommentElementsPollPost,
+  emojiCommentPublicationPollPost,
+  inputCommentPublicationPollPost,
+  publishButtonAddCommentPollPost,
+}) {
   const handleChange = (e) => {};
   return (
-    <div className="input-comment-container-publication">
-      <div className="input-comment-elements">
-        <div className="emoji-comment-publication">
+    <div
+      className={`input-comment-container-publication ${inputAddCommentContainer}`}
+    >
+      <div className={`input-comment-elements ${inputCommentElementsPollPost}`}>
+        <div
+          className={`emoji-comment-publication ${emojiCommentPublicationPollPost}`}
+        >
           <a href="/">
             <svg
               width="25"
@@ -24,11 +34,13 @@ function AddCommentInput() {
         </div>
         <input
           placeholder="Add a comment"
-          className="input-comment-publication"
+          className={`input-comment-publication ${inputCommentPublicationPollPost}`}
           type="text"
           onChange={handleChange}
         />
-        <div className="publish-comments-button-container-publication">
+        <div
+          className={`publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`}
+        >
           <a href="/">
             {/* Backend here */}
             <button>Publish</button>
