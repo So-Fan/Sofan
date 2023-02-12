@@ -13,6 +13,7 @@ import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
 import "./App.css";
 import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
+import Button from "./Components/Button/Button";
 function App() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [waitingPage, setWaitingPage] = useState(true);
@@ -41,6 +42,7 @@ function App() {
           <Route path="/pollpost" element={<PollPost />} />
         <Route path="/favathlete" element={<FavAthlete />} />
         <Route path="/dropdown" element={<DropDownMenu />} />
+        <Route path="/button" element={<Button isLink={false} to={"/here"} backgroundColor='#F6D463' borderColor={"transparent"} borderRadius="10px" width="573px" height={"72px"} text="Mint Now" />} />
         <Route path="/sidenavlink" element={<><FeedSideNavLink href={"/feed/decouverte"} svg={World} alt="World" title="Découverte" imgWidth={"20px"} gap={"11px"} /><FeedSideNavLink href={"/feed/abonnement"} svg={Star} alt="Star" title="Abonnement" imgWidth={"22.83px"} gap={"8.59px"} /></>} />
         </Routes>
       </div>
