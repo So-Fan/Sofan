@@ -31,7 +31,7 @@ const NewsLetter = () => {
 
   return (
     <div>
-      <div style={styles.message}>Soyez le premier à connaître notre lancement</div>
+      <div style={styles.message}>Soyez au courant quand Sofan sera live !</div>
       <div style={styles.container}>
         <input
           className={`email-input ${!isValid ? 'Invalid' : ''} ${email && /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(email) && isValid ? 'Valid' : ''}`}
