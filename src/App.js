@@ -13,6 +13,7 @@ import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
 import "./App.css";
 import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
+import FeedLaunchpad from "./Components/FeedLaunchpad/FeedLaunchpad";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 import EventComponent from "./Components/EventComponent/EventComponent";
@@ -40,7 +41,7 @@ function App() {
           <Route path="/pollpost" element={<PollPost />} />
           <Route path="/favathlete" element={<FavAthlete />} />
           <Route path="/dropdown" element={<DropDownMenu />} />
-          <Route path="/event" element={<event />} />
+          <Route path="/launchpad" element={<FeedLaunchpad />} />
           <Route
             path="/sidenavlink"
             element={

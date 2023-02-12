@@ -45,6 +45,16 @@ function Home({ waitingPage, handleProfileOutClick }) {
                 <li>
                   <Link to="/eventcomponent">EventComponent</Link>
                 </li>
+                <li>
+                  <Link to="/evenement">
+                  Evenement
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/launchpad">
+                  Launchpad
+                  </Link>
+                </li>
               </ul>
             </h1>
           </section>
