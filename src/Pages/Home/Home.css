@@ -1,5 +1,55 @@
-@media (max-width: 800px) {
-  .page-container {
+.home-component {
+  display: flex;
+  justify-content: space-between;
+  width: 1242px;
+}
+
+.home-left-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 646px;
+}
+
+.home-feedsidenavlink-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.home-center-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 131px);
+  overflow-y: scroll;
+}
+.home-center-container::-webkit-scrollbar {
+  display: none;
+}
+
+.home-right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 249px;
+  height: 619px;
+}
+@media (max-width: 1300px) {
+  .home-component {
+    width: 90%;
+  }
+}
+@media (max-width: 1240px) {
+  .home-right-container {
     display: none;
+  }
+}
+@media (max-width: 950px) {
+  .home-left-container {
+    display: none;
+  }
+  .home-component {
+    justify-content: center;
   }
 }

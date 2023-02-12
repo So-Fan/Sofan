@@ -5,6 +5,7 @@ import PostsDescription from "../PostsDescription/PostsDescription";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import attanasioBateau from "../../../Assets/Image/romain.jpeg";
 
 function PostsFeed() {
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
@@ -36,7 +37,9 @@ function PostsFeed() {
           postFeedDescription="post-feed-description-resize"
           />
           {/* Backend here */}
-          <div className="publication-media">MEDIA</div>
+          <div className="publication-media">
+            <img src={attanasioBateau} alt="IMAGE" />
+            </div>
           {/* Backend here */}
           <LikesCommentsCounter
             likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"

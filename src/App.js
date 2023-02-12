@@ -2,23 +2,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
-import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAthletePage";
 import { useState } from "react";
-import PostsFeed from "./Components/PostsComponents/PostsFeed/PostsFeed";
-import FullPagePost from "./Pages/FullPagePost/FullPagePost";
-import PollPost from "./Components/PostsComponents/PollPost/PollPost";
-import FavAthlete from "./Components/FavAthlete/FavAthlete";
-import FeedSideNavLink from "./Components/FeedSideNavLink/FeedSideNavLink";
-import Star from "./Assets/Image/star.svg";
-import World from "./Assets/Image/world.svg";
 import "./App.css";
-import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
-import Button from "./Components/Button/Button";
-import FeedSuggestions from "./Components/FeedSuggestions/FeedSuggestions";
-import FeedLaunchpad from "./Components/FeedLaunchpad/FeedLaunchpad";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
-import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
-import EventComponent from "./Components/EventComponent/EventComponent";
 
 function App() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -37,40 +23,6 @@ function App() {
         <Navbar isProfileClicked={isProfileClicked} />
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/signupathlete" element={<SignUpAthletePage />} />
-          <Route path="/publication" element={<PostsFeed />} />
-          <Route path="/post938098" element={<FullPagePost />} />
-          <Route path="/pollpost" element={<PollPost />} />
-          <Route path="/favathlete" element={<FavAthlete />} />
-          <Route path="/dropdown" element={<DropDownMenu />} />
-          <Route path="/feedsuggestions" element={<FeedSuggestions />} />
-          <Route path="/launchpad" element={<FeedLaunchpad />} />
-          <Route path="/button" element={<Button isLink={false} to={"/here"} backgroundColor='#F6D463' borderColor={"transparent"} borderRadius="10px" width="573px" height={"72px"} text="Mint Now" />} />
-          <Route
-            path="/sidenavlink"
-            element={
-              <>
-                <FeedSideNavLink
-                  href={"/feed/decouverte"}
-                  svg={World}
-                  alt="World"
-                  title="Découverte"
-                  imgWidth={"20px"}
-                  gap={"11px"}
-                />
-                <FeedSideNavLink
-                  href={"/feed/abonnement"}
-                  svg={Star}
-                  alt="Star"
-                  title="Abonnement"
-                  imgWidth={"22.83px"}
-                  gap={"8.59px"}
-                />
-              </>
-            }
-          />
-          <Route path="createpostpoll" element={<CreationPostPoll />} />
-          <Route path="eventcomponent" element={<EventComponent/>}/>
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">

@@ -8,6 +8,7 @@
 .feedlaunchpad-header-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-bottom: 10px;
 }
 .feedlaunchpad-header-container > span {
@@ -18,4 +19,7 @@
   font-family: "Britanica-Regular";
   text-decoration: none;
   color: #000000;
+}
+.feedlaunchpad-header-button-suggestion {
+  font-size: 13px;
 }
