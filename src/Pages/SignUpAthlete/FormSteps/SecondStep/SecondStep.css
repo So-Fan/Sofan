@@ -53,7 +53,7 @@
   flex-direction: column;
 }
 
-form input {
+.input-container-secondstep > input {
   width: 70%;
   padding: 2%;
   border: none;
@@ -64,7 +64,7 @@ form input {
   line-height: 24px;
 }
 
-form input:focus {
+.input-container-secondstep input:focus {
   text-align: center;
   outline: none;
 }
