@@ -9,6 +9,7 @@
   background: #ffffff;
   box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
   border-radius: 9.94299px;
+  position: relative;
 }
 
 .publication-head-container {
@@ -47,4 +48,10 @@
 
 .line-separation-comments-publication {
   border: 0.29829px solid rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1350px) {
+  .line-separation-comments-publication-container{
+    height: 25px;
+  }
 }
