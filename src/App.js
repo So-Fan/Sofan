@@ -13,6 +13,7 @@ import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
 import "./App.css";
 import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
+import Button from "./Components/Button/Button";
 import FeedSuggestions from "./Components/FeedSuggestions/FeedSuggestions";
 import FeedLaunchpad from "./Components/FeedLaunchpad/FeedLaunchpad";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/dropdown" element={<DropDownMenu />} />
           <Route path="/feedsuggestions" element={<FeedSuggestions />} />
           <Route path="/launchpad" element={<FeedLaunchpad />} />
+          <Route path="/button" element={<Button isLink={false} to={"/here"} backgroundColor='#F6D463' borderColor={"transparent"} borderRadius="10px" width="573px" height={"72px"} text="Mint Now" />} />
           <Route
             path="/sidenavlink"
             element={

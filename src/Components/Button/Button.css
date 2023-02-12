@@ -1,0 +1,13 @@
+.button-component{
+    font-family: 'Britanica-Heavy';
+    font-size: 30px;
+    color: #000000; 
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    box-sizing: content-box;
+}

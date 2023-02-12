@@ -60,6 +60,11 @@ function Home({ waitingPage, handleProfileOutClick }) {
                   Suggestions
                   </Link>
                 </li>
+                <li>
+                  <Link to="/button">
+                  Button
+                  </Link>
+                </li>
               </ul>
             </h1>
           </section>
