@@ -51,7 +51,7 @@ const Poll = ({setAddOption}) => {
   ];
   const minArray = [];
 
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 60; i ++) {
     minArray.push(i);
   }
   return (

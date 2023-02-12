@@ -41,7 +41,7 @@ const PostPoll = ({
         </div>
       )}
       <div className="post-poll-add-container">
-        <div
+        <button
           onClick={handleAddPictureClick}
           className="post-poll-add-picture-wrap"
         >
@@ -53,11 +53,11 @@ const PostPoll = ({
             type="file"
             accept="image/*"
           />
-        </div>
-        <div onClick={handleAddPollClick} className="post-poll-add-poll-wrap">
+        </button>
+        <button onClick={handleAddPollClick} className="post-poll-add-poll-wrap">
           <img src={Form} alt="form" />
           <span>Add a Poll</span>
-        </div>
+        </button>
       </div>
     </div>
   );

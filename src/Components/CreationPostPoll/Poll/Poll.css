@@ -123,9 +123,10 @@
   justify-content: center;
   padding-right: 100px;
   line-height: 19px;
+  cursor: default;
 }
 .poll-duration-day-content > ol > li:hover {
-  background-color: blue;
+  background-color: #f7c520;
 }
 .poll-duration-choice-subwrap {
   width: 90%;

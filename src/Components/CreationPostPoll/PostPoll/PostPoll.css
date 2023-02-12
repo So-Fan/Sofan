@@ -22,6 +22,7 @@
   position: absolute;
   right: 20px;
   top: 20px;
+  cursor: pointer;
 }
 .post-poll-component > textarea {
   width: 100%;
@@ -58,6 +59,11 @@
   width: 126px;
   display: flex;
   justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 .post-poll-add-picture-wrap > img {
   width: 20px;
@@ -77,6 +83,11 @@
   width: 101px;
   display: flex;
   justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 .post-poll-add-poll-wrap > img {
   width: 18px;

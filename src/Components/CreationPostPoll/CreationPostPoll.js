@@ -62,7 +62,9 @@ const CreationPostPoll = () => {
         >
           <div className="creation-text-wrap">
             <span>{step !=1 ? "Create a post" : "Who can see your post"}</span>
+            <button className="cancel-button-creation-post">
             <img src={Cross} alt="a cross" />
+            </button>
           </div>
           {step !== 1 ? <PostPoll
             file={file}
@@ -76,7 +78,7 @@ const CreationPostPoll = () => {
           /> 
           :
           <div className="creation-visibility-choice-container">
-            <div id="0" onClick={handleVisibilityClicked} style={isVisibilityClicked[0]}><span>Only my fans</span></div>
+            <div id="0" onClick={handleVisibilityClicked} className="" style={isVisibilityClicked[0]}><span>Only my fans</span></div>
             <div id="1" onClick={handleVisibilityClicked} style={isVisibilityClicked[1]}><span>All SoFan users</span></div>
           </div>
           }
