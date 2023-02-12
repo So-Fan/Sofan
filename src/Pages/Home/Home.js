@@ -55,6 +55,11 @@ function Home({ waitingPage, handleProfileOutClick }) {
                   Launchpad
                   </Link>
                 </li>
+                <li>
+                  <Link to="/feedsuggestions">
+                  Suggestions
+                  </Link>
+                </li>
               </ul>
             </h1>
           </section>
