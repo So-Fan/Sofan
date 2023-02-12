@@ -14,6 +14,7 @@ import World from "./Assets/Image/world.svg";
 import "./App.css";
 import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
+import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll"
 
 function App() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -39,6 +40,7 @@ function App() {
         <Route path="/favathlete" element={<FavAthlete />} />
         <Route path="/dropdown" element={<DropDownMenu />} />
         <Route path="/sidenavlink" element={<><FeedSideNavLink href={"/feed/decouverte"} svg={World} alt="World" title="Découverte" imgWidth={"20px"} gap={"11px"} /><FeedSideNavLink href={"/feed/abonnement"} svg={Star} alt="Star" title="Abonnement" imgWidth={"22.83px"} gap={"8.59px"} /></>} />
+        <Route path="createpostpoll" element={<CreationPostPoll/>}></Route>
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">

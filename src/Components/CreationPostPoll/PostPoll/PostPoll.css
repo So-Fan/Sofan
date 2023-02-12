@@ -1,0 +1,101 @@
+.post-poll-component {
+  width: 100%;
+  /* height: 369px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: red; */
+}
+.post-poll-file-wrap{
+  width: 459px;
+  height: 459px;
+  /* background-color: rebeccapurple; */
+  position: relative;
+}
+.post-poll-file {
+  width: 459px;
+  height: 459px;
+  border-radius: 10px;
+}
+.post-poll-file-cross{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+.post-poll-component > textarea {
+  width: 100%;
+  /* height: 349px; */
+  resize: none;
+  border: none;
+  font-family: "Britanica-Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  /* background-color: rgba(255, 255, 0, 0.452);  */
+}
+.post-poll-component > textarea:focus {
+  border: none;
+  outline: none;
+}
+.post-poll-component > textarea:focus::placeholder {
+  color: transparent;
+}
+.post-poll-component > textarea::placeholder {
+  font-family: "Britanica-Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+.post-poll-add-container {
+  display: flex;
+  justify-content: space-between;
+  width: 333px;
+}
+.post-poll-add-picture-wrap {
+  width: 126px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.post-poll-add-picture-wrap > img {
+  width: 20px;
+  height: 18.02px;
+}
+.post-poll-add-picture-wrap > span {
+  font-family: "Britanica-Heavy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+.post-poll-add-picture-wrap > input {
+  display: none;
+}
+.post-poll-add-poll-wrap {
+  width: 101px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.post-poll-add-poll-wrap > img {
+  width: 18px;
+}
+.post-poll-add-poll-wrap > span {
+  font-family: "Britanica-Heavy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
