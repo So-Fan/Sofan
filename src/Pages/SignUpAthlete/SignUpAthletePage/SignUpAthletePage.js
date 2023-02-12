@@ -7,13 +7,20 @@ import FormValidation from "../FormSteps/FormValidation/FormValidation";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
   const [fourthState, setFourthState] = useState(false); // for disable next step button to submit button
+  function changePositionButtonAndProgressBar() {
+    if (step === 1) {
+      return "10%";
+    } else {
+      return "2.5%";
+    }
+  }
   const handleStepPages = () => {
     // displayValidationPage()
     if (step === 1) {
@@ -98,11 +105,12 @@ function SignUpAthletePage() {
             </>
           ) : (
             <>
-              {step === 5 ? (
-                <></>
-              ) : (
+              {step !== 5 && (
                 <>
-                  <div className="button-and-progressbar-container">
+                  <div
+                    className="button-and-progressbar-container"
+                    style={{ bottom: changePositionButtonAndProgressBar() }}
+                  >
                     <div className="button-container">
                       <button
                         className={
