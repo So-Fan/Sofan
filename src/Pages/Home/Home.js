@@ -1,11 +1,11 @@
 import React from "react";
 import "./Home.css";
-import WaitingPage from "../WaitingPage/WaitingPage";
+import LandingPage from "../LandingPage/LandingPage";
 
 function Home() {
   return (
     <>
-    <WaitingPage/>
+    <LandingPage/>
     </>
   );
 }

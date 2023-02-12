@@ -1,9 +1,10 @@
 import React from "react";
 import sofanLogo from "../../Assets/Image/sofanlogo.svg";
-import "./WaitingPage.css";
+import "./LandingPage.css";
 import explorePicture from "../../Assets/Image/explorepicture.svg";
+import NewsLetter from "../../Components/NewsLetter/NewsLetter";
 
-function WaitingPage() {
+function LandingPage() {
   return (
     <>
       {/* Mobile display */}
@@ -41,6 +42,7 @@ function WaitingPage() {
             alt=""
           />
         </div>
+        <NewsLetter />
         <div className="socials-network-waiting-page">
           Restez au courant en nous suivant sur les réseaux sociaux !
           <div className="logo-socials-waiting-page">
@@ -63,4 +65,4 @@ function WaitingPage() {
   );
 }
 
-export default WaitingPage;
+export default LandingPage;

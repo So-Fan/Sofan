@@ -1,0 +1,20 @@
+.Invalid:invalid { 
+    border: 2px solid red!important;
+    animation: shake 0.2s 2;
+}
+
+@keyframes shake {
+    25% {
+        translate: 6px 0;
+    }
+    50% {
+        translate: -6px 0;
+    }
+    75% {
+        translate: 6px 0;
+    }
+}
+
+.Valid {
+    border: 2px solid green!important;
+}
