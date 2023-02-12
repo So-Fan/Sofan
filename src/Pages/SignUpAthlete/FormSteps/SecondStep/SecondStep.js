@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 
 function SecondStep({ setSecondStepValidated }) {
   const inputRef = useRef([]);
-
+// Backend here
   const defaultValue = {
     name: "Votre nom",
     athletename: "Nom d'athlete",
@@ -34,14 +34,13 @@ function SecondStep({ setSecondStepValidated }) {
     ) {
       e.target.className = "typed";
     }
-    verifierValidation();
   };
   const handleFocus = (e) => {
     const inputName = e.target.name;
 
     array.forEach((element) => {
       const i = array.indexOf(element);
-
+      console.log(defaultValue[inputName]);
       if (inputRef.current[i].value === defaultValue[inputName]) {
         inputRef.current[i].value = "";
         inputRef.current[i].className = "typed";
@@ -63,26 +62,12 @@ function SecondStep({ setSecondStepValidated }) {
     }
   };
 
-  function verifierValidation() {
-    let formIsValid = true;
-    for (let i = 0; i < inputRef.current.length; i++) {
-      if (
-        inputRef.current[i].value === "" ||
-        inputRef.current[i].value === defaultValue[inputRef.current[i].name]
-      ) {
-        formIsValid = false;
-        break;
-      }
-      setSecondStepValidated(true);
-      console.log("omg ?");
-    }
-    return formIsValid;
-  }
+
 
   return (
     <>
       <div className="secondstep-container">
-        <div className="form-container">
+        <div className="second-step-form-container">
           <form>
             <div className="form-and-title">
               <h2 className="title-signup-athlete-form">
@@ -105,7 +90,6 @@ function SecondStep({ setSecondStepValidated }) {
                 })}
               </div>
             </div>
-            <div className="button-container"></div>
           </form>
         </div>
       </div>
