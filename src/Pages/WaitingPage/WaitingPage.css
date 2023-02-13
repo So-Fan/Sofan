@@ -76,7 +76,7 @@
   @media (max-width: 800px) {
   
     .error-mobile-waiting-page{
-      height: 100vh;
+      height: 60vh;
       width: 100vw;
       display: flex;
       justify-content: space-around;

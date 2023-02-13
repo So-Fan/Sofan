@@ -7,7 +7,7 @@
   flex-direction: column;
 }
 
-.second-step-form-container {
+.form-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -16,7 +16,7 @@
   flex-direction: column;
 }
 
-.second-step-form-container > form {
+.form-container > form {
   height: 100%;
   width: 80%;
   display: flex;
@@ -53,7 +53,7 @@
   flex-direction: column;
 }
 
-.input-container-secondstep > input {
+form input {
   width: 70%;
   padding: 2%;
   border: none;
@@ -64,7 +64,7 @@
   line-height: 24px;
 }
 
-.input-container-secondstep input:focus {
+form input:focus {
   text-align: center;
   outline: none;
 }
@@ -86,13 +86,4 @@ form > .form-and-title input:active {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-@media (min-width: 1900px) {
-  .secondstep-container {
-    height: 80%;
-    align-items: center;
-  }
-  .title-signup-athlete-form {
-    font-size: 2.5rem;
-  }
 }

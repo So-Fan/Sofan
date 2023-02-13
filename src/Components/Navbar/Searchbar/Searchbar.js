@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./Searchbar.css";
 import magnifyingGlass from "../../../Assets/Image/magnifying_glass.svg";
 const Searchbar = () => {

@@ -18,6 +18,9 @@
   width: 100%;
 }
 
+.emoji-comment-publication {
+}
+
 .input-comment-publication {
   width: 60%;
   border: none;
@@ -33,8 +36,11 @@
   color: #9b9b9b;
   font-size: 16px;
 }
+.publish-comments-button-container-publication {
+}
 
 .publish-comments-button-container-publication > a > button {
+  /* outline: none; */
   border: none;
   background: none;
   font-family: "britanica-black";
@@ -43,75 +49,67 @@
 }
 
 @media (max-width: 1350px) {
-  .input-comment-container-publication {
+  /* .input-comment-container-publication{
     height: 50px;
-  }
+  } */
 }
 @media (max-width: 1050px) {
+  .input-comment-elements {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: rgba(60, 64, 69, 0.04);
+    height: 50px;
+    width:100%;
+    /* background-color: red; */
+  }
+  .input-comment-publication{
+    width: 60%;
+    height: 100%;
+    
+  }
   .emoji-comment-publication svg {
     width: 18px;
     position: relative;
     /* left: -70% !important; */
   }
-  .emoji-comment-publication-pollpost svg {
-    width: 25px;
-  }
-  .publish-comments-button-container-publication {
+  .publish-comments-button-container-publication{
     width: 20%;
   }
-  .publish-comments-button-container-publication-pollpost {
-    width: auto;
-  }
   .publish-comments-button-container-publication button {
-    font-size: 14px !important;
-  }
-  .publish-comments-button-container-publication-pollpost button {
-    font-size: 16px !important;
+  font-size: 14px !important;
   }
 }
 @media (max-width: 900px) {
-  .input-comment-container-publication {
+  .input-comment-container-publication{
     height: 40px;
     width: 95%;
   }
-  .input-comment-container-publication-pollpost {
-    height: 80px;
-    width: 100%;
-  }
   .input-comment-elements {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: rgba(60, 64, 69, 0.04);
     height: 40px;
+    width:100%;
   }
-  .input-comment-elements-pollpost {
-    height: 50px;
-  }
-  .input-comment-publication {
+  .input-comment-publication{
     width: 90%;
+    height: 100%;
     font-size: 14px !important;
   }
-  .input-comment-publication-pollpost {
-    width: 60%;
-    font-size: 14px !important;
-  }
-  .input-comment-publication::placeholder {
+  .input-comment-publication::placeholder{
     font-size: 14px;
   }
   .emoji-comment-publication svg {
     width: 16px;
     position: relative;
+    /* left: -70% !important; */
   }
-  .emoji-comment-publication-pollpost svg {
-    width: 25px;
-  }
-  .publish-comments-button-container-publication {
+  .publish-comments-button-container-publication{
     width: 40%;
   }
-  .publish-comments-button-container-publication-pollpost {
-    width: auto;
-  }
   .publish-comments-button-container-publication button {
-    font-size: 14px !important;
-  }
-  .publish-comments-button-container-publication-pollpost button {
-    font-size: 16px !important;
+  font-size: 14px !important;
   }
 }

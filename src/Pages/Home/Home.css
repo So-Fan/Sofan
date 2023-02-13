@@ -1,5 +1,9 @@
 @media (max-width: 800px) {
-  .page-container {
+  .sofan-webapp-container,
+  .opacitychange-fullpagepost,
+  .signup-athlete-page,
+  .navbar-container,
+  .publication-container {
     display: none;
   }
 }

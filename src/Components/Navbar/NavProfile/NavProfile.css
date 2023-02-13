@@ -4,21 +4,12 @@
 }
 .navbar-navprofile {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
   border-radius: 999px;
 }
 .navbar-navprofile > img {
   width: 30px;
   border-radius: 999px;
-  cursor: pointer;
 }
-.navbar-navprofile > img:hover {
-  border: .5px black solid;
-}
-
 /* .navbar-navprofile-container:hover .navbar-dropdown {
   opacity: 1;
   visibility: visible;

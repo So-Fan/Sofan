@@ -1,4 +1,5 @@
 .likes-comments-container-publication {
+  /* width: 280px; */
   width: 90%;
   height: 70px;
   display: flex;
@@ -6,17 +7,13 @@
   align-items: center;
 }
 
-.like-button-container {
+.likes-publication {
   width: 100px;
   height: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
-}
-.like-button-container-pollpost{
-  width: 105px;
-  /* background-color: red; */
 }
 
 .likes-counter-publication {
@@ -32,7 +29,7 @@
 }
 
 .comments-publication {
-  width: 120px;
+  width: 140px;
   height: 20px;
   display: flex;
   justify-content: center;
@@ -54,68 +51,40 @@
 }
 
 @media (max-width: 1050px) {
-  /* .like-button-container-pollpost{
-    width: 125px;
-  } */
   .comments-publication {
     width: 120px;
-    height: 20px;
-  }
-  .comments-publication-pollpost {
-    width: 135px;
     height: 20px;
   }
   .likes-counter-publication,
   .comments-counter-publication {
     font-size: 12px;
   }
-  .likes-counter-publication-pollpost,
-  .comments-counter-publication-pollpost {
-    font-size: 14px;
-  }
   .logo-comments-publication {
     width: 0px !important;
   }
-  .logo-comments-publication-pollpost svg {
-    width: 20px !important;
-    /* background-color: red; */
-  }
-  /* MODIFIER NOM QUAND BACKEND DISPO */
   .logo-comments-publication svg {
+    
     width: 18px !important;
   }
 }
 
 @media (max-width: 900px) {
-  .likes-comments-container-publication {
+  .likes-comments-container-publication{
     width: 200px;
-  }
-  .likes-comments-container-publication-pollpost {
-    width: auto;
   }
   .comments-publication {
     width: 120px;
-    height: 20px;
-  }
-  .comments-publication-pollpost {
-    width: 135px;
     height: 20px;
   }
   .likes-counter-publication,
   .comments-counter-publication {
     font-size: 10px;
   }
-  .likes-counter-publication-pollpost,
-  .comments-counter-publication-pollpost {
-    font-size: 14px;
-  }
   .logo-comments-publication {
     width: 0px !important;
   }
   .logo-comments-publication svg {
+    
     width: 16px !important;
-  }
-  .logo-comments-publication-pollpost svg {
-    width: 20px !important;
   }
 }

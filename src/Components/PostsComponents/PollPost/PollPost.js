@@ -5,24 +5,10 @@ import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import checkMark from "../../../Assets/Image/checkmark.svg";
-<<<<<<< HEAD
-=======
-import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
-import DropDownMenu from "../DropDownMenu/DropDownMenu";
->>>>>>> staging
 
 const PollPost = (choiceNumber) => {
-  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
-  function displayDropDown() {
-    if (isDropDownButtonClicked){
-      return <DropDownMenu/>
-    }
-    else {
-      return <></>
-    }
-  }
   const [surveyResults, setSurveyResults] = useState([57, 98, 120, 302]);
-  // Backend here
+  // Reçu de la BDD
   const [choiceName, setChoiceName] = useState([
     "Barrier",
     "Attanasio",
@@ -36,7 +22,7 @@ const PollPost = (choiceNumber) => {
     choice3: false,
     choice4: false,
   });
-  
+  console.log(choiceSelected.choice2);
   // This function calculate the percent of survey and return the result for 4
   const surveyCalc = (choiceNumber) => {
     const totalPropositions = surveyResults.length;
@@ -100,16 +86,11 @@ const PollPost = (choiceNumber) => {
   };
   return (
     <section className="pollpost-container">
-      {displayDropDown()}
       <div className="headofpost-pollpost-container">
         <HeadOfPost
-        isDropDownButtonClicked={isDropDownButtonClicked}
-        setIsDropDownButtonClicked={setIsDropDownButtonClicked}
           dropDownMenuSize="dropdown-button-point-size-M"
-          headOfPostSizeLeft="publication-head-left-container-size-pollpost"
-          headOfPostSizeRight="publication-head-right-container-pollpost"
+          headOfPostSize="publication-head-left-container-size-pollpost"
           publicationTypeHeadOfPostPollPost="publication-type-pollpost"
-          athleteNamePollPost="athlete-name-publication-pollpost"
           agePublicationPollPost="age-publication-pollpost"
         />
       </div>
@@ -161,6 +142,7 @@ const PollPost = (choiceNumber) => {
                   <div className="survey-percent">{choiceNumber2}%</div>
                   <div className="choice-name">
                     {choiceName[1]}
+
                     {choiceSelected.choice2 && (
                       <>
                         <img
@@ -195,7 +177,7 @@ const PollPost = (choiceNumber) => {
                   style={{ width: `${choiceNumber3}%` }}
                 >
                   <div className="survey-percent">{choiceNumber3}%</div>
-                  <div className="choice-name" >
+                  <div className="choice-name">
                     {choiceName[2]}
                     {choiceSelected.choice3 && (
                       <>
@@ -231,7 +213,7 @@ const PollPost = (choiceNumber) => {
                   style={{ width: `${choiceNumber4}%` }}
                 >
                   <div className="survey-percent">{choiceNumber4}%</div>
-                  <div className="choice-name" >
+                  <div className="choice-name">
                     {choiceName[3]}
                     {choiceSelected.choice4 && (
                       <>
@@ -271,15 +253,7 @@ const PollPost = (choiceNumber) => {
           <div className="line-separation-pollpost"></div>
         </div>
         <div className="likes-comments-counter-pollpost-container">
-          <LikesCommentsCounter
-            likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
-            likeButtonSizePollPost="logo-likes-pollpost"
-            likesCounterPublicationPollPost="likes-counter-publication-pollpost"
-            commentsCounterPublicationPollPost="comments-counter-publication-pollpost"
-            commentPublicationPollPost="comments-publication-pollpost"
-            likeButtonContainerPollPost="like-button-container-pollpost"
-            logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
-          />
+          <LikesCommentsCounter />
         </div>
         <div className="likes-comments-container-pollpost">
           <div className="show-comments-button-publication-pollpost-container">
@@ -291,13 +265,7 @@ const PollPost = (choiceNumber) => {
           </div>
         </div>
         <div className="add-comment-pollpost-container-pollpost">
-          <AddCommentInput
-            inputAddCommentContainer="input-comment-container-publication-pollpost"
-            inputCommentElementsPollPost="input-comment-elements-pollpost"
-            emojiCommentPublicationPollPost="emoji-comment-publication-pollpost"
-            inputCommentPublicationPollPost="input-comment-publication-pollpost"
-            publishButtonAddCommentPollPost="publish-comments-button-container-publication-pollpost"
-          />
+          <AddCommentInput />
         </div>
       </div>
       {/* </div> */}

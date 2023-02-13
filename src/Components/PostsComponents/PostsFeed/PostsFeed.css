@@ -11,7 +11,6 @@
   background: #ffffff;
   box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
   border-radius: 9.94299px;
-  position: relative;
 }
 
 .publication-head-container {
@@ -36,6 +35,8 @@
 
 .show-comments-button-publication {
   font-size: 17px;
+  font-family: "britanica-black";
+  line-height: 20px;
   height: 35px;
 }
 .show-comments-button-publication:hover {
@@ -54,9 +55,4 @@ z-index: 1;
 }
 .modal-component-postfeed{
   z-index: 999 !important;
-}
-@media (max-width: 1350px) {
-  .line-separation-comments-publication-container{
-    height: 25px;
-  }
 }

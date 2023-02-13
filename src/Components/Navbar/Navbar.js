@@ -7,19 +7,16 @@ import NavIcon from "./NavIcon/NavIcon";
 import notification from "../../Assets/Image/notification.svg";
 import NavProfile from "./NavProfile/NavProfile";
 import profile from "../../Assets/Image/profile.svg";
-import { Link } from "react-router-dom";
-const Navbar = ({ isProfileClicked }) => {
+const Navbar = ({ isProfileClickcd, setIsProfileClicked }) => {
   return (
     <section className="navbar-section">
       <div className="navbar-wrap">
         <div className="navbar-wrap-1">
-          <Link to="/">
-            <img className="navbar-main-logo" src={SofanLogo2} alt="Sofan" />
-          </Link>
+          <img className="navbar-main-logo" src={SofanLogo2} alt="Sofan" />
           <Searchbar />
         </div>
         <div className="navbar-wrap-2">
-          <NavLink name="Feed" link="/Feed" />
+          <NavLink name="Feed" link="/" />
           <NavLink name="Launchpad" link="/Launchpad" />
           <div className="navbar-wrap-2-subwrap-navicon-and-navprofile">
             <div className="navbar-wrap-2-navicon-wrap">
@@ -27,7 +24,11 @@ const Navbar = ({ isProfileClicked }) => {
               <NavIcon src={notification} />
               <div className="navbar-vertical"></div>
             </div>
-            <NavProfile isProfileClicked={isProfileClicked} src={profile} />
+            <NavProfile
+              isProfileClickcd={isProfileClickcd}
+              setIsProfileClicked={setIsProfileClicked}
+              src={profile}
+            />
           </div>
         </div>
       </div>

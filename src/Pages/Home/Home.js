@@ -2,7 +2,7 @@ import React from "react";
 import "./Home.css";
 import WaitingPage from "../WaitingPage/WaitingPage";
 import { Link } from  "react-router-dom"
-function Home({ waitingPage, handleProfileOutClick }) {
+function Home({ waitingPage }) {
   return (
     <>
       {waitingPage ? (
@@ -11,7 +11,7 @@ function Home({ waitingPage, handleProfileOutClick }) {
         </>
       ) : (
         <>
-          <section className="sofan-webapp-container" onClick={handleProfileOutClick}>
+          <section className="sofan-webapp-container">
             <h1>Home</h1>
             <h1>
               <ul>
@@ -41,11 +41,6 @@ function Home({ waitingPage, handleProfileOutClick }) {
                 <li>
                   <Link to="/sidenavlink">
                   Side Nav Link
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/dropdown">
-                  DropDonwMenu
                   </Link>
                 </li>
               </ul>

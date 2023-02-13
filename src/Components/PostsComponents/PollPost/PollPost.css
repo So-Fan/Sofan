@@ -8,7 +8,6 @@
   /* justify-content: space-around; */
   align-items: center;
   flex-direction: column;
-  position: relative;
 }
 
 .pollpost-wrap {
@@ -129,7 +128,7 @@
   border: 0.3px solid rgba(0, 0, 0, 0.2);
 }
 .likes-comments-counter-pollpost-container {
-  width: 65%;
+  width: 55%;
 }
 .add-comment-pollpost-container {
   width: 100%;
