@@ -12,7 +12,6 @@ const NewsLetter = () => {
   const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
   const emailCollectionRef = collection(db, "news_letter_email");
   const [isClicked, setIsClicked] = useState(false);
-  const [isHandleAfter, setIsHandleAfter] = useState(false);
   const validateEmail = (email) => {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -39,21 +38,20 @@ const NewsLetter = () => {
         await addDoc(emailCollectionRef, { email: email, date: new Date() });
         setIsSubscribed(true);
         setIsAlreadySubscribed(false);
-        setIsHandleAfter(true);
+        setIsClicked(false);
         // analytics.logEvent("newsletter_subscribed", { email });
       } else {
         setIsSubscribed(false);
         setIsAlreadySubscribed(true);
         setIsValid(false);
+        setIsClicked(false);
       }
     } catch (error) {
       console.error("Error adding email to Firestore: ", error);
     }
   };
   useEffect(() => {
-    if (!isHandleAfter) {
       handleSubsAfter();
-    }
   }, [isClicked]);
 
   if (isAlreadySubscribed) {
