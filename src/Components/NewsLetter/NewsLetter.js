@@ -10,24 +10,25 @@ const NewsLetter = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
   const emailCollectionRef = collection(db, 'news_letter_email');
-
-
+  const [isClicked, setIsClicked] = useState(false)
+  const [isHandleAfter, setIsHandleAfter] = useState(false)
   const validateEmail = (email) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 
-  const handleSubscribe = async (event) => {
-    event.preventDefault();
-    
+  const handleSubscribe = () => {
     setIsValid(validateEmail(email));
+    setIsClicked(true);
+  };
 
+  const handleSubsAfter= async () => {
     if (!isValid || !email) return;
     let data;
     try {
       const emailRef = query(emailCollectionRef, where("email", "==", email));
       const querySnapshot = await getDocs(emailRef);
-      //console.log(querySnapshot);
+  
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         data = doc.data();
@@ -35,24 +36,29 @@ const NewsLetter = () => {
       if (!data) {
          await addDoc(emailCollectionRef, { email: email, date: new Date() })
         setIsSubscribed(true);
-        setIsAlreadySubscribed(false)
+        setIsAlreadySubscribed(false);
+        setIsHandleAfter(true);
         // analytics.logEvent("newsletter_subscribed", { email });
       } else {
         setIsSubscribed(false);
         setIsAlreadySubscribed(true)
         setIsValid(false);
-        console.log("Already Exist");
       }
-      
     } catch (error) {
       console.error("Error adding email to Firestore: ", error);
     }
-  };
+  }
+  useEffect(() => {
+      if(!isHandleAfter){
+        handleSubsAfter()
+      }
+    
+  }, [isClicked])
 
   if (isAlreadySubscribed) {
     return (
       <div>
-        <div style={styles.message}>Il semblerait que vous etes deja abonnee avec ce email.</div>
+        <div style={styles.message}>Il semblerait que vous êtes déjà abonnée avec ce email.</div>
       </div>
     )
   } else if (!isSubscribed) {
@@ -61,14 +67,14 @@ const NewsLetter = () => {
         <div style={styles.message}>Soyez au courant quand Sofan sera live !</div>
         <div style={styles.container}>
           <input
-            className={`email-input ${!isValid ? 'Invalid' : ''} ${email && /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(email) && isValid ? 'Valid' : ''}`}
+            className={`email-input ${!isValid ? 'Invalid' : ''} ${email && validateEmail(email) && isValid ? 'Valid' : ''}`}
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="Entrez votre adresse email"
             style={styles.input}
           />
-          <button onClick={handleSubscribe} style={styles.button}>
+          <button onClick={handleSubscribe} style={styles.button} className="subscribe-button">
             Abonnez-vous
           </button>
         </div>
@@ -115,10 +121,7 @@ const styles = {
     border: 'none',
     fontSize: '16px',
     cursor: 'pointer',
-    transition: 'background-color 500ms ease-in-out, color 500ms ease-in-out',
-    ':hover': {
-      backgroundColor: '##f7c520',
-    }
+    transition: 'background-color 500ms ease-in-out, color 500ms ease-in-out'
   },
 };
 
