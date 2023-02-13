@@ -4,7 +4,6 @@ const NavProfile = ({ isProfileClickcd, setIsProfileClicked, src }) => {
 
   
   const handleProfileClick = (e) => {
-    
     setIsProfileClicked(true)
   }
 

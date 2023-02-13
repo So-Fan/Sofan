@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./PollPost.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import checkMark from "../../../Assets/Image/checkmark.svg";
+import DropDownMenu from "../DropDownMenu./DropDownMenu";
+import ProgressBarPollPost from "./ProgressBarPollPost/ProgressBarPollPost";
 
 const PollPost = (choiceNumber) => {
-  const [surveyResults, setSurveyResults] = useState([57, 98, 120, 302]);
+  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
+  function displayDropDown() {
+    if (isDropDownButtonClicked) {
+      return <DropDownMenu />;
+    } else {
+      return <></>;
+    }
+  }
+  const [surveyResults, setSurveyResults] = useState([570, 98, 120, 302]);
   // Reçu de la BDD
-  const [choiceName, setChoiceName] = useState([
+  const choiceName = [
     "Barrier",
     "Attanasio",
     "John",
     "Arthur",
-  ]);
+  ]
   const [isVoted, setIsVoted] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState({
     choice1: false,
@@ -23,6 +33,7 @@ const PollPost = (choiceNumber) => {
     choice4: false,
   });
   console.log(choiceSelected.choice2);
+
   // This function calculate the percent of survey and return the result for 4
   const surveyCalc = (choiceNumber) => {
     const totalPropositions = surveyResults.length;
@@ -49,6 +60,13 @@ const PollPost = (choiceNumber) => {
   const choiceNumber2 = surveyCalc((choiceNumber = 2));
   const choiceNumber3 = surveyCalc((choiceNumber = 3));
   const choiceNumber4 = surveyCalc((choiceNumber = 4));
+
+  const choiceNumberArray = [
+    choiceNumber1,
+    choiceNumber2,
+    choiceNumber3,
+    choiceNumber4,
+  ];
 
   const showSurveyResult = (e) => {
     setIsVoted(true);
@@ -84,10 +102,13 @@ const PollPost = (choiceNumber) => {
       });
     }
   };
+
   return (
     <section className="pollpost-container">
       <div className="headofpost-pollpost-container">
         <HeadOfPost
+          isDropDownButtonClicked={isDropDownButtonClicked}
+          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
           dropDownMenuSize="dropdown-button-point-size-M"
           headOfPostSize="publication-head-left-container-size-pollpost"
           publicationTypeHeadOfPostPollPost="publication-type-pollpost"
@@ -96,149 +117,39 @@ const PollPost = (choiceNumber) => {
       </div>
       <div className="description-pollpost">Qui est le gagnant ?</div>
       <div className="pollpost-wrap">
-        <div className="progressbar-poll-subwrap">
-          <div className="progressbar-poll">
-            {isVoted ? (
-              <>
-                <div
-                  className="pollstate-bar"
-                  style={{ width: `${choiceNumber1}%` }}
-                >
-                  <div className="choice-name">
-                    {choiceName[0]}
-                    {choiceSelected.choice1 && (
-                      <>
-                        <img
-                          className="checkmark-logo"
-                          src={checkMark}
-                          alt=""
-                        />
-                      </>
-                    )}
-                  </div>
-                  <div className="survey-percent">{choiceNumber1}%</div>
-                </div>
-              </>
-            ) : (
-              <>
-                <button onClick={showSurveyResult}>
-                  <div className="pollstate-bar" style={{ width: "0%" }}>
-                    <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[0]}</div>
-                  </div>
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-        <div className="progressbar-poll-subwrap">
-          <div className="progressbar-poll">
-            {isVoted ? (
-              <>
-                <div
-                  className="pollstate-bar"
-                  style={{ width: `${choiceNumber2}%` }}
-                >
-                  <div className="survey-percent">{choiceNumber2}%</div>
-                  <div className="choice-name">
-                    {choiceName[1]}
 
-                    {choiceSelected.choice2 && (
-                      <>
-                        <img
-                          className="checkmark-logo"
-                          src={checkMark}
-                          alt=""
-                        />
-                      </>
-                    )}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <button onClick={showSurveyResult}>
-                  <div className="pollstate-bar" style={{ width: "0%" }}>
-                    <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[1]}</div>
-                  </div>
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="progressbar-poll-subwrap">
-          <div className="progressbar-poll">
-            {isVoted ? (
-              <>
-                <div
-                  className="pollstate-bar"
-                  style={{ width: `${choiceNumber3}%` }}
-                >
-                  <div className="survey-percent">{choiceNumber3}%</div>
-                  <div className="choice-name">
-                    {choiceName[2]}
-                    {choiceSelected.choice3 && (
-                      <>
-                        <img
-                          className="checkmark-logo"
-                          src={checkMark}
-                          alt=""
-                        />
-                      </>
-                    )}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <button onClick={showSurveyResult}>
-                  <div className="pollstate-bar" style={{ width: "0%" }}>
-                    <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[2]}</div>
-                  </div>
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="progressbar-poll-subwrap">
-          <div className="progressbar-poll">
-            {isVoted ? (
-              <>
-                <div
-                  className="pollstate-bar"
-                  style={{ width: `${choiceNumber4}%` }}
-                >
-                  <div className="survey-percent">{choiceNumber4}%</div>
-                  <div className="choice-name">
-                    {choiceName[3]}
-                    {choiceSelected.choice4 && (
-                      <>
-                        <img
-                          className="checkmark-logo"
-                          src={checkMark}
-                          alt=""
-                        />
-                      </>
-                    )}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <button onClick={showSurveyResult}>
-                  <div className="pollstate-bar" style={{ width: "0%" }}>
-                    <div className="survey-percent"></div>
-                    <div className="choice-name">{choiceName[3]}</div>
-                  </div>
-                </button>
-              </>
-            )}
-          </div>
-        </div>
+        <ProgressBarPollPost
+          isVoted={isVoted}
+          choiceNumberArray={choiceNumberArray[0]}
+          choiceName={choiceName[0]}
+          choiceSelected={choiceSelected.choice1}
+          checkMark={checkMark}
+          showSurveyResult={showSurveyResult}
+        />
+        <ProgressBarPollPost
+          isVoted={isVoted}
+          choiceNumberArray={choiceNumberArray[1]}
+          choiceName={choiceName[1]}
+          choiceSelected={choiceSelected.choice2}
+          checkMark={checkMark}
+          showSurveyResult={showSurveyResult}
+        />
+        <ProgressBarPollPost
+          isVoted={isVoted}
+          choiceNumberArray={choiceNumberArray[2]}
+          choiceName={choiceName[2]}
+          choiceSelected={choiceSelected.choice3}
+          checkMark={checkMark}
+          showSurveyResult={showSurveyResult}
+        />
+        <ProgressBarPollPost
+          isVoted={isVoted}
+          choiceNumberArray={choiceNumberArray[3]}
+          choiceName={choiceName[3]}
+          choiceSelected={choiceSelected.choice4}
+          checkMark={checkMark}
+          showSurveyResult={showSurveyResult}
+        />
 
         <div className="ageofpost-poll-container">
           <div className="ageofpost-poll-wrap">
