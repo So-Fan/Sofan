@@ -1,21 +1,17 @@
 import React from "react";
 import "./NavProfile.css";
-const NavProfile = ({ isProfileClickcd, setIsProfileClicked, src }) => {
-
-  
-  const handleProfileClick = (e) => {
-    setIsProfileClicked(true)
-  }
+import {Link} from "react-router-dom"
+const NavProfile = ({ isProfileClicked, src }) => {
 
   return (
-    <div onClick={handleProfileClick} className="navbar-navprofile-container">
+    <div className="navbar-navprofile-container" >
       <div className="navbar-navprofile" href="/my-profile">
-        <img src={src} alt={`${src.split("/").pop().split(".")[0]}`} />
+        <img id="navbar-user-profile-img" src={src} alt={`${src.split("/").pop().split(".")[0]} image`} />
       </div>
-      {isProfileClickcd && <div className="navbar-dropdown">
-        <a href="/profile">Voir profil</a>
-        <a href="/settings">Settings</a>
-        <a href="/legals">Mentions<br />légales</a>
+      {isProfileClicked && <div className="navbar-dropdown">
+        <Link to="/profile">Voir profil</Link>
+        <Link to="/settings">Settings</Link>
+        <Link to="/legals">Mentions<br />légales</Link>
       </div>}
     </div>
   );

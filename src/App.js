@@ -12,7 +12,7 @@ import FeedSideNavLink from "./Components/FeedSideNavLink/FeedSideNavLink";
 import Star from "./Assets/Image/star.svg";
 import World from "./Assets/Image/world.svg";
 import "./App.css";
-import DropDownMenu from "./Components/PostsComponents/DropDownMenu./DropDownMenu";
+import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
 import Button from "./Components/Button/Button";
 import FeedSuggestions from "./Components/FeedSuggestions/FeedSuggestions";
 import FeedLaunchpad from "./Components/FeedLaunchpad/FeedLaunchpad";
@@ -21,17 +21,18 @@ import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 import EventComponent from "./Components/EventComponent/EventComponent";
 
 function App() {
-  
   const [isProfileClicked, setIsProfileClicked] = useState(false);
-  const handleProfileOutClick = () => {
-    setIsProfileClicked(false);
+  const handleProfileClick = (e) => {
+    console.log(e.target.id);
+    if (e.target.id === "navbar-user-profile-img") {
+      setIsProfileClicked(true);
+    } else {
+      setIsProfileClicked(false);
+    }
   };
-  // const handleProfileClick = (e) => {
-  //   setIsProfileClicked(true)
-  // }
   return (
     <BrowserRouter>
-      <div className="App" onClick={handleProfileOutClick}>
+      <div className="App" onClick={handleProfileClick}>
         <Navbar isProfileClicked={isProfileClicked} />
         <Routes>
           <Route index element={<Home />} />
@@ -43,7 +44,21 @@ function App() {
           <Route path="/dropdown" element={<DropDownMenu />} />
           <Route path="/feedsuggestions" element={<FeedSuggestions />} />
           <Route path="/launchpad" element={<FeedLaunchpad />} />
-          <Route path="/button" element={<Button isLink={false} to={"/here"} backgroundColor='#F6D463' borderColor={"transparent"} borderRadius="10px" width="573px" height={"72px"} text="Mint Now" />} />
+          <Route
+            path="/button"
+            element={
+              <Button
+                isLink={false}
+                to={"/here"}
+                backgroundColor="#F6D463"
+                borderColor={"transparent"}
+                borderRadius="10px"
+                width="573px"
+                height={"72px"}
+                text="Mint Now"
+              />
+            }
+          />
           <Route
             path="/sidenavlink"
             element={
@@ -68,7 +83,7 @@ function App() {
             }
           />
           <Route path="createpostpoll" element={<CreationPostPoll />} />
-          <Route path="eventcomponent" element={<EventComponent/>}/>
+          <Route path="eventcomponent" element={<EventComponent />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">

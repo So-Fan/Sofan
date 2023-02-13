@@ -5,7 +5,7 @@ import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import checkMark from "../../../Assets/Image/checkmark.svg";
-import DropDownMenu from "../DropDownMenu./DropDownMenu";
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import ProgressBarPollPost from "./ProgressBarPollPost/ProgressBarPollPost";
 
 const PollPost = (choiceNumber) => {
@@ -19,12 +19,7 @@ const PollPost = (choiceNumber) => {
   }
   const [surveyResults, setSurveyResults] = useState([570, 98, 120, 302]);
   // Reçu de la BDD
-  const choiceName = [
-    "Barrier",
-    "Attanasio",
-    "John",
-    "Arthur",
-  ]
+  const choiceName = ["Barrier", "Attanasio", "John", "Arthur"];
   const [isVoted, setIsVoted] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState({
     choice1: false,
@@ -117,7 +112,6 @@ const PollPost = (choiceNumber) => {
       </div>
       <div className="description-pollpost">Qui est le gagnant ?</div>
       <div className="pollpost-wrap">
-
         <ProgressBarPollPost
           isVoted={isVoted}
           choiceNumberArray={choiceNumberArray[0]}
@@ -169,9 +163,7 @@ const PollPost = (choiceNumber) => {
         <div className="likes-comments-container-pollpost">
           <div className="show-comments-button-publication-pollpost-container">
             <div className="show-comments-button-publication-pollpost">
-              <Link>
-              Show 10 comments
-              </Link>
+              <Link>Show 10 comments</Link>
             </div>
           </div>
         </div>
