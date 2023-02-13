@@ -4,9 +4,9 @@ import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import checkMark from "../../../Assets/Image/checkmark.svg";
-// import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import ProgressBarPollPost from "./ProgressBarPollPost/ProgressBarPollPost";
+import { Link } from "react-router-dom";
 
 const PollPost = (choiceNumber) => {
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
@@ -179,7 +179,7 @@ const PollPost = (choiceNumber) => {
         <div className="likes-comments-container-pollpost">
           <div className="show-comments-button-publication-pollpost-container">
             <div className="show-comments-button-publication-pollpost">
-              <a href="/">Show 10 comments</a>
+              <Link>Show 10 comments</Link>
             </div>
           </div>
         </div>

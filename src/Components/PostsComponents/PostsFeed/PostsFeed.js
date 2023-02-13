@@ -9,7 +9,7 @@ import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 import { Link } from "react-router-dom";
 
 function PostsFeed() {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
 
   const toggleModal = () => {
@@ -31,14 +31,14 @@ function PostsFeed() {
           <div onClick={toggleModal} className="overlay-postfeed"></div>
         )}
         {modal && (
-              <>
-                <FullPagePost
-                  modal={modal}
-                  setModal={setModal}
-                  toggleModal={toggleModal}
-                />
-              </>
-            )}
+          <>
+            <FullPagePost
+              modal={modal}
+              setModal={setModal}
+              toggleModal={toggleModal}
+            />
+          </>
+        )}
 
         <div className="publication-content">
           {displayDropDown()}
@@ -67,17 +67,13 @@ function PostsFeed() {
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
           />
-          <div onClick={toggleModal} className="show-comments-button-publication">
-            <Link>Show 10 comments</Link>
-            {/* {modal && (
-              <>
-                <FullPagePost
-                  modal={modal}
-                  setModal={setModal}
-                  toggleModal={toggleModal}
-                />
-              </>
-            )} */}
+          <div
+            onClick={toggleModal}
+            className="show-comments-button-publication"
+          >
+            
+              <Link>Show 10 comments</Link>
+            
           </div>
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
