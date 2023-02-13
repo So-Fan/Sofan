@@ -19,6 +19,7 @@ import FeedLaunchpad from "./Components/FeedLaunchpad/FeedLaunchpad";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 import EventComponent from "./Components/EventComponent/EventComponent";
+import Fake from "./Components/Modal/fakedata/Fake";
 
 function App() {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -71,6 +72,7 @@ function App() {
           />
           <Route path="createpostpoll" element={<CreationPostPoll />} />
           <Route path="eventcomponent" element={<EventComponent/>}/>
+          <Route path="modal" element={<Fake />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
