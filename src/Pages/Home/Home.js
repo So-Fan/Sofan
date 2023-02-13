@@ -65,6 +65,11 @@ function Home({ waitingPage, handleProfileOutClick }) {
                   Button
                   </Link>
                 </li>
+                <li>
+                  <Link to="/modal">
+                  Modal
+                  </Link>
+                </li>
               </ul>
             </h1>
           </section>
