@@ -58,7 +58,7 @@ const NewsLetter = () => {
     return (
       <div>
         <div style={styles.message}>
-          Il semblerait que vous êtes déjà abonnée avec ce email.
+          Il semblerait que vous êtes déjà abonné avec ce email.
         </div>
       </div>
     );
