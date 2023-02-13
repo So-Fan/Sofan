@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
 import "./LikesCommentsCounter.css";
 function LikesCommentsCounter({
@@ -8,10 +9,13 @@ function LikesCommentsCounter({
   commentPublicationPollPost,
   likeButtonSizePollPost,
   likeButtonContainerPollPost,
-  logoCommentsPublicationPollPost
+  logoCommentsPublicationPollPost,
+  callToggleModal,
 }) {
   return (
-    <div className={`likes-comments-container-publication ${likesCommentsContainerPublicationPollPost} `}>
+    <div
+      className={`likes-comments-container-publication ${likesCommentsContainerPublicationPollPost} `}
+    >
       <div className={`like-button-container ${likeButtonContainerPollPost}`}>
         <LikeButton
           likeButtonSizePollPost={likeButtonSizePollPost}
@@ -21,11 +25,13 @@ function LikesCommentsCounter({
         <div
           className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
         >
-          <a href="/">29 likes</a>
+          <Link onClick={callToggleModal}>29 likes</Link>
         </div>
       </div>
       <div className={`comments-publication ${commentPublicationPollPost} `}>
-        <div className={`logo-comments-publication ${logoCommentsPublicationPollPost}`}>
+        <div
+          className={`logo-comments-publication ${logoCommentsPublicationPollPost}`}
+        >
           <svg
             width="21"
             height="20"
@@ -43,7 +49,7 @@ function LikesCommentsCounter({
         <div
           className={`comments-counter-publication ${commentsCounterPublicationPollPost}`}
         >
-          <a href="/">10 comments</a>
+          <Link onClick={callToggleModal}>10 comments</Link>
         </div>
       </div>
     </div>

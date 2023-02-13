@@ -5,12 +5,24 @@ import PostsDescription from "../PostsDescription/PostsDescription";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
+import { Link } from "react-router-dom";
 
 function PostsFeed() {
+  const [modal, setModal] = useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
+
+  const callToggleModal = () => {
+    toggleModal();
+  };
+  const toggleModal = () => {
+    setModal(!modal);
+  };
   function displayDropDown() {
     if (isDropDownButtonClicked) {
-      return <DropDownMenu setIsDropDownButtonClicked={setIsDropDownButtonClicked} />;
+      return (
+        <DropDownMenu setIsDropDownButtonClicked={setIsDropDownButtonClicked} />
+      );
     } else {
       return <></>;
     }
@@ -18,6 +30,19 @@ function PostsFeed() {
   return (
     <>
       <div className="publication-container">
+        {modal && (
+          <div onClick={toggleModal} className="overlay-postfeed"></div>
+        )}
+        {modal && (
+          <>
+            <FullPagePost
+              modal={modal}
+              setModal={setModal}
+              toggleModal={toggleModal}
+            />
+          </>
+        )}
+
         <div className="publication-content">
           {displayDropDown()}
           <div className="publication-head-container">
@@ -32,9 +57,7 @@ function PostsFeed() {
               agePublicationPollPost="age-publication-pollpost"
             />
           </div>
-          <PostsDescription
-          postFeedDescription="post-feed-description-resize"
-          />
+          <PostsDescription postFeedDescription="post-feed-description-resize" />
           {/* Backend here */}
           <div className="publication-media">MEDIA</div>
           {/* Backend here */}
@@ -46,9 +69,15 @@ function PostsFeed() {
             commentPublicationPollPost="comments-publication-pollpost"
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
+            callToggleModal={callToggleModal}
           />
-          <div className="show-comments-button-publication">
-            Show 10 comments
+          <div
+            onClick={toggleModal}
+            className="show-comments-button-publication"
+          >
+            
+              <Link>Show 10 comments</Link>
+            
           </div>
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
