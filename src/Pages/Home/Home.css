@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 646px;
+  max-height: 646px;
 }
 
 .home-feedsidenavlink-wrap {
@@ -41,15 +42,25 @@
   }
 }
 @media (max-width: 1240px) {
+  .home-component{
+    justify-content: space-around;
+  }
   .home-right-container {
     display: none;
   }
 }
 @media (max-width: 950px) {
-  .home-left-container {
+  /* .home-left-container {
     display: none;
-  }
+  } */
   .home-component {
-    justify-content: center;
+    justify-content: space-between;
+  }
+  .home-left-container{
+    width: 250px;
+    height: 65%;
+  }
+  .home-feedsidenavlink-wrap{
+    width: 200px;
   }
 }

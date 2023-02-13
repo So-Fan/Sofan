@@ -4,6 +4,8 @@
   justify-content: space-between;
   width: 286px;
   min-height: 280px;
+  overflow: hidden;
+  /* Suggestion: mettre 3 petits points pour les noms à rallonge */
 }
 .feedlaunchpad-header-container {
   display: flex;
@@ -22,4 +24,12 @@
 }
 .feedlaunchpad-header-button-suggestion {
   font-size: 13px;
+}
+@media (max-width: 950px) {
+  .feedsuggestions-component{
+    width: 200px;
+  }
+  .feedlaunchpad-header-button{
+    display: none;
+  }
 }

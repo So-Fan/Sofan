@@ -1,6 +1,5 @@
 import React from "react";
 import "./Home.css";
-import WaitingPage from "../WaitingPage/WaitingPage";
 import { Link } from "react-router-dom";
 import FeedSideNavLink from "../../Components/FeedSideNavLink/FeedSideNavLink";
 import FavAthlete from "../../Components/FavAthlete/FavAthlete";

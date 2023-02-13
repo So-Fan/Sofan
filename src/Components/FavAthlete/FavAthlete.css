@@ -38,3 +38,15 @@
   text-decoration: underline;
   color: black;
 }
+@media (max-width: 950px) {
+  .favAthlete-container{
+    height: 100px;
+    width: 200px;
+  }
+  .favAthlete-wrap{
+    height: 20%;
+  }
+  .favAthlete-subwrap a {
+    display: none;
+  }
+}
