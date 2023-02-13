@@ -89,7 +89,7 @@ const NewsLetter = () => {
             Abonnez-vous
           </button>
         </div>
-        <div style={isClicked && isValid ? {display: "inline-block" } : {display: "none"}} class="lds-ellipsis">
+        <div style={isClicked && isValid ? {display: "inline-block" } : {display: "none"}} className="lds-ellipsis">
           <div></div>
           <div></div>
           <div></div>
