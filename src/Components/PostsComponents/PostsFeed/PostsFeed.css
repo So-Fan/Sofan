@@ -1,3 +1,4 @@
+
 .publication-content {
   max-height: 863px;
   max-width: 517px;
@@ -20,9 +21,6 @@
   align-items: center;
 }
 
-
-
-
 .publication-media {
   max-height: 517px;
   max-width: 517px;
@@ -37,8 +35,6 @@
 
 .show-comments-button-publication {
   font-size: 17px;
-  font-family: "britanica-black";
-  line-height: 20px;
   height: 35px;
 }
 .show-comments-button-publication:hover {
@@ -46,10 +42,18 @@
   cursor: pointer;
 }
 
+.show-comments-button-publication a {
+text-decoration: none;
+color: black;
+z-index: 1;
+}
+
 .line-separation-comments-publication {
   border: 0.29829px solid rgba(0, 0, 0, 0.2);
 }
-
+.modal-component-postfeed{
+  z-index: 999 !important;
+}
 @media (max-width: 1350px) {
   .line-separation-comments-publication-container{
     height: 25px;

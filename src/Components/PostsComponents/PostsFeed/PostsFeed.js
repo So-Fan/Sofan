@@ -1,20 +1,30 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./PostsFeed.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import PostsDescription from "../PostsDescription/PostsDescription";
 import LikesCommentsCounter from "../LikesCommentsCounter/LikesCommentsCounter";
 import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 
 function PostsFeed() {
+  const [modal, setModal] = useState(true);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
+  
   function displayDropDown() {
     if (isDropDownButtonClicked) {
       return <DropDownMenu setIsDropDownButtonClicked={setIsDropDownButtonClicked} />;
     } else {
       return <></>;
-    }
+    }    
   }
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+  const callToggleModal = () => {
+    toggleModal();
+  };
   return (
     <>
       <div className="publication-container">
@@ -39,6 +49,7 @@ function PostsFeed() {
           <div className="publication-media">MEDIA</div>
           {/* Backend here */}
           <LikesCommentsCounter
+          callToggleModal={callToggleModal}
             likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
             likeButtonSizePollPost="logo-likes-pollpost"
             likesCounterPublicationPollPost="likes-counter-publication-pollpost"
@@ -48,7 +59,16 @@ function PostsFeed() {
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
           />
           <div className="show-comments-button-publication">
-            Show 10 comments
+          <Link onClick={toggleModal}>Show 10 comments</Link>
+            {modal && (
+              <>
+                <FullPagePost
+                  modal={modal}
+                  setModal={setModal}
+                  toggleModal={toggleModal}
+                />
+              </>
+            )}
           </div>
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
