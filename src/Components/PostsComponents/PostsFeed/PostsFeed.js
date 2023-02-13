@@ -12,6 +12,9 @@ function PostsFeed() {
   const [modal, setModal] = useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
 
+  const callToggleModal = () => {
+    toggleModal();
+  };
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -66,6 +69,7 @@ function PostsFeed() {
             commentPublicationPollPost="comments-publication-pollpost"
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
+            callToggleModal={callToggleModal}
           />
           <div
             onClick={toggleModal}
