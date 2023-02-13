@@ -2,6 +2,12 @@
     border: 2px solid red!important;
     animation: shake 0.2s 2;
 }
+.newsletter-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
 
 @keyframes shake {
     25% {
