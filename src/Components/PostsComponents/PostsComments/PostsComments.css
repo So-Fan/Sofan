@@ -192,6 +192,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    /* background-color: red; */
+    margin-left: -7px !important;
   }
   .likes-counter-and-answer-comments {
     display: flex;
@@ -222,8 +224,13 @@
     text-align: start;
   }
   .comments-time-posts-comments {
-    font-size: 10px;
+    font-size:9px;
     width: 40%;
+    height: 13px;
+    /* margin-left: -10px !important; */
+    justify-content: center;
+    /* background-color: red; */
+    align-items: flex-end;
   }
   .profilepic-fan-posts-comments {
     height: 60px;
