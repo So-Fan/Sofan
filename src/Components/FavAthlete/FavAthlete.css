@@ -52,6 +52,10 @@
     justify-content: space-between;
     height: 80%;
   }
+  /* .favAthlete-responsive-container > a  {
+    background-color: #f6d46352;
+    border-radius: 99px;
+  } */
 }
 @media (max-width: 900px) {
   .favAthlete-container {

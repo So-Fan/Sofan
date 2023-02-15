@@ -28,6 +28,7 @@
 @media (max-width: 950px) {
   .feedsuggestions-component{
     width: 250px;
+    display: none;
   }
 }
 @media (max-width: 900px) {
