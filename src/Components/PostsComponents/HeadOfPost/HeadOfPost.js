@@ -13,7 +13,7 @@ function HeadOfPost({
   agePublicationPollPost,
   athleteNamePollPost,
 }) {
-  const [athleteName, setAthleteName] = useState("Romain Attanasio"); // A supprimer quand data reçu du Backend
+  const athleteName = "Romain Attanasio"; // reçu du backend
 
   return (
     <div className="publication-head-container">

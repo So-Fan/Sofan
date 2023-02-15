@@ -1,6 +1,6 @@
 .likes-comments-container-publication {
   width: 90%;
-  height: 70px;
+  min-height: 70px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
