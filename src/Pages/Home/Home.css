@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 646px;
+  /* height: 646px; */
   max-height: 646px;
 }
 
@@ -51,17 +51,11 @@
   }
 }
 @media (max-width: 950px) {
-  /* .home-left-container {
-    display: none;
-  } */
   .home-component {
     justify-content: space-between;
   }
   .home-left-container{
-    max-width: 250px;
-    height: 75%;
-    /* background-color: red; */
-    justify-content: space-around;
+    max-height: 720px;
   }
   .home-feedsidenavlink-wrap{
     width: 200px;

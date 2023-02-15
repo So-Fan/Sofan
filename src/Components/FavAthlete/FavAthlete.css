@@ -38,16 +38,36 @@
   text-decoration: underline;
   color: black;
 }
+.favAthlete-responsive-container {
+  display: none;
+}
 @media (max-width: 950px) {
-  .favAthlete-container{
-    height: 60px;
-    width: 200px;
-    /* background-color: red; */
+  .favAthlete-container {
+    width: 250px;
+    height: 330px;
   }
-  .favAthlete-wrap{
-    height: 20%;
+  .favAthlete-responsive-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
   }
-  .favAthlete-subwrap a {
+}
+@media (max-width: 900px) {
+  .favAthlete-container {
+    width: 220px;
+  }
+  .favAthlete-subwrap > a {
     display: none;
+  }
+}
+@media (max-width: 860px){
+  .favAthlete-container {
+    width: 200px;
+  }
+}
+@media (max-width: 840px){
+  .favAthlete-container {
+    width: 183px;
   }
 }

@@ -6,12 +6,6 @@
 .carroussel-athlete-wrap {
   width: 288px;
   overflow: hidden;
-  /* overflow-x: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none; */
-}
-.carroussel-athlete-wrap::-webkit-scrollbar {
-  /* display: none; */
 }
 .carroussel-athlete-subwrap {
   display: flex;
@@ -52,15 +46,8 @@
 .carroussel-left-arrow-wrap > img {
   transform: rotate(180deg);
 }
-
 @media (max-width: 950px) {
   .carroussel-section{
     display: none;
-  }
-
-  .athlete-template-container{
-    display: flex;
-    
-    flex-direction: row-reverse !important;
   }
 }

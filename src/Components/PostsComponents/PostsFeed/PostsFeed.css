@@ -7,8 +7,6 @@
 .publication-content {
   max-height: 863px;
   max-width: 517px;
-  /* height: 90%; */
-  /* height: 863px; */
   width: 90%;
   padding: 20px;
   display: flex;
@@ -35,12 +33,10 @@
   max-width: 517px !important;
   width: 100%;
   height: 60%;
-  /* background-color: red; */
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-image: url(../../../Assets/Image/romain.jpeg); */
 }
 .publication-media img {
   max-width: 100%;
@@ -66,10 +62,5 @@
 @media (max-width: 1350px) {
   .line-separation-comments-publication-container {
     height: 25px;
-  }
-}
-@media (max-height: 820px) {
-  .publication-container{
-    /* margin-top: calc(100vh - 50em); */
   }
 }
