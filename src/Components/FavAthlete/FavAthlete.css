@@ -40,8 +40,9 @@
 }
 @media (max-width: 950px) {
   .favAthlete-container{
-    height: 100px;
+    height: 60px;
     width: 200px;
+    /* background-color: red; */
   }
   .favAthlete-wrap{
     height: 20%;
