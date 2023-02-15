@@ -47,12 +47,6 @@ function Home() {
           <PostsFeed />
           <PostsFeed />
           <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
         </div>
         <div className="home-right-container">
           <FeedEvent />
