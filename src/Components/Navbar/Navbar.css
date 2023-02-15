@@ -44,7 +44,7 @@
 .navbar-vertical {
   width: 0px;
   height: 30px;
-  border: 0.3px solid #000000;
+  border: 0.3px solid #0000003c;
 }
 
 @media (max-width: 1300px) {
