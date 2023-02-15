@@ -55,19 +55,10 @@
     justify-content: space-between;
   }
   .home-left-container{
-    max-height: 720px;
+    /* min-height: 420px; */
+    max-height: 420px;
   }
   .home-feedsidenavlink-wrap{
     width: 200px;
-  }
-}
-@media (max-height: 817px) {
-  .home-center-container {
-    max-height: calc(100vh - 85px);
-  }
-}
-@media (max-height: 764px) {
-  .home-center-container {
-    max-height: calc(100vh - 81px);
   }
 }

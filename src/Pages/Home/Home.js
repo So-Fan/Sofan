@@ -40,7 +40,10 @@ function Home({isDropDownButtonClicked, setIsDropDownButtonClicked}) {
           isDropDownButtonClicked={isDropDownButtonClicked}
           setIsDropDownButtonClicked={setIsDropDownButtonClicked}
           />
-          <PostsFeed />
+          <PostsFeed 
+          isDropDownButtonClicked={isDropDownButtonClicked}
+          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+          />
           <PostsFeed />
           <PostsFeed />
           <PostsFeed />
