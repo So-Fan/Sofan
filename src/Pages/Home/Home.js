@@ -9,7 +9,7 @@ import FeedEvent from "../../Components/EventComponent/FeedEvent";
 import FeedLaunchpad from "../../Components/FeedLaunchpad/FeedLaunchpad";
 import World from "../../Assets/Image/world.svg";
 import Star from "../../Assets/Image/star.svg";
-function Home() {
+function Home({isDropDownButtonClicked, setIsDropDownButtonClicked}) {
   return (
     <>
       <section className="home-component">
@@ -36,7 +36,10 @@ function Home() {
           <FeedSuggestions />
         </div>
         <div className="home-center-container">
-          <PostsFeed />
+          <PostsFeed 
+          isDropDownButtonClicked={isDropDownButtonClicked}
+          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+          />
           <PostsFeed />
           <PostsFeed />
           <PostsFeed />

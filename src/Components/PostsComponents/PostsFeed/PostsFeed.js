@@ -7,8 +7,7 @@ import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import attanasioBateau from "../../../Assets/Image/romain.jpeg";
 
-function PostsFeed() {
-  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
+function PostsFeed({isDropDownButtonClicked, setIsDropDownButtonClicked}) {
   function displayDropDown() {
     if (isDropDownButtonClicked) {
       return <DropDownMenu setIsDropDownButtonClicked={setIsDropDownButtonClicked} />;

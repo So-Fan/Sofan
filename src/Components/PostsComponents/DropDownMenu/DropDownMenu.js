@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./DropDownMenu.css";
 
-function DropDownMenu({setIsDropDownButtonClicked}) {
+function DropDownMenu({setIsDropDownButtonClicked, isDropDownButtonClicked}) {
   // Backend here
   const [isOwner, setIsOwner] = useState(true);
 
-  const dropdownRef = React.useRef(null);
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropDownButtonClicked(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [dropdownRef]);
 
   return (
     <>
-      <section className="dropdown-menu-container" ref={dropdownRef}>
+      <section className="dropdown-menu-container" 
+      // ref={dropdownRef}
+      >
         <ul>
           {isOwner && (
             <>

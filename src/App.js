@@ -7,6 +7,7 @@ import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 
 function App() {
+  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const handleProfileClick = (e) => {
     console.log(e.target.id);
@@ -16,13 +17,24 @@ function App() {
       setIsProfileClicked(false);
     }
   };
-
+  function handleClickOutside(e) {
+    if (e.target.className !== "dropdown-menu-container"){
+  console.log ("bjeriugherihg")
+  if (isDropDownButtonClicked === true) {
+    
+    setIsDropDownButtonClicked(false)
+  }
+    }
+  }
   return (
     <BrowserRouter>
-      <div className="App" onClick={handleProfileClick}>
+      <div className="App" onClick={handleClickOutside}>
         <Navbar isProfileClicked={isProfileClicked} />
         <Routes>
-          <Route index element={<Home />} />
+          <Route index element={<Home
+          isDropDownButtonClicked={isDropDownButtonClicked}
+          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+          />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">

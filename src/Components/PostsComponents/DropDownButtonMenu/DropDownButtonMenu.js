@@ -6,9 +6,7 @@ function DropDownButtonMenu({ dropDownMenuSize, setIsDropDownButtonClicked, isDr
   const handleClickDropDownButton = (e) => {
     e.preventDefault();
     setIsDropDownButtonClicked(!isDropDownButtonClicked);
-
-console.log(isDropDownButtonClicked)
-    
+    console.log(isDropDownButtonClicked)
   };
 
   return (
