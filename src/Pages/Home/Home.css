@@ -22,7 +22,7 @@
 .home-center-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 131px);
+  max-height: calc(100vh - 131px);
   overflow-y: scroll;
 }
 .home-center-container::-webkit-scrollbar {
@@ -35,6 +35,7 @@
   justify-content: space-between;
   width: 249px;
   height: 619px;
+  
 }
 @media (max-width: 1300px) {
   .home-component {
@@ -57,12 +58,22 @@
     justify-content: space-between;
   }
   .home-left-container{
-    width: 250px;
+    max-width: 250px;
     height: 75%;
     /* background-color: red; */
     justify-content: space-around;
   }
   .home-feedsidenavlink-wrap{
     width: 200px;
+  }
+}
+@media (max-height: 817px) {
+  .home-center-container {
+    max-height: calc(100vh - 85px);
+  }
+}
+@media (max-height: 764px) {
+  .home-center-container {
+    max-height: calc(100vh - 81px);
   }
 }
