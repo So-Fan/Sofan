@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./PostsFeed.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import PostsDescription from "../PostsDescription/PostsDescription";
@@ -7,29 +7,23 @@ import AddCommentInput from "../AddCommentInput/AddCommentInput";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import attanasioBateau from "../../../Assets/Image/romain.jpeg";
 
-function PostsFeed({isDropDownButtonClicked, setIsDropDownButtonClicked}) {
-  function displayDropDown() {
-    if (isDropDownButtonClicked) {
-      return <DropDownMenu setIsDropDownButtonClicked={setIsDropDownButtonClicked} />;
-    } else {
-      return <></>;
-    }
-  }
+function PostsFeed({handleDropdownPostFeedClick, isClicked, id}) {
+
   return (
     <>
       <div className="publication-container">
         <div className="publication-content">
-          {displayDropDown()}
+          {isClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
-              isDropDownButtonClicked={isDropDownButtonClicked}
-              setIsDropDownButtonClicked={setIsDropDownButtonClicked}
               dropDownMenuSize="dropdown-button-point-size-M"
               headOfPostSizeLeft="publication-head-left-container-size-pollpost"
               headOfPostSizeRight="publication-head-right-container-pollpost"
               publicationTypeHeadOfPostPollPost="publication-type-pollpost"
               athleteNamePollPost="athlete-name-publication-pollpost"
               agePublicationPollPost="age-publication-pollpost"
+              handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+              id={id}
             />
           </div>
           <PostsDescription
@@ -37,7 +31,7 @@ function PostsFeed({isDropDownButtonClicked, setIsDropDownButtonClicked}) {
           />
           {/* Backend here */}
           <div className="publication-media">
-            <img src={attanasioBateau} alt="IMAGE" />
+            <img src={attanasioBateau} alt="utilisateur" />
             </div>
           {/* Backend here */}
           <LikesCommentsCounter

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
 
 function HeadOfPost({
-  isDropDownButtonClicked,
-  setIsDropDownButtonClicked,
   dropDownMenuSize,
   headOfPostSizeLeft,
   headOfPostSizeRight,
   publicationTypeHeadOfPostPollPost,
   agePublicationPollPost,
   athleteNamePollPost,
+  handleDropdownPostFeedClick,
+  id,
 }) {
   const athleteName = "Romain Attanasio"; // reçu du backend
 
@@ -38,10 +38,11 @@ function HeadOfPost({
         >
           Free
         </div>
-        <DropDownButtonMenu 
-        isDropDownButtonClicked={isDropDownButtonClicked}
-        setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-        dropDownMenuSize={dropDownMenuSize} />
+        <DropDownButtonMenu
+          handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+          dropDownMenuSize={dropDownMenuSize}
+          id={id}
+        />
       </div>
     </div>
   );

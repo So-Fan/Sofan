@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
-import { Link } from "react-router-dom";
 import FeedSideNavLink from "../../Components/FeedSideNavLink/FeedSideNavLink";
 import FavAthlete from "../../Components/FavAthlete/FavAthlete";
 import FeedSuggestions from "../../Components/FeedSuggestions/FeedSuggestions";
@@ -9,7 +8,72 @@ import FeedEvent from "../../Components/EventComponent/FeedEvent";
 import FeedLaunchpad from "../../Components/FeedLaunchpad/FeedLaunchpad";
 import World from "../../Assets/Image/world.svg";
 import Star from "../../Assets/Image/star.svg";
-function Home({isDropDownButtonClicked, setIsDropDownButtonClicked}) {
+function Home({ setData, data, setIsDropdownClicked }) {
+  
+
+  useEffect(() => {
+    // simulate fake post data from backend
+    const dataBackend = [
+      {
+        id: 0,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 1,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 2,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 3,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 4,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 5,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 6,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 7,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 8,
+        name: "Romain Attanasio",
+      },
+      {
+        id: 9,
+        name: "Romain Attanasio",
+      },
+    ];
+    for (let i = 0; i < dataBackend.length; i++) {
+      dataBackend[i] = { ...dataBackend[i], ...{ isClicked: false } };
+    }
+    setData(dataBackend);
+  }, [setData]);
+
+  const handleDropdownPostFeedClick = (e) => {
+    for (let i = 0; i < data.length; i++) {
+      if (
+        parseInt(e.currentTarget.id) === data[i].id &&
+        data[i].isClicked === false
+      ) {
+        const newData = [...data];
+        newData[i].isClicked = true;
+        setData(newData);
+        setIsDropdownClicked(true)
+      } 
+    }
+  };
   return (
     <>
       <section className="home-component">
@@ -36,29 +100,15 @@ function Home({isDropDownButtonClicked, setIsDropDownButtonClicked}) {
           <FeedSuggestions />
         </div>
         <div className="home-center-container">
-          <PostsFeed 
-          isDropDownButtonClicked={isDropDownButtonClicked}
-          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-          />
-          <PostsFeed 
-          isDropDownButtonClicked={isDropDownButtonClicked}
-          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-          />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
-          <PostsFeed />
+          {data?.map((post) => {
+            return (
+              <PostsFeed
+                id={post.id}
+                isClicked={post.isClicked}
+                handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+              />
+            );
+          })}
         </div>
         <div className="home-right-container">
           <FeedEvent />

@@ -1,29 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "./DropDownButtonMenu.css";
-import DropDownMenu from "../DropDownMenu/DropDownMenu";
 
-function DropDownButtonMenu({ dropDownMenuSize, setIsDropDownButtonClicked, isDropDownButtonClicked }) {
-  const handleClickDropDownButton = (e) => {
-    e.preventDefault();
-    setIsDropDownButtonClicked(!isDropDownButtonClicked);
-    console.log(isDropDownButtonClicked)
-  };
-
+function DropDownButtonMenu({
+  dropDownMenuSize,
+  handleDropdownPostFeedClick,
+  id,
+}) {
   return (
     <>
-      {/* <>{isDropDownButtonClicked && <DropDownButtonMenu />}</> */}
-      <>
-        <button
-          onClick={handleClickDropDownButton}
-          className="dropdown-menu-button-container"
-        >
-          <div className="dropdown-button-publication">
-            <div className={`dropdown-button-point ${dropDownMenuSize}`}></div>
-            <div className={`dropdown-button-point ${dropDownMenuSize}`}></div>
-            <div className={`dropdown-button-point ${dropDownMenuSize}`}></div>
-          </div>
-        </button>
-      </>
+      <button
+        onClick={handleDropdownPostFeedClick}
+        className="dropdown-menu-button-container"
+        id={id.toString()}
+      >
+        <div className="dropdown-button-publication">
+          <div className={`dropdown-button-point ${dropDownMenuSize}`}></div>
+          <div className={`dropdown-button-point ${dropDownMenuSize}`}></div>
+          <div className={`dropdown-button-point ${dropDownMenuSize}`}></div>
+        </div>
+      </button>
     </>
   );
 }

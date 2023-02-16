@@ -9,21 +9,27 @@ import sofanLogo from "./Assets/Image/sofanlogo.svg";
 function App() {
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
-  const handleProfileClick = (e) => {
-    console.log(e.target.id);
+  const [data, setData] = useState();
+  const [isDropdownClicked, setIsDropdownClicked] = useState();
+  function handleClickOutside(e) {
+    // Navbar
     if (e.target.id === "navbar-user-profile-img") {
       setIsProfileClicked(true);
     } else {
       setIsProfileClicked(false);
     }
-  };
-  function handleClickOutside(e) {
-    if (e.target.className !== "dropdown-menu-container"){
-  console.log ("bjeriugherihg")
-  if (isDropDownButtonClicked === true) {
-    
-    setIsDropDownButtonClicked(false)
-  }
+    // Dropdown
+    if (isDropdownClicked) {
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        if (data[i].isClicked === true) {
+          console.log("je suis ici");
+          const newData = [...data];
+          newData[i].isClicked = false;
+          setData(newData);
+          setIsDropdownClicked(false);
+        }
+      }
     }
   }
   return (
@@ -31,10 +37,18 @@ function App() {
       <div className="App" onClick={handleClickOutside}>
         <Navbar isProfileClicked={isProfileClicked} />
         <Routes>
-          <Route index element={<Home
-          isDropDownButtonClicked={isDropDownButtonClicked}
-          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-          />} />
+          <Route
+            index
+            element={
+              <Home
+                isDropDownButtonClicked={isDropDownButtonClicked}
+                setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+                data={data}
+                setData={setData}
+                setIsDropdownClicked={setIsDropdownClicked}
+              />
+            }
+          />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
