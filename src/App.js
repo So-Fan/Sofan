@@ -2,77 +2,53 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
-import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAthletePage";
 import { useState } from "react";
-import PostsFeed from "./Components/PostsComponents/PostsFeed/PostsFeed";
-import FullPagePost from "./Pages/FullPagePost/FullPagePost";
-import PollPost from "./Components/PostsComponents/PollPost/PollPost";
-import FavAthlete from "./Components/FavAthlete/FavAthlete";
-import FeedSideNavLink from "./Components/FeedSideNavLink/FeedSideNavLink";
-import Star from "./Assets/Image/star.svg";
-import World from "./Assets/Image/world.svg";
 import "./App.css";
-import DropDownMenu from "./Components/PostsComponents/DropDownMenu/DropDownMenu";
-import Button from "./Components/Button/Button";
-import FeedSuggestions from "./Components/FeedSuggestions/FeedSuggestions";
-import FeedLaunchpad from "./Components/FeedLaunchpad/FeedLaunchpad";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
-import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
-import EventComponent from "./Components/EventComponent/EventComponent";
-import Fake from "./Components/Modal/fakedata/Fake";
 
 function App() {
+  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
-  const handleProfileClick = (e) => {
-    console.log(e.target.id);
+  const [data, setData] = useState();
+  const [isDropdownClicked, setIsDropdownClicked] = useState();
+  function handleClickOutside(e) {
+    // Navbar
     if (e.target.id === "navbar-user-profile-img") {
       setIsProfileClicked(true);
     } else {
       setIsProfileClicked(false);
     }
-  };
-
+    // Dropdown
+    if (isDropdownClicked) {
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        if (data[i].isClicked === true) {
+          console.log("je suis ici");
+          const newData = [...data];
+          newData[i].isClicked = false;
+          setData(newData);
+          setIsDropdownClicked(false);
+        }
+      }
+    }
+  }
   return (
     <BrowserRouter>
-      <div className="App" onClick={handleProfileClick}>
+      <div className="App" onClick={handleClickOutside}>
         <Navbar isProfileClicked={isProfileClicked} />
         <Routes>
-          <Route index element={<Home />} />
-          <Route path="/signupathlete" element={<SignUpAthletePage />} />
-          <Route path="/publication" element={<PostsFeed />} />
-          <Route path="/post938098" element={<FullPagePost />} />
-          <Route path="/pollpost" element={<PollPost />} />
-          <Route path="/favathlete" element={<FavAthlete />} />
-          <Route path="/dropdown" element={<DropDownMenu />} />
-          <Route path="/feedsuggestions" element={<FeedSuggestions />} />
-          <Route path="/launchpad" element={<FeedLaunchpad />} />
-          <Route path="/button" element={<Button isLink={false} to={"/here"} backgroundColor='#F6D463' borderColor={"transparent"} borderRadius="10px" width="573px" height={"72px"} text="Mint Now" />} />
           <Route
-            path="/sidenavlink"
+            index
             element={
-              <>
-                <FeedSideNavLink
-                  href={"/feed/decouverte"}
-                  svg={World}
-                  alt="World"
-                  title="Découverte"
-                  imgWidth={"20px"}
-                  gap={"11px"}
-                />
-                <FeedSideNavLink
-                  href={"/feed/abonnement"}
-                  svg={Star}
-                  alt="Star"
-                  title="Abonnement"
-                  imgWidth={"22.83px"}
-                  gap={"8.59px"}
-                />
-              </>
+              <Home
+                isDropDownButtonClicked={isDropDownButtonClicked}
+                setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+                data={data}
+                setData={setData}
+                setIsDropdownClicked={setIsDropdownClicked}
+              />
             }
           />
-          <Route path="createpostpoll" element={<CreationPostPoll />} />
-          <Route path="eventcomponent" element={<EventComponent/>}/>
-          <Route path="modal" element={<Fake />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">

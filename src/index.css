@@ -164,7 +164,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: "britanica-regular" !important;
 }
-
+body::-webkit-scrollbar{
+  display: none;
+}
 .page-container {
   height: 100vh !important;
   width: 100vw !important;

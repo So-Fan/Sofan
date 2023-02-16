@@ -6,7 +6,7 @@
   justify-content: space-between;
 }
 .favAthlete-horizontal {
-  border: 0.3px solid rgba(0, 0, 0, 0.5);
+  border: 0.3px solid rgba(0, 0, 0, 0.1);
 }
 .favAthlete-wrap {
   display: flex;
@@ -37,4 +37,41 @@
 .favAthlete-subwrap > a:hover {
   text-decoration: underline;
   color: black;
+}
+.favAthlete-responsive-container {
+  display: none;
+}
+@media (max-width: 950px) {
+  .favAthlete-container {
+    width: 250px;
+    height: 330px;
+  }
+  .favAthlete-responsive-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+  }
+  /* .favAthlete-responsive-container > a  {
+    background-color: #f6d46352;
+    border-radius: 99px;
+  } */
+}
+@media (max-width: 900px) {
+  .favAthlete-container {
+    width: 220px;
+  }
+  .favAthlete-subwrap > a {
+    display: none;
+  }
+}
+@media (max-width: 860px){
+  .favAthlete-container {
+    width: 200px;
+  }
+}
+@media (max-width: 840px){
+  .favAthlete-container {
+    width: 183px;
+  }
 }
