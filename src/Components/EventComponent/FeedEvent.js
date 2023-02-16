@@ -3,7 +3,7 @@ import "./FeedEvent.css";
 import DataEvent from "./fakedata/dataEvent.json";
 import { Link } from "react-router-dom";
 import EventTemplate from "./EventTemplate/EventTemplate";
-const FeedEvent = ({}) => {
+const FeedEvent = () => {
   return (
     <div className="event-component">
       <div className="event-header-container">
