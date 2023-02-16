@@ -9,8 +9,6 @@ import FeedLaunchpad from "../../Components/FeedLaunchpad/FeedLaunchpad";
 import World from "../../Assets/Image/world.svg";
 import Star from "../../Assets/Image/star.svg";
 function Home({ setData, data, setIsDropdownClicked }) {
-  
-
   useEffect(() => {
     // simulate fake post data from backend
     const dataBackend = [
@@ -70,8 +68,8 @@ function Home({ setData, data, setIsDropdownClicked }) {
         const newData = [...data];
         newData[i].isClicked = true;
         setData(newData);
-        setIsDropdownClicked(true)
-      } 
+        setIsDropdownClicked(true);
+      }
     }
   };
   return (
@@ -100,15 +98,17 @@ function Home({ setData, data, setIsDropdownClicked }) {
           <FeedSuggestions />
         </div>
         <div className="home-center-container">
-          {data?.map((post) => {
-            return (
-              <PostsFeed
-                id={post.id}
-                isClicked={post.isClicked}
-                handleDropdownPostFeedClick={handleDropdownPostFeedClick}
-              />
-            );
-          })}
+          <div>
+            {data?.map((post) => {
+              return (
+                <PostsFeed
+                  id={post.id}
+                  isClicked={post.isClicked}
+                  handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+                />
+              );
+            })}
+          </div>
         </div>
         <div className="home-right-container">
           <FeedEvent />
