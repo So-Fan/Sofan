@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./PostPoll.css";
 import Img from "../../../Assets/Image/img.svg";
 import Form from "../../../Assets/Image/form.svg";

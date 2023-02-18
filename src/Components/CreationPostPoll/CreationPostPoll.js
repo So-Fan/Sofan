@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./CreationPostPoll.css";
-import Cross from "../../Assets/Image/cross.svg";
 import PostPoll from "./PostPoll/PostPoll";
 
 const CreationPostPoll = () => {
@@ -51,7 +50,7 @@ const CreationPostPoll = () => {
   
  
   return (
-    <div className="creation-post-component" >
+
       <div
         className="creation-post-container"
         style={select.creationPostContainer[isFile]}
@@ -61,9 +60,8 @@ const CreationPostPoll = () => {
           style={select.creationPostWrap[isFile]}
         >
           <div className="creation-text-wrap">
-            <span>{step !=1 ? "Create a post" : "Who can see your post"}</span>
+            <span>{step !== 1 ? "Create a post" : "Who can see your post"}</span>
             <button className="cancel-button-creation-post">
-            <img src={Cross} alt="a cross" />
             </button>
           </div>
           {step !== 1 ? <PostPoll
@@ -82,10 +80,10 @@ const CreationPostPoll = () => {
             <div id="1" onClick={handleVisibilityClicked} style={isVisibilityClicked[1]}><span>All SoFan users</span></div>
           </div>
           }
-          <button onClick={handleNextClick}>{step !=1 ? "Next" : "Publish"}</button>
+          <button onClick={handleNextClick}>{step !== 1 ? "Next" : "Publish"}</button>
         </div>
       </div>
-    </div>
+
   );
 };
 

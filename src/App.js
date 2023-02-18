@@ -7,6 +7,7 @@ import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 
 function App() {
+  const isLogged = true // from Backend
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [data, setData] = useState();
@@ -46,6 +47,7 @@ function App() {
                 data={data}
                 setData={setData}
                 setIsDropdownClicked={setIsDropdownClicked}
+                isLogged={isLogged}
               />
             }
           />
