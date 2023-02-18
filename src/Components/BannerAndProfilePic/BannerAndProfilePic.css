@@ -1,0 +1,7 @@
+.banner-container {
+  display: flex;
+  justify-content: center;
+  max-width: 1246px;
+  max-height: 300px;
+  border-radius: 20px;
+}
