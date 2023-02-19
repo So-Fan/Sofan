@@ -23,10 +23,10 @@ function App() {
     if (isDropdownClicked) {
       for (let i = 0; i < data.length; i++) {
         console.log(data[i]);
-        if (data[i].isClicked === true) {
+        if (data[i].isDropdownClicked === true) {
           console.log("je suis ici");
           const newData = [...data];
-          newData[i].isClicked = false;
+          newData[i].isDropdownClicked = false;
           setData(newData);
           setIsDropdownClicked(false);
         }

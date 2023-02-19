@@ -11,10 +11,11 @@ import Star from "../../Assets/Image/star.svg";
 import Button from "../../Components/Button/Button";
 import CreationPostPoll from "../../Components/CreationPostPoll/CreationPostPoll";
 import Modal from "../../Components/Modal/Modal";
+import FullPagePost from "../FullPagePost/FullPagePost";
 function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
-
+  const [isPostClicked, setIsPostClicked] = useState(false);
   useEffect(() => {
     // simulate fake post data from backend
     const dataBackend = [
@@ -60,7 +61,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       },
     ];
     for (let i = 0; i < dataBackend.length; i++) {
-      dataBackend[i] = { ...dataBackend[i], ...{ isClicked: false } };
+      dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
     }
     setData(dataBackend);
   }, [setData]);
@@ -69,10 +70,10 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
     for (let i = 0; i < data.length; i++) {
       if (
         parseInt(e.currentTarget.id) === data[i].id &&
-        data[i].isClicked === false
+        data[i].isDropdownClicked === false
       ) {
         const newData = [...data];
-        newData[i].isClicked = true;
+        newData[i].isDropdownClicked = true;
         setData(newData);
         setIsDropdownClicked(true);
       }
@@ -84,6 +85,10 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   };
   return (
     <>
+      {/* <Modal style={{top: "0px"}} color="white">
+        <FullPagePost />
+      </Modal> */}
+      {/* <FullPagePost /> */}
       <section className="home-component">
         <div className="home-left-container">
           <div className="home-navlink-create-post-wrap">
@@ -106,13 +111,13 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
               />
             </div>
             {isLogged && (
-                <Button
-                  style={CreatePostButtonStyle.inlineStyle}
-                  customMediaQueries={CreatePostButtonStyle.customMediaQueries}
-                  text="Create a post"
-                  onClick={handleCreatePostClick}
-                />
-              )}
+              <Button
+                style={CreatePostButtonStyle.inlineStyle}
+                customMediaQueries={CreatePostButtonStyle.customMediaQueries}
+                text="Create a post"
+                onClick={handleCreatePostClick}
+              />
+            )}
           </div>
           <FavAthlete />
           <FeedSuggestions />
@@ -121,11 +126,16 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
           <div>
             {data?.map((post) => {
               return (
-                <PostsFeed
-                  id={post.id}
-                  isClicked={post.isClicked}
-                  handleDropdownPostFeedClick={handleDropdownPostFeedClick}
-                />
+                <>
+                  <PostsFeed
+                    id={post.id}
+                    isDropdownClicked={post.isDropdownClicked}
+                    handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+                    setIsPostClicked={setIsPostClicked}
+                    isPostClicked={isPostClicked}
+                  />
+                  
+                </>
               );
             })}
           </div>
@@ -143,6 +153,15 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
           <CreationPostPoll />
         </Modal>
       )}
+      {isPostClicked && (
+        <Modal
+        setState={setIsPostClicked}
+        style={{top: "-24px", right: "2px"}}
+        color="white"
+        >
+          <FullPagePost />
+        </Modal>
+      )}
     </>
   );
 }
@@ -150,13 +169,15 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
 export default Home;
 
 const CreatePostButtonStyle = {
-  inlineStyle : {
-  backgroundColor: "#F6D463",
-  border: "transparent",
-  borderRadius: "10px",
-  width: "284px",
-  minHeight: "54px",
-  fontFamily: "Britanica-Heavy",
-  fontSize: "20px",
-},
-  customMediaQueries: "@media (max-width: 950px) { .button-component { max-width: 250px; }}@media (max-width: 900px) {.button-component {max-width: 220px; } } @media (max-width: 860px){.button-component {max-width: 200px;}}@media (max-width: 840px){.button-component {max-width: 183px;}}"};
+  inlineStyle: {
+    backgroundColor: "#F6D463",
+    border: "transparent",
+    borderRadius: "10px",
+    width: "284px",
+    minHeight: "54px",
+    fontFamily: "Britanica-Heavy",
+    fontSize: "20px",
+  },
+  customMediaQueries:
+    "@media (max-width: 950px) { .button-component { max-width: 250px; }}@media (max-width: 900px) {.button-component {max-width: 220px; } } @media (max-width: 860px){.button-component {max-width: 200px;}}@media (max-width: 840px){.button-component {max-width: 183px;}}",
+};

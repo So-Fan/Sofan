@@ -8,21 +8,25 @@ import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import attanasioBateau from "../../../Assets/Image/romain.jpeg";
 import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 import { Link } from "react-router-dom";
-function PostsFeed({handleDropdownPostFeedClick, isClicked, id}) {
+import Modal from "../../Modal/Modal";
+function PostsFeed({handleDropdownPostFeedClick, isDropdownClicked, id, setIsPostClicked, isPostClicked}) {
 
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
 
-  const callToggleModal = () => {
-    toggleModal();
-  };
-  const toggleModal = () => {
-    setModal(!modal);
-  };
+  // const callToggleModal = () => {
+  //   toggleModal();
+  // };
+  // const toggleModal = () => {
+  //   setModal(!modal);
+  // };
+
+  const [isModdleToggled, setIsModalToggled] = useState(false)
 
   return (
     <>
+    
       <div className="publication-container">
-        {modal && (
+        {/* {modal && (
           <div onClick={toggleModal} className="overlay-postfeed"></div>
         )}
         {modal && (
@@ -33,10 +37,10 @@ function PostsFeed({handleDropdownPostFeedClick, isClicked, id}) {
               toggleModal={toggleModal}
             />
           </>
-        )}
+        )} */}
 
         <div className="publication-content">
-          {isClicked && <DropDownMenu />}
+          {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
               dropDownMenuSize="dropdown-button-point-size-M"
@@ -63,14 +67,14 @@ function PostsFeed({handleDropdownPostFeedClick, isClicked, id}) {
             commentPublicationPollPost="comments-publication-pollpost"
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
-            callToggleModal={callToggleModal}
+            // callToggleModal={callToggleModal}
           />
           <div
-            onClick={toggleModal}
+            // onClick={toggleModal}
             className="show-comments-button-publication"
           >
             
-              <Link>Show 10 comments</Link>
+              <Link onClick={() => setIsPostClicked(true)}>Show 10 comments</Link>
             
           </div>
           <div className="line-separation-comments-publication-container">
