@@ -1,6 +1,65 @@
-.userprofilepage-container{
-    width: 100%;
-    height: calc(100vh - 94px);
-    display: flex;
-    justify-content: center;
+.userprofilepage-container {
+  width: 100%;
+  height: calc(100vh - 94px);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.userheader-container {
+  height: 100%;
+  max-height: 463px;
+  position: relative;
+  /* background-color: yellow; */
+}
+.username-stats-description {
+  position: absolute;
+  top: 304px;
+  left: 0px;
+  right: 0;
+}
+
+
+
+@media (max-width: 1300px) {
+    .username-stats-description {
+        position: absolute;
+        top: 270px;
+        left: 38px;
+        right: 0;
+      }
+}
+
+@media (max-width: 1200px) {
+    .username-stats-description {
+        position: absolute;
+        top: 230px;
+        left: 102px;
+        right: 0;
+      }
+}
+@media (max-width: 1080px) {
+    .username-stats-description {
+        position: absolute;
+        top: 210px;
+        left: 150px;
+        right: 0;
+      }
+}
+@media (max-width: 970px) {
+    .username-stats-description {
+        position: absolute;
+        top: 190px;
+        left: 210px;
+        right: 0;
+      }
+}
+@media (max-width: 870px) {
+    .username-stats-description {
+        position: absolute;
+        top: 170px;
+        left: 240px;
+        right: 0;
+      }
 }

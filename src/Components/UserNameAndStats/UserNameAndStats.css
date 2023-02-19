@@ -1,0 +1,85 @@
+.username-and-stats-container {
+  width: 100%;
+  max-width: 520px;
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* justify-content: center; */
+  /* background-color: red; */
+  flex-direction: row;
+  padding-top: 57px;
+}
+
+.username-container-userpage {
+  font-size: 35px;
+  line-height: 42px;
+  font-family: "Britanica-heavy";
+}
+
+.stats-user-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.following-athlete-number,
+.athlete-supporting-number,
+.counter-nft-owned-user-number {
+  font-family: "britanica-black";
+  color: #3c4045;
+  font-size: 20px;
+  line-height: 24px;
+  height: 100%;
+  max-width: 32px;
+  /* background-color: yellow; */
+  display: flex;
+  align-items: center;
+  padding-right: 7px;
+}
+
+.following-athlete-title,
+.athlete-supporting-title,
+.counter-nft-owned-user-title, #athlete-title-userpage {
+  font-family: "britanica-regular";
+  line-height: 14px;
+  font-weight: 400;
+}
+
+.counter-nft-owner-user-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.following-athlete-title,
+.athlete-supporting-title,
+.counter-nft-owned-user-title span {
+  font-family: "britanica-light";
+  /* width: 100%; */
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: center; */
+  flex-direction: column;
+}
+
+.following-athlete-container,
+.athlete-supporting-container,
+.counter-nft-owned-user-container {
+    width: 100%;
+  max-width: 83px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 21px;
+  padding-right: 21px;
+  /* background-color: red; */
+  /* flex-wrap: wrap; */
+}
+
+.line-separation-userprofile {
+  border: 0.3px solid #9b9b9b;
+  /* transform: rotate(90deg); */
+  height: 27px;
+}

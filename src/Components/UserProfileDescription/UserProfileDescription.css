@@ -1,0 +1,13 @@
+.user-description-container {
+    height: 100%;
+    width: 100%;
+    max-width: 441px;
+    max-height: 56px;
+    font-family: "britanica-regular";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #3d4045;
+    /* background-color: green; */
+    padding-top: 8px;
+  }
