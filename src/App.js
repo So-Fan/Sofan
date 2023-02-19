@@ -5,6 +5,7 @@ import Home from "./Pages/Home/Home";
 import { useState } from "react";
 import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
+import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 
 function App() {
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
@@ -49,6 +50,7 @@ function App() {
               />
             }
           />
+          <Route path="/createpostpoll" element={<CreationPostPoll />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
