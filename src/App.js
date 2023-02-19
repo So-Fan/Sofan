@@ -36,7 +36,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App" onClick={handleClickOutside}>
-        <Navbar isProfileClicked={isProfileClicked} />
+        <Navbar isProfileClicked={isProfileClicked} isLogged={isLogged} />
         <Routes>
           <Route
             index
