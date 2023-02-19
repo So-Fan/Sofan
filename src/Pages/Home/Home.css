@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   width: 1242px;
+  padding-top: 18px;
 }
 
 .home-left-container {

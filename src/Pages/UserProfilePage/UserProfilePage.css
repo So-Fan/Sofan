@@ -1,0 +1,6 @@
+.userprofilepage-container{
+    width: 100%;
+    height: calc(100vh - 94px);
+    display: flex;
+    justify-content: center;
+}

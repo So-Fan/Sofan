@@ -4,7 +4,10 @@ import "./UserProfilePage.css"
 function UserProfilePage() {
   return (
     <>
+    <section className='userprofilepage-container'>
+
     <BannerAndProfilePic/>
+    </section>
     </>
   )
 }
