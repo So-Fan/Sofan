@@ -5,6 +5,12 @@ import Home from "./Pages/Home/Home";
 import { useState } from "react";
 import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
+import UserPage from "./Pages/UserPage/UserPage";
+
+// Testing only, will be deleted
+import NftCard from "./Components/NftCard/NftCard";
+import Alexia from "./Assets/Image/alexia_barrier_user_page.svg"
+
 
 function App() {
   const isLogged = true // from Backend
@@ -51,6 +57,8 @@ function App() {
               />
             }
           />
+          <Route path="/user" element={<UserPage />} />
+          <Route path="/user/nftcard" element={<NftCard to={`/user/nftcard/${"390"}`} img={Alexia} name="Alexia Barrier" title="Explore the World with Alexia Barrier #390" price="0.61" bid="0.03"/>} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
