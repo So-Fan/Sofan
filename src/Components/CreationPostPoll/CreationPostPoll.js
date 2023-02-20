@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./CreationPostPoll.css";
-import Cross from "../../Assets/Image/cross.svg";
 import PostPoll from "./PostPoll/PostPoll";
 
 const CreationPostPoll = () => {
@@ -24,7 +23,10 @@ const CreationPostPoll = () => {
   const handleNextClick = () => {
     if (step === 0 && text !== "") {
       setStep(step + 1);
-    } else if (step === 1 && isVisibilityClicked[0].backgroundColor !== "white" || isVisibilityClicked[1].backgroundColor !== "white") {
+    } else if (
+      (step === 1 && isVisibilityClicked[0].backgroundColor !== "white") ||
+      isVisibilityClicked[1].backgroundColor !== "white"
+    ) {
       // Publier le contenu dans la BDD
     }
   };
@@ -68,7 +70,7 @@ const CreationPostPoll = () => {
   }, []);
 
   return (
-    <div className="creation-post-component">
+    // <div className="creation-post-component">
       <div
         className="creation-post-container"
         style={select.creationPostContainer[isFile]}
@@ -80,7 +82,7 @@ const CreationPostPoll = () => {
           <div className="creation-text-wrap">
             <span>{step != 1 ? "Create a post" : "Who can see your post"}</span>
             <button className="cancel-button-creation-post">
-              <img src={Cross} alt="a cross" />
+              {/* <img src={Cross} alt="a cross" /> */}
             </button>
           </div>
           {step !== 1 ? (
@@ -122,7 +124,7 @@ const CreationPostPoll = () => {
           </button>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

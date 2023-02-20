@@ -8,6 +8,7 @@ import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 
 function App() {
+  const isLogged = true // from Backend
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [data, setData] = useState();
@@ -23,10 +24,10 @@ function App() {
     if (isDropdownClicked) {
       for (let i = 0; i < data.length; i++) {
         console.log(data[i]);
-        if (data[i].isClicked === true) {
+        if (data[i].isDropdownClicked === true) {
           console.log("je suis ici");
           const newData = [...data];
-          newData[i].isClicked = false;
+          newData[i].isDropdownClicked = false;
           setData(newData);
           setIsDropdownClicked(false);
         }
@@ -36,7 +37,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App" onClick={handleClickOutside}>
-        <Navbar isProfileClicked={isProfileClicked} />
+        <Navbar isProfileClicked={isProfileClicked} isLogged={isLogged} />
         <Routes>
           <Route
             index
@@ -47,6 +48,7 @@ function App() {
                 data={data}
                 setData={setData}
                 setIsDropdownClicked={setIsDropdownClicked}
+                isLogged={isLogged}
               />
             }
           />

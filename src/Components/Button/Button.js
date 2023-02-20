@@ -2,43 +2,36 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Button.css";
 
-// if no border on button, set borderColor prop to 'transparent'
+// if no border on button, set borderColor to 'transparent'
 const Button = ({
   isLink,
   to,
-  backgroundColor,
-  borderColor,
-  borderRadius,
-  width,
-  height,
+ style,
+ customMediaQueries,
   text,
+  onClick
 }) => {
   return (
     <>
+    <style>
+    {`
+    ${customMediaQueries}
+    `}
+  </style>
       {isLink ? (
         <Link
           className="button-component"
           to={to}
-          style={{
-            backgroundColor: `${backgroundColor}`,
-            border: `1px solid ${borderColor}`,
-            borderRadius: `${borderRadius}`,
-            width: `${width}`,
-            height: `${height}`,
-          }}
+          style={style}
+          onClick={onClick}
         >
           {text}
         </Link>
       ) : (
         <button
           className="button-component"
-          style={{
-            backgroundColor: `${backgroundColor}`,
-            border: `1px solid ${borderColor}`,
-            borderRadius: `${borderRadius}`,
-            width: `${width}`,
-            height: `${height}`,
-          }}
+          style={style}
+          onClick={onClick}
         >
           {text}
         </button>
