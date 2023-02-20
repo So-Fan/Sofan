@@ -11,7 +11,7 @@ function DropDownButtonMenu({
       <button
         onClick={handleDropdownPostFeedClick}
         className="dropdown-menu-button-container"
-        id={id.toString()}
+        id={id?.toString()}
       >
         <div className="dropdown-button-publication">
           <div className={`dropdown-button-point ${dropDownMenuSize}`}></div>
