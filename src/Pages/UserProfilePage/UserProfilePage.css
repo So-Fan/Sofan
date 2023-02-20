@@ -2,28 +2,29 @@
   width: 100%;
   height: calc(100vh - 94px);
   display: flex;
-  justify-content: start;
   align-items: center;
   flex-direction: column;
+  overflow-x: scroll;
 }
 
 .userheader-container {
   height: 100%;
-  max-height: 463px;
+  max-height: 1463px;
   position: relative;
-  /* background-color: yellow; */
+  
 }
-.username-stats-description {
+.user-content-activity-nft {
   position: absolute;
   top: 304px;
   left: 0px;
   right: 0;
+  height: 100%;
 }
 
 
 
 @media (max-width: 1300px) {
-    .username-stats-description {
+    .user-content-activity-nft {
         position: absolute;
         top: 270px;
         left: 38px;
@@ -32,7 +33,7 @@
 }
 
 @media (max-width: 1200px) {
-    .username-stats-description {
+    .user-content-activity-nft {
         position: absolute;
         top: 230px;
         left: 102px;
@@ -40,7 +41,7 @@
       }
 }
 @media (max-width: 1080px) {
-    .username-stats-description {
+    .user-content-activity-nft {
         position: absolute;
         top: 210px;
         left: 150px;
@@ -48,7 +49,7 @@
       }
 }
 @media (max-width: 970px) {
-    .username-stats-description {
+    .user-content-activity-nft {
         position: absolute;
         top: 190px;
         left: 210px;
@@ -56,7 +57,7 @@
       }
 }
 @media (max-width: 870px) {
-    .username-stats-description {
+    .user-content-activity-nft {
         position: absolute;
         top: 170px;
         left: 240px;

@@ -1,5 +1,6 @@
 import React from "react";
 import BannerAndProfilePic from "../../Components/BannerAndProfilePic/BannerAndProfilePic";
+import UserActivity from "../../Components/UserActivity/UserActivity";
 import UserNameAndStats from "../../Components/UserNameAndStats/UserNameAndStats";
 import UserProfileDescription from "../../Components/UserProfileDescription/UserProfileDescription";
 import "./UserProfilePage.css";
@@ -10,9 +11,10 @@ function UserProfilePage() {
       <section className="userprofilepage-container">
         <div className="userheader-container">
           <BannerAndProfilePic />
-          <div className="username-stats-description">
+          <div className="user-content-activity-nft">
             <UserNameAndStats />
-            <UserProfileDescription/>
+            <UserProfileDescription />
+            <UserActivity />
           </div>
         </div>
       </section>
