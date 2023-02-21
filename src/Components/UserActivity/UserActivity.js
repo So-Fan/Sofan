@@ -1,8 +1,10 @@
 import React from "react";
 import "./UserActivity.css";
-import explorePicture from "../../Assets/Image/explorepicture.svg";
 import NftList from "../NftList/NftList";
+
 function UserActivity() {
+  const nftListArray = Array.from({length: 6}); // create an array with 6 empty elements
+
   return (
     <div className="user-activity-container">
       <div className="separation-line-horizontal-userprofile"></div>
@@ -14,8 +16,8 @@ function UserActivity() {
         <div className="user-to-type-activity">To</div>
         <div className="user-date-type-activity">Date</div>
       </div>
-      <div className="separation-line-horizontal-userprofile"></div>
-      <NftList/>
+      <div className="separation-line-horizontal-userprofile" id="separation-line-horizontal-bottom-userprofile"></div>
+      {nftListArray.map((_, index) => <NftList key={index} />)}
     </div>
   );
 }

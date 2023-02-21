@@ -3,6 +3,7 @@ import "./NftList.css"
 import explorePicture from "../../Assets/Image/explorepicture.svg"
 function NftList() {
   return (
+    // Backend here
     <div className="user-nft-transfer-container">
         <div>Mint</div>
         <div className="user-nft-picture-and-title">

@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     position: inherit !important;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     padding-bottom: 20px;
   }
   .user-nft-transfer-container > div {

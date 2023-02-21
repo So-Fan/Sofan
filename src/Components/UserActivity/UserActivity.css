@@ -13,6 +13,9 @@
   width: 100%;
   max-width: 1240px;
 }
+#separation-line-horizontal-bottom-userprofile{
+  margin-bottom: 20px;
+}
 /* ===== Column with type of data ===== */
 .user-data-types-activity {
   display: flex;
