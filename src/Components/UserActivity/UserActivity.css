@@ -51,4 +51,8 @@
   position: relative;
   left: 1040px;
 }
-/* ===== Transfer data of NFT ===== */
+.nft-list-activity-user-container{
+  overflow: scroll;
+  height: 100%;
+  max-height: 440px;
+}

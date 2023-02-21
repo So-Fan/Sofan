@@ -3,7 +3,7 @@ import "./UserActivity.css";
 import NftList from "../NftList/NftList";
 
 function UserActivity() {
-  const nftListArray = Array.from({length: 6}); // create an array with 6 empty elements
+  const nftListArray = Array.from({length: 159}); // create an array with 6 empty elements
 
   return (
     <div className="user-activity-container">
@@ -17,7 +17,9 @@ function UserActivity() {
         <div className="user-date-type-activity">Date</div>
       </div>
       <div className="separation-line-horizontal-userprofile" id="separation-line-horizontal-bottom-userprofile"></div>
+      <div className="nft-list-activity-user-container">
       {nftListArray.map((_, index) => <NftList key={index} />)}
+      </div>
     </div>
   );
 }
