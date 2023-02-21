@@ -13,7 +13,7 @@
   width: 100%;
   max-width: 1240px;
 }
-
+/* ===== Column with type of data ===== */
 .user-data-types-activity {
   display: flex;
   justify-content: row;
@@ -48,41 +48,94 @@
   position: relative;
   left: 1040px;
 }
-
+/* ===== Transfer data of NFT ===== */
 .user-nft-transfer-container {
-height: 50px;
-width: 100%;
-display: flex;
-align-items: center;
-position: inherit !important;
-padding-top: 20px;
-padding-bottom: 20px;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: inherit !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
-.user-nft-transfer-container >div {
-    font-family: "britanica-black";
-    font-size: 14px;
+.user-nft-transfer-container > div {
+  font-family: "britanica-black";
+  font-size: 14px;
 }
 .user-nft-picture-and-title {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    left: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 252px;
-    font-family: "britanica-heavy";
-    font-size: 14px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 252px;
+  font-family: "britanica-heavy";
+  font-size: 14px;
 }
-.user-nft-picture-and-title img{
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
+.user-nft-picture-and-title img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
 }
 
-.collection-name-nft-id-user-activity{
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-around !important;
+.collection-name-nft-id-user-activity {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-around !important;
+}
+
+/* ===== ===== */
+.nft-price-user-activity {
+  position: relative;
+  left: 55px;
+
+  height: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.nftc-price-eth-user-activity {
+  font-family: "britanica-heavy";
+  font-size: 14px;
+  line-height: 16.8px;
+}
+.nft-price-eur-user-activity {
+  font-family: "britanica-regular";
+  font-size: 14px;
+  line-height: 16.8px;
+  display: flex;
+  justify-content: end;
+}
+.nft-quantity-user-activity {
+  position: relative;
+  left: 11.5%;
+  width: 52px;
+  height: 17px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nft-from-user-activity {
+  max-width: 117px;
+  width: 100%;
+  position: relative;
+  left: 22.8%;
+}
+
+.nft-to-user-activity {
+  width: 100%;
+  max-width: 110px;
+  position: relative;
+  left: 31.6%;
+}
+.nft-date-transfer-user-activity{
+  max-width: 110px;
+  width: 100%;
+  position: relative;
+  left: 44%;
 }

@@ -25,6 +25,14 @@ function UserActivity() {
           </div>
           {/* </div> */}
         </div>
+        <div className="nft-price-user-activity">
+          <div className="nftc-price-eth-user-activity">0.50 ETH</div>
+          <div className="nft-price-eur-user-activity">692.04€</div>
+        </div>
+        <div className="nft-quantity-user-activity">1</div>
+        <div className="nft-from-user-activity">Alexia Barrier</div>
+        <div className="nft-to-user-activity">Gr3goir3</div>
+        <div className="nft-date-transfer-user-activity">1 hour ago</div>
       </div>
     </div>
   );
