@@ -52,31 +52,40 @@
   .user-content-activity-nft {
     position: absolute;
     top: 250px;
-    /* left: 102px; */
-    /* right: 0; */
   }
 }
 @media (max-width: 1080px) {
+  .userprofilepage-container{
+    max-width: 990px;
+  }
+  .userheader-container{
+    max-width: 940px;
+  }
   .user-content-activity-nft {
     position: absolute;
-    top: 210px;
-    left: 150px;
-    right: 0;
+    top: 220px;
   }
 }
 @media (max-width: 970px) {
+  .userheader-container{
+    max-width: 840px;
+    
+  }
   .user-content-activity-nft {
     position: absolute;
-    top: 190px;
-    left: 210px;
-    right: 0;
+    top: 200px;
+    display: flex;
+    width: 100%;
   }
 }
 @media (max-width: 870px) {
+  .userheader-container{
+    max-width: 820px;
+  }
   .user-content-activity-nft {
     position: absolute;
     top: 170px;
-    left: 240px;
+    /* left: 240px; */
     right: 0;
   }
 }

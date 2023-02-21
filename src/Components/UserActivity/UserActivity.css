@@ -83,3 +83,42 @@
     left: 865px;
   }
 }
+@media (max-width:1080px) {
+  .user-from-type-activity{
+    left:498px;
+  }
+  .user-to-type-activity{
+    left: 635px;
+  }
+  .user-date-type-activity{
+    left: 750px;
+  }
+}
+@media (max-width:970px) {
+  .user-price-type-activity{
+    left:325px;
+  }
+  .user-quantity-type-activity{
+    left: 375px;
+  }
+  .user-from-type-activity{
+    left: 440px;
+  }
+  .user-to-type-activity{
+    left: 525px;
+  }
+  .user-date-type-activity{
+    left: 620px;
+  }
+}
+@media (max-width:870px) {
+  .user-from-type-activity{
+    left: 425px;
+  }
+  .user-to-type-activity{
+    left: 510px;
+  }
+  .user-date-type-activity{
+    left: 570px;
+  }
+}

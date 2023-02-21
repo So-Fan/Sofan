@@ -61,19 +61,22 @@
     }
 }
 @media (max-width:1080px) {
+    
     .banner-container {
+        max-width: 970px;
         width: calc(1246px - 22%);
         height: calc(300px - 22%);
     }
     .profile-pic-container{
         width: 121px;
         height: 121px;
-        left: 45px;
+        left: 65px;
         top: 55%;
     }
 }
 @media (max-width:970px) {
     .banner-container {
+        max-width: 870px;
         width: calc(1246px - 30%);
         height: calc(300px - 30%);
     }
@@ -84,6 +87,7 @@
 }
 @media (max-width:870px) {
     .banner-container {
+        max-width: 770px;
         width: calc(1246px - 34%);
         height: calc(300px - 34%);
     }
