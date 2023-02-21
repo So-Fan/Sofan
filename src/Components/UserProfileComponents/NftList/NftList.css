@@ -11,6 +11,9 @@
   font-family: "britanica-black";
   font-size: 14px;
 }
+.nft-origin-type{
+
+}
 .user-nft-picture-and-title {
   height: 100%;
   width: 100%;
@@ -87,6 +90,11 @@
   width: 100%;
   position: relative;
   left: 44%;
+}
+/* ===== Display Formulated Offers ===== */
+
+.formulated-offers-display{
+  display: none;
 }
 
 @media (max-width: 1300px) {

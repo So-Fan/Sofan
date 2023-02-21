@@ -1,11 +1,11 @@
 import React from 'react'
 import "./NftList.css"
-import explorePicture from "../../Assets/Image/explorepicture.svg"
-function NftList() {
+import explorePicture from "../../../Assets/Image/explorepicture.svg"
+function NftList({formulatedOffersDisplay}) {
   return (
     // Backend here 
     <div className="user-nft-transfer-container">
-        <div>Mint</div>
+        <div className={`nft-origin-type ${formulatedOffersDisplay}`}>Mint</div>
         <div className="user-nft-picture-and-title">
           <img src={explorePicture} alt="nft picture" />
           <div className="collection-name-nft-id-user-activity">
