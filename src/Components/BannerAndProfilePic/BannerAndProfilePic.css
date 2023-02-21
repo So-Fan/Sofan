@@ -30,6 +30,9 @@
   cursor: pointer;
 }
 @media (max-width: 1300px) {
+    .banner-and-profile-container{
+        max-width: 1177.66px;
+    }
     .banner-container{
         width: calc(1246px - 5%) ;
         height: calc(300px - 5%);
@@ -43,6 +46,9 @@
 }
 
 @media (max-width:1200px) {
+    .banner-and-profile-container{
+        
+    }
     .banner-container {
         width: calc(1246px - 14%);
         height: calc(300px - 14%);

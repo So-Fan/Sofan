@@ -13,7 +13,7 @@
   width: 100%;
   max-width: 1240px;
 }
-#separation-line-horizontal-bottom-userprofile{
+#separation-line-horizontal-bottom-userprofile {
   margin-bottom: 20px;
 }
 /* ===== Column with type of data ===== */
@@ -51,8 +51,35 @@
   position: relative;
   left: 1040px;
 }
-.nft-list-activity-user-container{
+.nft-list-activity-user-container {
   overflow: scroll;
   height: 100%;
   max-height: 440px;
+}
+@media (max-width: 1300px) {
+  .user-activity-container {
+    max-width: 1177.66px;
+  }
+  .user-data-types-activity {
+    position: relative;
+    /* left: -2.2%; */
+  }
+  .user-date-type-activity {
+    left: 940px;
+  }
+  .nft-list-activity-user-container {
+    max-width: 1177.66px !important;
+  }
+}
+@media (max-width: 1200px) {
+  .nft-list-activity-user-container{
+    max-width: 1100px !important;
+    
+  }
+  .user-to-type-activity{
+    left: 700px;
+  }
+  .user-date-type-activity{
+    left: 865px;
+  }
 }

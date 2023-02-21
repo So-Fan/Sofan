@@ -12,8 +12,12 @@ function UserProfilePage() {
         <div className="userheader-container">
           <BannerAndProfilePic />
           <div className="user-content-activity-nft">
-            <UserNameAndStats />
-            <UserProfileDescription />
+            <div className="username-and-stats-component">
+              <UserNameAndStats />
+            </div>
+            <div className="userprofile-description-component">
+              <UserProfileDescription />
+            </div>
             <UserActivity />
           </div>
         </div>

@@ -88,3 +88,22 @@
     position: relative;
     left: 44%;
   }
+
+  @media (max-width:1300px) {
+    .user-nft-transfer-container{
+      /* max-width: 1177.66px; */
+    }
+    
+    .nft-date-transfer-user-activity{
+      left: 38.9%;
+      max-width: 75px;
+    }
+  }
+  @media (max-width:1200px) {
+    .nft-to-user-activity{
+      left: 28.3%;
+    }
+    .nft-date-transfer-user-activity{
+      left: 34.5%;
+    }
+  }

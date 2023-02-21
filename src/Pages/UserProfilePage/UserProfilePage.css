@@ -11,7 +11,6 @@
   height: 100%;
   max-height: 1463px;
   position: relative;
-  
 }
 .user-content-activity-nft {
   position: absolute;
@@ -19,48 +18,65 @@
   left: 0px;
   right: 0;
   height: 100%;
+  /* max-width: 1177.66px !important;
+  overflow: hidden !important; */
 }
 
-
-
 @media (max-width: 1300px) {
-    .user-content-activity-nft {
-        position: absolute;
-        top: 270px;
-        left: 38px;
-        right: 0;
-      }
+  .user-content-activity-nft {
+    position: absolute;
+    /* top: 270px; */
+    /* left: 38px; */
+    /* right: 0; */
+    max-width: 1177.66px !important;
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .username-and-stats-component{
+    display: flex;
+    width: 100%;
+  }
+  .userprofile-description-component{
+    display: flex;
+    width: 100%;
+  }
 }
 
 @media (max-width: 1200px) {
-    .user-content-activity-nft {
-        position: absolute;
-        top: 230px;
-        left: 102px;
-        right: 0;
-      }
+  .userheader-container{
+    max-width: 1050px;
+    /* background-color: red; */
+  }
+  .user-content-activity-nft {
+    position: absolute;
+    top: 250px;
+    /* left: 102px; */
+    /* right: 0; */
+  }
 }
 @media (max-width: 1080px) {
-    .user-content-activity-nft {
-        position: absolute;
-        top: 210px;
-        left: 150px;
-        right: 0;
-      }
+  .user-content-activity-nft {
+    position: absolute;
+    top: 210px;
+    left: 150px;
+    right: 0;
+  }
 }
 @media (max-width: 970px) {
-    .user-content-activity-nft {
-        position: absolute;
-        top: 190px;
-        left: 210px;
-        right: 0;
-      }
+  .user-content-activity-nft {
+    position: absolute;
+    top: 190px;
+    left: 210px;
+    right: 0;
+  }
 }
 @media (max-width: 870px) {
-    .user-content-activity-nft {
-        position: absolute;
-        top: 170px;
-        left: 240px;
-        right: 0;
-      }
+  .user-content-activity-nft {
+    position: absolute;
+    top: 170px;
+    left: 240px;
+    right: 0;
+  }
 }

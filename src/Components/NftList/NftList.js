@@ -3,7 +3,7 @@ import "./NftList.css"
 import explorePicture from "../../Assets/Image/explorepicture.svg"
 function NftList() {
   return (
-    // Backend here
+    // Backend here 
     <div className="user-nft-transfer-container">
         <div>Mint</div>
         <div className="user-nft-picture-and-title">
@@ -20,7 +20,7 @@ function NftList() {
         <div className="nft-quantity-user-activity">1</div>
         <div className="nft-from-user-activity">Alexia Barrier</div>
         <div className="nft-to-user-activity">Gr3goir3</div>
-        <div className="nft-date-transfer-user-activity">1 hour ago</div>
+        <div className="nft-date-transfer-user-activity">1 hours ago</div>
       </div>
   )
 }
