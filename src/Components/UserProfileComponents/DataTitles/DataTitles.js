@@ -9,25 +9,30 @@ function DataTitles({
   formulatedOffersFromTitle,
   formulatedOffersToTitle,
   formulatedOffersStatusTitle,
+  formulatedOffersNftTitleClass,
+  formulatedOffersYourOffersTitleClass,
+  formulatedOffersFromTitleClass,
+  formulatedOffersToTitleClass,
+  formulatedOffersStatusTitleClass
 }) {
   return (
     <>
       <div className="separation-line-horizontal-userprofile"></div>
       <div className="user-data-types-activity">
-        <div className="user-nft-type-activity">NFT</div>
-        <div className="user-price-type-activity">
+        <div className={`user-nft-type-activity ${formulatedOffersNftTitleClass}`}>NFT</div>
+        <div className={`user-price-type-activity ${formulatedOffersYourOffersTitleClass}`}>
           {activityUserPriceTitle}
           {formulatedOffersYourOffersTitle}
         </div>
-        <div className="user-quantity-type-activity">
+        <div className={`user-quantity-type-activity ${formulatedOffersFromTitleClass}`}>
           {activityUserQuantityTitle}
           {formulatedOffersFromTitle}
         </div>
-        <div className="user-from-type-activity">
+        <div className={`user-from-type-activity ${formulatedOffersToTitleClass} `}>
           {activityUserFrom}
           {formulatedOffersToTitle}
         </div>
-        <div className="user-to-type-activity">
+        <div className={`user-to-type-activity ${formulatedOffersStatusTitleClass}`}>
           {activityUserTo}
           {formulatedOffersStatusTitle}
         </div>

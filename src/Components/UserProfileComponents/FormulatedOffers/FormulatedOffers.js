@@ -27,9 +27,14 @@ function FormulatedOffers() {
           formulatedOffersFromTitle="From"
           formulatedOffersToTitle="To"
           formulatedOffersStatusTitle="Status"
+          formulatedOffersNftTitleClass="formulated-offers-nft-title"
+          formulatedOffersYourOffersTitleClass="formulated-offers-your-offers-title"
+          formulatedOffersFromTitleClass="formulated-offers-from-title"
+          formulatedOffersToTitleClass="formulated-offers-to-title"
+          formulatedOffersStatusTitleClass="formulated-offers-status-title"
         />
         <NftList
-          formulatedOffersDisplay="formulated-offers-display"
+          formulatedOffersDisplaySourceType="formulated-offers-display-source-type"
           formulatedOffersFrom="you"
           formulatedOffersTo="Gr3goir3"
           formulatedOffersStatus="Pending"
@@ -38,6 +43,12 @@ function FormulatedOffers() {
               <div className={displayCurrentOffersStatus()}></div>
             </>
           }
+          formulatedOffersNftContentClass="formulated-offers-nft-picture-and-title"
+          formulatedOffersYourOffersPriceClass="formulated-offers-your-offers-price"
+          formulatedOffersFromClass="formulated-offers-from"
+          formulatedOffersToClass="formulated-offers-to"
+          formulatedOffersStatusClass="formulated-offers-status"
+          formulatedOffersDateClass="formulated-offers-date"
         />
       </section>
     </>

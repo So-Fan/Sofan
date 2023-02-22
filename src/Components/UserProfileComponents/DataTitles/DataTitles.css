@@ -43,6 +43,25 @@
     position: relative;
     left: 1040px;
   }
+  /* ===== Formulated offers titles ===== */
+
+.formulated-offers-nft-title{
+    left:0px;
+}
+
+.formulated-offers-your-offers-title{
+ left: calc(400px - 36px);
+}
+.formulated-offers-from-title{
+    left: calc(587px - 86px);
+}
+.formulated-offers-to-title{
+    left: calc(769px - 66px);
+}
+.formulated-offers-status-title {
+    left: calc(969px - 110px);
+}
+
   @media (max-width: 1300px) {
     .user-activity-container {
       max-width: 1177.66px;

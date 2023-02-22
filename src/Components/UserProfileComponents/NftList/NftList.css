@@ -94,8 +94,26 @@
 }
 /* ===== Display Formulated Offers ===== */
 
-.formulated-offers-display{
+.formulated-offers-display-source-type{
   display: none;
+}
+.formulated-offers-nft-picture-and-title{
+  left: 0px;
+}
+.formulated-offers-your-offers-price{
+  left: 145px;
+}
+.formulated-offers-from{
+  left: 258px;
+}
+.formulated-offers-to{
+  left: 465px;
+}
+.formulated-offers-status{
+  left: 515px;
+}
+.formulated-offers-date{
+  left: 585px;
 }
 
 @media (max-width: 1300px) {
