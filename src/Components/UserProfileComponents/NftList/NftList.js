@@ -1,7 +1,7 @@
 import React from 'react'
 import "./NftList.css"
 import explorePicture from "../../../Assets/Image/explorepicture.svg"
-function NftList({formulatedOffersDisplay}) {
+function NftList({activityUserFrom,activityUserTo, activityUserQuantity,formulatedOffersDisplay, formulatedOffersFrom, formulatedOffersTo, formulatedOffersStatus, formulatedOffersStatusImage}) {
   return (
     // Backend here 
     <div className="user-nft-transfer-container">
@@ -17,9 +17,9 @@ function NftList({formulatedOffersDisplay}) {
           <div className="nftc-price-eth-user-activity">0.50 ETH</div>
           <div className="nft-price-eur-user-activity">692.04€</div>
         </div>
-        <div className="nft-quantity-user-activity">1</div>
-        <div className="nft-from-user-activity">Alexia Barrier</div>
-        <div className="nft-to-user-activity">Gr3goir3</div>
+        <div className="nft-quantity-user-activity">{activityUserQuantity}{formulatedOffersFrom}</div>
+        <div className="nft-from-user-activity">{activityUserFrom}{formulatedOffersTo}</div>
+        <div className="nft-to-user-activity">{activityUserTo}{formulatedOffersStatus}{formulatedOffersStatusImage}</div>
         <div className="nft-date-transfer-user-activity">1 hours ago</div>
       </div>
   )

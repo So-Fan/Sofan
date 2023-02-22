@@ -9,10 +9,19 @@ function UserActivity() {
 
   return (
     <div className="user-activity-container">
-      <DataTitles/>
+      <DataTitles
+      activityUserPriceTitle="Price"
+      activityUserQuantityTitle="Quantity"
+      activityUserFrom="From"
+      activityUserTo="To"
+      />
       <div className="nft-list-activity-user-container">
         {nftListArray.map((_, index) => (
-          <NftList key={index} />
+          <NftList 
+          activityUserQuantity="1"
+          activityUserFrom="Alexia Barrier"
+          activityUserTo="Gr3goir3"
+          key={index} />
         ))}
       </div>
     </div>
