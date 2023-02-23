@@ -5,6 +5,8 @@ import Home from "./Pages/Home/Home";
 import { useState } from "react";
 import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
+import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
+
 import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 
 function App() {
@@ -52,6 +54,9 @@ function App() {
               />
             }
           />
+          <Route path="/userprofile" element={<UserProfilePage/>}>
+
+          </Route>
           <Route path="/createpostpoll" element={<CreationPostPoll />} />
         </Routes>
       </div>
