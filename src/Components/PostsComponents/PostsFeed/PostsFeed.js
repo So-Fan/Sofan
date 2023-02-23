@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./PostsFeed.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import PostsDescription from "../PostsDescription/PostsDescription";
@@ -8,35 +8,21 @@ import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import attanasioBateau from "../../../Assets/Image/romain.jpeg";
 import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 import { Link } from "react-router-dom";
-function PostsFeed({handleDropdownPostFeedClick, isClicked, id}) {
-
-  const [modal, setModal] = useState(false);
-
-  const callToggleModal = () => {
-    toggleModal();
-  };
-  const toggleModal = () => {
-    setModal(!modal);
-  };
+import Modal from "../../Modal/Modal";
+function PostsFeed({
+  handleDropdownPostFeedClick,
+  isDropdownClicked,
+  id,
+  setIsPostClicked,
+  isPostClicked,
+}) {
+  const [isModdleToggled, setIsModalToggled] = useState(false);
 
   return (
     <>
       <div className="publication-container">
-        {modal && (
-          <div onClick={toggleModal} className="overlay-postfeed"></div>
-        )}
-        {modal && (
-          <>
-            <FullPagePost
-              modal={modal}
-              setModal={setModal}
-              toggleModal={toggleModal}
-            />
-          </>
-        )}
-
         <div className="publication-content">
-          {isClicked && <DropDownMenu />}
+          {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
               dropDownMenuSize="dropdown-button-point-size-M"
@@ -53,7 +39,7 @@ function PostsFeed({handleDropdownPostFeedClick, isClicked, id}) {
           {/* Backend here */}
           <div className="publication-media">
             <img src={attanasioBateau} alt="utilisateur" />
-            </div>
+          </div>
           {/* Backend here */}
           <LikesCommentsCounter
             likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
@@ -63,15 +49,12 @@ function PostsFeed({handleDropdownPostFeedClick, isClicked, id}) {
             commentPublicationPollPost="comments-publication-pollpost"
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
-            callToggleModal={callToggleModal}
+            setIsPostClicked={setIsPostClicked}
           />
           <div
-            onClick={toggleModal}
             className="show-comments-button-publication"
           >
-            
-              <Link>Show 10 comments</Link>
-            
+            <Link onClick={() => setIsPostClicked(true)}>Show 10 comments</Link>
           </div>
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
