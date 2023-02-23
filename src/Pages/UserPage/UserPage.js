@@ -7,6 +7,9 @@ const UserPage = () => {
       <Link to="/user/nftcard">
         Nft Card Component
       </Link>
+      <Link to="/user/sortbyselector">
+        Sort by selector
+        </Link>
       <Link to="/user/profilesubmenu">
       Profile Submenu
       </Link>
