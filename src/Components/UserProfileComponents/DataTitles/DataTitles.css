@@ -107,7 +107,7 @@ background-color: red;
     left: 635px;
   }
   .user-date-type-activity {
-    left: 750px;
+    left: 733px;
   }
   .formulated-offers-your-offers-title{
     left: 320px;
@@ -141,6 +141,21 @@ background-color: red;
   .user-date-type-activity {
     left: 620px;
   }
+  .formulated-offers-your-offers-title {
+    left: 270px;
+  }
+  .formulated-offers-from-title{
+    left: 320px;
+  }
+  .formulated-offers-to-title{
+    left: 395px;
+  }
+  .formulated-offers-status-title{
+    left: 485px;
+  }
+  .formulated-offers-date-title{
+    left: 570px;
+  }
 }
 @media (max-width: 870px) {
   .user-from-type-activity {
@@ -151,5 +166,14 @@ background-color: red;
   }
   .user-date-type-activity {
     left: 570px;
+  }
+  .formulated-offers-to-title{
+    left: 385px;
+  }
+  .formulated-offers-status-title{
+    left: 475px;
+  }
+  .formulated-offers-date-title{
+    left: 520px;
   }
 }

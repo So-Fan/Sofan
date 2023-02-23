@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow-x: scroll;
+  overflow-x: none;
 }
 
 .userheader-container {
@@ -65,13 +65,13 @@
   }
   .user-content-activity-nft {
     position: absolute;
-    top: 220px;
+    top: 210px;
+    left: -15px;
   }
 }
 @media (max-width: 970px) {
   .userheader-container{
-    max-width: 840px;
-    
+    max-width: 835px;
   }
   .user-content-activity-nft {
     position: absolute;

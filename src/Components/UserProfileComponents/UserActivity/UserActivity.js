@@ -5,7 +5,7 @@ import DataTitles from "../DataTitles/DataTitles";
 
 function UserActivity() {
   // Backend here
-  const nftListArray = Array.from({ length: 159 }); // create an array with 6 empty elements
+  const nftListArray = Array.from({ length: 159 });
 
   return (
     <div className="user-activity-container">
