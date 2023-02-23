@@ -61,10 +61,11 @@
 .formulated-offers-status-title {
   left: calc(969px - 110px);
 }
-/* .formulated-offers-date-title{
-    left: 0px;
-background-color: red;
-} */
+/* ===== Received offers titles ===== */
+.received-offers-date-title {
+  left: 73.5%;
+  position: relative;
+}
 
 @media (max-width: 1300px) {
   .user-activity-container {
@@ -91,12 +92,11 @@ background-color: red;
   .user-date-type-activity {
     left: 865px;
   }
-  .formulated-offers-to-title{
+  .formulated-offers-to-title {
     left: 590px;
   }
-  .formulated-offers-date-title{
-    left:840px ;
-    
+  .formulated-offers-date-title {
+    left: 840px;
   }
 }
 @media (max-width: 1080px) {
@@ -109,19 +109,19 @@ background-color: red;
   .user-date-type-activity {
     left: 733px;
   }
-  .formulated-offers-your-offers-title{
+  .formulated-offers-your-offers-title {
     left: 320px;
   }
-  .formulated-offers-from-title{
+  .formulated-offers-from-title {
     left: 385px;
   }
-  .formulated-offers-to-title{
+  .formulated-offers-to-title {
     left: 470px;
   }
-  .formulated-offers-status-title{
+  .formulated-offers-status-title {
     left: 580px;
   }
-  .formulated-offers-date-title{
+  .formulated-offers-date-title {
     left: 680px;
   }
 }
@@ -144,16 +144,16 @@ background-color: red;
   .formulated-offers-your-offers-title {
     left: 270px;
   }
-  .formulated-offers-from-title{
+  .formulated-offers-from-title {
     left: 320px;
   }
-  .formulated-offers-to-title{
+  .formulated-offers-to-title {
     left: 395px;
   }
-  .formulated-offers-status-title{
+  .formulated-offers-status-title {
     left: 485px;
   }
-  .formulated-offers-date-title{
+  .formulated-offers-date-title {
     left: 570px;
   }
 }
@@ -167,13 +167,13 @@ background-color: red;
   .user-date-type-activity {
     left: 570px;
   }
-  .formulated-offers-to-title{
+  .formulated-offers-to-title {
     left: 385px;
   }
-  .formulated-offers-status-title{
+  .formulated-offers-status-title {
     left: 475px;
   }
-  .formulated-offers-date-title{
+  .formulated-offers-date-title {
     left: 520px;
   }
 }

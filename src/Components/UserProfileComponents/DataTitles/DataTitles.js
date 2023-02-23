@@ -5,51 +5,43 @@ function DataTitles({
   activityUserQuantityTitle,
   activityUserFrom,
   activityUserTo,
-  formulatedOffersYourOffersTitle,
-  formulatedOffersFromTitle,
-  formulatedOffersToTitle,
-  formulatedOffersStatusTitle,
-  formulatedOffersNftTitleClass,
-  formulatedOffersYourOffersTitleClass,
-  formulatedOffersFromTitleClass,
-  formulatedOffersToTitleClass,
-  formulatedOffersStatusTitleClass,
-  formulatedOffersDateTitleClass
+  yourOffersTitle,
+  offersFromTitle,
+  offersToTitle,
+  offersStatusTitle,
+  offersNftTitleClass,
+  yourOffersTitleClass,
+  offersFromTitleClass,
+  offersToTitleClass,
+  offersStatusTitleClass,
+  offersDateTitleClass,
 }) {
   return (
     <>
       <div className="separation-line-horizontal-userprofile"></div>
       <div className="user-data-types-activity">
-        <div
-          className={`user-nft-type-activity ${formulatedOffersNftTitleClass}`}
-        >
+        <div className={`user-nft-type-activity ${offersNftTitleClass}`}>
           NFT
         </div>
-        <div
-          className={`user-price-type-activity ${formulatedOffersYourOffersTitleClass}`}
-        >
+        <div className={`user-price-type-activity ${yourOffersTitleClass}`}>
           {activityUserPriceTitle}
-          {formulatedOffersYourOffersTitle}
+          {yourOffersTitle}
         </div>
-        <div
-          className={`user-quantity-type-activity ${formulatedOffersFromTitleClass}`}
-        >
+        <div className={`user-quantity-type-activity ${offersFromTitleClass}`}>
           {activityUserQuantityTitle}
-          {formulatedOffersFromTitle}
+          {offersFromTitle}
         </div>
-        <div
-          className={`user-from-type-activity ${formulatedOffersToTitleClass} `}
-        >
+        <div className={`user-from-type-activity ${offersToTitleClass} `}>
           {activityUserFrom}
-          {formulatedOffersToTitle}
+          {offersToTitle}
         </div>
-        <div
-          className={`user-to-type-activity ${formulatedOffersStatusTitleClass}`}
-        >
+        <div className={`user-to-type-activity ${offersStatusTitleClass}`}>
           {activityUserTo}
-          {formulatedOffersStatusTitle}
+          {offersStatusTitle}
         </div>
-        <div className={`user-date-type-activity ${formulatedOffersDateTitleClass}`}>Date</div>
+        <div className={`user-date-type-activity ${offersDateTitleClass}`}>
+          Date
+        </div>
       </div>
       <div
         className="separation-line-horizontal-userprofile"

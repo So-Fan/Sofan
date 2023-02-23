@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BannerAndProfilePic from "../../Components/BannerAndProfilePic/BannerAndProfilePic";
 import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
+import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAndStats/UserNameAndStats";
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
@@ -9,12 +10,12 @@ import "./UserProfilePage.css";
 function UserProfilePage() {
   const [isNftCollectedClicked, setIsNftCollectedClicked] = useState(false);
   const [isActivityClicked, setIsActivityClicked] = useState(false);
-  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] =
-    useState(true);
+  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] = useState(false);
+  const [isReceivedOffersClicked,setIsReceivedOffersClicked] = useState(true)
   const stateCategory = [
     isNftCollectedClicked,
     isActivityClicked,
-    isFormulatedOffersClicked,
+    isFormulatedOffersClicked, isReceivedOffersClicked
   ];
   function displayCategory() {
     if (stateCategory[0] === true) {
@@ -23,6 +24,8 @@ function UserProfilePage() {
       return <UserActivity />;
     } else if (stateCategory[2] === true) {
       return <FormulatedOffers />;
+    } else if (stateCategory[3] === true) {
+      return <ReceivedOffers/>;
     }
   }
   return (

@@ -24,36 +24,36 @@ function FormulatedOffers() {
     <>
       <section className="formulated-offers-user-container">
         <DataTitles
-          formulatedOffersYourOffersTitle="Your Offers"
-          formulatedOffersFromTitle="From"
-          formulatedOffersToTitle="To"
-          formulatedOffersStatusTitle="Status"
-          formulatedOffersNftTitleClass="formulated-offers-nft-title"
-          formulatedOffersYourOffersTitleClass="formulated-offers-your-offers-title"
-          formulatedOffersFromTitleClass="formulated-offers-from-title"
-          formulatedOffersToTitleClass="formulated-offers-to-title"
-          formulatedOffersStatusTitleClass="formulated-offers-status-title"
-          formulatedOffersDateTitleClass="formulated-offers-date-title"
+          yourOffersTitle="Your Offers"
+          offersFromTitle="From"
+          offersToTitle="To"
+          offersStatusTitle="Status"
+          offersNftTitleClass="formulated-offers-nft-title"
+          yourOffersTitleClass="formulated-offers-your-offers-title"
+          offersFromTitleClass="formulated-offers-from-title"
+          offersToTitleClass="formulated-offers-to-title"
+          offersStatusTitleClass="formulated-offers-status-title"
+          offersDateTitleClass="formulated-offers-date-title"
         />
         <div className="nft-list-formulated-offer-container">
           {nftListArray.map((_, index) => (
             <NftList
               key={index}
-              formulatedOffersDisplaySourceType="formulated-offers-display-source-type"
-              formulatedOffersFrom="you"
-              formulatedOffersTo="Gr3goir3"
-              formulatedOffersStatus="Pending"
-              formulatedOffersStatusImage={
+              offersDisplaySourceTypeClass="formulated-offers-display-source-type"
+              offersFrom="you"
+              offersTo="Gr3goir3"
+              offersStatus="Pending"
+              offersStatusImage={
                 <>
                   <div className={displayCurrentOffersStatus()}></div>
                 </>
               }
-              formulatedOffersNftContentClass="formulated-offers-nft-picture-and-title"
-              formulatedOffersYourOffersPriceClass="formulated-offers-your-offers-price"
-              formulatedOffersFromClass="formulated-offers-from"
-              formulatedOffersToClass="formulated-offers-to"
-              formulatedOffersStatusClass="formulated-offers-status"
-              formulatedOffersDateClass="formulated-offers-date"
+              offersNftContentClass="formulated-offers-nft-picture-and-title"
+              offersYourOffersPriceClass="formulated-offers-your-offers-price"
+              offersFromClass="formulated-offers-from"
+              offersToClass="formulated-offers-to"
+              offersStatusClass="formulated-offers-status"
+              offersDateClass="formulated-offers-date"
             />
           ))}
         </div>

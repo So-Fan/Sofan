@@ -14,8 +14,6 @@
   font-family: "britanica-black";
   font-size: 14px;
 }
-.nft-origin-type {
-}
 .user-nft-picture-and-title {
   height: 100%;
   width: 100%;
@@ -93,6 +91,12 @@
   position: relative;
   left: 44%;
 }
+.nft-decline-received-offers {
+  display: none;
+}
+.nft-accept-received-offers {
+  display: none;
+}
 /* ===== Display Formulated Offers ===== */
 
 .formulated-offers-display-source-type {
@@ -117,12 +121,38 @@
   left: 585px;
 }
 
+/* ===== Received Offers ===== */
+
+.received-offers-offers-price {
+  left: 115px;
+}
+.received-offers-from {
+  left: 303px;
+}
+.received-offers-to {
+  left: 430px;
+}
+.received-offers-date {
+  left: 400px;
+}
+.received-offers-decline {
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  left: 450px;
+}
+.received-offers-accept{
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  left: 460px;
+}
 @media (max-width: 1300px) {
   .nft-date-transfer-user-activity {
     left: 38.9%;
     max-width: 75px;
   }
-  .formulated-offers-date{
+  .formulated-offers-date {
     left: 43%;
   }
 }
@@ -133,13 +163,13 @@
   .nft-date-transfer-user-activity {
     left: 34.5%;
   }
-  .formulated-offers-to{
+  .formulated-offers-to {
     left: 330px;
   }
-  .formulated-offers-status{
+  .formulated-offers-status {
     left: 360px;
   }
-  .formulated-offers-date{
+  .formulated-offers-date {
     left: 390px;
   }
 }
@@ -147,19 +177,19 @@
   .nft-date-transfer-user-activity {
     left: 26%;
   }
-  .nft-date-transfer-user-activity{
+  .nft-date-transfer-user-activity {
     left: 25%;
   }
-  .formulated-offers-your-offers-price{
+  .formulated-offers-your-offers-price {
     left: 100px;
   }
-  .formulated-offers-from{
+  .formulated-offers-from {
     left: 140px;
   }
-  .formulated-offers-to{
+  .formulated-offers-to {
     left: 210px;
   }
-  .formulated-offers-status{
+  .formulated-offers-status {
     left: 237px;
   }
 }
@@ -190,21 +220,21 @@
   .nft-date-transfer-user-activity {
     left: 18%;
   }
-  .formulated-offers-your-offers-price{
+  .formulated-offers-your-offers-price {
     left: 55px;
   }
 }
 @media (max-width: 870px) {
-  .formulated-offers-nft-picture-and-title{
-   left: -12px; 
+  .formulated-offers-nft-picture-and-title {
+    left: -12px;
   }
   .nft-date-transfer-user-activity {
     left: 13%;
   }
-  .formulated-offers-your-offers-price{
+  .formulated-offers-your-offers-price {
     left: 53px;
   }
-  .formulated-offers-from{
+  .formulated-offers-from {
     left: 83px;
   }
 }
