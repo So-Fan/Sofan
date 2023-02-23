@@ -90,8 +90,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       </Modal> */}
       {/* <FullPagePost /> */}
       <section className="home-component">
-        <div className="home-left-container">
-          <div className="home-navlink-create-post-wrap">
+        <div className="home-left-container" style={isLogged ? {height: "686px", maxHeight: "686px"} : {maxHeight: "646px"}}>
+          <div className="home-navlink-create-post-wrap" style={isLogged ? {height: "138px"} : {height:"64px"}}>
             <div className="home-feedsidenavlink-wrap">
               <FeedSideNavLink
                 href="/"

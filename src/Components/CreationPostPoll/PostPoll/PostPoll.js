@@ -12,24 +12,34 @@ const PostPoll = ({
   handleImgCrossClick,
   postPollComponent,
   postPollComponentTextArea,
-  postPollPollTextArea
+  postPollPollTextArea,
+  text,
+  handleTextChange
 }) => {
-  const [addOption, setAddOption] = useState(0)
+  const [addOption, setAddOption] = useState(0);
   const ref = useRef();
   const handleAddPictureClick = () => {
-    ref.current.click();
-    setAddOption(1);
+    if (addOption !== 2) {
+      ref.current.click();
+      setAddOption(1);
+    }
   };
   const handleAddPollClick = () => {
-    setAddOption(2);
-  }
+    if (file === null) {
+      setAddOption(2);
+    }
+  };
 
   return (
     <div style={postPollComponent} className="post-poll-component">
       <textarea
-        style={addOption !== 2 ? postPollComponentTextArea : postPollPollTextArea}
+        style={
+          addOption !== 2 ? postPollComponentTextArea : postPollPollTextArea
+        }
         type="text"
         placeholder="Write your thoughts.."
+        value={text}
+        onChange={handleTextChange}
       />
 
       {addOption === 2 && <Poll setAddOption={setAddOption} />}
@@ -37,12 +47,18 @@ const PostPoll = ({
       {file != null && (
         <div className="post-poll-file-wrap">
           <img src={file} alt="your file" className="post-poll-file" />
-          <img onClick={handleImgCrossClick} src={ImgCross} alt="black cross with white background" className="post-poll-file-cross" />
+          <img
+            onClick={handleImgCrossClick}
+            src={ImgCross}
+            alt="black cross with white background"
+            className="post-poll-file-cross"
+          />
         </div>
       )}
       <div className="post-poll-add-container">
         <button
           onClick={handleAddPictureClick}
+          style={addOption !== 2 ? {} : { opacity: "0.3" }}
           className="post-poll-add-picture-wrap"
         >
           <img src={Img} alt="paint" />
@@ -54,7 +70,11 @@ const PostPoll = ({
             accept="image/*"
           />
         </button>
-        <button onClick={handleAddPollClick} className="post-poll-add-poll-wrap">
+        <button
+          onClick={handleAddPollClick}
+          style={file === null ? {} : { opacity: "0.3" }}
+          className="post-poll-add-poll-wrap"
+        >
           <img src={Form} alt="form" />
           <span>Add a Poll</span>
         </button>
