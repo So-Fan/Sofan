@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
-// import statusPending from "../../../Assets/Image/statutspending.svg"
 import "./FormulatedOffers.css";
 
 function FormulatedOffers() {
+  // Backend here
   const [currentStatusOffers, setCurrentStatusOffers] = useState({
     validate: false,
     pending: true,
@@ -32,6 +32,7 @@ function FormulatedOffers() {
           formulatedOffersFromTitleClass="formulated-offers-from-title"
           formulatedOffersToTitleClass="formulated-offers-to-title"
           formulatedOffersStatusTitleClass="formulated-offers-status-title"
+          formulatedOffersDateTitleClass="formulated-offers-date-title"
         />
         <NftList
           formulatedOffersDisplaySourceType="formulated-offers-display-source-type"

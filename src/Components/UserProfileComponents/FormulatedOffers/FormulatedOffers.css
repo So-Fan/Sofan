@@ -1,4 +1,5 @@
 .formulated-offers-user-container {
+width: 100%;
 }
 .formulated-offers-status-validate {
   background: #85d87e;
@@ -26,4 +27,9 @@
   position: absolute;
   top: 28%;
   left: -10%;
+}
+@media (max-width: 1200px) {
+    .formulated-offers-user-container{
+        /* max-width: 1080px; */
+    }
 }

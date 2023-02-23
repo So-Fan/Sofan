@@ -52,6 +52,7 @@
     .banner-container {
         width: calc(1246px - 14%);
         height: calc(300px - 14%);
+        max-width: 1055px;
     }
     .profile-pic-container{
         width: 131px;
@@ -63,14 +64,14 @@
 @media (max-width:1080px) {
     
     .banner-container {
-        max-width: 970px;
+        max-width: 900px;
         width: calc(1246px - 22%);
         height: calc(300px - 22%);
     }
     .profile-pic-container{
         width: 121px;
         height: 121px;
-        left: 65px;
+        left: 15px;
         top: 55%;
     }
 }

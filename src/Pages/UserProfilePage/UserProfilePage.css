@@ -45,13 +45,15 @@
 }
 
 @media (max-width: 1200px) {
-  .userheader-container{
-    max-width: 1050px;
-    /* background-color: red; */
+  .userprofilepage-container{
+    /* max-width: 1000px; */
   }
   .user-content-activity-nft {
     position: absolute;
     top: 250px;
+  }
+  .userheader-container{
+    /* max-width: 930px; */
   }
 }
 @media (max-width: 1080px) {
