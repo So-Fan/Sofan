@@ -9,14 +9,17 @@ import UserPage from "./Pages/UserPage/UserPage";
 
 // Testing only, will be deleted
 import NftCard from "./Components/NftCard/NftCard";
-import Alexia from "./Assets/Image/alexia_barrier_user_page.svg"
+import Alexia from "./Assets/Image/alexia_barrier_user_page.svg";
 import SortBySelector from "./Components/SortBySelector/SortBySelector";
 
-
 function App() {
-  const isLogged = true // from Backend
+  const isLogged = true; // from Backend
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
+  const [
+    isUSerProfileSeortBySelectorClicked,
+    setIsUSerProfileSeortBySelectorClicked,
+  ] = useState(false);
   const [data, setData] = useState();
   const [isDropdownClicked, setIsDropdownClicked] = useState();
   function handleClickOutside(e) {
@@ -39,6 +42,10 @@ function App() {
         }
       }
     }
+    // Profile Page Sort by selector
+    if (e.target.id !== "sortbyselector-component"){
+      setIsUSerProfileSeortBySelectorClicked(false)
+    }
   }
   return (
     <BrowserRouter>
@@ -58,9 +65,21 @@ function App() {
               />
             }
           />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/user/nftcard" element={<NftCard to={`/user/nftcard/${"390"}`} img={Alexia} name="Alexia Barrier" title="Explore the World with Alexia Barrier #390" price="0.61" bid="0.03"/>} />
-          <Route path="/user/sortbyselector" element={<SortBySelector />} />
+          <Route path="/user" element={<UserPage  />} />
+          <Route
+            path="/user/nftcard"
+            element={
+              <NftCard
+                to={`/user/nftcard/${"390"}`}
+                img={Alexia}
+                name="Alexia Barrier"
+                title="Explore the World with Alexia Barrier #390"
+                price="0.61"
+                bid="0.03"
+              />
+            }
+          />
+          <Route path="/user/sortbyselector" element={<SortBySelector setIsUSerProfileSeortBySelectorClicked={setIsUSerProfileSeortBySelectorClicked} isUSerProfileSeortBySelectorClicked={isUSerProfileSeortBySelectorClicked} />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
