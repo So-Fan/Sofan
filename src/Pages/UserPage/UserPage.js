@@ -9,6 +9,9 @@ const UserPage = () => {
       </Link>
       <Link to="/user/sortbyselector">
         Sort by selector
+        </Link>
+      <Link to="/user/profilesubmenu">
+      Profile Submenu
       </Link>
     </div>
   )
