@@ -11,6 +11,9 @@ import UserPage from "./Pages/UserPage/UserPage";
 import NftCard from "./Components/NftCard/NftCard";
 import Alexia from "./Assets/Image/alexia_barrier_user_page.svg"
 
+import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
+
+import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 
 function App() {
   const isLogged = true // from Backend
@@ -59,6 +62,10 @@ function App() {
           />
           <Route path="/user" element={<UserPage />} />
           <Route path="/user/nftcard" element={<NftCard to={`/user/nftcard/${"390"}`} img={Alexia} name="Alexia Barrier" title="Explore the World with Alexia Barrier #390" price="0.61" bid="0.03"/>} />
+          <Route path="/userprofile" element={<UserProfilePage/>}>
+
+          </Route>
+          <Route path="/createpostpoll" element={<CreationPostPoll />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
