@@ -8,7 +8,7 @@ import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 
 function App() {
-  const isLogged = true // from Backend
+  const isLogged = false // from Backend
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [data, setData] = useState();
