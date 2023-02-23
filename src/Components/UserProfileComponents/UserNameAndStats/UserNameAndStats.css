@@ -5,8 +5,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* justify-content: center; */
-  /* background-color: red; */
   flex-direction: row;
   padding-top: 57px;
 }
@@ -16,7 +14,10 @@
   line-height: 42px;
   font-family: "Britanica-heavy";
 }
-
+.username-stats-description{
+  height: 100%;
+  max-height: 160px;
+}
 .stats-user-container{
     display: flex;
     justify-content: space-evenly;
@@ -32,7 +33,6 @@
   line-height: 24px;
   height: 100%;
   max-width: 32px;
-  /* background-color: yellow; */
   display: flex;
   align-items: center;
   padding-right: 7px;
@@ -74,12 +74,9 @@
   justify-content: space-evenly;
   padding-left: 21px;
   padding-right: 21px;
-  /* background-color: red; */
-  /* flex-wrap: wrap; */
 }
 
 .line-separation-userprofile {
   border: 0.3px solid #9b9b9b;
-  /* transform: rotate(90deg); */
   height: 27px;
 }

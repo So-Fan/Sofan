@@ -8,7 +8,6 @@ function UserNameAndStats() {
   };
   return (
     <div className="username-and-stats-container">
-      {/* 83px */}
       <div className="username-container-userpage">Gr3goir3</div>
       <div className="stats-user-container">
         <div className="line-separation-userprofile"></div>
