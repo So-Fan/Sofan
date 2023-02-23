@@ -9,14 +9,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* height: 646px; */
-  max-height: 686px;
+  height: 686px; /* A modif*/
+  max-height: 686px; /* A modif*/
 }
 .home-navlink-create-post-wrap{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 138px;
+  height: 138px; /* A modif*/
 }
 .home-feedsidenavlink-wrap {
   display: flex;
