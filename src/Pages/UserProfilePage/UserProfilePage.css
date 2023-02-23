@@ -66,7 +66,7 @@
   .user-content-activity-nft {
     position: absolute;
     top: 210px;
-    left: -15px;
+    left: 0px;
   }
 }
 @media (max-width: 970px) {

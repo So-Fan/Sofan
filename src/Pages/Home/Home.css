@@ -10,9 +10,14 @@
   flex-direction: column;
   justify-content: space-between;
   /* height: 646px; */
-  max-height: 646px;
+  max-height: 686px;
 }
-
+.home-navlink-create-post-wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 138px;
+}
 .home-feedsidenavlink-wrap {
   display: flex;
   flex-direction: column;
@@ -60,7 +65,7 @@
   }
   .home-left-container {
     /* min-height: 420px; */
-    max-height: 420px;
+    max-height: 492px;
   }
   .home-feedsidenavlink-wrap {
     width: 200px;
