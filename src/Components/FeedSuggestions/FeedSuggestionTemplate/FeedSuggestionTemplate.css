@@ -3,6 +3,11 @@
   align-items: center;
   text-decoration: none;
 }
+
+.feedsuggestions-content-container:not(:last-child){
+  margin-bottom: 10px;
+}
+
 .feedsuggestions-content-container > div {
   display: flex;
   flex-direction: column;
@@ -22,4 +27,9 @@
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+}
+
+.feedsuggestions-content-avatar {
+  width: 50px;
+  border-radius: 50%;
 }
