@@ -3,25 +3,27 @@ import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./ReceivedOffers.css";
 
-function ReceivedOffers() {
-  return (
-    <div>
+function ReceivedOffers({
+    userFrom,
+}) {
+    return (
+    <section    className="received-offers-user-container">
       {/* class à rename en bas */}
-      <DataTitles
+      <DataTitles 
         yourOffersTitle="Offers"
         offersFromTitle="From"
         offersToTitle="To"
-        //
+        // 
         offersNftTitleClass="formulated-offers-nft-title"
         yourOffersTitleClass="formulated-offers-your-offers-title"
         offersFromTitleClass="formulated-offers-from-title"
-        offersToTitleClass="formulated-offers-to-title"
+        offersToTitleClass="received-offers-to-title"
         offersDateTitleClass="received-offers-date-title"
-        //
+        // Nft data list
       />
       <NftList
         offersDisplaySourceTypeClass="formulated-offers-display-source-type"
-        offersFrom="DonOfSomething"
+        receivedFrom={userFrom}
         offersTo="Gr3goir3"
         //
         offersNftContentClass="formulated-offers-nft-picture-and-title"
@@ -32,7 +34,7 @@ function ReceivedOffers() {
         offersDeclineClass="received-offers-decline"
         offersAcceptClass="received-offers-accept"
       />
-    </div>
+    </section>
   );
 }
 

@@ -3,12 +3,12 @@ import "./NftList.css";
 import explorePicture from "../../../Assets/Image/explorepicture.svg";
 import redCross from "../../../Assets/Image/redcross-offers.svg";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
+
 function NftList({
   activityUserFrom,
   activityUserTo,
   activityUserQuantity,
   offersDisplaySourceTypeClass,
-  offersFrom,
   offersTo,
   offersStatus,
   offersStatusImage,
@@ -20,7 +20,8 @@ function NftList({
   offersDateClass,
   offersDeclineClass,
   offersAcceptClass,
-}) {
+  receivedFrom
+}) {  
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -40,7 +41,8 @@ function NftList({
       </div>
       <div className={`nft-quantity-user-activity ${offersFromClass}`}>
         {activityUserQuantity}
-        {offersFrom}
+        {receivedFrom}
+        
       </div>
       <div className={`nft-from-user-activity ${offersToClass}`}>
         {activityUserFrom}

@@ -81,6 +81,9 @@
   .nft-list-activity-user-container {
     max-width: 1177.66px !important;
   }
+  .received-offers-date-title{
+    left: 77%;
+  }
 }
 @media (max-width: 1200px) {
   .nft-list-activity-user-container {
@@ -97,6 +100,9 @@
   }
   .formulated-offers-date-title {
     left: 840px;
+  }
+  .received-offers-to-title{
+    left: 650px;
   }
 }
 @media (max-width: 1080px) {

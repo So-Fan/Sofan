@@ -3,7 +3,7 @@ import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./FormulatedOffers.css";
 
-function FormulatedOffers() {
+function FormulatedOffers({userFrom}) {
   // Backend here
   const [currentStatusOffers, setCurrentStatusOffers] = useState({
     validate: false,
@@ -40,7 +40,7 @@ function FormulatedOffers() {
             <NftList
               key={index}
               offersDisplaySourceTypeClass="formulated-offers-display-source-type"
-              offersFrom="you"
+              receivedFrom={userFrom}
               offersTo="Gr3goir3"
               offersStatus="Pending"
               offersStatusImage={
