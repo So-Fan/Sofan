@@ -10,9 +10,10 @@ import "./UserProfilePage.css";
 function UserProfilePage() {
   const [isNftCollectedClicked, setIsNftCollectedClicked] = useState(false);
   const [isActivityClicked, setIsActivityClicked] = useState(false);
-  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] = useState(false);
+  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] =
+    useState(false);
   const [isReceivedOffersClicked, setIsReceivedOffersClicked] = useState(true);
-  const [stringOffersReceivedFrom, setstringOffersReceivedFrom] = useState();
+  const [stringOffersReceivedFrom, setstringOffersReceivedFrom] = useState([]);
   const [stringOffersMadeFrom, setStringOffersMadeFrom] = useState();
   const stateCategory = [
     isNftCollectedClicked,
@@ -33,35 +34,86 @@ function UserProfilePage() {
   }
   useEffect(() => {
     const data = {
-      received: [{ from: "DonOfSomething", to: "" }],
+      userPageInfo: {
+        username: "Gr3goir3",
+        followingAthletes: 145,
+        athleteSupporting: 15,
+        nftOwned: 159,
+      },
+      received: [
+        {
+          from: "DonOfSomething",
+          nftTitle: "Explore the World with Alexia",
+          nftId: "#393",
+          nftPriceEth: "0.50",
+          date: "1 hours ago",
+        },
+        {
+          from: "AlexiaBarrier",
+          nftTitle: "Explore the World with Voile",
+          nftId: "#394",
+          nftPriceEth: "0.80",
+          date: "4 years ago",
+        },
+      ],
       made: [{ from: "you", to: "" }],
     };
-    // limited string length offers received from
-    if (data.received[0].from.length > 9) {
-      const limitedOffersReceivedFromBegin = data.received[0].from.slice(0, 4);
-      const limitedOffersReceivedFromEnd = data.received[0].from.slice(
-        data.received[0].from.length - 3,
-        data.received[0].from.length
-      );
-      const concatOffersReceivedFrom =
-        limitedOffersReceivedFromBegin + "..." + limitedOffersReceivedFromEnd;
-      setstringOffersReceivedFrom(concatOffersReceivedFrom);
-    } else {
-      setstringOffersReceivedFrom(data.received[0].from);
+    function concatStringFromTo(string) {
+      if (string.length > 9) {
+        const limitedOffersReceivedFromBegin = string.slice(0, 4);
+        const limitedOffersReceivedFromEnd = string.slice(
+          string.length - 3,
+          string.length
+        );
+        const concatOffersReceivedFrom =
+          limitedOffersReceivedFromBegin + "..." + limitedOffersReceivedFromEnd;
+        return concatOffersReceivedFrom;
+      } else {
+        return string;
+      }
     }
-    // limited string length offers made from
-    if (data.made[0].from.length > 9) {
-      const limitedOffersMadeFromBegin = data.made[0].from.slice(0, 4);
-      const limitedOffersMadeFromEnd = data.made[0].from.slice(
-        data.made[0].from.length - 3,
-        data.made[0].from.length
-      );
-      const concatOffersMadeFrom =
-        limitedOffersMadeFromBegin + "..." + limitedOffersMadeFromEnd;
-      setStringOffersMadeFrom(concatOffersMadeFrom);
-    } else {
-      setStringOffersMadeFrom(data.made[0].from);
+    function createArray(state, setState, data, arrayConcat, index) {
+      let stringFrom;
+      let stringTo;
+      let stringNftTitle;
+      const tempStringFrom = concatStringFromTo(data?.received[index]?.from);
+      stringFrom = tempStringFrom;
+
+      const tempStringTo = concatStringFromTo(data.userPageInfo.username);
+      stringTo = tempStringTo;
+      if (data.received[index].nftTitle.length > 28) {
+        const nftTitleBegin = data.received[index].nftTitle.slice(0, 29);
+        const concatNftTitle = nftTitleBegin + "...";
+        stringNftTitle = concatNftTitle;
+      } else {
+        stringNftTitle = data.received[index].nftTitle;
+      }
+      const tempObj = {
+        from: stringFrom,
+        nftTitle: stringNftTitle,
+        to: stringTo,
+      };
+      return tempObj
     }
+    const tempArrayUserProfilePage = [];
+    for (let i = 0; i < data.received.length; i++) {
+     const tempObjPartial = createArray(
+        stringOffersReceivedFrom,
+        setstringOffersReceivedFrom,
+        data,
+        tempArrayUserProfilePage,
+        i
+      );
+      const tempDate = data.received[i].date
+      const tempId = data.received[i].nftId
+      const tempPriceEth = data.received[i].nftPriceEth
+      const tempObjFinal = {
+        ...tempObjPartial, date: tempDate, nftId: tempId, priceEth: tempPriceEth
+      }
+
+      tempArrayUserProfilePage.push(tempObjFinal)
+    }
+    setstringOffersReceivedFrom(tempArrayUserProfilePage)
   }, []);
   return (
     <>

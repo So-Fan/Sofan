@@ -20,7 +20,11 @@ function NftList({
   offersDateClass,
   offersDeclineClass,
   offersAcceptClass,
-  receivedFrom
+  receivedFrom,
+  nftTitle,
+  nftId,
+  date,
+  priceEth
 }) {  
   return (
     // Backend here
@@ -31,12 +35,12 @@ function NftList({
       <div className={`user-nft-picture-and-title ${offersNftContentClass}`}>
         <img src={explorePicture} alt="nft picture" />
         <div className="collection-name-nft-id-user-activity">
-          <span>Explore the World with Alexia...</span>
-          <span>#393</span>
+          <span>{nftTitle}</span>
+          <span>{nftId}</span>
         </div>
       </div>
       <div className={`nft-price-user-activity ${offersYourOffersPriceClass}`}>
-        <div className="nftc-price-eth-user-activity">0.50 ETH</div>
+        <div className="nftc-price-eth-user-activity">{priceEth}ETH</div>
         <div className="nft-price-eur-user-activity">692.04€</div>
       </div>
       <div className={`nft-quantity-user-activity ${offersFromClass}`}>
@@ -54,7 +58,7 @@ function NftList({
         {offersStatusImage}
       </div>
       <div className={`nft-date-transfer-user-activity ${offersDateClass}`}>
-        1 hours ago
+        {date}
       </div>
       <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
         <img src={redCross} alt="" />
