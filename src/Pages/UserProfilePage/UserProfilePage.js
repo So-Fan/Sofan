@@ -10,11 +10,10 @@ import "./UserProfilePage.css";
 function UserProfilePage() {
   const [isNftCollectedClicked, setIsNftCollectedClicked] = useState(false);
   const [isActivityClicked, setIsActivityClicked] = useState(false);
-  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] =
-    useState(true);
-  const [isReceivedOffersClicked, setIsReceivedOffersClicked] = useState(false);
+  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] = useState(false);
+  const [isReceivedOffersClicked, setIsReceivedOffersClicked] = useState(true);
   const [stringOffersReceivedFrom, setstringOffersReceivedFrom] = useState();
-  const [stringOffersMadeFrom, setStringOffersMadeFrom] = useState()
+  const [stringOffersMadeFrom, setStringOffersMadeFrom] = useState();
   const stateCategory = [
     isNftCollectedClicked,
     isActivityClicked,
@@ -57,10 +56,11 @@ function UserProfilePage() {
         data.made[0].from.length - 3,
         data.made[0].from.length
       );
-      const concatOffersMadeFrom = limitedOffersMadeFromBegin + "..." + limitedOffersMadeFromEnd
-      setStringOffersMadeFrom(concatOffersMadeFrom)
+      const concatOffersMadeFrom =
+        limitedOffersMadeFromBegin + "..." + limitedOffersMadeFromEnd;
+      setStringOffersMadeFrom(concatOffersMadeFrom);
     } else {
-      setStringOffersMadeFrom(data.made[0].from)
+      setStringOffersMadeFrom(data.made[0].from);
     }
   }, []);
   return (

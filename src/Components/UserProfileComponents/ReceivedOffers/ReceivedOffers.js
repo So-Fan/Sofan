@@ -15,8 +15,8 @@ function ReceivedOffers({
         offersToTitle="To"
         // 
         offersNftTitleClass="formulated-offers-nft-title"
-        yourOffersTitleClass="formulated-offers-your-offers-title"
-        offersFromTitleClass="formulated-offers-from-title"
+        yourOffersTitleClass="received-offers-offers-title"
+        offersFromTitleClass="received-offers-from-title"
         offersToTitleClass="received-offers-to-title"
         offersDateTitleClass="received-offers-date-title"
         // Nft data list
@@ -26,7 +26,7 @@ function ReceivedOffers({
         receivedFrom={userFrom}
         offersTo="Gr3goir3"
         //
-        offersNftContentClass="formulated-offers-nft-picture-and-title"
+        offersNftContentClass="received-offers-nft-picture-and-title"
         offersYourOffersPriceClass="received-offers-offers-price"
         offersFromClass="received-offers-from"
         offersToClass="received-offers-to"

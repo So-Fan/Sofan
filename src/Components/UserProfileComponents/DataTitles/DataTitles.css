@@ -62,11 +62,16 @@
   left: calc(969px - 110px);
 }
 /* ===== Received offers titles ===== */
+.received-offers-from-title {
+  left: 540px;
+}
+.received-offers-to-title{
+  left: 700px;
+}
 .received-offers-date-title {
   left: 73.5%;
   position: relative;
 }
-
 @media (max-width: 1300px) {
   .user-activity-container {
     max-width: 1177.66px;
@@ -104,6 +109,9 @@
   .received-offers-to-title{
     left: 650px;
   }
+  .received-offers-date-title{
+    left: 780px;
+  }
 }
 @media (max-width: 1080px) {
   .user-from-type-activity {
@@ -129,6 +137,18 @@
   }
   .formulated-offers-date-title {
     left: 680px;
+  }
+  .received-offers-offers-title {
+    left: 300px;
+  }
+  .received-offers-from-title{
+    left: 400px;
+  }
+  .received-offers-to-title{
+    left: 520px;
+  }
+  .received-offers-date-title{
+    left: 640px;
   }
 }
 @media (max-width: 970px) {
@@ -162,6 +182,15 @@
   .formulated-offers-date-title {
     left: 570px;
   }
+  .received-offers-offers-title{
+    left: 300px;
+  }
+  .received-offers-to-title {
+    left: 475px;
+  }
+  .received-offers-date-title{
+    left: 580px;
+  }
 }
 @media (max-width: 870px) {
   .user-from-type-activity {
@@ -181,5 +210,11 @@
   }
   .formulated-offers-date-title {
     left: 520px;
+  }
+  .received-offers-to-title{
+    left: 455px;
+  }
+  .received-offers-date-title{
+    left: 540px;
   }
 }

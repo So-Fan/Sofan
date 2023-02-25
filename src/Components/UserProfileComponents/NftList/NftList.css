@@ -122,7 +122,9 @@
 }
 
 /* ===== Received Offers ===== */
-
+.received-offers-nft-picture-and-title {
+  left: 0px;
+}
 .received-offers-offers-price {
   left: 115px;
 }
@@ -155,6 +157,9 @@
   .formulated-offers-date {
     left: 43%;
   }
+  .received-offers-nft-picture-and-title {
+    left: 0px;
+  }
   .received-offers-date{
     left: 32.99%;
   }
@@ -175,8 +180,23 @@
   .formulated-offers-date {
     left: 390px;
   }
+  .received-offers-nft-picture-and-title {
+    left: 0px;
+  }
   .received-offers-from{
     left: 270px;
+  }
+  .received-offers-to{
+    left: 380px;
+  }
+  .received-offers-date {
+    left: 280px;
+  }
+  .received-offers-decline{
+    left: 310px;
+  }
+  .received-offers-accept{
+    left:320px;
   }
 }
 @media (max-width: 1080px) {
@@ -198,14 +218,35 @@
   .formulated-offers-status {
     left: 237px;
   }
+  .received-offers-nft-picture-and-title {
+    left: 0px;
+  }
+  .received-offers-offers-price{
+    left: 65px;
+  }
+  .received-offers-from{
+    left: 150px;
+  }
+  .received-offers-to{
+    left: 230px;
+  }
+  .received-offers-date{
+    left: 140px;
+  }
+  .received-offers-decline{
+    left:170px;
+  }
+  .received-offers-accept{
+    left: 180px;
+  }
 }
 @media (max-width: 970px) {
   .user-nft-transfer-container > div {
-    font-size: 12px;
+    font-size: 13px;
   }
   .user-nft-picture-and-title img {
-    width: 35px;
-    height: 35px;
+    width: 44px;
+    height: 44px;
   }
   .nft-price-user-activity {
     left: 8%;
@@ -226,8 +267,31 @@
   .nft-date-transfer-user-activity {
     left: 18%;
   }
+  .formulated-offers-nft-picture-and-title{
+    display: flex;
+    /* justify-content: flex-start; */
+    left: -10px;
+  }
   .formulated-offers-your-offers-price {
     left: 55px;
+  }
+  .received-offers-nft-picture-and-title {
+    left: -10px;
+  }
+  .received-offers-from{
+    left: 125px;
+  }
+  .received-offers-to{
+    left: 200px;
+  }
+  .received-offers-date{
+    left: 90px;
+  }
+  .received-offers-decline{
+    left: 120px;
+  }
+  .received-offers-accept{
+    left: 130px;
   }
 }
 @media (max-width: 870px) {
@@ -242,5 +306,17 @@
   }
   .formulated-offers-from {
     left: 83px;
+  }
+  .received-offers-to{
+    left: 180px;
+  }
+  .received-offers-date{
+    left: 50px;
+  }
+  .received-offers-decline{
+    left: 60px;
+  }
+  .received-offers-accept{
+    left: 70px;
   }
 }
