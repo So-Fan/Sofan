@@ -10,6 +10,7 @@
 .userheader-container {
   height: 100%;
   max-height: 1463px;
+  /* background-color: red; */
   position: relative;
 }
 .user-content-activity-nft {

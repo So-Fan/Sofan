@@ -163,6 +163,12 @@
   .received-offers-date{
     left: 32.99%;
   }
+  .received-offers-decline{
+    left:410px;
+  }
+  .received-offers-accept{
+    left: 430px;
+  }
 }
 @media (max-width: 1200px) {
   .nft-to-user-activity {
