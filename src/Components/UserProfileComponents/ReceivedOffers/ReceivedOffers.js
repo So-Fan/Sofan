@@ -30,7 +30,7 @@ function ReceivedOffers({
         offersYourOffersPriceClass="received-offers-offers-price"
         offersFromClass="received-offers-from"
         offersToClass="received-offers-to"
-        offersDateClass="received-offers-date"
+        offersDateClass="received-offers-date"  
         offersDeclineClass="received-offers-decline"
         offersAcceptClass="received-offers-accept"
       />
