@@ -20,6 +20,9 @@ function UserActivity({userFrom}) {
           activityUserTo={user.to}
           priceEth={user.nftPriceEth}
           date={user.date}
+          nftTitle={user.nftTitle}
+          nftId={user.nftId}
+          func={user.function}
           key={index} />
         ))}
       </div>
