@@ -35,7 +35,7 @@ function FormulatedOffers({userFrom}) {
           offersDateTitleClass="formulated-offers-date-title"
         />
         <div className="nft-list-formulated-offer-container">
-          {userFrom.made.map((user, index) => (
+          {userFrom?.map((user, index) => (
             <NftList
               key={index}
               offersDisplaySourceTypeClass="formulated-offers-display-source-type"
@@ -43,7 +43,7 @@ function FormulatedOffers({userFrom}) {
               offersTo={user.to}
               nftTitle={user.nftTitle}
               nftId={user.nftId}
-              nftPriceEth={user.nftPriceEth}
+              priceEth={user.nftPriceEth}
               date={user.date}
               offersStatus={user.status}
               offersStatusImage={

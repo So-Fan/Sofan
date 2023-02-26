@@ -26,6 +26,7 @@ function NftList({
   date,
   priceEth
 }) {  
+  console.log(date);
   return (
     // Backend here
     <div className="user-nft-transfer-container">

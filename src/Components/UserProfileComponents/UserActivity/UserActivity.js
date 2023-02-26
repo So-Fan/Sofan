@@ -3,10 +3,7 @@ import "./UserActivity.css";
 import NftList from "../NftList/NftList";
 import DataTitles from "../DataTitles/DataTitles";
 
-function UserActivity() {
-  // Backend here
-  const nftListArray = Array.from({ length: 159 });
-
+function UserActivity({userFrom}) {
   return (
     <div className="user-activity-container">
       <DataTitles
@@ -16,11 +13,13 @@ function UserActivity() {
       activityUserTo="To"
       />
       <div className="nft-list-activity-user-container">
-        {nftListArray.map((_, index) => (
+        {userFrom?.map((user, index) => (
           <NftList 
           activityUserQuantity="1"
-          activityUserFrom="Alexia Barrier"
-          activityUserTo="Gr3goir3"
+          activityUserFrom={user.from}
+          activityUserTo={user.to}
+          priceEth={user.nftPriceEth}
+          date={user.date}
           key={index} />
         ))}
       </div>

@@ -11,8 +11,8 @@ function UserProfilePage() {
   const [isNftCollectedClicked, setIsNftCollectedClicked] = useState(false);
   const [isActivityClicked, setIsActivityClicked] = useState(false);
   const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] =
-    useState(false);
-  const [isReceivedOffersClicked, setIsReceivedOffersClicked] = useState(true);
+    useState(true);
+  const [isReceivedOffersClicked, setIsReceivedOffersClicked] = useState(false);
   const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
   const [stringOffersMadeFrom, setStringOffersMadeFrom] = useState();
   const stateCategory = [
@@ -25,7 +25,7 @@ function UserProfilePage() {
     if (stateCategory[0] === true) {
       return "NFT Collectés";
     } else if (stateCategory[1] === true) {
-      return <UserActivity />;
+      return <UserActivity userFrom={dataConcat?.activities} />;
     } else if (stateCategory[2] === true) {
       return <FormulatedOffers userFrom={dataConcat?.made} />;
     } else if (stateCategory[3] === true) {
@@ -66,6 +66,15 @@ function UserProfilePage() {
           status: "Pending",
           date: "5 months ago",
         },
+        {
+          nftTitle: "Explore the World with Alexia Barrier",
+          nftId: "#393",
+          nftPriceEth: "0.50009",
+          from: "you",
+          to: "Gr3goir3",
+          status: "Pending",
+          date: "5 months ago",
+        },
       ],
       activities : [
         {
@@ -73,10 +82,19 @@ function UserProfilePage() {
           nftTitle: "Explore the World with Alexia Barrier",
           nftId: "#393",
           nftPriceEth: "0.50009",
-          from: "you",
+          from: "0x388C818CA8B9251b393131C08a736A67ccB19297",
           to: "Gr3goir3",
           date: "5 months ago",
-        }
+        },
+        {
+          function : "Mint",
+          nftTitle: "Explore the World with Alexia Barrier",
+          nftId: "#393",
+          nftPriceEth: "0.50009",
+          from: "0x388C818CA8B9251b393131C08a736A67ccB19297",
+          to: "Gr3goir3",
+          date: "5 months ago",
+        },
       ]
     };
     // Pour opti function concatStringFromTo(string, maxLentgth, from0To_NUMBER_, from_NUMBER_toEnd)
