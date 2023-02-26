@@ -1,62 +1,70 @@
 import React from "react";
 import "./NftList.css";
 import explorePicture from "../../../Assets/Image/explorepicture.svg";
+import redCross from "../../../Assets/Image/redcross-offers.svg";
+import greenCross from "../../../Assets/Image/greencross-offers.svg";
+
 function NftList({
   activityUserFrom,
   activityUserTo,
   activityUserQuantity,
-  formulatedOffersDisplaySourceType,
-  formulatedOffersFrom,
-  formulatedOffersTo,
-  formulatedOffersStatus,
-  formulatedOffersStatusImage,
-  formulatedOffersNftContentClass,
-  formulatedOffersYourOffersPriceClass,
-  formulatedOffersFromClass,
-  formulatedOffersToClass,
-  formulatedOffersStatusClass,
-  formulatedOffersDateClass,
-}) {
+  offersDisplaySourceTypeClass,
+  offersTo,
+  offersStatus,
+  offersStatusImage,
+  offersNftContentClass,
+  offersYourOffersPriceClass,
+  offersFromClass,
+  offersToClass,
+  offersStatusClass,
+  offersDateClass,
+  offersDeclineClass,
+  offersAcceptClass,
+  receivedFrom,
+  nftTitle,
+  nftId,
+  date,
+  priceEth
+}) {  
   return (
     // Backend here
     <div className="user-nft-transfer-container">
-      <div className={`nft-origin-type ${formulatedOffersDisplaySourceType}`}>
+      <div className={`nft-origin-type ${offersDisplaySourceTypeClass}`}>
         Mint
       </div>
-      <div
-        className={`user-nft-picture-and-title ${formulatedOffersNftContentClass}`}
-      >
+      <div className={`user-nft-picture-and-title ${offersNftContentClass}`}>
         <img src={explorePicture} alt="nft picture" />
         <div className="collection-name-nft-id-user-activity">
-          <span>Explore the World with Alexia...</span>
-          <span>#393</span>
+          <span>{nftTitle}</span>
+          <span>{nftId}</span>
         </div>
       </div>
-      <div
-        className={`nft-price-user-activity ${formulatedOffersYourOffersPriceClass}`}
-      >
-        <div className="nftc-price-eth-user-activity">0.50 ETH</div>
+      <div className={`nft-price-user-activity ${offersYourOffersPriceClass}`}>
+        <div className="nftc-price-eth-user-activity">{priceEth} ETH</div>
         <div className="nft-price-eur-user-activity">692.04€</div>
       </div>
-      <div
-        className={`nft-quantity-user-activity ${formulatedOffersFromClass}`}
-      >
+      <div className={`nft-quantity-user-activity ${offersFromClass}`}>
         {activityUserQuantity}
-        {formulatedOffersFrom}
+        {receivedFrom}
+        
       </div>
-      <div className={`nft-from-user-activity ${formulatedOffersToClass}`}>
+      <div className={`nft-from-user-activity ${offersToClass}`}>
         {activityUserFrom}
-        {formulatedOffersTo}
+        {offersTo}
       </div>
-      <div className={`nft-to-user-activity ${formulatedOffersStatusClass}`}>
+      <div className={`nft-to-user-activity ${offersStatusClass}`}>
         {activityUserTo}
-        {formulatedOffersStatus}
-        {formulatedOffersStatusImage}
+        {offersStatus}
+        {offersStatusImage}
       </div>
-      <div
-        className={`nft-date-transfer-user-activity ${formulatedOffersDateClass}`}
-      >
-        1 hours ago
+      <div className={`nft-date-transfer-user-activity ${offersDateClass}`}>
+        {date}
+      </div>
+      <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
+        <img src={redCross} alt="" />
+      </div>
+      <div className={`nft-accept-received-offers ${offersAcceptClass}`}>
+        <img src={greenCross} alt="BOUTON ACCEPTER" />
       </div>
     </div>
   );
