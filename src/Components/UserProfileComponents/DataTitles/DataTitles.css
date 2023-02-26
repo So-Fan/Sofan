@@ -87,6 +87,15 @@
   .nft-list-activity-user-container {
     max-width: 1177.66px !important;
   }
+  .formulated-offers-to-title{
+    left: 630px;
+  }
+  .formulated-offers-status-title{
+    left: 760px;
+  }
+  .formulated-offers-date-title{
+    left: 890px;
+  }
   .received-offers-date-title{
     left: 875px;
   }
@@ -95,17 +104,26 @@
   .nft-list-activity-user-container {
     max-width: 1100px !important;
   }
+  .user-from-type-activity{
+    left: 510px;
+  }
   .user-to-type-activity {
-    left: 700px;
+    left: 650px;
   }
   .user-date-type-activity {
-    left: 865px;
+    left: 825px;
+  }
+  .formulated-offers-from-title{
+    left: 470px;
   }
   .formulated-offers-to-title {
-    left: 590px;
+    left: 560px;
+  }
+  .formulated-offers-status-title{
+    left: 670px;
   }
   .formulated-offers-date-title {
-    left: 840px;
+    left: 780px;
   }
   .received-offers-to-title{
     left: 650px;
@@ -114,12 +132,17 @@
     left: 780px;
   }
 }
+@media (max-width:1120px) {
+  .user-date-type-activity{
+    left: 780px;
+  }
+}
 @media (max-width: 1080px) {
   .user-from-type-activity {
     left: 498px;
   }
   .user-to-type-activity {
-    left: 635px;
+    left: 600px;
   }
   .user-date-type-activity {
     left: 733px;
@@ -137,7 +160,7 @@
     left: 580px;
   }
   .formulated-offers-date-title {
-    left: 680px;
+    left: 650px;
   }
   .received-offers-offers-title {
     left: 300px;
@@ -178,10 +201,10 @@
     left: 395px;
   }
   .formulated-offers-status-title {
-    left: 485px;
+    left: 505px;
   }
   .formulated-offers-date-title {
-    left: 570px;
+    left: 620px;
   }
   .received-offers-offers-title{
     left: 300px;
@@ -193,9 +216,20 @@
     left: 580px;
   }
 }
+@media (max-width:935px) {
+  .user-date-type-activity{
+    left: 625px;
+  }
+  .formulated-offers-date-title{
+    left: 570px;
+  }
+}
 @media (max-width: 870px) {
+  .user-quantity-type-activity{
+    left: 350px;
+  }
   .user-from-type-activity {
-    left: 425px;
+    left: 385px;
   }
   .user-to-type-activity {
     left: 510px;
@@ -207,10 +241,10 @@
     left: 385px;
   }
   .formulated-offers-status-title {
-    left: 475px;
+    left: 445px;
   }
   .formulated-offers-date-title {
-    left: 520px;
+    left: 500px;
   }
   .received-offers-to-title{
     left: 455px;

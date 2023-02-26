@@ -86,7 +86,7 @@ function UserProfilePage({
       ],
       activities: [
         {
-          function: "Mintdsdfsdf",
+          function: "Mint",
           nftTitle: "Explore the World with Alexia Barrier",
           nftId: "#393",
           nftPriceEth: "0.500098484874",
