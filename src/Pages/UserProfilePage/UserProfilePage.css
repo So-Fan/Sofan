@@ -55,26 +55,11 @@
   
 }
 @media (max-width: 1080px) {
-  .userprofilepage-container{
-    max-width: 990px;
-  }
-  .userheader-container{
-    width: 100%;
-    max-width: 940px;
-  }
-  /* .user-content-activity-nft {
-    width: 100%;
-    position: absolute;
-    top: 210px;
-  } */
+  
 }
 @media (max-width: 970px) {
-  .userheader-container{
-    max-width: 835px;
-  }
+ 
 }
 @media (max-width: 870px) {
-  .userheader-container{
-    max-width: 775px;
-  }
+ 
 }

@@ -12,98 +12,57 @@
   background-color: red;
 }
 .banner-and-profile-container img {
-width:100%
-}
-/* .banner-container {
-  display: flex;
-  justify-content: center;
   width: 100%;
-  max-width: 1246px;
-  max-height: 300px;
-  border-radius: 20px;
-  position: relative;
+  height: auto;
 }
-.banner-container img {
-  width:100%;
-  height: 100%;
-} */
-
-.profile-pic-container {
-  width: 170px;
-  height: 170px;
-  border-radius: 147px;
-  border: 6px solid #ffffff;
-  box-sizing: border-box;
+.banner-container {
   position: absolute;
-  left: 1.605%;
-  top: 53%;
-  right: 84.751%;
-  cursor: pointer;
 }
+.user-profile-pic {
+  position: absolute;
+  z-index: 99;
+  width: 12vw;
+  max-width: 140px;
+  max-height: 140px;
+  height: auto;
+  border-radius: 50%;
+  left: 3.5%;
+  right: 95%;
+  /* top: 55%; */
+  bottom: 1.5%;
+}
+.user-profile-pic img {
+  width: 100%;
+  height: auto;
+  max-width: 140px;
+  max-height: 140px;
+  border-radius: 50% !important;
+  border: 6px solid #ffffff;
+}
+
 @media (max-width: 1300px) {
-  /* .banner-and-profile-container {
-    max-width: 1177.66px;
-  }
-  .banner-container {
-    width: 100%;
-    height: 100%;
-    max-width: 1150px;
-    max-height: calc(300px - 7.05%);
-  } */
-  .profile-pic-container {
-    width: 141px;
-    height: 141px;
-    left: 55px;
-    top: 58%;
-  }
 }
 
 @media (max-width: 1200px) {
-  /* .banner-container {
-    width: calc(1246px - 14%);
-    height: calc(300px - 14%);
-    max-width: 1055px;
-  } */
-  .profile-pic-container {
-    width: 131px;
-    height: 131px;
-    left: 30px;
-    top: 55%;
+  .user-profile-pic{
+    bottom: 6%;
   }
 }
 @media (max-width: 1080px) {
-  .banner-container {
-    max-width: 900px;
-    width: calc(1246px - 22%);
-    height: calc(300px - 22%);
-  }
-  .profile-pic-container {
-    width: 121px;
-    height: 121px;
-    left: 15px;
-    top: 55%;
+  .user-profile-pic{
+    bottom: 6%;
   }
 }
 @media (max-width: 970px) {
-  /* .banner-container {
-    max-width: 860px;
-    width: calc(1246px - 30%);
-    height: calc(300px - 30%);
-  } */
-  .profile-pic-container {
-    left: 35px;
-    top: 52%;
+  .user-profile-pic{
+    bottom: 10%;
+  }
+}
+@media (max-width: 910px) {
+  .user-profile-pic{
+    bottom: 12%;
   }
 }
 @media (max-width: 870px) {
-  /* .banner-container {
-    max-width: 770px;
-    width: calc(1246px - 34%);
-    height: calc(300px - 34%);
-  } */
-  .profile-pic-container {
-    width: 111px;
-    height: 111px;
-    left: 15px;
-  }
+
 }
