@@ -1,7 +1,7 @@
 .profileSubMenu-component{
     display: flex;
     justify-content: flex-start;
-    width: 1240px;
+    max-width: 1240px;
     height: 40px;
     border-bottom: 0.3px solid #3c40455b;
 }

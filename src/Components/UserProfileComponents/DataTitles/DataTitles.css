@@ -69,12 +69,13 @@
   left: 700px;
 }
 .received-offers-date-title {
-  left: 73.5%;
+  left: 950px;
   position: relative;
 }
 @media (max-width: 1300px) {
   .user-activity-container {
     max-width: 1177.66px;
+    
   }
   .user-data-types-activity {
     position: relative;
@@ -87,7 +88,7 @@
     max-width: 1177.66px !important;
   }
   .received-offers-date-title{
-    left: 77%;
+    left: 875px;
   }
 }
 @media (max-width: 1200px) {

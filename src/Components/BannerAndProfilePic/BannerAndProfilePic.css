@@ -71,11 +71,11 @@ width:100%
   }
 }
 @media (max-width: 1080px) {
-  .banner-container {
+  /* .banner-container {
     max-width: 900px;
     width: calc(1246px - 22%);
     height: calc(300px - 22%);
-  }
+  } */
   .profile-pic-container {
     width: 121px;
     height: 121px;
@@ -89,10 +89,10 @@ width:100%
     width: calc(1246px - 30%);
     height: calc(300px - 30%);
   } */
-  .profile-pic-container {
+  /* .profile-pic-container {
     left: 35px;
     top: 52%;
-  }
+  } */
 }
 @media (max-width: 870px) {
   /* .banner-container {

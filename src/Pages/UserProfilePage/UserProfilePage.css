@@ -67,9 +67,9 @@
   } */
 }
 @media (max-width: 970px) {
-  .userheader-container{
+  /* .userheader-container{
     max-width: 835px;
-  }
+  } */
 }
 @media (max-width: 870px) {
   .userheader-container{

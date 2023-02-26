@@ -167,7 +167,7 @@
   }
   
   .received-offers-date {
-    left: 29.49%;
+    left: 330px;
   }
   .received-offers-decline {
     left: 390px;
@@ -215,6 +215,14 @@
   }
   .received-offers-accept {
     left: 320px;
+  }
+}
+@media (max-width: 1120px) {
+  .received-offers-decline{
+    left: 280px;
+  }
+  .received-offers-accept{
+    left: 290px;
   }
 }
 @media (max-width: 1080px) {
@@ -319,10 +327,18 @@
     left: 50px;
   }
   .received-offers-decline {
-    left: 80px;
+    left: 110px;
   }
   .received-offers-accept {
-    left: 90px;
+    left: 130px;
+  }
+}
+@media (max-width:925px) {
+  .received-offers-decline{
+    left: 65px;
+  }
+  .received-offers-accept{
+    left: 75px;
   }
 }
 @media (max-width: 870px) {
@@ -357,9 +373,9 @@
     left: 10px;
   }
   .received-offers-decline {
-    left: 30px;
+    left: 10px;
   }
   .received-offers-accept {
-    left: 40px;
+    left: 15px;
   }
 }
