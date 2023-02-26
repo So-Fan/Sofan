@@ -107,12 +107,12 @@ function UserProfilePage({
       collected : [
         {
           athleteName: "Alexia Barrier",
-          nftTitle: "Explore the World with Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
           nftId: "#393",
           img: "https://i.imgur.com/6UKdMup.png",
-          nftPriceEth: "0.50009",
-          bid: "0.7592"
-        }
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
       ]
     };
     // Pour opti function concatStringFromTo(string, maxLentgth, from0To_NUMBER_, from_NUMBER_toEnd)
@@ -200,7 +200,34 @@ function UserProfilePage({
       data.activities[i].nftPriceEth = concatReceveidPriceEth;
       data.activities[i].function = concatFunc;
     }
-
+    // Boucle pour Collected NFT
+    for (let i = 0; i < data.collected.length; i++) {
+      let concatReceivedNftTitle;
+      let concatReceveidPriceEth;
+      let concatBid;
+      if (data.collected[i].nftTitle.length > 58) {
+        const nftTitleBegin = data.collected[i].nftTitle.slice(0, 58);
+        const concatNftTitle = nftTitleBegin + "...";
+        concatReceivedNftTitle = concatNftTitle;
+      } else {
+        concatReceivedNftTitle = data.collected[i].nftTitle;
+      }
+      if (data.collected[i].nftPriceEth.length > 7) {
+        let concatPrice = data.collected[i].nftPriceEth.slice(0, 7);
+        concatReceveidPriceEth = concatPrice;
+      } else {
+        concatReceveidPriceEth = data.collected[i].nftPriceEth;
+      }
+      if (data.collected[i].bid.length > 7) {
+        let concatCollectedBid = data.collected[i].bid.slice(0,7);
+        concatBid = concatCollectedBid;
+      } else {
+        concatBid = data.collected[i].bid;
+      }
+      data.collected[i].nftTitle = concatReceivedNftTitle;
+      data.collected[i].nftPriceEth = concatReceveidPriceEth;
+      data.collected[i].bid = concatBid;
+    }
     setDataConcat(data);
   }, []);
 

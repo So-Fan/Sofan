@@ -5,17 +5,7 @@ import Home from "./Pages/Home/Home";
 import { useState } from "react";
 import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
-import UserPage from "./Pages/UserPage/UserPage";
-
-// Testing only, will be deleted
-import NftCard from "./Components/NftCard/NftCard";
-import Alexia from "./Assets/Image/alexia_barrier_user_page.svg";
-import SortBySelector from "./Components/SortBySelector/SortBySelector";
-import ProfileSubMenu from "./Components/ProfileSubMenu/ProfileSubMenu";
-
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
-
-import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
 import Test from "./Test";
 
 function App() {
@@ -49,8 +39,8 @@ function App() {
       }
     }
     // Profile Page Sort by selector
-    if (e.target.id !== "sortbyselector-component"){
-      setIsUSerProfileSeortBySelectorClicked(false)
+    if (e.target.id !== "sortbyselector-component") {
+      setIsUSerProfileSeortBySelectorClicked(false);
     }
   }
   return (
@@ -71,28 +61,19 @@ function App() {
               />
             }
           />
-          <Route path="/user" element={<UserPage  />} />
           <Route
-            path="/user/nftcard"
+            path="/userprofile"
             element={
-              <NftCard
-                to={`/user/nftcard/${"390"}`}
-                img={Alexia}
-                name="Alexia Barrier"
-                title="Explore the World with Alexia Barrier #390"
-                price="0.61"
-                bid="0.03"
+              <UserProfilePage
+                setIsUSerProfileSeortBySelectorClicked={
+                  setIsUSerProfileSeortBySelectorClicked
+                }
+                isUSerProfileSeortBySelectorClicked={
+                  isUSerProfileSeortBySelectorClicked
+                }
               />
             }
           />
-          <Route path="/user/sortbyselector" element={<SortBySelector setIsUSerProfileSeortBySelectorClicked={setIsUSerProfileSeortBySelectorClicked} isUSerProfileSeortBySelectorClicked={isUSerProfileSeortBySelectorClicked} />} />
-          <Route path="/user" element={<UserPage />} />
-          <Route path="/user/nftcard" element={<NftCard to={`/user/nftcard/${"390"}`} img={Alexia} name="Alexia Barrier" title="Explore the World with Alexia Barrier #390" price="0.61" bid="0.03"/>} />
-            <Route path="/user/profilesubmenu" element={<ProfileSubMenu />} />
-          <Route path="/userprofile" element={<UserProfilePage setIsUSerProfileSeortBySelectorClicked={setIsUSerProfileSeortBySelectorClicked} isUSerProfileSeortBySelectorClicked={isUSerProfileSeortBySelectorClicked} />}>
-
-          </Route>
-          <Route path="/createpostpoll" element={<CreationPostPoll />} />
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>

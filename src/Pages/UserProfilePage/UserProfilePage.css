@@ -1,6 +1,6 @@
 .userprofilepage-container {
   width: calc(100% - 30px);
-  height: calc(100vh - 94px);
+  /* height: calc(100vh - 94px); */
   display: flex;
   align-items: center;
   flex-direction: column;

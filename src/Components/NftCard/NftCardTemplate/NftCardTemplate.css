@@ -9,6 +9,8 @@
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-decoration: none;
+    margin-top: 20.8px;
+    margin-right: 14px;
   }
   .nftcard-component > img {
     width: 299px;
