@@ -16,6 +16,7 @@ import ProfileSubMenu from "./Components/ProfileSubMenu/ProfileSubMenu";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 
 import CreationPostPoll from "./Components/CreationPostPoll/CreationPostPoll";
+import Test from "./Test";
 
 function App() {
   const isLogged = true; // from Backend
@@ -92,6 +93,7 @@ function App() {
 
           </Route>
           <Route path="/createpostpoll" element={<CreationPostPoll />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">

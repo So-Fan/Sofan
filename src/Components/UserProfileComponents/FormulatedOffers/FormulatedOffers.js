@@ -19,7 +19,6 @@ function FormulatedOffers({userFrom}) {
       return "formulated-offers-status-cancelled";
     }
   }
-  const nftListArray = Array.from({ length: 159 });
   return (
     <>
       <section className="formulated-offers-user-container">
@@ -36,13 +35,17 @@ function FormulatedOffers({userFrom}) {
           offersDateTitleClass="formulated-offers-date-title"
         />
         <div className="nft-list-formulated-offer-container">
-          {nftListArray.map((_, index) => (
+          {userFrom.made.map((user, index) => (
             <NftList
               key={index}
               offersDisplaySourceTypeClass="formulated-offers-display-source-type"
-              receivedFrom={userFrom}
-              offersTo="Gr3goir3"
-              offersStatus="Pending"
+              receivedFrom={user.from}
+              offersTo={user.to}
+              nftTitle={user.nftTitle}
+              nftId={user.nftId}
+              nftPriceEth={user.nftPriceEth}
+              date={user.date}
+              offersStatus={user.status}
               offersStatusImage={
                 <>
                   <div className={displayCurrentOffersStatus()}></div>

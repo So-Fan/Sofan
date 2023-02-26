@@ -2,20 +2,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 30px);
   height: 100%;
+  max-width: 1300px;
   max-height: 329px;
   position: relative;
+  background-color: red;
 }
-.banner-container {
+.banner-and-profile-container img {
+width:100%
+}
+/* .banner-container {
   display: flex;
   justify-content: center;
+  width: 100%;
   max-width: 1246px;
   max-height: 300px;
   border-radius: 20px;
   position: relative;
 }
+.banner-container img {
+  width:100%;
+  height: 100%;
+} */
 
 .profile-pic-container {
   width: 170px;
@@ -30,7 +41,7 @@
   cursor: pointer;
 }
 @media (max-width: 1300px) {
-  .banner-and-profile-container {
+  /* .banner-and-profile-container {
     max-width: 1177.66px;
   }
   .banner-container {
@@ -38,7 +49,7 @@
     height: 100%;
     max-width: 1150px;
     max-height: calc(300px - 7.05%);
-  }
+  } */
   .profile-pic-container {
     width: 141px;
     height: 141px;
@@ -48,11 +59,11 @@
 }
 
 @media (max-width: 1200px) {
-  .banner-container {
+  /* .banner-container {
     width: calc(1246px - 14%);
     height: calc(300px - 14%);
     max-width: 1055px;
-  }
+  } */
   .profile-pic-container {
     width: 131px;
     height: 131px;
@@ -74,22 +85,22 @@
   }
 }
 @media (max-width: 970px) {
-  .banner-container {
+  /* .banner-container {
     max-width: 860px;
     width: calc(1246px - 30%);
     height: calc(300px - 30%);
-  }
+  } */
   .profile-pic-container {
     left: 35px;
     top: 52%;
   }
 }
 @media (max-width: 870px) {
-  .banner-container {
+  /* .banner-container {
     max-width: 770px;
     width: calc(1246px - 34%);
     height: calc(300px - 34%);
-  }
+  } */
   .profile-pic-container {
     width: 111px;
     height: 111px;
