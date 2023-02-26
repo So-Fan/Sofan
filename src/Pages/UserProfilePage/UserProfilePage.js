@@ -45,7 +45,7 @@ function UserProfilePage() {
           from: "DonOfSomething",
           nftTitle: "Explore the World with Alexia",
           nftId: "#393",
-          nftPriceEth: "0.50",
+          nftPriceEth: "0.50009",
           date: "1 hours ago",
         },
         {
@@ -58,6 +58,7 @@ function UserProfilePage() {
       ],
       made: [{ from: "you", to: "" }],
     };
+    // caractères maximum à concat pour le prix en eth
     function concatStringFromTo(string) {
       if (string.length > 9) {
         const limitedOffersReceivedFromBegin = string.slice(0, 4);

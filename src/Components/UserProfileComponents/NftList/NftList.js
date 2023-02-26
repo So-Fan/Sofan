@@ -40,7 +40,7 @@ function NftList({
         </div>
       </div>
       <div className={`nft-price-user-activity ${offersYourOffersPriceClass}`}>
-        <div className="nftc-price-eth-user-activity">{priceEth}ETH</div>
+        <div className="nftc-price-eth-user-activity">{priceEth} ETH</div>
         <div className="nft-price-eur-user-activity">692.04€</div>
       </div>
       <div className={`nft-quantity-user-activity ${offersFromClass}`}>
