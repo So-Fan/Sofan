@@ -5,7 +5,6 @@
   align-items: center;
   flex-direction: column;
   overflow-x: none;
-  background-color: green;
   max-width: 1285px !important;
 }
 
@@ -28,7 +27,6 @@
   width: calc(100% - 30px);
   /* padding-left: 30px; */
   /* padding-right: 30px; */
-  background-color: yellow;
 }
 
 @media (max-width: 1300px) {

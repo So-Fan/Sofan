@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BannerAndProfilePic from "../../Components/BannerAndProfilePic/BannerAndProfilePic";
+import NftCard from "../../Components/NftCard/NftCard";
+import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
+import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
@@ -7,28 +10,33 @@ import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAnd
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
 import "./UserProfilePage.css";
 
-function UserProfilePage() {
-  const [isNftCollectedClicked, setIsNftCollectedClicked] = useState(false);
-  const [isActivityClicked, setIsActivityClicked] = useState(false);
-  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] =
-    useState(true);
-  const [isReceivedOffersClicked, setIsReceivedOffersClicked] = useState(false);
+function UserProfilePage({
+  setIsUSerProfileSeortBySelectorClicked,
+  isUSerProfileSeortBySelectorClicked,
+}) {
+  const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
+    useState([true, false, false, false]);
   const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
-  const [stringOffersMadeFrom, setStringOffersMadeFrom] = useState();
-  const stateCategory = [
-    isNftCollectedClicked,
-    isActivityClicked,
-    isFormulatedOffersClicked,
-    isReceivedOffersClicked,
-  ];
   function displayCategory() {
-    if (stateCategory[0] === true) {
-      return "NFT Collectés";
-    } else if (stateCategory[1] === true) {
+    if (isProfileSubMenuButtonClicked[0] === true) {
+      return (
+        <>
+          <SortBySelector
+            setIsUSerProfileSeortBySelectorClicked={
+              setIsUSerProfileSeortBySelectorClicked
+            }
+            isUSerProfileSeortBySelectorClicked={
+              isUSerProfileSeortBySelectorClicked
+            }
+          />
+          <NftCard userFrom={dataConcat?.collected} />
+        </>
+      );
+    } else if (isProfileSubMenuButtonClicked[1] === true) {
       return <UserActivity userFrom={dataConcat?.activities} />;
-    } else if (stateCategory[2] === true) {
+    } else if (isProfileSubMenuButtonClicked[2] === true) {
       return <FormulatedOffers userFrom={dataConcat?.made} />;
-    } else if (stateCategory[3] === true) {
+    } else if (isProfileSubMenuButtonClicked[3] === true) {
       return <ReceivedOffers userFrom={dataConcat?.received} />;
     }
   }
@@ -76,9 +84,9 @@ function UserProfilePage() {
           date: "5 months ago",
         },
       ],
-      activities : [
+      activities: [
         {
-          function : "Mint",
+          function: "Mint",
           nftTitle: "Explore the World with Alexia Barrier",
           nftId: "#393",
           nftPriceEth: "0.50009",
@@ -87,7 +95,7 @@ function UserProfilePage() {
           date: "5 months ago",
         },
         {
-          function : "Mint",
+          function: "Mint",
           nftTitle: "Explore the World with Alexia Barrier",
           nftId: "#393",
           nftPriceEth: "0.50009",
@@ -95,18 +103,24 @@ function UserProfilePage() {
           to: "Gr3goir3",
           date: "5 months ago",
         },
+      ],
+      collected : [
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009",
+          bid: "0.7592"
+        }
       ]
     };
     // Pour opti function concatStringFromTo(string, maxLentgth, from0To_NUMBER_, from_NUMBER_toEnd)
     function concatStringFromTo(string) {
       if (string.length > 9) {
         const stringBegin = string.slice(0, 4);
-        const stringEnd = string.slice(
-          string.length - 3,
-          string.length
-        );
-        const concatString =
-          stringBegin + "..." + stringEnd;
+        const stringEnd = string.slice(string.length - 3, string.length);
+        const concatString = stringBegin + "..." + stringEnd;
         return concatString;
       } else {
         return string;
@@ -189,6 +203,7 @@ function UserProfilePage() {
 
     setDataConcat(data);
   }, []);
+
   return (
     <>
       <section className="userprofilepage-container">
@@ -201,6 +216,12 @@ function UserProfilePage() {
             <div className="userprofile-description-component">
               <UserProfileDescription />
             </div>
+            <ProfileSubMenu
+              isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}
+              setIsProfileSubMenuButtonClicked={
+                setIsProfileSubMenuButtonClicked
+              }
+            />
             {displayCategory()}
           </div>
         </div>

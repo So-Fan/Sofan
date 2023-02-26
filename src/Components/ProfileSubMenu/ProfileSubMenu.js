@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Button from "../Button/Button";
 import "./ProfileSubMenu.css";
 import Arrow from '../../Assets/Image/arrow_bottom.svg'
-const ProfileSubMenu = () => {
-    const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] = useState([true, false, false, false])
+const ProfileSubMenu = ({isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked}) => {
+    
      // useEffect au chargement pour se servir de ce submenu ailleurs et map les button par rapport à la page qui est chargé et modifié condition if else
     const handleProfileSubMenuButtonClicked = e => {
         console.log(e.target.innerHTML);
