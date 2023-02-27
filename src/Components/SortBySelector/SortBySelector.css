@@ -4,6 +4,7 @@
   border: 0.3px solid #9b9b9b;
   border-radius: 10px 10px 0px 0px;
   position: relative;
+  margin-top: 23px;
 }
 #sortbyselector-component:hover {
   cursor: pointer;
@@ -34,6 +35,7 @@
   border-radius: 0px 0px 10px 10px;
   width: 128px;
   height: 80px;
+  background-color: white;
 }
 .sortbyselector-menu > ul {
   display: flex;

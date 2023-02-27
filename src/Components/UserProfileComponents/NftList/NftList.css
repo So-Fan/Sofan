@@ -314,7 +314,7 @@
     left: 130px;
   }
   .nft-date-transfer-user-activity {
-    left: 70px !important;
+    left: 90px !important;
   }
   .formulated-offers-nft-picture-and-title {
     display: flex;
@@ -366,6 +366,14 @@
     left: 75px;
   }
 }
+@media (max-width: 900px) {
+  .nft-to-user-activity{
+    left: 110px;
+  }
+  .nft-date-transfer-user-activity{
+    left: 70px !important;
+  }
+}
 @media (max-width: 870px) {
   .nft-quantity-user-activity{
     left: 70px;
@@ -374,10 +382,10 @@
     left: 80px;
   }
   .nft-to-user-activity{
-    left: 82px;
+    left: 62px;
   }
   .nft-date-transfer-user-activity {
-    left: 13%;
+    left: 10px !important;
   }
   .formulated-offers-nft-picture-and-title {
     left: 0px;

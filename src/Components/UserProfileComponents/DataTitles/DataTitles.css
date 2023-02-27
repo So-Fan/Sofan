@@ -224,18 +224,26 @@
     left: 570px;
   }
 }
+@media (max-width:900px) {
+  .user-to-type-activity{
+    left: 500px;
+  }
+  .user-date-type-activity{
+    left: 595px;
+  }
+}
 @media (max-width: 870px) {
   .user-quantity-type-activity{
     left: 350px;
   }
   .user-from-type-activity {
-    left: 385px;
+    left: 396px;
   }
   .user-to-type-activity {
-    left: 510px;
+    left: 465px;
   }
   .user-date-type-activity {
-    left: 570px;
+    left: 535px;
   }
   .formulated-offers-to-title {
     left: 385px;
