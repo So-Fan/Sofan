@@ -129,7 +129,7 @@
     left: 650px;
   }
   .received-offers-date-title{
-    left: 780px;
+    left: 815px;
   }
 }
 @media (max-width:1120px) {
@@ -223,13 +223,22 @@
   .formulated-offers-date-title{
     left: 570px;
   }
+  .received-offers-date-title{
+    left: 575px;
+  }
 }
 @media (max-width:900px) {
+  .formulated-offers-status-title{
+    left:480px !important;
+  }
+  .formulated-offers-date-title{
+    left: 540px !important;
+  }
   .user-to-type-activity{
     left: 500px;
   }
   .user-date-type-activity{
-    left: 595px;
+    left: 575px;
   }
 }
 @media (max-width: 870px) {
@@ -249,15 +258,15 @@
     left: 385px;
   }
   .formulated-offers-status-title {
-    left: 445px;
+    left: 450px !important;
   }
   .formulated-offers-date-title {
-    left: 500px;
+    left: 510px !important;
   }
   .received-offers-to-title{
     left: 455px;
   }
   .received-offers-date-title{
-    left: 540px;
+    left: 520px;
   }
 }

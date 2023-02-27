@@ -113,6 +113,38 @@ function UserProfilePage({
           nftPriceEth: "0.50009854",
           bid: "0.7592845864"
         },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
       ]
     };
     function concatStringFromTo(string, maxLentgth, from0To_NUMBER_, isDotDotDot, isEnd) {

@@ -183,6 +183,14 @@
     left: 410px;
   }
 }
+@media (max-width:1240px) {
+  .received-offers-decline{
+    left:350px;
+  }
+  .received-offers-accept{
+    left: 370px;
+  }
+}
 @media (max-width: 1200px) {
   .nft-quantity-user-activity{
     left: 141px;
@@ -230,16 +238,28 @@
     left: 320px;
   }
 }
+@media (max-width:1150px) {
+  .received-offers-decline{
+    left: 270px;
+  }
+  .received-offers-accept{
+    left: 280px;
+  }
+}
 @media (max-width: 1120px) {
   .nft-date-transfer-user-activity{
     left: 250px;
   }
+  .formulated-offers-date{
+    left: 310px !important;
+  }
   .received-offers-decline{
-    left: 280px;
+    left: 250px;
   }
   .received-offers-accept{
-    left: 290px;
+    left: 260px;
   }
+  
 }
 @media (max-width: 1080px) {
   .nft-from-user-activity{
@@ -280,13 +300,13 @@
     left: 225px;
   }
   .received-offers-date {
-    left: 125px;
+    left: 95px !important;
   }
   .received-offers-decline {
-    left: 170px;
+    left: 120px;
   }
   .received-offers-accept {
-    left: 180px;
+    left: 130px;
   }
 }
 @media (max-width: 970px) {
@@ -328,7 +348,7 @@
     left: 135px;
   }
   .formulated-offers-date{
-    left: 150px;
+    left: 150px !important;
   }
   .received-offers-nft-picture-and-title {
     left: 0px;
@@ -343,13 +363,13 @@
     left: 180px;
   }
   .received-offers-date {
-    left: 50px;
+    left: 35px !important;
   }
   .received-offers-decline {
-    left: 110px;
+    left: 80px;
   }
   .received-offers-accept {
-    left: 130px;
+    left: 100px;
   }
 }
 @media (max-width:935px) {
@@ -359,11 +379,14 @@
   .formulated-offers-date{
     left: 100px;
   }
+  .received-offers-date{
+    left: 30px !important;
+  }
   .received-offers-decline{
-    left: 65px;
+    left: 40px;
   }
   .received-offers-accept{
-    left: 75px;
+    left: 50px;
   }
 }
 @media (max-width: 900px) {
@@ -372,6 +395,16 @@
   }
   .nft-date-transfer-user-activity{
     left: 70px !important;
+  }
+  
+  .received-offers-date{
+    left: 30px !important;
+  }
+  .received-offers-decline{
+    left: 25px;
+  }
+  .received-offers-accept{
+    left: 35px;
   }
 }
 @media (max-width: 870px) {
@@ -394,13 +427,16 @@
     left: 25px;
   }
   .formulated-offers-from {
-    left: 83px;
+    left: 110px;
+  }
+  .formulated-offers-to{
+    left: 120px;
   }
   .formulated-offers-status{
     left: 80px;
   }
   .formulated-offers-date{
-    left: 30px;
+    left: 40px !important;
   }
   .received-offers-from{
     left: 100px;
@@ -409,12 +445,12 @@
     left: 160px;
   }
   .received-offers-date {
-    left: 10px;
+    left: -10px !important;
   }
   .received-offers-decline {
-    left: 10px;
+    left: -10px;
   }
   .received-offers-accept {
-    left: 15px;
+    left: 0px;
   }
 }
