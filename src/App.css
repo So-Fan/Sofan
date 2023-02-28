@@ -101,7 +101,6 @@
   .waiting-page-container {
     height: 100%;
     width: 100%;
-    /* background-color: red; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,7 +109,6 @@
   .logo-sofan-waiting-page-container {
     height: 20%;
     width: 100%;
-    /* background-color: green; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -122,7 +120,6 @@
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    /* background-color: blue; */
     font-family: "britanica-heavy";
     font-size: 30px;
   }

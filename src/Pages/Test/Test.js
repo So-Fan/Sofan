@@ -1,12 +1,11 @@
 import React from 'react'
+import AthleteProfileNFTCollection from '../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection'
 import "./Test.css"
 const Test = () => {
   return (
-    <section className='test-section'>
-      <div>
-      Test Here
-      </div>
-    </section>
+    <>
+      <AthleteProfileNFTCollection />
+    </>
   )
 }
 
