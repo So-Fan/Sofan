@@ -1,0 +1,272 @@
+.separation-line-horizontal-userprofile {
+  border: 0.3px solid #3c4045;
+  height: 0;
+  opacity: 0.3;
+  width: 100%;
+  max-width: 1240px;
+}
+#separation-line-horizontal-bottom-userprofile {
+  margin-bottom: 20px;
+}
+/* ===== Column with type of data ===== */
+.user-data-types-activity {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  height: 48px;
+  font-family: "britanica-black";
+  font-size: 14px;
+  font-weight: 400;
+}
+.user-nft-type-activity {
+  position: relative;
+  left: 78px;
+}
+.user-price-type-activity {
+  left: 337px;
+
+  position: relative;
+}
+.user-quantity-type-activity {
+  position: relative;
+  left: 424px;
+}
+.user-from-type-activity {
+  position: relative;
+  left: 567px;
+}
+.user-to-type-activity {
+  position: relative;
+  left: 759px;
+}
+.user-date-type-activity {
+  position: relative;
+  left: 1040px;
+}
+/* ===== Formulated offers titles ===== */
+
+.formulated-offers-nft-title {
+  left: 0px;
+}
+
+.formulated-offers-your-offers-title {
+  left: calc(400px - 36px);
+}
+.formulated-offers-from-title {
+  left: calc(587px - 86px);
+}
+.formulated-offers-to-title {
+  left: calc(769px - 66px);
+}
+.formulated-offers-status-title {
+  left: calc(969px - 110px);
+}
+/* ===== Received offers titles ===== */
+.received-offers-from-title {
+  left: 540px;
+}
+.received-offers-to-title{
+  left: 700px;
+}
+.received-offers-date-title {
+  left: 950px;
+  position: relative;
+}
+@media (max-width: 1300px) {
+  .user-activity-container {
+    max-width: 1177.66px;
+    
+  }
+  .user-data-types-activity {
+    position: relative;
+    /* left: -2.2%; */
+  }
+  .user-date-type-activity {
+    left: 940px;
+  }
+  .nft-list-activity-user-container {
+    max-width: 1177.66px !important;
+  }
+  .formulated-offers-to-title{
+    left: 630px;
+  }
+  .formulated-offers-status-title{
+    left: 760px;
+  }
+  .formulated-offers-date-title{
+    left: 890px;
+  }
+  .received-offers-date-title{
+    left: 875px;
+  }
+}
+@media (max-width: 1200px) {
+  .nft-list-activity-user-container {
+    max-width: 1100px !important;
+  }
+  .user-from-type-activity{
+    left: 510px;
+  }
+  .user-to-type-activity {
+    left: 650px;
+  }
+  .user-date-type-activity {
+    left: 825px;
+  }
+  .formulated-offers-from-title{
+    left: 470px;
+  }
+  .formulated-offers-to-title {
+    left: 560px;
+  }
+  .formulated-offers-status-title{
+    left: 670px;
+  }
+  .formulated-offers-date-title {
+    left: 780px;
+  }
+  .received-offers-to-title{
+    left: 650px;
+  }
+  .received-offers-date-title{
+    left: 815px;
+  }
+}
+@media (max-width:1120px) {
+  .user-date-type-activity{
+    left: 780px;
+  }
+}
+@media (max-width: 1080px) {
+  .user-from-type-activity {
+    left: 498px;
+  }
+  .user-to-type-activity {
+    left: 600px;
+  }
+  .user-date-type-activity {
+    left: 733px;
+  }
+  .formulated-offers-your-offers-title {
+    left: 320px;
+  }
+  .formulated-offers-from-title {
+    left: 385px;
+  }
+  .formulated-offers-to-title {
+    left: 470px;
+  }
+  .formulated-offers-status-title {
+    left: 580px;
+  }
+  .formulated-offers-date-title {
+    left: 650px;
+  }
+  .received-offers-offers-title {
+    left: 300px;
+  }
+  .received-offers-from-title{
+    left: 400px;
+  }
+  .received-offers-to-title{
+    left: 520px;
+  }
+  .received-offers-date-title{
+    left: 640px;
+  }
+}
+@media (max-width: 970px) {
+  .user-price-type-activity {
+    left: 325px;
+  }
+  .user-quantity-type-activity {
+    left: 375px;
+  }
+  .user-from-type-activity {
+    left: 440px;
+  }
+  .user-to-type-activity {
+    left: 525px;
+  }
+  .user-date-type-activity {
+    left: 620px;
+  }
+  .formulated-offers-your-offers-title {
+    left: 270px;
+  }
+  .formulated-offers-from-title {
+    left: 320px;
+  }
+  .formulated-offers-to-title {
+    left: 395px;
+  }
+  .formulated-offers-status-title {
+    left: 505px;
+  }
+  .formulated-offers-date-title {
+    left: 620px;
+  }
+  .received-offers-offers-title{
+    left: 300px;
+  }
+  .received-offers-to-title {
+    left: 475px;
+  }
+  .received-offers-date-title{
+    left: 580px;
+  }
+}
+@media (max-width:935px) {
+  .user-date-type-activity{
+    left: 625px;
+  }
+  .formulated-offers-date-title{
+    left: 570px;
+  }
+  .received-offers-date-title{
+    left: 575px;
+  }
+}
+@media (max-width:900px) {
+  .formulated-offers-status-title{
+    left:480px !important;
+  }
+  .formulated-offers-date-title{
+    left: 540px !important;
+  }
+  .user-to-type-activity{
+    left: 500px;
+  }
+  .user-date-type-activity{
+    left: 575px;
+  }
+}
+@media (max-width: 870px) {
+  .user-quantity-type-activity{
+    left: 350px;
+  }
+  .user-from-type-activity {
+    left: 396px;
+  }
+  .user-to-type-activity {
+    left: 465px;
+  }
+  .user-date-type-activity {
+    left: 535px;
+  }
+  .formulated-offers-to-title {
+    left: 385px;
+  }
+  .formulated-offers-status-title {
+    left: 450px !important;
+  }
+  .formulated-offers-date-title {
+    left: 510px !important;
+  }
+  .received-offers-to-title{
+    left: 455px;
+  }
+  .received-offers-date-title{
+    left: 520px;
+  }
+}

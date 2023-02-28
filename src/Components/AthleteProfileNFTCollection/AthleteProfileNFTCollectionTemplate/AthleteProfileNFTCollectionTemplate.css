@@ -1,0 +1,96 @@
+.athleteprofilenftcollectiontemplate-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: white;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+}
+.athleteprofilenftcollectiontemplate-banner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 608.95px;
+  overflow: hidden;
+}
+.athleteprofilenftcollectiontemplate-banner-wrap > img {
+  width: 100%;
+}
+.athleteprofilenftcollectiontemplate-content-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  width: 95%;
+  margin-top: 7%;
+  margin-bottom: 25px;
+}
+.athleteprofilenftcollectiontemplate-content-profilepicture-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120.39px;
+  height: 120.39px;
+  position: absolute;
+  top: -140.39px;
+  background-color: white;
+  border-radius: 10px;
+}
+.athleteprofilenftcollectiontemplate-content-profilepicture-wrap > img {
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  border-radius: 10px;
+}
+.athleteprofilenftcollectiontemplate-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-family: "Britanica-Heavy";
+  font-size: 25px;
+  line-height: 30px;
+}
+.athleteprofilenftcollectiontemplate-content-nftnumber {
+  font-family: "Britanica-Regular";
+  font-size: 20px;
+}
+.athleteprofilenftcollectiontemplate-content-nftprice {
+  font-size: 20px;
+}
+@media (max-width: 1060px) {
+  .athleteprofilenftcollectiontemplate-content-wrap {
+    margin-top: 20px;
+  }
+  .athleteprofilenftcollectiontemplate-content-profilepicture-wrap {
+    width: 100px;
+    height: 100px;
+    top: -110px;
+  }
+  .athleteprofilenftcollectiontemplate-content {
+    font-family: "Britanica-Heavy";
+    font-size: 22px;
+  }
+  .athleteprofilenftcollectiontemplate-content-nftnumber {
+    font-family: "Britanica-Regular";
+    font-size: 17px;
+  }
+  .athleteprofilenftcollectiontemplate-content-nftprice {
+    font-size: 17px;
+  }
+}
+@media (max-width: 930px) {
+  .athleteprofilenftcollectiontemplate-content {
+    font-family: "Britanica-Heavy";
+    font-size: 20px;
+  }
+  .athleteprofilenftcollectiontemplate-content-nftnumber {
+    font-family: "Britanica-Regular";
+    font-size: 15px;
+  }
+  .athleteprofilenftcollectiontemplate-content-nftprice {
+    font-size: 15px;
+  }
+}

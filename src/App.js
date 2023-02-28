@@ -5,24 +5,78 @@ import Home from "./Pages/Home/Home";
 import { useState } from "react";
 import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
+import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
+import Test from "./Pages/Test/Test";
+import AthleteProfilePage from "./Pages/AthleteProfilePage/AthleteProfilePage";
 
 function App() {
+  const isLogged = true; // from Backend
+  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
-  const handleProfileClick = (e) => {
-    console.log(e.target.id);
+  const [
+    isUSerProfileSeortBySelectorClicked,
+    setIsUSerProfileSeortBySelectorClicked,
+  ] = useState(false);
+  const [data, setData] = useState();
+  const [isDropdownClicked, setIsDropdownClicked] = useState();
+  function handleClickOutside(e) {
+    // Navbar
     if (e.target.id === "navbar-user-profile-img") {
       setIsProfileClicked(true);
     } else {
       setIsProfileClicked(false);
     }
-  };
-
+    // Dropdown
+    if (isDropdownClicked) {
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        if (data[i].isDropdownClicked === true) {
+          console.log("je suis ici");
+          const newData = [...data];
+          newData[i].isDropdownClicked = false;
+          setData(newData);
+          setIsDropdownClicked(false);
+        }
+      }
+    }
+    // Profile Page Sort by selector
+    if (e.target.id !== "sortbyselector-component") {
+      setIsUSerProfileSeortBySelectorClicked(false);
+    }
+  }
   return (
     <BrowserRouter>
-      <div className="App" onClick={handleProfileClick}>
-        <Navbar isProfileClicked={isProfileClicked} />
+      <div className="App" onClick={handleClickOutside}>
+        <Navbar isProfileClicked={isProfileClicked} isLogged={isLogged} />
         <Routes>
-          <Route index element={<Home />} />
+          <Route
+            index
+            element={
+              <Home
+                isDropDownButtonClicked={isDropDownButtonClicked}
+                setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+                data={data}
+                setData={setData}
+                setIsDropdownClicked={setIsDropdownClicked}
+                isLogged={isLogged}
+              />
+            }
+          />
+          <Route
+            path="/userprofile"
+            element={
+              <UserProfilePage
+                setIsUSerProfileSeortBySelectorClicked={
+                  setIsUSerProfileSeortBySelectorClicked
+                }
+                isUSerProfileSeortBySelectorClicked={
+                  isUSerProfileSeortBySelectorClicked
+                }
+              />
+            }
+          />
+          <Route path="/athleteprofile" element={<AthleteProfilePage />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">

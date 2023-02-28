@@ -1,7 +1,7 @@
 .feedsuggestions-component {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 286px;
   min-height: 280px;
   overflow: hidden;
@@ -27,9 +27,25 @@
 }
 @media (max-width: 950px) {
   .feedsuggestions-component{
+    width: 250px;
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .feedsuggestions-component{
+    width: 220px;
+  }
+  .feedlaunchpad-header-container > a{
+    display: none;
+  }
+}
+@media (max-width: 860px) {
+  .feedsuggestions-component{
     width: 200px;
   }
-  .feedlaunchpad-header-button{
-    display: none;
+}
+@media (max-width: 840px) {
+  .feedsuggestions-component{
+    width: 183px;
   }
 }

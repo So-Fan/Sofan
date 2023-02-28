@@ -1,0 +1,10 @@
+.NftCard-component{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  /* overflow-y: scroll; */
+}
+/* .NftCard-component::-webkit-scrollbar{
+  display: none;
+} */

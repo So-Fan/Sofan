@@ -1,5 +1,5 @@
 .input-comment-container-publication {
-  height: 80px;
+  min-height: 80px;
   /* background-color: red; */
   width: 100%;
   display: flex;

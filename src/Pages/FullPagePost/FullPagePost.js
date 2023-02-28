@@ -6,30 +6,18 @@ import PostsDescription from "../../Components/PostsComponents/PostsDescription/
 import PostsComments from "../../Components/PostsComponents/PostsComments/PostsComments";
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
+import { Link } from "react-router-dom";
 
 function FullPagePost() {
+
   return (
-    <div className="opacitychange-fullpagepost">
-      <section className="fullpagepost-container">
-        <div className="cancel-fullpagepost">
-          <a href="/">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 20C4.477 20 0 15.523 0 10C0 4.477 4.477 0 10 0C15.523 0 20 4.477 20 10C20 15.523 15.523 20 10 20ZM10 18C12.1217 18 14.1566 17.1571 15.6569 15.6569C17.1571 14.1566 18 12.1217 18 10C18 7.87827 17.1571 5.84344 15.6569 4.34315C14.1566 2.84285 12.1217 2 10 2C7.87827 2 5.84344 2.84285 4.34315 4.34315C2.84285 5.84344 2 7.87827 2 10C2 12.1217 2.84285 14.1566 4.34315 15.6569C5.84344 17.1571 7.87827 18 10 18ZM10 8.586L12.828 5.757L14.243 7.172L11.414 10L14.243 12.828L12.828 14.243L10 11.414L7.172 14.243L5.757 12.828L8.586 10L5.757 7.172L7.172 5.757L10 8.586Z"
-                fill="white"
-              />
-            </svg>
-          </a>
-        </div>
+    <>
+      <div
+        className="fullpagepost-container"
+      >
         <div className="post-container-fullpagepost">
           <div className="media-fullpagepost">
-            <img className="img-fullpagepost" src={mediaPostAttanasio} alt="" />
+            <img className="img-fullpagepost" src={mediaPostAttanasio} alt="Post" />
           </div>
           <div className="desc-likes-comments-container-fullpagepost">
             <div className="bloc-content-fullpagepost">
@@ -70,8 +58,8 @@ function FullPagePost() {
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }
 

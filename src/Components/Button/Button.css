@@ -1,7 +1,4 @@
 .button-component{
-    font-family: 'Britanica-Heavy';
-    font-size: 30px;
-    color: #000000; 
     text-decoration: none;
     display: flex;
     justify-content: center;
@@ -11,3 +8,6 @@
     margin: 0;
     box-sizing: content-box;
 }
+/* .button-component:hover{
+    background-color: red !important;
+} */
