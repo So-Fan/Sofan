@@ -18,7 +18,7 @@ const FavAthlete = () => {
       type: "Basketball"
     },
     {
-      firstName: "Kylian",
+      firstName: "Kylian.",
       surName: "Mbappe",
       img: Mbappe,
       imgResponsive: "/img/sergioramos.svg",
