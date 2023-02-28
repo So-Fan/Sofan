@@ -1,0 +1,18 @@
+.athlete-profile-feed-container{
+    background-color: yellow;
+    width: 100%;
+    max-width: 1249px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.athlete-profile-feed-free-container{
+    max-width: 610px;
+    flex-direction: column;
+    /* background-color: red; */
+}
+.athlete-profile-feed-premium-container{
+    max-width: 610px;
+    flex-direction: column;
+    /* background-color: green; */
+}
