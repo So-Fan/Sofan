@@ -1,14 +1,14 @@
 .profileSubMenu-component{
     display: flex;
     justify-content: flex-start;
-    width: 1240px;
+    max-width: 1240px;
     height: 40px;
     border-bottom: 0.3px solid #3c40455b;
 }
 .profilesubmenu-wrap{
     padding: 0px 5px 0px 5px;
     margin-right: 15px;
-    height: 38px;
+    height: 38px;;
 }
 .profilesubmenu-wrap:hover{
     border-bottom: 4px solid #F8DB4A;
@@ -18,10 +18,13 @@
 }
 .profilesubmenu-wrap-clicked{
     border-bottom: 4px solid #F8DB4A;
+    opacity: 1 !important;
+    /* color: black; */
 }
 .profilesubmenu-arrow-wrap > img {
     width: 12.73px;
     margin-left: 12.64px;
+    opacity: 0.5;
 }
 /* .profilesubmenu-wrap{
     display: flex;

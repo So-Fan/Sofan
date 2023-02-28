@@ -4,8 +4,6 @@ import NftList from "../NftList/NftList";
 import "./ReceivedOffers.css";
 
 function ReceivedOffers({ userFrom }) {
-  //   const nftListArray = Array.from({ length: 11 });
-
   return (
     <section className="received-offers-user-container">
       {/* class à rename en bas */}
@@ -22,13 +20,13 @@ function ReceivedOffers({ userFrom }) {
         // Nft data list
       />
       <div className="received-offers-nft-list-container">
-        {userFrom.map((user, index) => (
+        {userFrom?.map((user, index) => (
           <NftList
             key={index}
             offersDisplaySourceTypeClass="formulated-offers-display-source-type"
             receivedFrom={user.from}
             offersTo={user.to}
-            priceEth={user.priceEth}
+            priceEth={user.nftPriceEth}
             nftTitle={user.nftTitle}
             nftId={user.nftId}
             date={user.date}

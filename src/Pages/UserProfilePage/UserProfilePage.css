@@ -1,38 +1,43 @@
 .userprofilepage-container {
-  width: 100%;
-  height: calc(100vh - 94px);
+  width: calc(100% - 30px);
+  /* height: calc(100vh - 94px); */
   display: flex;
   align-items: center;
   flex-direction: column;
   overflow-x: none;
+  max-width: 1285px !important;
 }
 
 .userheader-container {
+  width: 100%;
   height: 100%;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
   max-height: 1463px;
-  /* background-color: red; */
   position: relative;
 }
 .user-content-activity-nft {
-  position: absolute;
+  /* position: absolute; */
   top: 304px;
   left: 0px;
   right: 0;
   height: 100%;
-  /* max-width: 1177.66px !important;
-  overflow: hidden !important; */
+  width: calc(100% - 30px);
+  /* padding-left: 30px; */
+  /* padding-right: 30px; */
 }
 
 @media (max-width: 1300px) {
-  .user-content-activity-nft {
+  /* .user-content-activity-nft {
     position: absolute;
     top: 270px;
-    max-width: 1177.66px !important;
+    width: 100%;
     overflow: hidden !important;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+  } */
   .username-and-stats-component{
     display: flex;
     width: 100%;
@@ -44,16 +49,7 @@
 }
 
 @media (max-width: 1200px) {
-  .userprofilepage-container{
-    /* max-width: 1000px; */
-  }
-  .user-content-activity-nft {
-    position: absolute;
-    top: 250px;
-  }
-  .userheader-container{
-    /* max-width: 930px; */
-  }
+  
 }
 @media (max-width: 1080px) {
   .userprofilepage-container{
@@ -62,35 +58,20 @@
   .userheader-container{
     width: 100%;
     max-width: 940px;
-    /* background-color: red; */
   }
-  .user-content-activity-nft {
+  /* .user-content-activity-nft {
     width: 100%;
     position: absolute;
     top: 210px;
-    /* left: 0px; */
-  }
+  } */
 }
 @media (max-width: 970px) {
-  .userheader-container{
+  /* .userheader-container{
     max-width: 835px;
-  }
-  .user-content-activity-nft {
-    position: absolute;
-    top: 200px;
-    display: flex;
-    width: 100%;
-  }
+  } */
 }
 @media (max-width: 870px) {
   .userheader-container{
     max-width: 775px;
-    /* background-color: red; */
-  }
-  .user-content-activity-nft {
-    position: absolute;
-    top: 170px;
-    /* left: 240px; */
-    right: 0;
   }
 }

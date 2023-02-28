@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BannerAndProfilePic from "../../Components/BannerAndProfilePic/BannerAndProfilePic";
+import NftCard from "../../Components/NftCard/NftCard";
+import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
+import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
@@ -7,29 +10,34 @@ import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAnd
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
 import "./UserProfilePage.css";
 
-function UserProfilePage() {
-  const [isNftCollectedClicked, setIsNftCollectedClicked] = useState(false);
-  const [isActivityClicked, setIsActivityClicked] = useState(false);
-  const [isFormulatedOffersClicked, setIsFormulatedOffersClicked] =
-    useState(false);
-  const [isReceivedOffersClicked, setIsReceivedOffersClicked] = useState(true);
-  const [stringOffersReceivedFrom, setstringOffersReceivedFrom] = useState([]);
-  const [stringOffersMadeFrom, setStringOffersMadeFrom] = useState();
-  const stateCategory = [
-    isNftCollectedClicked,
-    isActivityClicked,
-    isFormulatedOffersClicked,
-    isReceivedOffersClicked,
-  ];
+function UserProfilePage({
+  setIsUSerProfileSeortBySelectorClicked,
+  isUSerProfileSeortBySelectorClicked,
+}) {
+  const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
+    useState([true, false, false, false]);
+  const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
   function displayCategory() {
-    if (stateCategory[0] === true) {
-      return "NFT Collectés";
-    } else if (stateCategory[1] === true) {
-      return <UserActivity />;
-    } else if (stateCategory[2] === true) {
-      return <FormulatedOffers userFrom={stringOffersMadeFrom} />;
-    } else if (stateCategory[3] === true) {
-      return <ReceivedOffers userFrom={stringOffersReceivedFrom} />;
+    if (isProfileSubMenuButtonClicked[0] === true) {
+      return (
+        <>
+          <SortBySelector
+            setIsUSerProfileSeortBySelectorClicked={
+              setIsUSerProfileSeortBySelectorClicked
+            }
+            isUSerProfileSeortBySelectorClicked={
+              isUSerProfileSeortBySelectorClicked
+            }
+          />
+          <NftCard userFrom={dataConcat?.collected} />
+        </>
+      );
+    } else if (isProfileSubMenuButtonClicked[1] === true) {
+      return <UserActivity userFrom={dataConcat?.activities} />;
+    } else if (isProfileSubMenuButtonClicked[2] === true) {
+      return <FormulatedOffers userFrom={dataConcat?.made} />;
+    } else if (isProfileSubMenuButtonClicked[3] === true) {
+      return <ReceivedOffers userFrom={dataConcat?.received} />;
     }
   }
   useEffect(() => {
@@ -56,66 +64,139 @@ function UserProfilePage() {
           date: "4 years ago",
         },
       ],
-      made: [{ from: "you", to: "" }],
+      made: [
+        {
+          nftTitle: "Explore the World with Alexia Barrier",
+          nftId: "#393",
+          nftPriceEth: "0.50009",
+          from: "you",
+          to: "Alexia Barrier",
+          status: "Pending",
+          date: "5 months ago",
+        },
+        {
+          nftTitle: "Explore the World with Voile",
+          nftId: "#394",
+          nftPriceEth: "0.808447444",
+          from: "you",
+          to: "Alexia Barrier",
+          status: "Pending",
+          date: "4 years ago",
+        },
+      ],
+      activities: [
+        {
+          function: "Mint",
+          nftTitle: "Explore the World with Alexia Barrier",
+          nftId: "#393",
+          nftPriceEth: "0.500098484874",
+          from: "0x388C818CA8B9251b393131C08a736A67ccB19297",
+          to: "Gr3goir3",
+          date: "5 months ago",
+        },
+        {
+          function: "Mint",
+          nftTitle: "Explore the World with Alexia Barrier",
+          nftId: "#393",
+          nftPriceEth: "0.50009",
+          from: "0x388C818CA8B9251b393131C08a736A67ccB19297",
+          to: "Gr3goir3",
+          date: "5 months ago",
+        },
+      ],
+      collected : [
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+        {
+          athleteName: "Alexia Barrier",
+          nftTitle: "Explore the World with Alexia Barrier Explore the World with Alexia Barrier",
+          nftId: "#393",
+          img: "https://i.imgur.com/6UKdMup.png",
+          nftPriceEth: "0.50009854",
+          bid: "0.7592845864"
+        },
+      ]
     };
-    // caractères maximum à concat pour le prix en eth
-    function concatStringFromTo(string) {
-      if (string.length > 9) {
-        const limitedOffersReceivedFromBegin = string.slice(0, 4);
-        const limitedOffersReceivedFromEnd = string.slice(
-          string.length - 3,
-          string.length
-        );
-        const concatOffersReceivedFrom =
-          limitedOffersReceivedFromBegin + "..." + limitedOffersReceivedFromEnd;
-        return concatOffersReceivedFrom;
+    function concatStringFromTo(string, maxLentgth, from0To_NUMBER_, isDotDotDot, isEnd) {
+      if (string.length > maxLentgth) {
+        const stringBegin = string.slice(0, from0To_NUMBER_);
+        const dotDotDot = "..."
+        const stringEnd = string.slice(string.length - 3, string.length);
+        if (!isDotDotDot && !isEnd) {
+          return stringBegin;
+        } else if (isDotDotDot && !isEnd) {
+          return stringBegin + dotDotDot;
+        } else if (isDotDotDot && isEnd) {
+          return stringBegin + dotDotDot + stringEnd;
+        } else {
+          return string;
+        }
       } else {
         return string;
       }
     }
-    function createArray(state, setState, data, arrayConcat, index) {
-      let stringFrom;
-      let stringTo;
-      let stringNftTitle;
-      const tempStringFrom = concatStringFromTo(data?.received[index]?.from);
-      stringFrom = tempStringFrom;
-
-      const tempStringTo = concatStringFromTo(data.userPageInfo.username);
-      stringTo = tempStringTo;
-      if (data.received[index].nftTitle.length > 28) {
-        const nftTitleBegin = data.received[index].nftTitle.slice(0, 29);
-        const concatNftTitle = nftTitleBegin + "...";
-        stringNftTitle = concatNftTitle;
-      } else {
-        stringNftTitle = data.received[index].nftTitle;
-      }
-      const tempObj = {
-        from: stringFrom,
-        nftTitle: stringNftTitle,
-        to: stringTo,
-      };
-      return tempObj
-    }
-    const tempArrayUserProfilePage = [];
+    // Boucle pour received
     for (let i = 0; i < data.received.length; i++) {
-     const tempObjPartial = createArray(
-        stringOffersReceivedFrom,
-        setstringOffersReceivedFrom,
-        data,
-        tempArrayUserProfilePage,
-        i
-      );
-      const tempDate = data.received[i].date
-      const tempId = data.received[i].nftId
-      const tempPriceEth = data.received[i].nftPriceEth
-      const tempObjFinal = {
-        ...tempObjPartial, date: tempDate, nftId: tempId, priceEth: tempPriceEth
-      }
-
-      tempArrayUserProfilePage.push(tempObjFinal)
+      data.received[i].from = concatStringFromTo(data?.received[i]?.from, 9, 4, true, true);
+      data.received[i].nftTitle = concatStringFromTo(data?.received[i]?.nftTitle, 28, 29, true, false);
+      data.received[i].to = concatStringFromTo(data.userPageInfo.username, 9, 4, true, true);
+      data.received[i].nftPriceEth = concatStringFromTo(data?.received[i]?.nftPriceEth, 7, 7, false, false);
     }
-    setstringOffersReceivedFrom(tempArrayUserProfilePage)
+    // Boucle pour made
+    for (let i = 0; i < data.made.length; i++) {
+      data.made[i].from = concatStringFromTo(data?.made[i]?.from, 9, 4, true, true);
+      data.made[i].nftTitle = concatStringFromTo(data?.made[i]?.nftTitle, 28, 29 , true, false);
+      data.made[i].to = concatStringFromTo(data?.made[i].to, 9, 4, true, true);
+      data.made[i].nftPriceEth = concatStringFromTo(data?.made[i]?.nftPriceEth, 7, 7, false, false);
+    }
+    // Boucle pour activities
+    for (let i = 0; i < data.activities.length; i++) {
+      data.activities[i].from = concatStringFromTo(data?.activities[i]?.from, 9, 4, true, true);
+      data.activities[i].nftTitle = concatStringFromTo(data?.activities[i]?.nftTitle, 25, 25, true, false);
+      data.activities[i].to = concatStringFromTo(data?.activities[i].to, 9, 4, true, true);
+      data.activities[i].nftPriceEth = concatStringFromTo(data?.activities[i]?.nftPriceEth, 7, 7, false, false);
+      data.activities[i].function = concatStringFromTo(data?.activities[i]?.function, 7, 7, false, false);
+    }
+    // Boucle pour Collected NFT
+    for (let i = 0; i < data.collected.length; i++) {
+      data.collected[i].nftTitle = concatStringFromTo(data?.collected[i]?.nftTitle, 58, 58, true, false);
+      data.collected[i].nftPriceEth = concatStringFromTo(data?.collected[i]?.nftPriceEth, 7, 7, false, false);
+      data.collected[i].bid = concatStringFromTo(data?.collected[i]?.bid, 7, 7, false, false);
+    }
+
+    setDataConcat(data);
   }, []);
+
   return (
     <>
       <section className="userprofilepage-container">
@@ -128,6 +209,12 @@ function UserProfilePage() {
             <div className="userprofile-description-component">
               <UserProfileDescription />
             </div>
+            <ProfileSubMenu
+              isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}
+              setIsProfileSubMenuButtonClicked={
+                setIsProfileSubMenuButtonClicked
+              }
+            />
             {displayCategory()}
           </div>
         </div>

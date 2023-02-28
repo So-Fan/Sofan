@@ -24,13 +24,15 @@ function NftList({
   nftTitle,
   nftId,
   date,
-  priceEth
+  priceEth,
+  func
 }) {  
+  console.log(date);
   return (
     // Backend here
     <div className="user-nft-transfer-container">
       <div className={`nft-origin-type ${offersDisplaySourceTypeClass}`}>
-        Mint
+        {func}
       </div>
       <div className={`user-nft-picture-and-title ${offersNftContentClass}`}>
         <img src={explorePicture} alt="nft picture" />

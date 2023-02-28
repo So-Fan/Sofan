@@ -1,0 +1,6 @@
+.test-section{
+    width: calc(100vw - 30px);
+}
+.test-section > img {
+    width: 100%;
+}
