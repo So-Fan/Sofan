@@ -22,6 +22,7 @@ function UserActivity({userFrom}) {
           date={user.date}
           nftTitle={user.nftTitle}
           nftId={user.nftId}
+          nftImg={user.nftImg}
           func={user.function}
           key={index} />
         ))}

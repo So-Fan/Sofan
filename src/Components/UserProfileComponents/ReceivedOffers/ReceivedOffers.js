@@ -30,7 +30,7 @@ function ReceivedOffers({ userFrom }) {
             nftTitle={user.nftTitle}
             nftId={user.nftId}
             date={user.date}
-
+            nftImg={user.nftImg}
             //
             offersNftContentClass="received-offers-nft-picture-and-title"
             offersYourOffersPriceClass="received-offers-offers-price"

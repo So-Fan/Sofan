@@ -1,6 +1,5 @@
 import React from "react";
 import "./NftList.css";
-import explorePicture from "../../../Assets/Image/explorepicture.svg";
 import redCross from "../../../Assets/Image/redcross-offers.svg";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
 
@@ -25,7 +24,8 @@ function NftList({
   nftId,
   date,
   priceEth,
-  func
+  func,
+  nftImg
 }) {  
   console.log(date);
   return (
@@ -35,7 +35,7 @@ function NftList({
         {func}
       </div>
       <div className={`user-nft-picture-and-title ${offersNftContentClass}`}>
-        <img src={explorePicture} alt="nft picture" />
+        <img src={nftImg} alt="nft picture" />
         <div className="collection-name-nft-id-user-activity">
           <span>{nftTitle}</span>
           <span>{nftId}</span>

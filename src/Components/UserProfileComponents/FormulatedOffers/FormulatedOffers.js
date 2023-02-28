@@ -43,6 +43,7 @@ function FormulatedOffers({userFrom}) {
               offersTo={user.to}
               nftTitle={user.nftTitle}
               nftId={user.nftId}
+              nftImg={user.nftImg}
               priceEth={user.nftPriceEth}
               date={user.date}
               offersStatus={user.status}

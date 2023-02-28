@@ -45,8 +45,11 @@ function UserProfilePage({
       userPageInfo: {
         username: "Gr3goir3",
         followingAthletes: 145,
-        athleteSupporting: 15,
+        athleteSupporting: 16,
         nftOwned: 159,
+        banner: "https://i.imgur.com/sJTNEVk.png",
+        profilepicture: "https://i.imgur.com/cCVIcNS.png",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere tellus vehicula leo iaculis luctus. Ut vulputate elit risus, eget faucibus justo consectetur in."
       },
       received: [
         {
@@ -55,6 +58,7 @@ function UserProfilePage({
           nftId: "#393",
           nftPriceEth: "0.50009",
           date: "1 hours ago",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
         {
           from: "AlexiaBarrier",
@@ -62,6 +66,7 @@ function UserProfilePage({
           nftId: "#394",
           nftPriceEth: "0.80",
           date: "4 years ago",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
       ],
       made: [
@@ -73,6 +78,7 @@ function UserProfilePage({
           to: "Alexia Barrier",
           status: "Pending",
           date: "5 months ago",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
         {
           nftTitle: "Explore the World with Voile",
@@ -82,6 +88,7 @@ function UserProfilePage({
           to: "Alexia Barrier",
           status: "Pending",
           date: "4 years ago",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
       ],
       activities: [
@@ -93,6 +100,7 @@ function UserProfilePage({
           from: "0x388C818CA8B9251b393131C08a736A67ccB19297",
           to: "Gr3goir3",
           date: "5 months ago",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
         {
           function: "Mint",
@@ -102,6 +110,7 @@ function UserProfilePage({
           from: "0x388C818CA8B9251b393131C08a736A67ccB19297",
           to: "Gr3goir3",
           date: "5 months ago",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
       ],
       collected : [
@@ -111,7 +120,8 @@ function UserProfilePage({
           nftId: "#393",
           img: "https://i.imgur.com/6UKdMup.png",
           nftPriceEth: "0.50009854",
-          bid: "0.7592845864"
+          bid: "0.7592845864",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
         {
           athleteName: "Alexia Barrier",
@@ -119,7 +129,8 @@ function UserProfilePage({
           nftId: "#393",
           img: "https://i.imgur.com/6UKdMup.png",
           nftPriceEth: "0.50009854",
-          bid: "0.7592845864"
+          bid: "0.7592845864",
+          nftImg: "https://i.imgur.com/BrRKHpT.png"
         },
         {
           athleteName: "Alexia Barrier",
@@ -147,6 +158,7 @@ function UserProfilePage({
         },
       ]
     };
+    console.log(data.userPageInfo.description.length);
     function concatStringFromTo(string, maxLentgth, from0To_NUMBER_, isDotDotDot, isEnd) {
       if (string.length > maxLentgth) {
         const stringBegin = string.slice(0, from0To_NUMBER_);
@@ -201,13 +213,13 @@ function UserProfilePage({
     <>
       <section className="userprofilepage-container">
         <div className="userheader-container">
-          <BannerAndProfilePic />
+          <BannerAndProfilePic banner={dataConcat?.userPageInfo.banner} profilePicture={dataConcat?.userPageInfo.profilepicture} />
           <div className="user-content-activity-nft">
             <div className="username-and-stats-component">
-              <UserNameAndStats />
+              <UserNameAndStats userNameAndStatsObject={dataConcat?.userPageInfo} />
             </div>
             <div className="userprofile-description-component">
-              <UserProfileDescription />
+              <UserProfileDescription userDescription={dataConcat?.userPageInfo.description} />
             </div>
             <ProfileSubMenu
               isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}

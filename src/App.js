@@ -6,7 +6,7 @@ import { useState } from "react";
 import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
-import Test from "./Test";
+import Test from "./Pages/Test/Test";
 
 function App() {
   const isLogged = true; // from Backend

@@ -1,13 +1,11 @@
 import React from 'react'
 import "./Test.css"
-import Background from "./Assets/Image/Banner.png"
 const Test = () => {
   return (
     <section className='test-section'>
       <div>
-      
+      Test Here
       </div>
-
     </section>
   )
 }
