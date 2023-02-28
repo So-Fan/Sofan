@@ -8,23 +8,43 @@ const AthleteProfileNFTCollection = () => {
   useEffect(() => {
     const data = {
       user: "Romain Attanasio",
-      event: [{
-        banner: "https://i.imgur.com/2ybztrG.png",
-        profilePicture: "https://i.imgur.com/zH10SHj.png",
-        title: "THE VENDEE GLOBE 2022",
-        nftNumber: "5405",
-        nftPriceEth: "0.01",
-      },
-    ]
+      event: [
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+      ],
     };
     setDataAthleteProfilePageConcat(data);
   }, []);
   return (
-    <div>
+    <div className="athleteprofilenftcollection-component">
       {dataAthleteProfilePageConcat?.event.map((event) => (
-        <AthleteProfileNFTCollectionTemplate
-        eventData={event}
-      />
+        <AthleteProfileNFTCollectionTemplate eventData={event} />
       ))}
     </div>
   );
