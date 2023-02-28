@@ -1,17 +1,32 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "./FeedLaunchpad.css"
 import { Link } from 'react-router-dom'
 import FeedLaunchpadTemplate from './FeedLaunchpadTemplate/FeedLaunchpadTemplate'
 import DataLaunchpad from "./fakedata/dataLaunchpad.json"
+import { db } from '../../Configs/firebase';
+import { collection, getDocs } from 'firebase/firestore';
+
 const FeedLaunchpad = () => {
+  const [launchpad, setLaunchpad] = useState([]);
+  const launchpadCollectionRef = collection(db, 'feed_launchpad');
+  useEffect(() => {
+
+    const getEvents = async () => {
+      const data = await getDocs(launchpadCollectionRef);
+      setLaunchpad(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
+    }
+
+    getEvents() ;
+  }, []);
+
   return (
     <div className='feedlaunchpad-component'>
       <div className='feedlaunchpad-header-container'>
         <span className='feedlaunchpad-header-title'>Launchpad</span>
         <Link to='/Launchpad' className='feedlaunchpad-header-button'>voir plus</Link>
       </div>
-      {DataLaunchpad.launchpads.map((launchpad) => (
-        <FeedLaunchpadTemplate title={launchpad.title} athlete={launchpad.athlete} img={launchpad.img} athleteProfilePicture={launchpad.athleteProfilePicture} id={launchpad.id} />
+      {launchpad.map((launchpad) => (
+        <FeedLaunchpadTemplate title={launchpad.title} athlete={launchpad.athlete} img={launchpad.img} athleteProfilePicture={launchpad.avatar} id={launchpad.id} />
       ))}
     </div>
   )
