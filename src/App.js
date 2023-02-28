@@ -7,6 +7,7 @@ import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 import Test from "./Pages/Test/Test";
+import AthleteProfilePage from "./Pages/AthleteProfilePage/AthleteProfilePage";
 
 function App() {
   const isLogged = true; // from Backend
@@ -74,6 +75,7 @@ function App() {
               />
             }
           />
+          <Route path="/athleteprofile" element={<AthleteProfilePage />} />
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>
