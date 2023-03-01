@@ -12,6 +12,9 @@ function HeadOfPost({
   athleteNamePollPost,
   handleDropdownPostFeedClick,
   id,
+  //
+  postDate,
+  postDateType
 }) {
   const athleteName = "Romain Attanasio"; // reçu du backend
 
@@ -27,7 +30,8 @@ function HeadOfPost({
           {athleteName}
         </div>
         {/* Backend here */}
-        <div className={`age-publication ${agePublicationPollPost}`}>3h</div>
+        {/* Import date backend data with props from home to here and from every page */}
+        <div className={`age-publication ${agePublicationPollPost}`}>{postDate}{postDateType}</div>
       </div>
       <div
         className={`publication-head-right-container ${headOfPostSizeRight}`}

@@ -17,10 +17,11 @@ function PostsFeed({
   setIsPostClicked,
   isPostClicked,
   lockPremiumContent,
-  postData
+  postDate,
+  postDateType,
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
-
+console.log(postDate)
   return (
     <>
       <div className="publication-container" >
@@ -37,6 +38,9 @@ function PostsFeed({
               agePublicationPollPost="age-publication-pollpost"
               handleDropdownPostFeedClick={handleDropdownPostFeedClick}
               id={id}
+              // 
+              postDate={postDate}
+              postDateType={postDateType}
             />
           </div>
           <PostsDescription postFeedDescription="post-feed-description-resize" />

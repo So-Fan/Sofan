@@ -24,11 +24,18 @@ useEffect(() => {
   const postData = {
     athlete: [
       {
-        postDate: "3h",
+        postDate: 3,
+        postDateType: "h",
         postType: "Free",
       },
       {
-        postDate: "4h",
+        postDate: 1,
+        postDateType: "d",
+        postType: "Premium",
+      },
+      {
+        postDate: 4,
+        postDateType: "h",
         postType: "Premium",
       },
     ],
@@ -41,14 +48,12 @@ useEffect(() => {
         <PostsFeed />
       </div>
       <div className="athlete-profile-feed-premium-container">
-        {/* <PostsFeed isUserFan={isUserFan}/>
-        <PostsFeed isUserFan={isUserFan}/>
-        <PostsFeed isUserFan={isUserFan}/> */}
         {postData.athlete.map((post) => {
           return (
             <>
               <PostsFeed
-               postData={post.athlete} 
+               postDate={post.postDate} 
+               postDateType={post.postDateType}
                lockPremiumContent={lockPremiumContent}
                 // mettre un uuid après
                />
