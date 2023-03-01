@@ -3,9 +3,9 @@ import AthleteProfileFeed from '../../Components/AthleteProfileFeed/AthleteProfi
 import "./AthleteProfilePage.css"
 const AthleteProfilePage = () => {
   return (
-    <div>
+    <>
       <AthleteProfileFeed/>
-    </div>
+    </>
   )
 }
 

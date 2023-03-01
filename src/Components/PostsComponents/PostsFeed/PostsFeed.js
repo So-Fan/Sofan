@@ -16,15 +16,16 @@ function PostsFeed({
   id,
   setIsPostClicked,
   isPostClicked,
-  isUserFan
+  lockPremiumContent,
+  postData
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
 
   return (
     <>
       <div className="publication-container" >
-        {isUserFan && <><PremiumContentLocked/></>}
-        <div className="publication-content" style={isUserFan ? {filter: "blur(17px)"} : {}}>
+        {lockPremiumContent && <><PremiumContentLocked/></>}
+        <div className="publication-content" style={lockPremiumContent ? {filter: "blur(17px)"} : {}}>
           {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost

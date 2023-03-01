@@ -10,8 +10,8 @@
   top: 0%;
   left: 0%;
   filter: blur(0px) !important;
-  /* background-color: red; */
   z-index: 999;
+  border-radius: 20px;
 }
 .premium-content-locked-locker-logo {
   width: 60px;
