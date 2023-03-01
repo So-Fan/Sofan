@@ -1,0 +1,94 @@
+.athleteprofileranking-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  width: 450px;
+  max-height: 702px;
+}
+.athleteprofileranking-component > span {
+  font-family: "Britanica-Heavy";
+  font-size: 25px;
+  margin-top: 19px;
+  margin-bottom: 18px;
+}
+.athleteprofileranking-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  overflow-y: scroll;
+  width: 100%;
+  border-top: 0.3px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
+}
+.athleteprofileranking-container::-webkit-scrollbar {
+  display: none;
+}
+.athleteprofileranking-container > div:nth-child(1) {
+  padding-top: 36px;
+}
+.athleteprofileranking-container > div:nth-child(n + 2) {
+  padding-top: 49px;
+}
+.athleteprofileranking-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 359px;
+  max-height: 100px;
+  padding-right: 20px;
+}
+.athleteprofileranking-subwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+.athleteprofileranking-subwrap > span:nth-child(1) {
+  font-family: "Britanica-Heavy";
+  font-size: 14px;
+  line-height: 17px;
+  opacity: 0.5;
+}
+.athleteprofileranking-subwrap > span:nth-child(2) {
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+  line-height: 24px;
+}
+.athleteprofileranking-subwrap-circle {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  top: 0;
+  left: -47px;
+  background: #f6d463;
+}
+.athleteprofileranking-subwrap-segment {
+  position: absolute;
+  width: 4px;
+  height: 121px;
+  top: 28px;
+  left: -35px;
+  background: #f6d463;
+}
+.athleteprofileranking-wrap-description {
+  font-family: "Britanica-Regular";
+  line-height: 19px;
+  margin-top: 8px; /* 21 ?*/
+  width: 362px;
+  max-height: 65px;
+}
+.athleteprofileranking-component > button {
+  width: 410px;
+  min-height: 56px !important;
+  background-color: #f6d463;
+  border: none;
+  border-radius: 10px;
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 29px;
+}
