@@ -8,6 +8,7 @@ import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 import Test from "./Pages/Test/Test";
 import AthleteProfilePage from "./Pages/AthleteProfilePage/AthleteProfilePage";
+import LoginSignUpScreen from "./Pages/LoginSignUpPage/LoginSignUpScreen";
 
 function App() {
   const isLogged = true; // from Backend
@@ -77,6 +78,7 @@ function App() {
           />
           <Route path="/athleteprofile" element={<AthleteProfilePage />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/login" element={<LoginSignUpScreen />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
