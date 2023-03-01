@@ -9,19 +9,22 @@ import attanasioBateau from "../../../Assets/Image/romain.jpeg";
 import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 import { Link } from "react-router-dom";
 import Modal from "../../Modal/Modal";
+import PremiumContentLocked from "../../PremiumContentLocked/PremiumContentLocked";
 function PostsFeed({
   handleDropdownPostFeedClick,
   isDropdownClicked,
   id,
   setIsPostClicked,
   isPostClicked,
+  isUserFan
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
 
   return (
     <>
-      <div className="publication-container">
-        <div className="publication-content">
+      <div className="publication-container" >
+        {isUserFan && <><PremiumContentLocked/></>}
+        <div className="publication-content" style={isUserFan ? {filter: "blur(17px)"} : {}}>
           {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
