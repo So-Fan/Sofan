@@ -14,7 +14,8 @@ function HeadOfPost({
   id,
   //
   postDate,
-  postDateType
+  postDateType,
+  postType
 }) {
   const athleteName = "Romain Attanasio"; // reçu du backend
 
@@ -40,7 +41,7 @@ function HeadOfPost({
         <div
           className={`publication-type ${publicationTypeHeadOfPostPollPost}`}
         >
-          Free
+          {postType}
         </div>
         <DropDownButtonMenu
           handleDropdownPostFeedClick={handleDropdownPostFeedClick}

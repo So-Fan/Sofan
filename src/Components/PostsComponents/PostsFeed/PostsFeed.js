@@ -19,9 +19,9 @@ function PostsFeed({
   lockPremiumContent,
   postDate,
   postDateType,
+  postType
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
-console.log(postDate)
   return (
     <>
       <div className="publication-container" >
@@ -41,6 +41,7 @@ console.log(postDate)
               // 
               postDate={postDate}
               postDateType={postDateType}
+              postType={postType}
             />
           </div>
           <PostsDescription postFeedDescription="post-feed-description-resize" />

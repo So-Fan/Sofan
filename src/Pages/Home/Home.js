@@ -12,60 +12,111 @@ import Button from "../../Components/Button/Button";
 import CreationPostPoll from "../../Components/CreationPostPoll/CreationPostPoll";
 import Modal from "../../Components/Modal/Modal";
 import FullPagePost from "../FullPagePost/FullPagePost";
+import { v4 as uuidv4 } from "uuid";
+
 function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
+  // test Lock Premium Content
+  const [isUserFan, setIsUserFan] = useState(false);
+  const [lockPremiumContent, setLockPremiumContent] = useState(false);
+  // -------------------------------
+
   useEffect(() => {
     // simulate fake post data from backend
     const dataBackend = [
       {
         id: 0,
         name: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
       },
       {
         id: 1,
-        name: "Romain Attanasio",
+        name: "Alexia Barrier",
+        postDate: 2,
+        postDateType: "d",
+        postType: "Premium",
       },
       {
         id: 2,
         name: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
       },
       {
         id: 3,
-        name: "Romain Attanasio",
+        name: "Alexia Barrier",
+        postDate: 2,
+        postDateType: "d",
+        postType: "Premium",
       },
       {
         id: 4,
         name: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
       },
       {
         id: 5,
-        name: "Romain Attanasio",
+        name: "Alexia Barrier",
+        postDate: 2,
+        postDateType: "d",
+        postType: "Premium",
       },
       {
         id: 6,
         name: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
       },
       {
         id: 7,
         name: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
       },
       {
         id: 8,
         name: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
       },
       {
         id: 9,
         name: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
       },
     ];
     for (let i = 0; i < dataBackend.length; i++) {
       dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
+      function handleDisplayPremiumContent() {
+        if (isUserFan === false && dataBackend[i].postType === "Premium") {
+          setLockPremiumContent(true);
+        } else if (
+          isUserFan === true &&
+          dataBackend[i].postType === "Premium"
+        ) {
+          setLockPremiumContent(false);
+        } else if (dataBackend[i].postType === "Free") {
+          setLockPremiumContent(false);
+        }
+      }
+      handleDisplayPremiumContent();
+      console.log(dataBackend[i].postType)
+      console.log(lockPremiumContent);
     }
     setData(dataBackend);
   }, [setData]);
-
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < data.length; i++) {
       if (
@@ -79,16 +130,11 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       }
     }
   };
-
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
   return (
     <>
-      {/* <Modal style={{top: "0px"}} color="white">
-        <FullPagePost />
-      </Modal> */}
-      {/* <FullPagePost /> */}
       <section className="home-component">
         <div
           className="home-left-container"
@@ -138,11 +184,16 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
               return (
                 <>
                   <PostsFeed
+                    key={uuidv4()}
                     id={post.id}
+                    postDate={post.postDate}
+                    postDateType={post.postDateType}
+                    postType={post.postType}
                     isDropdownClicked={post.isDropdownClicked}
                     handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                     setIsPostClicked={setIsPostClicked}
                     isPostClicked={isPostClicked}
+                    lockPremiumContent={lockPremiumContent}
                   />
                 </>
               );
@@ -168,6 +219,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
           style={{ top: "-24px", right: "2px" }}
           color="white"
         >
+          {/* Faire passer les infos du post sur lequel on a cliqué (se référencer à la date affichée par ex) */}
           <FullPagePost />
         </Modal>
       )}

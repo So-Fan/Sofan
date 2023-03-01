@@ -29,9 +29,9 @@ function App() {
     // Dropdown
     if (isDropdownClicked) {
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
+        // console.log(data[i]);
         if (data[i].isDropdownClicked === true) {
-          console.log("je suis ici");
+          // console.log("je suis ici");
           const newData = [...data];
           newData[i].isDropdownClicked = false;
           setData(newData);
