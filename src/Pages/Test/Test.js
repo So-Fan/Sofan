@@ -6,7 +6,7 @@ import "./Test.css"
 const Test = () => {
   return (
     <>
-      <NotificationPopUp />
+      <AthleteProfileRanking />
     </>
   )
 }
