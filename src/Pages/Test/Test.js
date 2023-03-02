@@ -12,6 +12,7 @@ const Test = () => {
       <AthleteProfileHeader />
       <AthleteProfileRanking />
       <NotificationPopUp />
+      <AthleteProfileRanking />
     </>
   )
 }
