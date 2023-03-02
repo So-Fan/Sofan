@@ -3,6 +3,7 @@ import AthleteProfileEvent from '../../Components/AthleteProfileEvent/AthletePro
 import AthleteProfileHeader from '../../Components/AthleteProfileHeader/AthleteProfileHeader'
 import AthleteProfileNFTCollection from '../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection'
 import AthleteProfileRanking from '../../Components/AthleteProfileRanking/AthleteProfileRanking'
+import NotificationPopUp from '../../Components/Navbar/NotificationPopUp/NotificationPopUp'
 import "./Test.css"
 const Test = () => {
   return (
@@ -10,6 +11,7 @@ const Test = () => {
       <AthleteProfileEvent />
       <AthleteProfileHeader />
       <AthleteProfileRanking />
+      <NotificationPopUp />
     </>
   )
 }

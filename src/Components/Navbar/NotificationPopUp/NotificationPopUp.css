@@ -1,0 +1,100 @@
+.notificationpopup-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  width: 450px;
+  max-height: 702px;
+}
+.notificationpopup-component > span {
+  font-family: "Britanica-Heavy";
+  font-size: 25px;
+  margin-top: 19px;
+  margin-bottom: 18px;
+}
+.notificationpopup-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-top: 0.3px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
+}
+
+.notificationpopup-container-submenu-wrap {
+  display: flex;
+  width: 100%;
+}
+.notificationpopup-container-submenu-subwrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.notificationpopup-container-submenu-subwrap-clicked {
+  border-bottom: 3px solid #f6d463;
+}
+.notificationpopup-container-submenu-subwrap > button {
+  width: 100%;
+  min-height: 44px !important;
+  background-color: transparent;
+  border: none;
+  font-family: "Britanica-Heavy";
+  font-size: 16px;
+}
+.notificationpopup-container-mapping-wrap {
+  overflow: scroll;
+  max-height: 486px;
+}
+.notificationpopup-container-mapping-wrap::-webkit-scrollbar {
+  display: none;
+}
+.notificationpopup-container-notification-wrap {
+  display: flex;
+  align-items: start;
+  width: 100%;
+  border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  color: black;
+}
+.notificationpopup-container-notification-wrap > img {
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  margin-top: 21px;
+  margin-left: 21px;
+}
+.notificationpopup-container-notification-wrap-content-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 21px;
+  margin-left: 16px;
+  margin-bottom: 18px;
+}
+.notificationpopup-container-notification-wrap-content-subwrap {
+  max-width: 300px;
+}
+.notificationpopup-container-notification-wrap-content-subwrap
+  > span:nth-child(2n + 1) {
+  font-family: "Britanica-Heavy";
+  font-size: 14px;
+  line-height: 17px;
+}
+.notificationpopup-container-notification-wrap-content-wrap > span {
+  font-family: "Britanica-Regular";
+  font-size: 12px;
+  margin-top: 5px;
+}
+.notificationpopup-component > button {
+  width: 410px;
+  min-height: 56px !important;
+  background-color: #f6d463;
+  border: none;
+  border-radius: 10px;
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 29px;
+}
