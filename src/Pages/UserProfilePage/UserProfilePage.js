@@ -40,6 +40,7 @@ function UserProfilePage({
       return <ReceivedOffers userFrom={dataConcat?.received} />;
     }
   }
+  
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -223,9 +224,7 @@ function UserProfilePage({
             </div>
             <ProfileSubMenu
               isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}
-              setIsProfileSubMenuButtonClicked={
-                setIsProfileSubMenuButtonClicked
-              }
+              setIsProfileSubMenuButtonClicked={setIsProfileSubMenuButtonClicked}
             />
             {displayCategory()}
           </div>
