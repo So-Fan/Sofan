@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./AthleteProfileNFTCollectionTemplate.css";
-const AthleteProfileNFTCollectionTemplate = ({ eventData }) => {
+const AthleteProfileNFTCollectionTemplate = ({ eventData, isTransparent }) => {
   return (
-    <div className="athleteprofilenftcollectiontemplate-component">
+    <Link className="athleteprofilenftcollectiontemplate-component" style={isTransparent && {visibility: "hidden"}}>
       <div className="athleteprofilenftcollectiontemplate-banner-wrap">
         <img src={eventData?.banner} alt="banner" />
       </div>
@@ -16,7 +17,7 @@ const AthleteProfileNFTCollectionTemplate = ({ eventData }) => {
           <span className="athleteprofilenftcollectiontemplate-content-nftprice">{eventData?.nftPriceEth} ETH</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

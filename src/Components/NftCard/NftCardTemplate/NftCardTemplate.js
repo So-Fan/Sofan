@@ -1,26 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import "./NftCardTemplate.css"
-import { Link } from "react-router-dom";
-const NftCardTemplate = ({ to, img, athleteName, title, id, price, bid }) => {
+const NftCardTemplate = ({ to, img, athleteName, title, id, price, bid, isTransparent}) => {
   return (
-    <Link to={to} className="nftcard-component">
-      <img src={img} alt="NFT" />
-      <div className="nftcard-text-container">
-        <div className="nftcard-text-wrap">
-          <div className="nftcard-text-header">
-            <span className="nftcard-text-name">{athleteName}</span>
-            <span className="nftcard-text-title">{title} {id}</span>
-          </div>
-          <div className="nftcard-text-info-wrap">
-            <div className="nftcard-text-info-subwrap">
-              <span className="nftcard-text-info-category">Prix</span>
-              <span className="nftcard-text-info-price">{price} ETH</span>
+    <Link className='nftcardtemplate-component' style={isTransparent && {visibility: "hidden"}}>
+      <div className='nftcardtemplate-image-wrap'>
+        <img src={img} alt="NFT" />
+      </div>
+      <div className='nftcardtemplate-container-content'>
+        <span className='nftcardtemplate-container-content-athletename'>{athleteName}</span>
+        <span className='nftcardtemplate-container-content-title'>{title} {id}</span>
+        <div className='nftcardtemplate-container-content-price-wrap'>
+            <div className='nftcardtemplate-container-content-price-subwrap'>
+                <span className='nftcardtemplate-container-content-price-subwrap-text'>Price</span>
+                <span className='nftcardtemplate-container-content-price-subwrap-price'>{price} ETH</span>
             </div>
-            <div className="nftcard-text-info-subwrap">
-              <span className="nftcard-text-info-category">Highest bid</span>
-              <span className="nftcard-text-info-price">{bid} ETH</span>
+            <div className='nftcardtemplate-container-content-price-subwrap'>
+                <span className='nftcardtemplate-container-content-price-subwrap-text'>Highest bid</span>
+                <span className='nftcardtemplate-container-content-price-subwrap-price'>{bid} ETH</span>
             </div>
-          </div>
         </div>
       </div>
     </Link>

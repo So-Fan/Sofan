@@ -37,6 +37,13 @@ const AthleteProfileNFTCollection = () => {
           nftNumber: "5405",
           nftPriceEth: "0.01",
         },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
       ],
     };
     setDataAthleteProfilePageConcat(data);
@@ -46,6 +53,7 @@ const AthleteProfileNFTCollection = () => {
       {dataAthleteProfilePageConcat?.event.map((event) => (
         <AthleteProfileNFTCollectionTemplate eventData={event} />
       ))}
+      {dataAthleteProfilePageConcat?.event.length % 2 !== 0 && <AthleteProfileNFTCollectionTemplate isTransparent={true} />}
     </div>
   );
 };

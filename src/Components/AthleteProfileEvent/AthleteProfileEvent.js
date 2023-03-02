@@ -81,11 +81,14 @@ const AthleteProfileEvent = () => {
     };
     setDataAthleteProfilePageConcat(data);
   }, []);
+  console.log(11 % 3);
   return (
     <div className='athleteprofileevent-component'>
       {dataAthleteProfilePageConcat?.event.map((event) => (
         <AthleteProfileEventTemplate eventData={event} />
       ))}
+      {dataAthleteProfilePageConcat?.event.length % 3 === 1 && <><AthleteProfileEventTemplate isTransparent={true}/><AthleteProfileEventTemplate isTransparent={true}/></>}
+      {dataAthleteProfilePageConcat?.event.length % 3 === 2 && <AthleteProfileEventTemplate isTransparent={true}/>}
     </div>
   )
 }

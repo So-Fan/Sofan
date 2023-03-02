@@ -75,7 +75,19 @@ function App() {
               />
             }
           />
-          <Route path="/athleteprofile" element={<AthleteProfilePage />} />
+          <Route
+            path="/athleteprofile"
+            element={
+              <AthleteProfilePage
+                setIsUSerProfileSeortBySelectorClicked={
+                  setIsUSerProfileSeortBySelectorClicked
+                }
+                isUSerProfileSeortBySelectorClicked={
+                  isUSerProfileSeortBySelectorClicked
+                }
+              />
+            }
+          />
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>

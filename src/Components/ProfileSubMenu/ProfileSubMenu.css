@@ -2,6 +2,7 @@
     display: flex;
     justify-content: flex-start;
     max-width: 1240px;
+    width: 100%;
     height: 40px;
     border-bottom: 0.3px solid #3c40455b;
 }
@@ -19,26 +20,14 @@
 .profilesubmenu-wrap-clicked{
     border-bottom: 4px solid #F8DB4A;
     opacity: 1 !important;
-    /* color: black; */
 }
 .profilesubmenu-arrow-wrap > img {
     width: 12.73px;
     margin-left: 12.64px;
     opacity: 0.5;
 }
-/* .profilesubmenu-wrap{
-    display: flex;
-    justify-content: center;
-    padding-right: 39px;
-    height: 40px;
-    background-color: red;
+@media (max-width: 1150px) {
+    .profilesubmenu-wrap > button:nth-child(n){
+        font-size: 18px !important;
+    }
 }
-
-.profilesubmenu-subwrap{
-    width: 220% !important;
-    height: 40px;
-    background-color: blue !important;
-}
-.profilesubmenu-subwrap:hover{
-    border-bottom: 4px solid #F8DB4A !important
-} */

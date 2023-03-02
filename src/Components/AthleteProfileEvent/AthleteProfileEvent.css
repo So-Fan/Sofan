@@ -12,9 +12,9 @@
 .athleteprofileeventtemplate-component:nth-child(3n) {
   margin-right: 0px !important;
 }
-@media (max-width: 1300px) {
+/* @media (max-width: 1300px) {
     .athleteprofileevent-component {
-      width: 94%;
+      width: 100%;
     }
   }
-  
+*/
