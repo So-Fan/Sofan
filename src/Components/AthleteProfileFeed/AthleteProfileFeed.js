@@ -7,25 +7,24 @@ function AthleteProfileFeed() {
   const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent]= useState(false);
 
-  function handleDisplayPremiumContent() {
-    if (isUserFan === false && postData.athlete[1].postType === "Premium") {
-      setLockPremiumContent(true);
-    } else if (isUserFan === true && postData.athlete[1].postType === "Premium"){
-      setLockPremiumContent(false);
-    } else if (postData.athlete[1].postType === "Free") {
-      setLockPremiumContent(false);
-    }
-  }
+  
 
-  useEffect(() => {
-    handleDisplayPremiumContent();
-  }, []);
+//   useEffect(() => {
+//     handleDisplayPremiumContent();
+//     console.log("useEffect")
+//     console.log(postData.athlete[1])
+//   }, []);
 
   const postData = {
     athlete: [
       {
         postDate: 37,
         postDateType: "min",
+        postType: "Premium",
+      },
+      {
+        postDate: 2,
+        postDateType: "h",
         postType: "Premium",
       },
       {
@@ -50,6 +49,20 @@ function AthleteProfileFeed() {
       },
     ],
   };
+  function handleDisplayPremiumContent(i) {
+    if (isUserFan === false && postData.athlete[i]?.postType === "Premium") {
+      setLockPremiumContent(true);
+    // return true;
+    } else if (isUserFan === true && postData.athlete[i]?.postType === "Premium"){
+      setLockPremiumContent(false);
+        // return ;
+} 
+    else if (postData.athlete[i]?.postType === "Free") {
+      setLockPremiumContent(false);
+    // return ;
+    }
+  }
+  handleDisplayPremiumContent();
   function separatorPremiumFree() {
     const freePosts = postData.athlete.filter(post => post.postType === "Free");
     const premiumPosts = postData.athlete.filter(post => post.postType === "Premium");
@@ -75,14 +88,14 @@ function AthleteProfileFeed() {
       })}
     </div>
     <div className="athlete-profile-feed-premium-container">
-      {premiumPosts.map((post) => {
+      {premiumPosts.map((post, index) => {
         return (
           <PostsFeed
             key={uuidv4()}
             postDate={post.postDate}
             postDateType={post.postDateType}
             postType={post.postType}
-            lockPremiumContent={lockPremiumContent}
+            lockPremiumContent={handleDisplayPremiumContent}
           />
         );
       })}

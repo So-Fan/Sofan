@@ -18,10 +18,23 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
-  // test Lock Premium Content
+  
   const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
-  // -------------------------------
+
+  function handleDisplayPremiumContent(i) {
+      if (
+        isUserFan === false &&
+        data[i]?.postType === "Premium"
+      ) {
+        return true;
+      } else if (isUserFan === true && data[i]?.postType === "Premium") {
+        
+        return false;
+      } else if (data[i]?.postType === "Free") {
+        return false;
+      }
+  }
 
   useEffect(() => {
     // simulate fake post data from backend
@@ -94,29 +107,18 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         name: "Romain Attanasio",
         postDate: 3,
         postDateType: "h",
-        postType: "Free",
+        postType: "Premium",
       },
     ];
     for (let i = 0; i < dataBackend.length; i++) {
       dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
-      function handleDisplayPremiumContent() {
-        if (isUserFan === false && dataBackend[i].postType === "Premium") {
-          setLockPremiumContent(true);
-        } else if (
-          isUserFan === true &&
-          dataBackend[i].postType === "Premium"
-        ) {
-          setLockPremiumContent(false);
-        } else if (dataBackend[i].postType === "Free") {
-          setLockPremiumContent(false);
-        }
-      }
-      handleDisplayPremiumContent();
-      console.log(dataBackend[i].postType)
-      console.log(lockPremiumContent);
+      // console.log(dataBackend[i].postType)
+      // console.log(lockPremiumContent);
     }
+    // Supprimer l'effet d'etat global pour que l'etat soit independant pour chaque element
     setData(dataBackend);
   }, [setData]);
+  
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < data.length; i++) {
       if (
@@ -133,6 +135,10 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
+
+  // useEffect(() => {
+    
+  // }, [data])
   return (
     <>
       <section className="home-component">
@@ -180,22 +186,20 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         </div>
         <div className="home-center-container">
           <div>
-            {data?.map((post) => {
+            {data?.map((post, index) => {
               return (
-                <>
-                  <PostsFeed
-                    key={uuidv4()}
-                    id={post.id}
-                    postDate={post.postDate}
-                    postDateType={post.postDateType}
-                    postType={post.postType}
-                    isDropdownClicked={post.isDropdownClicked}
-                    handleDropdownPostFeedClick={handleDropdownPostFeedClick}
-                    setIsPostClicked={setIsPostClicked}
-                    isPostClicked={isPostClicked}
-                    lockPremiumContent={lockPremiumContent}
-                  />
-                </>
+                <PostsFeed
+                  key={uuidv4()}
+                  id={post.id}
+                  postDate={post.postDate}
+                  postDateType={post.postDateType}
+                  postType={post.postType}
+                  isDropdownClicked={post.isDropdownClicked}
+                  handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+                  setIsPostClicked={setIsPostClicked}
+                  isPostClicked={isPostClicked}
+                  lockPremiumContent={handleDisplayPremiumContent(index)}
+                />
               );
             })}
           </div>

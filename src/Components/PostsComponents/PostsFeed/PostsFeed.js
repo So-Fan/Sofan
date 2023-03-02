@@ -19,14 +19,23 @@ function PostsFeed({
   lockPremiumContent,
   postDate,
   postDateType,
-  postType
+  postType,
+  postImage
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
+  console.log(lockPremiumContent)
   return (
     <>
-      <div className="publication-container" >
-        {lockPremiumContent && <><PremiumContentLocked/></>}
-        <div className="publication-content" style={lockPremiumContent ? {filter: "blur(17px)"} : {}}>
+      <div className="publication-container">
+        {lockPremiumContent && (
+          <>
+            <PremiumContentLocked />
+          </>
+        )}
+        <div
+          className="publication-content"
+          style={lockPremiumContent ? { filter: "blur(17px)" } : {}}
+        >
           {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
@@ -38,7 +47,7 @@ function PostsFeed({
               agePublicationPollPost="age-publication-pollpost"
               handleDropdownPostFeedClick={handleDropdownPostFeedClick}
               id={id}
-              // 
+              //
               postDate={postDate}
               postDateType={postDateType}
               postType={postType}
@@ -60,9 +69,7 @@ function PostsFeed({
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
             setIsPostClicked={setIsPostClicked}
           />
-          <div
-            className="show-comments-button-publication"
-          >
+          <div className="show-comments-button-publication">
             <Link onClick={() => setIsPostClicked(true)}>Show 10 comments</Link>
           </div>
           <div className="line-separation-comments-publication-container">

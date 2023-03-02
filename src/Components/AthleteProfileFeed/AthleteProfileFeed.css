@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   overflow-y: scroll;
   /* backdrop-filter: blur(10px); */
   /* background-color: yellow; */
@@ -27,4 +27,12 @@
 }
 @media (max-width: 1100px) {
     
+}
+
+@media (max-width: 1050px) {
+    .athlete-profile-feed-container{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }

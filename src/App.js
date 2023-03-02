@@ -17,7 +17,7 @@ function App() {
     isUSerProfileSeortBySelectorClicked,
     setIsUSerProfileSeortBySelectorClicked,
   ] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [isDropdownClicked, setIsDropdownClicked] = useState();
   function handleClickOutside(e) {
     // Navbar
