@@ -18,6 +18,8 @@ const NftCard = ({ userFrom }) => {
           />
         ))}
       {userFrom?.length % 4 === 1 && <><NftCardTemplate isTransparent={true}/><NftCardTemplate isTransparent={true}/><NftCardTemplate isTransparent={true}/></>}
+      {userFrom?.length % 4 === 2 && <><NftCardTemplate isTransparent={true}/><NftCardTemplate isTransparent={true}/></>}
+      {userFrom?.length % 4 === 3 && <NftCardTemplate isTransparent={true}/>}
       </div>
     </>
   );

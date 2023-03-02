@@ -137,7 +137,7 @@
     padding-left: 8.5px;
   }
 }
-@media (max-width: 900px){
+@media (max-width: 960px){
   .nftcardtemplate-component {
     border-radius: 7.5px;
   }
@@ -169,6 +169,13 @@
   }
   .nftcardtemplate-container-content-price-subwrap-price {
     font-size: 12px;
+    padding-left: 7.5px;
+  }
+}
+@media (max-width: 850px){
+  
+  .nftcardtemplate-container-content-price-subwrap-price {
+    font-size: 11px;
     padding-left: 7.5px;
   }
 }

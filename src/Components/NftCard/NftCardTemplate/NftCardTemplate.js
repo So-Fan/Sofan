@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import "./NftCardTemplate.css"
 const NftCardTemplate = ({ to, img, athleteName, title, id, price, bid, isTransparent}) => {
   return (
-    <Link className='nftcardtemplate-component' style={isTransparent && {visibility: "hidden"}}>
+    <Link to={`/${athleteName}/nft/${to}`} className='nftcardtemplate-component' style={isTransparent && {visibility: "hidden"}}>
       <div className='nftcardtemplate-image-wrap'>
         <img src={img} alt="NFT" />
       </div>
