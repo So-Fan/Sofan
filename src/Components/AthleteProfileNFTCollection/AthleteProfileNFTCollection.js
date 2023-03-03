@@ -3,7 +3,7 @@ import "./AthleteProfileNFTCollection.css";
 import AthleteProfileNFTCollectionTemplate from "./AthleteProfileNFTCollectionTemplate/AthleteProfileNFTCollectionTemplate";
 const AthleteProfileNFTCollection = () => {
   const [dataAthleteProfilePageConcat, setDataAthleteProfilePageConcat] =
-    useState();
+    useState(); // sera dans le composant de la page Athlete
 
   useEffect(() => {
     const data = {
