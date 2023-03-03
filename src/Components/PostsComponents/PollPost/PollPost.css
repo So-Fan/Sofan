@@ -1,8 +1,9 @@
 .pollpost-container {
-  width: 518px;
+  width: 100%;
+  max-width: 518px;
   height: auto;
   background: #ffffff;
-  box-shadow: 0px 3.39796px 20.3878px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px 3.39796px 20.3878px rgba(0, 0, 0, 0.1); */
   border-radius: 9.96517px;
   display: flex;
   /* justify-content: space-around; */

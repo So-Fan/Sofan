@@ -18,22 +18,18 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
-  
+
   const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
 
   function handleDisplayPremiumContent(i) {
-      if (
-        isUserFan === false &&
-        data[i]?.postType === "Premium"
-      ) {
-        return true;
-      } else if (isUserFan === true && data[i]?.postType === "Premium") {
-        
-        return false;
-      } else if (data[i]?.postType === "Free") {
-        return false;
-      }
+    if (isUserFan === false && data[i]?.postType === "Premium") {
+      return true;
+    } else if (isUserFan === true && data[i]?.postType === "Premium") {
+      return false;
+    } else if (data[i]?.postType === "Free") {
+      return false;
+    }
   }
 
   useEffect(() => {
@@ -42,9 +38,13 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       {
         id: 0,
         name: "Romain Attanasio",
-        postDate: 3,
+        postDate: 1,
         postDateType: "h",
         postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        // postPicture:
+        //   "https://www.leparisien.fr/resizer/CnZASpDcjMCWoWaK9Oo_DlYDs3s=/932x582/arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/3BWCVSJGBDZOGJB6IVH3ILNO7Y.jpg",
       },
       {
         id: 1,
@@ -52,6 +52,16 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 2,
         postDateType: "d",
         postType: "Premium",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPoll: {
+          firstChoice: "Barrier",
+          secondChoice: "Attanasio",
+          thirdChoice: "John",
+          fourthChoice:"Arthur"
+        },
+          postPicture:
+          "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
       },
       {
         id: 2,
@@ -59,6 +69,10 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 3,
         postDateType: "h",
         postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPicture:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Romain_Attanasio_Vend%C3%A9e_Globe.jpg/280px-Romain_Attanasio_Vend%C3%A9e_Globe.jpg",
       },
       {
         id: 3,
@@ -66,6 +80,15 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 2,
         postDateType: "d",
         postType: "Premium",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPoll: {
+            firstChoice: "Barrier",
+            secondChoice: "Attanasio",
+            thirdChoice: "",
+            fourthChoice:""
+          },
+          postPicture: "",
       },
       {
         id: 4,
@@ -73,6 +96,11 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 3,
         postDateType: "h",
         postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPicture: "",
       },
       {
         id: 5,
@@ -80,13 +108,19 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 2,
         postDateType: "d",
         postType: "Premium",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPicture: "",
       },
       {
         id: 6,
         name: "Romain Attanasio",
-        postDate: 3,
+        postDate: 9,
         postDateType: "h",
         postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPicture: "",
       },
       {
         id: 7,
@@ -94,6 +128,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 3,
         postDateType: "h",
         postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPicture: "",
       },
       {
         id: 8,
@@ -101,6 +138,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 3,
         postDateType: "h",
         postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPicture: "",
       },
       {
         id: 9,
@@ -108,6 +148,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDate: 3,
         postDateType: "h",
         postType: "Premium",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        postPicture: "",
       },
     ];
     for (let i = 0; i < dataBackend.length; i++) {
@@ -118,7 +161,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
     // Supprimer l'effet d'etat global pour que l'etat soit independant pour chaque element
     setData(dataBackend);
   }, [setData]);
-  
+
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < data.length; i++) {
       if (
@@ -135,10 +178,6 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
-
-  // useEffect(() => {
-    
-  // }, [data])
   return (
     <>
       <section className="home-component">
@@ -191,9 +230,14 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
                 <PostsFeed
                   key={uuidv4()}
                   id={post.id}
+                  // Backend data
                   postDate={post.postDate}
                   postDateType={post.postDateType}
                   postType={post.postType}
+                  postDescription={post.postDescription}
+                  postPoll={post.postPoll}
+                  postPicture={post.postPicture}
+                  // states and functions
                   isDropdownClicked={post.isDropdownClicked}
                   handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                   setIsPostClicked={setIsPostClicked}

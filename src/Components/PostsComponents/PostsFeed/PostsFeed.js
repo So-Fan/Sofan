@@ -10,6 +10,7 @@ import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 import { Link } from "react-router-dom";
 import Modal from "../../Modal/Modal";
 import PremiumContentLocked from "../../PremiumContentLocked/PremiumContentLocked";
+import PollPost from "../PollPost/PollPost";
 function PostsFeed({
   handleDropdownPostFeedClick,
   isDropdownClicked,
@@ -20,10 +21,11 @@ function PostsFeed({
   postDate,
   postDateType,
   postType,
-  postImage
+  postDescription,
+  postPoll,
+  postPicture
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
-  console.log(lockPremiumContent)
   return (
     <>
       <div className="publication-container">
@@ -53,10 +55,16 @@ function PostsFeed({
               postType={postType}
             />
           </div>
-          <PostsDescription postFeedDescription="post-feed-description-resize" />
+          <PostsDescription postFeedDescription="post-feed-description-resize" 
+          postDescription={postDescription}
+          />
+          <PollPost
+          postPoll={postPoll}
+          />
           {/* Backend here */}
           <div className="publication-media">
-            <img src={attanasioBateau} alt="utilisateur" />
+            {/* <img src={attanasioBateau} alt="utilisateur" /> */}
+            <img src={postPicture} alt="" />
           </div>
           {/* Backend here */}
           <LikesCommentsCounter
