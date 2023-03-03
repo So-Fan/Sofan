@@ -3,6 +3,7 @@ import "./FeedLaunchpad.css"
 import { Link } from 'react-router-dom'
 import FeedLaunchpadTemplate from './FeedLaunchpadTemplate/FeedLaunchpadTemplate'
 import DataLaunchpad from "./fakedata/dataLaunchpad.json"
+import { v4 as uuidv4 } from "uuid";
 const FeedLaunchpad = () => {
   return (
     <div className='feedlaunchpad-component'>
@@ -11,7 +12,7 @@ const FeedLaunchpad = () => {
         <Link to='/Launchpad' className='feedlaunchpad-header-button'>voir plus</Link>
       </div>
       {DataLaunchpad.launchpads.map((launchpad) => (
-        <FeedLaunchpadTemplate title={launchpad.title} athlete={launchpad.athlete} img={launchpad.img} athleteProfilePicture={launchpad.athleteProfilePicture} id={launchpad.id} />
+        <FeedLaunchpadTemplate key={uuidv4()} title={launchpad.title} athlete={launchpad.athlete} img={launchpad.img} athleteProfilePicture={launchpad.athleteProfilePicture} id={launchpad.id} />
       ))}
     </div>
   )

@@ -1,15 +1,10 @@
 import React from 'react'
-
-
-
-
-import AthleteProfileNFTCollection from '../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection'
-import AthleteProfileRanking from '../../Components/AthleteProfileRanking/AthleteProfileRanking'
-import NotificationPopUp from '../../Components/Navbar/NotificationPopUp/NotificationPopUp'
 import "./Test.css"
+import TestDate from './TestDate.js'
 const Test = () => {
   return (
     <>
+    <TestDate/>
     </>
   )
 }

@@ -3,6 +3,7 @@ import "./FeedEvent.css";
 import DataEvent from "./fakedata/dataEvent.json";
 import { Link } from "react-router-dom";
 import EventTemplate from "./EventTemplate/EventTemplate";
+import { v4 as uuidv4 } from "uuid";
 const FeedEvent = () => {
   return (
     <div className="event-component">
@@ -14,6 +15,7 @@ const FeedEvent = () => {
       </div>
       {DataEvent.events.map((event) => (
         <EventTemplate
+        key={uuidv4()}
           title={event.title}
           location={event.location}
           schedule={event.schedule}

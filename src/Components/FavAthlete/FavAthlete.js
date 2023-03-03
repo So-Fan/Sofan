@@ -5,6 +5,7 @@ import "./FavAthlete.css";
 import LeBron from "./fakeData/lebron.svg";
 import Mbappe from "./fakeData/mbappe.svg";
 import FeedSuggestionTemplate from "../FeedSuggestions/FeedSuggestionTemplate/FeedSuggestionTemplate";
+import { v4 as uuidv4 } from "uuid";
 const FavAthlete = () => {
   const fakeArray = [
     {
@@ -80,6 +81,7 @@ const FavAthlete = () => {
         <div className="favAthlete-responsive-container">
           {filteredArray.map((athlete)  => (
             <FeedSuggestionTemplate 
+            key={uuidv4()}
             name={`${athlete.firstName} ${athlete.surName}`}
             type={athlete.type}
             athleteProfilePicture={athlete.imgResponsive}
