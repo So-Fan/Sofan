@@ -8,6 +8,7 @@ import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
+import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed"
 import "./AthleteProfilePage.css";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -17,10 +18,10 @@ const AthleteProfilePage = ({
 }) => {
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
-  const [dataConcat, setDataConcat] = useState();
+  const [dataConcat, setDataConcat] = useState({athletes: [{}]});
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
-      return "Feed Component";
+      return <AthleteProfileFeed dataPosts={dataConcat?.athletes} />;
     } else if (isAthleteProfileSubMenuClicked[5] === true) {
       return <AthleteProfileNFTCollection dataCollections={dataConcat?.collections} />;
     } else if (isAthleteProfileSubMenuClicked[6] === true) {
@@ -280,6 +281,38 @@ const AthleteProfilePage = ({
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
           date: "14 dec. 2022 - 9:00pm",
+        },
+      ],
+      athletes: [
+        {
+          postDate: 37,
+          postDateType: "min",
+          postType: "Premium",
+        },
+        {
+          postDate: 2,
+          postDateType: "h",
+          postType: "Premium",
+        },
+        {
+          postDate: 2,
+          postDateType: "h",
+          postType: "Free",
+        },
+        {
+          postDate: 3,
+          postDateType: "h",
+          postType: "Free",
+        },
+        {
+          postDate: 4,
+          postDateType: "h",
+          postType: "Premium",
+        },
+        {
+          postDate: 9,
+          postDateType: "d",
+          postType: "Premium",
         },
       ],
     };
