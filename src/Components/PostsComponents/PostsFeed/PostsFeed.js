@@ -22,10 +22,19 @@ function PostsFeed({
   postDateType,
   postType,
   postDescription,
-  postPoll,
-  postPicture
+  pollFirstChoice,
+  pollSecondChoice,
+  pollThirdChoice,
+  pollFourthChoice,
+  pollDate,
+  pollDateType,
+  postPicture,
+  pollVoteNumbers,
+  postLikeNumber,
+  postCommentNumber
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
+  console.log(pollVoteNumbers)
   return (
     <>
       <div className="publication-container">
@@ -55,11 +64,18 @@ function PostsFeed({
               postType={postType}
             />
           </div>
-          <PostsDescription postFeedDescription="post-feed-description-resize" 
-          postDescription={postDescription}
+          <PostsDescription
+            postFeedDescription="post-feed-description-resize"
+            postDescription={postDescription}
           />
           <PollPost
-          postPoll={postPoll}
+            pollFirstChoice={pollFirstChoice}
+            pollSecondChoice={pollSecondChoice}
+            pollThirdChoice={pollThirdChoice}
+            pollFourthChoice={pollFourthChoice}
+            pollDate={pollDate}
+            pollDateType={pollDateType}
+            pollVoteNumbers={pollVoteNumbers}
           />
           {/* Backend here */}
           <div className="publication-media">
@@ -76,6 +92,8 @@ function PostsFeed({
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
             setIsPostClicked={setIsPostClicked}
+            postLikeNumber={postLikeNumber}
+            postCommentNumber={postCommentNumber}
           />
           <div className="show-comments-button-publication">
             <Link onClick={() => setIsPostClicked(true)}>Show 10 comments</Link>

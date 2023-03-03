@@ -67,16 +67,7 @@
 .ageofpost-and-timeleft-poll div {
   padding: 3px;
 }
-.line-separation-pollpost-container {
-  height: 20px;
-  display: flex;
-  align-items: center;
-}
-.line-separation-pollpost {
-  width: 518px !important;
-  height: 0px;
-  border: 0.3px solid rgba(0, 0, 0, 0.2);
-}
+
 .likes-comments-counter-pollpost-container {
   width: 65%;
 }

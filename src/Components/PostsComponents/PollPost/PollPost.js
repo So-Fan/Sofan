@@ -8,18 +8,29 @@ import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import ProgressBarPollPost from "./ProgressBarPollPost/ProgressBarPollPost";
 import { Link } from "react-router-dom";
 
-const PollPost = ({choiceNumber, postPoll}) => {
-  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
-  function displayDropDown() {
-    if (isDropDownButtonClicked) {
-      return <DropDownMenu />;
-    } else {
-      return <></>;
-    }
-  }
-  const [surveyResults, setSurveyResults] = useState([570, 98, 120, 302]);
+const PollPost = ({
+  choiceNumber,
+  pollFirstChoice,
+  pollSecondChoice,
+  pollThirdChoice,
+  pollFourthChoice,
+  pollDate,
+  pollDateType,
+  pollVoteNumbers,
+}) => {
+  const [surveyResults, setSurveyResults] = useState([
+    pollVoteNumbers.pollFirstChoiceNumber,
+    pollVoteNumbers.pollSecondChoiceNumber,
+    pollVoteNumbers.pollThirdChoiceNumber,
+    pollVoteNumbers.pollFourthChoiceNumber,
+  ]);
   // Reçu de la BDD
-  const choiceName = ["Barrier", "Attanasio", "John", "Arthur"];
+  const choiceName = [
+    pollFirstChoice,
+    pollSecondChoice,
+    pollThirdChoice,
+    pollFourthChoice,
+  ];
   const [isVoted, setIsVoted] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState({
     choice1: false,
@@ -33,7 +44,6 @@ const PollPost = ({choiceNumber, postPoll}) => {
     const totalPropositions = surveyResults.length;
     const sum = surveyResults.reduce((acc, currentValue) => acc + currentValue);
     const percentages = surveyResults.map((value) => (value / sum) * 100);
-    // console.log(percentages);
     const roundedPercentages = percentages.map((percentage) =>
       percentage.toFixed(1)
     );
@@ -65,7 +75,6 @@ const PollPost = ({choiceNumber, postPoll}) => {
   const showSurveyResult = (e) => {
     setIsVoted(true);
     const choiceNameEl = e.target.querySelector(".choice-name");
-    console.log(choiceNameEl.innerText);
     if (choiceNameEl.innerText === choiceName[0]) {
       setChoiceSelected({
         choice1: true,
@@ -96,7 +105,6 @@ const PollPost = ({choiceNumber, postPoll}) => {
       });
     }
   };
-console.log("blabla" + postPoll)
   return (
     <section className="pollpost-container">
       <div className="pollpost-wrap">
@@ -136,9 +144,11 @@ console.log("blabla" + postPoll)
         <div className="ageofpost-poll-container">
           <div className="ageofpost-poll-wrap">
             <div className="ageofpost-and-timeleft-poll">
-              <div>2456 votes</div>
+              <div>{pollVoteNumbers.pollTotalVote} votes</div>
               <div>-</div>
-              <div>1 day</div>
+              <div>
+                {pollDate} {pollDateType}
+              </div>
             </div>
           </div>
         </div>

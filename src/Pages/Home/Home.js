@@ -31,7 +31,27 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       return false;
     }
   }
-
+const pollData = [
+ {
+  pollChoice:{
+    pollFirstChoice: "Barrier",
+    pollSecondChoice: "Attanasio",
+    pollThirdChoice: "John",
+    pollFourthChoice: "Arthur",
+  },
+  pollMetaData:{
+    pollDate: 1,
+    pollDateType: "day",
+  },
+  pollVoteNumbers:{
+    pollFirstChoiceNumber:570,
+    pollSecondChoiceNumber:98,
+    pollThirdChoiceNumber:120,
+    pollFourthChoiceNumber:302,
+    pollTotalVote: 2456,
+  }
+ }
+]
   useEffect(() => {
     // simulate fake post data from backend
     const dataBackend = [
@@ -45,6 +65,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         // postPicture:
         //   "https://www.leparisien.fr/resizer/CnZASpDcjMCWoWaK9Oo_DlYDs3s=/932x582/arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/3BWCVSJGBDZOGJB6IVH3ILNO7Y.jpg",
+        postLikeNumber: 29,
       },
       {
         id: 1,
@@ -54,15 +75,12 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postType: "Premium",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        postPoll: {
-          firstChoice: "Barrier",
-          secondChoice: "Attanasio",
-          thirdChoice: "John",
-          fourthChoice:"Arthur"
-        },
-          postPicture:
+  
+        postPicture:
           "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
-      },
+          postLikeNumber: 29,
+          postCommentNumber: 10,
+        },
       {
         id: 2,
         name: "Romain Attanasio",
@@ -73,7 +91,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Romain_Attanasio_Vend%C3%A9e_Globe.jpg/280px-Romain_Attanasio_Vend%C3%A9e_Globe.jpg",
-      },
+          postLikeNumber: 29,
+          postCommentNumber: 10,
+        },
       {
         id: 3,
         name: "Alexia Barrier",
@@ -82,13 +102,13 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postType: "Premium",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-          postPoll: {
-            firstChoice: "Barrier",
-            secondChoice: "Attanasio",
-            thirdChoice: "",
-            fourthChoice:""
-          },
-          postPicture: "",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
+        postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
       },
       {
         id: 4,
@@ -101,6 +121,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
       },
       {
         id: 5,
@@ -111,6 +133,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
       },
       {
         id: 6,
@@ -121,6 +145,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
       },
       {
         id: 7,
@@ -131,6 +157,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
       },
       {
         id: 8,
@@ -141,6 +169,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
       },
       {
         id: 9,
@@ -151,6 +181,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
       },
     ];
     for (let i = 0; i < dataBackend.length; i++) {
@@ -178,6 +210,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
+  
   return (
     <>
       <section className="home-component">
@@ -235,8 +268,17 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
                   postDateType={post.postDateType}
                   postType={post.postType}
                   postDescription={post.postDescription}
-                  postPoll={post.postPoll}
+                  pollFirstChoice={pollData[0].pollChoice.pollFirstChoice}
+                  pollSecondChoice={pollData[0].pollChoice.pollSecondChoice}
+                  pollThirdChoice={pollData[0].pollChoice.pollThirdChoice}
+                  pollFourthChoice={pollData[0].pollChoice.pollFourthChoice}
+                  pollDate={pollData[0].pollMetaData.pollDate}
+                  pollDateType={pollData[0].pollMetaData.pollDateType}
+                  // pollTotalVote={pollData[0].pollVoteNumbers.pollTotalVote}
+                  pollVoteNumbers={pollData[0].pollVoteNumbers}
                   postPicture={post.postPicture}
+                  postLikeNumber={post.postLikeNumber}
+                  postCommentNumber={post.postCommentNumber}
                   // states and functions
                   isDropdownClicked={post.isDropdownClicked}
                   handleDropdownPostFeedClick={handleDropdownPostFeedClick}
