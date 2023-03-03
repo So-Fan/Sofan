@@ -20,9 +20,9 @@ const AthleteProfilePage = ({
     if (isAthleteProfileSubMenuClicked[4] === true) {
       return "Feed Component";
     } else if (isAthleteProfileSubMenuClicked[5] === true) {
-      return <AthleteProfileNFTCollection />;
+      return <AthleteProfileNFTCollection dataCollections={dataConcat?.collections} />;
     } else if (isAthleteProfileSubMenuClicked[6] === true) {
-      return <AthleteProfileEvent />;
+      return <AthleteProfileEvent dataEvents={dataConcat?.events} />;
     } else if (isAthleteProfileSubMenuClicked[0] === true) {
       return (
         <div>
@@ -49,12 +49,18 @@ const AthleteProfilePage = ({
   useEffect(() => {
     const data = {
       userPageInfo: {
-        username: "Gr3goir3",
-        followingAthletes: 145,
-        athleteSupporting: 16,
-        nftOwned: 159,
-        banner: "https://i.imgur.com/sJTNEVk.png",
-        profilepicture: "https://i.imgur.com/cCVIcNS.png",
+        username: "Romain Attanasio",
+        fan: "150",
+        followers: "300",
+        nftAvailable: "138",
+        sport: "Skipper",
+        socials: {
+          discord: "https://discord.com",
+          twitter: "https://twitter.com",
+          instagram: "https://instagram.com",
+        },
+        banner: "https://i.imgur.com/6ozImSk.png",
+        profilePicture: "https://i.imgur.com/StsunkC.png",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere tellus vehicula leo iaculis luctus. Ut vulputate elit risus, eget faucibus justo consectetur in.",
       },
@@ -167,6 +173,111 @@ const AthleteProfilePage = ({
           img: "https://i.imgur.com/6UKdMup.png",
           nftPriceEth: "0.50009854",
           bid: "0.7592845864",
+        },
+      ],
+      collections: [
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+        {
+          banner: "https://i.imgur.com/2ybztrG.png",
+          profilePicture: "https://i.imgur.com/zH10SHj.png",
+          title: "THE VENDEE GLOBE 2022",
+          nftNumber: "5405",
+          nftPriceEth: "0.01",
+        },
+      ],
+      events: [
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: "14 dec. 2022 - 9:00pm",
         },
       ],
     };
@@ -317,7 +428,7 @@ const AthleteProfilePage = ({
   }, []);
   return (
     <div className="athleteprofilepage-component">
-      <AthleteProfileHeader />
+      <AthleteProfileHeader userInfo={dataConcat?.userPageInfo} />
 
       <div className="athleteprofilepage-profilesubmenu-wrap">
         <ProfileSubMenu

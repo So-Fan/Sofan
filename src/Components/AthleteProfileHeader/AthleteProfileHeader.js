@@ -5,38 +5,14 @@ import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
 import Button from "../Button/Button";
-const AthleteProfileHeader = () => {
-  const [dataAthleteProfilePageConcat, setDataAthleteProfilePageConcat] =
-    useState(); // data vienne du composant athlete profile
-
-  useEffect(() => {
-    const data = {
-      user: {
-        username: "Romain Attanasio",
-        fan: "150",
-        followers: "300",
-        nftAvailable: "138",
-        sport: "Skipper",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere tellus vehicula leo iaculis luctus. Ut vulputate elit risus, eget faucibus justo consectetur in.",
-        socials: {
-          discord: "https://discord.com",
-          twitter: "https://twitter.com",
-          instagram: "https://instagram.com",
-        },
-        banner: "https://i.imgur.com/6ozImSk.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
-      },
-    };
-    setDataAthleteProfilePageConcat(data);
-  }, []);
+const AthleteProfileHeader = ({userInfo}) => {
   return (
     <div className="athleteprofileheader-component">
       <div className="athleteprofileheader-bannerandprofilepicture-wrap">
-        <img src={dataAthleteProfilePageConcat?.user.banner} alt="banner" />
+        <img src={userInfo?.banner} alt="banner" />
         <div className="athleteprofileheader-profilepciture-wrap">
           <img
-            src={dataAthleteProfilePageConcat?.user.profilePicture}
+            src={userInfo?.profilePicture}
             alt="profile"
           />
         </div>
@@ -44,28 +20,28 @@ const AthleteProfileHeader = () => {
       <div className="athleteprofileheader-content-container">
         <div className="athleteprofileheader-content-wrap">
           <span className="athleteprofileheader-content-wrap-sport">
-            {dataAthleteProfilePageConcat?.user.sport}
+            {userInfo?.sport}
           </span>
           <div className="athleteprofileheader-content-wrap-namestatssocial-wrap">
             <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats">
               <span className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title">
-                {dataAthleteProfilePageConcat?.user.username}
+                {userInfo?.username}
                 <img src={Checkmark} alt="Checkmark" />
               </span>
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap">
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap">
-                  <span>{dataAthleteProfilePageConcat?.user.fan}</span>
+                  <span>{userInfo?.fan}</span>
                   <span>fans</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap">
-                  <span>{dataAthleteProfilePageConcat?.user.followers}</span>
+                  <span>{userInfo?.followers}</span>
                   <span>followers</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last">
-                  <span>{dataAthleteProfilePageConcat?.user.nftAvailable}</span>
+                  <span>{userInfo?.nftAvailable}</span>
                   <span>NFTs disponible</span>
                 </div>
               </div>
@@ -73,19 +49,19 @@ const AthleteProfileHeader = () => {
             <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container">
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social">
                 <a
-                  href={dataAthleteProfilePageConcat?.user.socials.discord}
+                  href={userInfo?.socials.discord}
                   target="_blank"
                 >
                   <img src={Discord} alt="Discord" />
                 </a>
                 <a
-                  href={dataAthleteProfilePageConcat?.user.socials.twitter}
+                  href={userInfo?.socials.twitter}
                   target="_blank"
                 >
                   <img src={Twitter} alt="Twitter" />
                 </a>
                 <a
-                  href={dataAthleteProfilePageConcat?.user.socials.instagram}
+                  href={userInfo?.socials.instagram}
                   target="_blank"
                 >
                   <img src={Instagram} alt="Instagram" />
@@ -99,7 +75,7 @@ const AthleteProfileHeader = () => {
             </div>
           </div>
           <div className="athleteprofileheader-content-container-description">
-            {dataAthleteProfilePageConcat?.user.description}
+            {userInfo?.description}
           </div>
           <div className="athleteprofileheader-content-container-button-wrap">
             <Button text={"Devenir un fan"} style={AthleteProfileHeaderFanButton} />

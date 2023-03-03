@@ -1,20 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./AthleteProfileNFTCollectionTemplate.css";
-const AthleteProfileNFTCollectionTemplate = ({ eventData, isTransparent }) => {
+const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent }) => {
   return (
     <Link className="athleteprofilenftcollectiontemplate-component" style={isTransparent && {visibility: "hidden"}}>
       <div className="athleteprofilenftcollectiontemplate-banner-wrap">
-        <img src={eventData?.banner} alt="banner" />
+        <img src={collectionData?.banner} alt="banner" />
       </div>
       <div className="athleteprofilenftcollectiontemplate-content-wrap">
         <div className="athleteprofilenftcollectiontemplate-content-profilepicture-wrap">
-          <img src={eventData?.profilePicture} alt="profile" />
+          <img src={collectionData?.profilePicture} alt="profile" />
         </div>
-        <span className="athleteprofilenftcollectiontemplate-content">{eventData?.title}</span>
+        <span className="athleteprofilenftcollectiontemplate-content">{collectionData?.title}</span>
         <div className="athleteprofilenftcollectiontemplate-content">
-          <span className="athleteprofilenftcollectiontemplate-content-nftnumber">{eventData?.nftNumber} items</span>
-          <span className="athleteprofilenftcollectiontemplate-content-nftprice">{eventData?.nftPriceEth} ETH</span>
+          <span className="athleteprofilenftcollectiontemplate-content-nftnumber">{collectionData?.nftNumber} items</span>
+          <span className="athleteprofilenftcollectiontemplate-content-nftprice">{collectionData?.nftPriceEth} ETH</span>
         </div>
       </div>
     </Link>
