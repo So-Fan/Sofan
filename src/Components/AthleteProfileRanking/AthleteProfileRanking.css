@@ -92,3 +92,14 @@
   margin-top: 20px;
   margin-bottom: 29px;
 }
+
+@media (max-height: 875px) {
+  .athleteprofileranking-component {
+      max-height: 632px;
+    }
+}
+@media (max-height: 770px) {
+  .athleteprofileranking-component {
+      max-height: 552px;
+    }
+}

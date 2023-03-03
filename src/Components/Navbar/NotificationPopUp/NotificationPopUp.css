@@ -98,3 +98,20 @@
   margin-top: 20px;
   margin-bottom: 29px;
 }
+
+@media (max-height: 875px) {
+    .notificationpopup-component {
+        max-height: 632px;
+      }
+      .notificationpopup-container-mapping-wrap {
+        max-height: 416px;
+      }
+}
+@media (max-height: 770px) {
+    .notificationpopup-component {
+        max-height: 552px;
+      }
+      .notificationpopup-container-mapping-wrap {
+        max-height: 336px;
+      }
+}
