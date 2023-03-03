@@ -1,0 +1,435 @@
+.athleteprofileheader-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1246px;
+  /* height: 586px; */
+}
+.athleteprofileheader-bannerandprofilepicture-wrap {
+  max-height: 300px;
+  position: relative;
+}
+.athleteprofileheader-bannerandprofilepicture-wrap > img {
+  width: 100%;
+}
+.athleteprofileheader-profilepciture-wrap {
+  width: 170px;
+  height: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  border-radius: 20px;
+  background-color: white;
+}
+.athleteprofileheader-profilepciture-wrap > img {
+  width: 93%;
+  height: 93%;
+  border-radius: 15px;
+}
+.athleteprofileheader-content-container {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 48px;
+  height: 238px; /* potentiellement useless */
+}
+.athleteprofileheader-content-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 143px;
+  width: 100%;
+}
+.athleteprofileheader-content-wrap-sport {
+  font-family: "Britanica-Black";
+  font-size: 20px;
+  color: #f6d463;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats {
+  display: flex;
+  align-items: center;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title {
+  display: flex;
+  align-items: center;
+  font-family: "Britanica-Heavy";
+  font-size: 35px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title > img {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  margin-top: 7px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap {
+  display: flex;
+  align-items: flex-end;
+  margin-left: 17px;
+  height: 27px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation {
+  border-left: 1px solid #9b9b9b;
+  height: 27px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 12px;
+  width: 87px;
+  font-family: "Britanica-Light";
+  font-size: 12px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap
+  > span:nth-child(1),
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last
+  > span:nth-child(1) {
+  font-family: "Britanica-Black";
+  font-size: 20px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 12px;
+  width: 110px;
+  font-family: "Britanica-Light";
+  font-size: 12px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-social-container {
+  display: flex;
+  align-items: center;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social {
+  display: flex;
+  justify-content: space-between;
+  width: 105px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+  > a
+  > img:nth-child(1) {
+  width: 25px;
+  height: 17.5px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+  > a
+  > img:nth-child(2) {
+  width: 20px;
+  height: 16.27px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+  > a
+  > img:nth-child(3) {
+  width: 20px;
+  height: 20px;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation {
+  border-left: 1px solid #9b9b9b;
+  height: 44px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.athleteprofileheader-content-container-description {
+  width: 441px;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 29px;
+}
+.athleteprofileheader-content-container-button-wrap {
+  display: flex;
+}
+.athleteprofileheader-content-container-button-wrap > button:nth-child(4) {
+  margin-left: 11px;
+}
+
+@media (max-width: 1300px) {
+  .athleteprofileheader-component {
+    max-width: 95%;
+  }
+}
+@media (max-width: 1200px) {
+  .athleteprofileheader-profilepciture-wrap {
+    width: 150px;
+    height: 150px;
+  }
+}
+@media (max-width: 1150px) {
+  .athleteprofileheader-profilepciture-wrap {
+    width: 130px;
+    height: 130px;
+  }
+  .athleteprofileheader-content-container {
+    padding-top: 30px;
+  }
+  .athleteprofileheader-content-wrap-sport {
+    font-size: 19px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title {
+    font-size: 33.25px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title
+    > img {
+    width: 19px; /* retour a 20 ?*/
+    height: 19px; /* retour a 20 ?*/
+    margin-top: 6.65px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation {
+    height: 25.65px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap {
+    line-height: 11.4px;
+    width: 82.65px;
+    font-size: 11.4px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap
+    > span:nth-child(1),
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last
+    > span:nth-child(1) {
+    font-family: "Britanica-Black";
+    font-size: 19px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last {
+    line-height: 11.4px;
+    width: 104.5px;
+    font-size: 11.4px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social {
+    width: 99.75px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(1) {
+    width: 23.75px;
+    height: 16.625px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(2) {
+      width: 19px;
+      height: 15.4565px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(3) {
+      width: 19px;
+      height: 19px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation {
+    height: 41.8px;
+    margin-left: 19px;
+    margin-right: 19px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container > button:nth-last-child(1){
+    width: 99.75px !important;
+    height: 37.05px !important;
+    border-radius: 4.75px !important;
+    font-size: 15.2px !important;
+  }
+  .athleteprofileheader-content-container-description{
+    width: 418.95px;
+    font-size: 13.3px;
+    line-height: 16.15px;
+    padding-bottom: 27.55px;
+  }
+  .athleteprofileheader-content-container-button-wrap > button:nth-child(2) {
+    width: 128.25px !important;
+    height: 37.05px !important;
+    border-radius: 4.75px !important;
+    font-size: 15.2px !important;
+  }
+  .athleteprofileheader-content-container-button-wrap > button:nth-child(4) {
+    width: 80.75px !important;
+    height: 37.05px !important;
+    margin-left: 10.45px !important;
+    border-radius: 4.75px !important;
+    font-size: 15.2px !important;
+  }
+}
+@media (max-width: 1050px) {
+  .athleteprofileheader-content-wrap-sport {
+    font-size: 17px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title {
+    font-size: 29.75px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title
+    > img {
+    width: 17px; /* retour a 20 ?*/
+    height: 17px; /* retour a 20 ?*/
+    margin-top: 5.95px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation {
+    height: 22.95px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap {
+    line-height: 10.2px;
+    width: 73.95px;
+    font-size: 10.2px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap
+    > span:nth-child(1),
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last
+    > span:nth-child(1) {
+    font-family: "Britanica-Black";
+    font-size: 17px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last {
+    line-height: 10.2px;
+    width: 93.5px;
+    font-size: 10.2px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social {
+    width: 89.25px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(1) {
+    width: 21.25px;
+    height: 14.875px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(2) {
+      width: 17px;
+      height: 13.8295px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(3) {
+      width: 17px;
+      height: 17px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation {
+    height: 37.4px;
+    margin-left: 17px;
+    margin-right: 17px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container > button:nth-last-child(1){
+    width: 89.25px !important;
+    height: 33.15px !important;
+    border-radius: 4.25px !important;
+    font-size: 13.6px !important;
+  }
+  .athleteprofileheader-content-container-description{
+    width: 374.85px;
+    font-size: 11.9px;
+    line-height: 14.45px;
+    padding-bottom: 24.65px;
+  }
+  .athleteprofileheader-content-container-button-wrap > button:nth-child(2) {
+    width: 114.75px !important;
+    height: 33.15px !important;
+    border-radius: 4.25px !important;
+    font-size: 13.6px !important;
+  }
+  .athleteprofileheader-content-container-button-wrap > button:nth-child(4) {
+    width: 72.25px !important;
+    height: 33.15px !important;
+    margin-left: 9.35px !important;
+    border-radius: 4.25px !important;
+    font-size: 13.6px !important;
+  }
+}
+@media (max-width: 900px) {
+  .athleteprofileheader-profilepciture-wrap {
+    width: 110px;
+    height: 110px;
+  }
+  .athleteprofileheader-content-container {
+    padding-top: 30px;
+  }
+  .athleteprofileheader-content-wrap-sport {
+    font-size: 15px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title {
+    font-size: 26.25px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title
+    > img {
+    width: 15px; /* retour a 20 ?*/
+    height: 15px; /* retour a 20 ?*/
+    margin-top: 5.25px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation {
+    height: 20.25px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap {
+    line-height: 9px;
+    width: 65.25px;
+    font-size: 9px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap
+    > span:nth-child(1),
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last
+    > span:nth-child(1) {
+    font-family: "Britanica-Black";
+    font-size: 15px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last {
+    line-height: 9px;
+    width: 82.5px;
+    font-size: 9px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social {
+    width: 78.75px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(1) {
+    width: 18.75px;
+    height: 13.125px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(2) {
+      width: 15px;
+      height: 12.2025px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social
+    > a
+    > img:nth-child(3) {
+      width: 15px;
+      height: 15px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation {
+    height: 33px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container > button:nth-last-child(1){
+    width: 78.75px !important;
+    height: 29.25px !important;
+    border-radius: 3.75px !important;
+    font-size: 12px !important;
+  }
+  .athleteprofileheader-content-container-description{
+    width: 330.75px;
+    font-size: 10.5px;
+    line-height: 12.75px;
+    padding-bottom: 21.75px;
+  }
+  .athleteprofileheader-content-container-button-wrap > button:nth-child(2) {
+    width: 101.25px !important;
+    height: 29.25px !important;
+    border-radius: 3.75px !important;
+    font-size: 12px !important;
+  }
+  .athleteprofileheader-content-container-button-wrap > button:nth-child(4) {
+    width: 63.75px !important;
+    height: 29.25px !important;
+    margin-left: 8.25px !important;
+    border-radius: 3.75px !important;
+    font-size: 12px !important;
+  }
+}
