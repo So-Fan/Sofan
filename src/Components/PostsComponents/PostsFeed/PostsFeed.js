@@ -96,7 +96,7 @@ function PostsFeed({
             postCommentNumber={postCommentNumber}
           />
           <div className="show-comments-button-publication">
-            <Link onClick={() => setIsPostClicked(true)}>Show 10 comments</Link>
+            <Link onClick={() => setIsPostClicked(true)}>Show {postCommentNumber} comments</Link>
           </div>
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
