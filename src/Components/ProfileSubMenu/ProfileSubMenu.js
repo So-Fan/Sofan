@@ -6,76 +6,41 @@ const ProfileSubMenu = ({
   isProfileSubMenuButtonClicked,
   setIsProfileSubMenuButtonClicked,
   isPageAthlete,
+  profileSubMenuOffresClicked,
+  setProfileSubMenuOffresClicked,
 }) => {
-  // useEffect au chargement pour se servir de ce submenu ailleurs et map les button par rapport à la page qui est chargé et modifié condition if else
-  // const [isOffersReceivedSelected, setIsOffersReceivedSelected] =
-  //   useState(false);
-  // const handleProfileOffersSubMenuClicked = (e) => {
-  //   if (e.target.previousElementSibling.innerHTML === "Offres formulées") {
-  //     setIsOffersReceivedSelected(true);
-  //     if (isPageAthlete === false) {
-  //       setIsProfileSubMenuButtonClicked([false, false, false, true]);
-  //     } else {
-  //       setIsProfileSubMenuButtonClicked([
-  //         false,
-  //         false,
-  //         false,
-  //         true,
-  //         false,
-  //         false,
-  //         false,
-  //       ]);
-  //     }
-  //   } else {
-  //     setIsOffersReceivedSelected(false);
-  //     if (isPageAthlete === false) {
-  //       setIsProfileSubMenuButtonClicked([false, false, true, false]);
-  //     } else {
-  //       setIsProfileSubMenuButtonClicked([
-  //         false,
-  //         false,
-  //         true,
-  //         false,
-  //         false,
-  //         false,
-  //         false,
-  //       ]);
-  //     }
-  //   }
-  // };
-  const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
-  useState(false);
-const handleProfileSubMenuOffresButtonClicked = (e) => {
-  setProfileSubMenuOffresClicked(true);
-};
-const [profileSubMenuOffersChoice, setprofileSubMenuOffersChoice] = useState("")
-const handleProfileSubMenuChoiceSpanClicked = e => {
-  if (e.target.innerHTML === "Offres formulées") {
-    setprofileSubMenuOffersChoice(e.target.innerHTML)
-    setIsProfileSubMenuButtonClicked([
-      false,
-      false,
-      true,
-      false,
-      false,
-      false,
-      false,
-    ]);
-    setProfileSubMenuOffresClicked(false);
-  } else if (e.target.innerHTML === "Offres reçues") {
-    setprofileSubMenuOffersChoice(e.target.innerHTML)
-    setIsProfileSubMenuButtonClicked([
-      false,
-      false,
-      false,
-      true,
-      false,
-      false,
-      false,
-    ]);
-    setProfileSubMenuOffresClicked(false);
-  }
-}
+  const handleProfileSubMenuOffresButtonClicked = (e) => {
+    setProfileSubMenuOffresClicked(true);
+  };
+  const [profileSubMenuOffersChoice, setprofileSubMenuOffersChoice] =
+    useState("");
+  const handleProfileSubMenuChoiceSpanClicked = (e) => {
+    if (e.target.innerHTML === "Offres formulées") {
+      setprofileSubMenuOffersChoice(e.target.innerHTML);
+      setIsProfileSubMenuButtonClicked([
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+      ]);
+      setProfileSubMenuOffresClicked(false);
+    } else if (e.target.innerHTML === "Offres reçues") {
+      setprofileSubMenuOffersChoice(e.target.innerHTML);
+      setIsProfileSubMenuButtonClicked([
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+      ]);
+      setProfileSubMenuOffresClicked(false);
+    }
+  };
 
   const handleProfileSubMenuButtonClicked = (e) => {
     if (isPageAthlete === false) {
@@ -119,7 +84,7 @@ const handleProfileSubMenuChoiceSpanClicked = e => {
           false,
           false,
         ]);
-        setProfileSubMenuOffresClicked(true)
+        setProfileSubMenuOffresClicked(true);
       } else if (e.target.innerHTML === "Offres reçues") {
         setIsProfileSubMenuButtonClicked([
           false,
@@ -130,7 +95,7 @@ const handleProfileSubMenuChoiceSpanClicked = e => {
           false,
           false,
         ]);
-        setProfileSubMenuOffresClicked(true)
+        setProfileSubMenuOffresClicked(true);
       } else if (e.target.innerHTML === "Feed") {
         setIsProfileSubMenuButtonClicked([
           false,
@@ -164,7 +129,7 @@ const handleProfileSubMenuChoiceSpanClicked = e => {
       }
     }
   };
-  
+
   return (
     <div className="profileSubMenu-component">
       {isPageAthlete === true && (
@@ -256,28 +221,32 @@ const handleProfileSubMenuChoiceSpanClicked = e => {
           }
         />
       </div>
-      {(profileSubMenuOffersChoice !== "Offres formulées" && profileSubMenuOffersChoice !== "Offres reçues") &&
-       <div className="profilesubmenu-wrap profilesubmenu-offres profilesubmenu-arrow-wrap">
-        <Button
-          onClick={handleProfileSubMenuOffresButtonClicked}
-          text="Offres"
-          style={ProfileSubMenuButtonStyle.stylingNotClicked}
-        />
-        <img
-            src={Arrow}
-            alt="Arrow bottom"
-          />
-        <div
-          className={
-            profileSubMenuOffresClicked
-              ? "profilesubmenu-offres-dropdown-clicked"
-              : "profilesubmenu-offres-dropdown"
-          }
-        >
-          <span onClick={handleProfileSubMenuChoiceSpanClicked}>Offres formulées</span>
-          <span onClick={handleProfileSubMenuChoiceSpanClicked}>Offres reçues</span>
-        </div>
-      </div>}
+      {profileSubMenuOffersChoice !== "Offres formulées" &&
+        profileSubMenuOffersChoice !== "Offres reçues" && (
+          <div className="profilesubmenu-wrap profilesubmenu-offres profilesubmenu-arrow-wrap">
+            <Button
+              onClick={handleProfileSubMenuOffresButtonClicked}
+              text="Offres"
+              style={ProfileSubMenuButtonStyle.stylingNotClicked}
+              id="profilesubmenu-offres"
+            />
+            <img src={Arrow} alt="Arrow bottom" />
+            <div
+              className={
+                profileSubMenuOffresClicked
+                  ? "profilesubmenu-offres-dropdown-clicked"
+                  : "profilesubmenu-offres-dropdown"
+              }
+            >
+              <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                Offres formulées
+              </span>
+              <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                Offres reçues
+              </span>
+            </div>
+          </div>
+        )}
       {profileSubMenuOffersChoice === "Offres formulées" && (
         <div
           className={
@@ -294,21 +263,23 @@ const handleProfileSubMenuChoiceSpanClicked = e => {
                 ? ProfileSubMenuButtonStyle.stylingClicked
                 : ProfileSubMenuButtonStyle.stylingNotClicked
             }
+            id="profilesubmenu-offres-formulées"
           />
-          <img
-            src={Arrow}
-            alt="Arrow bottom"
-          />
+          <img src={Arrow} alt="Arrow bottom" />
           <div
-          className={
-            profileSubMenuOffresClicked
-              ? "profilesubmenu-offres-dropdown-clicked"
-              : "profilesubmenu-offres-dropdown"
-          }
-        >
-          <span onClick={handleProfileSubMenuChoiceSpanClicked}>Offres formulées</span>
-          <span onClick={handleProfileSubMenuChoiceSpanClicked}>Offres reçues</span>
-        </div>
+            className={
+              profileSubMenuOffresClicked
+                ? "profilesubmenu-offres-dropdown-clicked"
+                : "profilesubmenu-offres-dropdown"
+            }
+          >
+            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+              Offres formulées
+            </span>
+            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+              Offres reçues
+            </span>
+          </div>
         </div>
       )}
       {profileSubMenuOffersChoice === "Offres reçues" && (
@@ -327,21 +298,23 @@ const handleProfileSubMenuChoiceSpanClicked = e => {
                 ? ProfileSubMenuButtonStyle.stylingClicked
                 : ProfileSubMenuButtonStyle.stylingNotClicked
             }
+            id="profilesubmenu-offres-reçues"
           />
-          <img
-            src={Arrow}
-            alt="Arrow bottom"
-          />
+          <img src={Arrow} alt="Arrow bottom" />
           <div
-          className={
-            profileSubMenuOffresClicked
-              ? "profilesubmenu-offres-dropdown-clicked"
-              : "profilesubmenu-offres-dropdown"
-          }
-        >
-          <span onClick={handleProfileSubMenuChoiceSpanClicked}>Offres formulées</span>
-          <span onClick={handleProfileSubMenuChoiceSpanClicked}>Offres reçues</span>
-        </div>
+            className={
+              profileSubMenuOffresClicked
+                ? "profilesubmenu-offres-dropdown-clicked"
+                : "profilesubmenu-offres-dropdown"
+            }
+          >
+            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+              Offres formulées
+            </span>
+            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+              Offres reçues
+            </span>
+          </div>
         </div>
       )}
     </div>

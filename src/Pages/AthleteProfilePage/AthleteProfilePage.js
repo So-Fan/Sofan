@@ -12,6 +12,8 @@ import "./AthleteProfilePage.css";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
+  profileSubMenuOffresClicked,
+  setProfileSubMenuOffresClicked,
 }) => {
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
@@ -435,6 +437,8 @@ const AthleteProfilePage = ({
           isPageAthlete={true}
           isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
           setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
+          profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+          setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
         />
       </div>
       {displayAthleteProfileSubMenu()}
