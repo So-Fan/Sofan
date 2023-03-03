@@ -159,7 +159,7 @@ function UserProfilePage({
         },
       ]
     };
-    console.log(data.userPageInfo.description.length);
+    // console.log(data.userPageInfo.description.length);
     function concatStringFromTo(string, maxLentgth, from0To_NUMBER_, isDotDotDot, isEnd) {
       if (string.length > maxLentgth) {
         const stringBegin = string.slice(0, from0To_NUMBER_);
