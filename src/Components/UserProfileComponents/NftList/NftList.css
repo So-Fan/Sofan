@@ -24,6 +24,8 @@
   width: 252px;
   font-family: "britanica-heavy";
   font-size: 14px;
+  text-decoration: none;
+  color: black;
 }
 .user-nft-picture-and-title img {
   width: 50px;

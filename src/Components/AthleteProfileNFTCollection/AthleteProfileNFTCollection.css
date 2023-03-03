@@ -11,13 +11,3 @@
   margin-top: 26px;
   flex: 48%;
 }
-@media (max-width: 1300px) {
-  .athleteprofilenftcollection-component {
-    width: 94%;
-  }
-}
-@media (max-width: 910px) {
-  .athleteprofilenftcollection-component {
-    width: 95%;
-  }
-}

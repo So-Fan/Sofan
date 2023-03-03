@@ -1,82 +1,181 @@
-.nftcard-component {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 299px;
-    height: 469px;
-    background-color: white;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-decoration: none;
-    margin-top: 20.8px;
-    margin-right: 14px;
+.nftcardtemplate-component {
+  max-width: 299px;
+  max-height: 469px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.nftcardtemplate-image-wrap {
+  max-width: 299px;
+  max-height: 300px;
+}
+.nftcardtemplate-image-wrap > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.nftcardtemplate-container-content {
+  max-width: 400px;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 17.63px;
+}
+.nftcardtemplate-container-content-athletename {
+  font-family: "Britanica-Heavy";
+  font-size: 14px;
+  color: #f6d463;
+  padding-bottom: 2px;
+}
+.nftcardtemplate-container-content-title {
+  font-family: "Britanica-Heavy";
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+  width: 100%;
+  padding-bottom: 10.85px;
+}
+.nftcardtemplate-container-content-price-wrap {
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  background-color: rgba(155, 155, 155, 0.1);
+  padding-top: 14.44px;
+  padding-bottom: 14.44px;
+  margin-bottom: 19.76px;
+}
+.nftcardtemplate-container-content-price-subwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+}
+.nftcardtemplate-container-content-price-subwrap-text {
+  font-family: "Britanica-Light";
+  font-size: 12px;
+  color: #000000;
+  padding-left: 10px;
+  padding-bottom: 3px;
+}
+.nftcardtemplate-container-content-price-subwrap-price {
+  font-family: "Britanica-Heavy";
+  font-size: 16px;
+  color: #000000;
+  padding-left: 10px;
+}
+@media (max-width: 1150px) {
+  .nftcardtemplate-component {
+    border-radius: 9.5px;
   }
-  .nftcard-component > img {
-    width: 299px;
-    height: 299px;
-    border-radius: 10px 10px 0px 0px;
+  .nftcardtemplate-image-wrap > img {
+    border-radius: 9.5px;
   }
-  .nftcard-text-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 170px;
+  .nftcardtemplate-container-content {
+    margin-top: 16.7485px;
   }
-  .nftcard-text-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 278px;
-    height: 133px;
+  .nftcardtemplate-container-content-athletename {
+    font-size: 13.3px;
+    padding-bottom: 1.9px;
   }
-  .nftcard-text-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    height: 57px;
-    width: 100%;
+  .nftcardtemplate-container-content-title {
+    font-size: 15.2px;
+    line-height: 18.05px;
+    padding-bottom: 10.3075px;
   }
-  .nftcard-text-name {
-    font-family: "Britanica-Heavy";
-    font-size: 14px;
-    color: #f6d463;
+  .nftcardtemplate-container-content-price-wrap {
+    border-radius: 9.5px;
+    padding-top: 13.718px;
+    padding-bottom: 13.718px;
+    margin-bottom: 18.772px;
   }
-  .nftcard-text-title {
-    font-family: "Britanica-Heavy";
-    font-size: 16px;
-    line-height: 19px;
-    color: #000000;
+  .nftcardtemplate-container-content-price-subwrap-text {
+    font-size: 11.4px;
+    padding-left: 9.5px;
+    padding-bottom: 2.85px;
   }
-  .nftcard-text-info-wrap {
-    display: flex;
-    align-items: center;
-    width: 278px;
-    height: 60px;
-    border-radius: 10px;
-    background-color: rgba(155, 155, 155, 0.1);
+  .nftcardtemplate-container-content-price-subwrap-price {
+    font-size: 15.2px;
+    padding-left: 9.5px;
   }
-  .nftcard-text-info-subwrap {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 50%;
-    height: 32px;
+}
+@media (max-width: 1050px) {
+  .nftcardtemplate-component {
+    border-radius: 8.5px;
   }
-  .nftcard-text-info-category {
-    font-family: "Britanica-Light";
+  .nftcardtemplate-image-wrap > img {
+    border-radius: 8.5px;
+  }
+  .nftcardtemplate-container-content {
+    margin-top: 14.9855px;
+  }
+  .nftcardtemplate-container-content-athletename {
+    font-size: 11.9px;
+    padding-bottom: 1.7px;
+  }
+  .nftcardtemplate-container-content-title {
+    font-size: 13.6px;
+    line-height: 16.15px;
+    padding-bottom: 9.2225px;
+  }
+  .nftcardtemplate-container-content-price-wrap {
+    border-radius: 8.5px;
+    padding-top: 12.274px;
+    padding-bottom: 12.274px;
+    margin-bottom: 16.796px;
+  }
+  .nftcardtemplate-container-content-price-subwrap-text {
+    font-size: 10.2px;
+    padding-left: 8.5px;
+    padding-bottom: 2.55px;
+  }
+  .nftcardtemplate-container-content-price-subwrap-price {
+    font-size: 13.6px;
+    padding-left: 8.5px;
+  }
+}
+@media (max-width: 960px){
+  .nftcardtemplate-component {
+    border-radius: 7.5px;
+  }
+  .nftcardtemplate-image-wrap > img {
+    border-radius: 7.5px;
+  }
+  .nftcardtemplate-container-content {
+    margin-top: 13.2225px;
+  }
+  .nftcardtemplate-container-content-athletename {
+    font-size: 10.5px;
+    padding-bottom: 1.5px;
+  }
+  .nftcardtemplate-container-content-title {
     font-size: 12px;
-    color: #000000;
-    padding-left: 10px;
+    line-height: 14.25px;
+    padding-bottom: 8.1375px;
   }
-  .nftcard-text-info-price {
-    font-family: "Britanica-Heavy";
-    font-size: 16px;
-    color: #000000;
-    padding-left: 10px;
+  .nftcardtemplate-container-content-price-wrap {
+    border-radius: 7.5px;
+    padding-top: 10.83px;
+    padding-bottom: 10.83px;
+    margin-bottom: 14.82px;
   }
+  .nftcardtemplate-container-content-price-subwrap-text {
+    font-size: 9px;
+    padding-left: 7.5px;
+    padding-bottom: 2.25px;
+  }
+  .nftcardtemplate-container-content-price-subwrap-price {
+    font-size: 12px;
+    padding-left: 7.5px;
+  }
+}
+@media (max-width: 850px){
   
+  .nftcardtemplate-container-content-price-subwrap-price {
+    font-size: 11px;
+    padding-left: 7.5px;
+  }
+}

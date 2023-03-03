@@ -19,6 +19,8 @@ function App() {
   ] = useState(false);
   const [data, setData] = useState([]);
   const [isDropdownClicked, setIsDropdownClicked] = useState();
+  const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
+    useState(false);
   function handleClickOutside(e) {
     // Navbar
     if (e.target.id === "navbar-user-profile-img") {
@@ -42,6 +44,15 @@ function App() {
     // Profile Page Sort by selector
     if (e.target.id !== "sortbyselector-component") {
       setIsUSerProfileSeortBySelectorClicked(false);
+    }
+    // Athlete Profile SubMenu Offers
+    if (
+      e.target.id !== "profilesubmenu-offres" &&
+      e.target.id !== "profilesubmenu-offres-formulées" &&
+      e.target.id !== "profilesubmenu-offres-reçues"
+    ) {
+      console.log(e.target.id);
+      setProfileSubMenuOffresClicked(false);
     }
   }
   return (
@@ -75,7 +86,21 @@ function App() {
               />
             }
           />
-          <Route path="/athleteprofile" element={<AthleteProfilePage />} />
+          <Route
+            path="/athleteprofile"
+            element={
+              <AthleteProfilePage
+                setIsUSerProfileSeortBySelectorClicked={
+                  setIsUSerProfileSeortBySelectorClicked
+                }
+                isUSerProfileSeortBySelectorClicked={
+                  isUSerProfileSeortBySelectorClicked
+                }
+                profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+                setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+              />
+            }
+          />
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>

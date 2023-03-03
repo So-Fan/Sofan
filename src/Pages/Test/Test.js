@@ -1,12 +1,12 @@
 import React from 'react'
-import "./Test.css"
-import TestDate from './TestDate.js'
+import "./Test.css";
 const Test = () => {
+ 
   return (
     <>
-    <TestDate/>
-    </>
-  )
-}
 
-export default Test
+    </>
+  );
+};
+
+export default Test;

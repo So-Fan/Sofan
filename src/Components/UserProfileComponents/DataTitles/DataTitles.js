@@ -18,7 +18,7 @@ function DataTitles({
 }) {
   return (
     <>
-      <div className="separation-line-horizontal-userprofile"></div>
+      {/* <div className="separation-line-horizontal-userprofile"></div> */}
       <div className="user-data-types-activity">
         <div className={`user-nft-type-activity ${offersNftTitleClass}`}>
           NFT

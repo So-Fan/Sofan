@@ -9,7 +9,8 @@ const Button = ({
  style,
  customMediaQueries,
   text,
-  onClick
+  onClick,
+  id
 }) => {
   return (
     <>
@@ -24,6 +25,7 @@ const Button = ({
           to={to}
           style={style}
           onClick={onClick}
+          id={id}
         >
           {text}
         </Link>
@@ -32,6 +34,7 @@ const Button = ({
           className="button-component"
           style={style}
           onClick={onClick}
+          id={id}
         >
           {text}
         </button>
