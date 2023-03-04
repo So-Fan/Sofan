@@ -26,15 +26,42 @@ function PostsFeed({
   pollSecondChoice,
   pollThirdChoice,
   pollFourthChoice,
+  postName,
   pollDate,
   pollDateType,
   postPicture,
   pollVoteNumbers,
   postLikeNumber,
-  postCommentNumber
+  postCommentNumber,
+  pollTotalVote,
+  pollFirstChoiceNumber,
+  pollSecondChoiceNumber,
+  pollThirdChoiceNumber,
+  pollFourthChoiceNumber
+  
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
-  console.log(pollVoteNumbers)
+  console.log(pollFirstChoice)
+  console.log(pollThirdChoiceNumber)
+  function displayVote() {
+    if (pollTotalVote < 1) {
+      return ;
+    } else if (pollTotalVote > 1) {
+      return <PollPost
+      pollFirstChoice={pollFirstChoice}
+      pollSecondChoice={pollSecondChoice}
+      pollThirdChoice={pollThirdChoice}
+      pollFourthChoice={pollFourthChoice}
+      pollFirstChoiceNumber={pollFirstChoiceNumber}
+      pollSecondChoiceNumber={pollSecondChoiceNumber}
+      pollThirdChoiceNumber={pollThirdChoiceNumber}
+      pollFourthChoiceNumber={pollFourthChoiceNumber}
+      pollDate={pollDate}
+      pollDateType={pollDateType}
+      pollTotalVote={pollTotalVote}
+    />
+    }
+  }
   return (
     <>
       <div className="publication-container">
@@ -50,6 +77,8 @@ function PostsFeed({
           {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
+            postName={postName}
+            // 
               dropDownMenuSize="dropdown-button-point-size-M"
               headOfPostSizeLeft="publication-head-left-container-size-pollpost"
               headOfPostSizeRight="publication-head-right-container-pollpost"
@@ -68,15 +97,7 @@ function PostsFeed({
             postFeedDescription="post-feed-description-resize"
             postDescription={postDescription}
           />
-          <PollPost
-            pollFirstChoice={pollFirstChoice}
-            pollSecondChoice={pollSecondChoice}
-            pollThirdChoice={pollThirdChoice}
-            pollFourthChoice={pollFourthChoice}
-            pollDate={pollDate}
-            pollDateType={pollDateType}
-            pollVoteNumbers={pollVoteNumbers}
-          />
+          {displayVote()}
           {/* Backend here */}
           <div className="publication-media">
             {/* <img src={attanasioBateau} alt="utilisateur" /> */}

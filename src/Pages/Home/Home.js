@@ -31,59 +31,81 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       return false;
     }
   }
-const pollData = [
- {
-  pollChoice:{
-    pollFirstChoice: "Barrier",
-    pollSecondChoice: "Attanasio",
-    pollThirdChoice: "John",
-    pollFourthChoice: "Arthur",
-  },
-  pollMetaData:{
-    pollDate: 1,
-    pollDateType: "day",
-  },
-  pollVoteNumbers:{
-    pollFirstChoiceNumber:570,
-    pollSecondChoiceNumber:98,
-    pollThirdChoiceNumber:120,
-    pollFourthChoiceNumber:302,
-    pollTotalVote: 2456,
-  }
- }
-]
+  // const pollData = [
+  //  {
+  //   pollChoice:{
+  //     pollFirstChoice: "Barrier",
+  //     pollSecondChoice: "Attanasio",
+  //     pollThirdChoice: "John",
+  //     pollFourthChoice: "Arthur",
+  //   },
+  //   pollMetaData:{
+  //     pollDate: 1,
+  //     pollDateType: "day",
+  //   },
+  //   pollVoteNumbers:{
+  //     pollFirstChoiceNumber:570,
+  //     pollSecondChoiceNumber:98,
+  //     pollThirdChoiceNumber:120,
+  //     pollFourthChoiceNumber:302,
+  //     pollTotalVote: 2456,
+  //   }
+  //  }
+  // ]
   useEffect(() => {
     // simulate fake post data from backend
     const dataBackend = [
       {
         id: 0,
-        name: "Romain Attanasio",
-        postDate: 1,
+        postName: "Romain Attanasio",
+        postDate: 5,
         postDateType: "h",
         postType: "Free",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        // postPicture:
-        //   "https://www.leparisien.fr/resizer/CnZASpDcjMCWoWaK9Oo_DlYDs3s=/932x582/arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/3BWCVSJGBDZOGJB6IVH3ILNO7Y.jpg",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
+        postPicture: "",
         postLikeNumber: 29,
+        postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 0,
+        pollDate: 1,
+        pollDateType: "day",
       },
       {
         id: 1,
-        name: "Alexia Barrier",
+        postName: "Alexia Barrier",
         postDate: 2,
         postDateType: "d",
         postType: "Premium",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-  
+
         postPicture:
           "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
-          postLikeNumber: 29,
-          postCommentNumber: 10,
-        },
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 0,
+        pollDate: 0,
+        pollDateType: "day",
+      },
       {
         id: 2,
-        name: "Romain Attanasio",
+        postName: "Romain Attanasio",
         postDate: 3,
         postDateType: "h",
         postType: "Free",
@@ -91,12 +113,69 @@ const pollData = [
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture:
           "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Romain_Attanasio_Vend%C3%A9e_Globe.jpg/280px-Romain_Attanasio_Vend%C3%A9e_Globe.jpg",
-          postLikeNumber: 29,
-          postCommentNumber: 10,
-        },
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 0,
+        pollDate: 1,
+        pollDateType: "day",
+      },
       {
         id: 3,
-        name: "Alexia Barrier",
+        postName: "Alexia Barrier",
+        postDate: 2,
+        postDateType: "y",
+        postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
+        postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 0,
+        pollDate: 1,
+        pollDateType: "day",
+      },
+      {
+        id: 4,
+        postName: "Romain Attanasio",
+        postDate: 3,
+        postDateType: "h",
+        postType: "Free",
+        postDescription:
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
+        postPicture: "",
+        postLikeNumber: 29,
+        postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 2456,
+        pollDate: 1,
+        pollDateType: "day",
+      },
+      {
+        id: 5,
+        postName: "Alexia Barrier",
         postDate: 2,
         postDateType: "d",
         postType: "Premium",
@@ -109,80 +188,105 @@ const pollData = [
         postPicture: "",
         postLikeNumber: 29,
         postCommentNumber: 10,
-      },
-      {
-        id: 4,
-        name: "Romain Attanasio",
-        postDate: 3,
-        postDateType: "h",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        postPicture: "",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-      },
-      {
-        id: 5,
-        name: "Alexia Barrier",
-        postDate: 2,
-        postDateType: "d",
-        postType: "Premium",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        postPicture: "",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 2456,
+        pollDate: 1,
+        pollDateType: "day",
       },
       {
         id: 6,
-        name: "Romain Attanasio",
+        postName: "Romain Attanasio",
         postDate: 9,
         postDateType: "h",
         postType: "Free",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
         postLikeNumber: 29,
         postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 2456,
+        pollDate: 1,
+        pollDateType: "day",
       },
       {
         id: 7,
-        name: "Romain Attanasio",
+        postName: "Romain Attanasio",
         postDate: 3,
         postDateType: "h",
         postType: "Free",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
         postPicture: "",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
         postLikeNumber: 29,
         postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 2456,
+        pollDate: 1,
+        pollDateType: "day",
       },
       {
         id: 8,
-        name: "Romain Attanasio",
+        postName: "Romain Attanasio",
         postDate: 3,
         postDateType: "h",
         postType: "Free",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
         postPicture: "",
         postLikeNumber: 29,
         postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 2456,
+        pollDate: 1,
+        pollDateType: "day",
       },
       {
         id: 9,
-        name: "Romain Attanasio",
+        postName: "Romain Attanasio",
         postDate: 3,
         postDateType: "h",
         postType: "Premium",
         postDescription:
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        pollFirstChoice: "Barrier",
+        pollSecondChoice: "Attanasio",
+        pollThirdChoice: "John",
+        pollFourthChoice: "Arthur",
         postPicture: "",
         postLikeNumber: 29,
         postCommentNumber: 10,
+        pollFirstChoiceNumber: 570,
+        pollSecondChoiceNumber: 98,
+        pollThirdChoiceNumber: 120,
+        pollFourthChoiceNumber: 302,
+        pollTotalVote: 2456,
+        pollDate: 1,
+        pollDateType: "day",
       },
     ];
     for (let i = 0; i < dataBackend.length; i++) {
@@ -210,7 +314,7 @@ const pollData = [
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
-  
+
   return (
     <>
       <section className="home-component">
@@ -264,21 +368,26 @@ const pollData = [
                   key={uuidv4()}
                   id={post.id}
                   // Backend data
+                  postName={post.postName}
                   postDate={post.postDate}
                   postDateType={post.postDateType}
                   postType={post.postType}
                   postDescription={post.postDescription}
-                  pollFirstChoice={pollData[0].pollChoice.pollFirstChoice}
-                  pollSecondChoice={pollData[0].pollChoice.pollSecondChoice}
-                  pollThirdChoice={pollData[0].pollChoice.pollThirdChoice}
-                  pollFourthChoice={pollData[0].pollChoice.pollFourthChoice}
-                  pollDate={pollData[0].pollMetaData.pollDate}
-                  pollDateType={pollData[0].pollMetaData.pollDateType}
-                  // pollTotalVote={pollData[0].pollVoteNumbers.pollTotalVote}
-                  pollVoteNumbers={pollData[0].pollVoteNumbers}
                   postPicture={post.postPicture}
                   postLikeNumber={post.postLikeNumber}
                   postCommentNumber={post.postCommentNumber}
+                  //  Backend poll data
+                  pollFirstChoice={post.pollFirstChoice}
+                  pollSecondChoice={post.pollSecondChoice}
+                  pollThirdChoice={post.pollThirdChoice}
+                  pollFourthChoice={post.pollFourthChoice}
+                  pollFirstChoiceNumber={post.pollFirstChoiceNumber}
+                  pollSecondChoiceNumber={post.pollSecondChoiceNumber}
+                  pollThirdChoiceNumber={post.pollThirdChoiceNumber}
+                  pollFourthChoiceNumber={post.pollFourthChoiceNumber}
+                  pollDate={post.pollDate}
+                  pollDateType={post.pollDateType}
+                  pollTotalVote={post.pollTotalVote}
                   // states and functions
                   isDropdownClicked={post.isDropdownClicked}
                   handleDropdownPostFeedClick={handleDropdownPostFeedClick}

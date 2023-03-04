@@ -16,13 +16,18 @@ const PollPost = ({
   pollFourthChoice,
   pollDate,
   pollDateType,
-  pollVoteNumbers,
+  // 
+  pollTotalVote,
+  pollFirstChoiceNumber,
+  pollSecondChoiceNumber,
+  pollThirdChoiceNumber,
+  pollFourthChoiceNumber,
 }) => {
   const [surveyResults, setSurveyResults] = useState([
-    pollVoteNumbers.pollFirstChoiceNumber,
-    pollVoteNumbers.pollSecondChoiceNumber,
-    pollVoteNumbers.pollThirdChoiceNumber,
-    pollVoteNumbers.pollFourthChoiceNumber,
+    pollFirstChoiceNumber,
+    pollSecondChoiceNumber,
+    pollThirdChoiceNumber,
+    pollFourthChoiceNumber,
   ]);
   // Reçu de la BDD
   const choiceName = [
@@ -144,7 +149,7 @@ const PollPost = ({
         <div className="ageofpost-poll-container">
           <div className="ageofpost-poll-wrap">
             <div className="ageofpost-and-timeleft-poll">
-              <div>{pollVoteNumbers.pollTotalVote} votes</div>
+              <div>{pollTotalVote} votes</div>
               <div>-</div>
               <div>
                 {pollDate} {pollDateType}
