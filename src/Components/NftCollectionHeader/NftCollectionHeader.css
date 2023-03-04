@@ -1,0 +1,103 @@
+.nft-collection-header-container {
+  background-color: red;
+  width: 100%;
+  max-width: 1243px;
+  max-height: 620px;
+  display: flex;
+}
+
+.nft-collection-header-picture {
+  width: 100%;
+  height: 100%;
+  max-width: 645px;
+}
+.nft-collection-header-picture img {
+  width: 100%;
+  height: 100%;
+  max-width: 620px;
+  max-height: 620px;
+}
+.nft-collection-header-data-and-buy-module-container {
+  height: 100%;
+  width: 100%;
+  max-width: 623px;
+  max-height: 620px;
+  display: flex;
+  justify-content: center;
+  background-color: green;
+}
+.nft-collection-header-data-and-buy-module-content {
+  background-color: yellow;
+  height: 100%;
+  max-height: 147px;
+  width: 100%;
+  max-width: 570px;
+  display: flex;
+  align-items: flex-end;
+  /* padding-top: 79px; */
+}
+.nft-collection-header-collection-name-and-number {
+  width: 100%;
+  height: 68px;
+  background-color: orange;
+}
+.nft-collection-header-collection-name-title {
+  width: 100%;
+  height: 100%;
+  max-height: 19px;
+  /* max-width: 258px; */
+  background-color: blue;
+  display: flex;
+  justify-content: space-between;
+}
+.nft-collection-header-collection-name-title p {
+  height: 100%;
+  width: 100%;
+  max-width: 258px;
+  background-color: brown !important;
+  display: flex;
+  align-items: center;
+  font-family: "britanica-heavy";
+  font-size: 16px;
+}
+.nft-collection-header-collection-name-title div {
+  background-color: cyan;
+  max-height: 19px;
+  width: 20px;
+  z-index: 999 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nft-collection-header-collection-name-title span{
+    height: 5px;
+    width: 5px;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block;
+  
+}
+
+/* ------ */
+.nft-collection-header-dropdown-menu-button-container {
+  outline: none;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.nft-collection-header-dropdown-button-publication {
+  width: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+  cursor: pointer;
+}
+.nft-collection-header-dropdown-button-point {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    display: inline-block;
+  background-color: black !important;
+}
