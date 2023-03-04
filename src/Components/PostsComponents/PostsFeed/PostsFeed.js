@@ -41,8 +41,6 @@ function PostsFeed({
   
 }) {
   const [isModdleToggled, setIsModalToggled] = useState(false);
-  console.log(pollFirstChoice)
-  console.log(pollThirdChoiceNumber)
   function displayVote() {
     if (pollTotalVote < 1) {
       return ;

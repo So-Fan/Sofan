@@ -31,27 +31,6 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       return false;
     }
   }
-  // const pollData = [
-  //  {
-  //   pollChoice:{
-  //     pollFirstChoice: "Barrier",
-  //     pollSecondChoice: "Attanasio",
-  //     pollThirdChoice: "John",
-  //     pollFourthChoice: "Arthur",
-  //   },
-  //   pollMetaData:{
-  //     pollDate: 1,
-  //     pollDateType: "day",
-  //   },
-  //   pollVoteNumbers:{
-  //     pollFirstChoiceNumber:570,
-  //     pollSecondChoiceNumber:98,
-  //     pollThirdChoiceNumber:120,
-  //     pollFourthChoiceNumber:302,
-  //     pollTotalVote: 2456,
-  //   }
-  //  }
-  // ]
   useEffect(() => {
     // simulate fake post data from backend
     const dataBackend = [
@@ -67,7 +46,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         pollSecondChoice: "Attanasio",
         pollThirdChoice: "John",
         pollFourthChoice: "Arthur",
-        postPicture: "",
+        postPicture:
+          "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
         postLikeNumber: 29,
         postCommentNumber: 10,
         pollFirstChoiceNumber: 570,
@@ -294,10 +274,20 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       // console.log(dataBackend[i].postType)
       // console.log(lockPremiumContent);
     }
-    // Supprimer l'effet d'etat global pour que l'etat soit independant pour chaque element
     setData(dataBackend);
   }, [setData]);
+  // function displayFullPagePost() {
+  //   return (
+  //     <>
+  //       <FullPagePost postType={data.postType} />;
+  //     </>
+  //   );
+  // }
 
+  // setTimeout(() => {
+    
+    
+  // }, 10);
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < data.length; i++) {
       if (
@@ -418,8 +408,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
           style={{ top: "-24px", right: "2px" }}
           color="white"
         >
-          {/* Faire passer les infos du post sur lequel on a cliqué (se référencer à la date affichée par ex) */}
-          <FullPagePost />
+          {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
+          <FullPagePost postType={data.postType} />
+
         </Modal>
       )}
     </>

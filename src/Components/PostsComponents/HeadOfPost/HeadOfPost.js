@@ -19,7 +19,7 @@ function HeadOfPost({
   postType
 }) {
   const athleteName = "Romain Attanasio"; // reçu du backend
-console.log("clé publique "+postName)
+
   return (
     <div className="publication-head-container">
       <div className={`publication-head-left-container ${headOfPostSizeLeft}`}>
