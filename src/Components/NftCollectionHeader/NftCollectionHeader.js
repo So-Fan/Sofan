@@ -16,6 +16,14 @@ function NftCollectionHeader() {
         "https://storage.googleapis.com/nftimagebucket/tokens/0x8a90cab2b38dba80c64b7734e58ee1db38b8992e/preview/8970.png",
     },
   ];
+  const apiOpenSea = [
+    {
+      nftPriceEth: 8.44,
+      nftPriceEur: 10481,
+      nftBidEth: 6.44,
+      nftBifEur: 8182,
+    },
+  ];
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
@@ -73,12 +81,36 @@ function NftCollectionHeader() {
         <div className="nft-collection-header-buy-module-container">
           <div className="nft-collection-header-buy-module-wrap">
             <div className="nft-collection-header-price-and-bid-container">
-              <div className="nft-collection-header-price">
-
+              <div className="nft-collection-header-price-container">
+                <div className="nft-collection-header-price-wrap">
+                  <span className="nft-collection-header-title-price">
+                    Price
+                  </span>
+                  <span className="nft-collection-header-eth-price">
+                    {apiOpenSea[0].nftPriceEth} ETH
+                  </span>
+                  <span className="nft-collection-header-eur-price">
+                    {apiOpenSea[0].nftPriceEur} €
+                  </span>
+                </div>
               </div>
-              <div className="nft-collection-header-bid">
-
+              <div className="nft-collection-header-bid-container">
+                <div className="nft-collection-header-bid-wrap">
+                  <span className="nft-collection-header-title-bid">
+                    Highest bid
+                  </span>
+                  <span className="nft-collection-header-eth-bid">
+                    {apiOpenSea[0].nftBidEth} ETH
+                  </span>
+                  <span className="nft-collection-header-eur-bid">
+                    {apiOpenSea[0].nftBifEur} €
+                  </span>
+                </div>
               </div>
+            </div>
+            <div className="nft-collection-header-buttons-container">
+              <div className="nft-collection-header-buy-button">Buy NFT</div>
+              <div className="nft-collection-header-bid-button">Place a bid</div>
             </div>
           </div>
         </div>
