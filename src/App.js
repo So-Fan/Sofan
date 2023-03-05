@@ -8,6 +8,8 @@ import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 import Test from "./Pages/Test/Test";
 import AthleteProfilePage from "./Pages/AthleteProfilePage/AthleteProfilePage";
+import NftCollection from "./Pages/NftCollection/NftCollection";
+import NftSingle from "./Pages/NftSingle/NftSingle";
 
 function App() {
   const isLogged = true; // from Backend
@@ -101,6 +103,8 @@ function App() {
               />
             }
           />
+          <Route path="/nftcollection" element={<NftCollection />} />
+          <Route path="/nftsingle" element={<NftSingle />} />
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>
