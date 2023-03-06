@@ -10,6 +10,7 @@ import Test from "./Pages/Test/Test";
 import AthleteProfilePage from "./Pages/AthleteProfilePage/AthleteProfilePage";
 import NftCollection from "./Pages/NftCollection/NftCollection";
 import NftSingle from "./Pages/NftSingle/NftSingle";
+import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAthletePage"
 
 function App() {
   const isLogged = true; // from Backend
@@ -105,6 +106,7 @@ function App() {
           />
           <Route path="/nftcollection" element={<NftCollection />} />
           <Route path="/nftsingle" element={<NftSingle />} />
+          <Route path="signupathlete" element={<SignUpAthletePage/>}/>
           <Route path="/test" element={<Test />} />
         </Routes>
       </div>
