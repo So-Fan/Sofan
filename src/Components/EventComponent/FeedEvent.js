@@ -6,6 +6,7 @@ import EventTemplate from "./EventTemplate/EventTemplate";
 import { db } from '../../Configs/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
+import { v4 as uuidv4 } from "uuid";
 const FeedEvent = () => {
   const [events, setEvent] = useState([]);
   const eventCollectionRef = collection(db, 'feed_event');
@@ -29,6 +30,7 @@ const FeedEvent = () => {
       </div>
       {events.map((event) => (
         <EventTemplate
+        key={uuidv4()}
           title={event.title}
           location={event.location}
           schedule={event.schedule}

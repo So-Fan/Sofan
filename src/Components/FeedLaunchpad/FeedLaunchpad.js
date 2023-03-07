@@ -6,6 +6,7 @@ import DataLaunchpad from "./fakedata/dataLaunchpad.json"
 import { db } from '../../Configs/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
+import { v4 as uuidv4 } from "uuid";
 const FeedLaunchpad = () => {
   const [launchpad, setLaunchpad] = useState([]);
   const launchpadCollectionRef = collection(db, 'feed_launchpad');
@@ -26,7 +27,7 @@ const FeedLaunchpad = () => {
         <Link to='/Launchpad' className='feedlaunchpad-header-button'>voir plus</Link>
       </div>
       {launchpad.map((launchpad) => (
-        <FeedLaunchpadTemplate title={launchpad.title} athlete={launchpad.athlete} img={launchpad.img} athleteProfilePicture={launchpad.avatar} id={launchpad.id} />
+        <FeedLaunchpadTemplate key={uuidv4()} title={launchpad.title} athlete={launchpad.athlete} img={launchpad.img} athleteProfilePicture={launchpad.avatar} id={launchpad.id} />
       ))}
     </div>
   )

@@ -1,10 +1,14 @@
-.NftCard-component{
+.nftcard-component {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   width: 100%;
-  /* overflow-y: scroll; */
+  max-width: 1256px;
 }
-/* .NftCard-component::-webkit-scrollbar{
-  display: none;
-} */
+.nftcardtemplate-component:nth-child(n) {
+  flex: 23%;
+  margin-right: 19.86px;
+  margin-top: 20.8px;
+}
+.nftcardtemplate-component:nth-child(4n){
+  margin-right: 0 !important;
+}

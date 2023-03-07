@@ -2,6 +2,7 @@ import React from "react";
 import "./NftList.css";
 import redCross from "../../../Assets/Image/redcross-offers.svg";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
+import { Link } from "react-router-dom";
 
 function NftList({
   activityUserFrom,
@@ -34,13 +35,13 @@ function NftList({
       <div className={`nft-origin-type ${offersDisplaySourceTypeClass}`}>
         {func}
       </div>
-      <div className={`user-nft-picture-and-title ${offersNftContentClass}`}>
+      <Link className={`user-nft-picture-and-title ${offersNftContentClass}`}>
         <img src={nftImg} alt="nft picture" />
         <div className="collection-name-nft-id-user-activity">
           <span>{nftTitle}</span>
           <span>{nftId}</span>
         </div>
-      </div>
+      </Link>
       <div className={`nft-price-user-activity ${offersYourOffersPriceClass}`}>
         <div className="nftc-price-eth-user-activity">{priceEth} ETH</div>
         <div className="nft-price-eur-user-activity">692.04€</div>

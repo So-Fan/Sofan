@@ -9,6 +9,8 @@ import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 import Test from "./Pages/Test/Test";
 import AthleteProfilePage from "./Pages/AthleteProfilePage/AthleteProfilePage";
 import LoginSignUpScreen from "./Pages/LoginSignUpPage/LoginSignUpScreen";
+import NftCollection from "./Pages/NftCollection/NftCollection";
+import NftSingle from "./Pages/NftSingle/NftSingle";
 
 function App() {
   const isLogged = true; // from Backend
@@ -18,8 +20,10 @@ function App() {
     isUSerProfileSeortBySelectorClicked,
     setIsUSerProfileSeortBySelectorClicked,
   ] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [isDropdownClicked, setIsDropdownClicked] = useState();
+  const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
+    useState(false);
   function handleClickOutside(e) {
     // Navbar
     if (e.target.id === "navbar-user-profile-img") {
@@ -30,9 +34,9 @@ function App() {
     // Dropdown
     if (isDropdownClicked) {
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
+        // console.log(data[i]);
         if (data[i].isDropdownClicked === true) {
-          console.log("je suis ici");
+          // console.log("je suis ici");
           const newData = [...data];
           newData[i].isDropdownClicked = false;
           setData(newData);
@@ -43,6 +47,15 @@ function App() {
     // Profile Page Sort by selector
     if (e.target.id !== "sortbyselector-component") {
       setIsUSerProfileSeortBySelectorClicked(false);
+    }
+    // Athlete Profile SubMenu Offers
+    if (
+      e.target.id !== "profilesubmenu-offres" &&
+      e.target.id !== "profilesubmenu-offres-formulées" &&
+      e.target.id !== "profilesubmenu-offres-reçues"
+    ) {
+      console.log(e.target.id);
+      setProfileSubMenuOffresClicked(false);
     }
   }
   return (
@@ -76,7 +89,23 @@ function App() {
               />
             }
           />
-          <Route path="/athleteprofile" element={<AthleteProfilePage />} />
+          <Route
+            path="/athleteprofile"
+            element={
+              <AthleteProfilePage
+                setIsUSerProfileSeortBySelectorClicked={
+                  setIsUSerProfileSeortBySelectorClicked
+                }
+                isUSerProfileSeortBySelectorClicked={
+                  isUSerProfileSeortBySelectorClicked
+                }
+                profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+                setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+              />
+            }
+          />
+          <Route path="/nftcollection" element={<NftCollection />} />
+          <Route path="/nftsingle" element={<NftSingle />} />
           <Route path="/test" element={<Test />} />
           <Route path="/login" element={<LoginSignUpScreen />} />
         </Routes>
