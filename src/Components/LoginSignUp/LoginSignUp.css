@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins");
 
-* {
+.signup-login-form {
   box-sizing: border-box;
 }
 
-body {
+/* body {
   display: flex;
   background-color: #f6f5f7;
   justify-content: center;
@@ -13,23 +13,42 @@ body {
   font-family: "Poppins", sans-serif;
   overflow: hidden;
   height: 100vh;
+} */
+
+.signup-login-form .forms-container {
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 1000px;
+  max-width: 100%;
+  min-height: 500px;
 }
 
-h1 {
+.signup-login-form .form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+
+.signup-login-form h1 {
   font-weight: 700;
   letter-spacing: -1.5px;
   margin: 0;
   margin-bottom: 15px;
 }
 
-h1.title {
+.signup-login-form h1.title {
   font-size: 45px;
   line-height: 45px;
   margin: 0;
   text-shadow: 0 0 10px rgba(16, 64, 74, 0.5);
 }
 
-p {
+.signup-login-form p {
   font-size: 14px;
   font-weight: 100;
   line-height: 20px;
@@ -38,12 +57,12 @@ p {
   text-shadow: 0 0 10px rgba(16, 64, 74, 0.5);
 }
 
-span {
+.signup-login-form span {
   font-size: 14px;
   margin-top: 25px;
 }
 
-a {
+.signup-login-form a {
   color: #333;
   font-size: 14px;
   text-decoration: none;
@@ -51,11 +70,11 @@ a {
   transition: 0.3s ease-in-out;
 }
 
-a:hover {
+.signup-login-form a:hover {
   color: #4bb6b7;
 }
 
-.content {
+.signup-login-form .content {
   display: flex;
   width: 100%;
   height: 50px;
@@ -63,13 +82,13 @@ a:hover {
   justify-content: space-around;
 }
 
-.content .checkbox {
+.signup-login-form .content .checkbox {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.content input {
+.signup-login-form .content input {
   accent-color: #333;
   width: 12px;
   height: 12px;
@@ -81,12 +100,12 @@ a:hover {
   padding-left: 5px;
 }
 
-button {
+.signup-login-form button {
   position: relative;
   border-radius: 20px;
-  border: 1px solid #4bb6b7;
-  background-color: #4bb6b7;
-  color: #fff;
+  border: 1px solid rgb(246, 212, 99);
+  background-color: rgb(246, 212, 99);
+  color: #000;
   font-size: 15px;
   font-weight: 700;
   margin: 10px;
@@ -96,49 +115,49 @@ button {
   transition: 0.3s ease-in-out;
 }
 
-button:hover {
+.signup-login-form button:hover {
   letter-spacing: 3px;
 }
 
-button:active {
+.signup-login-form button:active {
   transform: scale(0.95);
 }
 
-button:focus {
+.signup-login-form button:focus {
   outline: none;
 }
 
-button.ghost {
+.signup-login-form button.ghost {
   background-color: rgba(225, 225, 225, 0.2);
-  border: 2px solid #fff;
-  color: #fff;
+  border: 2px solid rgb(246, 212, 99);
+  color: rgb(246, 212, 99);
 }
 
-button.ghost i{
+.signup-login-form button.ghost i{
   position: absolute;
   opacity: 0;
   transition: 0.3s ease-in-out;
 }
 
-button.ghost i.register{
+.signup-login-form button.ghost i.register{
   right: 70px;
 }
 
-button.ghost i.login{
+.signup-login-form button.ghost i.login{
   left: 70px;
 }
 
-button.ghost:hover i.register{
+.signup-login-form button.ghost:hover i.register{
   right: 40px;
   opacity: 1;
 }
 
-button.ghost:hover i.login{
+.signup-login-form button.ghost:hover i.login{
   left: 40px;
   opacity: 1;
 }
 
-form {
+.signup-login-form form {
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -149,7 +168,7 @@ form {
   text-align: center;
 }
 
-input {
+.signup-login-form input {
   background-color: #eee;
   border-radius: 10px;
   border: none;
@@ -158,42 +177,25 @@ input {
   width: 100%;
 }
 
-.container {
-  background-color: #fff;
-  border-radius: 25px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  position: relative;
-  overflow: hidden;
-  width: 768px;
-  max-width: 100%;
-  min-height: 500px;
-}
 
-.form-container {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  transition: all 0.6s ease-in-out;
-}
-
-.login-container {
+.signup-login-form .login-container {
   left: 0;
   width: 50%;
   z-index: 2;
 }
 
-.container.right-panel-active .login-container {
+.signup-login-form .forms-container.right-panel-active .login-container {
   transform: translateX(100%);
 }
 
-.register-container {
+.signup-login-form .register-container {
   left: 0;
   width: 50%;
   opacity: 0;
   z-index: 1;
 }
 
-.container.right-panel-active .register-container {
+.signup-login-form .forms-container.right-panel-active .register-container {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
@@ -214,7 +216,7 @@ input {
   }
 }
 
-.overlay-container {
+.signup-login-form .overlay-container {
   position: absolute;
   top: 0;
   left: 50%;
@@ -225,11 +227,11 @@ input {
   z-index: 100;
 }
 
-.container.right-panel-active .overlay-container {
+.signup-login-form .forms-container.right-panel-active .overlay-container {
   transform: translate(-100%);
 }
 
-.overlay {
+.signup-login-form .overlay {
   background-image: url('');
   background-repeat: no-repeat;
   background-size: cover;
@@ -243,7 +245,7 @@ input {
   transition: transform 0.6s ease-in-out;
 }
 
-.overlay::before {
+.signup-login-form .overlay::before {
   content: "";
   position: absolute;
   left: 0;
@@ -257,11 +259,11 @@ input {
   );
 }
 
-.container.right-panel-active .overlay {
+.signup-login-form .forms-container.right-panel-active .overlay {
   transform: translateX(50%);
 }
 
-.overlay-panel {
+.signup-login-form .overlay-panel {
   position: absolute;
   display: flex;
   align-items: center;
@@ -271,33 +273,33 @@ input {
   text-align: center;
   top: 0;
   height: 100%;
-  width: 50%;
+  width: 44%;
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
 
-.overlay-left {
+.signup-login-form .overlay-left {
   transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
+.forms-container.right-panel-active .overlay-left {
   transform: translateX(0);
 }
 
-.overlay-right {
+.signup-login-form .overlay-right {
   right: 0;
   transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
+.signup-login-form .forms-container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
 
-.social-container {
+.signup-login-form .social-container {
   margin: 20px 0;
 }
 
-.social-container a {
+.signup-login-form .social-container a {
   border: 1px solid #dddddd;
   border-radius: 50%;
   display: inline-flex;
@@ -309,6 +311,15 @@ input {
   transition: 0.3s ease-in-out;
 }
 
-.social-container a:hover {
+.signup-login-form .social-container a:hover {
   border: 1px solid #4bb6b7;
+}
+
+.error-message {
+  display: inline-block;
+  background-color: #ffd7d7;
+  color: #dc3545;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.5s ease;
 }
