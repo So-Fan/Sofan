@@ -1,0 +1,15 @@
+.nft-collection-more-about-athlete{
+    width: 1243px;
+    height: 601px;
+    background-color: red;
+}
+.nft-collection-more-about-athlete-picture-container{
+    width: 582px;
+    height: 601px;
+}
+.nft-collection-more-about-athlete-picture-container img{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px 0px 0px 20px;
+    
+}
