@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NftCollectionMoreAboutAthlete.css";
+
 function NftCollectionMoreAboutAthlete() {
+//   const [isExpanded, setIsExpanded] = useState(true);
+
   const backendDataNftCollection = {
     moreAbout: [
       {
-        picture:"https://img.20mn.fr/Y3a30zR7TLqF2hdlobUm2w/648x360_nicoise-alexia-barrier-boucle-vendee-globe-111-jours-17-heures-8-minutes-dimanche-28-fevrier.jpg",
+        picture: "https://i.imgur.com/Z7rHdVv.png",
         sportTitle: "Skipper",
         fullName: "Alexia Barrier",
         description:
@@ -13,11 +16,30 @@ function NftCollectionMoreAboutAthlete() {
       },
     ],
   };
+
+//   const handleToggle = () => {
+//     setIsExpanded((prevState) => !prevState);
+//   };
+
   return (
-    <section className="nft-collection-more-about-athlete">
-      <div className="nft-collection-more-about-athlete-picture-container">
-        <img src={backendDataNftCollection.moreAbout[0].picture} alt="photo athlete" />
+    <section className="nft-collection-more-about-athlete-container">
+      <div
+        className="nft-collection-more-about-athlete-wrap"
+      >
+        <div className="nft-collection-more-about-athlete-picture-container">
+          <img
+            src={backendDataNftCollection.moreAbout[0].picture}
+            alt="photo athlete"
+          />
+        </div>
+        <div className="nft-collection-more-about-presentation-container">
+          {/* <h2>{backendDataNftCollection.moreAbout[0].fullName}</h2> */}
+          {/* <p>{backendDataNftCollection.moreAbout[0].description}</p> */}
+        </div>
       </div>
+      {/* <button onClick={handleToggle}>
+        {isExpanded ? "Show less" : "Show more"}
+      </button> */}
     </section>
   );
 }

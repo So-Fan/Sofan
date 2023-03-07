@@ -1,15 +1,37 @@
-.nft-collection-more-about-athlete{
-    width: 1243px;
-    height: 601px;
-    background-color: red;
+.nft-collection-more-about-athlete-container {
+  display: flex;
+  justify-content: center;
+  max-width: 1380px;
+  width: 100%;
 }
-.nft-collection-more-about-athlete-picture-container{
-    width: 582px;
-    height: 601px;
+.nft-collection-more-about-athlete-wrap {
+  width: 100%;
+  height: 100%;
+  max-width: 90%;
+  max-height: 601px;
+  display: flex;
 }
-.nft-collection-more-about-athlete-picture-container img{
-    width: 100%;
-    height: 100%;
-    border-radius: 20px 0px 0px 20px;
+.nft-collection-more-about-athlete-picture-container {
+  max-width: 582px;
+  max-height: 601px;
+
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nft-collection-more-about-athlete-picture-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 0px 0px 20px;
+}
+
+.nft-collection-more-about-presentation-container {
+  flex: 1;
+  max-width: 661px;
+  background: #2b2f34;
+  border-radius: 0px 20px 20px 0px;
+}
+/* @media (max-width:1350px) {
     
-}
+} */
