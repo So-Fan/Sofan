@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import NftCollectionHeader from "../../Components/NftCollectionHeader/NftCollectionHeader";
 import NftCollectionOverview from "../../Components/NftCollectionOverview/NftCollectionOverview";
+import NftCollectionProperties from "../../Components/NftCollectionProperties/NftCollectionProperties";
 import NftCollectionSubMenu from "../../Components/NftCollectionSubMenu/NftCollectionSubMenu";
 import "./NftSingle.css";
 const NftSingle = () => {
@@ -38,6 +39,7 @@ const NftSingle = () => {
           />
         </div>
         {isSubMenuClicked[0] && <NftCollectionOverview/>}
+        {isSubMenuClicked[1] && <NftCollectionProperties/>}
       </div>
     </section>
   );
