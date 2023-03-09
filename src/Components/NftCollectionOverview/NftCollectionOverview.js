@@ -1,8 +1,5 @@
 import React from "react";
 import "./NftCollectionOverview.css";
-import meetingsLogo from "../../Assets/Image/meetings-logo.svg";
-import liveLogo from "../../Assets/Image/live-logo.svg";
-import merchLogo from "../../Assets/Image/merch-logo.svg";
 import UtilitiesComponent from "../UtilitiesComponent/UtilitiesComponent";
 import { v4 as uuidv4 } from "uuid";
 

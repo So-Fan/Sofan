@@ -90,7 +90,7 @@
 }
 .nft-collection-overview-latest-bids-title {
   max-width: 100%;
-  height: 36px;
+  height: 76px;
   display: flex;
   align-items: center;
   font-size: 30px;
@@ -99,7 +99,7 @@
 }
 .nft-collection-overview-latest-bids-wrap {
   width: 620px;
-  height: 455px;
+  height: 475px;
   display: flex;
   justify-content: center;
   align-items: center;
