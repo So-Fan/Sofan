@@ -9,7 +9,7 @@ const NftCardTemplate = ({ to, img, athleteName, title, id, price, bid, isTransp
       </div>
       <div className='nftcardtemplate-container-content'>
         <span className='nftcardtemplate-container-content-athletename'>{athleteName}</span>
-        <span className='nftcardtemplate-container-content-title'>{title} {id}</span>
+        <span className='nftcardtemplate-container-content-title'>{title} #{id}</span>
         <div className='nftcardtemplate-container-content-price-wrap'>
             <div className='nftcardtemplate-container-content-price-subwrap'>
                 <span className='nftcardtemplate-container-content-price-subwrap-text'>Price</span>
