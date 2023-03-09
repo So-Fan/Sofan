@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 import "./NftCollectionMoreAboutAthlete.css";
 
-function NftCollectionMoreAboutAthlete() {
-  const backendDataNftCollection = {
-    moreAbout: [
-      {
-        picture: "https://i.imgur.com/Z7rHdVv.png",
-        sportTitle: "Skipper",
-        fullName: "Alexia Barrier",
-        description:
-          "Alexia Barrier is a French professional sailor and skipper. She has competed in several sailing races, including the Solitaire du Figaro and the Vendée Globe. She is the first woman to have completed the Vendée Globe solo non-stop race, finishing in 16th place. She is also the founder of the Sail & Help association, which promotes environmental protection and education through sailing.",
-        fansNumber: 121023,
-      },
-    ],
-  };
+function NftCollectionMoreAboutAthlete({moreAbout}) {
 
   return (
     <section className="nft-collection-more-about-athlete-container">
@@ -23,7 +11,7 @@ function NftCollectionMoreAboutAthlete() {
       <div className="nft-collection-more-about-athlete-wrap">
         <div className="nft-collection-more-about-athlete-picture-container">
           <img
-            src={backendDataNftCollection.moreAbout[0].picture}
+            src={moreAbout[0].picture}
             alt="photo athlete"
           />
         </div>
@@ -32,13 +20,13 @@ function NftCollectionMoreAboutAthlete() {
             Skipper
           </div>
           <div className="nft-collection-more-about-athlete-name">
-            {backendDataNftCollection.moreAbout[0].fullName}
+            {moreAbout[0].fullName}
           </div>
           <div className="nft-collection-more-about-athlete-description">
-            {backendDataNftCollection.moreAbout[0].description}
+            {moreAbout[0].description}
           </div>
           <div className="nft-collection-more-about-athlete-fans-count">
-            {backendDataNftCollection.moreAbout[0].fansNumber} fans
+            {moreAbout[0].fansNumber} fans
           </div>
           <button className="nft-collection-more-about-athlete-view-profile-button">
             See the profile
