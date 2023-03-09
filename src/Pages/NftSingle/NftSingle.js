@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NftCollectionHeader from "../../Components/NftCollectionHeader/NftCollectionHeader";
 import NftCollectionHistory from "../../Components/NftCollectionHistory/NftCollectionHistory";
 import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
+import NftCollectionMoreAboutNft from "../../Components/NftCollectionMoreAboutNft/NftCollectionMoreAboutNft";
 import NftCollectionOverview from "../../Components/NftCollectionOverview/NftCollectionOverview";
 import NftCollectionProperties from "../../Components/NftCollectionProperties/NftCollectionProperties";
 import NftCollectionSubMenu from "../../Components/NftCollectionSubMenu/NftCollectionSubMenu";
@@ -46,6 +47,7 @@ const NftSingle = () => {
         <div className="nft-single-collection-page-more-about-athlete-container">
           <NftCollectionMoreAboutAthlete />
         </div>
+          <NftCollectionMoreAboutNft/>
       </div>
     </section>
   );
