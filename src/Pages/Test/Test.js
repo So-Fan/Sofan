@@ -1,10 +1,14 @@
 import React from "react";
 import "./Test.css";
-import NftCollectionPageSubMenu from "../../Components/NftCollectionPageSubMenu/NfCollectionPageSubMenu";
+import NftCollectionPageActivity from "../../Components/NftCollectionPageActivity/NftCollectionPageActivity";
 const Test = () => {
+  // concat data
+
   return (
     <>
-      <NftCollectionPageSubMenu />
+      <div className="submenu-nft-activity-container">
+        <NftCollectionPageActivity />
+      </div>
     </>
   );
 };
