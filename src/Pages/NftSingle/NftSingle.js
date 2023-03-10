@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NftCollectionHeader from "../../Components/NftCollectionHeader/NftCollectionHeader";
 import NftCollectionHistory from "../../Components/NftCollectionHistory/NftCollectionHistory";
+import NftCollectionLatestsBids from "../../Components/NftCollectionLatestsBids/NftCollectionLatestsBids";
 import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
 import NftCollectionMoreAboutNft from "../../Components/NftCollectionMoreAboutNft/NftCollectionMoreAboutNft";
 import NftCollectionOverview from "../../Components/NftCollectionOverview/NftCollectionOverview";
@@ -315,6 +316,11 @@ const NftSingle = () => {
             properties={
               dataSinglePageNftCollection.propertiesData[0].properties
             }
+          />
+        )}
+        {isSubMenuClicked[2] && (
+          <NftCollectionLatestsBids
+          latestBidsArray={dataSinglePageNftCollection.overviewData[0].latestBids}
           />
         )}
         {isSubMenuClicked[3] && (
