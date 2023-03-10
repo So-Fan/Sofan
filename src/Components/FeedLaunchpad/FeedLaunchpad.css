@@ -5,19 +5,20 @@
   width: 249px;
   min-height: 320px;
 }
-.feedlaunchpad-header-container{
-    display: flex;
-    justify-content: space-between;
+.feedlaunchpad-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .feedlaunchpad-header-title {
-    font-family: "Britanica-Heavy";
-    font-size: 20px;
-  }
-  .feedlaunchpad-header-button {
-    font-family: "Britanica-Regular";
-    text-decoration: none;
-    color: black;
-  }
-  .feedlaunchpad-header-button:hover {
-    text-decoration: underline;
-  }
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+}
+.feedlaunchpad-header-button {
+  font-family: "Britanica-Regular";
+  text-decoration: none;
+  color: black;
+}
+.feedlaunchpad-header-button:hover {
+  text-decoration: underline;
+}

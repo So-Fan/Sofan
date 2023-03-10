@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
 
 function HeadOfPost({
-  isDropDownButtonClicked,
-  setIsDropDownButtonClicked,
   dropDownMenuSize,
   headOfPostSizeLeft,
   headOfPostSizeRight,
   publicationTypeHeadOfPostPollPost,
   agePublicationPollPost,
   athleteNamePollPost,
+  handleDropdownPostFeedClick,
+  id,
+  //
+  postDate,
+  postDateType,
+  postType
 }) {
-  const [athleteName, setAthleteName] = useState("Romain Attanasio"); // A supprimer quand data reçu du Backend
+  const athleteName = "Romain Attanasio"; // reçu du backend
 
   return (
     <div className="publication-head-container">
@@ -27,7 +31,8 @@ function HeadOfPost({
           {athleteName}
         </div>
         {/* Backend here */}
-        <div className={`age-publication ${agePublicationPollPost}`}>3h</div>
+        {/* Import date backend data with props from home to here and from every page */}
+        <div className={`age-publication ${agePublicationPollPost}`}>{postDate}{postDateType}</div>
       </div>
       <div
         className={`publication-head-right-container ${headOfPostSizeRight}`}
@@ -36,12 +41,13 @@ function HeadOfPost({
         <div
           className={`publication-type ${publicationTypeHeadOfPostPollPost}`}
         >
-          Free
+          {postType}
         </div>
-        <DropDownButtonMenu 
-        isDropDownButtonClicked={isDropDownButtonClicked}
-        setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-        dropDownMenuSize={dropDownMenuSize} />
+        <DropDownButtonMenu
+          handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+          dropDownMenuSize={dropDownMenuSize}
+          id={id}
+        />
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ function LikesCommentsCounter({
   likeButtonSizePollPost,
   likeButtonContainerPollPost,
   logoCommentsPublicationPollPost,
-  callToggleModal,
+  setIsPostClicked,
 }) {
   return (
     <div
@@ -25,7 +25,7 @@ function LikesCommentsCounter({
         <div
           className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
         >
-          <Link onClick={callToggleModal}>29 likes</Link>
+          <Link onClick={setIsPostClicked}>29 likes</Link>
         </div>
       </div>
       <div className={`comments-publication ${commentPublicationPollPost} `}>
@@ -49,7 +49,7 @@ function LikesCommentsCounter({
         <div
           className={`comments-counter-publication ${commentsCounterPublicationPollPost}`}
         >
-          <Link onClick={callToggleModal}>10 comments</Link>
+          <Link onClick={setIsPostClicked}>10 comments</Link>
         </div>
       </div>
     </div>

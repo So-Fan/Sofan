@@ -1,19 +1,21 @@
 import React from "react";
-import "./EventComponent.css";
+import "./FeedEvent.css";
 import DataEvent from "./fakedata/dataEvent.json";
 import { Link } from "react-router-dom";
 import EventTemplate from "./EventTemplate/EventTemplate";
-const EventComponent = ({}) => {
+import { v4 as uuidv4 } from "uuid";
+const FeedEvent = () => {
   return (
     <div className="event-component">
       <div className="event-header-container">
-        <span className="event-header-title">Vos events</span>
+        <span className="event-header-title">Vos évènements</span>
         <Link to="/" className="event-header-button">
-          see all
+          voir plus
         </Link>
       </div>
       {DataEvent.events.map((event) => (
         <EventTemplate
+        key={uuidv4()}
           title={event.title}
           location={event.location}
           schedule={event.schedule}
@@ -25,4 +27,4 @@ const EventComponent = ({}) => {
   );
 };
 
-export default EventComponent;
+export default FeedEvent;

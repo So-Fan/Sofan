@@ -1,5 +1,5 @@
 .post-feed-description {
-    height: 85px;
+    min-height: 85px;
     width: 100%;
     /* background-color: grey; */
     display: flex;

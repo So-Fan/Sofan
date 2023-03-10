@@ -1,0 +1,11 @@
+.received-offers-user-container{
+    width: 100%;
+    /* max-width: 1245px; */
+}
+.received-offers-nft-list-container{
+    max-height: 440px;
+    overflow: scroll;
+}
+.received-offers-nft-list-container::-webkit-scrollbar{
+    display: none;
+}

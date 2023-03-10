@@ -1,0 +1,19 @@
+#modal-component{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.modal-component-wrap{
+    position: relative;
+}
+.modal-component-wrap img {
+    cursor: pointer;
+}
+#modal-component-cross{
+    position: absolute;
+}
