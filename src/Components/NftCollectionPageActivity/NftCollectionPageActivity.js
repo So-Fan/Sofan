@@ -28,7 +28,7 @@ function NftCollectionPageActivity() {
           nftImg: "https://i.imgur.com/BrRKHpT.png",
         },
         {
-          function: "Mint",
+          function: "Transferts",
           nftTitle: "Explore the World with Alexia Barrier",
           nftId: "#393",
           nftPriceEth: "0.500098484874",
@@ -96,7 +96,7 @@ function NftCollectionPageActivity() {
       dataBackend.activities[i].function = concatStringFromTo(
         dataBackend?.activities[i]?.function,
         7,
-        8,
+        10,
         false,
         false
       );
