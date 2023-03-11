@@ -6,6 +6,7 @@ function SignUp(props) {
       <form action="#">
         <h1>Inscrivez-vous ici.</h1>
         <input type="text" placeholder="Nom" />
+        <input type="text" placeholder="Username" />
         <input type="email" placeholder="Email" />
         <input type="password" placeholder="Mot de passe" />
         <button>S'inscrire</button>
