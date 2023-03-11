@@ -49,7 +49,7 @@ function UserProfilePage({
         athleteSupporting: 16,
         nftOwned: 159,
         banner: "https://i.imgur.com/sJTNEVk.png",
-        profilepicture: "https://i.imgur.com/cCVIcNS.png",
+        avatar: "https://i.imgur.com/cCVIcNS.png",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere tellus vehicula leo iaculis luctus. Ut vulputate elit risus, eget faucibus justo consectetur in."
       },
       received: [
@@ -214,7 +214,7 @@ function UserProfilePage({
     <>
       <section className="userprofilepage-container">
         <div className="userheader-container">
-          <BannerAndProfilePic banner={dataConcat?.userPageInfo.banner} profilePicture={dataConcat?.userPageInfo.profilepicture} />
+          <BannerAndProfilePic banner={dataConcat?.userPageInfo.banner} profilePicture={dataConcat?.userPageInfo.avatar} />
           <div className="user-content-activity-nft">
             <div className="username-and-stats-component">
               <UserNameAndStats userNameAndStatsObject={dataConcat?.userPageInfo} />
