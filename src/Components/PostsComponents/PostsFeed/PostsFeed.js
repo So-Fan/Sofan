@@ -39,7 +39,13 @@ function PostsFeed({
   pollThirdChoiceNumber,
   pollFourthChoiceNumber
   
-}) {
+}) 
+{
+  function handleClickShowComment(e) {
+    e.preventDefault();
+    setIsPostClicked(true);
+    
+  }
   const [isModdleToggled, setIsModalToggled] = useState(false);
   function displayVote() {
     if (pollTotalVote < 1) {
@@ -115,7 +121,7 @@ function PostsFeed({
             postCommentNumber={postCommentNumber}
           />
           <div className="show-comments-button-publication">
-            <Link onClick={() => setIsPostClicked(true)}>Show {postCommentNumber} comments</Link>
+            <Link onClick={(e) => handleClickShowComment(e)}>Show {postCommentNumber} comments</Link>
           </div>
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
