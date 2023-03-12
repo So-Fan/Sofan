@@ -2,12 +2,50 @@ import React from "react";
 import NftCard from "../NftCard/NftCard";
 import NftCardTemplate from "../NftCard/NftCardTemplate/NftCardTemplate";
 import "./NftCollectionMoreAboutNft.css";
-function NftCollectionMoreAboutNft({
-  adaptTitleToNftCollectionPageItems
-}) {
-  console.log(adaptTitleToNftCollectionPageItems)
+function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
+  console.log(adaptTitleToNftCollectionPageItems);
   const dataBackendNftCollectionMoreAboutNft = {
     nftCard: [
+      {
+        nftImage:
+          "https://i.seadn.io/gcs/files/dac49567c59c19147360a378c38b485d.jpg?w=500&auto=format",
+        collectionName: "Explore the World with Alexia Barrier",
+        nftId: 390,
+        ethPrice: 0.61,
+        highestBidEth: 0.03,
+      },
+      {
+        nftImage:
+          "https://i.seadn.io/gcs/files/dac49567c59c19147360a378c38b485d.jpg?w=500&auto=format",
+        collectionName: "Explore the World with Alexia Barrier",
+        nftId: 390,
+        ethPrice: 0.61,
+        highestBidEth: 0.03,
+      },
+      {
+        nftImage:
+          "https://i.seadn.io/gcs/files/dac49567c59c19147360a378c38b485d.jpg?w=500&auto=format",
+        collectionName: "Explore the World with Alexia Barrier",
+        nftId: 390,
+        ethPrice: 0.61,
+        highestBidEth: 0.03,
+      },
+      {
+        nftImage:
+          "https://i.seadn.io/gcs/files/dac49567c59c19147360a378c38b485d.jpg?w=500&auto=format",
+        collectionName: "Explore the World with Alexia Barrier",
+        nftId: 390,
+        ethPrice: 0.61,
+        highestBidEth: 0.03,
+      },
+      {
+        nftImage:
+          "https://i.seadn.io/gcs/files/dac49567c59c19147360a378c38b485d.jpg?w=500&auto=format",
+        collectionName: "Explore the World with Alexia Barrier",
+        nftId: 390,
+        ethPrice: 0.61,
+        highestBidEth: 0.03,
+      },
       {
         nftImage:
           "https://i.seadn.io/gcs/files/dac49567c59c19147360a378c38b485d.jpg?w=500&auto=format",
@@ -84,6 +122,23 @@ function NftCollectionMoreAboutNft({
               bid={element.highestBidEth}
             />
           ))}
+
+          {dataBackendNftCollectionMoreAboutNft.nftCard?.length % 4 === 1 && (
+            <>
+              <NftCardTemplate isTransparent={true} />
+              <NftCardTemplate isTransparent={true} />
+              <NftCardTemplate isTransparent={true} />
+            </>
+          )}
+          {dataBackendNftCollectionMoreAboutNft.nftCard?.length % 4 === 2 && (
+            <>
+              <NftCardTemplate isTransparent={true} />
+              <NftCardTemplate isTransparent={true} />
+            </>
+          )}
+          {dataBackendNftCollectionMoreAboutNft.nftCard?.length % 4 === 3 && (
+            <NftCardTemplate isTransparent={true} />
+          )}
         </div>
       </div>
     </section>
