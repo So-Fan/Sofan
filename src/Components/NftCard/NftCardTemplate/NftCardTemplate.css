@@ -39,6 +39,9 @@
   width: 100%;
   padding-bottom: 10.85px;
 }
+.nftcardtemplate-container-content-title-props p{
+font-family: "britanica-regular";
+}
 .nftcardtemplate-container-content-price-wrap {
   display: flex;
   width: 100%;
