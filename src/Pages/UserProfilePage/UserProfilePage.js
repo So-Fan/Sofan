@@ -17,6 +17,57 @@ function UserProfilePage({
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
   const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
+  // -----------------------------------------
+  // Api 
+  
+
+  useEffect(() => {
+    
+    const apiData ={
+      data : [
+        {
+          nftPriceeth: "0.50009",
+        },
+        {
+          nftPriceeth: "0.50009",
+        },
+        {
+          nftPriceeth: "0.50009",
+        },
+        {
+          nftPriceeth: "0.50009",
+        },
+        {
+          nftPriceeth: "0.50009",
+        },
+      ],
+    };
+
+    function concatStringApiData(string, maxLength, from0To_NUMBER_,isDotDotDot,isEnd ) {  
+    if (string.length > maxLength){
+      const stringBegin = string.slice(0, from0To_NUMBER_);
+      const dotDotDot = "..."
+      const stringEnd = string.slice(string.length - 3, string.length);
+      if (!isDotDotDot && !isEnd) {
+        return stringBegin;
+      } else if (isDotDotDot && !isEnd) {
+        return stringBegin + dotDotDot;
+      } else if (isDotDotDot && isEnd) {
+        return stringBegin + dotDotDot + stringEnd;
+      } else {
+        return string;
+      }
+    } else {
+      return string;
+    }
+  }
+    for (let i = 0; i < apiData.data.length; i++) {
+      apiData.data[i].nftPriceeth = concatStringApiData(apiData?.data[i].nftPriceeth,7,7, false, false);
+    }
+   setDataConcat()
+  }, [])
+  
+  // -----------------------------------------------
   function displayCategory() {
     if (isProfileSubMenuButtonClicked[0] === true) {
       return (
@@ -29,7 +80,9 @@ function UserProfilePage({
               isUSerProfileSeortBySelectorClicked
             }
           />
-          <NftCard userFrom={dataConcat?.collected} />
+          <NftCard 
+          // userFromApi={dataApiConcat?.data}
+          userFrom={dataConcat?.collected} />
         </>
       );
     } else if (isProfileSubMenuButtonClicked[1] === true) {
@@ -42,6 +95,7 @@ function UserProfilePage({
   }
   
   useEffect(() => {
+    
     const data = {
       userPageInfo: {
         username: "Gr3goir3",

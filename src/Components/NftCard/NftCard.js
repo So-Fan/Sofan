@@ -1,8 +1,9 @@
 import React from "react";
 import "./NftCard.css";
 import NftCardTemplate from "./NftCardTemplate/NftCardTemplate";
-const NftCard = ({ userFrom }) => {
-  console.log(userFrom?.length % 4);
+const NftCard = ({ userFrom, userFromApi }) => {
+  // console.log(userFrom?.length % 4);
+  console.log(userFromApi)
   return (
     <>
       <div className="nftcard-component">
