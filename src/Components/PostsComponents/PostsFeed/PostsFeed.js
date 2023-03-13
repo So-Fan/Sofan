@@ -10,6 +10,7 @@ import FullPagePost from "../../../Pages/FullPagePost/FullPagePost";
 import { Link } from "react-router-dom";
 import Modal from "../../Modal/Modal";
 import PremiumContentLocked from "../../PremiumContentLocked/PremiumContentLocked";
+import PollPost from "../PollPost/PollPost";
 function PostsFeed({
   handleDropdownPostFeedClick,
   isDropdownClicked,
@@ -20,10 +21,51 @@ function PostsFeed({
   postDate,
   postDateType,
   postType,
-  postImage
-}) {
+  postDescription,
+  pollFirstChoice,
+  pollSecondChoice,
+  pollThirdChoice,
+  pollFourthChoice,
+  postName,
+  pollDate,
+  pollDateType,
+  postPicture,
+  pollVoteNumbers,
+  postLikeNumber,
+  postCommentNumber,
+  pollTotalVote,
+  pollFirstChoiceNumber,
+  pollSecondChoiceNumber,
+  pollThirdChoiceNumber,
+  pollFourthChoiceNumber
+  
+}) 
+{
+  function handleClickShowComment(e) {
+    e.preventDefault();
+    setIsPostClicked(true);
+    
+  }
   const [isModdleToggled, setIsModalToggled] = useState(false);
-  console.log(lockPremiumContent)
+  function displayVote() {
+    if (pollTotalVote < 1) {
+      return ;
+    } else if (pollTotalVote > 1) {
+      return <PollPost
+      pollFirstChoice={pollFirstChoice}
+      pollSecondChoice={pollSecondChoice}
+      pollThirdChoice={pollThirdChoice}
+      pollFourthChoice={pollFourthChoice}
+      pollFirstChoiceNumber={pollFirstChoiceNumber}
+      pollSecondChoiceNumber={pollSecondChoiceNumber}
+      pollThirdChoiceNumber={pollThirdChoiceNumber}
+      pollFourthChoiceNumber={pollFourthChoiceNumber}
+      pollDate={pollDate}
+      pollDateType={pollDateType}
+      pollTotalVote={pollTotalVote}
+    />
+    }
+  }
   return (
     <>
       <div className="publication-container">
@@ -39,6 +81,8 @@ function PostsFeed({
           {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
+            postName={postName}
+            // 
               dropDownMenuSize="dropdown-button-point-size-M"
               headOfPostSizeLeft="publication-head-left-container-size-pollpost"
               headOfPostSizeRight="publication-head-right-container-pollpost"
@@ -53,10 +97,15 @@ function PostsFeed({
               postType={postType}
             />
           </div>
-          <PostsDescription postFeedDescription="post-feed-description-resize" />
+          <PostsDescription
+            postFeedDescription="post-feed-description-resize"
+            postDescription={postDescription}
+          />
+          {displayVote()}
           {/* Backend here */}
           <div className="publication-media">
-            <img src={attanasioBateau} alt="utilisateur" />
+            {/* <img src={attanasioBateau} alt="utilisateur" /> */}
+            <img src={postPicture} alt="" />
           </div>
           {/* Backend here */}
           <LikesCommentsCounter
@@ -68,9 +117,11 @@ function PostsFeed({
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
             setIsPostClicked={setIsPostClicked}
+            postLikeNumber={postLikeNumber}
+            postCommentNumber={postCommentNumber}
           />
           <div className="show-comments-button-publication">
-            <Link onClick={() => setIsPostClicked(true)}>Show 10 comments</Link>
+            <Link onClick={(e) => handleClickShowComment(e)}>Show {postCommentNumber} comments</Link>
           </div>
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
