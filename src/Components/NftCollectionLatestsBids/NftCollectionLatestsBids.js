@@ -1,9 +1,9 @@
 import React from "react";
 import "./NftCollectionLatestsBids.css"
 import { v4 as uuidv4 } from "uuid";
-function NftCollectionLatestsBids({latestBidsArray}) {
+function NftCollectionLatestsBids({latestBidsArray, bidsSectionDeleteSpace}) {
   return (
-    <div className="nft-collection-overview-latest-bids-container">
+    <div style={bidsSectionDeleteSpace && {marginTop: "0px"}} className="nft-collection-overview-latest-bids-container">
       <div className="nft-collection-overview-latest-bids-title">
         Latests bids
       </div>
