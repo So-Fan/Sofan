@@ -1,11 +1,11 @@
 import React from 'react'
-import PopUpBuyNft from '../../Components/PopUpBuyNft/PopUpBuyNft';
+import NftCollectionHeader from '../../Components/NftCollectionHeader/NftCollectionHeader';
 import "./Test.css";
+
 const Test = () => {
- 
-  return (
+   return (
     <>
-      <PopUpBuyNft />
+    <NftCollectionHeader/>
     </>
   );
 };
