@@ -1,11 +1,11 @@
-import React from 'react'
-import NftCollectionHistory from '../../Components/NftCollectionHistory/NftCollectionHistory';
+import React from "react";
+import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
 import "./Test.css";
 
 const Test = () => {
   return (
     <>
-<NftCollectionHistory/>
+      <NftCollectionMoreAboutAthlete />
     </>
   );
 };
