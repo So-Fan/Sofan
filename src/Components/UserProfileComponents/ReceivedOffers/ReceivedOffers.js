@@ -3,7 +3,7 @@ import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./ReceivedOffers.css";
 
-function ReceivedOffers({ userFrom }) {
+function ReceivedOffers({ userFrom, userFromApiEth }) {
   return (
     <section className="received-offers-user-container">
       {/* class à rename en bas */}
@@ -27,6 +27,9 @@ function ReceivedOffers({ userFrom }) {
             receivedFrom={user.from}
             offersTo={user.to}
             priceEth={user.nftPriceEth}
+            // 
+            ethPriceFromApi={userFromApiEth}
+            // 
             nftTitle={user.nftTitle}
             nftId={user.nftId}
             date={user.date}

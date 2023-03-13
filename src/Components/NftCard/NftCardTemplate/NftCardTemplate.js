@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import "./NftCardTemplate.css"
-const NftCardTemplate = ({ to, img, athleteName, title, id, price, bid, isTransparent}) => {
+const NftCardTemplate = ({ to, img, athleteName, title, id, price, bid, isTransparent, ethPriceFromApi, ethBidFromApi}) => {
+  console.log("NftCard Template ethPriceFrom Api -->  "+ethPriceFromApi)
+  
   return (
     <Link to={`/${athleteName}/nft/${to}`} className='nftcardtemplate-component' style={isTransparent && {visibility: "hidden"}}>
       <div className='nftcardtemplate-image-wrap'>
@@ -13,11 +15,11 @@ const NftCardTemplate = ({ to, img, athleteName, title, id, price, bid, isTransp
         <div className='nftcardtemplate-container-content-price-wrap'>
             <div className='nftcardtemplate-container-content-price-subwrap'>
                 <span className='nftcardtemplate-container-content-price-subwrap-text'>Price</span>
-                <span className='nftcardtemplate-container-content-price-subwrap-price'>{price} ETH</span>
+                <span className='nftcardtemplate-container-content-price-subwrap-price'>{ethPriceFromApi} ETH</span>
             </div>
             <div className='nftcardtemplate-container-content-price-subwrap'>
                 <span className='nftcardtemplate-container-content-price-subwrap-text'>Highest bid</span>
-                <span className='nftcardtemplate-container-content-price-subwrap-price'>{bid} ETH</span>
+                <span className='nftcardtemplate-container-content-price-subwrap-price'>{ethBidFromApi} ETH</span>
             </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./FormulatedOffers.css";
 
-function FormulatedOffers({userFrom}) {
+function FormulatedOffers({userFrom, userFromApiEth}) {
   // Backend here
   const [currentStatusOffers, setCurrentStatusOffers] = useState({
     validate: false,
@@ -45,6 +45,9 @@ function FormulatedOffers({userFrom}) {
               nftId={user.nftId}
               nftImg={user.nftImg}
               priceEth={user.nftPriceEth}
+              // 
+              ethPriceFromApi={userFromApiEth}
+              // 
               date={user.date}
               offersStatus={user.status}
               offersStatusImage={

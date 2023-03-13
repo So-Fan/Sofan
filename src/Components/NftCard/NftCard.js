@@ -1,14 +1,15 @@
 import React from "react";
 import "./NftCard.css";
 import NftCardTemplate from "./NftCardTemplate/NftCardTemplate";
-const NftCard = ({ userFrom, userFromApi }) => {
+const NftCard = ({ userFrom, userFromApiEth, userFromApiBid }) => {
   // console.log(userFrom?.length % 4);
-  console.log(userFromApi)
   return (
     <>
       <div className="nftcard-component">
         {userFrom?.map((nft) => (
           <NftCardTemplate
+          ethPriceFromApi={userFromApiEth}
+          ethBidFromApi={userFromApiBid}
             to={`/user/nftcard/${nft.nftId}`}
             img={nft.img}
             athleteName={nft.athleteName}
