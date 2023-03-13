@@ -1,10 +1,10 @@
 import React from "react";
 import "./Test.css";
-import NftCollectionSubMenu from "../../Components/NftCollectionSubMenu/NftCollectionSubMenu";
+import NftCollectionOverview from "../../Components/NftCollectionOverview/NftCollectionOverview";
 const Test = () => {
   return (
     <>
-      <NftCollectionSubMenu />
+      <NftCollectionOverview />
     </>
   );
 };
