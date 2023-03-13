@@ -9,6 +9,9 @@
   align-items: center;
   overflow-y: scroll;
 }
+.nft-collection-history-container::-webkit-scrollbar{
+  display: none;
+}
 .nft-collection-history-wrap{
     width: 579px;
     height: 340px;
