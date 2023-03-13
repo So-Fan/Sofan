@@ -1,13 +1,11 @@
-import React from "react";
-import NftCollectionProperties from "../../Components/NftCollectionProperties/NftCollectionProperties";
+import React from 'react'
+import NftCollectionHistory from '../../Components/NftCollectionHistory/NftCollectionHistory';
 import "./Test.css";
 
 const Test = () => {
   return (
     <>
-
-      <NftCollectionProperties />
-
+<NftCollectionHistory/>
     </>
   );
 };
