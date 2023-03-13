@@ -1,23 +1,7 @@
 import React, { useState } from "react";
 import "./NftCollectionSubMenu.css";
-function NftCollectionSubMenu() {
-  const [isSubMenuClicked, setIsSubMenuClicked] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
-  function handleClickSubMenuButton(e) {
-    if (e.target.innerHTML === "Overview") {
-      setIsSubMenuClicked([true, false, false, false]);
-    } else if (e.target.innerHTML === "Properties") {
-      setIsSubMenuClicked([false, true, false, false]);
-    } else if (e.target.innerHTML === "Bids") {
-      setIsSubMenuClicked([false, false, true, false]);
-    } else if (e.target.innerHTML === "Activity") {
-      setIsSubMenuClicked([false, false, false, true]);
-    }
-  }
+function NftCollectionSubMenu({handleClickSubMenuButton, isSubMenuClicked}) {
+
   return (
     <div className="nft-collection-submenu-container">
       <div

@@ -1,65 +1,12 @@
 import React from "react";
 import "./NftCollectionHistory.css";
 import { v4 as uuidv4 } from "uuid";
-function NftCollectionHistory() {
-    // concat string length
-  const dataBackendNftCollectionHistory = {
-    history: [
-      {
-        profilePicture: "https://i.imgur.com/cCVIcNS.png",
-        userName: "DonOfSomething",
-        date: "3 weeks ago ",
-        priceEth: 0.91,
-        priceEur: 1267.53,
-      },
-        {
-          profilePicture: "https://i.imgur.com/cCVIcNS.png",
-          userName: "DonOfSomething",
-          date: "3 weeks ago ",
-          priceEth: 0.91,
-          priceEur: 1267.53,
-        },
-        {
-          profilePicture: "https://i.imgur.com/cCVIcNS.png",
-          userName: "DonOfSomething",
-          date: "3 weeks ago ",
-          priceEth: 0.91,
-          priceEur: 1267.53,
-        },
-        {
-          profilePicture: "https://i.imgur.com/cCVIcNS.png",
-          userName: "DonOfSomething",
-          date: "3 weeks ago ",
-          priceEth: 0.91,
-          priceEur: 1267.53,
-        },
-        {
-          profilePicture: "https://i.imgur.com/cCVIcNS.png",
-          userName: "DonOfSomething",
-          date: "3 weeks ago ",
-          priceEth: 0.91,
-          priceEur: 1267.53,
-        },
-        {
-          profilePicture: "https://i.imgur.com/cCVIcNS.png",
-          userName: "DonOfSomething",
-          date: "3 weeks ago ",
-          priceEth: 0.91,
-          priceEur: 1267.53,
-        },
-        {
-          profilePicture: "https://i.imgur.com/cCVIcNS.png",
-          userName: "DonOfSomething",
-          date: "3 weeks ago ",
-          priceEth: 0.91,
-          priceEur: 1267.53,
-        },
-    ],
-  };
+function NftCollectionHistory({history}) {
+  
   return (
     <section className="nft-collection-history-container">
       <div className="nft-collection-history-wrap">
-        {dataBackendNftCollectionHistory.history.map((element) => (
+        {history.map((element) => (
           <div key={uuidv4()} className="nft-collection-history-bids">
             <div className="nft-collection-history-bids-profile-pic">
               <img

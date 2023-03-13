@@ -12,6 +12,7 @@
 .nft-collection-properties-card-container {
   width: 300px;
   height: 100px;
+  margin-top: 20px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
   border-radius: 13.5142px;
   /* background-color: aqua; */
