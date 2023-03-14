@@ -29,6 +29,7 @@ function NftCollectionHeader({
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
+        {launchpadCollectionLiveHeader && <><button className="launchpad-collection-live-button-container">Explorer la collection</button></>}
         <img src={explorePicture} alt="IMAGE NFT" />
       </div>
       {launchpadCollectionLiveHeader ? (
