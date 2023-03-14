@@ -1,12 +1,11 @@
 import React from "react";
-import NftCollectionMoreAboutNft from "../../Components/NftCollectionMoreAboutNft/NftCollectionMoreAboutNft";
+import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
 import "./Test.css";
-import NftCollectionOverview from "../../Components/NftCollectionOverview/NftCollectionOverview";
+
 const Test = () => {
   return (
     <>
-      <NftCollectionMoreAboutNft />
-
+    <LaunchpadCollectionLiveHeader/>
     </>
   );
 };
