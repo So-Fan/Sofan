@@ -18,7 +18,14 @@ function NftCollectionHeader({
   nftBifEur,
   //
   launchpadCollectionLiveHeader,
+  //
+  minLimit,
+  timer,
+  counterNftMinted,
+  totalNftMintable,
 }) {
+  const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
+  console.log(nftMintedCalculated);
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
@@ -45,11 +52,39 @@ function NftCollectionHeader({
               </div>
               <div className="launchpad-collection-live-header-right-line-separation"></div>
               <div className="launchpad-collection-live-header-right-price-container">
-                <div className="launchpad-collection-live-header-right-eth-price">{nftPriceEth} ETH</div>
-                <div className="launchpad-collection-live-header-right-eur-price">{nftPriceEur}€</div>
+                <div className="launchpad-collection-live-header-right-eth-price">
+                  {nftPriceEth} ETH
+                </div>
+                <div className="launchpad-collection-live-header-right-eur-price">
+                  {nftPriceEur}€
+                </div>
               </div>
               <div className="launchpad-collection-live-header-right-mint-module-container">
-
+                <div className="launchpad-collection-live-header-right-mint-module-timer-and-limit">
+                  <div className="launchpad-collection-live-header-right-mint-module-timer">
+                    End in {timer}
+                  </div>
+                  <div className="launchpad-collection-live-header-right-mint-module-limit">
+                    Limit {minLimit} per wallet
+                  </div>
+                </div>
+                <div className="launchpad-collection-live-header-right-mint-module-progress-bar-background">
+                  <div
+                    style={{ width: `${nftMintedCalculated}%` }}
+                    className="launchpad-collection-live-header-right-mint-module-progress-bar"
+                  ></div>
+                </div>
+                <div className="launchpad-collection-live-header-right-mint-module-total-minted">
+                  <div className="launchpad-collection-live-header-right-mint-module-total-minted-title">
+                    Total minted
+                  </div>
+                  <div className="launchpad-collection-live-header-right-mint-module-total-minted-number">
+                    {counterNftMinted} / {totalNftMintable}
+                  </div>
+                </div>
+                <div className="launchpad-collection-live-header-right-mint-module-mint-button-container">
+                  <button className="launchpad-collection-live-header-right-mint-module-mint-button">Mint now</button>
+                </div>
               </div>
             </div>
           </div>
