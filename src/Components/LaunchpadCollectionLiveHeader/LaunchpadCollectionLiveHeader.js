@@ -27,7 +27,7 @@ function LaunchpadCollectionLiveHeader() {
         {
             ethPrice: 0.5,
             eurPrice: 625.02,
-            counterNftMinted: 407,
+            counterNftMinted: 405,
             totalNftMintable: 500,
         },
     ]

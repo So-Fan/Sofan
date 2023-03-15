@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./NftCollectionHeader.css";
 import explorePicture from "../../Assets/Image/explorepicture.svg";
 import DropDownButtonMenu from "../PostsComponents/DropDownButtonMenu/DropDownButtonMenu";
@@ -24,8 +24,18 @@ function NftCollectionHeader({
   counterNftMinted,
   totalNftMintable,
 }) {
+const [styleChangeButton, setStyleChangeButton] =useState("")
+
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
-  console.log(nftMintedCalculated);
+  function handleStyleButotn() {
+    
+    if (nftMintedCalculated === 0) {
+   return "#EDEDED";
+    } else if (nftMintedCalculated > 0) {
+      return "";
+    }
+  }
+  
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
@@ -84,7 +94,7 @@ function NftCollectionHeader({
                   </div>
                 </div>
                 <div className="launchpad-collection-live-header-right-mint-module-mint-button-container">
-                  <button className="launchpad-collection-live-header-right-mint-module-mint-button">Mint now</button>
+                  <button style={{backgroundColor: handleStyleButotn() }} className="launchpad-collection-live-header-right-mint-module-mint-button">Mint now</button>
                 </div>
               </div>
             </div>
