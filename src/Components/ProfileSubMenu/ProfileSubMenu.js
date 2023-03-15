@@ -8,6 +8,7 @@ const ProfileSubMenu = ({
   isPageAthlete,
   profileSubMenuOffresClicked,
   setProfileSubMenuOffresClicked,
+  isNftCollectionPage,
 }) => {
   const handleProfileSubMenuOffresButtonClicked = (e) => {
     setProfileSubMenuOffresClicked(true);
@@ -54,7 +55,7 @@ const ProfileSubMenu = ({
         setIsProfileSubMenuButtonClicked([false, false, false, true]);
       }
     } else {
-      if (e.target.innerHTML === "Collected NFT") {
+      if (e.target.innerHTML === "Collected NFT" || e.target.innerHTML === "Items") {
         setIsProfileSubMenuButtonClicked([
           true,
           false,
@@ -128,6 +129,8 @@ const ProfileSubMenu = ({
         ]);
       }
     }
+    //
+   
   };
 
   return (
@@ -196,7 +199,7 @@ const ProfileSubMenu = ({
       >
         <Button
           onClick={handleProfileSubMenuButtonClicked}
-          text="Collected NFT"
+          text={isNftCollectionPage ? "Items" : "Collected NFT"}
           style={
             isProfileSubMenuButtonClicked[0]
               ? ProfileSubMenuButtonStyle.stylingClicked
@@ -221,102 +224,111 @@ const ProfileSubMenu = ({
           }
         />
       </div>
-      {profileSubMenuOffersChoice !== "Offres formulées" &&
-        profileSubMenuOffersChoice !== "Offres reçues" && (
-          <div className="profilesubmenu-wrap profilesubmenu-offres profilesubmenu-arrow-wrap">
-            <Button
-              onClick={handleProfileSubMenuOffresButtonClicked}
-              text="Offres"
-              style={ProfileSubMenuButtonStyle.stylingNotClicked}
-              id="profilesubmenu-offres"
-            />
-            <img src={Arrow} alt="Arrow bottom" />
-            <div
-              className={
-                profileSubMenuOffresClicked
-                  ? "profilesubmenu-offres-dropdown-clicked"
-                  : "profilesubmenu-offres-dropdown"
-              }
-            >
-              <span onClick={handleProfileSubMenuChoiceSpanClicked}>
-                Offres formulées
-              </span>
-              <span onClick={handleProfileSubMenuChoiceSpanClicked}>
-                Offres reçues
-              </span>
-            </div>
-          </div>
+      {/*  */}
+      <>
+        {isNftCollectionPage ? (
+          <></>
+        ) : (
+          <>
+            {profileSubMenuOffersChoice !== "Offres formulées" &&
+              profileSubMenuOffersChoice !== "Offres reçues" && (
+                <div className="profilesubmenu-wrap profilesubmenu-offres profilesubmenu-arrow-wrap">
+                  <Button
+                    onClick={handleProfileSubMenuOffresButtonClicked}
+                    text="Offres"
+                    style={ProfileSubMenuButtonStyle.stylingNotClicked}
+                    id="profilesubmenu-offres"
+                  />
+                  <img src={Arrow} alt="Arrow bottom" />
+                  <div
+                    className={
+                      profileSubMenuOffresClicked
+                        ? "profilesubmenu-offres-dropdown-clicked"
+                        : "profilesubmenu-offres-dropdown"
+                    }
+                  >
+                    <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                      Offres formulées
+                    </span>
+                    <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                      Offres reçues
+                    </span>
+                  </div>
+                </div>
+              )}
+            {profileSubMenuOffersChoice === "Offres formulées" && (
+              <div
+                className={
+                  isProfileSubMenuButtonClicked[2]
+                    ? "profilesubmenu-wrap-clicked profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
+                    : "profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
+                }
+              >
+                <Button
+                  onClick={handleProfileSubMenuButtonClicked}
+                  text="Offres formulées"
+                  style={
+                    isProfileSubMenuButtonClicked[2]
+                      ? ProfileSubMenuButtonStyle.stylingClicked
+                      : ProfileSubMenuButtonStyle.stylingNotClicked
+                  }
+                  id="profilesubmenu-offres-formulées"
+                />
+                <img src={Arrow} alt="Arrow bottom" />
+                <div
+                  className={
+                    profileSubMenuOffresClicked
+                      ? "profilesubmenu-offres-dropdown-clicked"
+                      : "profilesubmenu-offres-dropdown"
+                  }
+                >
+                  <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                    Offres formulées
+                  </span>
+                  <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                    Offres reçues
+                  </span>
+                </div>
+              </div>
+            )}
+            {profileSubMenuOffersChoice === "Offres reçues" && (
+              <div
+                className={
+                  isProfileSubMenuButtonClicked[3]
+                    ? "profilesubmenu-wrap-clicked profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
+                    : "profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
+                }
+              >
+                <Button
+                  onClick={handleProfileSubMenuButtonClicked}
+                  text="Offres reçues"
+                  style={
+                    isProfileSubMenuButtonClicked[3]
+                      ? ProfileSubMenuButtonStyle.stylingClicked
+                      : ProfileSubMenuButtonStyle.stylingNotClicked
+                  }
+                  id="profilesubmenu-offres-reçues"
+                />
+                <img src={Arrow} alt="Arrow bottom" />
+                <div
+                  className={
+                    profileSubMenuOffresClicked
+                      ? "profilesubmenu-offres-dropdown-clicked"
+                      : "profilesubmenu-offres-dropdown"
+                  }
+                >
+                  <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                    Offres formulées
+                  </span>
+                  <span onClick={handleProfileSubMenuChoiceSpanClicked}>
+                    Offres reçues
+                  </span>
+                </div>
+              </div>
+            )}
+          </>
         )}
-      {profileSubMenuOffersChoice === "Offres formulées" && (
-        <div
-          className={
-            isProfileSubMenuButtonClicked[2]
-              ? "profilesubmenu-wrap-clicked profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
-              : "profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
-          }
-        >
-          <Button
-            onClick={handleProfileSubMenuButtonClicked}
-            text="Offres formulées"
-            style={
-              isProfileSubMenuButtonClicked[2]
-                ? ProfileSubMenuButtonStyle.stylingClicked
-                : ProfileSubMenuButtonStyle.stylingNotClicked
-            }
-            id="profilesubmenu-offres-formulées"
-          />
-          <img src={Arrow} alt="Arrow bottom" />
-          <div
-            className={
-              profileSubMenuOffresClicked
-                ? "profilesubmenu-offres-dropdown-clicked"
-                : "profilesubmenu-offres-dropdown"
-            }
-          >
-            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
-              Offres formulées
-            </span>
-            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
-              Offres reçues
-            </span>
-          </div>
-        </div>
-      )}
-      {profileSubMenuOffersChoice === "Offres reçues" && (
-        <div
-          className={
-            isProfileSubMenuButtonClicked[3]
-              ? "profilesubmenu-wrap-clicked profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
-              : "profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
-          }
-        >
-          <Button
-            onClick={handleProfileSubMenuButtonClicked}
-            text="Offres reçues"
-            style={
-              isProfileSubMenuButtonClicked[3]
-                ? ProfileSubMenuButtonStyle.stylingClicked
-                : ProfileSubMenuButtonStyle.stylingNotClicked
-            }
-            id="profilesubmenu-offres-reçues"
-          />
-          <img src={Arrow} alt="Arrow bottom" />
-          <div
-            className={
-              profileSubMenuOffresClicked
-                ? "profilesubmenu-offres-dropdown-clicked"
-                : "profilesubmenu-offres-dropdown"
-            }
-          >
-            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
-              Offres formulées
-            </span>
-            <span onClick={handleProfileSubMenuChoiceSpanClicked}>
-              Offres reçues
-            </span>
-          </div>
-        </div>
-      )}
+      </>
     </div>
   );
 };
