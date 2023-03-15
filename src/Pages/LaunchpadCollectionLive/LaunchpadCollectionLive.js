@@ -1,7 +1,9 @@
 import React from "react";
 import "./LaunchpadCollectionLive.css";
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
-import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities"
+import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities";
+import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
+import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/LaunchpadCollectionLiveMoreAboutCollection/LaunchpadCollectionLiveMoreAboutCollection";
 function LaunchpadCollectionLive() {
   const dataBackend = {
     header: [
@@ -36,6 +38,12 @@ function LaunchpadCollectionLive() {
         description:
           "Receive your new collection t-shirt, signed by Alexia herself at the end of the race. The t-shirts will be sent 1 week after the end of the race.",
         date: "August 7th 2023",
+      },
+    ],
+    moreAboutThisCollection: [
+      {
+        description:
+          "This collection has a stamp, created from the imagination of Alexia Barrier and her passions, referring to events from her past that have shaped the person she has become. This collection has a stamp, created from the imagination of Alexia Barrier and her passions, referring to events from her past that have shaped the person she has become.",
       },
     ],
   };
@@ -75,9 +83,14 @@ function LaunchpadCollectionLive() {
         totalNftMintable={dataApi.header[0].totalNftMintable}
       />
       <div className="launchpad-collection-live-page-left-container">
-      <LaunchpadCollectionLiveUtilities
-      utilitiesArray={dataBackend.utilities}
-      />
+        
+          <LaunchpadCollectionLiveUtilities
+            utilitiesArray={dataBackend.utilities}
+          />
+          <LaunchpadCollectionLiveMoreAboutCollection 
+          moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
+          />
+        
       </div>
     </section>
   );

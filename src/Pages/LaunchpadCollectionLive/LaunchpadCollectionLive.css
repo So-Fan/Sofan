@@ -1,13 +1,24 @@
 .launchpad-collection-live-page-container{
     background-color: yellowgreen;
+    width: 100%;
+    max-width: 1243px;
+    display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 .launchpad-collection-live-page-left-container{
     background-color: aquamarine;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
-
+.launchpad-collection-live-page-left-wrap{
+    /* width: 100%; */
+}
 @media (max-width: 1180px) {
     .launchpad-collection-live-page-left-container{
         display: flex;
-        justify-content: center;
+        align-items: center;
     }
 }
