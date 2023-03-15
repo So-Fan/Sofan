@@ -4,7 +4,13 @@ import liveLogo from "../../Assets/Image/live-logo.svg";
 import merchLogo from "../../Assets/Image/merch-logo.svg";
 import "./UtilitiesComponent.css";
 
-function UtilitiesComponent({ utilitiesTitle,utilitiesStatus, utilitiesDescription, utilitiesDate }) {
+function UtilitiesComponent({
+  utilitiesTitle,
+  utilitiesStatus,
+  utilitiesDescription,
+  utilitiesDate,
+  launchpadCollectionLiveUtilities,
+}) {
   const [status, setStatus] = useState();
   function displayStatusColor() {
     if (utilitiesStatus === "Disponible") {
@@ -13,14 +19,13 @@ function UtilitiesComponent({ utilitiesTitle,utilitiesStatus, utilitiesDescripti
       setStatus(false);
     }
   }
- 
 
-//   console.log(utilitiesStatus)
-useEffect(() => {
-  const test =  () => displayStatusColor();
-  test()
-}, [])
-console.log(status)
+  //   console.log(utilitiesStatus)
+  useEffect(() => {
+    const test = () => displayStatusColor();
+    test();
+  }, []);
+  console.log(status);
   return (
     <div className="nft-collection-overview-utilities-one-container">
       <div className="nft-collection-overview-utilities-one-wrap">
@@ -31,21 +36,27 @@ console.log(status)
           <div className="nft-collection-overview-one-header-title">
             {utilitiesTitle}
           </div>
-          <div className="nft-collection-overview-one-header-status">
-            <div
-              className={
-                status
-                  ? "nft-collectin-overview-one-header-status-color-available"
-                  : "nft-collectin-overview-one-header-status-color-unavailable"
-              }
-            ></div>
-            <div className="nft-collection-overview-one-header-status-text">
-              {utilitiesStatus}
-            </div>
-          </div>
+          {launchpadCollectionLiveUtilities ? (
+            <></>
+          ) : (
+            <>
+              <div className="nft-collection-overview-one-header-status">
+                <div
+                  className={
+                    status
+                      ? "nft-collectin-overview-one-header-status-color-available"
+                      : "nft-collectin-overview-one-header-status-color-unavailable"
+                  }
+                ></div>
+                <div className="nft-collection-overview-one-header-status-text">
+                  {utilitiesStatus}
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <div className="nft-collection-overview-utilities-one-description">
-         {utilitiesDescription}
+          {utilitiesDescription}
         </div>
         <div className="nft-collection-overview-utilities-one-date">
           Date of the utility : {utilitiesDate}
