@@ -745,6 +745,9 @@
     max-height: 40px;
   }
   /* ======================================================= */
+  .launchpad-collection-live-button-container{
+    bottom: 6%;
+  }
   .launchpad-collection-live-header-right-creator-pic-and-usernamme {
     font-size: 14px;
   }
