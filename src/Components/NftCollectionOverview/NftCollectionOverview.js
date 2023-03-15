@@ -3,6 +3,7 @@ import "./NftCollectionOverview.css";
 import UtilitiesComponent from "../UtilitiesComponent/UtilitiesComponent";
 import { v4 as uuidv4 } from "uuid";
 import NftCollectionLatestsBids from "../NftCollectionLatestsBids/NftCollectionLatestsBids";
+import MoreAboutThisCollection from "../MoreAboutThisCollection/MoreAboutThisCollection"
 
 function NftCollectionOverview({
   utilitiesArray,
@@ -29,14 +30,9 @@ function NftCollectionOverview({
         </div>
         <div className="nft-collection-overview-price-evolution-chart"></div>
       </div>
-      <div className="nft-collection-overview-more-about-collection-container">
-        <div className="nft-collection-overview-more-about-collection-title">
-          More about this collection
-        </div>
-        <div className="nft-collection-overview-more-about-collection-description">
-          {moreAboutCollectionArray.map((element) => element.description)}
-        </div>
-      </div>
+      <MoreAboutThisCollection
+      moreAboutCollectionArray={moreAboutCollectionArray}
+      />
       <NftCollectionLatestsBids
       latestBidsArray={latestBidsArray}
       />
