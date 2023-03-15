@@ -20,24 +20,24 @@
 }
 .user-nft-type-activity {
   position: relative;
-  left: 78px;
+  left: 110px;
 }
 .user-price-type-activity {
-  left: 337px;
+  left: 370px;
 
   position: relative;
 }
 .user-quantity-type-activity {
   position: relative;
-  left: 424px;
+  left: 440px;
 }
 .user-from-type-activity {
   position: relative;
-  left: 567px;
+  left: 597px;
 }
 .user-to-type-activity {
   position: relative;
-  left: 759px;
+  left: 789px;
 }
 .user-date-type-activity {
   position: relative;
@@ -105,13 +105,13 @@
     max-width: 1100px !important;
   }
   .user-from-type-activity{
-    left: 510px;
+    left: 545px;
   }
   .user-to-type-activity {
-    left: 650px;
+    left: 680px;
   }
   .user-date-type-activity {
-    left: 825px;
+    left: 855px;
   }
   .formulated-offers-from-title{
     left: 470px;
@@ -139,10 +139,10 @@
 }
 @media (max-width: 1080px) {
   .user-from-type-activity {
-    left: 498px;
+    left: 534px;
   }
   .user-to-type-activity {
-    left: 600px;
+    left: 630px;
   }
   .user-date-type-activity {
     left: 733px;
@@ -180,16 +180,16 @@
     left: 325px;
   }
   .user-quantity-type-activity {
-    left: 375px;
+    left: 405px;
   }
   .user-from-type-activity {
-    left: 440px;
+    left: 470px;
   }
   .user-to-type-activity {
-    left: 525px;
+    left: 555px;
   }
   .user-date-type-activity {
-    left: 620px;
+    left: 650px;
   }
   .formulated-offers-your-offers-title {
     left: 270px;
@@ -228,6 +228,13 @@
   }
 }
 @media (max-width:900px) {
+  .user-to-type-activity{
+    left: 540px !important; 
+    
+  }
+  .user-date-type-activity{
+    left: 630px !important;
+  }
   .formulated-offers-status-title{
     left:480px !important;
   }
@@ -243,16 +250,16 @@
 }
 @media (max-width: 870px) {
   .user-quantity-type-activity{
-    left: 350px;
+    left: 385px;
   }
   .user-from-type-activity {
-    left: 396px;
+    left: 430px;
   }
   .user-to-type-activity {
-    left: 465px;
+    left: 510px !important;
   }
   .user-date-type-activity {
-    left: 535px;
+    left: 570px !important;
   }
   .formulated-offers-to-title {
     left: 385px;

@@ -3,6 +3,7 @@ import "./DropDownButtonMenu.css";
 
 function DropDownButtonMenu({
   dropDownMenuSize,
+  dropDownMenuSizeContainer,
   handleDropdownPostFeedClick,
   id,
 }) {
@@ -10,7 +11,7 @@ function DropDownButtonMenu({
     <>
       <button
         onClick={handleDropdownPostFeedClick}
-        className="dropdown-menu-button-container"
+        className={`dropdown-menu-button-container ${dropDownMenuSizeContainer}`}
         id={id?.toString()}
       >
         <div className="dropdown-button-publication">

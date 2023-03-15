@@ -13,6 +13,10 @@
   font-family: "britanica-black";
   font-size: 14px;
 }
+.nft-origin-type{
+  width: 60.71px;
+  /* background-color: red; */
+}
 .user-nft-picture-and-title {
   height: 100%;
   width: 100%;
@@ -94,7 +98,7 @@
   max-width: 110px;
   width: 100%;
   position: relative;
-  left: 490px;
+  left: 450px;
   text-align: center;
 }
 .nft-decline-received-offers {

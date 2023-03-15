@@ -8,7 +8,7 @@ import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/Ad
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 import { Link } from "react-router-dom";
 
-function FullPagePost() {
+function FullPagePost({postType}) {
 
   return (
     <>
@@ -25,7 +25,7 @@ function FullPagePost() {
                 className="headofpost-container-fullpagepost"
                 id="dropdown-medium"
               >
-                <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" />
+                <HeadOfPost dropDownMenuSize="dropdown-button-point-size-M" postType={postType} />
               </div>
               <div
                 className="headofpost-container-fullpagepost"

@@ -8,23 +8,34 @@ import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import ProgressBarPollPost from "./ProgressBarPollPost/ProgressBarPollPost";
 import { Link } from "react-router-dom";
 
-const PollPost = (choiceNumber) => {
-  const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
-  function displayDropDown() {
-    if (isDropDownButtonClicked) {
-      return <DropDownMenu />;
-    } else {
-      return <></>;
-    }
-  }
-  const [surveyResults, setSurveyResults] = useState([570, 98, 120, 302]);
+const PollPost = ({
+  choiceNumber,
+  pollFirstChoice,
+  pollSecondChoice,
+  pollThirdChoice,
+  pollFourthChoice,
+  pollDate,
+  pollDateType,
+  // 
+  pollTotalVote,
+  pollFirstChoiceNumber,
+  pollSecondChoiceNumber,
+  pollThirdChoiceNumber,
+  pollFourthChoiceNumber,
+}) => {
+  const [surveyResults, setSurveyResults] = useState([
+    pollFirstChoiceNumber,
+    pollSecondChoiceNumber,
+    pollThirdChoiceNumber,
+    pollFourthChoiceNumber,
+  ]);
   // Reçu de la BDD
   const choiceName = [
-    "Barrier",
-    "Attanasio",
-    "John",
-    "Arthur",
-  ]
+    pollFirstChoice,
+    pollSecondChoice,
+    pollThirdChoice,
+    pollFourthChoice,
+  ];
   const [isVoted, setIsVoted] = useState(false);
   const [choiceSelected, setChoiceSelected] = useState({
     choice1: false,
@@ -38,7 +49,6 @@ const PollPost = (choiceNumber) => {
     const totalPropositions = surveyResults.length;
     const sum = surveyResults.reduce((acc, currentValue) => acc + currentValue);
     const percentages = surveyResults.map((value) => (value / sum) * 100);
-    // console.log(percentages);
     const roundedPercentages = percentages.map((percentage) =>
       percentage.toFixed(1)
     );
@@ -70,7 +80,6 @@ const PollPost = (choiceNumber) => {
   const showSurveyResult = (e) => {
     setIsVoted(true);
     const choiceNameEl = e.target.querySelector(".choice-name");
-    console.log(choiceNameEl.innerText);
     if (choiceNameEl.innerText === choiceName[0]) {
       setChoiceSelected({
         choice1: true,
@@ -101,25 +110,9 @@ const PollPost = (choiceNumber) => {
       });
     }
   };
-
   return (
     <section className="pollpost-container">
-      {displayDropDown()}
-      <div className="headofpost-pollpost-container">
-        <HeadOfPost
-          isDropDownButtonClicked={isDropDownButtonClicked}
-          setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-          dropDownMenuSize="dropdown-button-point-size-M"
-          headOfPostSizeLeft="publication-head-left-container-size-pollpost"
-          headOfPostSizeRight="publication-head-right-container-pollpost"
-          publicationTypeHeadOfPostPollPost="publication-type-pollpost"
-          athleteNamePollPost="athlete-name-publication-pollpost"
-          agePublicationPollPost="age-publication-pollpost"
-        />
-      </div>
-      <div className="description-pollpost">Qui est le gagnant ?</div>
       <div className="pollpost-wrap">
-
         <ProgressBarPollPost
           isVoted={isVoted}
           choiceNumberArray={choiceNumberArray[0]}
@@ -156,44 +149,16 @@ const PollPost = (choiceNumber) => {
         <div className="ageofpost-poll-container">
           <div className="ageofpost-poll-wrap">
             <div className="ageofpost-and-timeleft-poll">
-              <div>2456 votes</div>
+              <div>{pollTotalVote} votes</div>
               <div>-</div>
-              <div>1 day</div>
+              <div>
+                {pollDate} {pollDateType}
+              </div>
             </div>
           </div>
         </div>
-        <div className="line-separation-pollpost-container">
-          <div className="line-separation-pollpost"></div>
-        </div>
-        <div className="likes-comments-counter-pollpost-container">
-          <LikesCommentsCounter
-            likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
-            likeButtonSizePollPost="logo-likes-pollpost"
-            likesCounterPublicationPollPost="likes-counter-publication-pollpost"
-            commentsCounterPublicationPollPost="comments-counter-publication-pollpost"
-            commentPublicationPollPost="comments-publication-pollpost"
-            likeButtonContainerPollPost="like-button-container-pollpost"
-            logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
-          />
-        </div>
-        <div className="likes-comments-container-pollpost">
-          <div className="show-comments-button-publication-pollpost-container">
-            <div className="show-comments-button-publication-pollpost">
-              <Link>Show 10 comments</Link>
-            </div>
-          </div>
-        </div>
-        <div className="add-comment-pollpost-container-pollpost">
-          <AddCommentInput
-            inputAddCommentContainer="input-comment-container-publication-pollpost"
-            inputCommentElementsPollPost="input-comment-elements-pollpost"
-            emojiCommentPublicationPollPost="emoji-comment-publication-pollpost"
-            inputCommentPublicationPollPost="input-comment-publication-pollpost"
-            publishButtonAddCommentPollPost="publish-comments-button-container-publication-pollpost"
-          />
-        </div>
+        <div className="line-separation-pollpost-container"></div>
       </div>
-      {/* </div> */}
     </section>
   );
 };

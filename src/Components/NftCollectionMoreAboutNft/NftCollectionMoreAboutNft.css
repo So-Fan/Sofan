@@ -7,9 +7,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 54px;
   /* background-color: red; */
 }
 .nft-collection-more-about-nft-wrap{
+<<<<<<< HEAD
   width: 100%;  
   max-width: 96%;
   display: flex;
@@ -27,6 +29,13 @@
   flex-wrap: wrap;
   margin-top: 5px;
   /* background-color: blue;  */
+=======
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: rgb(16, 207, 207); */
+>>>>>>> staging
 }
 .nft-collection-more-about-nft-card-container img {
   /* width: 299px; */
