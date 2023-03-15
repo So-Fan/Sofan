@@ -1,3 +1,13 @@
 .launchpad-collection-live-page-container{
     background-color: yellowgreen;
 }
+.launchpad-collection-live-page-left-container{
+    background-color: aquamarine;
+}
+
+@media (max-width: 1180px) {
+    .launchpad-collection-live-page-left-container{
+        display: flex;
+        justify-content: center;
+    }
+}

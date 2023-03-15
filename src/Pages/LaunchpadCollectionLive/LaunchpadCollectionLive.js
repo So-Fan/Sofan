@@ -1,6 +1,7 @@
 import React from "react";
 import "./LaunchpadCollectionLive.css";
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
+import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities"
 function LaunchpadCollectionLive() {
   const dataBackend = {
     header: [
@@ -12,6 +13,29 @@ function LaunchpadCollectionLive() {
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nulla tortor, vehicula ut viverra at, auctor at ipsum. Cras ornare et lorem vel tincidunt. Proin quis augue ac nibh faucibus molestie in at quam. Mauris massa tellus, sagittis eu molestie. ",
         mintLimit: 3,
+      },
+    ],
+    utilities: [
+      {
+        title: "Meeting with Alexia",
+        status: "Indisponible",
+        description:
+          "At the end of the Vendée Globe 2023, 15/400 of the holders of this NFT will have the chance to meet Alexia Barrier personally at the finish of the coursemaklemlakemazlkmalzkazemlkazemleakazlmekazelmaezkaz",
+        date: "July 9th 2023",
+      },
+      {
+        title: "3 online VIP live ",
+        status: "Disponible",
+        description:
+          "Have access with all other members to 3 live important events during the entire competition, at three key times.",
+        date: "July 9th / 15th / 28th 2023",
+      },
+      {
+        title: "Alexia Barrier special merch",
+        status: "Indisponible",
+        description:
+          "Receive your new collection t-shirt, signed by Alexia herself at the end of the race. The t-shirts will be sent 1 week after the end of the race.",
+        date: "August 7th 2023",
       },
     ],
   };
@@ -50,6 +74,11 @@ function LaunchpadCollectionLive() {
         counterNftMinted={dataApi.header[0].counterNftMinted}
         totalNftMintable={dataApi.header[0].totalNftMintable}
       />
+      <div className="launchpad-collection-live-page-left-container">
+      <LaunchpadCollectionLiveUtilities
+      utilitiesArray={dataBackend.utilities}
+      />
+      </div>
     </section>
   );
 }
