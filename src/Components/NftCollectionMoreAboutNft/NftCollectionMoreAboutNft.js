@@ -1,7 +1,7 @@
 import React from "react";
 import NftCardTemplate from "../NftCard/NftCardTemplate/NftCardTemplate";
 import "./NftCollectionMoreAboutNft.css";
-<<<<<<< HEAD
+import { v4 as uuidv4 } from "uuid";
 function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
   console.log(adaptTitleToNftCollectionPageItems);
   const dataBackendNftCollectionMoreAboutNft = {
@@ -96,10 +96,8 @@ function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
       },
     ],
   };
-=======
-import { v4 as uuidv4 } from "uuid";
-function NftCollectionMoreAboutNft({ nftCard }) {
->>>>>>> staging
+// 
+// function NftCollectionMoreAboutNft({ nftCard }) {
   return (
     <section className="nft-collection-more-about-nft-container">
       <div className="nft-collection-more-about-nft-wrap">
@@ -116,12 +114,9 @@ function NftCollectionMoreAboutNft({ nftCard }) {
           </div>
         )}
         <div className="nft-collection-more-about-nft-card-container">
-          {nftCard.map((element) => (
+          {dataBackendNftCollectionMoreAboutNft.nftCard.map((element) => (
             <NftCardTemplate
-<<<<<<< HEAD
-=======
               key={uuidv4()}
->>>>>>> staging
               fontStyle="nftcardtemplate-container-content-title-props"
               img={element.nftImage}
               title={element.collectionName}
