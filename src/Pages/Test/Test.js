@@ -1,5 +1,5 @@
 import React from "react";
-import NftCollectionHeader from "../../Components/NftCollectionHeader/NftCollectionHeader";
+import NftCollectionPageHeader from "../../Components/NftCollectionPageHeader/NftCollectionPageHeader";
 import "./Test.css";
 const Test = () => {
   // Les 4 dernieres stats proviennent d'Opensea
@@ -26,7 +26,7 @@ const Test = () => {
   };
   return (
     <>
-      <NftCollectionHeader collectionInfo={data.collections[0]} />
+      <NftCollectionPageHeader collectionInfo={data.collections[0]} />
     </>
   );
 };

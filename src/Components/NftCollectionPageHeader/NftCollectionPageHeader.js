@@ -1,10 +1,10 @@
 import React from 'react'
-import "./NftCollectionHeader.css"
+import "./NftCollectionPageHeader.css"
 import Checkmark from "../../Assets/Image/checkmark_profile.svg";
 import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
-const NftCollectionHeader = ({collectionInfo}) => {
+const NftCollectionPageHeader = ({collectionInfo}) => {
   return (
     <div className="nftcollectionheader-component">
       <div className="nftcollectionheader-bannerandprofilepicture-wrap">
@@ -78,7 +78,7 @@ const NftCollectionHeader = ({collectionInfo}) => {
   )
 }
 
-export default NftCollectionHeader
+export default NftCollectionPageHeader
 
 // const AthleteProfileHeaderPalmaresButton = {
 //     backgroundColor: "#F6D463",
