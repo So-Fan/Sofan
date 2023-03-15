@@ -7,6 +7,10 @@
   src: url("./Assets/Fonts/Britanica-Heavy.ttf") format("truetype");
 }
 @font-face {
+  font-family: "britanica-heavy-expanded";
+  src: url("./Assets/Fonts/Britanica-Heavy-Expanded.ttf") format("truetype");
+}
+@font-face {
   font-family: "britanica-black";
   src: url("./Assets/Fonts/Britanica-Black.ttf") format("truetype");
 }
