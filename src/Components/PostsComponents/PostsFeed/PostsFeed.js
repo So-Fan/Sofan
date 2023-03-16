@@ -38,7 +38,8 @@ function PostsFeed({
   pollFirstChoiceNumber,
   pollSecondChoiceNumber,
   pollThirdChoiceNumber,
-  pollFourthChoiceNumber
+  pollFourthChoiceNumber,
+  athleteProfilePageStyling
   
 }) 
 {
@@ -67,9 +68,13 @@ function PostsFeed({
     />
     }
   }
+  console.log(athleteProfilePageStyling)
+  console.log(athleteProfilePageStyling)
+  console.log(athleteProfilePageStyling)
+  console.log(athleteProfilePageStyling)
   return (
     <>
-      <div className="publication-container">
+      <div style={athleteProfilePageStyling ? {marginBottom: "18px"}: {marginTop: "60px"}} className="publication-container">
         {lockPremiumContent && (
           <>
             <PremiumContentLocked />

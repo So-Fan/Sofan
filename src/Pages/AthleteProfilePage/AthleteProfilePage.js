@@ -464,7 +464,9 @@ const AthleteProfilePage = ({
   }, []);
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
-      return <AthleteProfileFeed dataPosts={dataConcat?.athletes} />;
+      return <AthleteProfileFeed 
+      athleteProfilePageStyling={true}
+      dataPosts={dataConcat?.athletes} />;
     } else if (isAthleteProfileSubMenuClicked[5] === true) {
       return <AthleteProfileNFTCollection dataCollections={dataConcat?.collections} />;
     } else if (isAthleteProfileSubMenuClicked[6] === true) {

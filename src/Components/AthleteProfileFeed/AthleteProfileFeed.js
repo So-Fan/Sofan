@@ -3,8 +3,9 @@ import PostsFeed from "../PostsComponents/PostsFeed/PostsFeed";
 import "./AthleteProfileFeed.css";
 import { v4 as uuidv4 } from "uuid";
 
-function AthleteProfileFeed({ dataPosts }) {
+function AthleteProfileFeed({ dataPosts, athleteProfilePageStyling }) {
   console.log(dataPosts);
+  // console.log(athleteProfileFeedPageStyling)
   const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
 
@@ -39,6 +40,7 @@ function AthleteProfileFeed({ dataPosts }) {
         {freePosts?.map((post) => {
           return (
             <PostsFeed
+            athleteProfilePageStyling={athleteProfilePageStyling}
               key={uuidv4()}
               postDate={post.postDate}
               postDateType={post.postDateType}
@@ -56,6 +58,7 @@ function AthleteProfileFeed({ dataPosts }) {
         {premiumPosts?.map((post, index) => {
           return (
             <PostsFeed
+            athleteProfilePageStyling={athleteProfilePageStyling}
               key={uuidv4()}
               postDate={post.postDate}
               postDateType={post.postDateType}
