@@ -320,8 +320,10 @@ const NftSingle = () => {
         )}
         {isSubMenuClicked[2] && (
           <NftCollectionLatestsBids
-          latestBidsArray={dataSinglePageNftCollection.overviewData[0].latestBids}
-          bidsSectionDeleteSpace = {true}
+            latestBidsArray={
+              dataSinglePageNftCollection.overviewData[0].latestBids
+            }
+            bidsSectionDeleteSpace={true}
           />
         )}
         {isSubMenuClicked[3] && (

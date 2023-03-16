@@ -4,6 +4,7 @@ import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionL
 import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities";
 import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
 import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/LaunchpadCollectionLiveMoreAboutCollection/LaunchpadCollectionLiveMoreAboutCollection";
+import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
 function LaunchpadCollectionLive() {
   const dataBackend = {
     header: [
@@ -46,6 +47,16 @@ function LaunchpadCollectionLive() {
           "This collection has a stamp, created from the imagination of Alexia Barrier and her passions, referring to events from her past that have shaped the person she has become. This collection has a stamp, created from the imagination of Alexia Barrier and her passions, referring to events from her past that have shaped the person she has become.",
       },
     ],
+    moreAboutAthlete: [
+      {
+        picture: "https://i.imgur.com/Z7rHdVv.png",
+        sportTitle: "Skipper",
+        fullName: "Alexia Barrier",
+        description:
+          "Alexia Barrier is a French professional sailor and skipper. She has competed in several sailing races, including the Solitaire du Figaro and the Vendée Globe. She is the first woman to have completed the Vendée Globe solo non-stop race, finishing in 16th place. She is also the founder of the Sail & Help association, which promotes environmental protection and education through sailing.",
+        fansNumber: 121023,
+      },
+    ],
   };
   const dataRealTimeDb = {
     header: [
@@ -83,15 +94,19 @@ function LaunchpadCollectionLive() {
         totalNftMintable={dataApi.header[0].totalNftMintable}
       />
       <div className="launchpad-collection-live-page-left-container">
-        
-          <LaunchpadCollectionLiveUtilities
-            utilitiesArray={dataBackend.utilities}
+        <LaunchpadCollectionLiveUtilities
+          utilitiesArray={dataBackend.utilities}
+        />
+        <div className="launchpad-collection-live-page-more-about-collection-container">
+          <LaunchpadCollectionLiveMoreAboutCollection
+            moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
           />
-          <LaunchpadCollectionLiveMoreAboutCollection 
-          moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
-          />
-        
+        </div>
       </div>
+      <NftCollectionMoreAboutAthlete
+        launchpadCollectionLivePage={true}
+        moreAboutAthlete={dataBackend.moreAboutAthlete[0]}
+      />
     </section>
   );
 }
