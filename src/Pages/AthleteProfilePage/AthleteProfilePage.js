@@ -422,8 +422,8 @@ const AthleteProfilePage = ({
       );
       data.activities[i].nftPriceEth = concatStringFromTo(
         data?.activities[i]?.nftPriceEth,
-        7,
-        7,
+        5,
+        5,
         false,
         false
       );
