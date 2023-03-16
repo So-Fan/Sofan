@@ -190,6 +190,10 @@
   }
 }
 @media (max-width:1240px) {
+  .nft-date-transfer-user-activity{
+    /* background-color: red; */
+    left: 350px;
+  }
   .received-offers-decline{
     left:350px;
   }
