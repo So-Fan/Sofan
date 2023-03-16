@@ -292,7 +292,20 @@ const NftSingle = () => {
         nftBifEur={apiOpenSea[0].nftBidEur}
       />
       <div className="nft-single-collection-page-left-container">
-        <div className="nft-single-collection-page-submenu-container">
+        {/* {isSubMenuClicked[0] ? <>
+          
+          </> :<>
+          </> } */}
+        <div
+          style={
+            isSubMenuClicked[0]
+              ? { marginBottom: "50px" }
+              : isSubMenuClicked[3]
+              ? { marginBottom: "20px" }
+              : {}
+          }
+          className="nft-single-collection-page-submenu-container"
+        >
           <NftCollectionSubMenu
             handleClickSubMenuButton={handleClickSubMenuButton}
             isSubMenuClicked={isSubMenuClicked}
@@ -320,8 +333,10 @@ const NftSingle = () => {
         )}
         {isSubMenuClicked[2] && (
           <NftCollectionLatestsBids
-          latestBidsArray={dataSinglePageNftCollection.overviewData[0].latestBids}
-          bidsSectionDeleteSpace = {true}
+            latestBidsArray={
+              dataSinglePageNftCollection.overviewData[0].latestBids
+            }
+            bidsSectionDeleteSpace={true}
           />
         )}
         {isSubMenuClicked[3] && (
