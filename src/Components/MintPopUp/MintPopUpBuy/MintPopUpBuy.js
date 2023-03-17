@@ -1,0 +1,68 @@
+import React from "react";
+import "./MintPopUpBuy.css";
+import crossButton from "../../../Assets/Image/cross.svg";
+function MintPopUpBuy({ maxMint, mintCounter, setMintCounter }) {
+  function handleClick(e) {
+    if (mintCounter >= 1) {
+      if (
+        e.target.className ===
+          "mint-pop-up-buy-quantity-selector-increase-button" &&
+        mintCounter < maxMint
+      ) {
+        setMintCounter(mintCounter + 1);
+      } else if (
+        e.target.className ===
+          "mint-pop-up-buy-quantity-selector-decrease-button" &&
+        mintCounter > 1
+      ) {
+        setMintCounter(mintCounter - 1);
+      }
+    } else {
+    }
+  }
+  return (
+    <div className="mint-pop-up-buy-container">
+      <div className="mint-pop-up-buy-wrap">
+        <div className="mint-pop-up-buy-title-and-cancel-button">
+          <div>Acheter NFT</div>
+          <div>
+            <img src={crossButton} alt="BOUTON CROIX" />
+          </div>
+        </div>
+        <div className="mint-pop-up-buy-question-and-max-nft">
+          <div>How many NFT you want ?</div>
+          <div>Max {maxMint} NFTs</div>
+        </div>
+        <div className="mint-pop-up-buy-quantity-selector-container">
+          <div
+            onClick={handleClick}
+            className="mint-pop-up-buy-quantity-selector-decrease-button"
+          >
+            -
+          </div>
+          <div className="mint-pop-up-buy-quantity-selector-counter">
+            {mintCounter}
+          </div>
+          <div
+            onClick={handleClick}
+            className="mint-pop-up-buy-quantity-selector-increase-button"
+          >
+            +
+          </div>
+        </div>
+        <div className="mint-pop-up-line-separation"></div>
+        <div className="mint-pop-up-price-container">
+          <div className="mint-pop-up-price-title">Prix</div>
+          <div className="mint-pop-up-price-eth-eur-container">
+            <div className="mint-pop-up-price-eth">1 ETH</div>
+            <div className="mint-pop-up-price-eur">1231.45€</div>
+          </div>
+        </div>
+        <div className="mint-pop-up-line-separation"></div>
+        <button className="mint-pop-up-mint-button">Mint maintenant</button>
+      </div>
+    </div>
+  );
+}
+
+export default MintPopUpBuy;
