@@ -1,5 +1,5 @@
 import React from "react";
-import "./DashboardMyEvents.css";
+import "./DashboardMyCalendar.css";
 import AthleteProfileNFTCollectionTemplate from "../AthleteProfileEvent/AthleteProfileEventTemplate/AthleteProfileEventTemplate";
 function DashboardMyEvents() {
   const dataBackend = {
@@ -73,9 +73,9 @@ function DashboardMyEvents() {
     ],
   };
   return (
-    <section className="dashboard-my-events-container">
-      <div className="dashboard-my-event-date-title">Décembre 2023</div>
-      <div className="dashboard-my-events-wrap">
+    <section className="dashboard-my-calendar-container">
+      <div className="dashboard-my-calendar-date-title">Décembre 2023</div>
+      <div className="dashboard-my-calendar-wrap">
         {dataBackend?.events.map((event) => (
           <AthleteProfileNFTCollectionTemplate eventData={event} />
         ))}
