@@ -1,7 +1,16 @@
 import React from "react";
 import "./MintPopUpBuy.css";
 import crossButton from "../../../Assets/Image/cross.svg";
-function MintPopUpBuy({ maxMint, mintCounter, setMintCounter }) {
+import LaunchPadMintProgressBar from "../../LaunchPadMintProgressBar/LaunchPadMintProgressBar";
+function MintPopUpBuy({
+  maxMint,
+  mintCounter,
+  setMintCounter,
+  counterNftMinted,
+  totalNftMintable,
+  ethPrice,
+  eurPrice,
+}) {
   function handleClick(e) {
     if (mintCounter >= 1) {
       if (
@@ -20,6 +29,7 @@ function MintPopUpBuy({ maxMint, mintCounter, setMintCounter }) {
     } else {
     }
   }
+  const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   return (
     <div className="mint-pop-up-buy-container">
       <div className="mint-pop-up-buy-wrap">
@@ -50,16 +60,23 @@ function MintPopUpBuy({ maxMint, mintCounter, setMintCounter }) {
             +
           </div>
         </div>
-        <div className="mint-pop-up-line-separation"></div>
+        <div className="mint-pop-up-line-separation-first"></div>
         <div className="mint-pop-up-price-container">
           <div className="mint-pop-up-price-title">Prix</div>
           <div className="mint-pop-up-price-eth-eur-container">
-            <div className="mint-pop-up-price-eth">1 ETH</div>
-            <div className="mint-pop-up-price-eur">1231.45€</div>
+            <div className="mint-pop-up-price-eth">{ethPrice} ETH</div>
+            <div className="mint-pop-up-price-eur">{eurPrice} €</div>
           </div>
         </div>
-        <div className="mint-pop-up-line-separation"></div>
+        <div className="mint-pop-up-line-separation-second"></div>
         <button className="mint-pop-up-mint-button">Mint maintenant</button>
+        <div className="mint-pop-up-progress-bar-and-total-minted">
+          <LaunchPadMintProgressBar
+            nftMintedCalculated={nftMintedCalculated}
+            counterNftMinted={counterNftMinted}
+            totalNftMintable={totalNftMintable}
+          />
+        </div>
       </div>
     </div>
   );

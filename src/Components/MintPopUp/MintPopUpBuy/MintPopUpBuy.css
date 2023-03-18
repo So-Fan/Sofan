@@ -4,14 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: wheat;
+  /* background-color: wheat; */
 }
 .mint-pop-up-buy-wrap {
   width: 410px;
   height: 396px;
   display: flex;
   flex-direction: column;
-  background-color: violet;
+  /* background-color: violet; */
 }
 .mint-pop-up-buy-title-and-cancel-button {
   height: 30px;
@@ -19,8 +19,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: yellowgreen;
+  /* background-color: yellowgreen; */
   font-size: 25px;
+  margin-top: 20px;
   font-family: "britanica-heavy";
 }
 .mint-pop-up-buy-question-and-max-nft {
@@ -29,7 +30,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 31px;
-  background-color: turquoise;
+  /* background-color: turquoise; */
 }
 .mint-pop-up-buy-quantity-selector-container {
   width: 100%;
@@ -77,11 +78,12 @@
   font-size: 36px;
   cursor: pointer;
 }
-.mint-pop-up-line-separation {
+.mint-pop-up-line-separation-first {
   width: 450px !important;
   transform: translateX(-19px);
   margin-top: 25px;
   border: 0.3px solid rgba(0, 0, 0, 0.2);
+  opacity: 0.5;
 }
 .mint-pop-up-price-container {
   height: 42px;
@@ -90,7 +92,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 15px;
-  background-color: tomato;
+  /* background-color: tomato; */
 }
 .mint-pop-up-price-title {
   height: 23px;
@@ -112,8 +114,12 @@
   height: 21px;
 }
 
-.mint-pop-up-line-separation:last-child {
-  margin-top: 12px;
+.mint-pop-up-line-separation-second {
+  width: 450px !important;
+  transform: translateX(-19px);
+  border: 0.3px solid rgba(0, 0, 0, 0.2);
+  margin-top: 6px;
+  opacity: 0.5;
 }
 .mint-pop-up-mint-button {
   outline: none;
@@ -129,5 +135,3 @@
   cursor: pointer;
   margin-top: 20px;
 }
-
-
