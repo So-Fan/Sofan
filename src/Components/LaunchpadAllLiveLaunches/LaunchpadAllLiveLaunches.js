@@ -2,113 +2,191 @@ import React, { useEffect, useState } from "react";
 import "./LaunchpadAllLiveLaunches.css";
 import Arrow from "../../Assets/Image/arrow_bottom.svg";
 import LaunchpadAllLiveLaunchesTemplate from "./LaunchpadAllLiveLaunchesTemplate/LaunchpadAllLiveLaunchesTemplate";
-import { useHorizontalScroll } from "./CustomHook/useHorizontalScroll";
-// Ajouter props quand build page
+import { useHorizontalScroll } from "../../CustomHook/useHorizontalScroll";
 const LaunchpadAllLiveLaunches = ({
   setIsLiveLaunchSportDropdownClicked,
   isLiveLaunchSportDropdownClicked,
+  data,
+  setDimMain,
 }) => {
   const scrollRef = useHorizontalScroll();
   const [dim, setDim] = useState(window.innerWidth);
+  const [
+    currentLiveLaunchesSportSelectorSelected,
+    setCurrentLiveLaunchesSportSelectorSelected,
+  ] = useState("All sports");
   const handleDim = () => {
     setDim(window.innerWidth);
-    console.log("pip");
+    setDimMain(window.innerWidth);
   };
-  var launchpadAllLiveLaunchesDynamicWidth;
-  var responsiveWidth;
-  var respMaxWidth;
-  var respWidthTop;
-
-  const data = {
-    launchpadLive: [
-      {
-        background: "https://i.imgur.com/C46TVU6.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
-        athleName: "Romain Attanasio",
-        title: "Vendée Globe Final Tour",
-        nftLength: "350",
-        nftPrice: "0.31",
-      },
-      {
-        background: "https://i.imgur.com/C46TVU6.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
-        athleName: "Romain Attanasio",
-        title: "Vendée Globe Final Tour",
-        nftLength: "350",
-        nftPrice: "0.31",
-      },
-      {
-        background: "https://i.imgur.com/C46TVU6.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
-        athleName: "Romain Attanasio",
-        title: "Vendée Globe Final Tour",
-        nftLength: "350",
-        nftPrice: "0.31",
-      },
-      {
-        background: "https://i.imgur.com/C46TVU6.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
-        athleName: "Romain Attanasio",
-        title: "Vendée Globe Final Tour",
-        nftLength: "350",
-        nftPrice: "0.31",
-      },
-    ],
+  const handleLiveLaunchesSportDropdownClicked = () => {
+    setIsLiveLaunchSportDropdownClicked(true);
   };
-  useEffect(() => {
-    window.addEventListener("resize", handleDim, false);
-  }, []);
+  const handleLiveLaunchesSportChoiceClicked = (e) => {
+    console.log(e);
+    setCurrentLiveLaunchesSportSelectorSelected(e.target.innerHTML);
+  };
+  let launchpadAllLiveLaunchesDynamicWidth;
+  let responsiveWidth;
+  let respMaxWidth;
+  let respWidthTop;
 
-  if (dim > 1300) {
+  let launchpadalllivelaunchesTopWrapSpan;
+  let launchpadalllivelaunchesTopWrapDropdown;
+  let launchpadalllivelaunchesTopWrapDropdownSpan;
+  let launchpadalllivelaunchesTopWrapDropdownImg;
+  let launchpadalllivelaunchesTopWrapDropdownChoiceWrap;
+  let launchpadalllivelaunchesTopWrapDropdownChoiceWrapUlLiChild1;
+  const LaunchpadAllLiveLaunchesCalcProportional = (obj, totalPx) => {
+    let Obj = {};
+    for (let key in obj) {
+      let temp = {
+        temp: `${obj[key] * (1 - (1 - dim / totalPx))}px`,
+      };
+      Obj[key] = temp["temp"];
+    }
+    return Obj;
+  };
+
+  if (dim > 1337) {
     launchpadAllLiveLaunchesDynamicWidth = {
-      minWidth: `${data?.launchpadLive.length * 520}px`,
+      minWidth: `${data?.length * 520}px`,
     };
     responsiveWidth = {
       marginRight: "20px",
     };
   } else {
     launchpadAllLiveLaunchesDynamicWidth = {
-      minWidth: `${
-        data?.launchpadLive.length * (520 - (1300 - dim) * (38 / 100))
-      }px`,
+      minWidth: `${data?.length * (520 - (1337 - dim) * (38 / 100))}px`,
     };
     respMaxWidth = {
-      maxWidth: `${1300 - (1300 - dim)}px`,
+      maxWidth: `${1337 - (1337 - dim)}px`,
+      maxHeight: `${550 * (1 - (1 - dim / 1300))}px`,
+      marginTop: `${20 * (1 - (1 - dim / 1300))}px`,
     };
     responsiveWidth = {
       marginRight: "20px",
     };
     respWidthTop = {
-      width: `${1246 - (1300 - dim)}px`,
+      width: `${1246 - (1337 - dim)}px`,
     };
+    launchpadalllivelaunchesTopWrapSpan =
+      LaunchpadAllLiveLaunchesCalcProportional(
+        { fontSize: 35, lineHeight: 42, height: 42 },
+        1337
+      );
+    launchpadalllivelaunchesTopWrapDropdown =
+      LaunchpadAllLiveLaunchesCalcProportional(
+        { width: 207, height: 37, borderRadius: 10 },
+        1337
+      );
+    launchpadalllivelaunchesTopWrapDropdownSpan =
+      LaunchpadAllLiveLaunchesCalcProportional(
+        { fontSize: 16, lineHeight: 19, paddingLeft: 10 },
+        1337
+      );
+    launchpadalllivelaunchesTopWrapDropdownImg =
+      LaunchpadAllLiveLaunchesCalcProportional(
+        {
+          paddingRight: 10,
+          width: 13,
+          heigth: 8,
+        },
+        1337
+      );
+    launchpadalllivelaunchesTopWrapDropdownChoiceWrap =
+      LaunchpadAllLiveLaunchesCalcProportional(
+        {
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10,
+          width: 197,
+          height: 90,
+          top: 37,
+          left: -1,
+          paddingLeft: 10,
+          lineHeight: 19,
+          fontSize: 16,
+        },
+        1337
+      );
+    launchpadalllivelaunchesTopWrapDropdownChoiceWrapUlLiChild1 =
+      LaunchpadAllLiveLaunchesCalcProportional({ paddingTop: 5 }, 1337);
   }
-  const [currentLiveLaunchesSportSelectorSelected, setCurrentLiveLaunchesSportSelectorSelected] = useState("All sports")
-  const handleLiveLaunchesSportDropdownClicked = () => {
-    setIsLiveLaunchSportDropdownClicked(true);
-  };
-  const handleLiveLaunchesSportChoiceClicked = e => {
-    console.log(e);
-    setCurrentLiveLaunchesSportSelectorSelected(e.target.innerHTML)
-  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleDim, false);
+  }, []);
   return (
     <div className="launchpadalllivelaunches-component">
-      <div onClick={handleLiveLaunchesSportDropdownClicked} className="launchpadalllivelaunches-top-wrap" style={respWidthTop}>
-        <span>Live launches</span>
-        <div className="launchpadalllivelaunches-top-wrap-dropdown">
-          <span>{currentLiveLaunchesSportSelectorSelected}</span>
-          <img src={Arrow} alt="dropdown" />
+      <div
+        onClick={handleLiveLaunchesSportDropdownClicked}
+        className="launchpadalllivelaunches-top-wrap"
+        style={respWidthTop}
+      >
+        <span style={launchpadalllivelaunchesTopWrapSpan}>Live launches</span>
+        <div
+          id="launchpadalllivelaunches-dropdown-main"
+          className={
+            isLiveLaunchSportDropdownClicked
+              ? "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked"
+              : "launchpadalllivelaunches-top-wrap-dropdown"
+          }
+          style={launchpadalllivelaunchesTopWrapDropdown}
+        >
+          <span
+            id="launchpadalllivelaunches-dropdown-span"
+            style={launchpadalllivelaunchesTopWrapDropdownSpan}
+          >
+            {currentLiveLaunchesSportSelectorSelected}
+          </span>
+          <img
+            id="launchpadalllivelaunches-dropdown-img"
+            style={launchpadalllivelaunchesTopWrapDropdownImg}
+            src={Arrow}
+            alt="dropdown"
+          />
           {isLiveLaunchSportDropdownClicked && (
-        <>
-          <div className="sortbyselector-menu">
-            <ul>
-              {currentLiveLaunchesSportSelectorSelected !== "Voile" && <li onClick={handleLiveLaunchesSportChoiceClicked}>Voile</li>}
-              {currentLiveLaunchesSportSelectorSelected !== "Tennis" && <li onClick={handleLiveLaunchesSportChoiceClicked}>Tennis</li>}
-              {currentLiveLaunchesSportSelectorSelected !== "Football" && <li onClick={handleLiveLaunchesSportChoiceClicked}>Football</li>}
-              {currentLiveLaunchesSportSelectorSelected !== "Esport" && <li onClick={handleLiveLaunchesSportChoiceClicked}>Esport</li>}
-            </ul>
-          </div>
-        </>
-      )}
+            <>
+              <div
+                className="launchpadalllivelaunches-top-wrap-dropdown-choice-wrap"
+                style={launchpadalllivelaunchesTopWrapDropdownChoiceWrap}
+              >
+                <ul>
+                  {currentLiveLaunchesSportSelectorSelected !== "Voile" && (
+                    <li
+                      onClick={handleLiveLaunchesSportChoiceClicked}
+                      style={
+                        launchpadalllivelaunchesTopWrapDropdownChoiceWrapUlLiChild1
+                      }
+                    >
+                      Voile
+                    </li>
+                  )}
+                  {currentLiveLaunchesSportSelectorSelected !== "Tennis" && (
+                    <li onClick={handleLiveLaunchesSportChoiceClicked}>
+                      Tennis
+                    </li>
+                  )}
+                  {currentLiveLaunchesSportSelectorSelected !== "Football" && (
+                    <li onClick={handleLiveLaunchesSportChoiceClicked}>
+                      Football
+                    </li>
+                  )}
+                  {currentLiveLaunchesSportSelectorSelected !== "Esport" && (
+                    <li onClick={handleLiveLaunchesSportChoiceClicked}>
+                      Esport
+                    </li>
+                  )}
+                  {currentLiveLaunchesSportSelectorSelected !==
+                    "All sports" && (
+                    <li onClick={handleLiveLaunchesSportChoiceClicked}>
+                      All sports
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div
@@ -117,7 +195,7 @@ const LaunchpadAllLiveLaunches = ({
         ref={scrollRef}
       >
         <div style={launchpadAllLiveLaunchesDynamicWidth}>
-          {data?.launchpadLive.map((launchpadlive) => (
+          {data?.map((launchpadlive) => (
             <div style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
                 background={launchpadlive.background}
@@ -126,6 +204,7 @@ const LaunchpadAllLiveLaunches = ({
                 title={launchpadlive.title}
                 nftLength={launchpadlive.nftLength}
                 nftPrice={launchpadlive.nftPrice}
+                dim={dim}
               />
             </div>
           ))}
