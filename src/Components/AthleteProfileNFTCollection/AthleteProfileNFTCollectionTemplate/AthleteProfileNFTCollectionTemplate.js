@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./AthleteProfileNFTCollectionTemplate.css";
 const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent }) => {
+  console.log(collectionData)
   return (
     <Link className="athleteprofilenftcollectiontemplate-component" style={isTransparent && {visibility: "hidden"}}>
       <div className="athleteprofilenftcollectiontemplate-banner-wrap">
