@@ -42,7 +42,7 @@
   line-height: 30px;
   color: #ffffff;
 }
-.athleteprofileeventtemplate-wrap-content  span:hover  {
+.athleteprofileeventtemplate-wrap-content span:hover {
   text-decoration: underline;
   cursor: pointer;
 }

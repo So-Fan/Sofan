@@ -1,10 +1,10 @@
 import React from "react";
-import DashboardStats from "../../Components/DashboardStats/DashboardStats";
+import DashboardMyCalendar from "../../Components/DashboardMyCalendar/DashboardMyCalendar";
 import "./Test.css";
 const Test = () => {
   return (
     <>
-    <DashboardStats/>
+    <DashboardMyCalendar/>
     </>
   );
 };
