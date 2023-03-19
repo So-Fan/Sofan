@@ -1,13 +1,11 @@
 import React from "react";
-
-import DashboardStats from "../../Components/DashboardStats/DashboardStats";
+import DashboardSubMenu from "../../Components/DashboardSubMenu/DashboardSubMenu";
 import "./Test.css";
 
 const Test = () => {
   return (
     <>
-    <DashboardStats/>
-
+    <DashboardSubMenu/>
     </>
   );
 };
