@@ -1,7 +1,43 @@
 .dashboard-stats-container {
   width: 100%;
-  height: 137px;
+  height: 100%;
+  max-height: 687px;
   max-width: 1082px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dashboard-stats-middle-container {
+  width: 100%;
+  height: 100%;
+  max-height: 350px;
+  max-width: 1082px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "britanica-heavy";
+  /* background-color: royalblue; */
+}
+.dashboard-stats-middle-ranking {
+  width: 100%;
+  max-width: 260px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.dashboard-stats-middle-market-cap {
+  width: 100%;
+  max-width: 789px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 .dashboard-stats-rectangle {
   width: 100%;
@@ -12,79 +48,24 @@
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
-.dashboard-stats-nft-left-to-sell {
+
+.dashboard-stats-separation-line {
+  height: 103.92px;
+  width: 0px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 0px;
+  border-top: 0px;
+  margin-left: 38.71px;
+  /* transform: rotate(90deg); */
+}
+.dashboard-stats-rectangle-bottom{
   width: 100%;
-  height: 100%;
-  max-width: 202px;
-  max-height: 97.43px;
-  margin-left: 22.47px;
-  background-color: aquamarine;
-}
-.dashboard-stats-nft-left-to-sell-number-and-square {
-  width: 100%;
-  height: 43px;
-  display: flex;
-  justify-content: space-between;
-  background-color: blueviolet;
-}
-.dashboard-stats-nft-left-to-sell-number {
-  height: 100%;
-  max-width: 114px;
-  display: flex;
-  align-items: center;
-  font-size: 35px;
-  font-family: "britanica-heavy";
-}
-.dashboard-stats-nft-left-to-sell-square {
-  width: 44.83px;
-  height: 44.83px;
-  background: #f6d463;
-  box-shadow: 0px 2px 10px rgba(124, 141, 181, 0.12);
-  border-radius: 12.2254px;
-}
-.dashboard-stats-nft-left-to-sell-title-and-logo {
-  width: 100%;
-  height: 100%;
-  max-width: 114.53px;
-  max-height: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: wheat;
-}
-.dashboard-stats-nft-left-to-sell-title {
-  max-width: 100px;
-  /* width: 100%; */
-  background-color: tomato;
-}
-.dashboard-stats-nft-left-to-sell-logo {
-  width: 16px;
-  height: 16px;
+  height: 137px;
   display: flex;
   justify-content: center;
-  border-radius: 50%;
-  border: 0.615385px solid #000000;
-  cursor: pointer;
-}
-.dashboard-stats-nft-left-to-sell-progress-container {
-  width: 100%;
-  height: 100%;
-  max-height: 21px;
-  display: flex;
   align-items: center;
-  margin-top: 12.23px;
-  background-color: brown;
-}
-.dashboard-stats-nft-left-to-sell-progress-arrow-logo img  {
-  width: 15px;
-  height: 11.3px;
-  padding-right: 5px;
-}
-.dashbpard-stats-nft-left-to-sell-progress-number{
-  color: #85D87E;
-  padding-right: 3px;
-}
-.dashbpard-stats-nft-left-to-sell-progress-percent{
-  /* color: #85D87E; */
-  margin-left: 15px;
+  font-family: "britanica-heavy";
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }

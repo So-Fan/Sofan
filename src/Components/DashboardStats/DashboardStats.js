@@ -2,29 +2,55 @@ import React, { useState, useEffect } from "react";
 import "./DashboardStats.css";
 import greenArrow from "../../Assets/Image/green-arrow.svg";
 import redArrow from "../../Assets/Image/red-arrow.svg";
+import DashboardStatsModule from "./DashboardStatsModule/DashboardStatsModule";
 
 function DashboardStats() {
   const [toggleColor, setToggleColor] = useState("");
   const [arrowDisplay, setArrowDisplay] = useState();
+  // const [moduleStats, setModuleStats] = useState({
+  //   nftSoldsDisplay: false,
+  //   revenueDisplay: false,
+  // });
   // Repenser le design car beaucoup d'éléments en moins
   // - Nb de NFT restant à vendre au total
   // - Nbr de NFT vendys total et par collection
   // - CA généré au total et par collection
   const dataApi = {
-    statsNfts: [
+    stats: [
       {
         nftSoldLastMonth: 18,
         nftSold: 19,
-        // nftMintable: 40,
+        totalNftSold: 40,
+      },
+      {
+        revenueEthLastMonth: 2.29,
+        revenueEurLastMonth: 2498.32,
+        revenueEth: 3.02,
+        totaRevenueEth: 8.59,
+        revenueEur: 4542.19,
+        totalRevenueEur: 12987.9,
       },
     ],
   };
-  const nftsSoldThisMonth = dataApi.statsNfts[0].nftSold;
+  // Module NFT Sold
+  const nftsSoldThisMonth = dataApi.stats[0].nftSold;
   const nftsSoldPercent = (
-    ((nftsSoldThisMonth - dataApi.statsNfts[0].nftSoldLastMonth) /
-      dataApi.statsNfts[0].nftSoldLastMonth) *
+    ((nftsSoldThisMonth - dataApi.stats[0].nftSoldLastMonth) /
+      dataApi.stats[0].nftSoldLastMonth) *
     100
   ).toFixed(2);
+  // Module Revenue
+  const revenueEthPercent = (
+    ((dataApi.stats[1].revenueEth - dataApi.stats[1].revenueEthLastMonth) /
+      dataApi.stats[1].revenueEthLastMonth) *
+    100
+  ).toFixed(2);
+  const revenueEurPercent = (
+    ((dataApi.stats[1].revenueEur - dataApi.stats[1].revenueEurLastMonth) /
+      dataApi.stats[1].revenueEurLastMonth) *
+    100
+  ).toFixed(2);
+
   function toggleNegativePositiveStyle() {
     if (nftsSoldPercent > 0) {
       setToggleColor("#85D87E");
@@ -45,38 +71,55 @@ function DashboardStats() {
   return (
     <section className="dashboard-stats-container">
       <div className="dashboard-stats-rectangle">
-        <div className="dashboard-stats-nft-left-to-sell">
-          <div className="dashboard-stats-nft-left-to-sell-number-and-square">
-            <div className="dashboard-stats-nft-left-to-sell-number">12</div>
-            <div className="dashboard-stats-nft-left-to-sell-square"></div>
-          </div>
-          <div className="dashboard-stats-nft-left-to-sell-title-and-logo">
-            <div className="dashboard-stats-nft-left-to-sell-title">
-              NFTs vendus
-            </div>
-            <div className="dashboard-stats-nft-left-to-sell-logo">
-              <p>?</p>
-            </div>
-          </div>
-          <div className="dashboard-stats-nft-left-to-sell-progress-container">
-            <div className="dashboard-stats-nft-left-to-sell-progress-arrow-logo">
-              <img src={arrowDisplay} alt="FLÊCHE VERTE" />
-            </div>
-            <div
-              style={{ color: toggleColor }}
-              className="dashbpard-stats-nft-left-to-sell-progress-number"
-            >
-              {nftsSoldThisMonth}
-            </div>
-            <div
-              style={{ color: toggleColor }}
-              className="dashbpard-stats-nft-left-to-sell-progress-percent"
-            >
-              {displayPlus()}
-              {nftsSoldPercent}% this month
-            </div>
-          </div>
+        <DashboardStatsModule
+          moduleStats={true}
+          nftsSoldThisMonth={nftsSoldThisMonth}
+          nftsSoldPercent={nftsSoldPercent}
+          totalNftSold={dataApi.stats[0].totalNftSold}
+          arrowDisplay={arrowDisplay}
+          toggleColor={toggleColor}
+          displayPlus={displayPlus}
+        />
+        <div className="dashboard-stats-separation-line"></div>
+        <DashboardStatsModule
+          moduleRevenueEth={true}
+          revenueEthLastMonth={dataApi.stats[1].revenueEthLastMonth}
+          revenueEurLastMonth={dataApi.stats[1].revenueEurLastMonth}
+          revenueEth={dataApi.stats[1].revenueEth}
+          totaRevenueEth={dataApi.stats[1].totaRevenueEth}
+          revenueEur={dataApi.stats[1].revenueEur}
+          totalRevenueEur={dataApi.stats[1].totalRevenueEur}
+          revenueEthPercent={revenueEthPercent}
+          revenueEurPercent={revenueEurPercent}
+          //
+          arrowDisplay={arrowDisplay}
+          toggleColor={toggleColor}
+          displayPlus={displayPlus}
+        />
+        <div className="dashboard-stats-separation-line"></div>
+        <DashboardStatsModule
+          moduleRevenueEur={true}
+          revenueEurLastMonth={dataApi.stats[1].revenueEurLastMonth}
+          revenueEur={dataApi.stats[1].revenueEur}
+          totalRevenueEur={dataApi.stats[1].totalRevenueEur}
+          revenueEurPercent={revenueEurPercent}
+          //
+          arrowDisplay={arrowDisplay}
+          toggleColor={toggleColor}
+          displayPlus={displayPlus}
+        />
+        <div className="dashboard-stats-separation-line"></div>
+      </div>
+      <div className="dashboard-stats-middle-container">
+        <div className="dashboard-stats-middle-ranking">
+          RANKING STATS SOON...
         </div>
+        <div className="dashboard-stats-middle-market-cap">
+          MARKET CAP CHARTS & STATS SOON...
+        </div>
+      </div>
+      <div className="dashboard-stats-rectangle-bottom">
+        MORE STATS SOON... 
       </div>
     </section>
   );
