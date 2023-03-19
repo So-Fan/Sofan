@@ -1,12 +1,12 @@
 import React from "react";
-import MintPopUp from "../../Components/MintPopUp/MintPopUp";
+import DashboardMyCollections from "../../Components/DashboardMyCollections/DashboardMyCollections";
 import "./Test.css";
 
 const Test = () => {
   return (
     <>
 
-    <MintPopUp/>
+    <DashboardMyCollections/>
 
     </>
   );
