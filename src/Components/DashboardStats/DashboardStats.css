@@ -1,0 +1,80 @@
+.dashboard-stats-container {
+  width: 100%;
+  height: 100%;
+  max-height: 687px;
+  max-width: 1082px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+/* background-color: red; */
+}
+.dashboard-stats-rectangle {
+  width: 100%;
+  height: 137px;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  /* background-color: coral; */
+}
+.dashboard-stats-middle-container {
+  width: 100%;
+  height: 100%;
+  max-height: 350px;
+  max-width: 1082px;
+  display: flex;
+  /* justify-content: space-between; */
+  font-family: "britanica-heavy";
+  /* background-color: royalblue; */
+}
+.dashboard-stats-middle-ranking {
+  width: 100%;
+  max-width: 260px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.dashboard-stats-middle-market-cap {
+  width: 100%;
+  max-width: 789px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-left: 30.19px;
+}
+
+.dashboard-stats-separation-line {
+  height: 103.92px;
+  width: 0px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 0px;
+  border-top: 0px;
+  margin-left: 38.71px;
+  /* transform: rotate(90deg); */
+}
+.dashboard-stats-rectangle-bottom{
+  width: 100%;
+  height: 137px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "britanica-heavy";
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+@media (max-width:970px) {
+  .dashboard-stats-separation-line{
+    margin-left: 10px;
+  }
+}
