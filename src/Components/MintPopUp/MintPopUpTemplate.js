@@ -7,12 +7,17 @@ function MintPopUpTemplate() {
     mint: [
       {
         status: true,
+        processing:true,
       },
     ],
   };
   return (
     <section className="mint-pop-up-container">
-      <MintPopUpStatus statusMint={dataBlockchain.mint[0].status} />
+
+      <MintPopUpStatus 
+      statusMint={dataBlockchain.mint[0].status} 
+      statusProcessing={dataBlockchain.mint[0].processing}
+      />
     </section>
   );
 }
