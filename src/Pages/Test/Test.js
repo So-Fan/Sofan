@@ -1,17 +1,12 @@
 import React from "react";
-
-import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpTemplate";
-
-
-
+import MintPopUp from "../../Components/MintPopUp/MintPopUp";
 import "./Test.css";
+
 const Test = () => {
   return (
     <>
 
-    <MintPopUpStatus/>
-
-    
+    <MintPopUp/>
 
     </>
   );
