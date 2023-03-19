@@ -1,10 +1,10 @@
 import React from "react";
-import DashboardSubMenu from "../../Components/DashboardSubMenu/DashboardSubMenu";
+import DashboardMyCollections from "../../Components/DashboardMyCollections/DashboardMyCollections";
 import "./Test.css";
 const Test = () => {
   return (
     <>
-    <DashboardSubMenu/>
+    <DashboardMyCollections/>
     </>
   );
 };

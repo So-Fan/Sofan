@@ -2,5 +2,14 @@
 .dashboard-page-container{
     width: 100%;
     max-width: 1245px;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: red; */
+}
+.dashboard-page-my-collections-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     background-color: red;
+    
 }
