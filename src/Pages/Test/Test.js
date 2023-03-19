@@ -1,10 +1,10 @@
 import React from "react";
-import DashboardMyCollections from "../../Components/DashboardMyCollections/DashboardMyCollections";
+import DashboardStats from "../../Components/DashboardStats/DashboardStats";
 import "./Test.css";
 const Test = () => {
   return (
     <>
-    <DashboardMyCollections/>
+    <DashboardStats/>
     </>
   );
 };

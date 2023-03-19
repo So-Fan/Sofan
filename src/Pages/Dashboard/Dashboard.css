@@ -1,15 +1,43 @@
 /* 1245px */
 .dashboard-page-container{
+    width: 96%;
+    max-width: 1395px;
+    display: flex;
+    justify-content: center;
+    /* background-color: red; */
+}
+.dashboard-page-wrap{
     width: 100%;
     max-width: 1245px;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    /* background-color: red; */
+    justify-content: center;
+    /* overflow: scroll; */
+    /* background-color: aqua; */
+    
 }
 .dashboard-page-my-collections-container{
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    background-color: red;
-    
+    /* background-color: red; */
+    margin-left: 25px;
+}
+.dashboard-page-stats-container{
+    width: 100%;
+    min-height: 687px;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 25px;
+}
+@media (max-width:1260px) {
+    .dashboard-page-container{
+        max-width: 1205px;
+    }
+}
+@media (max-width:911px) {
+    .dashboard-page-my-collections-container{
+        display: flex;
+        /* justify-content: center ; */
+    }
 }
