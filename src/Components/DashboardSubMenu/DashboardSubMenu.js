@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import "./DashboardSubMenu.css";
 
-function DashboardSubMenu() {
-  const [isSubMenuClicked, setIsSubMenuClicked] = useState([
-    true,
-    false,
-    false,
-  ]);
+function DashboardSubMenu({setIsSubMenuClicked, isSubMenuClicked}) {
+  
 
   function handleClick(index) {
     setIsSubMenuClicked(

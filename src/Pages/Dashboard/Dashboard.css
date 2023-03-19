@@ -1,0 +1,6 @@
+/* 1245px */
+.dashboard-page-container{
+    width: 100%;
+    max-width: 1245px;
+    background-color: red;
+}
