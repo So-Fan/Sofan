@@ -1,11 +1,18 @@
 import React from "react";
-import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/LaunchpadCollectionLiveMoreAboutCollection/LaunchpadCollectionLiveMoreAboutCollection";
+
+import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpTemplate";
+
+
+
 import "./Test.css";
 const Test = () => {
   return (
     <>
+
+    <MintPopUpStatus/>
+
     
-    <LaunchpadCollectionLiveMoreAboutCollection/>
+
     </>
   );
 };
