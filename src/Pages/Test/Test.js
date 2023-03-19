@@ -1,12 +1,16 @@
 import React from "react";
-import DashboardMyCollections from "../../Components/DashboardMyCollections/DashboardMyCollections";
+
+import DashboardMyCalendar from "../../Components/DashboardMyCalendar/DashboardMyCalendar";
+
+
+
 import "./Test.css";
 
 const Test = () => {
   return (
     <>
 
-    <DashboardMyCollections/>
+    <DashboardMyCalendar/>
 
     </>
   );
