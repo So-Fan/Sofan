@@ -1,0 +1,51 @@
+.launchpad-collection-live-page-container {
+  /* background-color: yellowgreen; */
+  width: 100%;
+  max-width: 1243px;
+  display: flex;
+
+  flex-direction: column;
+}
+.launchpad-collection-live-page-left-container {
+  width: 100%;
+  height: 100%;
+  max-width: 618px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  /* background-color: aquamarine; */
+}
+.launchpad-collection-live-page-more-about-collection-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+@media (max-width: 1280px) {
+  .launchpad-collection-live-page-container {
+    max-width: 96%;
+  }
+}
+@media (max-width: 1180px) {
+  .launchpad-collection-live-page-container {
+    max-width: 96%;
+    align-items: center;
+  }
+}
+@media (max-width: 1080px) {
+  .launchpad-collection-live-page-container {
+    max-width: 96%;
+    align-items: center;
+  }
+}
+@media (max-width: 980px) {
+  .launchpad-collection-live-page-container {
+    max-width: 96%;
+    align-items: center;
+  }
+}
+@media (max-width: 880px) {
+  .launchpad-collection-live-page-container {
+    max-width: 96%;
+    align-items: center;
+  }
+}
