@@ -28,7 +28,6 @@ function NftList({
   func,
   nftImg
 }) {  
-  console.log(date);
   return (
     // Backend here
     <div className="user-nft-transfer-container">
