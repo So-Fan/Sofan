@@ -109,6 +109,19 @@ function DashboardStats() {
           displayPlus={displayPlus}
         />
         <div className="dashboard-stats-separation-line"></div>
+        <div style={{ visibility: "hidden" }}>
+          <DashboardStatsModule
+            moduleRevenueEur={true}
+            revenueEurLastMonth={dataApi.stats[1].revenueEurLastMonth}
+            revenueEur={dataApi.stats[1].revenueEur}
+            totalRevenueEur={dataApi.stats[1].totalRevenueEur}
+            revenueEurPercent={revenueEurPercent}
+            //
+            arrowDisplay={arrowDisplay}
+            toggleColor={toggleColor}
+            displayPlus={displayPlus}
+          />
+        </div>
       </div>
       <div className="dashboard-stats-middle-container">
         <div className="dashboard-stats-middle-ranking">
@@ -118,9 +131,7 @@ function DashboardStats() {
           MARKET CAP CHARTS & STATS SOON...
         </div>
       </div>
-      <div className="dashboard-stats-rectangle-bottom">
-        MORE STATS SOON... 
-      </div>
+      <div className="dashboard-stats-rectangle-bottom">MORE STATS SOON...</div>
     </section>
   );
 }
