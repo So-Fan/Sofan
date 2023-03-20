@@ -1,40 +1,136 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import "./LaunchpadAllHeader.css";
-const LaunchpadAllHeader = () => {
-  const data = {
-    launchpad: {
-      background: "https://i.imgur.com/se736B0.png",
-      profilePicture: "https://i.imgur.com/StsunkC.png",
-      athlename: "Romain Attanasio",
-      title: "Vendée Globe Final Tour",
-      description:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout",
-      nftNumber: "350",
-      nftPrice: "0.31",
-    },
+const LaunchpadAllHeader = ({ data }) => {
+  const [dimLaunchpadHeader, setDimLaunchpadHeader] = useState(
+    window.innerWidth
+  );
+  const handleDimLaunchpadHeader = () => {
+    setDimLaunchpadHeader(window.innerWidth);
   };
+  let launchpadallheaderComponentImg;
+  let launchpadallheaderDataContainer;
+  let launchpadallheaderDataWrap;
+  let launchpadallheaderDataWrapImg;
+  let launchpadallheaderDataWrapImgImg;
+  let launchpadallheaderDataWrapthletename;
+  let launchpadallheaderDataWrapTitle;
+  let launchpadallheaderDataWrapDescription;
+  let launchpadallheaderDataWrapNft;
+  let launchpadallheaderDataWrapButton;
+  const LaunchpadAllHeaderCalcProportional = (obj) => {
+    let Obj = {};
+    for (let key in obj) {
+      let temp = {
+        temp: `${obj[key] * (1 - (1 - dimLaunchpadHeader / 1300))}px`,
+      };
+      Obj[key] = temp["temp"];
+    }
+    return Obj;
+  };
+  if (dimLaunchpadHeader < 1300) {
+    launchpadallheaderComponentImg = LaunchpadAllHeaderCalcProportional({
+      borderRadius: 20,
+    });
+    launchpadallheaderDataContainer = LaunchpadAllHeaderCalcProportional({
+      borderRadius: 20,
+    });
+    launchpadallheaderDataWrap = LaunchpadAllHeaderCalcProportional({
+      marginLeft: 40,
+    });
+    launchpadallheaderDataWrapImg = LaunchpadAllHeaderCalcProportional({
+      borderRadius: 5,
+      width: 50,
+      height: 50,
+      marginBottom: 10,
+    });
+    launchpadallheaderDataWrapImgImg = LaunchpadAllHeaderCalcProportional({
+      borderRadius: 5,
+      width: 46,
+      height: 46,
+    });
+    launchpadallheaderDataWrapthletename = LaunchpadAllHeaderCalcProportional({
+      lineHeight: 19,
+      fontSize: 16,
+    });
+    launchpadallheaderDataWrapTitle = LaunchpadAllHeaderCalcProportional({
+      lineHeight: 42,
+      fontSize: 35,
+      marginTop: 6,
+    });
+    launchpadallheaderDataWrapDescription = LaunchpadAllHeaderCalcProportional({
+      lineHeight: 19,
+      fontSize: 16,
+      maxWidth: 552,
+      marginTop: 5,
+    });
+    launchpadallheaderDataWrapNft = LaunchpadAllHeaderCalcProportional({
+      lineHeight: 19,
+      fontSize: 16,
+      marginTop: 15,
+      marginBottom: 25,
+    });
+    launchpadallheaderDataWrapButton = LaunchpadAllHeaderCalcProportional({
+      marginBottom: 40,
+      width: 117,
+      height: 44,
+      borderRadius: 5,
+      fontSize: 20,
+    });
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleDimLaunchpadHeader, false);
+  }, []);
   return (
     <div className="launchpadallheader-component">
-      <img src={data?.launchpad.background} alt="background" />
-      <div className="launchpadallheader-data-container">
-        <div className="launchpadallheader-data-wrap">
-          <div className="launchpadallheader-data-wrap-img">
-            <img src={data?.launchpad.profilePicture} alt="profile" />
+      <img
+        src={data?.background}
+        alt="background"
+        style={launchpadallheaderComponentImg}
+      />
+      <div
+        className="launchpadallheader-data-container"
+        style={launchpadallheaderDataContainer}
+      >
+        <div
+          className="launchpadallheader-data-wrap"
+          style={launchpadallheaderDataWrap}
+        >
+          <div
+            className="launchpadallheader-data-wrap-img"
+            style={launchpadallheaderDataWrapImg}
+          >
+            <img
+              src={data?.profilePicture}
+              alt="profile"
+              style={launchpadallheaderDataWrapImgImg}
+            />
           </div>
-          <span className="launchpadallheader-data-wrap-athletename">
-            by {data?.launchpad.athlename}
+          <span
+            className="launchpadallheader-data-wrap-athletename"
+            style={launchpadallheaderDataWrapthletename}
+          >
+            by {data?.athlename}
           </span>
-          <span className="launchpadallheader-data-wrap-title">
-            {data?.launchpad.title}
+          <span
+            className="launchpadallheader-data-wrap-title"
+            style={launchpadallheaderDataWrapTitle}
+          >
+            {data?.title}
           </span>
-          <span className="launchpadallheader-data-wrap-description">
-            {data?.launchpad.description}
+          <span
+            className="launchpadallheader-data-wrap-description"
+            style={launchpadallheaderDataWrapDescription}
+          >
+            {data?.description}
           </span>
-          <span className="launchpadallheader-data-wrap-nft">
-            {data?.launchpad.nftNumber} items - {data?.launchpad.nftPrice} ETH
+          <span
+            className="launchpadallheader-data-wrap-nft"
+            style={launchpadallheaderDataWrapNft}
+          >
+            {data?.nftNumber} items - {data?.nftPrice} ETH
           </span>
-          <Button text="Discover" style={ButtonStyleLaunchpadAllHeader} />
+          <Button text="Discover" style={launchpadallheaderDataWrapButton} />
         </div>
       </div>
     </div>
@@ -42,13 +138,3 @@ const LaunchpadAllHeader = () => {
 };
 
 export default LaunchpadAllHeader;
-
-const ButtonStyleLaunchpadAllHeader = {
-  width: "117px",
-  height: "44px",
-  background: "#F6D463",
-  borderRadius: "5px",
-  border: "transparent",
-  fontFamily: 'Britanica-Heavy',
-  fontSize: "20px",
-};

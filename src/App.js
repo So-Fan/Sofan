@@ -28,6 +28,14 @@ function App() {
   const [isDropdownClicked, setIsDropdownClicked] = useState();
   const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
     useState(false);
+  const [
+    isLiveLaunchSportDropdownClicked,
+    setIsLiveLaunchSportDropdownClicked,
+  ] = useState(false);
+  const [
+    isUpcomingLaunchSportDropdownClicked,
+    setIsUpcomingLaunchSportDropdownClicked,
+  ] = useState(false);
   function handleClickOutside(e) {
     // Navbar
     if (e.target.id === "navbar-user-profile-img") {
@@ -60,6 +68,22 @@ function App() {
     ) {
       console.log(e.target.id);
       setProfileSubMenuOffresClicked(false);
+    }
+    // LaunchpadAll Live Launches Dropdown
+    if (
+      e.target.id !== "launchpadalllivelaunches-dropdown-main" &&
+      e.target.id !== "launchpadalllivelaunches-dropdown-span" &&
+      e.target.id !== "launchpadalllivelaunches-dropdown-img"
+    ) {
+      setIsLiveLaunchSportDropdownClicked(false);
+    }
+    // LaunchpadAll Upcoming Launches Dropdown
+    if (
+      e.target.id !== "launchpadallupcominglaunches-dropdown-main" &&
+      e.target.id !== "launchpadallupcominglaunches-dropdown-span" &&
+      e.target.id !== "launchpadallupcominglaunches-dropdown-img"
+    ) {
+      setIsUpcomingLaunchSportDropdownClicked(false);
     }
   }
   return (
@@ -125,9 +149,27 @@ function App() {
           <Route path="signupathlete" element={<SignUpAthletePage />} />
           <Route path="/test" element={<Test />} />
           <Route path="/login" element={<LoginSignUpScreen />} />
-          <Route path="/collectionlive" element={<LaunchpadCollectionLive/>}/>
-          <Route path="/launchpadall" element={<LaunchpAll/>}/>
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/collectionlive" element={<LaunchpadCollectionLive />} />
+          <Route
+            path="/launchpadall"
+            element={
+              <LaunchpAll
+                isLiveLaunchSportDropdownClicked={
+                  isLiveLaunchSportDropdownClicked
+                }
+                setIsLiveLaunchSportDropdownClicked={
+                  setIsLiveLaunchSportDropdownClicked
+                }
+                isUpcomingLaunchSportDropdownClicked={
+                  isUpcomingLaunchSportDropdownClicked
+                }
+                setIsUpcomingLaunchSportDropdownClicked={
+                  setIsUpcomingLaunchSportDropdownClicked
+                }
+              />
+            }
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
