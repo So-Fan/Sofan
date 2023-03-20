@@ -1,0 +1,163 @@
+.popupplacebid-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 528px;
+  max-height: 506px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 13.5142px;
+}
+.popupplacebid-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 89%;
+  padding-top: 25px;
+}
+.popupplacebid-title-container > span {
+  font-family: "Britanica-Black";
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.015em;
+}
+.popupplacebid-title-container > img {
+  width: 25px !important;
+  height: 25px !important;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.popupplacebid-nftinfo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 89%;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  height: 91px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.popupplacebid-nftinfo-container-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 325px;
+}
+.popupplacebid-nftinfo-container-left-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 52px;
+  padding-left: 12px;
+}
+.popupplacebid-nftinfo-container-left-info > span {
+  font-family: "Britanica-Light";
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: -0.015em;
+}
+.popupplacebid-nftinfo-container-left-info > span:nth-child(2n + 1) {
+  font-family: "Britanica-Black";
+  font-size: 19px;
+  line-height: 23px;
+  letter-spacing: -0.015em;
+}
+.popupplacebid-nftinfo-container-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 49px;
+}
+.popupplacebid-nftinfo-container-right > span {
+  font-family: "Britanica-Light";
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: -0.015em;
+}
+.popupplacebid-nftinfo-container-right > span:nth-child(2n + 1) {
+  font-family: "Britanica-Black";
+  font-size: 19px;
+  line-height: 23px;
+  letter-spacing: -0.015em;
+}
+.popupplacebid-globalinfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+  border-radius: 10px;
+  width: 89%;
+  height: 92px;
+}
+.popupplacebid-globalinfo-container {
+  display: flex;
+  justify-content: space-between;
+  width: 91.5%;
+}
+.popupplacebid-globalinfo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.popupplacebid-globalinfo-wrap > span:nth-child(1) {
+  font-family: "Britanica-Light";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+.popupplacebid-globalinfo-wrap > span:nth-child(2) {
+  font-family: "Britanica-Black";
+  font-size: 18px;
+  line-height: 22px;
+}
+.popupplacebid-globalinfo-wrap > span:nth-child(3) {
+  font-family: "Britanica-Light";
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 16px;
+}
+.popupplacebid-line {
+  margin-top: 20px;
+  width: 89%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.popupplacebid-priceinput-wrap {
+  display: flex;
+  width: 89%;
+  margin-top: 17px;
+}
+.popupplacebid-priceinput-wrap > input {
+  width: 364px;
+  height: 50px;
+  border: solid #000000;
+  border-width: 0.3px 0 0.3px 0.3px;
+  border-radius: 10px 0px 0px 10px;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  padding-left: 9px;
+  font-family: "Britanica-Light";
+  font-size: 17px;
+}
+.popupplacebid-priceinput-wrap > input:focus::placeholder{
+  color: transparent;
+}
+.popupplacebid-priceinput-wrap > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.3px solid #000000;
+  border-radius: 0px 10px 10px 0px;
+  width: 103px;
+  cursor: pointer;
+}
+.popupplacebid-priceinput-wrap > div > img{
+  margin-left: 17.64px;
+}
+@font-face {
+  font-family: "Lufga";
+  src: url("../../Assets/Fonts/Lufga-Black.otf");
+}
