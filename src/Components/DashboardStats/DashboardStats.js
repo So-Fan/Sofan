@@ -4,7 +4,7 @@ import greenArrow from "../../Assets/Image/green-arrow.svg";
 import redArrow from "../../Assets/Image/red-arrow.svg";
 import DashboardStatsModule from "./DashboardStatsModule/DashboardStatsModule";
 
-function DashboardStats() {
+function DashboardStats({dataApi}) {
   const [toggleColor, setToggleColor] = useState("");
   const [arrowDisplay, setArrowDisplay] = useState();
   // const [moduleStats, setModuleStats] = useState({
@@ -15,23 +15,6 @@ function DashboardStats() {
   // - Nb de NFT restant à vendre au total
   // - Nbr de NFT vendys total et par collection
   // - CA généré au total et par collection
-  const dataApi = {
-    stats: [
-      {
-        nftSoldLastMonth: 18,
-        nftSold: 19,
-        totalNftSold: 40,
-      },
-      {
-        revenueEthLastMonth: 2.29,
-        revenueEurLastMonth: 2498.32,
-        revenueEth: 3.02,
-        totaRevenueEth: 8.59,
-        revenueEur: 4542.19,
-        totalRevenueEur: 12987.9,
-      },
-    ],
-  };
   // Module NFT Sold
   const nftsSoldThisMonth = dataApi.stats[0].nftSold;
   const nftsSoldPercent = (

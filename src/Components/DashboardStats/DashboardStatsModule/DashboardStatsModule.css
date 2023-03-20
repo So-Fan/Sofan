@@ -11,6 +11,7 @@
   height: 43px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   /* background-color: blueviolet; */
 }
 .dashboard-stats-module-number {
@@ -74,11 +75,37 @@
 .dashboard-stats-module-progress-percent {
   margin-left: 15px;
 }
-@media (max-width:970px) {
+@media (max-width:1110px) {
   .dashboard-stats-module-number{
     font-size: 24px !important;
   }
   .dashboard-stats-module-title{
     font-size: 14px;
+  }
+}
+@media (max-width:1000px) {
+  .dashboard-stats-module-square{
+    width: 34px;
+    height: 34px;
+  }
+  .dashboard-stats-module-number{
+    font-size: 22px !important;
+  }
+  .dashboard-stats-module-title{
+    font-size: 13px;
+  }
+  .dashboard-stats-module-progress-number{
+    font-size: 12px ;
+  }
+  .dashboard-stats-module-progress-percent{
+    font-size: 12px;
+  }
+}
+@media (max-width: 850px) {
+  .dashboard-stats-module-number{
+    font-size: 18px !important;
+  }
+  .dashboard-stats-module-title{
+    font-size: 11px;
   }
 }

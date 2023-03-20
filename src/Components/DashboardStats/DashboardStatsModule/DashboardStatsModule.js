@@ -62,7 +62,7 @@ function DashboardStatsModule({
         </div>
         <div
           style={{ color: toggleColor }}
-          className="dashopard-stats-module-progress-number"
+          className="dashboard-stats-module-progress-number"
         >
           {moduleRevenueEth ? <>{revenueEth}</> : moduleRevenueEur ? <>{revenueEur}</> : <>{nftsSoldThisMonth}</>}
         </div>

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./AthleteProfileNFTCollectionTemplate.css";
-const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent }) => {
+const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent,dashBoardPageMarginDelete }) => {
   console.log(collectionData)
   return (
-    <Link className="athleteprofilenftcollectiontemplate-component" style={isTransparent && {visibility: "hidden"}}>
+    <Link className="athleteprofilenftcollectiontemplate-component" style={isTransparent ? {visibility: "hidden"}: dashBoardPageMarginDelete ? {marginTop: "0px", marginBottom:"26px"}:{}}>
       <div className="athleteprofilenftcollectiontemplate-banner-wrap">
         <img src={collectionData?.banner} alt="banner" />
       </div>
