@@ -8,9 +8,6 @@ const Test = () => {
 
   return (
     <>
-    <LaunchpadAllLiveLaunches />
-    <LaunchpadAllUpcomingLaunches />
-    <LaunchpadAllHeader />
     </>
   );
 };
