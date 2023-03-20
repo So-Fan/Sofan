@@ -16,6 +16,7 @@
   border-radius: 10px;
   height: 50px;
   width: 100%;
+  position: relative;
 }
 
 .input-comment-publication {
@@ -41,7 +42,11 @@
   cursor: pointer;
   font-size: 16px;
 }
-
+.add-comment-input-emoji-picker-container{
+  z-index: 1001;
+position: absolute;
+bottom: -350px;
+}
 @media (max-width: 1350px) {
   .input-comment-container-publication {
     height: 50px;
