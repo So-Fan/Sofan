@@ -2,11 +2,6 @@ import React from "react";
 import "./NftCard.css";
 import NftCardTemplate from "./NftCardTemplate/NftCardTemplate";
 const NftCard = ({ userFrom }) => {
-  console.log(userFrom?.length % 4);
-  setTimeout(() => {
-    
-    console.log("C'est UserFrom --> "+userFrom)
-  }, 900);
   return (
     <>
       <div className="nftcard-component">
