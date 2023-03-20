@@ -18,6 +18,14 @@
   font-family: "britanica-light";
   src: url("./Assets/Fonts/Britanica-Light.ttf") format("truetype");
 }
+@font-face {
+  font-family: "lufga-regular";
+  src: url("./Assets/Fonts/Lufga-Regular.ttf");
+}
+@font-face {
+  font-family: "Lufga";
+  src: url("./Assets/Fonts/Lufga-Black.otf");
+}
 
 /* RESET CSS DEFAULT VALUE */
 

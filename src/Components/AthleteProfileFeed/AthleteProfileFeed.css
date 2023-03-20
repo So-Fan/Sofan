@@ -1,20 +1,20 @@
 .athlete-profile-feed-container {
   width: 100%;
   height: 100%;
-  max-width: 1130px;
+  max-width: 1240px;
   max-height: 1500px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: baseline;
-  /* flex-wrap: wrap; */
   overflow-y: scroll;
-  /* backdrop-filter: blur(10px); */
+  margin-top: 18px;
   /* background-color: yellow; */
 }
 .athlete-profile-feed-container::-webkit-scrollbar {
   display: none;
 }
 .athlete-profile-feed-free-container {
+  width: 100%;
   max-width: 610px;
   flex-direction: column;
   /* background-color: green; */
@@ -22,6 +22,7 @@
 }
 .athlete-profile-feed-premium-container {
   /* background-color: red; */
+  width: 100%;
   max-width: 610px;
   flex-direction: column;
 }

@@ -96,8 +96,6 @@ function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
       },
     ],
   };
-// 
-// function NftCollectionMoreAboutNft({ nftCard }) {
   return (
     <section className="nft-collection-more-about-nft-container">
       <div className="nft-collection-more-about-nft-wrap">

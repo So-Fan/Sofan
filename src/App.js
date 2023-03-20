@@ -132,7 +132,19 @@ function App() {
               />
             }
           />
-          <Route path="/nftcollection" element={<NftCollection />} />
+          <Route
+            path="/nftcollection"
+            element={
+              <NftCollection
+                setIsUSerProfileSeortBySelectorClicked={
+                  setIsUSerProfileSeortBySelectorClicked
+                }
+                isUSerProfileSeortBySelectorClicked={
+                  isUSerProfileSeortBySelectorClicked
+                }
+              />
+            }
+          />
           <Route path="/nftsingle" element={<NftSingle />} />
           <Route path="signupathlete" element={<SignUpAthletePage />} />
           <Route path="/test" element={<Test />} />
