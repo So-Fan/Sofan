@@ -18,26 +18,28 @@ function PostsFeed({
   setIsPostClicked,
   isPostClicked,
   lockPremiumContent,
+  postName,
   postDate,
   postDateType,
   postType,
   postDescription,
+  postLikeNumber,
+  postPicture,
+  postCommentNumber,
+  // 
+  pollDateType,
   pollFirstChoice,
   pollSecondChoice,
   pollThirdChoice,
   pollFourthChoice,
-  postName,
   pollDate,
-  pollDateType,
-  postPicture,
   pollVoteNumbers,
-  postLikeNumber,
-  postCommentNumber,
   pollTotalVote,
   pollFirstChoiceNumber,
   pollSecondChoiceNumber,
   pollThirdChoiceNumber,
-  pollFourthChoiceNumber
+  pollFourthChoiceNumber,
+  athleteProfilePageStyling
   
 }) 
 {
@@ -66,9 +68,13 @@ function PostsFeed({
     />
     }
   }
+  console.log(athleteProfilePageStyling)
+  console.log(athleteProfilePageStyling)
+  console.log(athleteProfilePageStyling)
+  console.log(athleteProfilePageStyling)
   return (
     <>
-      <div className="publication-container">
+      <div style={athleteProfilePageStyling ? {marginBottom: "18px"}: {marginTop: "60px"}} className="publication-container">
         {lockPremiumContent && (
           <>
             <PremiumContentLocked />

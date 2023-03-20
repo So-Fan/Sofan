@@ -11,9 +11,10 @@ import AthleteProfilePage from "./Pages/AthleteProfilePage/AthleteProfilePage";
 import LoginSignUpScreen from "./Pages/LoginSignUpPage/LoginSignUpScreen";
 import NftCollection from "./Pages/NftCollection/NftCollection";
 import NftSingle from "./Pages/NftSingle/NftSingle";
-import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAthletePage"
+import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAthletePage";
 import LaunchpadCollectionLive from "./Pages/LaunchpadCollectionLive/LaunchpadCollectionLive";
 import LaunchpAll from "./Pages/LaunchpadAll/LaunchpadAll";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 function App() {
   const isLogged = true; // from Backend
@@ -107,13 +108,26 @@ function App() {
               />
             }
           />
-          <Route path="/nftcollection" element={<NftCollection />} />
+          <Route
+            path="/nftcollection"
+            element={
+              <NftCollection
+                setIsUSerProfileSeortBySelectorClicked={
+                  setIsUSerProfileSeortBySelectorClicked
+                }
+                isUSerProfileSeortBySelectorClicked={
+                  isUSerProfileSeortBySelectorClicked
+                }
+              />
+            }
+          />
           <Route path="/nftsingle" element={<NftSingle />} />
-          <Route path="signupathlete" element={<SignUpAthletePage/>}/>
+          <Route path="signupathlete" element={<SignUpAthletePage />} />
           <Route path="/test" element={<Test />} />
           <Route path="/login" element={<LoginSignUpScreen />} />
           <Route path="/collectionlive" element={<LaunchpadCollectionLive/>}/>
           <Route path="/launchpadall" element={<LaunchpAll/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
         </Routes>
       </div>
       <section className="error-mobile-waiting-page">
