@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { createRef,useState, useEffect } from "react";
 import "./AddCommentInput.css";
 import InputEmoji from "react-input-emoji";
 import EmojiPicker, { Emoji, EmojiClickData } from "emoji-picker-react";
@@ -12,15 +12,43 @@ function AddCommentInput({
 }) {
   const [toggleEmojiPicker, setToggleEmojiPicker] = useState(false);
   const [emojiClicked, setEmojiClicked] = useState([]);
+  const [stringInput, setStringInput] = useState();
 
-  const handleChange = (e) => {
-    // const newEmojiClicked = [...emojiClicked, e.emoji]; // créer un nouveau tableau avec l'emoji ajouté
+  const handleClick = (e) => {
     setEmojiClicked((prevState) => prevState.concat(e.emoji));
-    console.log(emojiClicked);
   };
   function handleToggleEmojiPicker() {
     setToggleEmojiPicker(!toggleEmojiPicker);
   }
+  // function handleChange(e) {
+  //   console.log(e.target.value);
+  //   const valueInput = e.target.value;
+  //   setStringInput({ valueInput });
+  // }
+
+  const inputRef = createRef();
+  const [message, setMessage] = useState("");
+  const [showEmojis, setShowEmojis] = useState();
+  const [cursorPosition, setCursorPosition] = useState();
+
+  const pickEmoji = (e, { emoji }) => {
+    const ref = inputRef.current;
+    ref.focus();
+    const start = message.substring(0, ref.selectionStart);
+    const end = message.substring(ref.selectionStart);
+    const text = start + emoji + end;
+    setMessage(text);
+    setCursorPosition(start.length+emoji.length);
+  };
+
+  const handleChange = e => {
+    setMessage(e.target.value)
+  }
+const handleShowEmojis = () => {
+  inputRef.current.focus();
+  setShowEmojis(!showEmojis);
+}  
+// https://www.youtube.com/watch?v=vsIDc9FTxzM&t=198s
   return (
     <div
       className={`input-comment-container-publication ${inputAddCommentContainer}`}
@@ -49,7 +77,7 @@ function AddCommentInput({
             <>
               <div className="add-comment-input-emoji-picker-container">
                 <EmojiPicker
-                  onEmojiClick={handleChange}
+                  onEmojiClick={handleClick}
                   width={250}
                   height={350}
                   // searchDisabled={true}
@@ -64,14 +92,16 @@ function AddCommentInput({
         >
           {/* <InputEmoji 
           /> */}
-
           <textarea
             placeholder="Add a comment"
+            // onChange={handle}
             // value={emojiClicked}
             className={`input-comment-publication ${inputCommentPublicationPollPost}`}
             type="text"
-            onChange={handleChange}
-          ></textarea>
+            // onChange={handleChange}
+          >
+            {pickEmoji}
+          </textarea>
         </div>
         <div
           className={`publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`}
