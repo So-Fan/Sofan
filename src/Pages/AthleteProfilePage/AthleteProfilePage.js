@@ -16,39 +16,10 @@ const AthleteProfilePage = ({
   profileSubMenuOffresClicked,
   setProfileSubMenuOffresClicked,
 }) => {
+  
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
   const [dataConcat, setDataConcat] = useState({athletes: [{}]});
-  const displayAthleteProfileSubMenu = () => {
-    if (isAthleteProfileSubMenuClicked[4] === true) {
-      return <AthleteProfileFeed dataPosts={dataConcat?.athletes} />;
-    } else if (isAthleteProfileSubMenuClicked[5] === true) {
-      return <AthleteProfileNFTCollection dataCollections={dataConcat?.collections} />;
-    } else if (isAthleteProfileSubMenuClicked[6] === true) {
-      return <AthleteProfileEvent dataEvents={dataConcat?.events} />;
-    } else if (isAthleteProfileSubMenuClicked[0] === true) {
-      return (
-        <div>
-          <SortBySelector
-            setIsUSerProfileSeortBySelectorClicked={
-              setIsUSerProfileSeortBySelectorClicked
-            }
-            isUSerProfileSeortBySelectorClicked={
-              isUSerProfileSeortBySelectorClicked
-            }
-          />
-          <NftCard userFrom={dataConcat?.collected} />
-        </div>
-      );
-    } else if (isAthleteProfileSubMenuClicked[1] === true) {
-      return <UserActivity userFrom={dataConcat?.activities} />;
-    } else if (isAthleteProfileSubMenuClicked[2] === true) {
-      return <div className="athleteprofilepage-formulatedoffers-wrap"><FormulatedOffers userFrom={dataConcat?.made} /></div>;
-    } else if (isAthleteProfileSubMenuClicked[3] === true) {
-      return <div className="athleteprofilepage-formulatedoffers-wrap"><ReceivedOffers userFrom={dataConcat?.received} /></div>;
-    }
-  };
-
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -285,34 +256,64 @@ const AthleteProfilePage = ({
       ],
       athletes: [
         {
+          postName:"Romain Attanasio",
+          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
+          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
           postDate: 37,
           postDateType: "min",
-          postType: "Premium",
+          postType: "Free",
+          postLikeNumber: 29,
+          postCommentNumber: 10,
         },
         {
+          postName:"Romain Attanasio",
+          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 2,
           postDateType: "h",
           postType: "Premium",
+          postLikeNumber: 29,
+          postCommentNumber: 10,
         },
         {
+          postName:"Romain Attanasio",
+          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 2,
           postDateType: "h",
           postType: "Free",
+          postLikeNumber: 29,
+          postCommentNumber: 10,
         },
         {
+          postName:"Romain Attanasio",
+          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 3,
           postDateType: "h",
           postType: "Free",
+          postLikeNumber: 29,
+          postCommentNumber: 10,
         },
         {
+          postName:"Romain Attanasio",
+          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 4,
           postDateType: "h",
           postType: "Premium",
+          postLikeNumber: 29,
+          postCommentNumber: 10,
         },
         {
+          postName:"Romain Attanasio",
+          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 9,
           postDateType: "d",
           postType: "Premium",
+          postLikeNumber: 29,
+          postCommentNumber: 10,
         },
       ],
     };
@@ -421,8 +422,8 @@ const AthleteProfilePage = ({
       );
       data.activities[i].nftPriceEth = concatStringFromTo(
         data?.activities[i]?.nftPriceEth,
-        7,
-        7,
+        5,
+        5,
         false,
         false
       );
@@ -461,6 +462,38 @@ const AthleteProfilePage = ({
 
     setDataConcat(data);
   }, []);
+  const displayAthleteProfileSubMenu = () => {
+    if (isAthleteProfileSubMenuClicked[4] === true) {
+      return <AthleteProfileFeed 
+      athleteProfilePageStyling={true}
+      dataPosts={dataConcat?.athletes} />;
+    } else if (isAthleteProfileSubMenuClicked[5] === true) {
+      return <AthleteProfileNFTCollection dataCollections={dataConcat?.collections} />;
+    } else if (isAthleteProfileSubMenuClicked[6] === true) {
+      return <AthleteProfileEvent dataEvents={dataConcat?.events} />;
+    } else if (isAthleteProfileSubMenuClicked[0] === true) {
+      return (
+        <div>
+          <SortBySelector
+            setIsUSerProfileSeortBySelectorClicked={
+              setIsUSerProfileSeortBySelectorClicked
+            }
+            isUSerProfileSeortBySelectorClicked={
+              isUSerProfileSeortBySelectorClicked
+            }
+          />
+          <NftCard userFrom={dataConcat?.collected} />
+        </div>
+      );
+    } else if (isAthleteProfileSubMenuClicked[1] === true) {
+      return <UserActivity userFrom={dataConcat?.activities} />;
+    } else if (isAthleteProfileSubMenuClicked[2] === true) {
+      return <div className="athleteprofilepage-formulatedoffers-wrap"><FormulatedOffers userFrom={dataConcat?.made} /></div>;
+    } else if (isAthleteProfileSubMenuClicked[3] === true) {
+      return <div className="athleteprofilepage-formulatedoffers-wrap"><ReceivedOffers userFrom={dataConcat?.received} /></div>;
+    }
+  };
+  // console.log(dataConcat.athletes)
   return (
     <div className="athleteprofilepage-component">
       <AthleteProfileHeader userInfo={dataConcat?.userPageInfo} />
