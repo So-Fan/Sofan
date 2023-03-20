@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./NftCollectionHeader.css";
 import explorePicture from "../../Assets/Image/explorepicture.svg";
 import DropDownButtonMenu from "../PostsComponents/DropDownButtonMenu/DropDownButtonMenu";
+import LaunchPadMintProgressBar from "../LaunchPadMintProgressBar/LaunchPadMintProgressBar";
 
 function NftCollectionHeader({
   collectionName,
@@ -27,7 +28,7 @@ function NftCollectionHeader({
 const [styleChangeButton, setStyleChangeButton] =useState("")
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
-  function handleStyleButotn() {
+  function handleStyleButton() {
     
     if (nftMintedCalculated === 0) {
    return "#EDEDED";
@@ -79,22 +80,13 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                     Limit {minLimit} per wallet
                   </div>
                 </div>
-                <div className="launchpad-collection-live-header-right-mint-module-progress-bar-background">
-                  <div
-                    style={{ width: `${nftMintedCalculated}%` }}
-                    className="launchpad-collection-live-header-right-mint-module-progress-bar"
-                  ></div>
-                </div>
-                <div className="launchpad-collection-live-header-right-mint-module-total-minted">
-                  <div className="launchpad-collection-live-header-right-mint-module-total-minted-title">
-                    Total minted
-                  </div>
-                  <div className="launchpad-collection-live-header-right-mint-module-total-minted-number">
-                    {counterNftMinted} / {totalNftMintable}
-                  </div>
-                </div>
+                <LaunchPadMintProgressBar
+                nftMintedCalculated={nftMintedCalculated}
+                counterNftMinted={counterNftMinted}
+                totalNftMintable={totalNftMintable}
+                />
                 <div className="launchpad-collection-live-header-right-mint-module-mint-button-container">
-                  <button style={{backgroundColor: handleStyleButotn() }} className="launchpad-collection-live-header-right-mint-module-mint-button">Mint now</button>
+                  <button style={{backgroundColor: handleStyleButton() }} className="launchpad-collection-live-header-right-mint-module-mint-button">Mint now</button>
                 </div>
               </div>
             </div>
