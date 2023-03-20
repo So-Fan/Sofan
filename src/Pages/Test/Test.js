@@ -1,16 +1,12 @@
-
-import React from 'react'
-import PopUpBuyNft from '../../Components/PopUpBuyNft/PopUpBuyNft';
-import PopUpPlaceBid from '../../Components/PopUpPlaceBid/PopUpPlaceBid';
+import React from "react";
+import LaunchpadAllHeader from "../../Components/LaunchpadAllHeader/LaunchpadAllHeader";
 import "./Test.css";
 
 const Test = () => {
 
   return (
     <>
-
-      <PopUpPlaceBid />
-
+    <LaunchpadAllHeader />
     </>
   );
 };
