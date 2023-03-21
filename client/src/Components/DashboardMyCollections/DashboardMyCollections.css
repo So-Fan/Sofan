@@ -1,0 +1,7 @@
+.dashboard-my-collections-container{
+    width: 100%;
+    max-width: 1077.02px;
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: red; */
+}

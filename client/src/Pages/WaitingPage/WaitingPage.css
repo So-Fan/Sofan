@@ -1,0 +1,102 @@
+.waiting-page-container {
+  height:100%;
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.logo-sofan-waiting-page-container {
+  height: 20%;
+  width: 100%;
+  /* background-color: green; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.explore-picture-and-text-waiting-page{
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction:column ;
+    /* background-color: blue; */
+    font-family: 'britanica-heavy';
+    font-size: 30px;
+}
+.explore-picture-waiting-page {
+  height: 250px;
+  width: 500px;
+}
+
+.socials-network-waiting-page{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+.logo-socials-waiting-page{
+    height: 20%;
+    width: 20%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.svg-socials-waiting-page{
+    height: 30px;
+    width: 30px;
+    fill: #f6d463;
+    cursor: pointer;
+}
+.svg-socials-waiting-page:hover{
+    fill: #f7c520;
+}
+
+@media (min-width: 200px) {
+    /* .error-mobile{
+      
+      display: none;
+      
+    } */
+    .error-mobile-waiting-page{
+      
+      display: none;
+    }
+    .waiting-page-container{
+      
+      display: flex;
+    }
+  }
+
+  @media (max-width: 800px) {
+  
+    .error-mobile-waiting-page{
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      line-height: 40px;
+      font-family: 'britanica-heavy';
+    }
+    .socials-network-waiting-page{
+     height: 45%;   
+    }
+    .logo-socials-waiting-page{
+        width: 60%;
+    }
+    .svg-socials-waiting-page{
+        height: 25px;
+        width: 25px;
+    }
+    .waiting-page-container{
+      display: none;
+    }
+  }

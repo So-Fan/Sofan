@@ -1,0 +1,89 @@
+.launchpadallupcominglaunchesTemplate-component {
+  width: 100%;
+  height: 100%;
+  max-height: 550px;
+  position: relative;
+}
+.launchpadallupcominglaunchesTemplate-component > img {
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  border-radius: 20px;
+}
+.launchpadallupcominglaunchesTemplate-data-container {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  max-width: 500px;
+  top: 0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, #000000 100%);
+}
+.launchpadallupcominglaunchesTemplate-data-wrap {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-img {
+  background-color: white;
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-img > img {
+  width: 46px;
+  height: 46px;
+  border-radius: 5px;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-athletename {
+  font-family: "Britanica-Regular";
+  line-height: 19px;
+  color: #ffffff;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-title {
+  font-family: "Britanica-Heavy";
+  font-size: 35px;
+  line-height: 42px;
+  color: #ffffff;
+  margin-top: 6px;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-nft {
+  font-family: "Britanica-Heavy";
+  line-height: 19px;
+  color: #ffffff;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap {
+  max-width: 240px;
+  width: 100%;
+  max-height: 50px;
+  height: 100%;
+  display: flex;
+  margin-bottom: 30px;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap > div {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(27px);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+.launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap > div > span {
+  font-family: "Britanica-Heavy";
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+}

@@ -1,0 +1,98 @@
+.launchpadalllivelaunchestemplate-component {
+  width: 100%;
+  height: 100%;
+  max-height: 550px;
+  position: relative;
+}
+.launchpadalllivelaunchestemplate-component > img {
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  border-radius: 20px;
+}
+.launchpadalllivelaunchestemplate-data-container {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  max-width: 500px;
+  top: 0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, #000000 100%);
+}
+.launchpadalllivelaunchestemplate-data-container-live-wrap {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  left: 20px;
+  width: 86.05px;
+  height: 34.68px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(3.68421px);
+  border-radius: 7.36842px;
+}
+.launchpadalllivelaunchestemplate-data-container-live-wrap > div {
+  width: 9.21px;
+  height: 9.21px;
+  background: #62e434;
+  border-radius: 999px;
+  margin-right: 9.21px;
+}
+.launchpadalllivelaunchestemplate-data-container-live-wrap > span {
+  font-family: "Britanica-Heavy";
+  font-size: 25.7895px;
+  color: #ffffff;
+}
+.launchpadalllivelaunchestemplate-data-wrap {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.launchpadalllivelaunchestemplate-data-wrap-img {
+  background-color: white;
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.launchpadalllivelaunchestemplate-data-wrap-img > img {
+  width: 46px;
+  height: 46px;
+  border-radius: 5px;
+}
+.launchpadalllivelaunchestemplate-data-wrap-athletename {
+  font-family: "Britanica-Regular";
+  line-height: 19px;
+  color: #ffffff;
+}
+.launchpadalllivelaunchestemplate-data-wrap-title {
+  font-family: "Britanica-Heavy";
+  font-size: 35px;
+  line-height: 42px;
+  color: #ffffff;
+  margin-top: 6px;
+}
+.launchpadalllivelaunchestemplate-data-wrap-nft {
+  font-family: "Britanica-Heavy";
+  line-height: 19px;
+  color: #ffffff;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.launchpadalllivelaunchestemplate-data-wrap > button {
+  margin-bottom: 30px;
+  width: 117px;
+  height: 44px;
+  background-color: #f6d463;
+  border-radius: 5px;
+  border: transparent;
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+}
