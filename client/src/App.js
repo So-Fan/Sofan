@@ -15,6 +15,7 @@ import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAth
 import LaunchpadCollectionLive from "./Pages/LaunchpadCollectionLive/LaunchpadCollectionLive";
 import LaunchpAll from "./Pages/LaunchpadAll/LaunchpadAll";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import EthProvider from "./contexts/EthContext/EthProvider";
 
 function App() {
   const isLogged = true; // from Backend
@@ -88,6 +89,7 @@ function App() {
   }
   return (
     <BrowserRouter>
+     <EthProvider>
       <div className="App" onClick={handleClickOutside}>
         <Navbar isProfileClicked={isProfileClicked} isLogged={isLogged} />
         <Routes>
@@ -196,6 +198,7 @@ function App() {
           </div>
         </div>
       </section>
+      </EthProvider>
     </BrowserRouter>
   );
 }
