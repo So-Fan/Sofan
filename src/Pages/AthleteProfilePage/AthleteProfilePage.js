@@ -10,7 +10,6 @@ import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffer
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
 import { Network, Alchemy } from "alchemy-sdk";
-// import dotenv from 'dotenv';
 import "./AthleteProfilePage.css";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -19,38 +18,50 @@ const AthleteProfilePage = ({
   setProfileSubMenuOffresClicked,
 }) => {
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
-  useState([false, false, false, false, true, false, false]);
+    useState([false, false, false, false, true, false, false]);
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
   const [nftDataApi, setNftDataApi] = useState();
-  // Cal the method for .ENV variable
-  // dotenv.config();
+  const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] = useState()
+
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
     network: Network.ETH_MAINNET,
   };
   const alchemy = new Alchemy(settings);
-  
+
   async function getNft() {
     // const metadata = await alchemy.nft.getNftMetadata("0x5180db8F5c931aaE63c74266b211F580155ecac8",
-    // "1590") 
-    const metadata = await alchemy.nft.getContractMetadata("0x5180db8F5c931aaE63c74266b211F580155ecac8")
-    const dataCollection = await alchemy.nft.getNftsForContract("0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258")
-    const contractFromOwners = await alchemy.nft.getContractsForOwner("0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03") // BoredApe creator adress (not the contract)
-    // console.log("ceci est un test --> " + contractFromOwners)
-    // console.log(dataCollection.nfts.length)
-
-// 
-
-
-// 
+    // "1590")
+    const metadata = await alchemy.nft.getContractMetadata(
+      "0x5180db8F5c931aaE63c74266b211F580155ecac8"
+    );
+    const dataCollection = await alchemy.nft.getNftsForContract(
+      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+    );
+    const contractFromOwners = await alchemy.nft.getContractsForOwner(
+      "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03"
+    ); // BoredApe creator adress (not the contract)
     const nfts = await alchemy.nft.getNftsForOwner("nic.eth");
-    // console.log(nfts.ownedNfts)
-    // const metaData = await alchemy.nft.getNftMetadata("0x5180db8F5c931aaE63c74266b211F580155ecac8"),
     setNftDataApi(nfts);
   }
 
-  getNft();
   
+
+  // getFloorprice for Bored Ape Yacht Club:
+  async function getCollectionFloorPrice() {
+    const alchemy = new Alchemy(settings);
+    const collectionFloorPrice = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    );
+    console.log(collectionFloorPrice.openSea.floorPrice)
+    setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice)
+  }
+  // getCollectionFloorPrice();
+useEffect(() => {
+  getNft();
+  getCollectionFloorPrice();
+}, [])
+
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -517,6 +528,7 @@ const AthleteProfilePage = ({
       return (
         <AthleteProfileNFTCollection
           nftDataApi={nftDataApi}
+          collectionFloorPriceApiData={collectionFloorPriceApiData}
           dataCollections={dataConcat?.collections}
         />
       );

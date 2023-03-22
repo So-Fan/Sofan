@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./AthleteProfileNFTCollectionTemplate.css";
 import "uuid"
-const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent,dashBoardPageMarginDelete, nftDataApi }) => {
+const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent,dashBoardPageMarginDelete, nftDataApi, collectionFloorPriceApiData }) => {
   // console.log(collectionData)
   // console.log(nftData.ownedNfts)
   // console.log nftData 
@@ -20,7 +20,7 @@ const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent,das
         <span className="athleteprofilenftcollectiontemplate-content">{nftDataApi?.contract.name}</span>
         <div className="athleteprofilenftcollectiontemplate-content">
           <span className="athleteprofilenftcollectiontemplate-content-nftnumber">{collectionData?.nftNumber} items</span>
-          <span className="athleteprofilenftcollectiontemplate-content-nftprice">{collectionData?.nftPriceEth} ETH</span>
+          <span className="athleteprofilenftcollectiontemplate-content-nftprice"> {collectionFloorPriceApiData } ETH</span>
         </div>
       </div>
     </Link>
