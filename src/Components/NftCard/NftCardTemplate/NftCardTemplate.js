@@ -10,8 +10,13 @@ const NftCardTemplate = ({
   price,
   bid,
   isTransparent,
-  fontStyle
+  fontStyle,
+  nftsFromOwner
 }) => {
+  // console.log(nftsFromOwner)
+  // console.log(nftsFromOwner[0])
+  // console.log(nftsFromOwner[0])
+  // console.log(nftsFromOwner?.media[0])
   return (
     <Link
       to={`/${athleteName}/nft/${to}`}
@@ -19,14 +24,14 @@ const NftCardTemplate = ({
       style={isTransparent && { visibility: "hidden" }}
     >
       <div className="nftcardtemplate-image-wrap">
-        <img src={img} alt="NFT" />
+        <img src={nftsFromOwner?.media[0]?.gateway} alt="NFT" />
       </div>
       <div className="nftcardtemplate-container-content">
         <span className="nftcardtemplate-container-content-athletename">
           {athleteName}
         </span>
         <span className={`nftcardtemplate-container-content-title ${fontStyle}`}>
-          <p>{title}</p>#{id}
+          <p>{nftsFromOwner?.contract?.name}</p>#{nftsFromOwner?.tokenId}
         </span>
         <div className="nftcardtemplate-container-content-price-wrap">
           <div className="nftcardtemplate-container-content-price-subwrap">

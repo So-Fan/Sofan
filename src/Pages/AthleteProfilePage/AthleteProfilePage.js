@@ -9,7 +9,7 @@ import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedO
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
-import { Network, Alchemy } from "alchemy-sdk";
+import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -21,11 +21,15 @@ const AthleteProfilePage = ({
     useState([false, false, false, false, true, false, false]);
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
   const [nftDataApi, setNftDataApi] = useState();
-  const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] = useState()
+  const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
+    useState();
+  const [nftsFromContract, setNftsFromContract] = useState();
+  const [nftsFromOwner, setNftsFromOwner] = useState();
 
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
     network: Network.ETH_MAINNET,
+    maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);
 
@@ -45,22 +49,44 @@ const AthleteProfilePage = ({
     setNftDataApi(nfts);
   }
 
-  
-
   // getFloorprice for Bored Ape Yacht Club:
   async function getCollectionFloorPrice() {
     const alchemy = new Alchemy(settings);
     const collectionFloorPrice = await alchemy.nft.getFloorPrice(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    );
-    console.log(collectionFloorPrice.openSea.floorPrice)
-    setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice)
+    )
+    // console.log(collectionFloorPrice.openSea.floorPrice)
+    setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
   }
-  // getCollectionFloorPrice();
-useEffect(() => {
-  getNft();
-  getCollectionFloorPrice();
-}, [])
+  // get Nfts from a contract
+
+  async function getNftsFromContract() {
+    const nftsFromContract = await alchemy.nft.getNftsForContract(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
+    );
+    // console.log(nftsFromContract.nfts)
+    setNftsFromContract(nftsFromContract.nfts);
+  }
+  async function getNftsForOwner() {
+    // we select all the nfts hold by an address for a specific collection
+    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
+      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      { contractAddresses: ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"] } // filter
+    );
+    const arrayFilterSpam = nftsFromOwner.ownedNfts.filter(
+      (element) => element.spamInfo?.spam === true
+    );
+    setNftsFromOwner(nftsFromOwner.ownedNfts);
+  }
+  useEffect(() => {
+    getNft();
+    getCollectionFloorPrice();
+    // getNftsFromContract();
+    getNftsForOwner();
+
+    // console.log(nftsFromOwner);
+    // console.log(nftsFromOwner[0]?.spamInfo?.isSpam)
+  }, []);
 
   useEffect(() => {
     const data = {
@@ -545,7 +571,15 @@ useEffect(() => {
               isUSerProfileSeortBySelectorClicked
             }
           />
-          <NftCard userFrom={dataConcat?.collected} />
+          <NftCard
+            nftsFromOwner={nftsFromOwner}
+            userFrom={dataConcat?.collected}
+            isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+          />
+          {/* {console.log(nftsFromOwner?.spamInfo?.isSpam)}
+          
+          nftsFromOwner?[0].spamInfo?.isSpam
+          */}
         </div>
       );
     } else if (isAthleteProfileSubMenuClicked[1] === true) {
@@ -564,8 +598,6 @@ useEffect(() => {
       );
     }
   };
-  // console.log(nftData )
-  // getNftMetadata
   return (
     <div className="athleteprofilepage-component">
       <AthleteProfileHeader userInfo={dataConcat?.userPageInfo} />
