@@ -11,10 +11,15 @@ const NftCardTemplate = ({
   bid,
   isTransparent,
   fontStyle,
-  nftsFromOwner
+  nftsFromOwner,
+  nftsFromOwnerIdNft,
+  nftsFromOwnerNameCollection,
+  nftsFromOwnerFloorPrice,
+  nftsFromOwnerImage
 }) => {
+  // console.log(nftsFromOwner?.contract?.openSea?.floorPrice)
+console.log(nftsFromOwnerImage)
   // console.log(nftsFromOwner)
-  // console.log(nftsFromOwner[0])
   // console.log(nftsFromOwner[0])
   // console.log(nftsFromOwner?.media[0])
   return (
@@ -24,14 +29,14 @@ const NftCardTemplate = ({
       style={isTransparent && { visibility: "hidden" }}
     >
       <div className="nftcardtemplate-image-wrap">
-        <img src={nftsFromOwner?.media[0]?.gateway} alt="NFT" />
+        <img src={nftsFromOwnerImage} alt="NFT" />
       </div>
       <div className="nftcardtemplate-container-content">
         <span className="nftcardtemplate-container-content-athletename">
           {athleteName}
         </span>
         <span className={`nftcardtemplate-container-content-title ${fontStyle}`}>
-          <p>{nftsFromOwner?.contract?.name}</p>#{nftsFromOwner?.tokenId}
+          <p>{nftsFromOwnerNameCollection}</p>#{nftsFromOwnerIdNft}
         </span>
         <div className="nftcardtemplate-container-content-price-wrap">
           <div className="nftcardtemplate-container-content-price-subwrap">
@@ -39,7 +44,7 @@ const NftCardTemplate = ({
               Price
             </span>
             <span className="nftcardtemplate-container-content-price-subwrap-price">
-              {price} ETH
+              {nftsFromOwnerFloorPrice} ETH
             </span>
           </div>
           <div className="nftcardtemplate-container-content-price-subwrap">
@@ -47,7 +52,7 @@ const NftCardTemplate = ({
               Highest bid
             </span>
             <span className="nftcardtemplate-container-content-price-subwrap-price">
-              {bid} ETH
+              {/* {bid} ETH */}
             </span>
           </div>
         </div>

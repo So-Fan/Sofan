@@ -70,21 +70,25 @@ const AthleteProfilePage = ({
   async function getNftsForOwner() {
     // we select all the nfts hold by an address for a specific collection
     const nftsFromOwner = await alchemy.nft.getNftsForOwner(
-      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
-      { contractAddresses: ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"] } // filter
+      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC"
+      
+      ,{ contractAddresses: ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"] } // filter
     );
+    const nftsSale = await alchemy.nft
+  .getFloorPrice("0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d")
+    // console.log(nftsSale)
     const arrayFilterSpam = nftsFromOwner.ownedNfts.filter(
       (element) => element.spamInfo?.spam === true
     );
-    setNftsFromOwner(nftsFromOwner.ownedNfts);
+    setNftsFromOwner(nftsFromOwner?.ownedNfts);
+
   }
   useEffect(() => {
     getNft();
     getCollectionFloorPrice();
     // getNftsFromContract();
     getNftsForOwner();
-
-    // console.log(nftsFromOwner);
+    console.log(nftsFromOwner);
     // console.log(nftsFromOwner[0]?.spamInfo?.isSpam)
   }, []);
 

@@ -11,21 +11,25 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam }) => {
   return (
     <>
       <div className="nftcard-component">
-        {userFrom?.map((nft, i, apiNftsFromContract) => (
+        {nftsFromOwner?.map((nft, i, apiNftData) => (
           <>
             {isNftSpam ? (
               <></>
             ) : (
               <>
                 <NftCardTemplate
-                  to={`/user/nftcard/${nft.nftId}`}
+                  to={`/user/nftcard/${apiNftData[i]?.tokenId}`}
                   img={nft.img}
                   athleteName={nft.athleteName}
                   title={nft.nftTitle}
                   id={nft.nftId}
                   price={nft.nftPriceEth}
                   bid={nft.bid}
-                  nftsFromOwner={nftsFromOwner[i]}
+                  // nftsFromOwner={nftsFromOwner[i]}
+                  nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
+                  nftsFromOwnerFloorPrice={apiNftData[i]?.contract?.openSea?.floorPrice}
+                  nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
+                  nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
                   isNftSpam={isNftSpam}
                 />
               {/* {console.log(nftsFromOwner)} */}
