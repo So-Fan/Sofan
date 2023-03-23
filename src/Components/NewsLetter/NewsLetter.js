@@ -58,7 +58,8 @@ const NewsLetter = () => {
     return (
       <div>
         <div style={styles.message}>
-          Il semblerait que vous êtes déjà abonné avec ce email.
+          Votre adresse email a bien été reçu. Nous vous tiendrons au courant
+          des dernières actualités de Sofan !
         </div>
       </div>
     );

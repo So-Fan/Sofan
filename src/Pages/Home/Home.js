@@ -5,7 +5,7 @@ import LandingPage from "../LandingPage/LandingPage";
 function Home() {
   return (
     <>
-    <LandingPage/>
+      <LandingPage/>
     </>
   );
 }
