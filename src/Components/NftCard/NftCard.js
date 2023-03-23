@@ -6,8 +6,6 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam }) => {
   setTimeout(() => {
     // console.log("C'est UserFrom --> " + userFrom);
   }, 900);
-  // console.log(nftsFromOwner)
-
   return (
     <>
       <div className="nftcard-component">

@@ -32,9 +32,12 @@ function NftList({
   nftsFromOwnerIdNft,
   nftsFromOwnerNameCollection,
   nftsFromOwnerFloorPrice,
-  nftsFromOwnerQuantity
+  nftsFromOwnerQuantity,
+  // transfer Data Api
+  transferNftDataApi,
+  nftTransferDate
 }) {
-  // console.log(nftsFromOwnerQuantity);
+  // console.log(transferNftDataApi.from);
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -59,16 +62,16 @@ function NftList({
         {receivedFrom}
       </div>
       <div className={`nft-from-user-activity ${offersToClass}`}>
-        {activityUserFrom}
+        {transferNftDataApi.from}
         {offersTo}
       </div>
       <div className={`nft-to-user-activity ${offersStatusClass}`}>
-        {activityUserTo}
+      {transferNftDataApi.to}
         {offersStatus}
         {offersStatusImage}
       </div>
       <div className={`nft-date-transfer-user-activity ${offersDateClass}`}>
-        {date}
+        {nftTransferDate} jours
       </div>
       <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
         <img src={redCross} alt="" />

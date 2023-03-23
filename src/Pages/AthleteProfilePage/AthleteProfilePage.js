@@ -86,10 +86,10 @@ const AthleteProfilePage = ({
         "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
         "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
       ],
+      withMetadata: true,
     });
-    // console.log(nftsTransferData);
+    
     setTransferNftDataApi(nftsTransferData);
-    setNftsFromOwner(nftsFromOwner.push({nftsTransferData}))
   }
   useEffect(() => {
     getNft();
@@ -553,6 +553,18 @@ const AthleteProfilePage = ({
         false
       );
     }
+    // // Boucle pour UserActivity des données API - FROM
+    // for (let i = 0; i < transferNftDataApi.transfers.length; index++) {
+    //   transferNftDataApi.transfers[i].from = concatStringFromTo(
+    //     transferNftDataApi?.transfers[i]?.from,7,7, false, false
+    //   );
+    // }
+    // // Boucle pour UserActivity des données API - TO
+    // for (let i = 0; i < transferNftDataApi.transfers.length; index++) {
+    //   transferNftDataApi.transfers[i].from = concatStringFromTo(
+    //     transferNftDataApi?.transfers[i]?.from,7,7, false, false
+    //   );
+    // }
 
     setDataConcat(data);
   }, []);
@@ -601,7 +613,8 @@ const AthleteProfilePage = ({
         <UserActivity
           userFrom={dataConcat?.activities}
           nftsFromOwner={nftsFromOwner}
-          // transferNftDataApi={transferNftDataApi}
+          transferNftDataApi={transferNftDataApi}
+          setTransferNftDataApi={setTransferNftDataApi}
         />
       );
     } else if (isAthleteProfileSubMenuClicked[2] === true) {

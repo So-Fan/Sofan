@@ -17,11 +17,7 @@ const NftCardTemplate = ({
   nftsFromOwnerFloorPrice,
   nftsFromOwnerImage
 }) => {
-  // console.log(nftsFromOwner?.contract?.openSea?.floorPrice)
-console.log(nftsFromOwnerImage)
-  // console.log(nftsFromOwner)
-  // console.log(nftsFromOwner[0])
-  // console.log(nftsFromOwner?.media[0])
+  
   return (
     <Link
       to={`/${athleteName}/nft/${to}`}
