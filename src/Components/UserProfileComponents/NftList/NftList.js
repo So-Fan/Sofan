@@ -26,8 +26,15 @@ function NftList({
   date,
   priceEth,
   func,
-  nftImg
-}) {  
+  nftImg,
+  // api Data
+  nftsFromOwnerImage,
+  nftsFromOwnerIdNft,
+  nftsFromOwnerNameCollection,
+  nftsFromOwnerFloorPrice,
+  nftsFromOwnerQuantity
+}) {
+  // console.log(nftsFromOwnerQuantity);
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -35,20 +42,21 @@ function NftList({
         {func}
       </div>
       <Link className={`user-nft-picture-and-title ${offersNftContentClass}`}>
-        <img src={nftImg} alt="nft picture" />
+        <img src={nftsFromOwnerImage} alt="nft picture" />
         <div className="collection-name-nft-id-user-activity">
-          <span>{nftTitle}</span>
-          <span>{nftId}</span>
+          <span>{nftsFromOwnerNameCollection}</span>
+          <span>{nftsFromOwnerIdNft}</span>
         </div>
       </Link>
       <div className={`nft-price-user-activity ${offersYourOffersPriceClass}`}>
-        <div className="nftc-price-eth-user-activity">{priceEth} ETH</div>
+        <div className="nftc-price-eth-user-activity">
+          {nftsFromOwnerFloorPrice} ETH
+        </div>
         <div className="nft-price-eur-user-activity">692.04€</div>
       </div>
       <div className={`nft-quantity-user-activity ${offersFromClass}`}>
-        {activityUserQuantity}
+        {nftsFromOwnerQuantity}
         {receivedFrom}
-        
       </div>
       <div className={`nft-from-user-activity ${offersToClass}`}>
         {activityUserFrom}

@@ -23,9 +23,10 @@ const AthleteProfilePage = ({
   const [nftDataApi, setNftDataApi] = useState();
   const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
     useState();
-  const [nftsFromContract, setNftsFromContract] = useState();
-  const [nftsFromOwner, setNftsFromOwner] = useState();
+  const [nftsFromOwner, setNftsFromOwner] = useState([]);
+  const [transferNftDataApi, setTransferNftDataApi] = useState();
 
+  // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
     network: Network.ETH_MAINNET,
@@ -34,8 +35,6 @@ const AthleteProfilePage = ({
   const alchemy = new Alchemy(settings);
 
   async function getNft() {
-    // const metadata = await alchemy.nft.getNftMetadata("0x5180db8F5c931aaE63c74266b211F580155ecac8",
-    // "1590")
     const metadata = await alchemy.nft.getContractMetadata(
       "0x5180db8F5c931aaE63c74266b211F580155ecac8"
     );
@@ -54,43 +53,54 @@ const AthleteProfilePage = ({
     const alchemy = new Alchemy(settings);
     const collectionFloorPrice = await alchemy.nft.getFloorPrice(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    )
+    );
     // console.log(collectionFloorPrice.openSea.floorPrice)
     setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
   }
-  // get Nfts from a contract
 
-  async function getNftsFromContract() {
-    const nftsFromContract = await alchemy.nft.getNftsForContract(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
-    );
-    // console.log(nftsFromContract.nfts)
-    setNftsFromContract(nftsFromContract.nfts);
-  }
+  // get Nfts from Owner and Contracts
   async function getNftsForOwner() {
     // we select all the nfts hold by an address for a specific collection
     const nftsFromOwner = await alchemy.nft.getNftsForOwner(
-      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC"
-      
-      ,{ contractAddresses: ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"] } // filter
+      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      {
+        contractAddresses: [
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+        ],
+      } // filter
     );
-    const nftsSale = await alchemy.nft
-  .getFloorPrice("0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d")
-    // console.log(nftsSale)
-    const arrayFilterSpam = nftsFromOwner.ownedNfts.filter(
-      (element) => element.spamInfo?.spam === true
+    const nftsSale = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
     );
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
+    // console.log(nftsFromOwner?.ownedNfts)
 
+  }
+  async function getTransferData() {
+    const nftsTransferData = await alchemy.core.getAssetTransfers({
+      toAddress: "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      excludeZeroValue: true,
+      category: ["erc721", "erc1155"],
+      contractAddresses: [
+        "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+        "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      ],
+    });
+    // console.log(nftsTransferData);
+    setTransferNftDataApi(nftsTransferData);
+    setNftsFromOwner(nftsFromOwner.push({nftsTransferData}))
   }
   useEffect(() => {
     getNft();
     getCollectionFloorPrice();
-    // getNftsFromContract();
     getNftsForOwner();
-    console.log(nftsFromOwner);
-    // console.log(nftsFromOwner[0]?.spamInfo?.isSpam)
+    getTransferData();
+    // console.log(nftsFromOwner);
+    
+    
   }, []);
+  // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
 
   useEffect(() => {
     const data = {
@@ -587,7 +597,13 @@ const AthleteProfilePage = ({
         </div>
       );
     } else if (isAthleteProfileSubMenuClicked[1] === true) {
-      return <UserActivity userFrom={dataConcat?.activities} />;
+      return (
+        <UserActivity
+          userFrom={dataConcat?.activities}
+          nftsFromOwner={nftsFromOwner}
+          // transferNftDataApi={transferNftDataApi}
+        />
+      );
     } else if (isAthleteProfileSubMenuClicked[2] === true) {
       return (
         <div className="athleteprofilepage-formulatedoffers-wrap">
