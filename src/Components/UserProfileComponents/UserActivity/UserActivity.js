@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./UserActivity.css";
 import NftList from "../NftList/NftList";
 import DataTitles from "../DataTitles/DataTitles";
@@ -6,13 +6,9 @@ import DataTitles from "../DataTitles/DataTitles";
 function UserActivity({
   userFrom,
   nftsFromOwner,
-  transferNftDataApi,
-  setTransferNftDataApi,
+  transferNftDataApi
 }) {
-  const [concatTransferNftDataApi, setConcatTransferNftDataApi] = useState();
-  // const [nftTransferDate, setNftTransferDate] = useState([]);
-  const nftTransferDate = []
-  // useEffect(() => {
+  const nftTransferDate = [];
   function concatStringFromTo(
     string,
     maxLentgth,
@@ -38,7 +34,7 @@ function UserActivity({
     }
   }
 
-  // Boucle pour UserActivity des données API - FROM
+  // Boucle pour concat UserActivity des données API - FROM
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
     transferNftDataApi.transfers[i].from = concatStringFromTo(
       transferNftDataApi?.transfers[i]?.from,
@@ -48,7 +44,7 @@ function UserActivity({
       false
     );
   }
-  // Boucle pour UserActivity des données API - TO
+  // Boucle pour concat UserActivity des données API - TO
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
     transferNftDataApi.transfers[i].to = concatStringFromTo(
       transferNftDataApi?.transfers[i]?.to,
@@ -58,7 +54,7 @@ function UserActivity({
       false
     );
   }
-  // console.log(transferNftDataApi?.transfers[0]?.metadata?.blockTimestamp);
+  // Boucle pour convertir les dates
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
     const dateString =
       transferNftDataApi?.transfers[i]?.metadata?.blockTimestamp;
@@ -68,10 +64,6 @@ function UserActivity({
     const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
     nftTransferDate.push(diffInDays)
   }
-  // console.log(nftTransferDate)
-  // console.log(transferNftDataApi.transfers.length)
-  // "2021-11-10T03:55:03.000Z"
-
   return (
     <div className="user-activity-container">
       <DataTitles
@@ -94,8 +86,6 @@ function UserActivity({
             transferNftDataApi={transferNftDataApi.transfers[i]}
             nftTransferDate={nftTransferDate[i]}
             // 
-            // nftTransferDate={nftTransferDate}
-            //
             activityUserQuantity="1"
             activityUserFrom={user.from}
             activityUserTo={user.to}

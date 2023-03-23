@@ -3,7 +3,17 @@ import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./ReceivedOffers.css";
 
-function ReceivedOffers({ userFrom }) {
+function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi }) {
+  const nftTransferDate = [];
+  for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
+    const dateString =
+      transferNftDataApi?.transfers[i]?.metadata?.blockTimestamp;
+    const date = new Date(Date.parse(dateString));
+    const today = new Date();
+    const diffInMs = today.getTime() - date.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    nftTransferDate.push(diffInDays);
+  }
   return (
     <section className="received-offers-user-container">
       {/* class à rename en bas */}
@@ -20,9 +30,9 @@ function ReceivedOffers({ userFrom }) {
         // Nft data list
       />
       <div className="received-offers-nft-list-container">
-        {userFrom?.map((user, index) => (
+        {nftsFromOwner?.map((user, i, apiNftData) => (
           <NftList
-            key={index}
+            key={i}
             offersDisplaySourceTypeClass="formulated-offers-display-source-type"
             receivedFrom={user.from}
             offersTo={user.to}
@@ -31,6 +41,17 @@ function ReceivedOffers({ userFrom }) {
             nftId={user.nftId}
             date={user.date}
             nftImg={user.nftImg}
+            //
+            nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
+            nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
+            nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
+            nftsFromOwnerFloorPrice={
+              apiNftData[i]?.contract?.openSea?.floorPrice
+            }
+            nftsFromOwnerQuantity={apiNftData[i]?.balance}
+            //
+            transferNftDataApi={transferNftDataApi.transfers[i]}
+            nftTransferDate={nftTransferDate[i]}
             //
             offersNftContentClass="received-offers-nft-picture-and-title"
             offersYourOffersPriceClass="received-offers-offers-price"

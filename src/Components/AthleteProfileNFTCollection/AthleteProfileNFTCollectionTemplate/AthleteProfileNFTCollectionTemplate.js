@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import "./AthleteProfileNFTCollectionTemplate.css";
 import "uuid"
 const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent,dashBoardPageMarginDelete, nftDataApi, collectionFloorPriceApiData }) => {
-  // console.log(collectionData)
-  // console.log(nftData.ownedNfts)
-  // console.log nftData 
-  // console.log(nftData?.contract.name)
   
   return (
     <Link className="athleteprofilenftcollectiontemplate-component" style={isTransparent ? {visibility: "hidden"}: dashBoardPageMarginDelete ? {marginTop: "0px", marginBottom:"26px"}:{}}>

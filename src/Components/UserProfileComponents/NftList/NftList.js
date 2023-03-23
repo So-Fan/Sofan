@@ -35,7 +35,9 @@ function NftList({
   nftsFromOwnerQuantity,
   // transfer Data Api
   transferNftDataApi,
-  nftTransferDate
+  nftTransferDate,
+  // formulated offers
+  isFormulatedOffersSectionActive,
 }) {
   // console.log(transferNftDataApi.from);
   return (
@@ -48,7 +50,7 @@ function NftList({
         <img src={nftsFromOwnerImage} alt="nft picture" />
         <div className="collection-name-nft-id-user-activity">
           <span>{nftsFromOwnerNameCollection}</span>
-          <span>{nftsFromOwnerIdNft}</span>
+          <span>#{nftsFromOwnerIdNft}</span>
         </div>
       </Link>
       <div className={`nft-price-user-activity ${offersYourOffersPriceClass}`}>
@@ -58,17 +60,31 @@ function NftList({
         <div className="nft-price-eur-user-activity">692.04€</div>
       </div>
       <div className={`nft-quantity-user-activity ${offersFromClass}`}>
-        {nftsFromOwnerQuantity}
-        {receivedFrom}
+        {isFormulatedOffersSectionActive ? (
+          <>{transferNftDataApi.from}</>
+        ) : (
+          <>
+            {nftsFromOwnerQuantity}
+            {receivedFrom}
+          </>
+        )}
       </div>
       <div className={`nft-from-user-activity ${offersToClass}`}>
-        {transferNftDataApi.from}
-        {offersTo}
+        {isFormulatedOffersSectionActive ? (
+          <>
+            {transferNftDataApi.to}
+            {/* {offersTo} */}
+          </>
+        ) : (
+          <>{transferNftDataApi.from}</>
+        )}
       </div>
       <div className={`nft-to-user-activity ${offersStatusClass}`}>
-      {transferNftDataApi.to}
-        {offersStatus}
-        {offersStatusImage}
+        {isFormulatedOffersSectionActive ? (
+          <>Pending {offersStatusImage}</>
+        ) : (
+          <>{transferNftDataApi.to}</>
+        )}
       </div>
       <div className={`nft-date-transfer-user-activity ${offersDateClass}`}>
         {nftTransferDate} jours

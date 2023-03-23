@@ -75,7 +75,6 @@ const AthleteProfilePage = ({
     );
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
     // console.log(nftsFromOwner?.ownedNfts)
-
   }
   async function getTransferData() {
     const nftsTransferData = await alchemy.core.getAssetTransfers({
@@ -88,7 +87,7 @@ const AthleteProfilePage = ({
       ],
       withMetadata: true,
     });
-    
+
     setTransferNftDataApi(nftsTransferData);
   }
   useEffect(() => {
@@ -97,8 +96,6 @@ const AthleteProfilePage = ({
     getNftsForOwner();
     getTransferData();
     // console.log(nftsFromOwner);
-    
-    
   }, []);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
 
@@ -553,19 +550,6 @@ const AthleteProfilePage = ({
         false
       );
     }
-    // // Boucle pour UserActivity des données API - FROM
-    // for (let i = 0; i < transferNftDataApi.transfers.length; index++) {
-    //   transferNftDataApi.transfers[i].from = concatStringFromTo(
-    //     transferNftDataApi?.transfers[i]?.from,7,7, false, false
-    //   );
-    // }
-    // // Boucle pour UserActivity des données API - TO
-    // for (let i = 0; i < transferNftDataApi.transfers.length; index++) {
-    //   transferNftDataApi.transfers[i].from = concatStringFromTo(
-    //     transferNftDataApi?.transfers[i]?.from,7,7, false, false
-    //   );
-    // }
-
     setDataConcat(data);
   }, []);
   const displayAthleteProfileSubMenu = () => {
@@ -602,10 +586,6 @@ const AthleteProfilePage = ({
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
           />
-          {/* {console.log(nftsFromOwner?.spamInfo?.isSpam)}
-          
-          nftsFromOwner?[0].spamInfo?.isSpam
-          */}
         </div>
       );
     } else if (isAthleteProfileSubMenuClicked[1] === true) {
@@ -620,17 +600,26 @@ const AthleteProfilePage = ({
     } else if (isAthleteProfileSubMenuClicked[2] === true) {
       return (
         <div className="athleteprofilepage-formulatedoffers-wrap">
-          <FormulatedOffers userFrom={dataConcat?.made} />
+          <FormulatedOffers
+            userFrom={dataConcat?.made}
+            nftsFromOwner={nftsFromOwner}
+            transferNftDataApi={transferNftDataApi}
+          />
         </div>
       );
     } else if (isAthleteProfileSubMenuClicked[3] === true) {
       return (
         <div className="athleteprofilepage-formulatedoffers-wrap">
-          <ReceivedOffers userFrom={dataConcat?.received} />
+          <ReceivedOffers
+            userFrom={dataConcat?.received}
+            nftsFromOwner={nftsFromOwner}
+            transferNftDataApi={transferNftDataApi}
+          />
         </div>
       );
     }
   };
+  console.log(isAthleteProfileSubMenuClicked[0]);
   return (
     <div className="athleteprofilepage-component">
       <AthleteProfileHeader userInfo={dataConcat?.userPageInfo} />
