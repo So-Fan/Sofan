@@ -95,7 +95,7 @@ const AthleteProfilePage = ({
     getCollectionFloorPrice();
     getNftsForOwner();
     getTransferData();
-    // console.log(nftsFromOwner);
+    console.log(nftsFromOwner[0]?.contract?.openSea);
   }, []);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
 
@@ -563,6 +563,7 @@ const AthleteProfilePage = ({
     } else if (isAthleteProfileSubMenuClicked[5] === true) {
       return (
         <AthleteProfileNFTCollection
+        nftsFromOwner={nftsFromOwner}
           nftDataApi={nftDataApi}
           collectionFloorPriceApiData={collectionFloorPriceApiData}
           dataCollections={dataConcat?.collections}

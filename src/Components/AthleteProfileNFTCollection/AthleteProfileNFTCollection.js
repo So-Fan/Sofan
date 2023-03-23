@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./AthleteProfileNFTCollection.css";
 import AthleteProfileNFTCollectionTemplate from "./AthleteProfileNFTCollectionTemplate/AthleteProfileNFTCollectionTemplate";
 import { v4 as uuidv4 } from "uuid";
-const AthleteProfileNFTCollection = ({dataCollections, nftDataApi, collectionFloorPriceApiData}) => {
-  // console.log(nftData.ownedNfts)  
+const AthleteProfileNFTCollection = ({dataCollections, nftDataApi, collectionFloorPriceApiData, nftsFromOwner}) => {
+   console.log(nftsFromOwner[0]?.contract?.openSea?.imageUrl)  
   return (
     <div className="athleteprofilenftcollection-component">
       {/* fetch data from backend for mapping them after */}
-      {dataCollections?.map((collection, i) => (
+      {nftsFromOwner?.map((collection, i,apiNftData) => (
         <AthleteProfileNFTCollectionTemplate 
+        nftsFromOwnerPicture={apiNftData[i]?.contract?.openSea?.imageUrl}
+        nftsFromOwnerNameCollectionName={apiNftData[i]?.contract?.name}
+        nftsFromOwnerFloorPrice={
+          apiNftData[i]?.contract?.openSea?.floorPrice
+        }
+        // mettre le nombre de nft de la collection correspondante
         key={uuidv4()}
         collectionFloorPriceApiData={collectionFloorPriceApiData}
         nftDataApi={

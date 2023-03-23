@@ -2,21 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./AthleteProfileNFTCollectionTemplate.css";
 import "uuid"
-const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent,dashBoardPageMarginDelete, nftDataApi, collectionFloorPriceApiData }) => {
+const AthleteProfileNFTCollectionTemplate = ({ collectionData, isTransparent,dashBoardPageMarginDelete, nftDataApi, collectionFloorPriceApiData, nftsFromOwnerNameCollectionName, nftsFromOwnerPicture, nftsFromOwnerFloorPrice }) => {
   
   return (
     <Link className="athleteprofilenftcollectiontemplate-component" style={isTransparent ? {visibility: "hidden"}: dashBoardPageMarginDelete ? {marginTop: "0px", marginBottom:"26px"}:{}}>
       <div className="athleteprofilenftcollectiontemplate-banner-wrap">
-        <img src={collectionData?.banner} alt="banner" />
+        <img src={nftsFromOwnerPicture} alt="banner" />
       </div>
       <div className="athleteprofilenftcollectiontemplate-content-wrap">
         <div className="athleteprofilenftcollectiontemplate-content-profilepicture-wrap">
-          <img src={collectionData?.profilePicture} alt="profile" />
+          <img src={nftsFromOwnerPicture} alt="profile" />
         </div>
-        <span className="athleteprofilenftcollectiontemplate-content">{nftDataApi?.contract.name}</span>
+        <span className="athleteprofilenftcollectiontemplate-content">{nftsFromOwnerNameCollectionName}</span>
         <div className="athleteprofilenftcollectiontemplate-content">
           <span className="athleteprofilenftcollectiontemplate-content-nftnumber">{collectionData?.nftNumber} items</span>
-          <span className="athleteprofilenftcollectiontemplate-content-nftprice"> {collectionFloorPriceApiData } ETH</span>
+          <span className="athleteprofilenftcollectiontemplate-content-nftprice"> {nftsFromOwnerFloorPrice } ETH</span>
         </div>
       </div>
     </Link>
