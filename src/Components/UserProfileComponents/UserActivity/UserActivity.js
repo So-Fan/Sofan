@@ -6,7 +6,7 @@ import DataTitles from "../DataTitles/DataTitles";
 function UserActivity({
   userFrom,
   nftsFromOwner,
-  transferNftDataApi
+  transferNftDataApi,isUserActivitySectionActive
 }) {
   const nftTransferDate = [];
   function concatStringFromTo(
@@ -37,7 +37,7 @@ function UserActivity({
   // Boucle pour concat UserActivity des données API - FROM
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
     transferNftDataApi.transfers[i].from = concatStringFromTo(
-      transferNftDataApi?.transfers[i]?.from,
+      transferNftDataApi?.transfers[i]?.from, 
       7,
       7,
       false,
@@ -75,6 +75,7 @@ function UserActivity({
       <div className="nft-list-activity-user-container">
         {nftsFromOwner?.map((user, i, apiNftData) => (
           <NftList
+          isUserActivitySectionActive={isUserActivitySectionActive}
             nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
             nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
             nftsFromOwnerIdNft={apiNftData[i]?.tokenId}

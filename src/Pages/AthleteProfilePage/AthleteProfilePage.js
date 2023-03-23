@@ -591,6 +591,7 @@ const AthleteProfilePage = ({
     } else if (isAthleteProfileSubMenuClicked[1] === true) {
       return (
         <UserActivity
+        isUserActivitySectionActive={true}
           userFrom={dataConcat?.activities}
           nftsFromOwner={nftsFromOwner}
           transferNftDataApi={transferNftDataApi}
@@ -619,7 +620,7 @@ const AthleteProfilePage = ({
       );
     }
   };
-  console.log(isAthleteProfileSubMenuClicked[0]);
+  // console.log(isAthleteProfileSubMenuClicked[0]);
   return (
     <div className="athleteprofilepage-component">
       <AthleteProfileHeader userInfo={dataConcat?.userPageInfo} />
