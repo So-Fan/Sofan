@@ -2,7 +2,7 @@ import React from "react";
 import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./ReceivedOffers.css";
-
+import { v4 as uuidv4 } from "uuid";
 function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi }) {
   const nftTransferDate = [];
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
@@ -33,7 +33,7 @@ function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi }) {
       <div className="received-offers-nft-list-container">
         {nftsFromOwner?.map((user, i, apiNftData) => (
           <NftList
-            key={i}
+            key={uuidv4()}
             offersDisplaySourceTypeClass="formulated-offers-display-source-type"
             receivedFrom={user.from}
             offersTo={user.to}

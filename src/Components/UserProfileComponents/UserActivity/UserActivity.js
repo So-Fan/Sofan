@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "./UserActivity.css";
 import NftList from "../NftList/NftList";
 import DataTitles from "../DataTitles/DataTitles";
+import { v4 as uuidv4 } from "uuid";
 
 function UserActivity({
   userFrom,
   nftsFromOwner,
-  transferNftDataApi,isUserActivitySectionActive
+  transferNftDataApi,
+  isUserActivitySectionActive,
 }) {
   const nftTransferDate = [];
   function concatStringFromTo(
@@ -37,7 +39,7 @@ function UserActivity({
   // Boucle pour concat UserActivity des données API - FROM
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
     transferNftDataApi.transfers[i].from = concatStringFromTo(
-      transferNftDataApi?.transfers[i]?.from, 
+      transferNftDataApi?.transfers[i]?.from,
       7,
       7,
       false,
@@ -62,7 +64,7 @@ function UserActivity({
     const today = new Date();
     const diffInMs = today.getTime() - date.getTime();
     const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-    nftTransferDate.push(diffInDays)
+    nftTransferDate.push(diffInDays);
   }
   return (
     <div className="user-activity-container">
@@ -75,7 +77,8 @@ function UserActivity({
       <div className="nft-list-activity-user-container">
         {nftsFromOwner?.map((user, i, apiNftData) => (
           <NftList
-          isUserActivitySectionActive={isUserActivitySectionActive}
+            key={uuidv4()}
+            isUserActivitySectionActive={isUserActivitySectionActive}
             nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
             nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
             nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
@@ -86,7 +89,7 @@ function UserActivity({
             //
             transferNftDataApi={transferNftDataApi.transfers[i]}
             nftTransferDate={nftTransferDate[i]}
-            // 
+            //
             activityUserQuantity="1"
             activityUserFrom={user.from}
             activityUserTo={user.to}
@@ -96,7 +99,6 @@ function UserActivity({
             nftId={user.nftId}
             nftImg={user.nftImg}
             func={user.function}
-            key={i}
             //
           />
         ))}

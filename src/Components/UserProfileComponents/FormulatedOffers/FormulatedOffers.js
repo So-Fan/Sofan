@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./FormulatedOffers.css";
-
+import { v4 as uuidv4 } from "uuid";
 function FormulatedOffers({
   userFrom,
   nftsFromOwner,
@@ -109,7 +109,7 @@ function FormulatedOffers({
         <div className="nft-list-formulated-offer-container">
           {nftsFromOwner?.map((user, i, apiNftData) => (
             <NftList
-              key={i}
+              key={uuidv4()}
               isFormulatedOffersSectionActive={true}
               offersDisplaySourceTypeClass="formulated-offers-display-source-type"
               receivedFrom={user.from}
