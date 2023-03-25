@@ -90,6 +90,8 @@ function App() {
                 isUSerProfileSeortBySelectorClicked={
                   isUSerProfileSeortBySelectorClicked
                 }
+                profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+                setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
               />
             }
           />

@@ -14,6 +14,8 @@ import "./UserProfilePage.css";
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
+  setProfileSubMenuOffresClicked,
+  profileSubMenuOffresClicked
 }) {
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
@@ -93,37 +95,6 @@ function UserProfilePage({
     getTransferData();
     console.log(nftsFromOwner[0]?.contract?.totalSupply);
   }, []);
-  function displayCategory() {
-    if (isProfileSubMenuButtonClicked[0] === true) {
-      return (
-        <>
-          <SortBySelector
-            setIsUSerProfileSeortBySelectorClicked={
-              setIsUSerProfileSeortBySelectorClicked
-            }
-            isUSerProfileSeortBySelectorClicked={
-              isUSerProfileSeortBySelectorClicked
-            }
-          />
-          <NftCard userFrom={dataConcat?.collected} />
-        </>
-      );
-    } else if (isProfileSubMenuButtonClicked[1] === true) {
-      return (
-        <UserActivity
-          isUserActivitySectionActive={true}
-          userFrom={dataConcat?.activities}
-          nftsFromOwner={nftsFromOwner}
-          transferNftDataApi={transferNftDataApi}
-          setTransferNftDataApi={setTransferNftDataApi}
-        />
-      );
-    } else if (isProfileSubMenuButtonClicked[2] === true) {
-      return <FormulatedOffers userFrom={dataConcat?.made} />;
-    } else if (isProfileSubMenuButtonClicked[3] === true) {
-      return <ReceivedOffers userFrom={dataConcat?.received} />;
-    }
-  }
 
   useEffect(() => {
     const data = {
@@ -395,6 +366,41 @@ function UserProfilePage({
 
     setDataConcat(data);
   }, []);
+  function displayCategory() {
+    if (isProfileSubMenuButtonClicked[0] === true) {
+      return (
+        <>
+          <SortBySelector
+            setIsUSerProfileSeortBySelectorClicked={
+              setIsUSerProfileSeortBySelectorClicked
+            }
+            isUSerProfileSeortBySelectorClicked={
+              isUSerProfileSeortBySelectorClicked
+            }
+          />
+          <NftCard 
+          nftsFromOwner={nftsFromOwner}
+          userFrom={dataConcat?.collected}
+          isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+           />
+        </>
+      );
+    } else if (isProfileSubMenuButtonClicked[1] === true) {
+      return (
+        <UserActivity
+          isUserActivitySectionActive={true}
+          userFrom={dataConcat?.activities}
+          nftsFromOwner={nftsFromOwner}
+          transferNftDataApi={transferNftDataApi}
+          setTransferNftDataApi={setTransferNftDataApi}
+        />
+      );
+    } else if (isProfileSubMenuButtonClicked[2] === true) {
+      return <FormulatedOffers userFrom={dataConcat?.made} />;
+    } else if (isProfileSubMenuButtonClicked[3] === true) {
+      return <ReceivedOffers userFrom={dataConcat?.received} />;
+    }
+  }
 
   return (
     <>
@@ -420,6 +426,8 @@ function UserProfilePage({
               setIsProfileSubMenuButtonClicked={
                 setIsProfileSubMenuButtonClicked
               }
+              profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+              setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
             />
             {displayCategory()}
           </div>
