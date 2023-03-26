@@ -1,6 +1,7 @@
 import React from "react";
 import "./NftCard.css";
 import NftCardTemplate from "./NftCardTemplate/NftCardTemplate";
+import { v4 as uuidv4 } from "uuid";
 const NftCard = ({ userFrom, nftsFromOwner, isNftSpam }) => {
   // console.log(userFrom?.length % 4);
   setTimeout(() => {
@@ -16,6 +17,7 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam }) => {
             ) : (
               <>
                 <NftCardTemplate
+                key={uuidv4()}
                   to={`/user/nftcard/${apiNftData[i]?.tokenId}`}
                   img={nft.img}
                   athleteName={nft.athleteName}
@@ -30,7 +32,6 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam }) => {
                   nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
                   isNftSpam={isNftSpam}
                 />
-              {/* {console.log(nftsFromOwner)} */}
               </>
             )}
           </>

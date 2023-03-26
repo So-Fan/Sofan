@@ -15,7 +15,7 @@ function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
   setProfileSubMenuOffresClicked,
-  profileSubMenuOffresClicked
+  profileSubMenuOffresClicked,
 }) {
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
@@ -25,6 +25,7 @@ function UserProfilePage({
     useState();
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
+  const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -42,8 +43,9 @@ function UserProfilePage({
     const contractFromOwners = await alchemy.nft.getContractsForOwner(
       "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03"
     ); // BoredApe creator adress (not the contract)
-    const nfts = await alchemy.nft.getNftsForOwner("nic.eth");
+    const nfts = await alchemy.nft.getNftsForOwner("vitalik.eth");
     setNftDataApi(nfts);
+    // console.log(nfts);
   }
 
   // getFloorprice for Bored Ape Yacht Club:
@@ -88,12 +90,33 @@ function UserProfilePage({
 
     setTransferNftDataApi(nftsTransferData);
   }
+  async function getNftMinted() {
+    const nftsTransferData = await alchemy.core.getAssetTransfers({
+      fromAddress: "0x0000000000000000000000000000000000000000",
+      contractAddresses: [
+        // "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+
+        "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      ],
+        excludeZeroValue: true,
+      category: ["erc721", "erc1155"],
+      // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"  
+
+
+    });
+    // console.log(nftsTransferData.pageKey )
+    // console.log(nftsTransferData.pageKey)
+
+  }
   useEffect(() => {
     getNft();
     getCollectionFloorPrice();
     getNftsForOwner();
     getTransferData();
-    console.log(nftsFromOwner[0]?.contract?.totalSupply);
+    // console.log(nftsFromOwner[0]?.contract?.totalSupply);
+    // console.log(nftsFromOwner.length)
+    getNftMinted();
+
   }, []);
 
   useEffect(() => {
@@ -378,11 +401,11 @@ function UserProfilePage({
               isUSerProfileSeortBySelectorClicked
             }
           />
-          <NftCard 
-          nftsFromOwner={nftsFromOwner}
-          userFrom={dataConcat?.collected}
-          isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
-           />
+          <NftCard
+            nftsFromOwner={nftsFromOwner}
+            userFrom={dataConcat?.collected}
+            isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+          />
         </>
       );
     } else if (isProfileSubMenuButtonClicked[1] === true) {
@@ -396,9 +419,21 @@ function UserProfilePage({
         />
       );
     } else if (isProfileSubMenuButtonClicked[2] === true) {
-      return <FormulatedOffers userFrom={dataConcat?.made} />;
+      return (
+        <FormulatedOffers
+          userFrom={dataConcat?.made}
+          nftsFromOwner={nftsFromOwner}
+          transferNftDataApi={transferNftDataApi}
+        />
+      );
     } else if (isProfileSubMenuButtonClicked[3] === true) {
-      return <ReceivedOffers userFrom={dataConcat?.received} />;
+      return (
+        <ReceivedOffers
+          userFrom={dataConcat?.received}
+          nftsFromOwner={nftsFromOwner}
+          transferNftDataApi={transferNftDataApi}
+        />
+      );
     }
   }
 
@@ -414,6 +449,7 @@ function UserProfilePage({
             <div className="username-and-stats-component">
               <UserNameAndStats
                 userNameAndStatsObject={dataConcat?.userPageInfo}
+                nftsCollectedCounter={nftsFromOwner.length}
               />
             </div>
             <div className="userprofile-description-component">

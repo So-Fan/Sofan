@@ -9,7 +9,7 @@ import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedO
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
-import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -25,6 +25,7 @@ const AthleteProfilePage = ({
     useState();
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
+  const [fansCounterApi, setFansCounterApi] = useState();
 
   // Api Alchemy setup
   const settings = {
@@ -90,12 +91,19 @@ const AthleteProfilePage = ({
 
     setTransferNftDataApi(nftsTransferData);
   }
+  async function getOwnersForContract() {
+    // Mettre une boucle pour récupérer toutes les collections de l'athlete pour mettre le compteurs de fans à jour
+    const owners = await alchemy.nft.getOwnersForContract(
+      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+    );
+    setFansCounterApi(owners?.owners?.length);
+  }
   useEffect(() => {
     getNft();
     getCollectionFloorPrice();
     getNftsForOwner();
     getTransferData();
-    console.log(nftsFromOwner[0]?.contract?.totalSupply);
+    getOwnersForContract();
   }, []);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
 
@@ -563,7 +571,7 @@ const AthleteProfilePage = ({
     } else if (isAthleteProfileSubMenuClicked[5] === true) {
       return (
         <AthleteProfileNFTCollection
-        nftsFromOwner={nftsFromOwner}
+          nftsFromOwner={nftsFromOwner}
           nftDataApi={nftDataApi}
           collectionFloorPriceApiData={collectionFloorPriceApiData}
           dataCollections={dataConcat?.collections}
@@ -592,7 +600,7 @@ const AthleteProfilePage = ({
     } else if (isAthleteProfileSubMenuClicked[1] === true) {
       return (
         <UserActivity
-        isUserActivitySectionActive={true}
+          isUserActivitySectionActive={true}
           userFrom={dataConcat?.activities}
           nftsFromOwner={nftsFromOwner}
           transferNftDataApi={transferNftDataApi}
@@ -622,9 +630,13 @@ const AthleteProfilePage = ({
     }
   };
   // console.log(isAthleteProfileSubMenuClicked[0]);
+  console.log(fansCounterApi)
   return (
     <div className="athleteprofilepage-component">
-      <AthleteProfileHeader userInfo={dataConcat?.userPageInfo} />
+      <AthleteProfileHeader
+        userInfo={dataConcat?.userPageInfo}
+        fansCounterApi={fansCounterApi}
+      />
       <div className="athleteprofilepage-profilesubmenu-wrap">
         <ProfileSubMenu
           isPageAthlete={true}
