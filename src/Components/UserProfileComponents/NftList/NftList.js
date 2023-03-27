@@ -39,8 +39,10 @@ function NftList({
   // formulated offers
   isFormulatedOffersSectionActive,
   isUserActivitySectionActive,
-}) {
-  // console.log(transferNftDataApi.from);
+  ethPrice,
+}) 
+{
+  let ethPricePriceConverted = (nftsFromOwnerFloorPrice * ethPrice).toLocaleString('fr-FR', { minimumFractionDigits: 1 });
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -58,7 +60,7 @@ function NftList({
         <div className="nftc-price-eth-user-activity">
           {nftsFromOwnerFloorPrice} ETH
         </div>
-        <div className="nft-price-eur-user-activity">692.04€</div>
+        <div className="nft-price-eur-user-activity">{ethPricePriceConverted}€</div>
       </div>
       <div className={`nft-quantity-user-activity ${offersFromClass}`}>
         {isFormulatedOffersSectionActive && <>{transferNftDataApi.from}</>}

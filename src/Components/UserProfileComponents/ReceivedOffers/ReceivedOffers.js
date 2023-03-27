@@ -3,7 +3,7 @@ import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./ReceivedOffers.css";
 import { v4 as uuidv4 } from "uuid";
-function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi }) {
+function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi, ethPrice }) {
   const nftTransferDate = [];
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
     const dateString =
@@ -49,6 +49,7 @@ function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi }) {
             nftsFromOwnerFloorPrice={
               apiNftData[i]?.contract?.openSea?.floorPrice
             }
+            ethPrice={ethPrice}
             nftsFromOwnerQuantity={apiNftData[i]?.balance}
             //
             transferNftDataApi={transferNftDataApi.transfers[i]}

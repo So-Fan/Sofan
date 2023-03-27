@@ -9,6 +9,7 @@ function UserActivity({
   nftsFromOwner,
   transferNftDataApi,
   isUserActivitySectionActive,
+  ethPrice
 }) {
   const nftTransferDate = [];
   function concatStringFromTo(
@@ -87,6 +88,7 @@ function UserActivity({
             }
             nftsFromOwnerQuantity={apiNftData[i]?.balance}
             //
+            ethPrice={ethPrice}
             transferNftDataApi={transferNftDataApi.transfers[i]}
             nftTransferDate={nftTransferDate[i]}
             //

@@ -26,6 +26,8 @@ function UserProfilePage({
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
+  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -105,7 +107,6 @@ function UserProfilePage({
 
     });
     // console.log(nftsTransferData.pageKey )
-    // console.log(nftsTransferData.pageKey)
 
   }
   useEffect(() => {
@@ -118,7 +119,13 @@ function UserProfilePage({
     getNftMinted();
 
   }, []);
-
+  // API Coingecko --> Get ETH price
+useEffect(() => {
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
+    .then((response) => response.json())
+    .then((data) => setEthPrice(data.ethereum.eur))
+    .catch((error) => console.log(error));
+}, []);// API Coingecko --> Get ETH price
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -416,6 +423,7 @@ function UserProfilePage({
           nftsFromOwner={nftsFromOwner}
           transferNftDataApi={transferNftDataApi}
           setTransferNftDataApi={setTransferNftDataApi}
+          ethPrice={ethPrice}
         />
       );
     } else if (isProfileSubMenuButtonClicked[2] === true) {
@@ -424,6 +432,7 @@ function UserProfilePage({
           userFrom={dataConcat?.made}
           nftsFromOwner={nftsFromOwner}
           transferNftDataApi={transferNftDataApi}
+          ethPrice={ethPrice}
         />
       );
     } else if (isProfileSubMenuButtonClicked[3] === true) {
@@ -432,6 +441,7 @@ function UserProfilePage({
           userFrom={dataConcat?.received}
           nftsFromOwner={nftsFromOwner}
           transferNftDataApi={transferNftDataApi}
+          ethPrice={ethPrice}
         />
       );
     }

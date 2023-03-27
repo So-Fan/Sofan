@@ -26,6 +26,7 @@ const AthleteProfilePage = ({
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [fansCounterApi, setFansCounterApi] = useState();
+  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
 
   // Api Alchemy setup
   const settings = {
@@ -75,7 +76,6 @@ const AthleteProfilePage = ({
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
     );
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
-    // console.log(nftsFromOwner?.ownedNfts)
   }
   async function getTransferData() {
     const nftsTransferData = await alchemy.core.getAssetTransfers({
@@ -106,7 +106,15 @@ const AthleteProfilePage = ({
     getOwnersForContract();
   }, []);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
+// API Coingecko --> Get ETH price
+useEffect(() => {
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
+    .then((response) => response.json())
+    .then((data) => setEthPrice(data.ethereum.eur))
+    .catch((error) => console.log(error));
+}, []);
 
+// -------------------------------------
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -605,6 +613,7 @@ const AthleteProfilePage = ({
           nftsFromOwner={nftsFromOwner}
           transferNftDataApi={transferNftDataApi}
           setTransferNftDataApi={setTransferNftDataApi}
+          ethPrice={ethPrice}
         />
       );
     } else if (isAthleteProfileSubMenuClicked[2] === true) {
@@ -614,6 +623,7 @@ const AthleteProfilePage = ({
             userFrom={dataConcat?.made}
             nftsFromOwner={nftsFromOwner}
             transferNftDataApi={transferNftDataApi}
+            ethPrice={ethPrice}
           />
         </div>
       );
@@ -624,6 +634,7 @@ const AthleteProfilePage = ({
             userFrom={dataConcat?.received}
             nftsFromOwner={nftsFromOwner}
             transferNftDataApi={transferNftDataApi}
+            ethPrice={ethPrice}
           />
         </div>
       );

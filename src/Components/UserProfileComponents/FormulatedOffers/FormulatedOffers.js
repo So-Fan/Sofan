@@ -7,6 +7,7 @@ function FormulatedOffers({
   userFrom,
   nftsFromOwner,
   transferNftDataApi,
+  ethPrice
 }) {
   // Backend here
   const [currentStatusOffers, setCurrentStatusOffers] = useState({
@@ -128,7 +129,7 @@ function FormulatedOffers({
               nftsFromOwnerFloorPrice={
                 apiNftData[i]?.contract?.openSea?.floorPrice
               }
-              // nftsFromOwnerQuantity={apiNftData[i]?.balance}
+              ethPrice={ethPrice}
               //
               transferNftDataApi={transferNftDataApi.transfers[i]}
               nftTransferDate={nftTransferDate[i]}
