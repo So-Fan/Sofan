@@ -25,7 +25,7 @@ function UtilitiesComponent({
     const test = () => displayStatusColor();
     test();
   }, []);
-  console.log(status);
+  // console.log(status);
   return (
     <div className="nft-collection-overview-utilities-one-container">
       <div className="nft-collection-overview-utilities-one-wrap">

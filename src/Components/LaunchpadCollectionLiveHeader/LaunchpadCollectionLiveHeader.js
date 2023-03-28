@@ -21,37 +21,10 @@ function LaunchpadCollectionLiveHeader({
   timer,
   counterNftMinted,
   totalNftMintable,
+  // 
+  collectionNameApi,
+  collectionDescriptionApi
 }) {
-  // const dataBackend = {
-  //   header: [
-  //     {
-  //       creatorProfilePic:
-  //         "https://www.vendeeglobe.org/medias/05/06/50614/alexia-barrier-c-462-560.jpg",
-  //       creatorName: "Alexia Barrier",
-  //       collectionName: "Explore the World with Alexia Barrier",
-  //       description:
-  //         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nulla tortor, vehicula ut viverra at, auctor at ipsum. Cras ornare et lorem vel tincidunt. Proin quis augue ac nibh faucibus molestie in at quam. Mauris massa tellus, sagittis eu molestie. ",
-  //     mintLimit: 3,
-  //       },
-  //   ],
-  // };
-  // const dataRealTimeDb = {
-  //   header: [
-  //       {
-  //           timer: "1d 2h 21m 35 s"
-  //       },
-  //   ]
-  // }
-  // const dataApi ={
-  //   header: [
-  //       {
-  //           ethPrice: 0.5,
-  //           eurPrice: 625.02,
-  //           counterNftMinted: 405,
-  //           totalNftMintable: 500,
-  //       },
-  //   ]
-  // }
   return (
     <section className="launchpad-collection-live-header-container">
       <NftCollectionHeader
@@ -64,11 +37,14 @@ function LaunchpadCollectionLiveHeader({
         minLimit={minLimit}
         // dataBacken RealTimeDb
         timer={timer}
-        // apiData
+        // fake apiData
         nftPriceEth={nftPriceEth}
         nftPriceEur={nftPriceEur}
         counterNftMinted={counterNftMinted}
         totalNftMintable={totalNftMintable}
+        // 
+        collectionNameApi={collectionNameApi}
+        collectionDescriptionApi={collectionDescriptionApi}
       />
     </section>
   );

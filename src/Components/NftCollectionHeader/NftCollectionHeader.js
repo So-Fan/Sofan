@@ -9,7 +9,7 @@ function NftCollectionHeader({
   nftNumber,
   creatorName,
   creatorProfilePic,
-  description,
+  // description,
   ownerName,
   ownerProfilePic,
   //
@@ -24,6 +24,9 @@ function NftCollectionHeader({
   timer,
   counterNftMinted,
   totalNftMintable,
+  // 
+  collectionNameApi,
+  collectionDescriptionApi
 }) {
 const [styleChangeButton, setStyleChangeButton] =useState("")
 
@@ -36,7 +39,7 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
       return "";
     }
   }
-  
+  // console.log(collectionDescriptionApi)
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
@@ -57,10 +60,10 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                 <div>by {creatorName}</div>
               </div>
               <div className="launchpad-collection-live-header-right-collection-name">
-                {collectionName}
+                {collectionNameApi}
               </div>
               <div className="launchpad-collection-live-header-right-collection-description">
-                {description}
+                {collectionDescriptionApi}
               </div>
               <div className="launchpad-collection-live-header-right-line-separation"></div>
               <div className="launchpad-collection-live-header-right-price-container">

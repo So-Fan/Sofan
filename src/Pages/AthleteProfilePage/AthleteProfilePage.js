@@ -54,9 +54,8 @@ const AthleteProfilePage = ({
   async function getCollectionFloorPrice() {
     const alchemy = new Alchemy(settings);
     const collectionFloorPrice = await alchemy.nft.getFloorPrice(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
     );
-    // console.log(collectionFloorPrice.openSea.floorPrice)
     setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
   }
 
@@ -67,13 +66,13 @@ const AthleteProfilePage = ({
       "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
       {
         contractAddresses: [
-          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
-          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", // Otherdead collection
+          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection
         ],
       } // filter
     );
     const nftsSale = await alchemy.nft.getFloorPrice(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
     );
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
   }
@@ -640,8 +639,6 @@ useEffect(() => {
       );
     }
   };
-  // console.log(isAthleteProfileSubMenuClicked[0]);
-  console.log(fansCounterApi)
   return (
     <div className="athleteprofilepage-component">
       <AthleteProfileHeader

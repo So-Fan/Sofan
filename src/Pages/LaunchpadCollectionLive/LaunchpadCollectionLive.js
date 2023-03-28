@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./LaunchpadCollectionLive.css";
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
 import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities";
 import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
 import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/LaunchpadCollectionLiveMoreAboutCollection/LaunchpadCollectionLiveMoreAboutCollection";
 import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
+import { Network, Alchemy } from "alchemy-sdk";
 function LaunchpadCollectionLive() {
+  const [nftPicture, setNftPicture] = useState()
+  const [collectionNameApi, setCollectionNameApi] = useState();
+  const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
+
+  // Api Alchemy setup
+  const settings = {
+    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
+    network: Network.ETH_MAINNET,
+    maxRetries: 10,
+  };
+
+  const alchemy = new Alchemy(settings);
+  async function getNftsData() {
+    const nftsData = await alchemy.nft.getContractMetadata(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    );
+    // const transferData = await alchemy.nft.getTransfersForContract(
+    //   "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection contract
+    //   { from: "0x0000000000000000000000000000000000000000" }
+    // );
+    // console.log(transferData);
+    setCollectionNameApi(nftsData?.openSea?.collectionName);
+    setCollectionDescriptionApi(nftsData?.openSea?.description);
+  }
+  async function getNftPicture() {
+    const metadata = await alchemy.nft.getContractMetadata(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    );
+    // console.log(metadata)
+  }
+  useEffect(() => {
+    getNftsData();
+    getNftPicture();
+  }, []);
+
   const dataBackend = {
     header: [
       {
@@ -87,11 +123,14 @@ function LaunchpadCollectionLive() {
         minLimit={dataBackend.header[0].mintLimit}
         // dataBacken RealTimeDb
         timer={dataRealTimeDb.header[0].timer}
-        // apiData
+        // FAKE apiData
         nftPriceEth={dataApi.header[0].ethPrice}
         nftPriceEur={dataApi.header[0].eurPrice}
         counterNftMinted={dataApi.header[0].counterNftMinted}
         totalNftMintable={dataApi.header[0].totalNftMintable}
+        // 
+        collectionNameApi={collectionNameApi}
+        collectionDescriptionApi={collectionDescriptionApi}
       />
       <div className="launchpad-collection-live-page-left-container">
         <LaunchpadCollectionLiveUtilities
