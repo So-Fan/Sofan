@@ -3,7 +3,7 @@ import NftCardTemplate from "../NftCard/NftCardTemplate/NftCardTemplate";
 import "./NftCollectionMoreAboutNft.css";
 import { v4 as uuidv4 } from "uuid";
 function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
-  console.log(adaptTitleToNftCollectionPageItems);
+  // console.log(adaptTitleToNftCollectionPageItems);
   const dataBackendNftCollectionMoreAboutNft = {
     nftCard: [
       {

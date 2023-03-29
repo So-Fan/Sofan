@@ -36,7 +36,7 @@ useEffect(() => {
     // );
     // console.log(transferData);
     setCollectionNameApi(nftsData?.openSea?.collectionName);
-    setCollectionDescriptionApi(nftsData?.openSea?.description);
+    setCollectionDescriptionApi(nftsData?.openSea?.description)
   }
   async function getNftPicture() {
     const nftsFromContract = await alchemy.nft.getNftMetadata(
