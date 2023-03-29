@@ -1,0 +1,25 @@
+.launchpad-collection-live-header-right-mint-module-progress-bar-background {
+    height: 8px;
+    width: 100%;
+    background: #eaeaea;
+    border-radius: 10px;
+    margin-top: 25px;
+  }
+  .launchpad-collection-live-header-right-mint-module-progress-bar {
+    height: 8px;
+    background: #85d87e;
+    border-radius: 10px;
+  }
+  .launchpad-collection-live-header-right-mint-module-total-minted {
+    width: 100%;
+    height: 23px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 13px;
+    /* background-color: slategray; */
+  }
+  
+  .launchpad-collection-live-header-right-mint-module-total-minted-number {
+    font-family: "britanica-heavy";
+  }

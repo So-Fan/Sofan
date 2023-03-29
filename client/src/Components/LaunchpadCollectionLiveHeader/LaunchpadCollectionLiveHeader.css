@@ -1,0 +1,8 @@
+.launchpad-collection-live-header-container{
+    width: 100%;
+    max-width: 1243px;
+    max-height: 620px;
+    display: flex;
+    justify-content: center;
+    /* background-color: red; */
+}

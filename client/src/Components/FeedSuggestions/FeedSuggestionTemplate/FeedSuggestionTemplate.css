@@ -1,0 +1,35 @@
+.feedsuggestions-content-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.feedsuggestions-content-container:not(:last-child){
+  margin-bottom: 10px;
+}
+
+.feedsuggestions-content-container > div {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+.feedsuggestions-content-name {
+  font-family: "Britanica-Black";
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+}
+.feedlaunchpad-header-button:hover{
+  text-decoration: underline;
+}
+.feedsuggestions-content-type {
+  font-family: "Britanica-Regular";
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.feedsuggestions-content-avatar {
+  width: 50px;
+  border-radius: 50%;
+}

@@ -1,0 +1,126 @@
+.athleteprofileeventtemplate-component {
+  position: relative;
+  max-width: 400px;
+  max-height: 500px;
+  border-radius: 10px;
+  background-color: red !important;
+}
+.athleteprofileeventtemplate-background {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.athleteprofileeventtemplate-container-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 32%;
+  max-height: 160px;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.771118) 48.62%,
+    #000000 100%
+  );
+  border-radius: 0px 0px 10px 10px;
+}
+.athleteprofileeventtemplate-wrap-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-left: 20px;
+  width: 70%;
+  height: 65%;
+}
+.athleteprofileeventtemplate-wrap-content > span {
+  font-family: "Britanica-Heavy";
+  font-size: 25px;
+  line-height: 30px;
+  color: #ffffff;
+}
+.athleteprofileeventtemplate-wrap-content span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.athleteprofileeventtemplate-subwrap-content {
+  display: flex;
+  align-items: center;
+}
+
+.athleteprofileeventtemplate-subwrap-content > img {
+  width: 12.5px;
+  height: 12.5px;
+}
+.athleteprofileeventtemplate-subwrap-content > span {
+  font-family: "Britanica-Regular" !important;
+  color: #ffffff;
+  padding-left: 10.2px;
+}
+@media (max-width: 1152px) {
+  .athleteprofileeventtemplate-wrap-content > span {
+    font-size: 22px;
+    line-height: 25px;
+  }
+  .athleteprofileeventtemplate-subwrap-content > span {
+    font-size: 13px;
+  }
+}
+@media (max-width: 1019px) {
+  .athleteprofileeventtemplate-wrap-content > span {
+    font-size: 20px;
+    line-height: 25px;
+  }
+  .athleteprofileeventtemplate-subwrap-content > span {
+    font-size: 13px;
+  }
+  .athleteprofileeventtemplate-subwrap-content > img {
+    width: 10px;
+    height: 10px;
+  }
+}
+@media (max-width: 930px) {
+  .athleteprofileeventtemplate-wrap-content {
+    width: 65%;
+  }
+  .athleteprofileeventtemplate-wrap-content > span {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 3px;
+  }
+  .athleteprofileeventtemplate-subwrap-content > span {
+    font-size: 12px;
+  }
+}
+@media (max-width: 903px) {
+  .athleteprofileeventtemplate-wrap-content {
+    width: 65%;
+    height: 80%;
+    padding-left: 10px;
+  }
+  .athleteprofileeventtemplate-wrap-content > span {
+    font-size: 17px;
+  }
+}
+@media (max-width: 857px) {
+  .athleteprofileeventtemplate-wrap-content > span {
+    font-size: 16px;
+    line-height: 20px;
+    padding-bottom: 3px;
+  }
+  .athleteprofileeventtemplate-subwrap-content > span {
+    font-size: 12px;
+  }
+}
+@media (max-width: 807px) {
+  .athleteprofileeventtemplate-wrap-content > span {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .athleteprofileeventtemplate-subwrap-content > span {
+    font-size: 12px;
+  }
+}
