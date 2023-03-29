@@ -4,7 +4,7 @@ import greenArrow from "../../Assets/Image/green-arrow.svg";
 import redArrow from "../../Assets/Image/red-arrow.svg";
 import DashboardStatsModule from "./DashboardStatsModule/DashboardStatsModule";
 
-function DashboardStats({dataApi}) {
+function DashboardStats({dataApi, ethPrice}) {
   const [toggleColor, setToggleColor] = useState("");
   const [arrowDisplay, setArrowDisplay] = useState();
   // const [moduleStats, setModuleStats] = useState({
@@ -51,6 +51,9 @@ function DashboardStats({dataApi}) {
       return "+";
     }
   }
+  let ethPricePriceConverted = (dataApi.stats[1].totaRevenueEth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+  let ethLastMonthEvolutionPriceConverted = (dataApi.stats[1].revenueEthLastMonth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+  // console.log(ethLastMonthEvolutionPriceConverted)
   return (
     <section className="dashboard-stats-container">
       <div className="dashboard-stats-rectangle">
@@ -62,6 +65,10 @@ function DashboardStats({dataApi}) {
           arrowDisplay={arrowDisplay}
           toggleColor={toggleColor}
           displayPlus={displayPlus}
+          //
+          ethPrice={ethPrice}
+          ethPricePriceConverted={ethPricePriceConverted}
+          ethLastMonthEvolutionPriceConverted={ethLastMonthEvolutionPriceConverted}
         />
         <div className="dashboard-stats-separation-line"></div>
         <DashboardStatsModule
@@ -78,6 +85,10 @@ function DashboardStats({dataApi}) {
           arrowDisplay={arrowDisplay}
           toggleColor={toggleColor}
           displayPlus={displayPlus}
+          //
+          ethPrice={ethPrice}
+          ethPricePriceConverted={ethPricePriceConverted}
+          ethLastMonthEvolutionPriceConverted={ethLastMonthEvolutionPriceConverted}
         />
         <div className="dashboard-stats-separation-line"></div>
         <DashboardStatsModule
@@ -86,10 +97,14 @@ function DashboardStats({dataApi}) {
           revenueEur={dataApi.stats[1].revenueEur}
           totalRevenueEur={dataApi.stats[1].totalRevenueEur}
           revenueEurPercent={revenueEurPercent}
+          ethPrice={ethPrice}
           //
           arrowDisplay={arrowDisplay}
           toggleColor={toggleColor}
           displayPlus={displayPlus}
+          //
+          ethPricePriceConverted={ethPricePriceConverted}
+          ethLastMonthEvolutionPriceConverted={ethLastMonthEvolutionPriceConverted}
         />
         <div className="dashboard-stats-separation-line"></div>
         <div style={{ visibility: "hidden" }}>
@@ -103,6 +118,9 @@ function DashboardStats({dataApi}) {
             arrowDisplay={arrowDisplay}
             toggleColor={toggleColor}
             displayPlus={displayPlus}
+            ethPrice={ethPrice}
+            //
+            ethPricePriceConverted={ethPricePriceConverted}
           />
         </div>
       </div>

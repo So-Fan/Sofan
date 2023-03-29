@@ -579,7 +579,7 @@ useEffect(() => {
       return (
         <AthleteProfileNFTCollection
           nftsFromOwner={nftsFromOwner}
-          nftDataApi={nftDataApi}
+          nftDataApi={nftDataApi} // pas utilisé pour l'instant
           collectionFloorPriceApiData={collectionFloorPriceApiData}
           dataCollections={dataConcat?.collections}
         />

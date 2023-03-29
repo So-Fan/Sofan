@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardMyCollections from "../../Components/DashboardMyCollections/DashboardMyCollections";
 import DashboardStats from "../../Components/DashboardStats/DashboardStats";
 import DashboardSubMenu from "../../Components/DashboardSubMenu/DashboardSubMenu";
@@ -10,6 +10,15 @@ function Dashboard() {
     false,
     false,
   ]);
+  const [ethPrice, setEthPrice] = useState();
+  // API Coingecko --> Get ETH price
+useEffect(() => {
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
+    .then((response) => response.json())
+    .then((data) => setEthPrice(data.ethereum.eur))
+    .catch((error) => console.log(error));
+}, []);
+
   const dataBackend = {
     collections: [
       {
@@ -134,6 +143,7 @@ function Dashboard() {
       },
     ],
   };
+  // console.log(ethPrice)
   return (
     <section className="dashboard-page-container">
       <div className="dashboard-page-wrap">
@@ -146,6 +156,7 @@ function Dashboard() {
                 <div className="dashboard-page-stats-container">
                   <DashboardStats 
                   dataApi={dataApi}
+                  ethPrice={ethPrice}
                   />
                 </div>
               </>
