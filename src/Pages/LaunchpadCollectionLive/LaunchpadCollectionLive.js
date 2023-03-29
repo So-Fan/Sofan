@@ -7,10 +7,17 @@ import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/Launchp
 import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
 import { Network, Alchemy } from "alchemy-sdk";
 function LaunchpadCollectionLive() {
-  const [nftPicture, setNftPicture] = useState()
+  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+  const [nftPicture, setNftPicture] = useState();
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
-
+// API Coingecko price ETH
+useEffect(() => {
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
+    .then((response) => response.json())
+    .then((data) => setEthPrice(data.ethereum.eur))
+    .catch((error) => console.log(error));
+}, []);
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -32,10 +39,12 @@ function LaunchpadCollectionLive() {
     setCollectionDescriptionApi(nftsData?.openSea?.description);
   }
   async function getNftPicture() {
-    const metadata = await alchemy.nft.getContractMetadata(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    const nftsFromContract = await alchemy.nft.getNftMetadata(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "15"
     );
-    // console.log(metadata)
+    // console.log(nftsFromContract?.media[0]?.gateway)
+    setNftPicture(nftsFromContract?.media[0]?.gateway);
   }
   useEffect(() => {
     getNftsData();
@@ -106,7 +115,7 @@ function LaunchpadCollectionLive() {
       {
         ethPrice: 0.5,
         eurPrice: 625.02,
-        counterNftMinted: 405,
+        counterNftMinted: 480,
         totalNftMintable: 500,
       },
     ],
@@ -128,9 +137,12 @@ function LaunchpadCollectionLive() {
         nftPriceEur={dataApi.header[0].eurPrice}
         counterNftMinted={dataApi.header[0].counterNftMinted}
         totalNftMintable={dataApi.header[0].totalNftMintable}
-        // 
+        // Api Alchemy
         collectionNameApi={collectionNameApi}
         collectionDescriptionApi={collectionDescriptionApi}
+        nftPicture={nftPicture}
+        // Api CoinGecko
+        ethPrice={ethPrice}
       />
       <div className="launchpad-collection-live-page-left-container">
         <LaunchpadCollectionLiveUtilities

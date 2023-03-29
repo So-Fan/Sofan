@@ -23,7 +23,10 @@ function LaunchpadCollectionLiveHeader({
   totalNftMintable,
   // 
   collectionNameApi,
-  collectionDescriptionApi
+  collectionDescriptionApi,
+  nftPicture,
+  // Coingecko API
+  ethPrice
 }) {
   return (
     <section className="launchpad-collection-live-header-container">
@@ -45,6 +48,9 @@ function LaunchpadCollectionLiveHeader({
         // 
         collectionNameApi={collectionNameApi}
         collectionDescriptionApi={collectionDescriptionApi}
+        nftPicture={nftPicture}
+        //
+        ethPrice={ethPrice}
       />
     </section>
   );

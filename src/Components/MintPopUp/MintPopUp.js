@@ -7,6 +7,15 @@ function MintPopUpTemplate() {
   const [isMintingProcessBegan, setIsMintingProcessBegan] = useState(false);
   const [isMintComponentCalled, setIsMintComponentCalled] = useState(true);
   const [mintCounter, setMintCounter] = useState(1);
+const [ethPriceApi, setEthPriceApi] = useState();
+// API Coingecko price ETH
+useEffect(() => {
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
+    .then((response) => response.json())
+    .then((data) => setEthPriceApi(data.ethereum.eur))
+    .catch((error) => console.log(error));
+}, []);
+
   // change thos bolean for passing to processing to validated or error
   const dataBlockchain = {
     mint: [
@@ -61,6 +70,8 @@ function MintPopUpTemplate() {
           //
           counterNftMinted={dataApi.popup[0].counterNftMinted}
           totalNftMintable={dataApi.popup[0].totalNftMintable}
+          //
+          ethPriceApi={ethPriceApi}
         />
       )}
 

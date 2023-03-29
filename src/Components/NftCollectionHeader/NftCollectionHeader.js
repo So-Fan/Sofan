@@ -26,25 +26,29 @@ function NftCollectionHeader({
   totalNftMintable,
   // 
   collectionNameApi,
-  collectionDescriptionApi
+  collectionDescriptionApi,
+  nftPicture,
+  //
+  ethPrice
 }) {
 const [styleChangeButton, setStyleChangeButton] =useState("")
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   function handleStyleButton() {
     
-    if (nftMintedCalculated === 0) {
+    if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
    return "#EDEDED";
     } else if (nftMintedCalculated > 0) {
       return "";
     }
   }
   // console.log(collectionDescriptionApi)
+  let ethPricePriceConverted = (nftPriceEth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
         {launchpadCollectionLiveHeader && <><button className="launchpad-collection-live-button-container">Explorer la collection</button></>}
-        <img src={explorePicture} alt="IMAGE NFT" />
+        <img src={nftPicture} alt="IMAGE NFT" />
       </div>
       {launchpadCollectionLiveHeader ? (
         <>
@@ -71,7 +75,7 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                   {nftPriceEth} ETH
                 </div>
                 <div className="launchpad-collection-live-header-right-eur-price">
-                  {nftPriceEur}€
+                  {ethPricePriceConverted}€
                 </div>
               </div>
               <div className="launchpad-collection-live-header-right-mint-module-container">
