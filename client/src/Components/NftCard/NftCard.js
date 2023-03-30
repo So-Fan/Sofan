@@ -27,9 +27,9 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam }) => {
                   bid={nft.bid}
                   // nftsFromOwner={nftsFromOwner[i]}
                   nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
+                  nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
                   nftsFromOwnerFloorPrice={apiNftData[i]?.contract?.openSea?.floorPrice}
                   nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
-                  nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
                   isNftSpam={isNftSpam}
                 />
               </>

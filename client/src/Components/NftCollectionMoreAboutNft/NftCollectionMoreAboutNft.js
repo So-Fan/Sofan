@@ -102,7 +102,7 @@ function NftCollectionMoreAboutNft({
   };
   //
   // function NftCollectionMoreAboutNft({ nftCard }) {
-    // console.log(nftsFromOwner)
+    
   return (
     <section className="nft-collection-more-about-nft-container">
       <div className="nft-collection-more-about-nft-wrap">
@@ -128,12 +128,10 @@ function NftCollectionMoreAboutNft({
               price={element.ethPrice}
               bid={element.highestBidEth}
               //
-              nftsFromOwnerImage={apiNftData[i]?.contract?.openSea?.imageUrl}
-              nftsFromOwnerNameCollectionName={apiNftData[i]?.contract?.name}
-              nftsFromOwnerFloorPrice={
-                apiNftData[i]?.contract?.openSea?.floorPrice
-              }
-              nftsFromOwnerTotalSupply={apiNftData[i]?.contract?.totalSupply}
+              nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
+                  nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
+                  nftsFromOwnerFloorPrice={apiNftData[i]?.contract?.openSea?.floorPrice}
+                  nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
               // mettre le nombre de nft de la collection correspondante
               key={uuidv4()}
               // collectionFloorPriceApiData={collectionFloorPriceApiData}
