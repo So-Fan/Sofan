@@ -14,6 +14,7 @@ function MintPopUpBuy({
   ethPriceApi       
 }) {
   let ethPricePriceConverted = (ethPriceApi * ethPrice).toLocaleString('fr-FR', { minimumFractionDigits: 1 });
+  console.log(ethPricePriceConverted)
   function handleClick(e) {
     if (mintCounter >= 1) {
       if (

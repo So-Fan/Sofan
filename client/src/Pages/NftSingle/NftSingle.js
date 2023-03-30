@@ -17,6 +17,7 @@ const NftSingle = () => {
     false,
   ]);
   const [ethPrice, setEthPrice] = useState(); // API CoinGecko
+  const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
   const [nftPicture, setNftPicture] = useState();
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
@@ -27,7 +28,24 @@ const NftSingle = () => {
     network: Network.ETH_MAINNET,
     maxRetries: 10,
   };
-console.log(collectionNameApi)
+  // get Nfts from Owner and Contracts
+  async function getNftsForOwner() {
+    // we select all the nfts hold by an address for a specific collection
+    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
+      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      {
+        contractAddresses: [
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", // Otherdead collection
+          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection
+        ],
+      } // filter
+    );
+    const nftsSale = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
+    );
+    setNftsFromOwner(nftsFromOwner?.ownedNfts);
+  }
+// console.log(collectionNameApi)
   const alchemy = new Alchemy(settings);
   async function getNftsData() {
     const nftsData = await alchemy.nft.getContractMetadata(
@@ -47,6 +65,7 @@ console.log(collectionNameApi)
   }
   // API Coingecko price ETH
   useEffect(() => {
+    getNftsForOwner();
     getNftsData();
     getNftPicture();
     fetch(
@@ -369,6 +388,7 @@ console.log(collectionNameApi)
             latestBidsArray={
               dataSinglePageNftCollection.overviewData[0].latestBids
             }
+            ethPrice={ethPrice}
           />
         )}
         {isSubMenuClicked[1] && (
@@ -384,6 +404,7 @@ console.log(collectionNameApi)
               dataSinglePageNftCollection.overviewData[0].latestBids
             }
             bidsSectionDeleteSpace={true}
+            ethPrice={ethPrice}
           />
         )}
         {isSubMenuClicked[3] && (
@@ -391,6 +412,7 @@ console.log(collectionNameApi)
             <div>
               <NftCollectionHistory
                 history={dataSinglePageNftCollection.history}
+                ethPrice={ethPrice}
               />
             </div>
           </>
@@ -402,6 +424,7 @@ console.log(collectionNameApi)
         </div>
         <NftCollectionMoreAboutNft
           nftCard={dataSinglePageNftCollection.nftCard}
+          nftsFromOwner={nftsFromOwner}
         />
       </div>
     </section>

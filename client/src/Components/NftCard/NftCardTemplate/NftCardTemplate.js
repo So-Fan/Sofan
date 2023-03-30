@@ -15,9 +15,13 @@ const NftCardTemplate = ({
   nftsFromOwnerIdNft,
   nftsFromOwnerNameCollection,
   nftsFromOwnerFloorPrice,
-  nftsFromOwnerImage
+  nftsFromOwnerImage,
+  nftsFromOwnerNameCollectionName,
+  nftsFromOwnerPicture,
+  // nftsFromOwnerFloorPrice,
+  nftsFromOwnerTotalSupply,
 }) => {
-  
+  // console.log(nftsFromOwner)
   return (
     <Link
       to={`/${athleteName}/nft/${to}`}

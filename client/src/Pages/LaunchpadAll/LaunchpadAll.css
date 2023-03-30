@@ -1,0 +1,29 @@
+.launchpadall-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.launchpadall-header-wrap {
+  margin-bottom: 50px;
+}
+.launchpad-livelaunches-wrap {
+  margin-left: 60px;
+  margin-bottom: 50px;
+}
+.launchpad-Upcominglaunches-wrap {
+  margin-left: 60px;
+  margin-bottom: 98px;
+}
+@media (max-width: 1337px) {
+  .launchpad-livelaunches-wrap {
+    margin-left: 90px;
+  }
+  .launchpad-Upcominglaunches-wrap {
+    margin-left: 90px;
+  }
+}
+@media (max-width: 1300px) {
+  .launchpadall-page {
+    width: 94%;
+  }
+}

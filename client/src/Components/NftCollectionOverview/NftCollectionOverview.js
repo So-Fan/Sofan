@@ -9,6 +9,7 @@ function NftCollectionOverview({
   utilitiesArray,
   moreAboutCollectionArray,
   latestBidsArray,
+  ethPrice
 }) {
   return (
     <section className="nft-collection-overview-container">
@@ -35,6 +36,7 @@ function NftCollectionOverview({
       />
       <NftCollectionLatestsBids
       latestBidsArray={latestBidsArray}
+      ethPrice={ethPrice}
       />
     </section>
   );

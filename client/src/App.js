@@ -15,6 +15,8 @@ import SignUpAthletePage from "./Pages/SignUpAthlete/SignUpAthletePage/SignUpAth
 import LaunchpadCollectionLive from "./Pages/LaunchpadCollectionLive/LaunchpadCollectionLive";
 import LaunchpAll from "./Pages/LaunchpadAll/LaunchpadAll";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import EthProvider from "./contexts/EthContext/EthProvider";
+import TestSecondary from "./Pages/Test/TestSecondary";
 
 function App() {
   const isLogged = true; // from Backend
@@ -64,6 +66,7 @@ function App() {
   }
   return (
     <BrowserRouter>
+     <EthProvider>
       <div className="App" onClick={handleClickOutside}>
         <Navbar isProfileClicked={isProfileClicked} isLogged={isLogged} />
         <Routes>
@@ -114,6 +117,7 @@ function App() {
           <Route path="/nftsingle" element={<NftSingle />} />
           <Route path="signupathlete" element={<SignUpAthletePage/>}/>
           <Route path="/test" element={<Test />} />
+          <Route path="/testsecondary" element={<TestSecondary/>}/>
           <Route path="/login" element={<LoginSignUpScreen />} />
           <Route path="/collectionlive" element={<LaunchpadCollectionLive/>}/>
           <Route path="/launchpadall" element={<LaunchpAll/>}/>
@@ -144,6 +148,7 @@ function App() {
           </div>
         </div>
       </section>
+      </EthProvider>
     </BrowserRouter>
   );
 }
