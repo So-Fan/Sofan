@@ -1,5 +1,6 @@
 .nft-collection-properties-container {
   width: 100%;
+  min-height: 375px;
   height: 375px;
   max-width: 620px;
   /* max-height: 380px; */
@@ -8,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  /* overflow-y: scroll; */
 }
 .nft-collection-properties-card-container {
   width: 300px;

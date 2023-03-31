@@ -44,7 +44,9 @@ const NftSingle = () => {
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
     );
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
+    
   }
+  
 // console.log(collectionNameApi)
   const alchemy = new Alchemy(settings);
   async function getNftsData() {
@@ -396,6 +398,7 @@ const NftSingle = () => {
             properties={
               dataSinglePageNftCollection.propertiesData[0].properties
             }
+            nftsFromOwner={nftsFromOwner}
           />
         )}
         {isSubMenuClicked[2] && (
