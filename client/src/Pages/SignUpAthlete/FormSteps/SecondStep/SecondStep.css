@@ -73,7 +73,10 @@ form > .form-and-title input:active {
   font-weight: 800;
   opacity: 1;
 }
-
+.second-step-input-mail-error-message{
+  color: red;
+  font-style: italic;
+}
 .typed {
   color: rgb(0, 0, 0);
   opacity: 1;

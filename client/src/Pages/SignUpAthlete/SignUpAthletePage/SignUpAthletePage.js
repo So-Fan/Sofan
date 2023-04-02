@@ -7,7 +7,7 @@ import FormValidation from "../FormSteps/FormValidation/FormValidation";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
@@ -34,7 +34,7 @@ function SignUpAthletePage() {
         />
       );
     } else if (step === 2) {
-      return <SecondStep setSecondStepValidated={setSecondStepValidated} />;
+      return <SecondStep setSecondStepValidated={setSecondStepValidated} setStateFormValues={setStateFormValues}/>;
     } else if (step === 3) {
       return <ThirdStep setIsThirdStepValidated={setIsThirdStepValidated} />;
     } else if (step === 4) {
@@ -59,9 +59,11 @@ function SignUpAthletePage() {
       return "90%";
     }
   };
-
+  const [stateFormValues, setStateFormValues] = useState();
+  // console.log(stateFormValues)
+  handleSecondStepValidated()
   const handleNextStep = (e) => {
-    console.log(e);
+    // console.log(e);
     lastStepFormValidation();
     if (isFirstStepValidated) {
       setStep(2);
@@ -71,7 +73,10 @@ function SignUpAthletePage() {
       setStep(4);
     }
   };
-
+  function handleSecondStepValidated() {
+    
+  }
+  // console.log(isSecondStepValidated)
   const lastStepFormValidation = () => {
     if (step === 4) {
       setFourthState(true);
