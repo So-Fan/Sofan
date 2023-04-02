@@ -7,3 +7,8 @@
   line-height: 19.2px;
   color: #000000;
 }
+.navbar-navicon:hover{
+background-color: #00000022;
+/* padding: 5px; */
+border-radius:  10px;
+}

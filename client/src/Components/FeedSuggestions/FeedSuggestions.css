@@ -6,6 +6,9 @@
   min-height: 280px;
   overflow: hidden;
   /* Suggestion: mettre 3 petits points pour les noms à rallonge */
+  opacity: 0;
+  animation-delay: 3.5s !important;
+  animation: fadeInUp 700ms ease-in-out forwards;
 }
 .feedlaunchpad-header-container {
   display: flex;
@@ -24,6 +27,15 @@
 }
 .feedlaunchpad-header-button-suggestion {
   font-size: 13px;
+}
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(-200px);
+  }
+  to {
+      opacity: 1;
+  }
 }
 @media (max-width: 950px) {
   .feedsuggestions-component{

@@ -5,7 +5,7 @@
   width: 249px;
   min-height: 320px;
   opacity: 0;
-  animation-delay: 4s !important;
+  animation-delay: 3.5s !important;
   animation: fadeInUp 700ms ease-in-out forwards;
 }
 .feedlaunchpad-header-container {
