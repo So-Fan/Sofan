@@ -45,12 +45,14 @@ function SignUp(props) {
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
+          max="60"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
+          max="45"
         />
         <button>S'inscrire</button>
         <span>ou utilisez votre compte</span>
