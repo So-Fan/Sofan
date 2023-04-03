@@ -3,11 +3,13 @@ import "./NavIcon.css";
 
 const NavIcon = ({ src }) => {
   return (
-    <img
-      className="navbar-icon"
-      src={src}
-      alt={`${src.split("/").pop().split(".")[0]}`}
-    />
+    <div className="navbar-icon-container">
+      <img
+        className="navbar-icon"
+        src={src}
+        alt={`${src.split("/").pop().split(".")[0]}`}
+      />
+    </div>
   );
 };
 

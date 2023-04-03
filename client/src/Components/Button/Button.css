@@ -8,6 +8,7 @@
     margin: 0;
     box-sizing: content-box;
 }
-/* .button-component:hover{
-    background-color: red !important;
-} */
+.button-component:hover{
+    background-color: #f7c520 !important;
+    transition-duration: 300ms !important;
+}
