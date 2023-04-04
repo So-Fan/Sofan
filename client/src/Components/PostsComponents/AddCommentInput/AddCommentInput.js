@@ -49,10 +49,10 @@ function AddCommentInput({
         <div
           className={`publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`}
         >
-          <a href="/">
+          
             {/* Backend here */}
             <button>Publish</button>
-          </a>
+          
         </div>
       </div>
     </div>

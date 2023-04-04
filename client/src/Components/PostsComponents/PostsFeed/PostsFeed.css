@@ -73,7 +73,24 @@
   text-decoration: underline;
   cursor: pointer;
 }
-
+.publish-comments-button-container-publication button{
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: "britanica-black";
+  font-size: 16px;
+  cursor: pointer;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.publish-comments-button-container-publication button:hover{
+  background-color: #00000015;
+  /* background-color: #f7c520 !important; */
+    transition-duration: 300ms !important;
+    border-radius: 20px;
+}
 .line-separation-comments-publication {
   border: 0.29829px solid rgba(0, 0, 0, 0.2);
 }
