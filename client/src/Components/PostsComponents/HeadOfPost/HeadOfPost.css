@@ -1,14 +1,8 @@
 /* Move to PostFeed.js */
 .publication-container {
-  max-height: 900px;
-  max-width: 550px;
-  height: 100%;
-  width: 100%;
+  /* max-height: 900px; */
   /* background-color: blue; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  
 }
 .publication-head-left-container {
   max-height: 40px;
