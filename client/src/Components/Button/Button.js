@@ -10,7 +10,8 @@ const Button = ({
  customMediaQueries,
   text,
   onClick,
-  id
+  id,
+  createPostButtonClass
 }) => {
   return (
     <>
@@ -21,7 +22,7 @@ const Button = ({
   </style>
       {isLink ? (
         <Link
-          className="button-component"
+          className={`button-component ${createPostButtonClass}`}
           to={to}
           style={style}
           onClick={onClick}
@@ -31,7 +32,7 @@ const Button = ({
         </Link>
       ) : (
         <button
-          className="button-component"
+          className={`button-component ${createPostButtonClass}`}
           style={style}
           onClick={onClick}
           id={id}

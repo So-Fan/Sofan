@@ -340,6 +340,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
             </div>
             {isLogged && (
               <Button
+                createPostButtonClass="button-component-create-post"
                 style={CreatePostButtonStyle.inlineStyle}
                 customMediaQueries={CreatePostButtonStyle.customMediaQueries}
                 text="Create a post"
