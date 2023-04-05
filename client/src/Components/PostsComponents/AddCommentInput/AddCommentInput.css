@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* background-color: bisque; */
 }
 
 .input-comment-elements {
@@ -14,16 +15,30 @@
   /* flex-direction: column; */
   background: rgba(60, 64, 69, 0.04);
   border-radius: 10px;
-  height: 50px;
+  min-height: 50px;
+  /* max-height: 50px; */
   width: 100%;
+  height: auto;
+  /* background-color: aqua; */
 }
 
 .input-comment-publication {
-  width: 60%;
+  width: 70%;
+  /* max-height: 70%; */
+  /* height: auto !important; */
+  /* max-height: 150px !important; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   background: none;
   height: 100%;
+  font-family: "britanica-regular";
+  font-size: 16px;
+  resize: none;
+  /* background-color: rgba(255, 0, 0, 0.223); */
 }
+
 .input-comment-publication:focus {
   border: none;
   outline: none;

@@ -7,3 +7,14 @@
   line-height: 19.2px;
   color: #000000;
 }
+.navbar-navicon-name {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.navbar-navicon-name:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+}
