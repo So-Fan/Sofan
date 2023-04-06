@@ -10,7 +10,11 @@ function MintPopUpBuy({
   totalNftMintable,
   ethPrice,
   eurPrice,
+  //
+  ethPriceApi       
 }) {
+  let ethPricePriceConverted = (ethPriceApi * ethPrice).toLocaleString('fr-FR', { minimumFractionDigits: 1 });
+  console.log(ethPricePriceConverted)
   function handleClick(e) {
     if (mintCounter >= 1) {
       if (
@@ -65,7 +69,7 @@ function MintPopUpBuy({
           <div className="mint-pop-up-price-title">Prix</div>
           <div className="mint-pop-up-price-eth-eur-container">
             <div className="mint-pop-up-price-eth">{ethPrice} ETH</div>
-            <div className="mint-pop-up-price-eur">{eurPrice} €</div>
+            <div className="mint-pop-up-price-eur">{ethPricePriceConverted} €</div>
           </div>
         </div>
         <div className="mint-pop-up-line-separation-second"></div>

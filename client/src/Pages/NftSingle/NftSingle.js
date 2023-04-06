@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NftCollectionHeader from "../../Components/NftCollectionHeader/NftCollectionHeader";
 import NftCollectionHistory from "../../Components/NftCollectionHistory/NftCollectionHistory";
 import NftCollectionLatestsBids from "../../Components/NftCollectionLatestsBids/NftCollectionLatestsBids";
@@ -7,6 +7,7 @@ import NftCollectionMoreAboutNft from "../../Components/NftCollectionMoreAboutNf
 import NftCollectionOverview from "../../Components/NftCollectionOverview/NftCollectionOverview";
 import NftCollectionProperties from "../../Components/NftCollectionProperties/NftCollectionProperties";
 import NftCollectionSubMenu from "../../Components/NftCollectionSubMenu/NftCollectionSubMenu";
+import { Network, Alchemy } from "alchemy-sdk";
 import "./NftSingle.css";
 const NftSingle = () => {
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -15,7 +16,67 @@ const NftSingle = () => {
     false,
     false,
   ]);
-
+  const [ethPrice, setEthPrice] = useState(); // API CoinGecko
+  const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
+  const [nftPicture, setNftPicture] = useState();
+  const [collectionNameApi, setCollectionNameApi] = useState();
+  const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
+  const [nftIdApi, setNftIdApi] = useState();
+  // Api Alchemy setup
+  const settings = {
+    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
+    network: Network.ETH_MAINNET,
+    maxRetries: 10,
+  };
+  // get Nfts from Owner and Contracts
+  async function getNftsForOwner() {
+    // we select all the nfts hold by an address for a specific collection
+    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
+      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      {
+        contractAddresses: [
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", // Otherdead collection
+          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection
+        ],
+      } // filter
+    );
+    const nftsSale = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
+    );
+    setNftsFromOwner(nftsFromOwner?.ownedNfts);
+    
+  }
+  
+// console.log(collectionNameApi)
+  const alchemy = new Alchemy(settings);
+  async function getNftsData() {
+    const nftsData = await alchemy.nft.getContractMetadata(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    );
+    setCollectionNameApi(nftsData?.openSea?.collectionName);
+    setCollectionDescriptionApi(nftsData?.openSea?.description);
+  }
+  async function getNftPicture() {
+    const nftsFromContract = await alchemy.nft.getNftMetadata(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "15"
+    );
+    // console.log(nftsFromContract?.media[0]?.gateway)
+    setNftPicture(nftsFromContract?.media[0]?.gateway);
+    setNftIdApi(nftsFromContract?.tokenId);
+  }
+  // API Coingecko price ETH
+  useEffect(() => {
+    getNftsForOwner();
+    getNftsData();
+    getNftPicture();
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPrice(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []);
   function handleClickSubMenuButton(e) {
     if (e.target.innerHTML === "Overview") {
       setIsSubMenuClicked([true, false, false, false]);
@@ -290,6 +351,13 @@ const NftSingle = () => {
         nftPriceEur={apiOpenSea[0].nftPriceEur}
         nftBidEth={apiOpenSea[0].nftBidEth}
         nftBifEur={apiOpenSea[0].nftBidEur}
+        // Api Alchemy
+        collectionNameApi={collectionNameApi}
+        collectionDescriptionApi={collectionDescriptionApi}
+        nftIdApi={nftIdApi}
+        nftPicture={nftPicture}
+        // Api CoinGecko
+        ethPrice={ethPrice}
       />
       <div className="nft-single-collection-page-left-container">
         {/* {isSubMenuClicked[0] ? <>
@@ -322,6 +390,7 @@ const NftSingle = () => {
             latestBidsArray={
               dataSinglePageNftCollection.overviewData[0].latestBids
             }
+            ethPrice={ethPrice}
           />
         )}
         {isSubMenuClicked[1] && (
@@ -329,6 +398,7 @@ const NftSingle = () => {
             properties={
               dataSinglePageNftCollection.propertiesData[0].properties
             }
+            nftsFromOwner={nftsFromOwner}
           />
         )}
         {isSubMenuClicked[2] && (
@@ -337,6 +407,7 @@ const NftSingle = () => {
               dataSinglePageNftCollection.overviewData[0].latestBids
             }
             bidsSectionDeleteSpace={true}
+            ethPrice={ethPrice}
           />
         )}
         {isSubMenuClicked[3] && (
@@ -344,6 +415,7 @@ const NftSingle = () => {
             <div>
               <NftCollectionHistory
                 history={dataSinglePageNftCollection.history}
+                ethPrice={ethPrice}
               />
             </div>
           </>
@@ -355,6 +427,7 @@ const NftSingle = () => {
         </div>
         <NftCollectionMoreAboutNft
           nftCard={dataSinglePageNftCollection.nftCard}
+          nftsFromOwner={nftsFromOwner}
         />
       </div>
     </section>

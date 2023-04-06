@@ -4,7 +4,7 @@ import "./AthleteProfileFeed.css";
 import { v4 as uuidv4 } from "uuid";
 
 function AthleteProfileFeed({ dataPosts, athleteProfilePageStyling }) {
-  console.log(dataPosts);
+  // console.log(dataPosts);
   // console.log(athleteProfileFeedPageStyling)
   const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
@@ -36,7 +36,7 @@ function AthleteProfileFeed({ dataPosts, athleteProfilePageStyling }) {
 
   return (
     <section className="athlete-profile-feed-container">
-      <div className="athlete-profile-feed-free-container">
+      <div className="athlete-profie-feed-free-container">
         {freePosts?.map((post) => {
           return (
             <PostsFeed

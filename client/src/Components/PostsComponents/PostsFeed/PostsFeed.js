@@ -68,10 +68,6 @@ function PostsFeed({
     />
     }
   }
-  console.log(athleteProfilePageStyling)
-  console.log(athleteProfilePageStyling)
-  console.log(athleteProfilePageStyling)
-  console.log(athleteProfilePageStyling)
   return (
     <>
       <div style={athleteProfilePageStyling ? {marginBottom: "18px"}: {marginTop: "60px"}} className="publication-container">

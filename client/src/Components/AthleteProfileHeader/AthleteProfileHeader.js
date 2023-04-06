@@ -5,7 +5,8 @@ import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
 import Button from "../Button/Button";
-const AthleteProfileHeader = ({userInfo}) => {
+const AthleteProfileHeader = ({userInfo, fansCounterApi}) => {
+  
   return (
     <div className="athleteprofileheader-component">
       <div className="athleteprofileheader-bannerandprofilepicture-wrap">
@@ -31,7 +32,7 @@ const AthleteProfileHeader = ({userInfo}) => {
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap">
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap">
-                  <span>{userInfo?.fan}</span>
+                  <span>{fansCounterApi}</span>
                   <span>fans</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>

@@ -8,7 +8,8 @@ import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
-import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed"
+import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
+import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -16,10 +17,103 @@ const AthleteProfilePage = ({
   profileSubMenuOffresClicked,
   setProfileSubMenuOffresClicked,
 }) => {
-  
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
-  const [dataConcat, setDataConcat] = useState({athletes: [{}]});
+  const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
+  const [nftDataApi, setNftDataApi] = useState();
+  const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
+    useState();
+  const [nftsFromOwner, setNftsFromOwner] = useState([]);
+  const [transferNftDataApi, setTransferNftDataApi] = useState();
+  const [fansCounterApi, setFansCounterApi] = useState();
+  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+
+  // Api Alchemy setup
+  const settings = {
+    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
+    network: Network.ETH_MAINNET,
+    maxRetries: 10,
+  };
+  const alchemy = new Alchemy(settings);
+
+  async function getNft() {
+    const metadata = await alchemy.nft.getContractMetadata(
+      "0x5180db8F5c931aaE63c74266b211F580155ecac8"
+    );
+    const dataCollection = await alchemy.nft.getNftsForContract(
+      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+    );
+    const contractFromOwners = await alchemy.nft.getContractsForOwner(
+      "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03"
+    ); // BoredApe creator adress (not the contract)
+    const nfts = await alchemy.nft.getNftsForOwner("nic.eth");
+    setNftDataApi(nfts);
+  }
+
+  // getFloorprice for Bored Ape Yacht Club:
+  async function getCollectionFloorPrice() {
+    const alchemy = new Alchemy(settings);
+    const collectionFloorPrice = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
+    );
+    setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
+  }
+
+  // get Nfts from Owner and Contracts
+  async function getNftsForOwner() {
+    // we select all the nfts hold by an address for a specific collection
+    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
+      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      {
+        contractAddresses: [
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", // Otherdead collection
+          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection
+        ],
+      } // filter
+    );
+    const nftsSale = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
+    );
+    setNftsFromOwner(nftsFromOwner?.ownedNfts);
+  }
+  async function getTransferData() {
+    const nftsTransferData = await alchemy.core.getAssetTransfers({
+      toAddress: "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      excludeZeroValue: true,
+      category: ["erc721", "erc1155"],
+      contractAddresses: [
+        "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+        "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      ],
+      withMetadata: true,
+    });
+
+    setTransferNftDataApi(nftsTransferData);
+  }
+  async function getOwnersForContract() {
+    // Mettre une boucle pour récupérer toutes les collections de l'athlete pour mettre le compteurs de fans à jour
+    const owners = await alchemy.nft.getOwnersForContract(
+      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+    );
+    setFansCounterApi(owners?.owners?.length);
+  }
+  useEffect(() => {
+    getNft();
+    getCollectionFloorPrice();
+    getNftsForOwner();
+    getTransferData();
+    getOwnersForContract();
+  }, []);
+  // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
+// API Coingecko --> Get ETH price
+useEffect(() => {
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
+    .then((response) => response.json())
+    .then((data) => setEthPrice(data.ethereum.eur))
+    .catch((error) => console.log(error));
+}, []);
+
+// -------------------------------------
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -256,9 +350,11 @@ const AthleteProfilePage = ({
       ],
       athletes: [
         {
-          postName:"Romain Attanasio",
-          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
-          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postName: "Romain Attanasio",
+          postPicture:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
+          postDescription:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
           postDate: 37,
           postDateType: "min",
           postType: "Free",
@@ -266,9 +362,11 @@ const AthleteProfilePage = ({
           postCommentNumber: 10,
         },
         {
-          postName:"Romain Attanasio",
-          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
+          postName: "Romain Attanasio",
+          postDescription:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 2,
           postDateType: "h",
           postType: "Premium",
@@ -276,9 +374,11 @@ const AthleteProfilePage = ({
           postCommentNumber: 10,
         },
         {
-          postName:"Romain Attanasio",
-          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
+          postName: "Romain Attanasio",
+          postDescription:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 2,
           postDateType: "h",
           postType: "Free",
@@ -286,9 +386,11 @@ const AthleteProfilePage = ({
           postCommentNumber: 10,
         },
         {
-          postName:"Romain Attanasio",
-          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
+          postName: "Romain Attanasio",
+          postDescription:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 3,
           postDateType: "h",
           postType: "Free",
@@ -296,9 +398,11 @@ const AthleteProfilePage = ({
           postCommentNumber: 10,
         },
         {
-          postName:"Romain Attanasio",
-          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
+          postName: "Romain Attanasio",
+          postDescription:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 4,
           postDateType: "h",
           postType: "Premium",
@@ -306,9 +410,11 @@ const AthleteProfilePage = ({
           postCommentNumber: 10,
         },
         {
-          postName:"Romain Attanasio",
-          postDescription:"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-          postPicture: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
+          postName: "Romain Attanasio",
+          postDescription:
+            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+          postPicture:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
           postDate: 9,
           postDateType: "d",
           postType: "Premium",
@@ -459,16 +565,25 @@ const AthleteProfilePage = ({
         false
       );
     }
-
     setDataConcat(data);
   }, []);
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
-      return <AthleteProfileFeed 
-      athleteProfilePageStyling={true}
-      dataPosts={dataConcat?.athletes} />;
+      return (
+        <AthleteProfileFeed
+          athleteProfilePageStyling={true}
+          dataPosts={dataConcat?.athletes}
+        />
+      );
     } else if (isAthleteProfileSubMenuClicked[5] === true) {
-      return <AthleteProfileNFTCollection dataCollections={dataConcat?.collections} />;
+      return (
+        <AthleteProfileNFTCollection
+          nftsFromOwner={nftsFromOwner}
+          nftDataApi={nftDataApi} // pas utilisé pour l'instant
+          collectionFloorPriceApiData={collectionFloorPriceApiData}
+          dataCollections={dataConcat?.collections}
+        />
+      );
     } else if (isAthleteProfileSubMenuClicked[6] === true) {
       return <AthleteProfileEvent dataEvents={dataConcat?.events} />;
     } else if (isAthleteProfileSubMenuClicked[0] === true) {
@@ -482,22 +597,54 @@ const AthleteProfilePage = ({
               isUSerProfileSeortBySelectorClicked
             }
           />
-          <NftCard userFrom={dataConcat?.collected} />
+          <NftCard
+            nftsFromOwner={nftsFromOwner}
+            userFrom={dataConcat?.collected}
+            isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+          />
         </div>
       );
     } else if (isAthleteProfileSubMenuClicked[1] === true) {
-      return <UserActivity userFrom={dataConcat?.activities} />;
+      return (
+        <UserActivity
+          isUserActivitySectionActive={true}
+          userFrom={dataConcat?.activities}
+          nftsFromOwner={nftsFromOwner}
+          transferNftDataApi={transferNftDataApi}
+          setTransferNftDataApi={setTransferNftDataApi}
+          ethPrice={ethPrice}
+        />
+      );
     } else if (isAthleteProfileSubMenuClicked[2] === true) {
-      return <div className="athleteprofilepage-formulatedoffers-wrap"><FormulatedOffers userFrom={dataConcat?.made} /></div>;
+      return (
+        <div className="athleteprofilepage-formulatedoffers-wrap">
+          <FormulatedOffers
+            userFrom={dataConcat?.made}
+            nftsFromOwner={nftsFromOwner}
+            transferNftDataApi={transferNftDataApi}
+            ethPrice={ethPrice}
+          />
+        </div>
+      );
     } else if (isAthleteProfileSubMenuClicked[3] === true) {
-      return <div className="athleteprofilepage-formulatedoffers-wrap"><ReceivedOffers userFrom={dataConcat?.received} /></div>;
+      return (
+        <div className="athleteprofilepage-formulatedoffers-wrap">
+          <ReceivedOffers
+            userFrom={dataConcat?.received}
+            nftsFromOwner={nftsFromOwner}
+            transferNftDataApi={transferNftDataApi}
+            ethPrice={ethPrice}
+          />
+        </div>
+      );
     }
   };
-  // console.log(dataConcat.athletes)
   return (
     <div className="athleteprofilepage-component">
-      <AthleteProfileHeader userInfo={dataConcat?.userPageInfo} />
-
+      <AthleteProfileHeader
+        userInfo={dataConcat?.userPageInfo}
+        fansCounterApi={fansCounterApi}
+      />
       <div className="athleteprofilepage-profilesubmenu-wrap">
         <ProfileSubMenu
           isPageAthlete={true}
