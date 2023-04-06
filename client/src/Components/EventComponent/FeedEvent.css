@@ -4,6 +4,9 @@
   justify-content: space-between;
   width: 249px;
   min-height: 228px;
+  opacity: 0;
+  animation-delay: 2.5s !important;
+  animation: fadeInUp 700ms ease-in-out forwards;
 }
 .event-header-container {
   display: flex;
@@ -24,4 +27,14 @@
 }
 .event-header-button:hover {
   text-decoration: underline;
+}
+
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(-200px);
+  }
+  to {
+      opacity: 1;
+  }
 }

@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useRef, useEffect} from "react";
+import autosize from "autosize"
 import "./AddCommentInput.css";
 
 function AddCommentInput({
@@ -9,6 +10,12 @@ function AddCommentInput({
   publishButtonAddCommentPollPost,
 }) {
   const handleChange = (e) => {};
+  const textareaRef = useRef(null);
+  useEffect(() => {
+    if (textareaRef.current) {
+      autosize(textareaRef.current);
+    }
+  }, []);
   return (
     <div
       className={`input-comment-container-publication ${inputAddCommentContainer}`}
@@ -17,7 +24,7 @@ function AddCommentInput({
         <div
           className={`emoji-comment-publication ${emojiCommentPublicationPollPost}`}
         >
-          <a href="/">
+          {/* <a href="/">
             <svg
               width="25"
               height="24"
@@ -30,10 +37,11 @@ function AddCommentInput({
                 fill="black"
               />
             </svg>
-          </a>
+          </a> */}
         </div>
         <input
-          placeholder="Add a comment"
+          ref={textareaRef}
+          placeholder="Publiez un commentaire..."
           className={`input-comment-publication ${inputCommentPublicationPollPost}`}
           type="text"
           onChange={handleChange}
@@ -41,10 +49,10 @@ function AddCommentInput({
         <div
           className={`publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`}
         >
-          <a href="/">
+          
             {/* Backend here */}
             <button>Publish</button>
-          </a>
+          
         </div>
       </div>
     </div>

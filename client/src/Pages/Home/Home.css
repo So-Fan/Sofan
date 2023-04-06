@@ -22,7 +22,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 64px;
+  height: 70px;
+  margin-bottom: 15px !important;
 }
 
 .home-center-container {
