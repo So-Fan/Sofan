@@ -7,6 +7,7 @@
   border-radius: 20px;
   width: 450px;
   max-height: 702px;
+  position: relative;
 }
 .notificationpopup-component > span {
   font-family: "Britanica-Heavy";
@@ -19,7 +20,7 @@
   flex-direction: column;
   width: 100%;
   border-top: 0.3px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
+  /* border-bottom: 0.3px solid rgba(0, 0, 0, 0.2); */
 }
 
 .notificationpopup-container-submenu-wrap {
@@ -45,24 +46,28 @@
 }
 .notificationpopup-container-mapping-wrap {
   overflow: scroll;
-  max-height: 486px;
+  max-height: 374px !important;
+  /* background-color: red; */
 }
 .notificationpopup-container-mapping-wrap::-webkit-scrollbar {
   display: none;
 }
 .notificationpopup-container-notification-wrap {
   display: flex;
-  align-items: start;
+  align-items: center;
   width: 100%;
   border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
   text-decoration: none;
   color: black;
+  padding-top: 10px ;
+  padding-bottom: 10px;
+  /* background-color: red; */
 }
 .notificationpopup-container-notification-wrap > img {
   width: 50px;
   height: 50px;
   border-radius: 999px;
-  margin-top: 21px;
+  /* margin-top: 21px; */
   margin-left: 21px;
 }
 .notificationpopup-container-notification-wrap-content-wrap {
@@ -82,10 +87,16 @@
   font-size: 14px;
   line-height: 17px;
 }
+.notificationpopup-container-notification-wrap-content-subwrap span:nth-child(2){
+  /* background-color: red ; */
+  font-size: 12px;
+  padding-left: 10px;
+
+}
 .notificationpopup-container-notification-wrap-content-wrap > span {
   font-family: "Britanica-Regular";
   font-size: 12px;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 .notificationpopup-component > button {
   width: 410px;
@@ -97,21 +108,31 @@
   font-size: 20px;
   margin-top: 20px;
   margin-bottom: 29px;
+  position: absolute;
+  bottom: 0;
 }
 
+.template-pop-up-line-separation{
+    width: 100%;
+    height: 10px;
+    /* background-color: red; */
+    position: absolute;
+    bottom: 105px;
+    border-top: 0.3px solid rgba(0, 0, 0, 0.2);
+}
 @media (max-height: 875px) {
-    .notificationpopup-component {
-        max-height: 632px;
-      }
-      .notificationpopup-container-mapping-wrap {
-        max-height: 416px;
-      }
+  .notificationpopup-component {
+    max-height: 632px;
+  }
+  .notificationpopup-container-mapping-wrap {
+    max-height: 416px;
+  }
 }
 @media (max-height: 770px) {
-    .notificationpopup-component {
-        max-height: 552px;
-      }
-      .notificationpopup-container-mapping-wrap {
-        max-height: 336px;
-      }
+  .notificationpopup-component {
+    max-height: 552px;
+  }
+  .notificationpopup-container-mapping-wrap {
+    max-height: 336px;
+  }
 }
