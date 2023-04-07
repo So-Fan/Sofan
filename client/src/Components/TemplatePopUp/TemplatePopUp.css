@@ -46,12 +46,13 @@
 }
 .notificationpopup-container-mapping-wrap {
   overflow: scroll;
-  max-height: 374px !important;
+  /* max-height: 374px !important; */
+  max-height: 523px !important;
   /* background-color: red; */
 }
-.notificationpopup-container-mapping-wrap::-webkit-scrollbar {
+/* .notificationpopup-container-mapping-wrap::-webkit-scrollbar {
   display: none;
-}
+} */
 .notificationpopup-container-notification-wrap {
   display: flex;
   align-items: center;
@@ -125,7 +126,7 @@
     max-height: 632px;
   }
   .notificationpopup-container-mapping-wrap {
-    max-height: 416px;
+    max-height: 453px !important;
   }
 }
 @media (max-height: 770px) {
@@ -133,6 +134,7 @@
     max-height: 552px;
   }
   .notificationpopup-container-mapping-wrap {
-    max-height: 336px;
+    max-height: 373px !important;
+    /* background-color: red; */
   }
 }

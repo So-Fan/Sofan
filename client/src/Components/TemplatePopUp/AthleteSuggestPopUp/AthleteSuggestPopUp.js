@@ -47,6 +47,30 @@ function AthleteSuggestPopUp() {
             profilePicture: "https://i.imgur.com/4eGUfy3.png",
             sport: "Skippeuse"
           },
+          {
+            username: "Sasha Lanièce",
+            userId: "6",
+            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            sport: "Skippeuse"
+          },
+          {
+            username: "Sasha Lanièce",
+            userId: "6",
+            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            sport: "Skippeuse"
+          },
+          {
+            username: "Sasha Lanièce",
+            userId: "6",
+            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            sport: "Skippeuse"
+          },
+          {
+            username: "Sasha Lanièce",
+            userId: "6",
+            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            sport: "Skippeuse"
+          },
         ],
       },
     };
