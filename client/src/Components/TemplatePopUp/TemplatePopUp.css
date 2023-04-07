@@ -50,6 +50,9 @@
   max-height: 523px !important;
   /* background-color: red; */
 }
+.athlete-following-supporting-popup-container-mapping-wrap{
+  max-height: 478px !important;
+}
 /* .notificationpopup-container-mapping-wrap::-webkit-scrollbar {
   display: none;
 } */
@@ -128,6 +131,9 @@
   .notificationpopup-container-mapping-wrap {
     max-height: 453px !important;
   }
+  .athlete-following-supporting-popup-container-mapping-wrap{
+    max-height: 408px !important;
+  }
 }
 @media (max-height: 770px) {
   .notificationpopup-component {
@@ -136,5 +142,8 @@
   .notificationpopup-container-mapping-wrap {
     max-height: 373px !important;
     /* background-color: red; */
+  }
+  .athlete-following-supporting-popup-container-mapping-wrap{
+    max-height: 328px !important;
   }
 }

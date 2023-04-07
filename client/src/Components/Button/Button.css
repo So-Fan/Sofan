@@ -12,6 +12,10 @@
     background-color: #f7c520 !important;
     transition-duration: 300ms !important;
 }
+.button-hover-props:hover{
+    background-color: #f7c520 !important;
+    transition-duration: 300ms !important;
+}
 /* .button-component:hover{
     background-color: #f7c520 !important;
     transition-duration: 300ms !important;

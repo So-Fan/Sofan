@@ -6,6 +6,7 @@ function TemplatePopUp({
   handleClick,
   athleteSuggestPopUp,
   athleteFollowingSupportingPopUp,
+  athleteFollowingSupportingPopUpStyle,
   dataAthleteProfilePageConcat,
 }) {
   const [
@@ -28,9 +29,6 @@ function TemplatePopUp({
       setIsNotificationPopUpSubMenuReadClicked(false);
     }
   };
-  // console.log(athleteSuggestPopUp)
-  // console.log(athleteFollowingSupportingPopUp)
-  // console.log(isNotificationPopUpSubMenuReadClicked)
   return (
     <>
       <div className="notificationpopup-component">
@@ -38,7 +36,7 @@ function TemplatePopUp({
           {athleteSuggestPopUp ? (
             <>Suggestion d'athlètes</>
           ) : athleteFollowingSupportingPopUp ? (
-            <>Athlètes suivis</>
+            <>Athlètes supportés / suivis</>
           ) : (
             <>Notifications</>
           )}
@@ -78,7 +76,7 @@ function TemplatePopUp({
           )}
 
           {isNotificationPopUpSubMenuReadClicked ? (
-            <div className="notificationpopup-container-mapping-wrap">
+            <div className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}>
               {dataAthleteProfilePageConcat?.notifications.read.map(
                 (notification) => (
                   <Link
@@ -95,14 +93,14 @@ function TemplatePopUp({
                         <span>{notification.textTypeOffer} </span>
                         <span>{notification.nftTitle}</span>
                       </div>
-                      <span>{notification.time}</span>
+                      <span>{notification.sport} </span>
                     </div>
                   </Link>
                 )
               )}
             </div>
           ) : (
-            <div className="notificationpopup-container-mapping-wrap">
+            <div className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}>
               {dataAthleteProfilePageConcat?.notifications.unread.map(
                 (notification) => (
                   <Link
@@ -116,10 +114,10 @@ function TemplatePopUp({
                     <div className="notificationpopup-container-notification-wrap-content-wrap">
                       <div className="notificationpopup-container-notification-wrap-content-subwrap">
                         <span>{notification.username} </span>
-                        <span>{notification.sport} </span>
+                        {/* <span>{notification.sport} </span> */}
                         <span>{notification.nftTitle}</span>
                       </div>
-                      <span>{notification.time}</span>
+                      <span>{notification.sport} </span>
                     </div>
                   </Link>
                 )
@@ -128,7 +126,7 @@ function TemplatePopUp({
           )}
         </div>
         <div className="template-pop-up-line-separation"></div>
-        <Button text="Fermer" onClick={handleClick} />
+        <Button text="Fermer" onClick={handleClick} hover="button-hover-props" />
       </div>
       {(dataAthleteProfilePageConcat?.notifications.unread.length > 5 ||
         dataAthleteProfilePageConcat?.notifications.unread.length > 5) && (

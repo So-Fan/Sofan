@@ -11,82 +11,109 @@ function AthleteFollowingSupportingPopUp() {
       user: "Romain Attanasio",
       notifications: {
         read: [
+          
           {
-            username: "DonOfSomething",
-            userId: "1",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
-            textTypeOffer: "has made an offer on your NFT",
-            nftTitle: "Vip Meeting with 1200 holders.",
-            time: "24 mins ago",
+            username: "Romain Attanasio",
+            userId: "4",
+            profilePicture: "http://www.defi-azimut.net/mediacenter/uploads/xl/portrait-romain-fbw.jpeg",
+            sport: "Skippeur",
           },
           {
-            username: "DonOfSomething",
-            userId: "2",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
-            textTypeOffer: "has made an offer on your NFT",
-            nftTitle: "Vip Meeting with 1200 holders.",
-            time: "24 mins ago",
+            username: "Romain Attanasio",
+            userId: "4",
+            profilePicture: "http://www.defi-azimut.net/mediacenter/uploads/xl/portrait-romain-fbw.jpeg",
+            sport: "Skippeur",
+          },
+          {
+            username: "Romain Attanasio",
+            userId: "4",
+            profilePicture: "http://www.defi-azimut.net/mediacenter/uploads/xl/portrait-romain-fbw.jpeg",
+            sport: "Skippeur",
+          },
+          {
+            username: "Romain Attanasio",
+            userId: "4",
+            profilePicture: "http://www.defi-azimut.net/mediacenter/uploads/xl/portrait-romain-fbw.jpeg",
+            sport: "Skippeur",
+          },
+          {
+            username: "Romain Attanasio",
+            userId: "4",
+            profilePicture: "http://www.defi-azimut.net/mediacenter/uploads/xl/portrait-romain-fbw.jpeg",
+            sport: "Skippeur",
+          },
+          {
+            username: "Romain Attanasio",
+            userId: "4",
+            profilePicture: "http://www.defi-azimut.net/mediacenter/uploads/xl/portrait-romain-fbw.jpeg",
+            sport: "Skippeur",
+          },
+          {
+            username: "Romain Attanasio",
+            userId: "4",
+            profilePicture: "http://www.defi-azimut.net/mediacenter/uploads/xl/portrait-romain-fbw.jpeg",
+            sport: "Skippeur",
           },
         ],
         unread: [
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "4",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "5",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
           {
-            username: "Romain Attanasio",
+            username: "Sacha Lanièce",
             userId: "6",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://media.bateaux.com/bateaux/35474/mini-transat-parcours-gestion-de-projet-4.jpg",
             sport: "Skippeur",
           },
         ],
@@ -97,6 +124,7 @@ function AthleteFollowingSupportingPopUp() {
   return (
       <TemplatePopUp
         athleteFollowingSupportingPopUp={true}
+        athleteFollowingSupportingPopUpStyle="athlete-following-supporting-popup-container-mapping-wrap"
         dataAthleteProfilePageConcat={dataAthleteProfilePageConcat}
       />
   );
