@@ -5,6 +5,7 @@ import MintPopUpBuy from '../../Components/MintPopUp/MintPopUpBuy/MintPopUpBuy'
 import Modal from '../../Components/Modal/Modal';
 import TemplatePopUp from '../../Components/TemplatePopUp/TemplatePopUp';
 import AthleteSuggestPopUp from '../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp';
+import AthleteFollowingSupportingPopUp from '../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp';
 function TestSecondary() {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
@@ -22,8 +23,8 @@ function TestSecondary() {
           <MintPopUpTemplate/>
         </Modal>
       )} */}
-      {/* <TemplatePopUp/> */}
-      <AthleteSuggestPopUp/>
+      {/* <AthleteSuggestPopUp/> */}
+      <AthleteFollowingSupportingPopUp/>
     </div>
   )
 }

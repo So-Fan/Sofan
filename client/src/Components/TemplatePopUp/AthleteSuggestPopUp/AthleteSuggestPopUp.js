@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./AthleteSuggestPopUp.css";
 import TemplatePopUp from "../TemplatePopUp";
 function AthleteSuggestPopUp() {
-  let athleteSuggestPopUp = true;
+  // let athleteSuggestPopUp = true;
   const [dataAthleteProfilePageConcat, setDataAthleteProfilePageConcat] =
     useState();
 
@@ -77,10 +77,12 @@ function AthleteSuggestPopUp() {
     setDataAthleteProfilePageConcat(data);
   }, []);
   return (
+    
     <TemplatePopUp
-      athleteSuggestPopUp={athleteSuggestPopUp}
+      athleteSuggestPopUp={true}
       dataAthleteProfilePageConcat={dataAthleteProfilePageConcat}
-    />
+      />
+      
   );
 }
 

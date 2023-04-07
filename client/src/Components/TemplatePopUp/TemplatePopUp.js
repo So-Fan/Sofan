@@ -2,27 +2,47 @@ import React, { useState, useEffect } from "react";
 import "./TemplatePopUp.css";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
-function TemplatePopUp({ handleClick, athleteSuggestPopUp, dataAthleteProfilePageConcat }) {
+function TemplatePopUp({
+  handleClick,
+  athleteSuggestPopUp,
+  athleteFollowingSupportingPopUp,
+  dataAthleteProfilePageConcat,
+}) {
   const [
     isNotificationPopUpSubMenuReadClicked,
     setIsNotificationPopUpSubMenuReadClicked,
   ] = useState(false);
 
   const handleNotificationPopUpSubMenuClicked = (e) => {
-    if (e.target.innerHTML === "Read") {
+    if (athleteFollowingSupportingPopUp === true) {
+      if (e.target.innerHTML === "Athlètes suivis") {
+        setIsNotificationPopUpSubMenuReadClicked(true)  
+      } else {
+        setIsNotificationPopUpSubMenuReadClicked(false)
+      }
+    } 
+    // ======================================
+    if (e.target.innerHTML === "Lus") {
       setIsNotificationPopUpSubMenuReadClicked(true);
-    } else {
+    } else if (e.target.innerHTML === "Non lus") {
       setIsNotificationPopUpSubMenuReadClicked(false);
     }
   };
-
+  // console.log(athleteSuggestPopUp)
+  // console.log(athleteFollowingSupportingPopUp)
+  // console.log(isNotificationPopUpSubMenuReadClicked)
   return (
     <>
       <div className="notificationpopup-component">
-        
         <span>
-          {athleteSuggestPopUp ? <>Suggestion d'athlètes</> : <>Notifications</> }
-          </span>
+          {athleteSuggestPopUp ? (
+            <>Suggestion d'athlètes</>
+          ) : athleteFollowingSupportingPopUp ? (
+            <>Athlètes suivis</>
+          ) : (
+            <>Notifications</>
+          )}
+        </span>
         <div className="notificationpopup-container">
           {athleteSuggestPopUp ? (
             <></>
@@ -38,7 +58,7 @@ function TemplatePopUp({ handleClick, athleteSuggestPopUp, dataAthleteProfilePag
                 >
                   <Button
                     onClick={handleNotificationPopUpSubMenuClicked}
-                    text="Unread"
+                    text={athleteFollowingSupportingPopUp ? "Athlètes supportés" : "Non lus"}
                   />
                 </div>
                 <div
@@ -50,7 +70,7 @@ function TemplatePopUp({ handleClick, athleteSuggestPopUp, dataAthleteProfilePag
                 >
                   <Button
                     onClick={handleNotificationPopUpSubMenuClicked}
-                    text="Read"
+                    text={athleteFollowingSupportingPopUp ? "Athlètes suivis" : "Lus"}
                   />
                 </div>
               </div>
