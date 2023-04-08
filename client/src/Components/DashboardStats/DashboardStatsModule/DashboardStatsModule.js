@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect } from "react";
 import "./DashboardStatsModule.css";
 function DashboardStatsModule({
   nftsSoldThisMonth,
@@ -19,8 +19,21 @@ function DashboardStatsModule({
   revenueEur,
   totalRevenueEur,
   revenueEurPercent,
+  ethPrice,
+  ethPricePriceConverted
 }) {
-  console.log(totalRevenueEur);
+  // console.log(ethPricePriceConverted)
+    // let calcul = totaRevenueEth * 2;
+    // // console.log(calcul)
+    // const [priceCalculated, setPriceCalculated]= useState()
+    
+    // useEffect(() => {
+    //   let ethPriceConverted = (ethPrice * totaRevenueEth).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+    //   setPriceCalculated(ethPriceConverted)
+    //   // console.log(ethPriceConverted)
+    // }, [])
+    // console.log(priceCalculated)
+  
   return (
     <div className="dashboard-stats-module">
       <div className="dashboard-stats-module-number-and-square">
@@ -39,7 +52,7 @@ function DashboardStatsModule({
           ) : (
             <>
               {moduleRevenueEur ? (
-                <>{totalRevenueEur} €</>
+                <>{ethPricePriceConverted} €</>
               ) : (
                 <>{totalNftSold}</>
               )}
@@ -50,7 +63,13 @@ function DashboardStatsModule({
       </div>
       <div className="dashboard-stats-module-title-and-logo">
         <div className="dashboard-stats-module-title">
-          {moduleRevenueEth ? <>CA réalisé</> : moduleRevenueEur ? <>CA réalisé</> : <>NFTs vendus</>}
+          {moduleRevenueEth ? (
+            <>CA réalisé</>
+          ) : moduleRevenueEur ? (
+            <>CA réalisé</>
+          ) : (
+            <>NFTs vendus</>
+          )}
         </div>
         <div className="dashboard-stats-module-logo">
           <p>?</p>
@@ -64,14 +83,26 @@ function DashboardStatsModule({
           style={{ color: toggleColor }}
           className="dashboard-stats-module-progress-number"
         >
-          {moduleRevenueEth ? <>{revenueEth}</> : moduleRevenueEur ? <>{revenueEur}</> : <>{nftsSoldThisMonth}</>}
+          {moduleRevenueEth ? (
+            <>{revenueEth}</>
+          ) : moduleRevenueEur ? (
+            <>{revenueEur}</>
+          ) : (
+            <>{nftsSoldThisMonth}</>
+          )}
         </div>
         <div
           style={{ color: toggleColor }}
           className="dashboard-stats-module-progress-percent"
         >
           {displayPlus()}
-          {moduleRevenueEth ? <>{revenueEthPercent}</> : moduleRevenueEur ?<>{revenueEurPercent}</>: <>{nftsSoldPercent}</>}
+          {moduleRevenueEth ? (
+            <>{revenueEthPercent}</>
+          ) : moduleRevenueEur ? (
+            <>{revenueEurPercent}</>
+          ) : (
+            <>{nftsSoldPercent}</>
+          )}
           % ce mois
         </div>
       </div>

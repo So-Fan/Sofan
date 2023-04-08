@@ -8,6 +8,11 @@
     margin: 0;
     box-sizing: content-box;
 }
+.button-component-create-post:hover {
+    background-color: #f7c520 !important;
+    transition-duration: 300ms !important;
+}
 /* .button-component:hover{
-    background-color: red !important;
+    background-color: #f7c520 !important;
+    transition-duration: 300ms !important;
 } */

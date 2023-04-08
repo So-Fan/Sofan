@@ -1,7 +1,8 @@
 import React from "react";
 import "./NftCollectionLatestsBids.css"
 import { v4 as uuidv4 } from "uuid";
-function NftCollectionLatestsBids({latestBidsArray, bidsSectionDeleteSpace}) {
+function NftCollectionLatestsBids({latestBidsArray, bidsSectionDeleteSpace, ethPrice}) {
+  // let ethPricePriceConverted = (nftsFromOwnerFloorPrice * ethPrice).toLocaleString('fr-FR', { minimumFractionDigits: 1 });
   return (
     <div style={bidsSectionDeleteSpace && {marginTop: "0px"}} className="nft-collection-overview-latest-bids-container">
       <div className="nft-collection-overview-latest-bids-title">
@@ -32,7 +33,7 @@ function NftCollectionLatestsBids({latestBidsArray, bidsSectionDeleteSpace}) {
                       {element.priceEth} ETH
                     </div>
                     <div className="nft-collection-overview-bids-price-eur">
-                      € {element.priceEur}
+                      € {(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 3})} {/*Conversion du prix*/}
                     </div>
                   </div>
                 </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import "./NftCollectionHistory.css";
 import { v4 as uuidv4 } from "uuid";
-function NftCollectionHistory({history}) {
+function NftCollectionHistory({history, ethPrice}) {
   
   return (
     <section className="nft-collection-history-container">
@@ -29,7 +29,7 @@ function NftCollectionHistory({history}) {
                   {element.priceEth} ETH
                 </div>
                 <div className="nft-collection-history-bids-price-eur">
-                  € {element.priceEur}
+                  € {(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 3})}
                 </div>
               </div>
             </div>

@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  opacity: 0;
+  animation-delay: 2.5s !important;
+  animation: fadeInUp 700ms ease-in-out forwards;
 }
 .favAthlete-horizontal {
   border: 0.3px solid rgba(0, 0, 0, 0.1);
@@ -40,6 +43,15 @@
 }
 .favAthlete-responsive-container {
   display: none;
+}
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(-200px);
+  }
+  to {
+      opacity: 1;
+  }
 }
 @media (max-width: 950px) {
   .favAthlete-container {

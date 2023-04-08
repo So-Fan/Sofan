@@ -9,7 +9,7 @@ function NftCollectionHeader({
   nftNumber,
   creatorName,
   creatorProfilePic,
-  description,
+  // description,
   ownerName,
   ownerProfilePic,
   //
@@ -24,24 +24,33 @@ function NftCollectionHeader({
   timer,
   counterNftMinted,
   totalNftMintable,
+  // 
+  collectionNameApi,
+  collectionDescriptionApi,
+  nftPicture,
+  nftIdApi,
+  //
+  ethPrice
 }) {
 const [styleChangeButton, setStyleChangeButton] =useState("")
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   function handleStyleButton() {
     
-    if (nftMintedCalculated === 0) {
+    if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
    return "#EDEDED";
     } else if (nftMintedCalculated > 0) {
       return "";
     }
   }
-  
+  // console.log(collectionDescriptionApi)
+  let ethPricePriceConverted = (nftPriceEth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+  let ethBidPriceConverted = (nftBidEth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
         {launchpadCollectionLiveHeader && <><button className="launchpad-collection-live-button-container">Explorer la collection</button></>}
-        <img src={explorePicture} alt="IMAGE NFT" />
+        <img src={nftPicture} alt="IMAGE NFT" />
       </div>
       {launchpadCollectionLiveHeader ? (
         <>
@@ -57,10 +66,10 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                 <div>by {creatorName}</div>
               </div>
               <div className="launchpad-collection-live-header-right-collection-name">
-                {collectionName}
+                {collectionNameApi}
               </div>
               <div className="launchpad-collection-live-header-right-collection-description">
-                {description}
+                {collectionDescriptionApi}
               </div>
               <div className="launchpad-collection-live-header-right-line-separation"></div>
               <div className="launchpad-collection-live-header-right-price-container">
@@ -68,7 +77,7 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                   {nftPriceEth} ETH
                 </div>
                 <div className="launchpad-collection-live-header-right-eur-price">
-                  {nftPriceEur}€
+                  {ethPricePriceConverted}€
                 </div>
               </div>
               <div className="launchpad-collection-live-header-right-mint-module-container">
@@ -98,7 +107,7 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
             <div className="nft-collection-header-data-and-buy-module-content">
               <div className="nft-collection-header-collection-name-and-number">
                 <div className="nft-collection-header-collection-name-title">
-                  <p>{collectionName}</p>
+                  <p>{collectionNameApi}</p>
                   <div className="nft-collection-header-dropdown-button">
                     <span></span>
                     <span></span>
@@ -106,7 +115,7 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                   </div>
                 </div>
                 <div className="nft-collection-header-nft-number">
-                  #{nftNumber}
+                  #{nftIdApi}
                 </div>
               </div>
             </div>
@@ -155,7 +164,7 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                         {nftPriceEth} ETH
                       </span>
                       <span className="nft-collection-header-eur-price">
-                        {nftPriceEur} €
+                        {ethPricePriceConverted} €
                       </span>
                     </div>
                   </div>
@@ -168,7 +177,7 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                         {nftBidEth} ETH
                       </span>
                       <span className="nft-collection-header-eur-bid">
-                        {nftBifEur} €
+                        {ethBidPriceConverted} €
                       </span>
                     </div>
                   </div>

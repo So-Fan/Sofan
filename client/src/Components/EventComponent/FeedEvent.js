@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./FeedEvent.css";
-import DataEvent from "./fakedata/dataEvent.json";
 import { Link } from "react-router-dom";
 import EventTemplate from "./EventTemplate/EventTemplate";
 import { db } from '../../Configs/firebase';
 import { collection, getDocs } from 'firebase/firestore';
-
 import { v4 as uuidv4 } from "uuid";
+
 const FeedEvent = () => {
   const [events, setEvent] = useState([]);
   const eventCollectionRef = collection(db, 'feed_event');
   useEffect(() => {
-
     const getEvents = async () => {
       const data = await getDocs(eventCollectionRef);
       setEvent(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
     }
-
-    getEvents() ;
+    getEvents();
   }, []);
+
+  const firstEvent = events.slice(0, 1);
 
   return (
     <div className="event-component">
@@ -28,9 +27,9 @@ const FeedEvent = () => {
           voir plus
         </Link>
       </div>
-      {events.map((event) => (
+      {firstEvent.map((event) => (
         <EventTemplate
-        key={uuidv4()}
+          key={uuidv4()}
           title={event.title}
           location={event.location}
           schedule={event.schedule}

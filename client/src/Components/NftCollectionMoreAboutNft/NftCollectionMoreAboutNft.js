@@ -2,8 +2,12 @@ import React from "react";
 import NftCardTemplate from "../NftCard/NftCardTemplate/NftCardTemplate";
 import "./NftCollectionMoreAboutNft.css";
 import { v4 as uuidv4 } from "uuid";
-function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
-  console.log(adaptTitleToNftCollectionPageItems);
+function NftCollectionMoreAboutNft({
+  adaptTitleToNftCollectionPageItems,
+  nftsFromOwner,
+}) {
+  // console.log(adaptTitleToNftCollectionPageItems);
+  // console.log(nftsFromOwner)
   const dataBackendNftCollectionMoreAboutNft = {
     nftCard: [
       {
@@ -96,6 +100,9 @@ function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
       },
     ],
   };
+  //
+  // function NftCollectionMoreAboutNft({ nftCard }) {
+
   return (
     <section className="nft-collection-more-about-nft-container">
       <div className="nft-collection-more-about-nft-wrap">
@@ -112,15 +119,26 @@ function NftCollectionMoreAboutNft({ adaptTitleToNftCollectionPageItems }) {
           </div>
         )}
         <div className="nft-collection-more-about-nft-card-container">
-          {dataBackendNftCollectionMoreAboutNft.nftCard.map((element) => (
+          {nftsFromOwner?.map((element, i, apiNftData) => (
             <NftCardTemplate
-              key={uuidv4()}
               fontStyle="nftcardtemplate-container-content-title-props"
               img={element.nftImage}
               title={element.collectionName}
               id={element.nftId}
               price={element.ethPrice}
               bid={element.highestBidEth}
+              //
+              nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
+              nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
+              nftsFromOwnerFloorPrice={
+                apiNftData[i]?.contract?.openSea?.floorPrice
+              }
+              nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
+              // mettre le nombre de nft de la collection correspondante
+              key={uuidv4()}
+              // collectionFloorPriceApiData={collectionFloorPriceApiData}
+              // nftDataApi={nftDataApi?.ownedNfts[i]}
+              // collectionData={collection}
             />
           ))}
 

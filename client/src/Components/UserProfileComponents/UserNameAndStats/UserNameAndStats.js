@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import "./UserNameAndStats.css";
-function UserNameAndStats({userNameAndStatsObject}) {
-  // const userNameAndStatsObject = {
-  //   athletesFollowing: 145,
-  //   athletesSupporting: 15,
-  //   nftOwned: 159,
-  // };
+function UserNameAndStats({userNameAndStatsObject, nftsCollectedCounter}) {
+
   return (
     <div className="username-and-stats-container">
       <div className="username-container-userpage">{userNameAndStatsObject?.username}</div>
@@ -33,7 +29,7 @@ function UserNameAndStats({userNameAndStatsObject}) {
         <div className="line-separation-userprofile"></div>
         <div className="counter-nft-owned-user-container">
           <div className="counter-nft-owned-user-number">
-            {userNameAndStatsObject?.nftOwned}
+            {nftsCollectedCounter}
           </div>
           <div className="counter-nft-owner-user-title">NFT</div>
         </div>
