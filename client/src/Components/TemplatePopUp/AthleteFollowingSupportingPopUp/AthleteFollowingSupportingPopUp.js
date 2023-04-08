@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./AthleteFollowingSupportingPopUp.css";
 import AthleteSuggestPopUp from "../AthleteSuggestPopUp/AthleteSuggestPopUp";
 import TemplatePopUp from "../TemplatePopUp";
-function AthleteFollowingSupportingPopUp() {
+function AthleteFollowingSupportingPopUp({isAthleteSupportingClicked}) {
   const [dataAthleteProfilePageConcat, setDataAthleteProfilePageConcat] =
     useState();
   // let athleteFollowingSupportingPopUp = true;
@@ -124,6 +124,7 @@ function AthleteFollowingSupportingPopUp() {
   return (
       <TemplatePopUp
         athleteFollowingSupportingPopUp={true}
+        isAthleteSupportingClicked={isAthleteSupportingClicked}
         athleteFollowingSupportingPopUpStyle="athlete-following-supporting-popup-container-mapping-wrap"
         dataAthleteProfilePageConcat={dataAthleteProfilePageConcat}
       />

@@ -24,7 +24,14 @@
   justify-content: space-evenly;
   align-items: center;
 }
-
+.counter-nft-owned-user-container-link-element{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: black;
+  scroll-behavior: smooth !important;
+  /* background-color: red; */
+}
 .following-athlete-number,
 .athlete-supporting-number,
 .counter-nft-owned-user-number {
@@ -76,6 +83,12 @@
   justify-content: space-evenly;
   padding-left: 21px;
   padding-right: 21px;
+}
+.following-athlete-container:hover,
+.athlete-supporting-container:hover,
+.counter-nft-owned-user-container:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .line-separation-userprofile {

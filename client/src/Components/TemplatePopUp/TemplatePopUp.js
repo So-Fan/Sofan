@@ -8,6 +8,7 @@ function TemplatePopUp({
   athleteFollowingSupportingPopUp,
   athleteFollowingSupportingPopUpStyle,
   dataAthleteProfilePageConcat,
+  isAthleteSupportingClicked
 }) {
   const [
     isNotificationPopUpSubMenuReadClicked,
@@ -16,7 +17,7 @@ function TemplatePopUp({
 
   const handleNotificationPopUpSubMenuClicked = (e) => {
     if (athleteFollowingSupportingPopUp === true) {
-      if (e.target.innerHTML === "Athlètes suivis") {
+      if (e.target.innerHTML === "Athlètes supportés") {
         setIsNotificationPopUpSubMenuReadClicked(true)  
       } else {
         setIsNotificationPopUpSubMenuReadClicked(false)
@@ -29,6 +30,10 @@ function TemplatePopUp({
       setIsNotificationPopUpSubMenuReadClicked(false);
     }
   };
+  useEffect(() => {
+    isAthleteSupportingClicked && setIsNotificationPopUpSubMenuReadClicked(true)
+  }, [])
+  
   return (
     <>
       <div className="notificationpopup-component">
@@ -36,7 +41,7 @@ function TemplatePopUp({
           {athleteSuggestPopUp ? (
             <>Suggestion d'athlètes</>
           ) : athleteFollowingSupportingPopUp ? (
-            <>Athlètes supportés / suivis</>
+            <>Athlètes suivis / supportés</>
           ) : (
             <>Notifications</>
           )}
@@ -56,7 +61,7 @@ function TemplatePopUp({
                 >
                   <Button
                     onClick={handleNotificationPopUpSubMenuClicked}
-                    text={athleteFollowingSupportingPopUp ? "Athlètes supportés" : "Non lus"}
+                    text={athleteFollowingSupportingPopUp ? "Athlètes suivis" : "Non lus"}
                   />
                 </div>
                 <div
@@ -68,7 +73,7 @@ function TemplatePopUp({
                 >
                   <Button
                     onClick={handleNotificationPopUpSubMenuClicked}
-                    text={athleteFollowingSupportingPopUp ? "Athlètes suivis" : "Lus"}
+                    text={athleteFollowingSupportingPopUp ? "Athlètes supportés" : "Lus"}
                   />
                 </div>
               </div>
