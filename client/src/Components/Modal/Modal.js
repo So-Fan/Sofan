@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Modal.css";
 import CrossBlack from "../../Assets/Image/cross.svg";
 import CrossWhite from "../../Assets/Image/cross_white.svg";
+import { disableBodyScroll, enableBodyScroll } from 'scroll-lock';
 const Modal = (props) => {
     // Need top pass setState and style
     // setState is the function link to the state that render the Modal Component
@@ -13,8 +14,11 @@ const Modal = (props) => {
       e.target.id === "modal-component-cross" || e.target.id === "custom-close-button"
     ) {
       props.setState(false);
-    }
+    } 
   };
+  useEffect(() => {
+    document.querySelector('body').classList.add('scroll-lock');
+  }, [])
   return (
     <div id="modal-component" onClick={handleModalClick}>
       <div className="modal-component-wrap">

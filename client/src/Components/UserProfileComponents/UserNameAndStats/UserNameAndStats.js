@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./UserNameAndStats.css";
-function UserNameAndStats({userNameAndStatsObject, nftsCollectedCounter}) {
+function UserNameAndStats({userNameAndStatsObject, nftsCollectedCounter, handleAthleteFollowingClick}) {
 
   return (
     <div className="username-and-stats-container">
@@ -8,7 +8,7 @@ function UserNameAndStats({userNameAndStatsObject, nftsCollectedCounter}) {
       <div className="stats-user-container">
         <div className="line-separation-userprofile"></div>
         <div className="following-athlete-container">
-          <div className="following-athlete-number">
+          <div onClick={handleAthleteFollowingClick} className="following-athlete-number">
             {userNameAndStatsObject?.followingAthletes}
           </div>
           <div className="following-athlete-title">
@@ -22,7 +22,7 @@ function UserNameAndStats({userNameAndStatsObject, nftsCollectedCounter}) {
             {userNameAndStatsObject?.athleteSupporting}
           </div>
           <div className="athlete-supporting-title">
-            <div id="athlete-title-userpage">Athletes</div>
+            <div  id="athlete-title-userpage">Athletes</div>
             <span>supporting</span>
           </div>
         </div>

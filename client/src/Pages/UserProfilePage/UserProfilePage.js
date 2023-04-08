@@ -10,6 +10,8 @@ import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAnd
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import "./UserProfilePage.css";
+import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
+import Modal from "../../Components/Modal/Modal";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
@@ -17,16 +19,21 @@ function UserProfilePage({
   setProfileSubMenuOffresClicked,
   profileSubMenuOffresClicked,
 }) {
+  // fonctionnal states
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
+    const [isAthleteFollowingClicked, setIsAthleteFollowingClicked] =
+    useState(false);
+  // backend states
   const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
+  // api states
   const [nftDataApi, setNftDataApi] = useState();
   const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
     useState();
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
-  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+  const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
 
   // Api Alchemy setup
   const settings = {
@@ -100,14 +107,11 @@ function UserProfilePage({
 
         "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
       ],
-        excludeZeroValue: true,
+      excludeZeroValue: true,
       category: ["erc721", "erc1155"],
-      // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"  
-
-
+      // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"
     });
     // console.log(nftsTransferData.pageKey )
-
   }
   useEffect(() => {
     getNft();
@@ -117,15 +121,16 @@ function UserProfilePage({
     // console.log(nftsFromOwner[0]?.contract?.totalSupply);
     // console.log(nftsFromOwner.length)
     getNftMinted();
-
   }, []);
   // API Coingecko --> Get ETH price
-useEffect(() => {
-  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
-    .then((response) => response.json())
-    .then((data) => setEthPrice(data.ethereum.eur))
-    .catch((error) => console.log(error));
-}, []);// API Coingecko --> Get ETH price
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPrice(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []); // API Coingecko --> Get ETH price
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -396,6 +401,18 @@ useEffect(() => {
 
     setDataConcat(data);
   }, []);
+  function handleAthleteFollowingClick(e) {
+    setIsAthleteFollowingClicked(true);
+  };
+  function handleSectionWheel(e) {
+    if (isAthleteFollowingClicked) {
+      e.preventDefault();
+    }
+  };
+  
+    document.querySelector('body').classList.remove('scroll-lock');
+  
+  // retourne le composant selon le submenu cliqué
   function displayCategory() {
     if (isProfileSubMenuButtonClicked[0] === true) {
       return (
@@ -449,7 +466,7 @@ useEffect(() => {
 
   return (
     <>
-      <section className="userprofilepage-container">
+      <section onWheel={handleSectionWheel} style={isAthleteFollowingClicked ? {pointerEvents: 'none'} : {}} className="userprofilepage-container">
         <div className="userheader-container">
           <BannerAndProfilePic
             banner={dataConcat?.userPageInfo.banner}
@@ -460,6 +477,7 @@ useEffect(() => {
               <UserNameAndStats
                 userNameAndStatsObject={dataConcat?.userPageInfo}
                 nftsCollectedCounter={nftsFromOwner.length}
+                handleAthleteFollowingClick={handleAthleteFollowingClick}
               />
             </div>
             <div className="userprofile-description-component">
@@ -479,6 +497,14 @@ useEffect(() => {
           </div>
         </div>
       </section>
+      {isAthleteFollowingClicked && (
+        <Modal
+          setState={setIsAthleteFollowingClicked}
+          style={{ top: "24px", right: "20px" }}
+        >
+          <AthleteFollowingSupportingPopUp />
+        </Modal>
+      )}
     </>
   );
 }
