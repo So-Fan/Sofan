@@ -4,8 +4,10 @@
   /* justify-content: center; */
   align-items: center;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
   border-radius: 20px;
   width: 450px;
+  min-height: 702px;
   max-height: 702px;
   position: relative;
 }
@@ -126,6 +128,7 @@
 }
 @media (max-height: 875px) {
   .notificationpopup-component {
+    min-height: 632px !important;
     max-height: 632px;
   }
   .notificationpopup-container-mapping-wrap {
@@ -137,6 +140,7 @@
 }
 @media (max-height: 770px) {
   .notificationpopup-component {
+    min-height: 632px !important;
     max-height: 552px;
   }
   .notificationpopup-container-mapping-wrap {

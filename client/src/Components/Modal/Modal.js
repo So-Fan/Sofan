@@ -10,7 +10,7 @@ const Modal = (props) => {
   const handleModalClick = (e) => {
     if (
       e.target.id === "modal-component" ||
-      e.target.id === "modal-component-cross"
+      e.target.id === "modal-component-cross" || e.target.id === "custom-close-button"
     ) {
       props.setState(false);
     }

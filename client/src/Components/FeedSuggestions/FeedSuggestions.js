@@ -7,7 +7,7 @@ import { db } from "../../Configs/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
-const FeedSuggestions = () => {
+const FeedSuggestions = ({handleAthleteSuggestionClick}) => {
   const [suggestions, setSuggestions] = useState([]);
   const suggestionCollectionRef = collection(db, "feed_suggestion");
   useEffect(() => {
@@ -25,7 +25,8 @@ const FeedSuggestions = () => {
       <div className="feedlaunchpad-header-container">
         <span className="feedlaunchpad-header-title">Suggestions</span>
         <Link
-          to="/Launchpad"
+        onClick={handleAthleteSuggestionClick}
+          // to="/Launchpad"
           className="feedlaunchpad-header-button feedlaunchpad-header-button-suggestion"
         >
           Voir plus

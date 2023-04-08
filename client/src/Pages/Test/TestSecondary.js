@@ -14,17 +14,17 @@ function TestSecondary() {
     };
   return (
     <div className='test-secondary-container'>
-        {/* <button onClick={handleCreatePostClick}>Bouton</button>
+        <button className='test-secondary-button' onClick={handleCreatePostClick}>Bouton</button>
         {isCreatePostButtonClicked && (
           <Modal
           setState={setIsCreatePostButtonClicked}
           style={{ top: "24px", right: "20px" }} 
           >
-          <MintPopUpTemplate/>
+            <AthleteFollowingSupportingPopUp/>
         </Modal>
-      )} */}
-      {/* <AthleteSuggestPopUp/> */}
-      <AthleteFollowingSupportingPopUp/>
+      )}
+      <AthleteSuggestPopUp/>
+      {/* <MintPopUpTemplate/> */}
     </div>
   )
 }

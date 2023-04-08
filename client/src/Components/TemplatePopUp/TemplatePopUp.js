@@ -126,7 +126,7 @@ function TemplatePopUp({
           )}
         </div>
         <div className="template-pop-up-line-separation"></div>
-        <Button text="Fermer" onClick={handleClick} hover="button-hover-props" />
+        <Button text="Fermer" id="custom-close-button" onClick={handleClick} hover="button-hover-props" />
       </div>
       {(dataAthleteProfilePageConcat?.notifications.unread.length > 5 ||
         dataAthleteProfilePageConcat?.notifications.unread.length > 5) && (
