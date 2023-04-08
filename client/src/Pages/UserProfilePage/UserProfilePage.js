@@ -26,7 +26,7 @@ function UserProfilePage({
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
-  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+  const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
 
   // Api Alchemy setup
   const settings = {
@@ -100,14 +100,11 @@ function UserProfilePage({
 
         "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
       ],
-        excludeZeroValue: true,
+      excludeZeroValue: true,
       category: ["erc721", "erc1155"],
-      // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"  
-
-
+      // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"
     });
     // console.log(nftsTransferData.pageKey )
-
   }
   useEffect(() => {
     getNft();
@@ -117,15 +114,16 @@ function UserProfilePage({
     // console.log(nftsFromOwner[0]?.contract?.totalSupply);
     // console.log(nftsFromOwner.length)
     getNftMinted();
-
   }, []);
   // API Coingecko --> Get ETH price
-useEffect(() => {
-  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
-    .then((response) => response.json())
-    .then((data) => setEthPrice(data.ethereum.eur))
-    .catch((error) => console.log(error));
-}, []);// API Coingecko --> Get ETH price
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPrice(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []); // API Coingecko --> Get ETH price
   useEffect(() => {
     const data = {
       userPageInfo: {

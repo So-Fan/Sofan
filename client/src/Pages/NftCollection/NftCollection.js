@@ -4,6 +4,7 @@ import NftCollectionPageHeader from "../../Components/NftCollectionPageHeader/Nf
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
 import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
+import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import "./NftCollection.css";
 const NftCollection = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -12,27 +13,111 @@ const NftCollection = ({
   const [dataConcat, setDataConcat] = useState();
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
+  const [nftsFromOwner, setNftsFromOwner] = useState([]);
+  const [nftDataApi, setNftDataApi] = useState();
+  const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
+    useState();
+  const [transferNftDataApi, setTransferNftDataApi] = useState();
+  const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
+  const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
 
-  const displayNftCollectionProfileSubMenu = () => {
-    if (isProfileSubMenuButtonClicked[0] === true) {
-      return (
-        <div>
-          <SortBySelector
-            setIsUSerProfileSeortBySelectorClicked={
-              setIsUSerProfileSeortBySelectorClicked
-            }
-            isUSerProfileSeortBySelectorClicked={
-              isUSerProfileSeortBySelectorClicked
-            }
-          />
-          <NftCard userFrom={dataConcat?.collected} />
-        </div>
-      );
-    } else if (isProfileSubMenuButtonClicked[1] === true) {
-      return <UserActivity userFrom={dataConcat?.activities} />;
-    }
+  // Api Alchemy setup
+  const settings = {
+    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
+    network: Network.ETH_MAINNET,
+    maxRetries: 10,
   };
+  const alchemy = new Alchemy(settings);
+  async function getNft() {
+    const metadata = await alchemy.nft.getContractMetadata(
+      "0x5180db8F5c931aaE63c74266b211F580155ecac8"
+    );
+    const dataCollection = await alchemy.nft.getNftsForContract(
+      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+    );
+    const contractFromOwners = await alchemy.nft.getContractsForOwner(
+      "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03"
+    ); // BoredApe creator adress (not the contract)
+    const nfts = await alchemy.nft.getNftsForOwner("vitalik.eth");
+    setNftDataApi(nfts);
+    // console.log(nfts);
+  }
 
+  // getFloorprice for Bored Ape Yacht Club:
+  async function getCollectionFloorPrice() {
+    const alchemy = new Alchemy(settings);
+    const collectionFloorPrice = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    );
+    // console.log(collectionFloorPrice.openSea.floorPrice)
+    setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
+  }
+
+  // get Nfts from Owner and Contracts
+  async function getNftsForOwner() {
+    // we select all the nfts hold by an address for a specific collection
+    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
+      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      {
+        contractAddresses: [
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+        ],
+      } // filter
+    );
+    const nftsSale = await alchemy.nft.getFloorPrice(
+      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    );
+    setNftsFromOwner(nftsFromOwner?.ownedNfts);
+    // console.log(nftsFromOwner?.ownedNfts)
+  }
+  async function getTransferData() {
+    const nftsTransferData = await alchemy.core.getAssetTransfers({
+      toAddress: "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
+      excludeZeroValue: true,
+      category: ["erc721", "erc1155"],
+      contractAddresses: [
+        "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+        "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      ],
+      withMetadata: true,
+    });
+
+    setTransferNftDataApi(nftsTransferData);
+  }
+  async function getNftMinted() {
+    const nftsTransferData = await alchemy.core.getAssetTransfers({
+      fromAddress: "0x0000000000000000000000000000000000000000",
+      contractAddresses: [
+        // "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+
+        "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      ],
+      excludeZeroValue: true,
+      category: ["erc721", "erc1155"],
+      // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"
+    });
+    // console.log(nftsTransferData.pageKey )
+  }
+  useEffect(() => {
+    getNft();
+    getCollectionFloorPrice();
+    getNftsForOwner();
+    getTransferData();
+    // console.log(nftsFromOwner[0]?.contract?.totalSupply);
+    // console.log(nftsFromOwner.length)
+    getNftMinted();
+  }, []);
+
+  // API Coingecko --> Get ETH price
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPrice(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []); // API Coingecko --> Get ETH price
   useEffect(() => {
     const data = {
       collected: [
@@ -226,10 +311,46 @@ const NftCollection = ({
 
     setDataConcat(data);
   }, []);
+
+  const displayNftCollectionProfileSubMenu = () => {
+    if (isProfileSubMenuButtonClicked[0] === true) {
+      return (
+        <div>
+          <SortBySelector
+            setIsUSerProfileSeortBySelectorClicked={
+              setIsUSerProfileSeortBySelectorClicked
+            }
+            isUSerProfileSeortBySelectorClicked={
+              isUSerProfileSeortBySelectorClicked
+            }
+          />
+          <NftCard
+            nftsFromOwner={nftsFromOwner}
+            userFrom={dataConcat?.collected}
+            isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+          />
+        </div>
+      );
+    } else if (isProfileSubMenuButtonClicked[1] === true) {
+      return (
+        <UserActivity
+          userFrom={dataConcat?.activities}
+          nftsFromOwner={nftsFromOwner}
+          transferNftDataApi={transferNftDataApi}
+          setTransferNftDataApi={setTransferNftDataApi}
+          ethPrice={ethPrice}
+        />
+      );
+    }
+  };
   return (
     <div className="nftcollection-page">
       <div>
-        <NftCollectionPageHeader collectionInfo={dataConcat?.collections[0]} />
+        <NftCollectionPageHeader 
+        collectionInfo={dataConcat?.collections[0]} 
+        collectionFloorPriceApiData={collectionFloorPriceApiData}
+        ethPrice={ethPrice}
+        />
         <ProfileSubMenu
           isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}
           setIsProfileSubMenuButtonClicked={setIsProfileSubMenuButtonClicked}
