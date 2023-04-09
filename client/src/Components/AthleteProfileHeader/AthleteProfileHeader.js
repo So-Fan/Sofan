@@ -5,8 +5,12 @@ import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
 import Button from "../Button/Button";
-function AthleteProfileHeader({ userInfo, fansCounterApi, setIsAthleteFollowersClicked, handleAthleteFollowersClick }) {
- 
+function AthleteProfileHeader({
+  userInfo,
+  fansCounterApi,
+  setIsAthleteFollowersClicked,
+  handleAthleteFollowersClick,
+}) {
   // userInfo.followers = 300000; // fake data
   // Faire afficher le nombre dans un format K
   function convertNumberToDisplayFormat(number) {
@@ -44,14 +48,20 @@ function AthleteProfileHeader({ userInfo, fansCounterApi, setIsAthleteFollowersC
               </span>
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap">
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap">
+                <div
+                  className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap"
+                  onClick={handleAthleteFollowersClick}
+                >
                   <span>
                     {convertNumberToDisplayFormat(userInfo?.followers)}
                   </span>
                   <span>followers</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap">
+                <div 
+                className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap"
+                onClick={handleAthleteFollowersClick}
+                >
                   <span>{convertNumberToDisplayFormat(fansCounterApi)}</span>{" "}
                   {/* Possible de le récupérer depuis le backend également */}
                   <span>fans</span>

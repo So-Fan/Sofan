@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AthleteFollowersFansPopUp.css";
 import TemplatePopUp from "../TemplatePopUp";
-function AthleteFollowersFansPopUp({isAthleteFollowersClicked}) {
+function AthleteFollowersFansPopUp({isAthleteFollowersClicked, isAthleteSupportersClicked}) {
     const [dataAthleteProfilePageConcat, setDataAthleteProfilePageConcat] =
     useState();
   useEffect(() => {
@@ -131,7 +131,8 @@ function AthleteFollowersFansPopUp({isAthleteFollowersClicked}) {
   return <TemplatePopUp
     athleteFollowersFansPopUp={true}
     isAthleteFollowersClicked={isAthleteFollowersClicked}
-    athleteFollowersFansPopUpStyle="athlete-followers-fans-popup-container-mapping-wrap"
+    isAthleteSupportersClicked={isAthleteSupportersClicked}
+    athleteFollowersFansPopUpStyle="athlete-following-supporting-popup-container-mapping-wrap"
     dataAthleteProfilePageConcat={dataAthleteProfilePageConcat}
   />;
 }

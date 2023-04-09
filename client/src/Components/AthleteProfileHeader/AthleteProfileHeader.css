@@ -88,6 +88,10 @@
   width: 87px;
   font-family: "Britanica-Light";
   font-size: 12px;
+  cursor: pointer;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap:hover{
+  text-decoration: underline;
 }
 .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap
   > span:nth-child(1),

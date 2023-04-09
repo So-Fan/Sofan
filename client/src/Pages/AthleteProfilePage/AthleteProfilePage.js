@@ -22,8 +22,11 @@ const AthleteProfilePage = ({
   // functionnal states
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
-    const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] = useState(false);
-    // Backend
+  const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] =
+    useState(false);
+  const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
+    useState(false);
+  // Backend
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
   // API Alchemy
   const [nftDataApi, setNftDataApi] = useState();
@@ -33,7 +36,7 @@ const AthleteProfilePage = ({
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [fansCounterApi, setFansCounterApi] = useState();
   // API CoinGecko
-  const [ethPrice, setEthPrice] = useState(''); 
+  const [ethPrice, setEthPrice] = useState("");
 
   // Api Alchemy setup
   const settings = {
@@ -112,15 +115,17 @@ const AthleteProfilePage = ({
     getOwnersForContract();
   }, []);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
-// API Coingecko --> Get ETH price
-useEffect(() => {
-  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
-    .then((response) => response.json())
-    .then((data) => setEthPrice(data.ethereum.eur))
-    .catch((error) => console.log(error));
-}, []);
+  // API Coingecko --> Get ETH price
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPrice(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []);
 
-// -------------------------------------
+  // -------------------------------------
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -577,6 +582,35 @@ useEffect(() => {
   function handleAthleteFollowersClick(e) {
     setIsAthleteFollowersClicked(true);
   }
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest",
+        });
+      }
+    }
+  }, []);
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector("body").classList.remove("scroll-lock");
+  // ============================================================
+  // ============================================================
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] = useState();
+  const handlePixelScrolledAthleteProfilePage = () => {
+    setPixelScrolledAthleteProfilePage(window.scrollY);
+  };
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector("body").classList.remove("scroll-lock");
+  useEffect(() => {
+    window.addEventListener("scroll", handlePixelScrolledAthleteProfilePage, false);
+  }, []);
+  
+  // ============================================================
+  // ============================================================
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
       return (
@@ -650,13 +684,14 @@ useEffect(() => {
     }
   };
   return (
+    <>
     <div className="athleteprofilepage-component">
       <AthleteProfileHeader
         userInfo={dataConcat?.userPageInfo}
         fansCounterApi={fansCounterApi}
         setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
         handleAthleteFollowersClick={handleAthleteFollowersClick}
-      />
+        />
       <div className="athleteprofilepage-profilesubmenu-wrap">
         <ProfileSubMenu
           isPageAthlete={true}
@@ -664,24 +699,32 @@ useEffect(() => {
           setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
           profileSubMenuOffresClicked={profileSubMenuOffresClicked}
           setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
-        />
+          />
       </div>
       {displayAthleteProfileSubMenu()}
+    </div>
       {isAthleteFollowersClicked && (
-        
         <Modal
-          setState={setIsAthleteFollowersClicked}
-          style={{ top: "24px", right: "20px" }}
-        >
-          {/* <AthleteFollowingSupportingPopUp 
-          isAthleteSupportingClicked={isAthleteSupportingClicked}
-          /> */}
+        setState={setIsAthleteFollowersClicked}
+      style={{marginTop: pixelScrolledAthleteProfilePage}}
+      >
           <AthleteFollowersFansPopUp
-          isAthleteFollowersClicked={isAthleteFollowersClicked}
-          />
+            isAthleteFollowersClicked={isAthleteFollowersClicked}
+            />
         </Modal>
       )}
-    </div>
+      {isAthleteSupportersClicked && (
+        <Modal
+        setState={setIsAthleteSupportersClicked}
+        style={{ top: "0px !important" }}
+        // pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
+        >
+          <AthleteFollowersFansPopUp
+            isAthleteSupportersClicked={isAthleteSupportersClicked}
+            />
+        </Modal>
+      )}
+      </>
   );
 };
 

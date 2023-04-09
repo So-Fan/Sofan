@@ -13,6 +13,7 @@ function TemplatePopUp({
   // Athlete Profile Page Pop Up
   athleteFollowersFansPopUp, // booléen qui renvoie l'élément parent correspondant
   isAthleteFollowersClicked,
+  isAthleteSupportersClicked,
   athleteFollowersFansPopUpStyle,
   dataFollowersFansConcat,
 }) {
@@ -46,6 +47,10 @@ function TemplatePopUp({
   };
   useEffect(() => {
     isAthleteSupportingClicked &&
+      setIsNotificationPopUpSubMenuReadClicked(true);
+  }, []);
+  useEffect(() => {
+    isAthleteSupportersClicked &&
       setIsNotificationPopUpSubMenuReadClicked(true);
   }, []);
 
@@ -111,7 +116,7 @@ function TemplatePopUp({
 
           {isNotificationPopUpSubMenuReadClicked ? (
             <div
-              className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}
+              className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle} ${athleteFollowersFansPopUpStyle}`}
             >
               {dataAthleteProfilePageConcat?.notifications.read.map(
                 (notification) => (
@@ -138,7 +143,7 @@ function TemplatePopUp({
             </div>
           ) : (
             <div
-              className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}
+              className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle} ${athleteFollowersFansPopUpStyle}`}
             >
               {dataAthleteProfilePageConcat?.notifications.unread.map(
                 (notification) => (
