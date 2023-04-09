@@ -4,11 +4,17 @@ import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 function TemplatePopUp({
   handleClick,
-  athleteSuggestPopUp,
+  // User Profile Page Pop Up
+  athleteSuggestPopUp, // booléen qui renvoie l'élément parent correspondant
   athleteFollowingSupportingPopUp,
   athleteFollowingSupportingPopUpStyle,
   dataAthleteProfilePageConcat,
-  isAthleteSupportingClicked
+  isAthleteSupportingClicked,
+  // Athlete Profile Page Pop Up
+  athleteFollowersFansPopUp, // booléen qui renvoie l'élément parent correspondant
+  isAthleteFollowersClicked,
+  athleteFollowersFansPopUpStyle,
+  dataFollowersFansConcat,
 }) {
   const [
     isNotificationPopUpSubMenuReadClicked,
@@ -18,12 +24,20 @@ function TemplatePopUp({
   const handleNotificationPopUpSubMenuClicked = (e) => {
     if (athleteFollowingSupportingPopUp === true) {
       if (e.target.innerHTML === "Athlètes supportés") {
-        setIsNotificationPopUpSubMenuReadClicked(true)  
+        setIsNotificationPopUpSubMenuReadClicked(true);
       } else {
-        setIsNotificationPopUpSubMenuReadClicked(false)
+        setIsNotificationPopUpSubMenuReadClicked(false);
       }
-    } 
-    // ======================================
+    }
+    // ===================================================
+    if (athleteFollowersFansPopUp === true) {
+      if (e.target.innerHTML === "Vos fans") {
+        setIsNotificationPopUpSubMenuReadClicked(true);
+      } else {
+        setIsNotificationPopUpSubMenuReadClicked(false);
+      }
+    }
+    // ===================================================
     if (e.target.innerHTML === "Lus") {
       setIsNotificationPopUpSubMenuReadClicked(true);
     } else if (e.target.innerHTML === "Non lus") {
@@ -31,9 +45,10 @@ function TemplatePopUp({
     }
   };
   useEffect(() => {
-    isAthleteSupportingClicked && setIsNotificationPopUpSubMenuReadClicked(true)
-  }, [])
-  
+    isAthleteSupportingClicked &&
+      setIsNotificationPopUpSubMenuReadClicked(true);
+  }, []);
+
   return (
     <>
       <div className="notificationpopup-component">
@@ -42,6 +57,8 @@ function TemplatePopUp({
             <>Suggestion d'athlètes</>
           ) : athleteFollowingSupportingPopUp ? (
             <>Athlètes suivis / supportés</>
+          ) : athleteFollowersFansPopUp ? (
+            <>Vos followers / fans</>
           ) : (
             <>Notifications</>
           )}
@@ -61,7 +78,13 @@ function TemplatePopUp({
                 >
                   <Button
                     onClick={handleNotificationPopUpSubMenuClicked}
-                    text={athleteFollowingSupportingPopUp ? "Athlètes suivis" : "Non lus"}
+                    text={
+                      athleteFollowingSupportingPopUp
+                        ? "Athlètes suivis"
+                        : athleteFollowersFansPopUp
+                        ? "Vos followers"
+                        : "Non lus"
+                    }
                   />
                 </div>
                 <div
@@ -73,7 +96,13 @@ function TemplatePopUp({
                 >
                   <Button
                     onClick={handleNotificationPopUpSubMenuClicked}
-                    text={athleteFollowingSupportingPopUp ? "Athlètes supportés" : "Lus"}
+                    text={
+                      athleteFollowingSupportingPopUp
+                        ? "Athlètes supportés"
+                        : athleteFollowersFansPopUp
+                        ? "Vos fans"
+                        : "Lus"
+                    }
                   />
                 </div>
               </div>
@@ -81,7 +110,9 @@ function TemplatePopUp({
           )}
 
           {isNotificationPopUpSubMenuReadClicked ? (
-            <div className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}>
+            <div
+              className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}
+            >
               {dataAthleteProfilePageConcat?.notifications.read.map(
                 (notification) => (
                   <Link
@@ -99,13 +130,16 @@ function TemplatePopUp({
                         <span>{notification.nftTitle}</span>
                       </div>
                       <span>{notification.sport} </span>
+                      {athleteFollowersFansPopUp && <span>il y a {notification.time}</span>}
                     </div>
                   </Link>
                 )
               )}
             </div>
           ) : (
-            <div className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}>
+            <div
+              className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle}`}
+            >
               {dataAthleteProfilePageConcat?.notifications.unread.map(
                 (notification) => (
                   <Link
@@ -123,6 +157,7 @@ function TemplatePopUp({
                         <span>{notification.nftTitle}</span>
                       </div>
                       <span>{notification.sport} </span>
+                      {athleteFollowersFansPopUp && <span>il y a {notification.time}</span>}
                     </div>
                   </Link>
                 )
@@ -131,7 +166,12 @@ function TemplatePopUp({
           )}
         </div>
         <div className="template-pop-up-line-separation"></div>
-        <Button text="Fermer" id="custom-close-button" onClick={handleClick} hover="button-hover-props" />
+        <Button
+          text="Fermer"
+          id="custom-close-button"
+          onClick={handleClick}
+          hover="button-hover-props"
+        />
       </div>
       {(dataAthleteProfilePageConcat?.notifications.unread.length > 5 ||
         dataAthleteProfilePageConcat?.notifications.unread.length > 5) && (

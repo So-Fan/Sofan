@@ -6,6 +6,8 @@ import Modal from '../../Components/Modal/Modal';
 import TemplatePopUp from '../../Components/TemplatePopUp/TemplatePopUp';
 import AthleteSuggestPopUp from '../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp';
 import AthleteFollowingSupportingPopUp from '../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp';
+import NotificationPopUp from '../../Components/Navbar/NotificationPopUp/NotificationPopUp';
+import AthleteFollowersFansPopUp from '../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp';
 function TestSecondary() {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
@@ -14,7 +16,7 @@ function TestSecondary() {
     };
   return (
     <div className='test-secondary-container'>
-        <button className='test-secondary-button' onClick={handleCreatePostClick}>Bouton</button>
+        {/* <button className='test-secondary-button' onClick={handleCreatePostClick}>Bouton</button>
         {isCreatePostButtonClicked && (
           <Modal
           setState={setIsCreatePostButtonClicked}
@@ -23,8 +25,11 @@ function TestSecondary() {
             <AthleteFollowingSupportingPopUp/>
         </Modal>
       )}
-      <AthleteSuggestPopUp/>
+      <AthleteSuggestPopUp/> */}
+      <NotificationPopUp/>
       {/* <MintPopUpTemplate/> */}
+      {/* <AthleteSuggestPopUp/> */}
+      <AthleteFollowersFansPopUp/>
     </div>
   )
 }

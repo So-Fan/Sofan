@@ -24,10 +24,10 @@ function UserNameAndStats({
       setPluralNftCollected(false);
     };
   }
-
+// afin de faire afficher le pluriel une fois le nombre de nft collectés reçu
   useEffect(() => {
     handlePlural();
-  }, [])
+  }, [nftsCollectedCounter])
   
   return (
     <div className="username-and-stats-container">

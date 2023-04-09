@@ -11,22 +11,29 @@ import UserActivity from "../../Components/UserProfileComponents/UserActivity/Us
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
 import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
+import Modal from "../../Components/Modal/Modal";
+import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
   profileSubMenuOffresClicked,
   setProfileSubMenuOffresClicked,
 }) => {
+  // functionnal states
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
+    const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] = useState(false);
+    // Backend
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
+  // API Alchemy
   const [nftDataApi, setNftDataApi] = useState();
   const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
     useState();
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [fansCounterApi, setFansCounterApi] = useState();
-  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+  // API CoinGecko
+  const [ethPrice, setEthPrice] = useState(''); 
 
   // Api Alchemy setup
   const settings = {
@@ -567,6 +574,9 @@ useEffect(() => {
     }
     setDataConcat(data);
   }, []);
+  function handleAthleteFollowersClick(e) {
+    setIsAthleteFollowersClicked(true);
+  }
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
       return (
@@ -644,6 +654,8 @@ useEffect(() => {
       <AthleteProfileHeader
         userInfo={dataConcat?.userPageInfo}
         fansCounterApi={fansCounterApi}
+        setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
+        handleAthleteFollowersClick={handleAthleteFollowersClick}
       />
       <div className="athleteprofilepage-profilesubmenu-wrap">
         <ProfileSubMenu
@@ -655,6 +667,20 @@ useEffect(() => {
         />
       </div>
       {displayAthleteProfileSubMenu()}
+      {isAthleteFollowersClicked && (
+        
+        <Modal
+          setState={setIsAthleteFollowersClicked}
+          style={{ top: "24px", right: "20px" }}
+        >
+          {/* <AthleteFollowingSupportingPopUp 
+          isAthleteSupportingClicked={isAthleteSupportingClicked}
+          /> */}
+          <AthleteFollowersFansPopUp
+          isAthleteFollowersClicked={isAthleteFollowersClicked}
+          />
+        </Modal>
+      )}
     </div>
   );
 };
