@@ -26,6 +26,7 @@ function UserProfilePage({
     useState(false);
     const [isAthleteSupportingClicked, setIsAthleteSupportingClicked] =
     useState(false);
+    const [pixelScrolledUserProfilePage, setPixelScrolledUserProfilePage] = useState();
   // backend states
   const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
   // api states
@@ -120,8 +121,6 @@ function UserProfilePage({
     getCollectionFloorPrice();
     getNftsForOwner();
     getTransferData();
-    // console.log(nftsFromOwner[0]?.contract?.totalSupply);
-    // console.log(nftsFromOwner.length)
     getNftMinted();
   }, []);
   // API Coingecko --> Get ETH price
@@ -403,6 +402,14 @@ function UserProfilePage({
 
     setDataConcat(data);
   }, []);
+  
+  //----------------------------
+  const handlePixelScrolledUserProfilePage = () => {
+    setPixelScrolledUserProfilePage(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handlePixelScrolledUserProfilePage, false);
+  }, []);
   //----------------------------
   useEffect(() => {
     const hash = window.location.hash;
@@ -417,7 +424,17 @@ function UserProfilePage({
       }
     }
   }, []);
-//----------------------------
+
+  // smooth redirection fonction
+  const nftCardRef = useRef(null); 
+  function handleClickNftReceived(event) {
+    event.preventDefault();
+    nftCardRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+// ----------------------------
   function handleAthleteFollowingClick(e) {
     setIsAthleteFollowingClicked(true);
   };
@@ -431,8 +448,8 @@ function UserProfilePage({
   };
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector('body').classList.remove('scroll-lock');
-  // tests
-  const nftCardRef = useRef(null);
+  // redirection vers nftCard
+  
   
   // retourne le composant selon le submenu cliqué
   function displayCategory() {
@@ -502,6 +519,7 @@ function UserProfilePage({
                 handleAthleteFollowingClick={handleAthleteFollowingClick}
                 handleAthleteSupportingClick={handleAthleteSupportingClick}
                 nftCardRef={nftCardRef}
+                handleClickNftReceived={handleClickNftReceived}
               />
             </div>
             <div className="userprofile-description-component">
@@ -524,7 +542,8 @@ function UserProfilePage({
       {isAthleteFollowingClicked && (
         <Modal
           setState={setIsAthleteFollowingClicked}
-          style={{ top: "24px", right: "20px" }}
+          // style={{ top: "24px", right: "20px" }}
+          style={{marginTop: pixelScrolledUserProfilePage}}
         >
           <AthleteFollowingSupportingPopUp />
         </Modal>
@@ -532,7 +551,8 @@ function UserProfilePage({
       {isAthleteSupportingClicked && (
         <Modal
           setState={setIsAthleteSupportingClicked}
-          style={{ top: "24px", right: "20px" }}
+          // style={{ top: "24px", right: "20px" }}
+          style={{marginTop: pixelScrolledUserProfilePage}}
         >
           <AthleteFollowingSupportingPopUp 
           isAthleteSupportingClicked={isAthleteSupportingClicked}

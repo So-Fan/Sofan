@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./AthleteProfileNFTCollection.css";
 import AthleteProfileNFTCollectionTemplate from "./AthleteProfileNFTCollectionTemplate/AthleteProfileNFTCollectionTemplate";
 import { v4 as uuidv4 } from "uuid";
-const AthleteProfileNFTCollection = ({dataCollections, nftDataApi, collectionFloorPriceApiData, nftsFromOwner}) => {
+const AthleteProfileNFTCollection = ({dataCollections, nftDataApi, collectionFloorPriceApiData, nftsFromOwner, athletesNftsAvailable}) => {
   //  console.log(nftsFromOwner[0]?.contract?.openSea?.imageUrl)  
   return (
-    <div className="athleteprofilenftcollection-component">
+    <div ref={athletesNftsAvailable} id="athletes-nfts-availables" className="athleteprofilenftcollection-component">
       {/* fetch data from backend for mapping them after */}
       {nftsFromOwner?.map((collection, i,apiNftData) => (
         <AthleteProfileNFTCollectionTemplate 

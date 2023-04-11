@@ -8,8 +8,11 @@ import Button from "../Button/Button";
 function AthleteProfileHeader({
   userInfo,
   fansCounterApi,
-  setIsAthleteFollowersClicked,
+  // setIsAthleteFollowersClicked,
   handleAthleteFollowersClick,
+  handleAthleteSupportersClick,
+  handleClickNftReceived,
+  handleClicNftsAvailable
 }) {
   // userInfo.followers = 300000; // fake data
   // Faire afficher le nombre dans un format K
@@ -58,19 +61,21 @@ function AthleteProfileHeader({
                   <span>followers</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <div 
-                className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap"
-                onClick={handleAthleteFollowersClick}
+                <div
+                  className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap"
+                  onClick={handleAthleteSupportersClick}
                 >
                   <span>{convertNumberToDisplayFormat(fansCounterApi)}</span>{" "}
                   {/* Possible de le récupérer depuis le backend également */}
                   <span>fans</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last">
-                  <span>{userInfo?.nftAvailable}</span>
-                  <span>NFTs disponible</span>
-                </div>
+                <a href="#athletes-nfts-availables" onClick={handleClicNftsAvailable}>
+                  <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last">
+                    <span>{userInfo?.nftAvailable}</span>
+                    <span>NFTs disponible</span>
+                  </div>
+                </a>
               </div>
             </div>
             <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container">

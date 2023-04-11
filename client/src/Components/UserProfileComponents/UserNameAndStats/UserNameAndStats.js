@@ -6,17 +6,17 @@ function UserNameAndStats({
   nftsCollectedCounter,
   handleAthleteFollowingClick,
   handleAthleteSupportingClick,
-  nftCardRef,
+  handleClickNftReceived,
 }) {
   const [pluralNftCollected, setPluralNftCollected] = useState(false);
   // donne un effet smooth au click d'un #
-  function handleClick(event) {
-    event.preventDefault();
-    nftCardRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
+  // function handleClick(event) {
+  //   event.preventDefault();
+  //   nftCardRef.current.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   });
+  // }
   function handlePlural() {
     if (nftsCollectedCounter > 1) {
       setPluralNftCollected(true);
@@ -65,7 +65,7 @@ function UserNameAndStats({
 
         <a
           className="counter-nft-owned-user-container-link-element"
-          onClick={handleClick}
+          onClick={handleClickNftReceived}
           href="#nftcard-component"
         >
           {/* <Link className="counter-nft-owned-user-container-link-element" to="/dashboard"> */}

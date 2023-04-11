@@ -60,7 +60,7 @@ function App() {
       e.target.id !== "profilesubmenu-offres-formulées" &&
       e.target.id !== "profilesubmenu-offres-reçues"
     ) {
-      console.log(e.target.id);
+      // console.log(e.target.id);
       setProfileSubMenuOffresClicked(false);
     }
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef ,useState, useEffect } from "react";
 import AthleteProfileEvent from "../../Components/AthleteProfileEvent/AthleteProfileEvent";
 import AthleteProfileHeader from "../../Components/AthleteProfileHeader/AthleteProfileHeader";
 import AthleteProfileNFTCollection from "../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection";
@@ -582,6 +582,9 @@ const AthleteProfilePage = ({
   function handleAthleteFollowersClick(e) {
     setIsAthleteFollowersClicked(true);
   }
+  function handleAthleteSupportersClick(e) {
+    setIsAthleteSupportersClicked(true);
+  }
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -598,19 +601,42 @@ const AthleteProfilePage = ({
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
   // ============================================================
-  // ============================================================
-  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] = useState();
+  // Récupérer la valeur de pixel scrollé pour ensuite faire afficher le modal au bon endroit
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
+    useState();
   const handlePixelScrolledAthleteProfilePage = () => {
     setPixelScrolledAthleteProfilePage(window.scrollY);
   };
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      handlePixelScrolledAthleteProfilePage,
+      false
+    );
+  }, []);
+  // ============================================================
+  // smooth redirection fonction
+  const athletesNftsAvailable = useRef(null);
+  function handleClickNftReceived(event) {
+    event.preventDefault();
+    athletesNftsAvailable.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+  function handleClicNftsAvailable() {
+    setIsAthleteProfileSubMenuClicked([
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+    ]);
+  }
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
-  useEffect(() => {
-    window.addEventListener("scroll", handlePixelScrolledAthleteProfilePage, false);
-  }, []);
-  
-  // ============================================================
-  // ============================================================
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
       return (
@@ -645,6 +671,7 @@ const AthleteProfilePage = ({
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+            athletesNftsAvailable={athletesNftsAvailable}
           />
         </div>
       );
@@ -685,46 +712,48 @@ const AthleteProfilePage = ({
   };
   return (
     <>
-    <div className="athleteprofilepage-component">
-      <AthleteProfileHeader
-        userInfo={dataConcat?.userPageInfo}
-        fansCounterApi={fansCounterApi}
-        setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
-        handleAthleteFollowersClick={handleAthleteFollowersClick}
+      <div className="athleteprofilepage-component">
+        <AthleteProfileHeader
+          userInfo={dataConcat?.userPageInfo}
+          fansCounterApi={fansCounterApi}
+          setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
+          handleAthleteFollowersClick={handleAthleteFollowersClick}
+          handleAthleteSupportersClick={handleAthleteSupportersClick}
+          handleClickNftReceived={handleClickNftReceived}
+          handleClicNftsAvailable={handleClicNftsAvailable}
         />
-      <div className="athleteprofilepage-profilesubmenu-wrap">
-        <ProfileSubMenu
-          isPageAthlete={true}
-          isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
-          setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
-          profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-          setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+        <div className="athleteprofilepage-profilesubmenu-wrap">
+          <ProfileSubMenu
+            isPageAthlete={true}
+            isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
+            setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
+            profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+            setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
           />
+        </div>
+        {displayAthleteProfileSubMenu()}
       </div>
-      {displayAthleteProfileSubMenu()}
-    </div>
       {isAthleteFollowersClicked && (
         <Modal
-        setState={setIsAthleteFollowersClicked}
-      style={{marginTop: pixelScrolledAthleteProfilePage}}
-      >
+          setState={setIsAthleteFollowersClicked}
+          style={{ marginTop: pixelScrolledAthleteProfilePage }}
+        >
           <AthleteFollowersFansPopUp
             isAthleteFollowersClicked={isAthleteFollowersClicked}
-            />
+          />
         </Modal>
       )}
       {isAthleteSupportersClicked && (
         <Modal
-        setState={setIsAthleteSupportersClicked}
-        style={{ top: "0px !important" }}
-        // pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
+          setState={setIsAthleteSupportersClicked}
+          style={{ marginTop: pixelScrolledAthleteProfilePage }}
         >
           <AthleteFollowersFansPopUp
             isAthleteSupportersClicked={isAthleteSupportersClicked}
-            />
+          />
         </Modal>
       )}
-      </>
+    </>
   );
 };
 
