@@ -4,7 +4,9 @@ import Checkmark from "../../Assets/Image/checkmark_profile.svg";
 import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
-const NftCollectionPageHeader = ({collectionInfo}) => {
+const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, ethPrice}) => {
+  // let floorPriceEur = collectionFloorPriceApiData * ethPrice
+  let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
   return (
     <div className="nftcollectionheader-component">
       <div className="nftcollectionheader-bannerandprofilepicture-wrap">
@@ -56,7 +58,7 @@ const NftCollectionPageHeader = ({collectionInfo}) => {
           </div>
           <div className='nftcollectionheader-content-wrap-stats-container'>
             <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-1'>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.floorPrice} ETH</span>
+                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{floorPriceEur}€</span>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Floor price</span>
             </div>
             <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-2'>
@@ -64,7 +66,7 @@ const NftCollectionPageHeader = ({collectionInfo}) => {
                 <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Average price</span>
             </div>
             <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-3'>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.Owners} ETH</span>
+                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.Owners}</span>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Owners</span>
             </div>
             <div className='nftcollectionheader-content-wrap-stats-wrap'>
