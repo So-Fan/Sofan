@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const FeedSuggestions = ({handleAthleteSuggestionClick}) => {
   const [suggestions, setSuggestions] = useState([]);
+  const [displaySuggestComponent, setDisplaySuggestComponent] = useState("")
   const suggestionCollectionRef = collection(db, "feed_suggestion");
   useEffect(() => {
     const getSuggestions = async () => {
@@ -19,9 +20,21 @@ const FeedSuggestions = ({handleAthleteSuggestionClick}) => {
 
     getSuggestions();
   }, []);
+  console.log(suggestions)
+  
+  useEffect(() => {
+if (suggestions.length === 0) {
+  setDisplaySuggestComponent("none")
+  console.log("il n'y a aucun élément")
+} else if (suggestions.length >= 1 ){
+  setDisplaySuggestComponent("")
+  console.log("il y a des éléments")
+}
+  }, [suggestions])
+  
 
   return (
-    <div className="feedsuggestions-component">
+    <div style={{display: displaySuggestComponent}} className="feedsuggestions-component">
       <div className="feedlaunchpad-header-container">
         <span className="feedlaunchpad-header-title">Suggestions</span>
         <Link
