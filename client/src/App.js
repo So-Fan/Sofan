@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
@@ -60,10 +60,25 @@ function App() {
       e.target.id !== "profilesubmenu-offres-formulées" &&
       e.target.id !== "profilesubmenu-offres-reçues"
     ) {
-      console.log(e.target.id);
+      // console.log(e.target.id);
       setProfileSubMenuOffresClicked(false);
     }
   }
+  // Redirection smooth au chargement de la page
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
+    }
+  }, []); 
+  
   return (
     <BrowserRouter>
      <EthProvider>

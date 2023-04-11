@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import BannerAndProfilePic from "../../Components/BannerAndProfilePic/BannerAndProfilePic";
 import NftCard from "../../Components/NftCard/NftCard";
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
@@ -10,6 +10,8 @@ import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAnd
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import "./UserProfilePage.css";
+import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
+import Modal from "../../Components/Modal/Modal";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
@@ -17,9 +19,17 @@ function UserProfilePage({
   setProfileSubMenuOffresClicked,
   profileSubMenuOffresClicked,
 }) {
+  // fonctionnal states
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
+    const [isAthleteFollowingClicked, setIsAthleteFollowingClicked] =
+    useState(false);
+    const [isAthleteSupportingClicked, setIsAthleteSupportingClicked] =
+    useState(false);
+    const [pixelScrolledUserProfilePage, setPixelScrolledUserProfilePage] = useState();
+  // backend states
   const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
+  // api states
   const [nftDataApi, setNftDataApi] = useState();
   const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
     useState();
@@ -111,8 +121,6 @@ function UserProfilePage({
     getCollectionFloorPrice();
     getNftsForOwner();
     getTransferData();
-    // console.log(nftsFromOwner[0]?.contract?.totalSupply);
-    // console.log(nftsFromOwner.length)
     getNftMinted();
   }, []);
   // API Coingecko --> Get ETH price
@@ -394,6 +402,56 @@ function UserProfilePage({
 
     setDataConcat(data);
   }, []);
+  
+  //----------------------------
+  const handlePixelScrolledUserProfilePage = () => {
+    setPixelScrolledUserProfilePage(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handlePixelScrolledUserProfilePage, false);
+  }, []);
+  //----------------------------
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }
+    }
+  }, []);
+
+  // smooth redirection fonction
+  const nftCardRef = useRef(null); 
+  function handleClickNftReceived(event) {
+    event.preventDefault();
+    nftCardRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+// ----------------------------
+  function handleAthleteFollowingClick(e) {
+    setIsAthleteFollowingClicked(true);
+  };
+  function handleAthleteSupportingClick(e) {
+    setIsAthleteSupportingClicked(true);
+  };
+  function handleSectionWheel(e) {
+    if (isAthleteFollowingClicked) {
+      e.preventDefault();
+    }
+  };
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector('body').classList.remove('scroll-lock');
+  // redirection vers nftCard
+  
+  
+  // retourne le composant selon le submenu cliqué
   function displayCategory() {
     if (isProfileSubMenuButtonClicked[0] === true) {
       return (
@@ -410,6 +468,7 @@ function UserProfilePage({
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+            nftCardRef={nftCardRef}
           />
         </>
       );
@@ -444,10 +503,9 @@ function UserProfilePage({
       );
     }
   }
-
   return (
     <>
-      <section className="userprofilepage-container">
+      <section onWheel={handleSectionWheel} style={isAthleteFollowingClicked ? {pointerEvents: 'none'} : {}} className="userprofilepage-container">
         <div className="userheader-container">
           <BannerAndProfilePic
             banner={dataConcat?.userPageInfo.banner}
@@ -458,6 +516,10 @@ function UserProfilePage({
               <UserNameAndStats
                 userNameAndStatsObject={dataConcat?.userPageInfo}
                 nftsCollectedCounter={nftsFromOwner.length}
+                handleAthleteFollowingClick={handleAthleteFollowingClick}
+                handleAthleteSupportingClick={handleAthleteSupportingClick}
+                nftCardRef={nftCardRef}
+                handleClickNftReceived={handleClickNftReceived}
               />
             </div>
             <div className="userprofile-description-component">
@@ -477,6 +539,26 @@ function UserProfilePage({
           </div>
         </div>
       </section>
+      {isAthleteFollowingClicked && (
+        <Modal
+          setState={setIsAthleteFollowingClicked}
+          // style={{ top: "24px", right: "20px" }}
+          style={{marginTop: pixelScrolledUserProfilePage}}
+        >
+          <AthleteFollowingSupportingPopUp />
+        </Modal>
+      )}
+      {isAthleteSupportingClicked && (
+        <Modal
+          setState={setIsAthleteSupportingClicked}
+          // style={{ top: "24px", right: "20px" }}
+          style={{marginTop: pixelScrolledUserProfilePage}}
+        >
+          <AthleteFollowingSupportingPopUp 
+          isAthleteSupportingClicked={isAthleteSupportingClicked}
+          />
+        </Modal>
+      )}
     </>
   );
 }

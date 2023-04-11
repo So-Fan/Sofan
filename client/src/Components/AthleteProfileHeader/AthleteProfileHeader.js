@@ -5,17 +5,37 @@ import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
 import Button from "../Button/Button";
-const AthleteProfileHeader = ({userInfo, fansCounterApi}) => {
-  
+function AthleteProfileHeader({
+  userInfo,
+  fansCounterApi,
+  // setIsAthleteFollowersClicked,
+  handleAthleteFollowersClick,
+  handleAthleteSupportersClick,
+  handleClickNftReceived,
+  handleClicNftsAvailable
+}) {
+  // userInfo.followers = 300000; // fake data
+  // Faire afficher le nombre dans un format K
+  function convertNumberToDisplayFormat(number) {
+    if (number < 1000) {
+      return number.toString();
+    } else {
+      const thousand = Math.floor(number / 1000);
+      const hundred = Math.round((number % 1000) / 100);
+
+      if (hundred === 10) {
+        return `${thousand + 1}k`;
+      } else {
+        return `${thousand}${hundred > 0 ? `.${hundred}` : ""}k`;
+      }
+    }
+  }
   return (
     <div className="athleteprofileheader-component">
       <div className="athleteprofileheader-bannerandprofilepicture-wrap">
         <img src={userInfo?.banner} alt="banner" />
         <div className="athleteprofileheader-profilepciture-wrap">
-          <img
-            src={userInfo?.profilePicture}
-            alt="profile"
-          />
+          <img src={userInfo?.profilePicture} alt="profile" />
         </div>
       </div>
       <div className="athleteprofileheader-content-container">
@@ -31,40 +51,42 @@ const AthleteProfileHeader = ({userInfo, fansCounterApi}) => {
               </span>
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap">
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap">
-                  <span>{fansCounterApi}</span>
-                  <span>fans</span>
-                </div>
-                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap">
-                  <span>{userInfo?.followers}</span>
+                <div
+                  className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap"
+                  onClick={handleAthleteFollowersClick}
+                >
+                  <span>
+                    {convertNumberToDisplayFormat(userInfo?.followers)}
+                  </span>
                   <span>followers</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last">
-                  <span>{userInfo?.nftAvailable}</span>
-                  <span>NFTs disponible</span>
+                <div
+                  className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap"
+                  onClick={handleAthleteSupportersClick}
+                >
+                  <span>{convertNumberToDisplayFormat(fansCounterApi)}</span>{" "}
+                  {/* Possible de le récupérer depuis le backend également */}
+                  <span>fans</span>
                 </div>
+                <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
+                <a href="#athletes-nfts-availables" onClick={handleClicNftsAvailable}>
+                  <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last">
+                    <span>{userInfo?.nftAvailable}</span>
+                    <span>NFTs disponible</span>
+                  </div>
+                </a>
               </div>
             </div>
             <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container">
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social">
-                <a
-                  href={userInfo?.socials.discord}
-                  target="_blank"
-                >
+                <a href={userInfo?.socials.discord} target="_blank">
                   <img src={Discord} alt="Discord" />
                 </a>
-                <a
-                  href={userInfo?.socials.twitter}
-                  target="_blank"
-                >
+                <a href={userInfo?.socials.twitter} target="_blank">
                   <img src={Twitter} alt="Twitter" />
                 </a>
-                <a
-                  href={userInfo?.socials.instagram}
-                  target="_blank"
-                >
+                <a href={userInfo?.socials.instagram} target="_blank">
                   <img src={Instagram} alt="Instagram" />
                 </a>
               </div>
@@ -79,14 +101,17 @@ const AthleteProfileHeader = ({userInfo, fansCounterApi}) => {
             {userInfo?.description}
           </div>
           <div className="athleteprofileheader-content-container-button-wrap">
-            <Button text={"Devenir un fan"} style={AthleteProfileHeaderFanButton} />
+            <Button
+              text={"Devenir un fan"}
+              style={AthleteProfileHeaderFanButton}
+            />
             <Button text={"Follow"} style={AthleteProfileHeaderFollowButton} />
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default AthleteProfileHeader;
 

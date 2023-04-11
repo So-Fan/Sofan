@@ -1,8 +1,11 @@
+.scroll-lock {
+    overflow: hidden;
+  }
 #modal-component{
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 100vh !important;
     display: flex;
     justify-content: center;
     align-items: center;

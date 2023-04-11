@@ -33,7 +33,9 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-
+body {
+  scroll-behavior: smooth !important;
+}
 html,
 body,
 div,

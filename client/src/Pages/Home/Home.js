@@ -13,15 +13,20 @@ import CreationPostPoll from "../../Components/CreationPostPoll/CreationPostPoll
 import Modal from "../../Components/Modal/Modal";
 import FullPagePost from "../FullPagePost/FullPagePost";
 import { v4 as uuidv4 } from "uuid";
+import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
+import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 
 function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
-
   const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
-
+  const [isSuggestionSeeMoreButtonClicked, setIsSuggestSeeMoreButtonClicked] =
+    useState(false);
+  function handleAthleteSuggestionClick(e) {
+    setIsSuggestSeeMoreButtonClicked(true);
+  }
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && data[i]?.postType === "Premium") {
       return true;
@@ -285,8 +290,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
   // }
 
   // setTimeout(() => {
-    
-    
+
   // }, 10);
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < data.length; i++) {
@@ -349,7 +353,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
             )}
           </div>
           <FavAthlete />
-          <FeedSuggestions />
+          <FeedSuggestions 
+          handleAthleteSuggestionClick={handleAthleteSuggestionClick}
+          />
         </div>
         <div className="home-center-container">
           <div>
@@ -411,7 +417,14 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
         >
           {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
           <FullPagePost postType={data.postType} />
-
+        </Modal>
+      )}
+      {isSuggestionSeeMoreButtonClicked && (
+        <Modal
+          setState={setIsSuggestSeeMoreButtonClicked}
+          style={{ top: "24px", right: "20px" }}
+        >
+          <AthleteSuggestPopUp />
         </Modal>
       )}
     </>

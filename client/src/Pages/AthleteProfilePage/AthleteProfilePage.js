@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef ,useState, useEffect } from "react";
 import AthleteProfileEvent from "../../Components/AthleteProfileEvent/AthleteProfileEvent";
 import AthleteProfileHeader from "../../Components/AthleteProfileHeader/AthleteProfileHeader";
 import AthleteProfileNFTCollection from "../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection";
@@ -11,22 +11,32 @@ import UserActivity from "../../Components/UserProfileComponents/UserActivity/Us
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
 import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
+import Modal from "../../Components/Modal/Modal";
+import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
   profileSubMenuOffresClicked,
   setProfileSubMenuOffresClicked,
 }) => {
+  // functionnal states
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
+  const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] =
+    useState(false);
+  const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
+    useState(false);
+  // Backend
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
+  // API Alchemy
   const [nftDataApi, setNftDataApi] = useState();
   const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
     useState();
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [fansCounterApi, setFansCounterApi] = useState();
-  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+  // API CoinGecko
+  const [ethPrice, setEthPrice] = useState("");
 
   // Api Alchemy setup
   const settings = {
@@ -105,15 +115,17 @@ const AthleteProfilePage = ({
     getOwnersForContract();
   }, []);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
-// API Coingecko --> Get ETH price
-useEffect(() => {
-  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
-    .then((response) => response.json())
-    .then((data) => setEthPrice(data.ethereum.eur))
-    .catch((error) => console.log(error));
-}, []);
+  // API Coingecko --> Get ETH price
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPrice(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []);
 
-// -------------------------------------
+  // -------------------------------------
   useEffect(() => {
     const data = {
       userPageInfo: {
@@ -567,6 +579,64 @@ useEffect(() => {
     }
     setDataConcat(data);
   }, []);
+  function handleAthleteFollowersClick(e) {
+    setIsAthleteFollowersClicked(true);
+  }
+  function handleAthleteSupportersClick(e) {
+    setIsAthleteSupportersClicked(true);
+  }
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest",
+        });
+      }
+    }
+  }, []);
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector("body").classList.remove("scroll-lock");
+  // ============================================================
+  // Récupérer la valeur de pixel scrollé pour ensuite faire afficher le modal au bon endroit
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
+    useState();
+  const handlePixelScrolledAthleteProfilePage = () => {
+    setPixelScrolledAthleteProfilePage(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      handlePixelScrolledAthleteProfilePage,
+      false
+    );
+  }, []);
+  // ============================================================
+  // smooth redirection fonction
+  const athletesNftsAvailable = useRef(null);
+  function handleClickNftReceived(event) {
+    event.preventDefault();
+    athletesNftsAvailable.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+  function handleClicNftsAvailable() {
+    setIsAthleteProfileSubMenuClicked([
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+    ]);
+  }
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector("body").classList.remove("scroll-lock");
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
       return (
@@ -601,6 +671,7 @@ useEffect(() => {
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+            athletesNftsAvailable={athletesNftsAvailable}
           />
         </div>
       );
@@ -640,22 +711,49 @@ useEffect(() => {
     }
   };
   return (
-    <div className="athleteprofilepage-component">
-      <AthleteProfileHeader
-        userInfo={dataConcat?.userPageInfo}
-        fansCounterApi={fansCounterApi}
-      />
-      <div className="athleteprofilepage-profilesubmenu-wrap">
-        <ProfileSubMenu
-          isPageAthlete={true}
-          isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
-          setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
-          profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-          setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+    <>
+      <div className="athleteprofilepage-component">
+        <AthleteProfileHeader
+          userInfo={dataConcat?.userPageInfo}
+          fansCounterApi={fansCounterApi}
+          setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
+          handleAthleteFollowersClick={handleAthleteFollowersClick}
+          handleAthleteSupportersClick={handleAthleteSupportersClick}
+          handleClickNftReceived={handleClickNftReceived}
+          handleClicNftsAvailable={handleClicNftsAvailable}
         />
+        <div className="athleteprofilepage-profilesubmenu-wrap">
+          <ProfileSubMenu
+            isPageAthlete={true}
+            isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
+            setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
+            profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+            setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+          />
+        </div>
+        {displayAthleteProfileSubMenu()}
       </div>
-      {displayAthleteProfileSubMenu()}
-    </div>
+      {isAthleteFollowersClicked && (
+        <Modal
+          setState={setIsAthleteFollowersClicked}
+          style={{ marginTop: pixelScrolledAthleteProfilePage }}
+        >
+          <AthleteFollowersFansPopUp
+            isAthleteFollowersClicked={isAthleteFollowersClicked}
+          />
+        </Modal>
+      )}
+      {isAthleteSupportersClicked && (
+        <Modal
+          setState={setIsAthleteSupportersClicked}
+          style={{ marginTop: pixelScrolledAthleteProfilePage }}
+        >
+          <AthleteFollowersFansPopUp
+            isAthleteSupportersClicked={isAthleteSupportersClicked}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 
