@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const FeedEvent = () => {
   const [events, setEvent] = useState([]);
+  const [displayEventsComponent, setDisplayEventsComponent] = useState("")
   const eventCollectionRef = collection(db, 'feed_event');
   useEffect(() => {
     const getEvents = async () => {
@@ -17,10 +18,18 @@ const FeedEvent = () => {
     getEvents();
   }, []);
 
+  useEffect(() => {
+    if (events.length === 0) {
+      setDisplayEventsComponent("none")
+    } else if (events.length >= 1 ){
+      setDisplayEventsComponent("")
+    }
+}, [events])
+
   const firstEvent = events.slice(0, 1);
 
   return (
-    <div className="event-component">
+    <div style={{display: displayEventsComponent}} className="event-component">
       <div className="event-header-container">
         <span className="event-header-title">Vos évènements</span>
         <Link to="/" className="event-header-button">

@@ -412,7 +412,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
       {isPostClicked && (
         <Modal
           setState={setIsPostClicked}
-          style={{ top: "-24px", right: "2px" }}
+          style={{ top: "-44px", right: "2px" }}
           color="white"
         >
           {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
