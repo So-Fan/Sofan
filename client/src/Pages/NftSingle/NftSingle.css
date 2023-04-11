@@ -18,7 +18,7 @@
 
 .nft-single-collection-page-more-about-athlete-container{
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     margin-top: 62px;
     display: flex;
     flex-direction: column;

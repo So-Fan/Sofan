@@ -735,6 +735,7 @@ const AthleteProfilePage = ({
       </div>
       {isAthleteFollowersClicked && (
         <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteFollowersClicked}
           style={{ marginTop: pixelScrolledAthleteProfilePage }}
         >
@@ -745,8 +746,9 @@ const AthleteProfilePage = ({
       )}
       {isAthleteSupportersClicked && (
         <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteSupportersClicked}
-          style={{ marginTop: pixelScrolledAthleteProfilePage }}
+          style={{marginTop: pixelScrolledAthleteProfilePage}}
         >
           <AthleteFollowersFansPopUp
             isAthleteSupportersClicked={isAthleteSupportersClicked}

@@ -22,8 +22,7 @@ const Modal = (props) => {
   
   return (
     <div id="modal-component" 
-    // style={{top: pixelScrolledAthleteProfilePage}}
-    // style={props.style}
+    style={{marginTop: props.dynamicPositionPopUpMargin}}
     onClick={handleModalClick}>
       <div className="modal-component-wrap">
         <img id="modal-component-cross" src={props.color ? CrossWhite : CrossBlack} alt="cross" style={props.style} />
