@@ -20,15 +20,12 @@ const FeedSuggestions = ({handleAthleteSuggestionClick}) => {
 
     getSuggestions();
   }, []);
-  console.log(suggestions)
   
   useEffect(() => {
 if (suggestions.length === 0) {
   setDisplaySuggestComponent("none")
-  console.log("il n'y a aucun élément")
 } else if (suggestions.length >= 1 ){
   setDisplaySuggestComponent("")
-  console.log("il y a des éléments")
 }
   }, [suggestions])
   

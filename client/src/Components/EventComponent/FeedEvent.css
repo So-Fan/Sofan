@@ -5,7 +5,6 @@
   width: 249px;
   min-height: 228px;
   opacity: 0;
-  animation-delay: 2.5s !important;
   animation: fadeInUp 700ms ease-in-out forwards;
 }
 .event-header-container {

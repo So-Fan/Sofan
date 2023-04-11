@@ -544,6 +544,7 @@ function UserProfilePage({
           setState={setIsAthleteFollowingClicked}
           // style={{ top: "24px", right: "20px" }}
           style={{marginTop: pixelScrolledUserProfilePage}}
+          dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
         >
           <AthleteFollowingSupportingPopUp />
         </Modal>
@@ -551,7 +552,7 @@ function UserProfilePage({
       {isAthleteSupportingClicked && (
         <Modal
           setState={setIsAthleteSupportingClicked}
-          // style={{ top: "24px", right: "20px" }}
+          dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
           style={{marginTop: pixelScrolledUserProfilePage}}
         >
           <AthleteFollowingSupportingPopUp 
