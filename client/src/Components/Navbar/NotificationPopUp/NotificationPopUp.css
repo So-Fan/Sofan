@@ -46,6 +46,16 @@
 .notificationpopup-container-mapping-wrap {
   overflow: scroll;
   max-height: 486px;
+  /* background-color: red; */
+}
+
+.notificationpopup-container-mapping-wrap-custom{
+  overflow: scroll;
+  max-height: 476px !important;
+  /* background-color: rgba(255, 0, 0, 0.185); */
+}
+.notificationpopup-container-mapping-wrap-custom::-webkit-scrollbar{
+  display: none;
 }
 .notificationpopup-container-mapping-wrap::-webkit-scrollbar {
   display: none;
@@ -57,6 +67,10 @@
   border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
   text-decoration: none;
   color: black;
+}
+.notificationpopup-container-notification-wrap:hover{
+  background-color: #00000015;
+transition-duration: 300ms !important;
 }
 .notificationpopup-container-notification-wrap > img {
   width: 50px;

@@ -9,7 +9,7 @@ import NavProfile from "./NavProfile/NavProfile";
 import profile from "../../Assets/Image/profile.svg";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
-const Navbar = ({ isProfileClicked, isLogged }) => {
+const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup }) => {
   return (
     <>
      {!isLogged &&<style>
@@ -36,7 +36,9 @@ const Navbar = ({ isProfileClicked, isLogged }) => {
               <div className="navbar-wrap-2-subwrap-navicon-and-navprofile">
                 <div className="navbar-wrap-2-navicon-wrap">
                   <div className="navbar-vertical"></div>
-                  <NavIcon src={notification} />
+                  <NavIcon 
+                  handleNotificationPopup={handleNotificationPopup}
+                  src={notification} />
                   <div className="navbar-vertical"></div>
                 </div>
                 <NavProfile isProfileClicked={isProfileClicked} src={profile} />

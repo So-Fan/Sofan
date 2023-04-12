@@ -15,8 +15,9 @@ import FullPagePost from "../FullPagePost/FullPagePost";
 import { v4 as uuidv4 } from "uuid";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
+import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
 
-function Home({ setData, data, setIsDropdownClicked, isLogged }) {
+function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificationPopup, setIsNotificationButtonClicked, isNotificationButtonClicked }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
@@ -425,6 +426,16 @@ function Home({ setData, data, setIsDropdownClicked, isLogged }) {
           style={{ top: "24px", right: "20px" }}
         >
           <AthleteSuggestPopUp />
+        </Modal>
+      )}
+      {isNotificationButtonClicked && (
+        <Modal
+          setState={setIsNotificationButtonClicked}
+          style={{ top: "24px", right: "20px" }}
+        >
+          <NotificationPopUp 
+          notificationPopUpComponent={true}
+          />
         </Modal>
       )}
     </>

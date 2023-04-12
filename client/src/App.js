@@ -20,6 +20,7 @@ import TestSecondary from "./Pages/Test/TestSecondary";
 
 function App() {
   const isLogged = true; // from Backend
+  const [isNotificationButtonClicked, setIsNotificationButtonClicked] = useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [
@@ -78,12 +79,17 @@ function App() {
       }
     }
   }, []); 
-  
+  // 
+  function handleNotificationPopup(e) {
+    setIsNotificationButtonClicked(true);
+  }
   return (
     <BrowserRouter>
      <EthProvider>
       <div className="App" onClick={handleClickOutside}>
-        <Navbar isProfileClicked={isProfileClicked} isLogged={isLogged} />
+        <Navbar 
+        handleNotificationPopup={handleNotificationPopup}
+        isProfileClicked={isProfileClicked} isLogged={isLogged} />
         <Routes>
           <Route
             index
@@ -95,6 +101,9 @@ function App() {
                 setData={setData}
                 setIsDropdownClicked={setIsDropdownClicked}
                 isLogged={isLogged}
+                handleNotificationPopup={handleNotificationPopup}
+                isNotificationButtonClicked={isNotificationButtonClicked}
+                setIsNotificationButtonClicked={setIsNotificationButtonClicked}
               />
             }
           />
