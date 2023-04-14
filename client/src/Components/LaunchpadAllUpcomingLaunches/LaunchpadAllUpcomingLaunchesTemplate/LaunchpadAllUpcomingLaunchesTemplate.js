@@ -9,6 +9,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
   nftPrice,
   date,
   dim,
+  hidePrice
 }) => {
   let launchpadallUpcominglaunchestemplateComponentImg;
   let launchpadallUpcominglaunchestemplateDataContainer;
@@ -133,7 +134,9 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
             className="launchpadallupcominglaunchesTemplate-data-wrap-nft"
             style={launchpadallUpcominglaunchestemplateDataWrapNft}
           >
-            {nftLength} items - {nftPrice} ETH
+            {nftLength} items 
+            {hidePrice ? <></>: <>- {nftPrice} ETH</>}
+            
           </span>
           <div
             className="launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap"

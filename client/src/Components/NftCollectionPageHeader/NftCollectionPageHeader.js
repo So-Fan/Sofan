@@ -4,7 +4,7 @@ import Checkmark from "../../Assets/Image/checkmark_profile.svg";
 import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
-const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, ethPrice}) => {
+const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, ethPrice, hidePrice}) => {
   // let floorPriceEur = collectionFloorPriceApiData * ethPrice
   let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
   return (
@@ -57,6 +57,8 @@ const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, e
             {collectionInfo?.description}
           </div>
           <div className='nftcollectionheader-content-wrap-stats-container'>
+            {hidePrice ? <></>: 
+            <>
             <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-1'>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{floorPriceEur}€</span>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Floor price</span>
@@ -65,14 +67,18 @@ const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, e
                 <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.AveragePrice} ETH</span>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Average price</span>
             </div>
+            </>}
+            
             <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-3'>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.Owners}</span>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Owners</span>
             </div>
+            {hidePrice ? <></>: <>
             <div className='nftcollectionheader-content-wrap-stats-wrap'>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.Volume} ETH</span>
                 <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Total Volume</span>
             </div>
+            </>}
           </div>
         </div>
       </div>

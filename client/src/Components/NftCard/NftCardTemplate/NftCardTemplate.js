@@ -20,6 +20,7 @@ const NftCardTemplate = ({
   nftsFromOwnerPicture,
   // nftsFromOwnerFloorPrice,
   nftsFromOwnerTotalSupply,
+  hidePrice
 }) => {
   // console.log(nftsFromOwner)
   return (
@@ -38,6 +39,8 @@ const NftCardTemplate = ({
         <span className={`nftcardtemplate-container-content-title ${fontStyle}`}>
           <p>{nftsFromOwnerNameCollection}</p>#{nftsFromOwnerIdNft}
         </span>
+        {hidePrice ? <></>: <>
+        
         <div className="nftcardtemplate-container-content-price-wrap">
           <div className="nftcardtemplate-container-content-price-subwrap">
             <span className="nftcardtemplate-container-content-price-subwrap-text">
@@ -56,6 +59,7 @@ const NftCardTemplate = ({
             </span>
           </div>
         </div>
+        </>}
       </div>
     </Link>
   );

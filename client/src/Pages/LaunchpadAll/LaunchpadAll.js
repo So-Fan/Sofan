@@ -147,7 +147,10 @@ function LaunchpadAll({
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-header-wrap">
-        <LaunchpadAllHeader data={launchpadAllData?.launchpad} />
+        <LaunchpadAllHeader
+          data={launchpadAllData?.launchpad}
+          hidePrice={true}
+        />
       </div>
       <div
         className="launchpad-livelaunches-wrap"
@@ -160,6 +163,7 @@ function LaunchpadAll({
           }
           data={launchpadAllData?.launchpadLive}
           setDimMain={setDimMain}
+          hidePrice={true}
         />
       </div>
       <div
@@ -167,6 +171,7 @@ function LaunchpadAll({
         style={launchpadallUpcomingLaunchesWrap}
       >
         <LaunchpadAllUpcomingLaunches
+          hidePrice={true}
           isUpcomingLaunchSportDropdownClicked={
             isUpcomingLaunchSportDropdownClicked
           }

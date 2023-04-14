@@ -456,15 +456,16 @@ function UserProfilePage({
     if (isProfileSubMenuButtonClicked[0] === true) {
       return (
         <>
-          <SortBySelector
+          {/* <SortBySelector
             setIsUSerProfileSeortBySelectorClicked={
               setIsUSerProfileSeortBySelectorClicked
             }
             isUSerProfileSeortBySelectorClicked={
               isUSerProfileSeortBySelectorClicked
             }
-          />
+          /> */}
           <NftCard
+          hidePrice
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}

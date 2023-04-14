@@ -316,15 +316,16 @@ const NftCollection = ({
     if (isProfileSubMenuButtonClicked[0] === true) {
       return (
         <div>
-          <SortBySelector
+          {/* <SortBySelector
             setIsUSerProfileSeortBySelectorClicked={
               setIsUSerProfileSeortBySelectorClicked
             }
             isUSerProfileSeortBySelectorClicked={
               isUSerProfileSeortBySelectorClicked
             }
-          />
+          /> */}
           <NftCard
+          hidePrice={true}
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
@@ -347,6 +348,7 @@ const NftCollection = ({
     <div className="nftcollection-page">
       <div>
         <NftCollectionPageHeader 
+        hidePrice={true}
         collectionInfo={dataConcat?.collections[0]} 
         collectionFloorPriceApiData={collectionFloorPriceApiData}
         ethPrice={ethPrice}

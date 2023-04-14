@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import "./LaunchpadAllHeader.css";
-const LaunchpadAllHeader = ({ data }) => {
+const LaunchpadAllHeader = ({ data, hidePrice }) => {
   const [dimLaunchpadHeader, setDimLaunchpadHeader] = useState(
     window.innerWidth
   );
@@ -128,7 +128,7 @@ const LaunchpadAllHeader = ({ data }) => {
             className="launchpadallheader-data-wrap-nft"
             style={launchpadallheaderDataWrapNft}
           >
-            {data?.nftNumber} items - {data?.nftPrice} ETH
+            {data?.nftNumber} items {hidePrice ? <></>: <>- {data?.nftPrice} ETH</>} 
           </span>
           <Button text="Discover" style={launchpadallheaderDataWrapButton} />
         </div>

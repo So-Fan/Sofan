@@ -8,6 +8,7 @@ const LaunchpadAllLiveLaunches = ({
   isLiveLaunchSportDropdownClicked,
   data,
   setDimMain,
+  hidePrice,
 }) => {
   const scrollRef = useHorizontalScroll();
   const [dim, setDim] = useState(window.innerWidth);
@@ -198,6 +199,7 @@ const LaunchpadAllLiveLaunches = ({
           {data?.map((launchpadlive) => (
             <div style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
+                hidePrice={hidePrice}
                 background={launchpadlive.background}
                 profilePicture={launchpadlive.profilePicture}
                 athleteName={launchpadlive.athleName}
