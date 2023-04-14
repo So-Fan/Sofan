@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UserActivity.css";
 import NftList from "../NftList/NftList";
 import DataTitles from "../DataTitles/DataTitles";
@@ -9,7 +9,7 @@ function UserActivity({
   nftsFromOwner,
   transferNftDataApi,
   isUserActivitySectionActive,
-  ethPrice
+  ethPrice,
 }) {
   const nftTransferDate = [];
   function concatStringFromTo(
@@ -62,11 +62,19 @@ function UserActivity({
     const dateString =
       transferNftDataApi?.transfers[i]?.metadata?.blockTimestamp;
     const date = new Date(Date.parse(dateString));
-    const today = new Date();
-    const diffInMs = today.getTime() - date.getTime();
-    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-    nftTransferDate.push(diffInDays);
+
+    // Formater la date
+    const formattedDate = date.toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    console.log(formattedDate);
+    nftTransferDate.push(formattedDate);
   }
+  // Inverser l'ordre du tableau
+  const reversedNftsFromOwner = nftsFromOwner.slice().reverse();
+
   return (
     <div className="user-activity-container">
       <DataTitles
@@ -76,21 +84,21 @@ function UserActivity({
         activityUserTo="To"
       />
       <div className="nft-list-activity-user-container">
-        {nftsFromOwner?.map((user, i, apiNftData) => (
+        {reversedNftsFromOwner?.map((user, index, apiNftData) => (
           <NftList
             key={uuidv4()}
             isUserActivitySectionActive={isUserActivitySectionActive}
-            nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
-            nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
-            nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
+            nftsFromOwnerImage={apiNftData[index]?.media[0]?.gateway}
+            nftsFromOwnerNameCollection={apiNftData[index]?.contract?.name}
+            nftsFromOwnerIdNft={apiNftData[index]?.tokenId}
             nftsFromOwnerFloorPrice={
-              apiNftData[i]?.contract?.openSea?.floorPrice
+              apiNftData[index]?.contract?.openSea?.floorPrice
             }
-            nftsFromOwnerQuantity={apiNftData[i]?.balance}
+            nftsFromOwnerQuantity={apiNftData[index]?.balance}
             //
             ethPrice={ethPrice}
-            transferNftDataApi={transferNftDataApi.transfers[i]}
-            nftTransferDate={nftTransferDate[i]}
+            transferNftDataApi={transferNftDataApi.transfers[index]}
+            nftTransferDate={nftTransferDate[index]}
             //
             activityUserQuantity="1"
             activityUserFrom={user.from}
@@ -109,4 +117,4 @@ function UserActivity({
   );
 }
 
-export default UserActivity;  
+export default UserActivity;
