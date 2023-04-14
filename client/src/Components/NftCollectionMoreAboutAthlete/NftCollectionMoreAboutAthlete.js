@@ -44,7 +44,7 @@ function NftCollectionMoreAboutAthlete({
           <div className="nft-collection-more-about-athlete-fans-count">
             {launchpadCollectionLivePage ? (
               <>
-              {moreAboutAthlete.fansNumber}
+              {moreAboutAthlete.fansNumber} fans
               </>
             ) : (
               <>{moreAbout[0].fansNumber} fans</>

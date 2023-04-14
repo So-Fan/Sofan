@@ -8,6 +8,7 @@ const LaunchpadAllUpcomingLaunches = ({
   setIsUpcomingLaunchSportDropdownClicked,
   isUpcomingLaunchSportDropdownClicked,
   data,
+  hidePrice
 }) => {
   const scrollRef = useHorizontalScroll();
   const [
@@ -214,6 +215,7 @@ const LaunchpadAllUpcomingLaunches = ({
           {data?.map((launchpadUpcoming) => (
             <div style={responsiveWidthLanchpadAllUpcomingLaunches}>
               <LaunchpadAllUpcomingLaunchesTemplate
+              hidePrice={hidePrice}
                 background={launchpadUpcoming.background}
                 profilePicture={launchpadUpcoming.profilePicture}
                 athleteName={launchpadUpcoming.athleName}

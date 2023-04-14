@@ -657,6 +657,7 @@ const AthleteProfilePage = ({
           nftDataApi={nftDataApi} // pas utilisé pour l'instant
           collectionFloorPriceApiData={collectionFloorPriceApiData}
           dataCollections={dataConcat?.collections}
+          hidePrice={true}
         />
       );
     } else if (isAthleteProfileSubMenuClicked[6] === true) {
@@ -673,6 +674,7 @@ const AthleteProfilePage = ({
             }
           />
           <NftCard
+          hidePrice={true}
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}

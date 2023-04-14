@@ -12,6 +12,7 @@ const AthleteProfileNFTCollectionTemplate = ({
   nftsFromOwnerPicture,
   nftsFromOwnerFloorPrice,
   nftsFromOwnerTotalSupply,
+  hidePrice,
 }) => {
   return (
     <Link
@@ -38,9 +39,15 @@ const AthleteProfileNFTCollectionTemplate = ({
           <span className="athleteprofilenftcollectiontemplate-content-nftnumber">
             {nftsFromOwnerTotalSupply} items
           </span>
-          <span className="athleteprofilenftcollectiontemplate-content-nftprice">
-            {nftsFromOwnerFloorPrice} ETH
-          </span>
+          {hidePrice ? (
+            <></>
+          ) : (
+            <>
+              <span className="athleteprofilenftcollectiontemplate-content-nftprice">
+                {nftsFromOwnerFloorPrice} ETH
+              </span>
+            </>
+          )}
         </div>
       </div>
     </Link>

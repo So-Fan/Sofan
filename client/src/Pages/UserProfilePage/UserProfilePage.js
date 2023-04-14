@@ -465,6 +465,7 @@ function UserProfilePage({
             }
           />
           <NftCard
+          hidePrice
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}

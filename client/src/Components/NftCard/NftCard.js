@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import "./NftCard.css";
 import NftCardTemplate from "./NftCardTemplate/NftCardTemplate";
 import { v4 as uuidv4 } from "uuid";
-const NftCard = ({ userFrom, nftsFromOwner, isNftSpam, nftCardRef }) => {
+const NftCard = ({ userFrom, nftsFromOwner, isNftSpam, nftCardRef, hidePrice }) => {
   // console.log(userFrom?.length % 4);
   setTimeout(() => {
     // console.log("C'est UserFrom --> " + userFrom);
@@ -18,6 +18,7 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam, nftCardRef }) => {
               <>
                 <NftCardTemplate
                 key={uuidv4()}
+                hidePrice={hidePrice}
                   to={`/user/nftcard/${apiNftData[i]?.tokenId}`}
                   img={nft.img}
                   athleteName={nft.athleteName}

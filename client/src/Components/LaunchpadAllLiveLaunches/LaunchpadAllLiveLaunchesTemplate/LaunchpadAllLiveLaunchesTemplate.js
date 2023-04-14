@@ -1,7 +1,7 @@
 import React from 'react'
 import "./LaunchpadAllLiveLaunchesTemplate.css"
 import Button from "../../Button/Button";
-const LaunchpadAllLiveLaunchesTemplate = ({background, profilePicture, athleteName, title, nftLength, nftPrice, dim}) => {
+const LaunchpadAllLiveLaunchesTemplate = ({background, profilePicture, athleteName, title, nftLength, nftPrice, dim, hidePrice}) => {
   
 
   let launchpadalllivelaunchestemplateComponentImg;
@@ -83,7 +83,9 @@ const LaunchpadAllLiveLaunchesTemplate = ({background, profilePicture, athleteNa
             {title}
           </span>
           <span className="launchpadalllivelaunchestemplate-data-wrap-nft" style={launchpadalllivelaunchestemplateDataWrapNft}>
-            {nftLength} items - {nftPrice} ETH
+            {nftLength} items 
+            {hidePrice ? <></>: <>- {nftPrice} ETH</>}
+            
           </span>
           <Button text="Discover" style={launchpadalllivelaunchestemplateDataWrapButton} />
         </div>
