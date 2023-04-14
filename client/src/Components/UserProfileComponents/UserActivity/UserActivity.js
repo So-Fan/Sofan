@@ -69,7 +69,7 @@ function UserActivity({
       month: "short",
       year: "numeric",
     });
-    console.log(formattedDate);
+    // console.log(formattedDate);
     nftTransferDate.push(formattedDate);
   }
   // Inverser l'ordre du tableau

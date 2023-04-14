@@ -65,12 +65,13 @@ const AthleteProfilePage = ({
   // getFloorprice for Bored Ape Yacht Club:
   async function getCollectionFloorPrice() {
     const alchemy = new Alchemy(settings);
-    const collectionFloorPrice = await alchemy.nft.getFloorPrice(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
+    const collectionFloorPriceOne = await alchemy.nft.getFloorPrice(
+      ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" ]
+      // BAYC collection
     );
-    setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
+    setCollectionFloorPriceApiData(collectionFloorPriceOne.openSea.floorPrice);
   }
-
+// console.log(collectionFloorPriceApiData);
   // get Nfts from Owner and Contracts
   async function getNftsForOwner() {
     // we select all the nfts hold by an address for a specific collection
@@ -89,6 +90,7 @@ const AthleteProfilePage = ({
     const nftsSale = await alchemy.nft.getFloorPrice(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
     );
+    
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
   }
   async function getTransferData() {
@@ -720,6 +722,7 @@ const AthleteProfilePage = ({
       );
     }
   };
+  // console.log(collectionFloorPriceApiData);
   return (
     <>
       <div className="athleteprofilepage-component">
