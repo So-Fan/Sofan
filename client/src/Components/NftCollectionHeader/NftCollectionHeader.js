@@ -34,6 +34,8 @@ function NftCollectionHeader({
   ethPrice,
   handleBuyNftButtonClick,
   handleBidNftButtonClick,
+  //
+  handleMintButtonClick,
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
 
@@ -87,10 +89,10 @@ function NftCollectionHeader({
               <div className="launchpad-collection-live-header-right-line-separation"></div>
               <div className="launchpad-collection-live-header-right-price-container">
                 <div className="launchpad-collection-live-header-right-eth-price">
-                  {nftPriceEth} ETH
+                  {ethPricePriceConverted}€
                 </div>
                 <div className="launchpad-collection-live-header-right-eur-price">
-                  {ethPricePriceConverted}€
+                  {nftPriceEth} ETH
                 </div>
               </div>
               <div className="launchpad-collection-live-header-right-mint-module-container">
@@ -111,6 +113,7 @@ function NftCollectionHeader({
                   <button
                     style={{ backgroundColor: handleStyleButton() }}
                     className="launchpad-collection-live-header-right-mint-module-mint-button"
+                    onClick={handleMintButtonClick}
                   >
                     Mint now
                   </button>

@@ -6,18 +6,28 @@ import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/Mo
 import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/LaunchpadCollectionLiveMoreAboutCollection/LaunchpadCollectionLiveMoreAboutCollection";
 import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
 import { Network, Alchemy } from "alchemy-sdk";
+import MintPopUpBuy from "../../Components/MintPopUp/MintPopUpBuy/MintPopUpBuy";
+import Modal from "../../Components/Modal/Modal";
+import MintPopUp from "../../Components/MintPopUp/MintPopUp"
 function LaunchpadCollectionLive() {
-  const [ethPrice, setEthPrice] = useState(''); // API CoinGecko
+  // functionnal states
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
+    useState();
+  const [isMintButtonClicked, setIsMintButtonClicked] = useState();
+  // API + Backend states
+  const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
   const [nftPicture, setNftPicture] = useState();
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
-// API Coingecko price ETH
-useEffect(() => {
-  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
-    .then((response) => response.json())
-    .then((data) => setEthPrice(data.ethereum.eur))
-    .catch((error) => console.log(error));
-}, []);
+  // API Coingecko price ETH
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPrice(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []);
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -36,7 +46,7 @@ useEffect(() => {
     // );
     // console.log(transferData);
     setCollectionNameApi(nftsData?.openSea?.collectionName);
-    setCollectionDescriptionApi(nftsData?.openSea?.description)
+    setCollectionDescriptionApi(nftsData?.openSea?.description);
   }
   async function getNftPicture() {
     const nftsFromContract = await alchemy.nft.getNftMetadata(
@@ -120,45 +130,82 @@ useEffect(() => {
       },
     ],
   };
+  // Faire afficher le pop up dynamiquement en récupérent le nb de pixel scrollé
+  const handlePixelScrolledAthleteProfilePage = () => {
+    setPixelScrolledAthleteProfilePage(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      handlePixelScrolledAthleteProfilePage,
+      false
+    );
+  }, []);
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector("body").classList.remove("scroll-lock");
+
+  const [handleMintButtonClickFunction, setHandleMintButtonClickFunction] = useState()
+  
+  // display mint pop up
+  function handleMintButtonClick(e) {
+    setIsMintButtonClicked(true)
+    console.log("test");
+  }
+
   return (
-    <section className="launchpad-collection-live-page-container">
-      <LaunchpadCollectionLiveHeader
-        //   dataBackend Firestore
-        launchpadCollectionLiveHeader={true}
-        creatorProfilePic={dataBackend.header[0].creatorProfilePic}
-        creatorName={dataBackend.header[0].creatorName}
-        collectionName={dataBackend.header[0].collectionName}
-        description={dataBackend.header[0].description}
-        minLimit={dataBackend.header[0].mintLimit}
-        // dataBacken RealTimeDb
-        timer={dataRealTimeDb.header[0].timer}
-        // FAKE apiData
-        nftPriceEth={dataApi.header[0].ethPrice}
-        nftPriceEur={dataApi.header[0].eurPrice}
-        counterNftMinted={dataApi.header[0].counterNftMinted}
-        totalNftMintable={dataApi.header[0].totalNftMintable}
-        // Api Alchemy
-        collectionNameApi={collectionNameApi}
-        collectionDescriptionApi={collectionDescriptionApi}
-        nftPicture={nftPicture}
-        // Api CoinGecko
-        ethPrice={ethPrice}
-      />
-      <div className="launchpad-collection-live-page-left-container">
-        <LaunchpadCollectionLiveUtilities
-          utilitiesArray={dataBackend.utilities}
+    <>
+      <section className="launchpad-collection-live-page-container">
+        <LaunchpadCollectionLiveHeader
+          handleMintButtonClick={handleMintButtonClick}
+          //   dataBackend Firestore
+          launchpadCollectionLiveHeader={true}
+          creatorProfilePic={dataBackend.header[0].creatorProfilePic}
+          creatorName={dataBackend.header[0].creatorName}
+          collectionName={dataBackend.header[0].collectionName}
+          description={dataBackend.header[0].description}
+          minLimit={dataBackend.header[0].mintLimit}
+          // dataBacken RealTimeDb
+          timer={dataRealTimeDb.header[0].timer}
+          // FAKE apiData
+          nftPriceEth={dataApi.header[0].ethPrice}
+          nftPriceEur={dataApi.header[0].eurPrice}
+          counterNftMinted={dataApi.header[0].counterNftMinted}
+          totalNftMintable={dataApi.header[0].totalNftMintable}
+          // Api Alchemy
+          collectionNameApi={collectionNameApi}
+          collectionDescriptionApi={collectionDescriptionApi}
+          nftPicture={nftPicture}
+          // Api CoinGecko
+          ethPrice={ethPrice}
+          // display mint popup
         />
-        <div className="launchpad-collection-live-page-more-about-collection-container">
-          <LaunchpadCollectionLiveMoreAboutCollection
-            moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
+        <div className="launchpad-collection-live-page-left-container">
+          <LaunchpadCollectionLiveUtilities
+            utilitiesArray={dataBackend.utilities}
           />
+          <div className="launchpad-collection-live-page-more-about-collection-container">
+            <LaunchpadCollectionLiveMoreAboutCollection
+              moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
+            />
+          </div>
         </div>
-      </div>
-      <NftCollectionMoreAboutAthlete
-        launchpadCollectionLivePage={true}
-        moreAboutAthlete={dataBackend.moreAboutAthlete[0]}
-      />
-    </section>
+        <NftCollectionMoreAboutAthlete
+          launchpadCollectionLivePage={true}
+          moreAboutAthlete={dataBackend.moreAboutAthlete[0]}
+        />
+      </section>
+      {isMintButtonClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          setState={setIsMintButtonClicked}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ top: "25px", right: "26px" }}
+        >
+          <MintPopUp/>
+          {/* <MintPopUpBuy/> */}
+        </Modal>
+      )}
+    </>
   );
 }
 

@@ -34,6 +34,7 @@ function TestSecondary() {
       {/* <AthleteFollowersFansPopUp/> */}
       {/* <PopUpBuyNft/> */}
       <PopUpPlaceBid/>
+      <MintPopUpBuy/>
     </div>
   )
 }

@@ -21,17 +21,19 @@ function LaunchpadCollectionLiveHeader({
   timer,
   counterNftMinted,
   totalNftMintable,
-  // 
+  //
   collectionNameApi,
   collectionDescriptionApi,
   nftPicture,
   // Coingecko API
-  ethPrice
+  ethPrice,
+  // function for display mint popup
+  handleMintButtonClick,
 }) {
   return (
     <section className="launchpad-collection-live-header-container">
       <NftCollectionHeader
-    //   dataBackend Firestore
+        //   dataBackend Firestore
         launchpadCollectionLiveHeader={launchpadCollectionLiveHeader}
         creatorProfilePic={creatorProfilePic}
         creatorName={creatorName}
@@ -45,12 +47,14 @@ function LaunchpadCollectionLiveHeader({
         nftPriceEur={nftPriceEur}
         counterNftMinted={counterNftMinted}
         totalNftMintable={totalNftMintable}
-        // 
+        //
         collectionNameApi={collectionNameApi}
         collectionDescriptionApi={collectionDescriptionApi}
         nftPicture={nftPicture}
         //
         ethPrice={ethPrice}
+        //
+        handleMintButtonClick={handleMintButtonClick}
       />
     </section>
   );
