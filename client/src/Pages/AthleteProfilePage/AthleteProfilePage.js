@@ -665,14 +665,14 @@ const AthleteProfilePage = ({
     } else if (isAthleteProfileSubMenuClicked[0] === true) {
       return (
         <div>
-          <SortBySelector
+          {/* <SortBySelector
             setIsUSerProfileSeortBySelectorClicked={
               setIsUSerProfileSeortBySelectorClicked
             }
             isUSerProfileSeortBySelectorClicked={
               isUSerProfileSeortBySelectorClicked
             }
-          />
+          /> */}
           <NftCard
           hidePrice={true}
             nftsFromOwner={nftsFromOwner}
