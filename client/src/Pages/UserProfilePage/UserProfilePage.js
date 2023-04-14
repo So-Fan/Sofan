@@ -77,8 +77,11 @@ function UserProfilePage({
       "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
       {
         contractAddresses: [
-          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
-          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+          "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e", // Doodles
+          // "0x5CC5B05a8A13E3fBDB0BB9FcCd98D38e50F90c38", // Sandbox
+           "0x60E4d786628Fea6478F785A6d7e704777c86a7c6", // MutantApe
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", 
+          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BoredApe
         ],
       } // filter
     );

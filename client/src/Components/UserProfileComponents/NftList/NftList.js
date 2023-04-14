@@ -40,9 +40,10 @@ function NftList({
   isFormulatedOffersSectionActive,
   isUserActivitySectionActive,
   ethPrice,
-}) 
-{
-  let ethPricePriceConverted = (nftsFromOwnerFloorPrice * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+}) {
+  let ethPricePriceConverted = (
+    nftsFromOwnerFloorPrice * ethPrice
+  ).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -58,9 +59,11 @@ function NftList({
       </Link>
       <div className={`nft-price-user-activity ${offersYourOffersPriceClass}`}>
         <div className="nftc-price-eth-user-activity">
+          {ethPricePriceConverted}€
+        </div>
+        <div className="nft-price-eur-user-activity">
           {nftsFromOwnerFloorPrice} ETH
         </div>
-        <div className="nft-price-eur-user-activity">{ethPricePriceConverted}€</div>
       </div>
       <div className={`nft-quantity-user-activity ${offersFromClass}`}>
         {isFormulatedOffersSectionActive && <>{transferNftDataApi.from}</>}
@@ -82,7 +85,7 @@ function NftList({
         {isFormulatedOffersSectionActive && <>Pending {offersStatusImage}</>}
       </div>
       <div className={`nft-date-transfer-user-activity ${offersDateClass}`}>
-        {nftTransferDate} jours
+        {nftTransferDate}
       </div>
       <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
         <img src={redCross} alt="" />
