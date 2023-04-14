@@ -9,7 +9,9 @@ import NavProfile from "./NavProfile/NavProfile";
 import profile from "../../Assets/Image/profile.svg";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
-const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup }) => {
+import Modal from "../Modal/Modal";
+import NotificationPopUp from "./NotificationPopUp/NotificationPopUp";
+const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup, isNotificationButtonClicked, setIsNotificationButtonClicked }) => {
   return (
     <>
      {!isLogged &&<style>
@@ -52,6 +54,16 @@ const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup }) => {
           </div>
         </div>
       </section>
+      {isNotificationButtonClicked && (
+        <Modal
+          setState={setIsNotificationButtonClicked}
+          style={{ top: "24px", right: "20px" }}
+        >
+          <NotificationPopUp 
+          notificationPopUpComponent={true}
+          />
+        </Modal>
+      )}
     </>
   );
 };

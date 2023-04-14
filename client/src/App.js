@@ -88,7 +88,9 @@ function App() {
      <EthProvider>
       <div className="App" onClick={handleClickOutside}>
         <Navbar 
+        isNotificationButtonClicked={isNotificationButtonClicked}
         handleNotificationPopup={handleNotificationPopup}
+        setIsNotificationButtonClicked={setIsNotificationButtonClicked}
         isProfileClicked={isProfileClicked} isLogged={isLogged} />
         <Routes>
           <Route
