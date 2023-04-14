@@ -5,6 +5,10 @@
   width: 100%;
   min-height: 90px;
   padding-bottom: 4px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10000;
 }
 .navbar-wrap {
   display: flex;
