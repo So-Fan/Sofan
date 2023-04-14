@@ -13,6 +13,7 @@ import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
 import Modal from "../../Components/Modal/Modal";
 import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
+import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -26,6 +27,7 @@ const AthleteProfilePage = ({
     useState(false);
   const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
     useState(false);
+    const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
   // Backend
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
   // API Alchemy
@@ -585,6 +587,9 @@ const AthleteProfilePage = ({
   function handleAthleteSupportersClick(e) {
     setIsAthleteSupportersClicked(true);
   }
+  function handlePalmaresButtonClick() {
+    setIsPalmaresButtonClicked(true)
+  }
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -721,6 +726,7 @@ const AthleteProfilePage = ({
           handleAthleteSupportersClick={handleAthleteSupportersClick}
           handleClickNftReceived={handleClickNftReceived}
           handleClicNftsAvailable={handleClicNftsAvailable}
+          handlePalmaresButtonClick={handlePalmaresButtonClick}
         />
         <div className="athleteprofilepage-profilesubmenu-wrap">
           <ProfileSubMenu
@@ -752,6 +758,19 @@ const AthleteProfilePage = ({
         >
           <AthleteFollowersFansPopUp
             isAthleteSupportersClicked={isAthleteSupportersClicked}
+          />
+        </Modal>
+      )}
+      {isPalmaresButtonClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          setState={setIsPalmaresButtonClicked}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ display: "none"}}
+        >
+          <AthleteProfileRanking
+          // isPalmaresButtonClicked={isPalmaresButtonClicked}
+
           />
         </Modal>
       )}

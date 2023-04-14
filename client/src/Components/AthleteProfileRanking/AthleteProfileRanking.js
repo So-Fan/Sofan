@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AthleteProfileRanking.css";
 import Button from "../Button/Button";
-const AthleteProfileRanking = ({handleClick}) => {
+const AthleteProfileRanking = ({handleClick, isPalmaresButtonClicked}) => {
   const [dataAthleteProfilePageConcat, setDataAthleteProfilePageConcat] =
     useState();
 
@@ -88,7 +88,7 @@ const AthleteProfileRanking = ({handleClick}) => {
           </div>
         ))}
       </div>
-      <Button text="Fermer" onClick={handleClick} />
+      <Button hover="button-hover-props" text="Fermer" onClick={handleClick} />
     </div>
   );
 };

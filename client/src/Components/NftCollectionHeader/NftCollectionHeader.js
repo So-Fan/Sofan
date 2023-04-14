@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./NftCollectionHeader.css";
 import explorePicture from "../../Assets/Image/explorepicture.svg";
 import DropDownButtonMenu from "../PostsComponents/DropDownButtonMenu/DropDownButtonMenu";
 import LaunchPadMintProgressBar from "../LaunchPadMintProgressBar/LaunchPadMintProgressBar";
+import Button from "../Button/Button";
 
 function NftCollectionHeader({
   collectionName,
@@ -24,32 +25,44 @@ function NftCollectionHeader({
   timer,
   counterNftMinted,
   totalNftMintable,
-  // 
+  //
   collectionNameApi,
   collectionDescriptionApi,
   nftPicture,
   nftIdApi,
   //
-  ethPrice
+  ethPrice,
+  handleBuyNftButtonClick,
+  handleBidNftButtonClick,
 }) {
-const [styleChangeButton, setStyleChangeButton] =useState("")
+  const [styleChangeButton, setStyleChangeButton] = useState("");
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   function handleStyleButton() {
-    
     if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
-   return "#EDEDED";
+      return "#EDEDED";
     } else if (nftMintedCalculated > 0) {
       return "";
     }
   }
   // console.log(collectionDescriptionApi)
-  let ethPricePriceConverted = (nftPriceEth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
-  let ethBidPriceConverted = (nftBidEth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+  let ethPricePriceConverted = (nftPriceEth * ethPrice).toLocaleString(
+    "fr-FR",
+    { maximumFractionDigits: 2 }
+  );
+  let ethBidPriceConverted = (nftBidEth * ethPrice).toLocaleString("fr-FR", {
+    maximumFractionDigits: 2,
+  });
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
-        {launchpadCollectionLiveHeader && <><button className="launchpad-collection-live-button-container">Explorer la collection</button></>}
+        {launchpadCollectionLiveHeader && (
+          <>
+            <button className="launchpad-collection-live-button-container">
+              Explorer la collection
+            </button>
+          </>
+        )}
         <img src={nftPicture} alt="IMAGE NFT" />
       </div>
       {launchpadCollectionLiveHeader ? (
@@ -90,12 +103,17 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                   </div>
                 </div>
                 <LaunchPadMintProgressBar
-                nftMintedCalculated={nftMintedCalculated}
-                counterNftMinted={counterNftMinted}
-                totalNftMintable={totalNftMintable}
+                  nftMintedCalculated={nftMintedCalculated}
+                  counterNftMinted={counterNftMinted}
+                  totalNftMintable={totalNftMintable}
                 />
                 <div className="launchpad-collection-live-header-right-mint-module-mint-button-container">
-                  <button style={{backgroundColor: handleStyleButton() }} className="launchpad-collection-live-header-right-mint-module-mint-button">Mint now</button>
+                  <button
+                    style={{ backgroundColor: handleStyleButton() }}
+                    className="launchpad-collection-live-header-right-mint-module-mint-button"
+                  >
+                    Mint now
+                  </button>
                 </div>
               </div>
             </div>
@@ -161,10 +179,10 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                         Price
                       </span>
                       <span className="nft-collection-header-eth-price">
-                        {nftPriceEth} ETH
+                        {ethPricePriceConverted} €
                       </span>
                       <span className="nft-collection-header-eur-price">
-                        {ethPricePriceConverted} €
+                        {nftPriceEth} ETH
                       </span>
                     </div>
                   </div>
@@ -174,19 +192,25 @@ const [styleChangeButton, setStyleChangeButton] =useState("")
                         Highest bid
                       </span>
                       <span className="nft-collection-header-eth-bid">
-                        {nftBidEth} ETH
+                        {ethBidPriceConverted} €
                       </span>
                       <span className="nft-collection-header-eur-bid">
-                        {ethBidPriceConverted} €
+                        {nftBidEth} ETH
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="nft-collection-header-buttons-container">
-                  <div className="nft-collection-header-buy-button">
+                  <div
+                    className="nft-collection-header-buy-button"
+                    onClick={handleBuyNftButtonClick}
+                  >
                     Buy NFT
                   </div>
-                  <div className="nft-collection-header-bid-button">
+                  <div
+                    className="nft-collection-header-bid-button"
+                    onClick={handleBidNftButtonClick}
+                  >
                     Place a bid
                   </div>
                 </div>

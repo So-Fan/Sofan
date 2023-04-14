@@ -181,7 +181,9 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
             </div>
           )}
         </div>
-        <Button text="Fermer" onClick={handleClick} />
+        <Button 
+        hover="button-hover-props"
+        text="Fermer" onClick={handleClick} />
       </div>
       {(dataAthleteProfilePageConcat?.notifications.unread.length > 5 ||
         dataAthleteProfilePageConcat?.notifications.unread.length > 5) && (

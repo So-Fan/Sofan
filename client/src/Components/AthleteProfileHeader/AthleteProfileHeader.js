@@ -12,7 +12,8 @@ function AthleteProfileHeader({
   handleAthleteFollowersClick,
   handleAthleteSupportersClick,
   handleClickNftReceived,
-  handleClicNftsAvailable
+  handleClicNftsAvailable,
+  handlePalmaresButtonClick
 }) {
   // userInfo.followers = 300000; // fake data
   // Faire afficher le nombre dans un format K
@@ -92,8 +93,10 @@ function AthleteProfileHeader({
               </div>
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation"></div>
               <Button
+              onClick={handlePalmaresButtonClick}
                 text={"Palmarès"}
                 style={AthleteProfileHeaderPalmaresButton}
+                hover="button-hover-props"
               />
             </div>
           </div>
