@@ -464,6 +464,7 @@ const NftSingle = () => {
           <NftCollectionMoreAboutNft
             nftCard={dataSinglePageNftCollection.nftCard}
             nftsFromOwner={nftsFromOwner}
+            hidePrice={true}
           />
         </div>
       </section>

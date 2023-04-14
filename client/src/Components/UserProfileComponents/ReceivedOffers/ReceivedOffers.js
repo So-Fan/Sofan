@@ -5,16 +5,33 @@ import "./ReceivedOffers.css";
 import { v4 as uuidv4 } from "uuid";
 function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi, ethPrice }) {
   const nftTransferDate = [];
+  // for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
+  //   const dateString =
+  //     transferNftDataApi?.transfers[i]?.metadata?.blockTimestamp;
+  //   const date = new Date(Date.parse(dateString));
+  //   const today = new Date();
+  //   const diffInMs = today.getTime() - date.getTime();
+  //   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  //   nftTransferDate.push(diffInDays);
+  // }
+  // Boucle pour convertir les dates
   for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
     const dateString =
       transferNftDataApi?.transfers[i]?.metadata?.blockTimestamp;
     const date = new Date(Date.parse(dateString));
-    const today = new Date();
-    const diffInMs = today.getTime() - date.getTime();
-    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-    nftTransferDate.push(diffInDays);
+
+    // Formater la date
+    const formattedDate = date.toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    // console.log(formattedDate);
+    nftTransferDate.push(formattedDate);
   }
-  
+  // console.log(nftsFromOwner)
+  // Inverser l'ordre du tableau
+  const reversedNftsFromOwner = nftsFromOwner.slice().reverse();
   return (
     <section className="received-offers-user-container">
       {/* class à rename en bas */}
@@ -31,7 +48,7 @@ function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi, ethPrice 
         // Nft data list
       />
       <div className="received-offers-nft-list-container">
-        {nftsFromOwner?.map((user, i, apiNftData) => (
+        {reversedNftsFromOwner?.map((user, i, apiNftData) => (
           <NftList
             key={uuidv4()}
             offersDisplaySourceTypeClass="formulated-offers-display-source-type"

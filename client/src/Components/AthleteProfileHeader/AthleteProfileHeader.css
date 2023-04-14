@@ -75,6 +75,9 @@
   margin-left: 17px;
   height: 27px;
 }
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap a{
+text-decoration: none;
+}
 .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation {
   border-left: 1px solid #9b9b9b;
   height: 27px;
@@ -109,6 +112,14 @@
   width: 110px;
   font-family: "Britanica-Light";
   font-size: 12px;
+  text-decoration: none;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last span{
+color: black;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last:hover{
+text-decoration: underline;
+
 }
 .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container {
   display: flex;

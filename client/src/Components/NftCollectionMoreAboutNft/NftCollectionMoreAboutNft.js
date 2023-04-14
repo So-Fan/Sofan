@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 function NftCollectionMoreAboutNft({
   adaptTitleToNftCollectionPageItems,
   nftsFromOwner,
+  hidePrice
 }) {
   // console.log(adaptTitleToNftCollectionPageItems);
   // console.log(nftsFromOwner)
@@ -139,6 +140,7 @@ function NftCollectionMoreAboutNft({
               // collectionFloorPriceApiData={collectionFloorPriceApiData}
               // nftDataApi={nftDataApi?.ownedNfts[i]}
               // collectionData={collection}
+              hidePrice={hidePrice}
             />
           ))}
 
