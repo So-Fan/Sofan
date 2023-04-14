@@ -16,6 +16,7 @@
 }
 .modal-component-wrap img {
     cursor: pointer;
+    z-index: 2;
 }
 #modal-component-cross{
     position: absolute;

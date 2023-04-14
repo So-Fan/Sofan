@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./NotificationPopUp.css";
 import Button from "../../Button/Button";
 import { Link } from "react-router-dom";
-const NotificationPopUp = ({ handleClick }) => {
+const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
+  // console.log(notificationPopUpComponent)
   const [
     isNotificationPopUpSubMenuReadClicked,
     setIsNotificationPopUpSubMenuReadClicked,
@@ -126,7 +127,9 @@ const NotificationPopUp = ({ handleClick }) => {
             </div>
           </div>
           {isNotificationPopUpSubMenuReadClicked ? (
-            <div className="notificationpopup-container-mapping-wrap">
+            <div 
+            // style={notificationPopUpComponent ? {maxHeight: "406px !important"}: {}} 
+            className={notificationPopUpComponent ? "notificationpopup-container-mapping-wrap-custom": "notificationpopup-container-mapping-wrap"}>
               {dataAthleteProfilePageConcat?.notifications.read.map(
                 (notification) => (
                   <Link
@@ -150,7 +153,10 @@ const NotificationPopUp = ({ handleClick }) => {
               )}
             </div>
           ) : (
-            <div className="notificationpopup-container-mapping-wrap">
+            <div 
+            
+            // style={notificationPopUpComponent ? {maxHeight: "406px !important"}: {}} 
+            className={notificationPopUpComponent ? "notificationpopup-container-mapping-wrap-custom": "notificationpopup-container-mapping-wrap"}>
               {dataAthleteProfilePageConcat?.notifications.unread.map(
                 (notification) => (
                   <Link
@@ -175,7 +181,9 @@ const NotificationPopUp = ({ handleClick }) => {
             </div>
           )}
         </div>
-        <Button text="Fermer" onClick={handleClick} />
+        <Button 
+        hover="button-hover-props"
+        text="Fermer" onClick={handleClick} />
       </div>
       {(dataAthleteProfilePageConcat?.notifications.unread.length > 5 ||
         dataAthleteProfilePageConcat?.notifications.unread.length > 5) && (

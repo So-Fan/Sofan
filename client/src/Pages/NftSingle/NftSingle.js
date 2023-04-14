@@ -9,13 +9,22 @@ import NftCollectionProperties from "../../Components/NftCollectionProperties/Nf
 import NftCollectionSubMenu from "../../Components/NftCollectionSubMenu/NftCollectionSubMenu";
 import { Network, Alchemy } from "alchemy-sdk";
 import "./NftSingle.css";
+import Modal from "../../Components/Modal/Modal";
+import PopUpBuyNft from "../../Components/PopUpBuyNft/PopUpBuyNft";
+import PopUpPlaceBid from "../../Components/PopUpPlaceBid/PopUpPlaceBid";
 const NftSingle = () => {
+  // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
     true,
     false,
     false,
     false,
   ]);
+  const [isBuyNftButtonClicked, setIsBuyNftButtonClicked] = useState(false);
+  const [isBidNftButtonClicked, setIsBidNftButtonClicked] = useState(false);
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
+    useState();
+  //
   const [ethPrice, setEthPrice] = useState(); // API CoinGecko
   const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
   const [nftPicture, setNftPicture] = useState();
@@ -44,10 +53,9 @@ const NftSingle = () => {
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
     );
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
-    
   }
-  
-// console.log(collectionNameApi)
+
+  // console.log(collectionNameApi)
   const alchemy = new Alchemy(settings);
   async function getNftsData() {
     const nftsData = await alchemy.nft.getContractMetadata(
@@ -77,6 +85,30 @@ const NftSingle = () => {
       .then((data) => setEthPrice(data.ethereum.eur))
       .catch((error) => console.log(error));
   }, []);
+  // Faire afficher le pop up dynamiquement en récupérent le nb de pixel scrollé
+  const handlePixelScrolledAthleteProfilePage = () => {
+    setPixelScrolledAthleteProfilePage(window.scrollY);
+  };
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      handlePixelScrolledAthleteProfilePage,
+      false
+    );
+  }, []);
+
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector("body").classList.remove("scroll-lock");
+
+  //
+  function handleBuyNftButtonClick() {
+    handleBidNftButtonClick={handleBidNftButtonClick}
+    setIsBuyNftButtonClicked(true);
+  }
+  function handleBidNftButtonClick() {
+    setIsBidNftButtonClicked(true)
+  }
+  //
   function handleClickSubMenuButton(e) {
     if (e.target.innerHTML === "Overview") {
       setIsSubMenuClicked([true, false, false, false]);
@@ -332,105 +364,130 @@ const NftSingle = () => {
     },
   ];
   return (
-    <section className="nft-single-collection-page-container">
-      <NftCollectionHeader
-        collectionName={
-          dataSinglePageNftCollection.headerData[0].collectionName
-        }
-        nftNumber={dataSinglePageNftCollection.headerData[0].nftNumber}
-        creatorName={dataSinglePageNftCollection.headerData[0].creatorName}
-        creatorProfilePic={
-          dataSinglePageNftCollection.headerData[0].creatorProfilePic
-        }
-        ownerName={dataSinglePageNftCollection.headerData[0].ownerName}
-        ownerProfilePic={
+    <>
+      <section className="nft-single-collection-page-container">
+        <NftCollectionHeader
+          collectionName={
+            dataSinglePageNftCollection.headerData[0].collectionName
+          }
+          nftNumber={dataSinglePageNftCollection.headerData[0].nftNumber}
+          creatorName={dataSinglePageNftCollection.headerData[0].creatorName}
+          creatorProfilePic={
+            dataSinglePageNftCollection.headerData[0].creatorProfilePic
+          }
+          ownerName={dataSinglePageNftCollection.headerData[0].ownerName}
+          ownerProfilePic={
           dataSinglePageNftCollection.headerData[0].ownerProfilePic
-        }
-        //
-        nftPriceEth={apiOpenSea[0].nftPriceEth}
-        nftPriceEur={apiOpenSea[0].nftPriceEur}
-        nftBidEth={apiOpenSea[0].nftBidEth}
-        nftBifEur={apiOpenSea[0].nftBidEur}
-        // Api Alchemy
-        collectionNameApi={collectionNameApi}
-        collectionDescriptionApi={collectionDescriptionApi}
-        nftIdApi={nftIdApi}
-        nftPicture={nftPicture}
-        // Api CoinGecko
-        ethPrice={ethPrice}
-      />
-      <div className="nft-single-collection-page-left-container">
-        {/* {isSubMenuClicked[0] ? <>
+          }
+          //
+          nftPriceEth={apiOpenSea[0].nftPriceEth}
+          nftPriceEur={apiOpenSea[0].nftPriceEur}
+          nftBidEth={apiOpenSea[0].nftBidEth}
+          nftBifEur={apiOpenSea[0].nftBidEur}
+          // Api Alchemy
+          collectionNameApi={collectionNameApi}
+          collectionDescriptionApi={collectionDescriptionApi}
+          nftIdApi={nftIdApi}
+          nftPicture={nftPicture}
+          // Api CoinGecko
+          ethPrice={ethPrice}
+          //
+          handleBuyNftButtonClick={handleBuyNftButtonClick}
+          handleBidNftButtonClick={handleBidNftButtonClick}
+        />
+        <div className="nft-single-collection-page-left-container">
+          {/* {isSubMenuClicked[0] ? <>
           
           </> :<>
-          </> } */}
-        <div
-          style={
-            isSubMenuClicked[0]
-              ? { marginBottom: "50px" }
-              : isSubMenuClicked[3]
-              ? { marginBottom: "20px" }
-              : {}
-          }
-          className="nft-single-collection-page-submenu-container"
-        >
-          <NftCollectionSubMenu
-            handleClickSubMenuButton={handleClickSubMenuButton}
-            isSubMenuClicked={isSubMenuClicked}
-          />
-        </div>
-        {isSubMenuClicked[0] && (
-          <NftCollectionOverview
-            utilitiesArray={
-              dataSinglePageNftCollection.overviewData[0].utilities
+        </> } */}
+          <div
+            style={
+              isSubMenuClicked[0]
+                ? { marginBottom: "50px" }
+                : isSubMenuClicked[3]
+                ? { marginBottom: "20px" }
+                : {}
             }
-            moreAboutCollectionArray={
-              dataSinglePageNftCollection.overviewData[0].moreAboutCollection
-            }
-            latestBidsArray={
-              dataSinglePageNftCollection.overviewData[0].latestBids
-            }
-            ethPrice={ethPrice}
-          />
-        )}
-        {isSubMenuClicked[1] && (
-          <NftCollectionProperties
-            properties={
-              dataSinglePageNftCollection.propertiesData[0].properties
-            }
+            className="nft-single-collection-page-submenu-container"
+          >
+            <NftCollectionSubMenu
+              handleClickSubMenuButton={handleClickSubMenuButton}
+              isSubMenuClicked={isSubMenuClicked}
+            />
+          </div>
+          {isSubMenuClicked[0] && (
+            <NftCollectionOverview
+              utilitiesArray={
+                dataSinglePageNftCollection.overviewData[0].utilities
+              }
+              moreAboutCollectionArray={
+                dataSinglePageNftCollection.overviewData[0].moreAboutCollection
+              }
+              latestBidsArray={
+                dataSinglePageNftCollection.overviewData[0].latestBids
+              }
+              ethPrice={ethPrice}
+            />
+          )}
+          {isSubMenuClicked[1] && (
+            <NftCollectionProperties
+              properties={
+                dataSinglePageNftCollection.propertiesData[0].properties
+              }
+              nftsFromOwner={nftsFromOwner}
+            />
+          )}
+          {isSubMenuClicked[2] && (
+            <NftCollectionLatestsBids
+              latestBidsArray={
+                dataSinglePageNftCollection.overviewData[0].latestBids
+              }
+              bidsSectionDeleteSpace={true}
+              ethPrice={ethPrice}
+            />
+          )}
+          {isSubMenuClicked[3] && (
+            <>
+              <div>
+                <NftCollectionHistory
+                  history={dataSinglePageNftCollection.history}
+                  ethPrice={ethPrice}
+                />
+              </div>
+            </>
+          )}
+          <div className="nft-single-collection-page-more-about-athlete-container">
+            <NftCollectionMoreAboutAthlete
+              moreAbout={dataSinglePageNftCollection.moreAbout}
+            />
+          </div>
+          <NftCollectionMoreAboutNft
+            nftCard={dataSinglePageNftCollection.nftCard}
             nftsFromOwner={nftsFromOwner}
           />
-        )}
-        {isSubMenuClicked[2] && (
-          <NftCollectionLatestsBids
-            latestBidsArray={
-              dataSinglePageNftCollection.overviewData[0].latestBids
-            }
-            bidsSectionDeleteSpace={true}
-            ethPrice={ethPrice}
-          />
-        )}
-        {isSubMenuClicked[3] && (
-          <>
-            <div>
-              <NftCollectionHistory
-                history={dataSinglePageNftCollection.history}
-                ethPrice={ethPrice}
-              />
-            </div>
-          </>
-        )}
-        <div className="nft-single-collection-page-more-about-athlete-container">
-          <NftCollectionMoreAboutAthlete
-            moreAbout={dataSinglePageNftCollection.moreAbout}
-          />
         </div>
-        <NftCollectionMoreAboutNft
-          nftCard={dataSinglePageNftCollection.nftCard}
-          nftsFromOwner={nftsFromOwner}
-        />
-      </div>
-    </section>
+      </section>
+      {isBuyNftButtonClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          setState={setIsBuyNftButtonClicked}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ top: "30px", right: "26px" }}
+        >
+          <PopUpBuyNft />
+        </Modal>
+      )}
+      {isBidNftButtonClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          setState={setIsBidNftButtonClicked}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ top: "30px", right: "26px" }}
+        >
+          <PopUpPlaceBid/>
+        </Modal>
+      )}
+    </>
   );
 };
 

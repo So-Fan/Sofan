@@ -1,9 +1,9 @@
 import React from "react";
 import "./NavIcon.css";
 
-const NavIcon = ({ src }) => {
+const NavIcon = ({ src, handleNotificationPopup }) => {
   return (
-    <div className="navbar-icon-container">
+    <div onClick={handleNotificationPopup} className="navbar-icon-container">
       <img
         className="navbar-icon"
         src={src}

@@ -40,11 +40,11 @@ function MintPopUpBuy({
         <div className="mint-pop-up-buy-title-and-cancel-button">
           <div>Acheter NFT</div>
           <div>
-            <img src={crossButton} alt="BOUTON CROIX" />
+            {/* <img src={crossButton} alt="BOUTON CROIX" /> */}
           </div>
         </div>
         <div className="mint-pop-up-buy-question-and-max-nft">
-          <div>How many NFT you want ?</div>
+          <div>Combien de NFT(s) voulez-vous ?</div>
           <div>Max {maxMint} NFTs</div>
         </div>
         <div className="mint-pop-up-buy-quantity-selector-container">
@@ -68,8 +68,8 @@ function MintPopUpBuy({
         <div className="mint-pop-up-price-container">
           <div className="mint-pop-up-price-title">Prix</div>
           <div className="mint-pop-up-price-eth-eur-container">
-            <div className="mint-pop-up-price-eth">{ethPrice} ETH</div>
-            <div className="mint-pop-up-price-eur">{ethPricePriceConverted} €</div>
+            <div className="mint-pop-up-price-eth">{ethPricePriceConverted} €</div>
+            <div className="mint-pop-up-price-eur">{ethPrice} ETH</div>
           </div>
         </div>
         <div className="mint-pop-up-line-separation-second"></div>

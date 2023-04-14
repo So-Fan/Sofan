@@ -4,7 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: wheat; */
+  background-color: white;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+border-radius: 20px;
 }
 .mint-pop-up-buy-wrap {
   width: 410px;

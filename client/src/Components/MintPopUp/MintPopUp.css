@@ -1,15 +1,12 @@
 .mint-pop-up-container {
   width: 450px;
   height: 415px;
-  background: #ffffff;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  /* background-color: red; */
 }
 
 
