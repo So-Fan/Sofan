@@ -28,6 +28,8 @@
 }
 .profilesubmenu-offres {
   position: relative;
+  /* background-color: red; */
+  cursor: pointer;
 }
 .profilesubmenu-offres-dropdown {
   display: none;

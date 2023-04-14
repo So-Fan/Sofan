@@ -63,7 +63,7 @@ function App() {
     ) {
       // console.log(e.target.id);
       setProfileSubMenuOffresClicked(false);
-    }
+    } 
   }
   // Redirection smooth au chargement de la page
   useEffect(() => {

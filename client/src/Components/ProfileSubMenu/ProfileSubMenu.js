@@ -11,7 +11,15 @@ const ProfileSubMenu = ({
   isNftCollectionPage,
 }) => {
   const handleProfileSubMenuOffresButtonClicked = (e) => {
-    setProfileSubMenuOffresClicked(true);
+    // setProfileSubMenuOffresClicked(!profileSubMenuOffresClicked);
+    // if (profileSubMenuOffresClicked === true) {
+    //   setProfileSubMenuOffresClicked(false)
+    //   console.log(profileSubMenuOffresClicked)
+    // } else if (profileSubMenuOffresClicked === false){
+    //   setProfileSubMenuOffresClicked(true)
+    //   console.log(profileSubMenuOffresClicked)
+    setProfileSubMenuOffresClicked(!profileSubMenuOffresClicked);
+    console.log(profileSubMenuOffresClicked);
   };
   const [profileSubMenuOffersChoice, setprofileSubMenuOffersChoice] =
     useState("");
@@ -55,7 +63,10 @@ const ProfileSubMenu = ({
         setIsProfileSubMenuButtonClicked([false, false, false, true]);
       }
     } else {
-      if (e.target.innerHTML === "Collected NFT" || e.target.innerHTML === "Items") {
+      if (
+        e.target.innerHTML === "Collected NFT" ||
+        e.target.innerHTML === "Items"
+      ) {
         setIsProfileSubMenuButtonClicked([
           true,
           false,
@@ -130,11 +141,11 @@ const ProfileSubMenu = ({
       }
     }
     //
-   
   };
 
   return (
     <div className="profileSubMenu-component">
+      {/* ============================= */}
       {isPageAthlete === true && (
         <>
           <div
@@ -190,6 +201,7 @@ const ProfileSubMenu = ({
           </div>
         </>
       )}
+      {/* ============================= */}
       <div
         className={
           isProfileSubMenuButtonClicked[0]
@@ -232,14 +244,23 @@ const ProfileSubMenu = ({
           <>
             {profileSubMenuOffersChoice !== "Offres formulées" &&
               profileSubMenuOffersChoice !== "Offres reçues" && (
-                <div className="profilesubmenu-wrap profilesubmenu-offres profilesubmenu-arrow-wrap">
+                <div
+                  onClick={handleProfileSubMenuOffresButtonClicked}
+                  id="profilesubmenu-offres"
+                  className="profilesubmenu-wrap profilesubmenu-offres profilesubmenu-arrow-wrap"
+                >
                   <Button
-                    onClick={handleProfileSubMenuOffresButtonClicked}
+                    // onClick={handleProfileSubMenuOffresButtonClicked}
                     text="Offres"
                     style={ProfileSubMenuButtonStyle.stylingNotClicked}
                     id="profilesubmenu-offres"
                   />
-                  <img src={Arrow} alt="Arrow bottom" />
+                  <img
+                    id="profilesubmenu-offres"
+                    onClick={handleProfileSubMenuOffresButtonClicked}
+                    src={Arrow}
+                    alt="Arrow bottom"
+                  />
                   <div
                     className={
                       profileSubMenuOffresClicked
@@ -258,6 +279,8 @@ const ProfileSubMenu = ({
               )}
             {profileSubMenuOffersChoice === "Offres formulées" && (
               <div
+                onClick={handleProfileSubMenuOffresButtonClicked}
+                id="profilesubmenu-offres"
                 className={
                   isProfileSubMenuButtonClicked[2]
                     ? "profilesubmenu-wrap-clicked profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
@@ -274,7 +297,12 @@ const ProfileSubMenu = ({
                   }
                   id="profilesubmenu-offres-formulées"
                 />
-                <img src={Arrow} alt="Arrow bottom" />
+                <img
+                  onClick={handleProfileSubMenuOffresButtonClicked}
+                  id="profilesubmenu-offres"
+                  src={Arrow}
+                  alt="Arrow bottom"
+                />
                 <div
                   className={
                     profileSubMenuOffresClicked
@@ -293,6 +321,8 @@ const ProfileSubMenu = ({
             )}
             {profileSubMenuOffersChoice === "Offres reçues" && (
               <div
+                onClick={handleProfileSubMenuOffresButtonClicked}
+                id="profilesubmenu-offres"
                 className={
                   isProfileSubMenuButtonClicked[3]
                     ? "profilesubmenu-wrap-clicked profilesubmenu-wrap profilesubmenu-arrow-wrap profilesubmenu-offres"
@@ -309,7 +339,12 @@ const ProfileSubMenu = ({
                   }
                   id="profilesubmenu-offres-reçues"
                 />
-                <img src={Arrow} alt="Arrow bottom" />
+                <img
+                  onClick={handleProfileSubMenuOffresButtonClicked}
+                  id="profilesubmenu-offres"
+                  src={Arrow}
+                  alt="Arrow bottom"
+                />
                 <div
                   className={
                     profileSubMenuOffresClicked

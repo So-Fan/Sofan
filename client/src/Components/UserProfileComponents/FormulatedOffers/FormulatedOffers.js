@@ -7,7 +7,8 @@ function FormulatedOffers({
   userFrom,
   nftsFromOwner,
   transferNftDataApi,
-  ethPrice
+  ethPrice,
+
 }) {
   // Backend here
   const [currentStatusOffers, setCurrentStatusOffers] = useState({
@@ -62,16 +63,7 @@ function FormulatedOffers({
       false
     );
   }
-  // Boucle pour convertir les dates
-  for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
-    const dateString =
-      transferNftDataApi?.transfers[i]?.metadata?.blockTimestamp;
-    const date = new Date(Date.parse(dateString));
-    const today = new Date();
-    const diffInMs = today.getTime() - date.getTime();
-    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-    nftTransferDate.push(diffInDays)
-  }
+
   function displayCurrentOffersStatus() {
     // Backend here --> User can make offer from the platform directly
     if (currentStatusOffers.validate === true) {
@@ -87,11 +79,19 @@ function FormulatedOffers({
     const dateString =
       transferNftDataApi?.transfers[i]?.metadata?.blockTimestamp;
     const date = new Date(Date.parse(dateString));
-    const today = new Date();
-    const diffInMs = today.getTime() - date.getTime();
-    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-    nftTransferDate.push(diffInDays);
+
+    // Formater la date
+    const formattedDate = date.toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    // console.log(formattedDate);
+    nftTransferDate.push(formattedDate);
   }
+  // console.log(nftsFromOwner)
+  // Inverser l'ordre du tableau
+  const reversedNftsFromOwner = nftsFromOwner.slice().reverse();
   return (
     <>
       <section className="formulated-offers-user-container">
@@ -108,7 +108,7 @@ function FormulatedOffers({
           offersDateTitleClass="formulated-offers-date-title"
         />
         <div className="nft-list-formulated-offer-container">
-          {nftsFromOwner?.map((user, i, apiNftData) => (
+          {reversedNftsFromOwner?.map((user, index, apiNftData) => (
             <NftList
               key={uuidv4()}
               isFormulatedOffersSectionActive={true}
@@ -123,16 +123,16 @@ function FormulatedOffers({
               // offersStatus={user.status}
               offersStatus={true}
               //
-              nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
-              nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
-              nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
+              nftsFromOwnerImage={apiNftData[index]?.media[0]?.gateway}
+              nftsFromOwnerNameCollection={apiNftData[index]?.contract?.name}
+              nftsFromOwnerIdNft={apiNftData[index]?.tokenId}
               nftsFromOwnerFloorPrice={
-                apiNftData[i]?.contract?.openSea?.floorPrice
+                apiNftData[index]?.contract?.openSea?.floorPrice
               }
               ethPrice={ethPrice}
               //
-              transferNftDataApi={transferNftDataApi.transfers[i]}
-              nftTransferDate={nftTransferDate[i]}
+              transferNftDataApi={transferNftDataApi.transfers[index]}
+              nftTransferDate={nftTransferDate[index]}
               //
               offersStatusImage={
                 <>

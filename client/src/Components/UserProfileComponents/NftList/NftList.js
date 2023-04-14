@@ -44,6 +44,8 @@ function NftList({
   let ethPricePriceConverted = (
     nftsFromOwnerFloorPrice * ethPrice
   ).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
+  // console.log(nftsFromOwnerFloorPrice);
+  
   return (
     // Backend here
     <div className="user-nft-transfer-container">

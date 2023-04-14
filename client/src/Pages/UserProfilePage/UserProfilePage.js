@@ -66,10 +66,9 @@ function UserProfilePage({
     const collectionFloorPrice = await alchemy.nft.getFloorPrice(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
     );
-    // console.log(collectionFloorPrice.openSea.floorPrice)
     setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
   }
-
+  // console.log(collectionFloorPriceApiData)
   // get Nfts from Owner and Contracts
   async function getNftsForOwner() {
     // we select all the nfts hold by an address for a specific collection
