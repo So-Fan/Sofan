@@ -1,5 +1,5 @@
-const Migrations = artifacts.require("Migrations");
+const Sofan = artifacts.require("Sofan");
 
 module.exports = function (deployer) {
-  deployer.deploy(Migrations);
+  deployer.deploy(Sofan);
 };
