@@ -9,7 +9,7 @@ contract Sofan is Ownable, ReentrancyGuard {
     address payable public sofan = payable(address(this)); // a delete + tard
     address sofanFactory = 0x9bF88fAe8CF8BaB76041c1db6467E7b37b977dD7;
     enum BidStatus {waiting, accepted, refused}
-    enum ListingStatus {nonList, Listed}
+    enum ListingStatus {selled, Listed}
     struct Bid {
         uint256 price;
         address contractAddress;
@@ -21,6 +21,7 @@ contract Sofan is Ownable, ReentrancyGuard {
         address contractAddress;
         uint256 tokenId;
         uint256 price;
+        address seller;
         ListingStatus listingStauts;
     }
     mapping(address => address[]) public CollectionCreatedByWallet;
@@ -78,9 +79,23 @@ contract Sofan is Ownable, ReentrancyGuard {
     ) external payable  nonReentrant {
         require(msg.sender == SofanNftTemplate(_contract).ownerOf(_tokenId), "You're not the owner !");
         require(_price > 0, "Cannot list for 0 !");
+        Listing memory listing = Listing(_contract, _tokenId, _price, msg.sender, ListingStatus.Listed);
+        ListingMapping[msg.sender].push(listing);
         SofanNftTemplate(_contract).approveCustom(address(this), _tokenId, msg.sender);
         address temp = msg.sender;
         SofanNftTemplate(_contract).transferFrom(temp, address(this), _tokenId);
+    }
+
+    function buyListing(
+        address _sellerAddress,
+        uint _indexLinsting
+    ) external payable nonReentrant{
+        // require(ListingMapping[_sellerAddress][_indexLinsting].seller == SofanNftTemplate(ListingMapping[_sellerAddress][_indexLinsting].contractAddress).ownerOf(ListingMapping[_sellerAddress][_indexLinsting].tokenId), "Seller is not the owner");
+        require(msg.value >= ListingMapping[_sellerAddress][_indexLinsting].price, "Not enough ETH send !");
+        ListingMapping[_sellerAddress][_indexLinsting].listingStauts = ListingStatus.selled;
+        SofanNftTemplate(ListingMapping[_sellerAddress][_indexLinsting].contractAddress).transferFrom(address(this), msg.sender, ListingMapping[_sellerAddress][_indexLinsting].tokenId);
+        (bool success, ) = payable(address(ListingMapping[_sellerAddress][_indexLinsting].seller)).call{value: ListingMapping[_sellerAddress][_indexLinsting].price}("");
+        require(success, "Transfer failed.");
     }
 
     function deployCollection(
@@ -110,8 +125,8 @@ contract Sofan is Ownable, ReentrancyGuard {
     }
 
      // delete after test
-    constructor(string memory _t, string memory _r, string memory _e) {
-        
+    constructor() {
+        string memory _t = "a"; string memory _r = "a"; string memory _e = "a";
         deployCollection(_t, _r, _e, 0, 10, 0, true, 0);
     }
 }
