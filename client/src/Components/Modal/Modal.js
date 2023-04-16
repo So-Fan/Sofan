@@ -2,7 +2,7 @@ import React, {useState ,useEffect} from "react";
 import "./Modal.css";
 import CrossBlack from "../../Assets/Image/cross.svg";
 import CrossWhite from "../../Assets/Image/cross_white.svg";
-import { disableBodyScroll, enableBodyScroll, pixelScrolledAthleteProfilePage } from 'scroll-lock';
+// import { disableBodyScroll, enableBodyScroll, pixelScrolledAthleteProfilePage } from 'scroll-lock';
 const Modal = (props) => {
     // Need top pass setState and style
     // setState is the function link to the state that render the Modal Component
