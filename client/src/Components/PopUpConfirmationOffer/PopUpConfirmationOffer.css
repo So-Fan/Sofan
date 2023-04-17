@@ -1,0 +1,43 @@
+.popup-confirmation-offer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 528px;
+  height: 373px;
+  /* width: 100% !important; */
+  background: #ffffff;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 13.5142px;
+  font-size: 25px;
+}
+.popup-confirmation-offer-question {
+  font-family: "britanica-heavy";
+  width: 279px;
+  height: 60px;
+  background-color: red;
+}
+
+.popup-confirmation-offer-validate {
+  width: 468px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f6d463;
+  border-radius: 9.05759px;
+  font-family: "britanica-heavy";
+  font-size: 20px;
+  margin-top: 20px;
+}
+.popup-confirmation-offer-cancel {
+  width: 468px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000000;
+  border-radius: 9.05759px;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  margin-top: 20px;
+}
