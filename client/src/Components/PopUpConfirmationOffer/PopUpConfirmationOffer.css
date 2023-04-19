@@ -2,21 +2,102 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   width: 528px;
   height: 373px;
   /* width: 100% !important; */
-  background: #ffffff;
+  background: white;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
   border-radius: 13.5142px;
   font-size: 25px;
+}
+.popup-confirmation-offer-wrap{
+  display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: space-around;
+ max-width: 468px;
+ height: 100%; 
 }
 .popup-confirmation-offer-question {
   font-family: "britanica-heavy";
   width: 279px;
   height: 60px;
-  background-color: red;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
+.popup-confirmation-offer-informations-container{
+  width: 468px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  /* background-color: red; */
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.popup-confirmation-offer-informations-image{
+  width: 50px;
+  height: 50px;
+}
+.popup-confirmation-offer-informations-collection-name-and-nft-id{
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* background-color: yellow; */
+}
+.popup-confirmation-offer-informations-collection-name{
+  font-family: "britanica-heavy";
+}
+.popup-confirmation-offer-informations-nft-id{
+  font-family: "britanica-heavy";
+}
+.popup-confirmation-offer-informations-from{
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-family: "britanica-heavy";
+  /* background-color: coral; */
+}
+.popup-container-offer-informations-date{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* background-color: violet; */
+  font-family: "britanica-heavy";
 
+}
+.popup-confirmation-offer-price-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 468px; 
+  height: 40px;
+  font-size: 16px;
+  /* background-color: aquamarine; */
+}
+.popup-confirmation-offer-price-wrap{
+  width: 80px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-around;
+  /* background-color: wheat; */
+}
+.popup-confirmation-offer-price-eur{
+  font-family: "britanica-heavy";
+}
+.popup-confirmation-offer-choice-container{
+  
+}
 .popup-confirmation-offer-validate {
   width: 468px;
   height: 56px;
@@ -28,6 +109,11 @@
   font-family: "britanica-heavy";
   font-size: 20px;
   margin-top: 20px;
+  cursor: pointer;
+}
+.popup-confirmation-offer-validate:hover{
+  background: #f7c520 !important;
+  transition-duration: 300ms !important;
 }
 .popup-confirmation-offer-cancel {
   width: 468px;
@@ -39,5 +125,11 @@
   border-radius: 9.05759px;
   font-size: 20px;
   font-family: "britanica-heavy";
-  margin-top: 20px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.popup-confirmation-offer-cancel:hover{
+  background: #00000015;
+  transition-duration: 300ms !important;
 }
