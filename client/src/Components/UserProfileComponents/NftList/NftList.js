@@ -40,15 +40,19 @@ function NftList({
   isFormulatedOffersSectionActive,
   isUserActivitySectionActive,
   ethPrice,
+  //
+  handleAcceptOffersClick,
+  handleRejectedOffersClick,
+  handleOffersChoice,
 }) {
   let ethPricePriceConverted = (
     nftsFromOwnerFloorPrice * ethPrice
   ).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
   // console.log(nftsFromOwnerFloorPrice);
-  
+  // console.log(handleAcceptOffersClick);
   return (
     // Backend here
-    <div className="user-nft-transfer-container">
+    <div onClick={handleOffersChoice} className="user-nft-transfer-container">
       <div className={`nft-origin-type ${offersDisplaySourceTypeClass}`}>
         {func}
       </div>
@@ -90,10 +94,14 @@ function NftList({
         {nftTransferDate}
       </div>
       <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
-        <img src={redCross} alt="" />
+        <img onClick={handleRejectedOffersClick} src={redCross} alt="" />
       </div>
       <div className={`nft-accept-received-offers ${offersAcceptClass}`}>
-        <img src={greenCross} alt="BOUTON ACCEPTER" />
+        <img
+          onClick={handleAcceptOffersClick}
+          src={greenCross}
+          alt="BOUTON ACCEPTER"
+        />
       </div>
     </div>
   );

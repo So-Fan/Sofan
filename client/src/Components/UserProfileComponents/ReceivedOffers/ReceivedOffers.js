@@ -3,7 +3,15 @@ import DataTitles from "../DataTitles/DataTitles";
 import NftList from "../NftList/NftList";
 import "./ReceivedOffers.css";
 import { v4 as uuidv4 } from "uuid";
-function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi, ethPrice }) {
+function ReceivedOffers({
+  userFrom,
+  nftsFromOwner,
+  transferNftDataApi,
+  ethPrice,
+  handleAcceptOffersClick,
+  handleRejectedOffersClick,
+  handleOffersChoice
+}) {
   const nftTransferDate = [];
   // for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
   //   const dateString =
@@ -32,6 +40,7 @@ function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi, ethPrice 
   // console.log(nftsFromOwner)
   // Inverser l'ordre du tableau
   const reversedNftsFromOwner = nftsFromOwner.slice().reverse();
+
   return (
     <section className="received-offers-user-container">
       {/* class à rename en bas */}
@@ -71,6 +80,10 @@ function ReceivedOffers({ userFrom, nftsFromOwner, transferNftDataApi, ethPrice 
             //
             transferNftDataApi={transferNftDataApi.transfers[i]}
             nftTransferDate={nftTransferDate[i]}
+            //
+            handleAcceptOffersClick={handleAcceptOffersClick}
+            handleRejectedOffersClick={handleRejectedOffersClick}
+            handleOffersChoice={handleOffersChoice}
             //
             offersNftContentClass="received-offers-nft-picture-and-title"
             offersYourOffersPriceClass="received-offers-offers-price"

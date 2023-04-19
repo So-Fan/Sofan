@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./PopUpConfirmationOffer.css";
 import { Network, Alchemy } from "alchemy-sdk";
+import Button from "../Button/Button";
 
-function PopUpConfirmationOffer() {
-  
-
+function PopUpConfirmationOffer({
+  handleClick,
+  isAcceptedOffersClicked,
+  isRejectedOffersClicked,
+}) {
   return (
     <div className="popup-confirmation-offer-container">
       <div className="popup-confirmation-offer-wrap">
         <div className="popup-confirmation-offer-question">
-          Voulez-vous vraiment accepter cette offre ?
+          {isAcceptedOffersClicked && (
+            <>Voulez-vous vraiment accepter cette offre ?</>
+          )}
+          {isRejectedOffersClicked && (
+            <>Voulez-vous vraiment refuser cette offre ?</>
+          )}
         </div>
         <div className=""></div>
         <div className="popup-confirmation-offer-informations-container">
@@ -41,10 +49,22 @@ function PopUpConfirmationOffer() {
           </div>
         </div>
         <div className="popup-confirmation-offer-choice-container">
-          <div className="popup-confirmation-offer-validate">
-            Oui je souhaite vraiment accepter cette offre.
+          <div
+            onClick={handleClick}
+            className="popup-confirmation-offer-validate"
+          >
+            {isAcceptedOffersClicked && (
+            <> Oui je souhaite vraiment accepter cette offre.</>
+          )}
+          {isRejectedOffersClicked && (
+            <>Oui je souhaite vraiment refuser cette offre.</>
+          )}
+           
           </div>
-          <div className="popup-confirmation-offer-cancel">
+          <div
+            id="custom-close-button"
+            className="popup-confirmation-offer-cancel"
+          >
             Annuler. Revenir sur la page.
           </div>
         </div>
