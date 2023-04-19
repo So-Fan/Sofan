@@ -7,7 +7,7 @@ import "../node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 contract Sofan is Ownable, ReentrancyGuard {
     address payable public sofan = payable(address(this)); // a delete + tard
-    address sofanFactory = 0x9bF88fAe8CF8BaB76041c1db6467E7b37b977dD7;
+    address sofanFactory = 0x0fC5025C764cE34df352757e82f7B5c4Df39A836;
     enum BidStatus {waiting, accepted, refused}
     enum ListingStatus {selled, Listed}
     struct Bid {
@@ -45,6 +45,7 @@ contract Sofan is Ownable, ReentrancyGuard {
     }
 
 
+    // ajouter addresse du detenteur dans struc Bid et checker que le détenteur est toujours cette addresse. Afin d'éviter : si je place une offre le gars transfere a quelq'un d'autre et ce quelqu'un d'autre accepte mon offre. De plus accepter la bid doit changer le status de tout les autres bid concerant ce NFT => potentiel rework du mapping en commencant par l'addresse du détenteur.
     function acceptBid(
         address _contract,
         uint256 _tokenId,
@@ -52,8 +53,9 @@ contract Sofan is Ownable, ReentrancyGuard {
     ) external payable nonReentrant {
         require(BidMapping[_contract][_tokenId][_indexOfBid].price > 0, "Bid doesn't exist");
         require(msg.sender == SofanNftTemplate(_contract).ownerOf(_tokenId), "You're not the owner !");
-        // SofanNftTemplate(_contract).approve(BidMapping[_contract][_tokenId][_indexOfBid].sender, _tokenId);
-        SofanNftTemplate(_contract).transferFrom(msg.sender, BidMapping[_contract][_tokenId][_indexOfBid].sender, _tokenId);
+        SofanNftTemplate(_contract).approveCustom(address(this), _tokenId, msg.sender); 
+        address temp = msg.sender;
+        SofanNftTemplate(_contract).transferFrom(temp, BidMapping[_contract][_tokenId][_indexOfBid].sender, _tokenId);
         BidMapping[_contract][_tokenId][_indexOfBid].bidStatus = BidStatus.accepted;
         (bool success, ) = msg.sender.call{
             value: BidMapping[_contract][_tokenId][_indexOfBid].price

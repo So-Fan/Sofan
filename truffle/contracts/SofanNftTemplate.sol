@@ -4,8 +4,8 @@ import "../node_modules/erc721a/contracts/ERC721A.sol";
 import "../node_modules/erc721a/contracts/IERC721A.sol";
 import "../node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-
-contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard {
+import "./DefaultOperatorFilterer.sol";
+contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorFilterer {
     string uri;
     bool isLimitByWallet;
     uint8 limitByWallet;
@@ -158,4 +158,32 @@ contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard {
         ERC721A._tokenApprovals[tokenId].value = to;
         emit IERC721A.Approval(owner, to, tokenId);
     }
+
+
+
+    // besoin de revoir les approve de Sofan avec ça
+    // function setApprovalForAll(address operator, bool approved) public override onlyAllowedOperatorApproval(operator) {
+    //     super.setApprovalForAll(operator, approved);
+    // }
+
+    // function approve(address operator, uint256 tokenId) public payable override onlyAllowedOperatorApproval(operator) {
+    //     super.approve(operator, tokenId);
+    // }
+
+    // function transferFrom(address from, address to, uint256 tokenId) public payable override onlyAllowedOperator(from) {
+    //     super.transferFrom(from, to, tokenId);
+    // }
+
+    // function safeTransferFrom(address from, address to, uint256 tokenId) public payable override onlyAllowedOperator(from) {
+    //     super.safeTransferFrom(from, to, tokenId);
+    // }
+
+    // function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data)
+    //     public
+    //     payable
+    //     override
+    //     onlyAllowedOperator(from)
+    // {
+    //     super.safeTransferFrom(from, to, tokenId, data);
+    // }
 }
