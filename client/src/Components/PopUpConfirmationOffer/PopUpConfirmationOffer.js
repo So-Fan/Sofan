@@ -3,6 +3,7 @@ import "./PopUpConfirmationOffer.css";
 import { Network, Alchemy } from "alchemy-sdk";
 
 function PopUpConfirmationOffer() {
+  
 
   return (
     <div className="popup-confirmation-offer-container">
