@@ -128,6 +128,10 @@ function App() {
             path="/athleteprofile"
             element={
               <AthleteProfilePage
+              data={data}
+              
+              isDropDownButtonClicked={isDropDownButtonClicked}
+              setIsDropDownButtonClicked={setIsDropDownButtonClicked}
                 setIsUSerProfileSeortBySelectorClicked={
                   setIsUSerProfileSeortBySelectorClicked
                 }

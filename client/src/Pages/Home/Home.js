@@ -306,6 +306,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
       }
     }
   };
+  // console.log(isDropdownClicked)
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };

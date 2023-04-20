@@ -3,7 +3,16 @@ import PostsFeed from "../PostsComponents/PostsFeed/PostsFeed";
 import "./AthleteProfileFeed.css";
 import { v4 as uuidv4 } from "uuid";
 
-function AthleteProfileFeed({ dataPosts, athleteProfilePageStyling }) {
+function AthleteProfileFeed({
+  dataPosts,
+  athleteProfilePageStyling,
+  isDropdownClicked,
+  handleDropdownPostFeedClick,
+  //
+
+  handleDropDownFeedAthleteClick,
+  isDropDownFeedAthleteClicked
+}) {
   // console.log(dataPosts);
   // console.log(athleteProfileFeedPageStyling)
   const [isUserFan, setIsUserFan] = useState(false);
@@ -40,8 +49,10 @@ function AthleteProfileFeed({ dataPosts, athleteProfilePageStyling }) {
         {freePosts?.map((post) => {
           return (
             <PostsFeed
-            athleteProfilePageStyling={athleteProfilePageStyling}
+            // isDropdownClicked={isDropdownClicked}
+              athleteProfilePageStyling={athleteProfilePageStyling}
               key={uuidv4()}
+              id={post.id}
               postDate={post.postDate}
               postDateType={post.postDateType}
               postType={post.postType}
@@ -50,6 +61,8 @@ function AthleteProfileFeed({ dataPosts, athleteProfilePageStyling }) {
               postDescription={post.postDescription}
               postLikeNumber={post.postLikeNumber}
               postCommentNumber={post.postCommentNumber}
+              isDropdownClicked={post.isDropdownClicked}
+              handleDropdownPostFeedClick={handleDropdownPostFeedClick}
             />
           );
         })}
@@ -58,7 +71,7 @@ function AthleteProfileFeed({ dataPosts, athleteProfilePageStyling }) {
         {premiumPosts?.map((post, index) => {
           return (
             <PostsFeed
-            athleteProfilePageStyling={athleteProfilePageStyling}
+              athleteProfilePageStyling={athleteProfilePageStyling}
               key={uuidv4()}
               postDate={post.postDate}
               postDateType={post.postDateType}

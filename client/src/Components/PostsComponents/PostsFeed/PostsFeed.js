@@ -39,7 +39,8 @@ function PostsFeed({
   pollSecondChoiceNumber,
   pollThirdChoiceNumber,
   pollFourthChoiceNumber,
-  athleteProfilePageStyling
+  athleteProfilePageStyling,
+  //
   
 }) 
 {

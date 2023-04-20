@@ -20,6 +20,11 @@ const AthleteProfilePage = ({
   isUSerProfileSeortBySelectorClicked,
   profileSubMenuOffresClicked,
   setProfileSubMenuOffresClicked,
+  isDropDownClicked,
+  setIsDropdownClicked,
+  setIsDropdownButtonClicked,
+  isDropDownButtonClicked,
+  // data, setData
 }) => {
   // functionnal states
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
@@ -374,6 +379,7 @@ const AthleteProfilePage = ({
       ],
       athletes: [
         {
+          id: 1,
           postName: "Romain Attanasio",
           postPicture:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
@@ -385,7 +391,7 @@ const AthleteProfilePage = ({
           postLikeNumber: 29,
           postCommentNumber: 10,
         },
-        {
+        {id: 2,
           postName: "Romain Attanasio",
           postDescription:
             "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
@@ -397,7 +403,7 @@ const AthleteProfilePage = ({
           postLikeNumber: 29,
           postCommentNumber: 10,
         },
-        {
+        {id: 3,
           postName: "Romain Attanasio",
           postDescription:
             "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
@@ -409,7 +415,7 @@ const AthleteProfilePage = ({
           postLikeNumber: 29,
           postCommentNumber: 10,
         },
-        {
+        {id: 4,
           postName: "Romain Attanasio",
           postDescription:
             "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
@@ -421,7 +427,7 @@ const AthleteProfilePage = ({
           postLikeNumber: 29,
           postCommentNumber: 10,
         },
-        {
+        {id: 5,
           postName: "Romain Attanasio",
           postDescription:
             "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
@@ -433,7 +439,7 @@ const AthleteProfilePage = ({
           postLikeNumber: 29,
           postCommentNumber: 10,
         },
-        {
+        {id: 6,
           postName: "Romain Attanasio",
           postDescription:
             "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
@@ -589,6 +595,8 @@ const AthleteProfilePage = ({
         false
       );
     }
+    for (let i = 0; i < data.length; i++) {
+      data[i] = { ...data[i], ...{ isDropdownClicked: false } };}
     setDataConcat(data);
   }, []);
   function handleAthleteFollowersClick(e) {
@@ -687,12 +695,57 @@ const AthleteProfilePage = ({
   }
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
+
+  // ============================================================
+  const handleDropdownPostFeedClick = (e) => {
+    for (let i = 0; i < dataConcat.length; i++) {
+      if (
+        parseInt(e.currentTarget.id) === dataConcat[i].id &&
+        dataConcat[i].isDropdownClicked === false
+      ) {
+        // console.log("foijoiiofizjj")
+        const newData = [...dataConcat];
+        newData[i].isDropdownClicked = true;
+        setDataConcat(newData);
+        setIsDropdownClicked(true);
+        
+        // console.log("iuhdeihzuhdiez")
+      }
+    };
+    
+    console.log(e.currentTarget)
+// console.log(isDropDownButtonClicked)
+  };
+  // Présent sur App à mettre pour fermer le dropdown partout
+    // Dropdown
+    // if (isDropdownClicked) {
+    //   for (let i = 0; i < data.length; i++) {
+    //     // console.log(data[i]);
+    //     if (data[i].isDropdownClicked === true) {
+    //       // console.log("je suis ici");
+    //       const newData = [...data];
+    //       newData[i].isDropdownClicked = false;
+    //       setData(newData);
+    //       setIsDropdownButtonClicked(false);
+    //     }
+    //   }
+    // }
+  //
+//   const [isDropDownFeedAthleteClicked, setIsDropDownFeedAthleteClicked] = useState(false)
+// function handleDropDownFeedAthleteClick() {
+//   setIsDropDownFeedAthleteClicked(!isDropDownFeedAthleteClicked)
+// }
+
+
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
       return (
         <AthleteProfileFeed
+        isDropdownClicked={isDropDownClicked}
+        handleDropdownPostFeedClick={handleDropdownPostFeedClick}
           athleteProfilePageStyling={true}
           dataPosts={dataConcat?.athletes}
+
         />
       );
     } else if (isAthleteProfileSubMenuClicked[5] === true) {
