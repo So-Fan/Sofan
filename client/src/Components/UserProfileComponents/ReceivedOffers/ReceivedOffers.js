@@ -10,7 +10,8 @@ function ReceivedOffers({
   ethPrice,
   handleAcceptOffersClick,
   handleRejectedOffersClick,
-  handleOffersChoice
+  handleOffersChoice,
+  // setDataPopupConfirmation
 }) {
   const nftTransferDate = [];
   // for (let i = 0; i < transferNftDataApi.transfers.length; i++) {
@@ -84,6 +85,8 @@ function ReceivedOffers({
             handleAcceptOffersClick={handleAcceptOffersClick}
             handleRejectedOffersClick={handleRejectedOffersClick}
             handleOffersChoice={handleOffersChoice}
+            //
+            // setDataPopupConfirmation={setDataPopupConfirmation}
             //
             offersNftContentClass="received-offers-nft-picture-and-title"
             offersYourOffersPriceClass="received-offers-offers-price"

@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./PopUpConfirmationOffer.css";
 import { Network, Alchemy } from "alchemy-sdk";
 import Button from "../Button/Button";
+import explorePic from "../../Assets/Image/explorepicture.svg"
 
 function PopUpConfirmationOffer({
   handleClick,
   isAcceptedOffersClicked,
   isRejectedOffersClicked,
+  dataPopupConfirmation
 }) {
+  console.log(dataPopupConfirmation);
   return (
     <div className="popup-confirmation-offer-container">
       <div className="popup-confirmation-offer-wrap">
@@ -24,6 +27,7 @@ function PopUpConfirmationOffer({
           <img
             className="popup-confirmation-offer-informations-image"
             // src={nftMetadataApi?.openSea?.imageUrl}
+            src={explorePic}
             alt="NFT IMAGE"
           />
           <div className="popup-confirmation-offer-informations-collection-name-and-nft-id">

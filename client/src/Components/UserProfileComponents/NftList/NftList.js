@@ -44,6 +44,8 @@ function NftList({
   handleAcceptOffersClick,
   handleRejectedOffersClick,
   handleOffersChoice,
+  //
+  // setDataPopupConfirmation,
 }) {
   let ethPricePriceConverted = (
     nftsFromOwnerFloorPrice * ethPrice
@@ -52,7 +54,7 @@ function NftList({
   // console.log(handleAcceptOffersClick);
   return (
     // Backend here
-    <div onClick={handleOffersChoice} className="user-nft-transfer-container">
+    <div className="user-nft-transfer-container">
       <div className={`nft-origin-type ${offersDisplaySourceTypeClass}`}>
         {func}
       </div>
@@ -94,11 +96,33 @@ function NftList({
         {nftTransferDate}
       </div>
       <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
-        <img onClick={handleRejectedOffersClick} src={redCross} alt="" />
+        <img
+        // récupérer les données de l'élément cliqué
+          onClick={() =>
+            handleRejectedOffersClick(
+              nftsFromOwnerImage,
+              nftsFromOwnerNameCollection,
+              nftsFromOwnerIdNft,
+              receivedFrom,
+              nftTransferDate
+            )
+          }
+          src={redCross}
+          alt="CROIX REFUSER"
+        />
       </div>
       <div className={`nft-accept-received-offers ${offersAcceptClass}`}>
         <img
-          onClick={handleAcceptOffersClick}
+        // récupérer les données de l'élément cliqué
+          onClick={() =>
+            handleAcceptOffersClick(
+              nftsFromOwnerImage,
+              nftsFromOwnerNameCollection,
+              nftsFromOwnerIdNft,
+              receivedFrom,
+              nftTransferDate
+            )
+          }
           src={greenCross}
           alt="BOUTON ACCEPTER"
         />

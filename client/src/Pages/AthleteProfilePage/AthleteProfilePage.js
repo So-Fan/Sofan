@@ -31,6 +31,8 @@ const AthleteProfilePage = ({
   const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
   const [isAcceptedOffersClicked, setIsAcceptedOffersClicked] = useState(false);
   const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
+  // popup states info
+  const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // Backend
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
   // API Alchemy
@@ -598,16 +600,40 @@ const AthleteProfilePage = ({
   function handlePalmaresButtonClick() {
     setIsPalmaresButtonClicked(true);
   }
-  function handleAcceptOffersClick(e) {
-    setIsAcceptedOffersClicked(true)
-    // console.log(e)
-    handleOffersChoice()
+  function handleAcceptOffersClick(
+    nftsFromOwnerImage,
+    nftsFromOwnerNameCollection,
+    nftsFromOwnerIdNft,
+    receivedFrom,
+    nftTransferDate
+  ) {
+    setIsAcceptedOffersClicked(true);
+    const newConfirmation = {
+      nftsFromOwnerImage,
+      nftsFromOwnerNameCollection,
+      nftsFromOwnerIdNft,
+      receivedFrom,
+      nftTransferDate,
+    };
+
+ setDataPopupConfirmation(prevConfirmation => [...prevConfirmation, newConfirmation]);
   }
-  function handleOffersChoice(e) {
-    console.log(e)
-  }
-  function handleRejectedOffersClick() {
-    setIsRejectedOffersClicked(true)
+ // récupérer les données de l'élément cliqué
+  function handleRejectedOffersClick( nftsFromOwnerImage,
+    nftsFromOwnerNameCollection,
+    nftsFromOwnerIdNft,
+    receivedFrom,
+    nftTransferDate) {
+    setIsRejectedOffersClicked(true);
+    const newConfirmation = {
+      nftsFromOwnerImage,
+      nftsFromOwnerNameCollection,
+      nftsFromOwnerIdNft,
+      receivedFrom,
+      nftTransferDate,
+    };
+
+ setDataPopupConfirmation(prevConfirmation => [...prevConfirmation, newConfirmation]);
   }
   useEffect(() => {
     const hash = window.location.hash;
@@ -733,7 +759,8 @@ const AthleteProfilePage = ({
             ethPrice={ethPrice}
             handleAcceptOffersClick={handleAcceptOffersClick}
             handleRejectedOffersClick={handleRejectedOffersClick}
-            handleOffersChoice={handleOffersChoice}
+            // handleOffersChoice={handleOffersChoice}
+            // setDataPopupConfirmation={setDataPopupConfirmation}
           />
         </div>
       );
@@ -768,7 +795,7 @@ const AthleteProfilePage = ({
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteFollowersClicked}
-          style={{ marginTop: pixelScrolledAthleteProfilePage }}
+          style={{ marginTop: pixelScrolledAthleteProfilePage, display: "none" }}
         >
           <AthleteFollowersFansPopUp
             isAthleteFollowersClicked={isAthleteFollowersClicked}
@@ -779,7 +806,7 @@ const AthleteProfilePage = ({
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteSupportersClicked}
-          style={{ marginTop: pixelScrolledAthleteProfilePage }}
+          style={{ marginTop: pixelScrolledAthleteProfilePage, display: "none" }}
         >
           <AthleteFollowersFansPopUp
             isAthleteSupportersClicked={isAthleteSupportersClicked}
@@ -805,9 +832,9 @@ const AthleteProfilePage = ({
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ display: "none" }}
         >
-         <PopUpConfirmationOffer
-         isAcceptedOffersClicked={isAcceptedOffersClicked}
-         />
+          <PopUpConfirmationOffer
+            isAcceptedOffersClicked={isAcceptedOffersClicked}
+          />
         </Modal>
       )}
       {isRejectedOffersClicked && (
@@ -817,9 +844,10 @@ const AthleteProfilePage = ({
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ display: "none" }}
         >
-         <PopUpConfirmationOffer
-         isRejectedOffersClicked={isRejectedOffersClicked}
-         />
+          <PopUpConfirmationOffer
+          dataPopupConfirmation={dataPopupConfirmation}
+            isRejectedOffersClicked={isRejectedOffersClicked}
+          />
         </Modal>
       )}
     </>
