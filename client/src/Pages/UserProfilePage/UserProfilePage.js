@@ -12,6 +12,7 @@ import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import "./UserProfilePage.css";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import Modal from "../../Components/Modal/Modal";
+import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
@@ -22,11 +23,16 @@ function UserProfilePage({
   // fonctionnal states
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
-    const [isAthleteFollowingClicked, setIsAthleteFollowingClicked] =
+  const [isAthleteFollowingClicked, setIsAthleteFollowingClicked] =
     useState(false);
-    const [isAthleteSupportingClicked, setIsAthleteSupportingClicked] =
+  const [isAthleteSupportingClicked, setIsAthleteSupportingClicked] =
     useState(false);
-    const [pixelScrolledUserProfilePage, setPixelScrolledUserProfilePage] = useState();
+  const [isAcceptedOffersClicked, setIsAcceptedOffersClicked] = useState(false);
+  const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
+  const [pixelScrolledUserProfilePage, setPixelScrolledUserProfilePage] =
+    useState();
+  // popup states info
+  const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // backend states
   const [dataConcat, setDataConcat] = useState(); // objet de tableau d'objet
   // api states
@@ -78,8 +84,8 @@ function UserProfilePage({
         contractAddresses: [
           "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e", // Doodles
           // "0x5CC5B05a8A13E3fBDB0BB9FcCd98D38e50F90c38", // Sandbox
-           "0x60E4d786628Fea6478F785A6d7e704777c86a7c6", // MutantApe
-          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", 
+          "0x60E4d786628Fea6478F785A6d7e704777c86a7c6", // MutantApe
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
           "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BoredApe
         ],
       } // filter
@@ -404,13 +410,17 @@ function UserProfilePage({
 
     setDataConcat(data);
   }, []);
-  
+
   //----------------------------
   const handlePixelScrolledUserProfilePage = () => {
     setPixelScrolledUserProfilePage(window.scrollY);
   };
   useEffect(() => {
-    window.addEventListener("scroll", handlePixelScrolledUserProfilePage, false);
+    window.addEventListener(
+      "scroll",
+      handlePixelScrolledUserProfilePage,
+      false
+    );
   }, []);
   //----------------------------
   useEffect(() => {
@@ -419,16 +429,16 @@ function UserProfilePage({
       const element = document.querySelector(hash);
       if (element) {
         element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest'
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest",
         });
       }
     }
   }, []);
 
   // smooth redirection fonction
-  const nftCardRef = useRef(null); 
+  const nftCardRef = useRef(null);
   function handleClickNftReceived(event) {
     event.preventDefault();
     nftCardRef.current.scrollIntoView({
@@ -436,23 +446,65 @@ function UserProfilePage({
       block: "start",
     });
   }
-// ----------------------------
+  // ----------------------------
   function handleAthleteFollowingClick(e) {
     setIsAthleteFollowingClicked(true);
-  };
+  }
   function handleAthleteSupportingClick(e) {
     setIsAthleteSupportingClicked(true);
-  };
+  }
+  function handleAcceptOffersClick(
+    nftsFromOwnerImage,
+    nftsFromOwnerNameCollection,
+    nftsFromOwnerIdNft,
+    receivedFrom,
+    nftTransferDate
+  ) {
+    setIsAcceptedOffersClicked(true);
+    const newConfirmation = {
+      nftsFromOwnerImage,
+      nftsFromOwnerNameCollection,
+      nftsFromOwnerIdNft,
+      receivedFrom,
+      nftTransferDate,
+    };
+
+    setDataPopupConfirmation((prevConfirmation) => [
+      ...prevConfirmation,
+      newConfirmation,
+    ]);
+  }
+  // récupérer les données de l'élément cliqué
+  function handleRejectedOffersClick(
+    nftsFromOwnerImage,
+    nftsFromOwnerNameCollection,
+    nftsFromOwnerIdNft,
+    receivedFrom,
+    nftTransferDate
+  ) {
+    setIsRejectedOffersClicked(true);
+    const newConfirmation = {
+      nftsFromOwnerImage,
+      nftsFromOwnerNameCollection,
+      nftsFromOwnerIdNft,
+      receivedFrom,
+      nftTransferDate,
+    };
+
+    setDataPopupConfirmation((prevConfirmation) => [
+      ...prevConfirmation,
+      newConfirmation,
+    ]);
+  }
   function handleSectionWheel(e) {
     if (isAthleteFollowingClicked) {
       e.preventDefault();
     }
-  };
+  }
   // retirer le scroll lock lorsque le modal n'est plus la
-  document.querySelector('body').classList.remove('scroll-lock');
+  document.querySelector("body").classList.remove("scroll-lock");
   // redirection vers nftCard
-  
-  
+
   // retourne le composant selon le submenu cliqué
   function displayCategory() {
     if (isProfileSubMenuButtonClicked[0] === true) {
@@ -467,7 +519,7 @@ function UserProfilePage({
             }
           /> */}
           <NftCard
-          hidePrice
+            hidePrice
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
@@ -502,13 +554,19 @@ function UserProfilePage({
           nftsFromOwner={nftsFromOwner}
           transferNftDataApi={transferNftDataApi}
           ethPrice={ethPrice}
+          handleAcceptOffersClick={handleAcceptOffersClick}
+          handleRejectedOffersClick={handleRejectedOffersClick}
         />
       );
     }
   }
   return (
     <>
-      <section onWheel={handleSectionWheel} style={isAthleteFollowingClicked ? {pointerEvents: 'none'} : {}} className="userprofilepage-container">
+      <section
+        onWheel={handleSectionWheel}
+        style={isAthleteFollowingClicked ? { pointerEvents: "none" } : {}}
+        className="userprofilepage-container"
+      >
         <div className="userheader-container">
           <BannerAndProfilePic
             banner={dataConcat?.userPageInfo.banner}
@@ -546,7 +604,7 @@ function UserProfilePage({
         <Modal
           setState={setIsAthleteFollowingClicked}
           // style={{ top: "24px", right: "20px" }}
-          style={{marginTop: pixelScrolledUserProfilePage}}
+          style={{ marginTop: pixelScrolledUserProfilePage, display: "none" }}
           dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
         >
           <AthleteFollowingSupportingPopUp />
@@ -556,10 +614,36 @@ function UserProfilePage({
         <Modal
           setState={setIsAthleteSupportingClicked}
           dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
-          style={{marginTop: pixelScrolledUserProfilePage}}
+          style={{ marginTop: pixelScrolledUserProfilePage, display: "none" }}
         >
-          <AthleteFollowingSupportingPopUp 
-          isAthleteSupportingClicked={isAthleteSupportingClicked}
+          <AthleteFollowingSupportingPopUp
+            isAthleteSupportingClicked={isAthleteSupportingClicked}
+          />
+        </Modal>
+      )}
+
+      {isAcceptedOffersClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
+          setState={setIsAcceptedOffersClicked}
+          // style={{marginTop: pixelScrolledUserProfilePage}}
+          style={{ display: "none" }}
+        >
+          <PopUpConfirmationOffer
+            isAcceptedOffersClicked={isAcceptedOffersClicked}
+          />
+        </Modal>
+      )}
+      {isRejectedOffersClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
+          setState={setIsRejectedOffersClicked}
+          // style={{marginTop: pixelScrolledUserProfilePage}}
+          style={{ display: "none" }}
+        >
+          <PopUpConfirmationOffer
+            // dataPopupConfirmation={dataPopupConfirmation}
+            isRejectedOffersClicked={isRejectedOffersClicked}
           />
         </Modal>
       )}
