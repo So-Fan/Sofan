@@ -845,7 +845,7 @@ const AthleteProfilePage = ({
           style={{ display: "none" }}
         >
           <PopUpConfirmationOffer
-          dataPopupConfirmation={dataPopupConfirmation}
+          // dataPopupConfirmation={dataPopupConfirmation}
             isRejectedOffersClicked={isRejectedOffersClicked}
           />
         </Modal>
