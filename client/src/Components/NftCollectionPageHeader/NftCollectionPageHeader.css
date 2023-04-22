@@ -47,6 +47,11 @@
   font-size: 20px;
   color: #f6d463;
   margin-bottom: 9px;
+  cursor: pointer;
+}
+.nftcollectionheader-content-wrap-sport:hover{
+text-decoration: underline;
+text-decoration-thickness: 2px;
 }
 .nftcollectionheader-content-wrap-namestatssocial-wrap {
   display: flex;

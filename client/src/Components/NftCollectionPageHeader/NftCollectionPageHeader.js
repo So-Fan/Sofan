@@ -31,7 +31,7 @@ const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, e
               </span> 
             </div>
             <div className="nftcollectionheader-content-wrap-namestatssocial-wrap-social-container">
-              <div className="nftcollectionheader-content-wrap-namestatssocial-wrap-social-container-social">
+              {/* <div className="nftcollectionheader-content-wrap-namestatssocial-wrap-social-container-social">
                 <a
                   href={collectionInfo?.socials.discord}
                   target="_blank"
@@ -50,7 +50,7 @@ const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, e
                 >
                   <img src={Instagram} alt="Instagram" />
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="nftcollectionheader-content-container-descriptionn">
