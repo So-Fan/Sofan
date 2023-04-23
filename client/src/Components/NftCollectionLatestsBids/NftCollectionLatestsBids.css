@@ -51,12 +51,19 @@
   .nft-collection-overview-bids {
     width: 579px;
     height: 50px;
-    
-    padding-bottom: 20px;
     display: flex;
-    align-items: center;
-    /* background-color: deeppink; */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center !important;
+    /* padding-left: 5px;
+    padding-right: 5px; */
+        /* background-color: deeppink; */
   }
+  /* .nft-collection-overview-bids:hover{
+    transition-duration: 300ms !important;
+    background-color: #00000015;
+    border-radius: 10px;
+  } */
   .nft-collection-overview-bids:last-child{
       padding-bottom: 0px;
   }
@@ -68,6 +75,7 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
+      cursor: pointer;
   }
   .nft-collection-overview-bids-username-date-price-container{
       width: 100%;
@@ -89,6 +97,10 @@
       font-size: 20px;
       font-family: "britanica-heavy";
       height: 24px;
+      cursor: pointer;
+  }
+  .nft-collection-overview-bids-username:hover{
+    text-decoration: underline;
   }
   .nft-collection-overview-bids-date{
       font-size: 16px;
@@ -129,3 +141,7 @@
     border-radius: 9.05759px;
     margin-top: 20px;
   }
+  .nft-collection-overview-bids-buy-button:hover {
+      background-color: #f7c520 !important;
+      transition-duration: 300ms !important;
+    }
