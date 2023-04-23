@@ -6,7 +6,7 @@ function NftCollectionLatestsBids({latestBidsArray, bidsSectionDeleteSpace, ethP
   return (
     <div style={bidsSectionDeleteSpace && {marginTop: "0px"}} className="nft-collection-overview-latest-bids-container">
       <div className="nft-collection-overview-latest-bids-title">
-        Latests bids
+        Dernières offres
       </div>
       <div className="nft-collection-overview-latest-bids-wrap">
         <div className="nft-collection-overview-latest-bids-subwrap">
@@ -30,17 +30,22 @@ function NftCollectionLatestsBids({latestBidsArray, bidsSectionDeleteSpace, ethP
                   </div>
                   <div className="nft-collection-overview-bids-price">
                     <div className="nft-collection-overview-bids-price-eth">
-                      {element.priceEth} ETH
+                    €{(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 1})} 
+                    {/* Conversion du prix */}
+
+                    {/* {element.priceEth} ETH */}
                     </div>
                     <div className="nft-collection-overview-bids-price-eur">
-                      € {(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 3})} {/*Conversion du prix*/}
+                    {/* € {(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 3})}  */}
+                    {/*Conversion du prix*/}
+                    {element.priceEth} ETH
                     </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="nft-collection-overview-bids-buy-button">Buy Now</div>
+          <div className="nft-collection-overview-bids-buy-button">Acheter maintenant</div>
         </div>
       </div>
     </div>
