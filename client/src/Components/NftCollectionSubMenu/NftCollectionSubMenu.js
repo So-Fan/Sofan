@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import "./NftCollectionSubMenu.css";
-function NftCollectionSubMenu({handleClickSubMenuButton, isSubMenuClicked}) {
+function NftCollectionSubMenu({handleClickSubMenuButton, isSubMenuClicked,isNftPropertiesExist, setIsNftPropertiesExist,nftsPropertiesCounter}) {
+// connecter un etat pour verifier si la data de properties existe. Si non mettre en display none
+// const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
+
+// pour l'instant manuellement disable car les premiers nfts seront des photos (pas de propriétés)
+nftsPropertiesCounter = 0
+useEffect(() => {
+  if (nftsPropertiesCounter >= 1) {
+    setIsNftPropertiesExist(true);
+    console.log("oijoijoij");
+  } else {
+    setIsNftPropertiesExist(false);
+  }
+}, [nftsPropertiesCounter]);
 
   return (
-    <div className="nft-collection-submenu-container">
+    <div 
+    style={isNftPropertiesExist ? {}: {width: "465px"}}
+    className="nft-collection-submenu-container">
       <div
         onClick={handleClickSubMenuButton}
         className={
@@ -14,7 +29,8 @@ function NftCollectionSubMenu({handleClickSubMenuButton, isSubMenuClicked}) {
       >
         Overview
       </div>
-      <div
+      {isNftPropertiesExist ? <>
+        <div
         onClick={handleClickSubMenuButton}
         className={
           isSubMenuClicked[1]
@@ -24,6 +40,10 @@ function NftCollectionSubMenu({handleClickSubMenuButton, isSubMenuClicked}) {
       >
         Properties
       </div>
+      </>: 
+      
+      <></>}
+      
       <div
         onClick={handleClickSubMenuButton}
         className={

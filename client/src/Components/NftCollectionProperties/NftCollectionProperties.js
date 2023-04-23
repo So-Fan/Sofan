@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import "./NftCollectionProperties.css";
 import { v4 as uuidv4 } from "uuid";
-function NftCollectionProperties({properties, nftsFromOwner}) {
+function NftCollectionProperties({properties, nftsFromOwner, isNftPropertiesExist}) {
 useEffect(() => {
   // console.log(nftsFromOwner[0]?.rawMetadata?.attributes)
   // console.log(nftsFromOwner)
@@ -11,14 +11,17 @@ useEffect(() => {
 //     // const element = array[index];
 //   }
 // }
+//
+
   return (
+    <>
     <section className="nft-collection-properties-container">
      
      {properties.map((element) => (
-        <div
-          key={uuidv4()}
-          className="nft-collection-properties-card-container"
-        >
+       <div
+       key={uuidv4()}
+       className="nft-collection-properties-card-container"
+       >
           <div className="nft-collection-properties-card-type-property">
             {element.typeProperty}
           </div>
@@ -31,6 +34,7 @@ useEffect(() => {
         </div>
       ))}
     </section>
+      </>
   );
 }
 

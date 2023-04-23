@@ -24,6 +24,7 @@ const NftSingle = () => {
   const [isBidNftButtonClicked, setIsBidNftButtonClicked] = useState(false);
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
+    const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
   //
   const [ethPrice, setEthPrice] = useState(); // API CoinGecko
   const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
@@ -413,6 +414,10 @@ const NftSingle = () => {
             <NftCollectionSubMenu
               handleClickSubMenuButton={handleClickSubMenuButton}
               isSubMenuClicked={isSubMenuClicked}
+              nftsPropertiesCounter={dataSinglePageNftCollection.propertiesData[0].properties.length}
+              //
+              isNftPropertiesExist={isNftPropertiesExist}
+              setIsNftPropertiesExist={setIsNftPropertiesExist}
             />
           </div>
           {isSubMenuClicked[0] && (
@@ -435,6 +440,7 @@ const NftSingle = () => {
                 dataSinglePageNftCollection.propertiesData[0].properties
               }
               nftsFromOwner={nftsFromOwner}
+              isNftPropertiesExist={isNftPropertiesExist}
             />
           )}
           {isSubMenuClicked[2] && (
