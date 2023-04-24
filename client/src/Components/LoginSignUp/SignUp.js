@@ -1,16 +1,27 @@
 import React, { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Configs/firebase";
+import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
-    useState(false);
+  useState(false);
   const [
     isDisplayConfirmationPasswordButtonClicked,
     setIsDisplayConfirmationPasswordButtonClicked,
   ] = useState(false);
-
+  
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [showError, setShowError] = useState(false);
+  const [error, setError] = useState(null); // backend
+  const navigate = useNavigate();
+
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
   function handleDisplayPasswordButtonClick() {
     setIsDisplayPasswordButtonClicked(!isDisplayPasswordButtonClicked);
@@ -40,15 +51,34 @@ function SignUp(props) {
     );
   }
 
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const auth = getAuth();
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // User signed up successfully
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        // Handle errors here
+        setError(error.message);
+        console.error(error);
+      });
+  };
+
+
   return (
     <div class="form-container register-container">
-      <form action="#">
+      <form action="#" onSubmit={handleSignUp}>
         <h1>Inscrivez-vous ici.</h1>
         <div className="form-register-input-container">
           <input type="text" placeholder="Nom" />
         </div>
         <div className="form-register-input-container">
-          <input type="email" placeholder="Email" />
+          <input type="email" placeholder="Email" value={email} onChange={handleEmailChange} />
         </div>
         <div className="form-register-input-container">
           <input

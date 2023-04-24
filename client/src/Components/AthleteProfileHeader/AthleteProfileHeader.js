@@ -108,7 +108,7 @@ function AthleteProfileHeader({
               text={"Devenir un fan"}
               style={AthleteProfileHeaderFanButton}
             />
-            <Button text={"Follow"} style={AthleteProfileHeaderFollowButton} />
+            <Button className="athleteprofileheader-content-container-second-button" text={"Follow"} style={AthleteProfileHeaderFollowButton} />
           </div>
         </div>
       </div>

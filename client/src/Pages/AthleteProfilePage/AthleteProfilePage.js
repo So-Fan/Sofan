@@ -821,7 +821,7 @@ const AthleteProfilePage = ({
           style={{ display: "none" }}
         >
           <AthleteProfileRanking
-          // isPalmaresButtonClicked={isPalmaresButtonClicked}
+          isPalmaresButtonClicked={isPalmaresButtonClicked}
           />
         </Modal>
       )}
