@@ -61,9 +61,7 @@ const CreationPostPoll = () => {
           const imageRef = ref(storage, post.imagePath);
           uploadBytes(imageRef, image).then((snapshot) => {
             console.log('Uploaded a blob or file!');
-          });;
-
-         
+          });
         }
 
         console.log("Post added successfully!");
