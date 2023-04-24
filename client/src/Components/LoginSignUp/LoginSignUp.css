@@ -86,7 +86,18 @@
   align-items: center;
   justify-content: center;
 }
-
+.form-register-input-container{
+  width: 90% !important;
+  position: relative;
+}
+.form-register-input-display-button{
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 20px;
+  right: -10px;
+  cursor: pointer;
+}
 .signup-login-form .content input {
   accent-color: #333;
   width: 12px;
