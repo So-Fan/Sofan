@@ -98,6 +98,11 @@
   right: -10px;
   cursor: pointer;
 }
+.password-error-message-signup{
+  color: red;
+  font-size: 12px;
+  font-weight: 900;
+}
 .signup-login-form .content input {
   accent-color: #333;
   width: 12px;
