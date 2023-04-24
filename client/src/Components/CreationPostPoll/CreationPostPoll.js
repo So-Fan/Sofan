@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CreationPostPoll.css";
 import PostPoll from "./PostPoll/PostPoll";
-import { db, storage, ref, uploadBytes, getDownloadURL } from "../../Configs/firebase";
+import { db, storage, ref, uploadBytes } from "../../Configs/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 const CreationPostPoll = () => {
