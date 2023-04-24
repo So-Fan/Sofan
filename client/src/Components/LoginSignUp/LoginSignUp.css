@@ -33,7 +33,6 @@
   transition: all 0.6s ease-in-out;
 }
 
-
 .signup-login-form h1 {
   font-weight: 700;
   letter-spacing: -1.5px;
@@ -104,8 +103,11 @@
   position: relative;
   border-radius: 20px;
   border: 1px solid rgb(246, 212, 99);
-  background-color: rgb(246, 212, 99);
+  /* background-color: rgb(246, 212, 99); */
+  background-color: white;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
   color: #000;
+  font-family: "britanica-heavy";
   font-size: 15px;
   font-weight: 700;
   margin: 10px;
@@ -113,12 +115,28 @@
   letter-spacing: 1px;
   text-transform: capitalize;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
 }
-
+/* .overlay-login-button{
+  background-color: red !important;
+} */
+.ghost {
+  /* background-color: red !important; */
+  color: black !important;
+  background: white !important;
+}
 .signup-login-form button:hover {
-  letter-spacing: 3px;
+  /* letter-spacing: 3px; */
+  background-color: #f7c520 !important;
+  transition-duration: 300ms !important;
 }
-
+.ghost-register{
+  background-color: white !important;
+}
+.ghost-register:hover {
+  background-color: #00000015 !important;
+  transition-duration: 300ms !important;
+}
 .signup-login-form button:active {
   transform: scale(0.95);
 }
@@ -129,30 +147,30 @@
 
 .signup-login-form button.ghost {
   background-color: rgba(225, 225, 225, 0.2);
-  border: 2px solid rgb(246, 212, 99);
+  /* border: 2px solid rgb(246, 212, 99); */
   color: rgb(246, 212, 99);
 }
 
-.signup-login-form button.ghost i{
+.signup-login-form button.ghost i {
   position: absolute;
   opacity: 0;
   transition: 0.3s ease-in-out;
 }
 
-.signup-login-form button.ghost i.register{
+.signup-login-form button.ghost i.register {
   right: 70px;
 }
 
-.signup-login-form button.ghost i.login{
+.signup-login-form button.ghost i.login {
   left: 70px;
 }
 
-.signup-login-form button.ghost:hover i.register{
+.signup-login-form button.ghost:hover i.register {
   right: 40px;
   opacity: 1;
 }
 
-.signup-login-form button.ghost:hover i.login{
+.signup-login-form button.ghost:hover i.login {
   left: 40px;
   opacity: 1;
 }
@@ -176,7 +194,6 @@
   margin: 8px 0;
   width: 100%;
 }
-
 
 .signup-login-form .login-container {
   left: 0;
@@ -232,7 +249,7 @@
 }
 
 .signup-login-form .overlay {
-  background-image: url('');
+  background-image: url("");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
