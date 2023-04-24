@@ -88,7 +88,7 @@ const AthleteProfileRanking = ({handleClick, isPalmaresButtonClicked}) => {
           </div>
         ))}
       </div>
-      <Button hover="button-hover-props" text="Fermer" onClick={handleClick} />
+      <Button hover="button-hover-props" id="custom-close-button" text="Fermer" onClick={handleClick} />
     </div>
   );
 };
