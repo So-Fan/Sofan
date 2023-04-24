@@ -83,6 +83,10 @@ text-decoration: underline;
     left: -15%;
     top: -20%;
 }
+.nft-collection-history-bids-buy:hover{
+  text-decoration: underline;
+  text-decoration-thickness: 2.5px;
+}
 .nft-collection-history-bids-price {
   height: 44px;
   max-width: 100px;

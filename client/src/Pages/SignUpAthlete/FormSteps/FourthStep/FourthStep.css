@@ -12,6 +12,12 @@
   font-size: 30px;
   text-align: center;
 }
+.fourthstep-disclaimer{
+  font-size: 14px;
+  font-family: "britanica-regular";
+  font-style: italic;
+  padding-top: 15px;
+}
 .fourthstep-form-container {
   height: 70%;
   width: 100%;
@@ -66,7 +72,7 @@
 }
 
 .fourthstep-container button:hover {
-  background-color: #f6d463 !important;
+  background-color: #f6d46391 ;
 }
 .validation-button-container {
   /* height: 200px; */
@@ -82,7 +88,7 @@
   height: 67px !important;
   border-radius: 10px;
   border: none;
-  background-color: #f6d463;
+  background-color: #f6d463 !important;
   cursor: pointer;
   font-size: 20px;
   font-weight: 400;
