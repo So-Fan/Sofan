@@ -43,7 +43,7 @@ const CreationPostPoll = () => {
         visibility:
           isVisibilityClicked[0].backgroundColor === "#F6D463" ? "fans" : "all",
         createdAt,
-        imagePath: image.name ? `feed_post_img/sofan_${createdAt.getTime()}_${image.name}` : null,
+        imagePath: image.name ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}` : null,
         postType,
         likes: 0,
         comments: [],
@@ -60,7 +60,9 @@ const CreationPostPoll = () => {
         if (image) {
           const imageRef = ref(storage, post.imagePath);
           uploadBytes(imageRef, image).then((snapshot) => {
+            console.log(snapshot);
             console.log('Uploaded a blob or file!');
+            // Mettre une message de validation
           });
         }
 
