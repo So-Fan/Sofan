@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Configs/firebase";
+import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
