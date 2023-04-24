@@ -1,4 +1,4 @@
-import React, { useRef ,useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import AthleteProfileEvent from "../../Components/AthleteProfileEvent/AthleteProfileEvent";
 import AthleteProfileHeader from "../../Components/AthleteProfileHeader/AthleteProfileHeader";
 import AthleteProfileNFTCollection from "../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection";
@@ -14,6 +14,7 @@ import "./AthleteProfilePage.css";
 import Modal from "../../Components/Modal/Modal";
 import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
+import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -27,7 +28,11 @@ const AthleteProfilePage = ({
     useState(false);
   const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
     useState(false);
-    const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
+  const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
+  const [isAcceptedOffersClicked, setIsAcceptedOffersClicked] = useState(false);
+  const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
+  // popup states info
+  const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // Backend
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
   // API Alchemy
@@ -66,12 +71,12 @@ const AthleteProfilePage = ({
   async function getCollectionFloorPrice() {
     const alchemy = new Alchemy(settings);
     const collectionFloorPriceOne = await alchemy.nft.getFloorPrice(
-      ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" ]
+      ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"]
       // BAYC collection
     );
     setCollectionFloorPriceApiData(collectionFloorPriceOne.openSea.floorPrice);
   }
-// console.log(collectionFloorPriceApiData);
+  // console.log(collectionFloorPriceApiData);
   // get Nfts from Owner and Contracts
   async function getNftsForOwner() {
     // we select all the nfts hold by an address for a specific collection
@@ -81,8 +86,8 @@ const AthleteProfilePage = ({
         contractAddresses: [
           "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e", // Doodles
           // "0x5CC5B05a8A13E3fBDB0BB9FcCd98D38e50F90c38", // Sandbox
-           "0x60E4d786628Fea6478F785A6d7e704777c86a7c6", // MutantApe
-          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", 
+          "0x60E4d786628Fea6478F785A6d7e704777c86a7c6", // MutantApe
+          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
           "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BoredApe
         ],
       } // filter
@@ -90,7 +95,7 @@ const AthleteProfilePage = ({
     const nftsSale = await alchemy.nft.getFloorPrice(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
     );
-    
+
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
   }
   async function getTransferData() {
@@ -593,7 +598,42 @@ const AthleteProfilePage = ({
     setIsAthleteSupportersClicked(true);
   }
   function handlePalmaresButtonClick() {
-    setIsPalmaresButtonClicked(true)
+    setIsPalmaresButtonClicked(true);
+  }
+  function handleAcceptOffersClick(
+    nftsFromOwnerImage,
+    nftsFromOwnerNameCollection,
+    nftsFromOwnerIdNft,
+    receivedFrom,
+    nftTransferDate
+  ) {
+    setIsAcceptedOffersClicked(true);
+    const newConfirmation = {
+      nftsFromOwnerImage,
+      nftsFromOwnerNameCollection,
+      nftsFromOwnerIdNft,
+      receivedFrom,
+      nftTransferDate,
+    };
+
+ setDataPopupConfirmation(prevConfirmation => [...prevConfirmation, newConfirmation]);
+  }
+ // récupérer les données de l'élément cliqué
+  function handleRejectedOffersClick( nftsFromOwnerImage,
+    nftsFromOwnerNameCollection,
+    nftsFromOwnerIdNft,
+    receivedFrom,
+    nftTransferDate) {
+    setIsRejectedOffersClicked(true);
+    const newConfirmation = {
+      nftsFromOwnerImage,
+      nftsFromOwnerNameCollection,
+      nftsFromOwnerIdNft,
+      receivedFrom,
+      nftTransferDate,
+    };
+
+ setDataPopupConfirmation(prevConfirmation => [...prevConfirmation, newConfirmation]);
   }
   useEffect(() => {
     const hash = window.location.hash;
@@ -679,7 +719,7 @@ const AthleteProfilePage = ({
             }
           /> */}
           <NftCard
-          hidePrice={true}
+            hidePrice={true}
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
@@ -717,6 +757,10 @@ const AthleteProfilePage = ({
             nftsFromOwner={nftsFromOwner}
             transferNftDataApi={transferNftDataApi}
             ethPrice={ethPrice}
+            handleAcceptOffersClick={handleAcceptOffersClick}
+            handleRejectedOffersClick={handleRejectedOffersClick}
+            // handleOffersChoice={handleOffersChoice}
+            // setDataPopupConfirmation={setDataPopupConfirmation}
           />
         </div>
       );
@@ -751,7 +795,7 @@ const AthleteProfilePage = ({
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteFollowersClicked}
-          style={{ marginTop: pixelScrolledAthleteProfilePage }}
+          style={{ marginTop: pixelScrolledAthleteProfilePage, display: "none" }}
         >
           <AthleteFollowersFansPopUp
             isAthleteFollowersClicked={isAthleteFollowersClicked}
@@ -762,7 +806,7 @@ const AthleteProfilePage = ({
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteSupportersClicked}
-          style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ marginTop: pixelScrolledAthleteProfilePage, display: "none" }}
         >
           <AthleteFollowersFansPopUp
             isAthleteSupportersClicked={isAthleteSupportersClicked}
@@ -774,11 +818,35 @@ const AthleteProfilePage = ({
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsPalmaresButtonClicked}
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
-          style={{ display: "none"}}
+          style={{ display: "none" }}
         >
           <AthleteProfileRanking
           // isPalmaresButtonClicked={isPalmaresButtonClicked}
-
+          />
+        </Modal>
+      )}
+      {isAcceptedOffersClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          setState={setIsAcceptedOffersClicked}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ display: "none" }}
+        >
+          <PopUpConfirmationOffer
+            isAcceptedOffersClicked={isAcceptedOffersClicked}
+          />
+        </Modal>
+      )}
+      {isRejectedOffersClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          setState={setIsRejectedOffersClicked}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ display: "none" }}
+        >
+          <PopUpConfirmationOffer
+          // dataPopupConfirmation={dataPopupConfirmation}
+            isRejectedOffersClicked={isRejectedOffersClicked}
           />
         </Modal>
       )}

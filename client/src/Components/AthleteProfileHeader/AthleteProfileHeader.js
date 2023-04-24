@@ -80,7 +80,7 @@ function AthleteProfileHeader({
               </div>
             </div>
             <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container">
-              <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social">
+              {/* <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-social">
                 <a href={userInfo?.socials.discord} target="_blank">
                   <img src={Discord} alt="Discord" />
                 </a>
@@ -90,8 +90,8 @@ function AthleteProfileHeader({
                 <a href={userInfo?.socials.instagram} target="_blank">
                   <img src={Instagram} alt="Instagram" />
                 </a>
-              </div>
-              <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation"></div>
+              </div> */}
+              {/* <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation"></div> */}
               <Button
               onClick={handlePalmaresButtonClick}
                 text={"Palmarès"}

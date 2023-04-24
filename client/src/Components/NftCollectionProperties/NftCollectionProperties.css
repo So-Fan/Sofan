@@ -10,6 +10,7 @@
   align-items: center;
   flex-wrap: wrap;
   /* overflow-y: scroll; */
+  /* display: none; */
 }
 .nft-collection-properties-card-container {
   width: 300px;

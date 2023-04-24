@@ -10,6 +10,7 @@ import NotificationPopUp from '../../Components/Navbar/NotificationPopUp/Notific
 import AthleteFollowersFansPopUp from '../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp';
 import PopUpBuyNft from '../../Components/PopUpBuyNft/PopUpBuyNft';
 import PopUpPlaceBid from '../../Components/PopUpPlaceBid/PopUpPlaceBid';
+import PopUpConfirmationOffer from '../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer';
 function TestSecondary() {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
@@ -28,13 +29,14 @@ function TestSecondary() {
         </Modal>
       )}
       <AthleteSuggestPopUp/> */}
-      <NotificationPopUp/>
+      {/* <NotificationPopUp/> */}
       {/* <MintPopUpTemplate/> */}
       {/* <AthleteSuggestPopUp/> */}
       {/* <AthleteFollowersFansPopUp/> */}
       {/* <PopUpBuyNft/> */}
-      <PopUpPlaceBid/>
-      <MintPopUpBuy/>
+      {/* <PopUpPlaceBid/> */}
+      {/* <MintPopUpBuy/> */}
+      <PopUpConfirmationOffer/>
     </div>
   )
 }

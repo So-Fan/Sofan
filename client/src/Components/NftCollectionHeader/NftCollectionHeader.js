@@ -142,33 +142,37 @@ function NftCollectionHeader({
             </div>
             <div className="nft-collection-header-owner-creator-container">
               <div className="nft-collection-header-owner-creator-wrap">
-                <div>
-                  <img
-                    src={creatorProfilePic}
-                    alt="Photo de profile Createur"
-                  />
+                <div className="nft-collection-header-owner-container">
+                  <div>
+                    <img
+                      src={creatorProfilePic}
+                      alt="Photo de profile Createur"
+                    />
+                  </div>
+                  <div className="nft-collection-header-owner-creator-title-and-name-creator">
+                    <span className="nft-collection-header-owner-creator-title-creator">
+                      Creator
+                    </span>
+                    <span className="nft-collection-header-owner-creator-name-creator">
+                      {creatorName}
+                    </span>
+                  </div>
                 </div>
-                <div className="nft-collection-header-owner-creator-title-and-name-creator">
-                  <span className="nft-collection-header-owner-creator-title-creator">
-                    Creator
-                  </span>
-                  <span className="nft-collection-header-owner-creator-name-creator">
-                    {creatorName}
-                  </span>
-                </div>
-                <div>
-                  <img
-                    src={ownerProfilePic}
-                    alt="Photo de profile Propriétaire"
-                  />
-                </div>
-                <div className="nft-collection-header-owner-creator-title-and-name-owner">
-                  <span className="nft-collection-header-owner-creator-title-owner">
-                    Owner
-                  </span>
-                  <span className="nft-collection-header-owner-creator-name-owner">
-                    {ownerName}
-                  </span>
+                <div className="nft-collection-header-owner-container">
+                  <div>
+                    <img
+                      src={ownerProfilePic}
+                      alt="Photo de profile Propriétaire"
+                    />
+                  </div>
+                  <div className="nft-collection-header-owner-creator-title-and-name-owner">
+                    <span className="nft-collection-header-owner-creator-title-owner">
+                      Owner
+                    </span>
+                    <span className="nft-collection-header-owner-creator-name-owner">
+                      {ownerName}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

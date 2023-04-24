@@ -40,12 +40,18 @@ function NftList({
   isFormulatedOffersSectionActive,
   isUserActivitySectionActive,
   ethPrice,
+  //
+  handleAcceptOffersClick,
+  handleRejectedOffersClick,
+  handleOffersChoice,
+  //
+  // setDataPopupConfirmation,
 }) {
   let ethPricePriceConverted = (
     nftsFromOwnerFloorPrice * ethPrice
   ).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
   // console.log(nftsFromOwnerFloorPrice);
-  
+  // console.log(handleAcceptOffersClick);
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -90,10 +96,36 @@ function NftList({
         {nftTransferDate}
       </div>
       <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
-        <img src={redCross} alt="" />
+        <img
+        // récupérer les données de l'élément cliqué
+          onClick={() =>
+            handleRejectedOffersClick(
+              nftsFromOwnerImage,
+              nftsFromOwnerNameCollection,
+              nftsFromOwnerIdNft,
+              receivedFrom,
+              nftTransferDate
+            )
+          }
+          src={redCross}
+          alt="CROIX REFUSER"
+        />
       </div>
       <div className={`nft-accept-received-offers ${offersAcceptClass}`}>
-        <img src={greenCross} alt="BOUTON ACCEPTER" />
+        <img
+        // récupérer les données de l'élément cliqué
+          onClick={() =>
+            handleAcceptOffersClick(
+              nftsFromOwnerImage,
+              nftsFromOwnerNameCollection,
+              nftsFromOwnerIdNft,
+              receivedFrom,
+              nftTransferDate
+            )
+          }
+          src={greenCross}
+          alt="BOUTON ACCEPTER"
+        />
       </div>
     </div>
   );

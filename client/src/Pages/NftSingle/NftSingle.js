@@ -24,6 +24,7 @@ const NftSingle = () => {
   const [isBidNftButtonClicked, setIsBidNftButtonClicked] = useState(false);
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
+    const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
   //
   const [ethPrice, setEthPrice] = useState(); // API CoinGecko
   const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
@@ -173,49 +174,49 @@ const NftSingle = () => {
           {
             profilePicture: "https://i.imgur.com/cCVIcNS.png",
             userName: "DonOfSomething",
-            date: "3 weeks ago ",
+            date: "il y a 3 semaines",
             priceEth: 0.91,
             priceEur: 1267.53,
           },
           {
             profilePicture: "https://i.imgur.com/cCVIcNS.png",
             userName: "DonOfSomething",
-            date: "3 weeks ago ",
+            date: "il y a 3 semaines",
             priceEth: 0.91,
             priceEur: 1267.53,
           },
           {
             profilePicture: "https://i.imgur.com/cCVIcNS.png",
             userName: "DonOfSomething",
-            date: "3 weeks ago ",
+            date: "il y a 3 semaines",
             priceEth: 0.91,
             priceEur: 1267.53,
           },
           {
             profilePicture: "https://i.imgur.com/cCVIcNS.png",
             userName: "DonOfSomething",
-            date: "3 weeks ago ",
+            date: "il y a 3 semaines",
             priceEth: 0.91,
             priceEur: 1267.53,
           },
           {
             profilePicture: "https://i.imgur.com/cCVIcNS.png",
             userName: "DonOfSomething",
-            date: "3 weeks ago ",
+            date: "il y a 3 semaines",
             priceEth: 0.91,
             priceEur: 1267.53,
           },
           {
             profilePicture: "https://i.imgur.com/cCVIcNS.png",
             userName: "DonOfSomething",
-            date: "3 weeks ago ",
+            date: "il y a 3 semaines",
             priceEth: 0.91,
             priceEur: 1267.53,
           },
           {
             profilePicture: "https://i.imgur.com/cCVIcNS.png",
             userName: "DonOfSomething",
-            date: "3 weeks ago ",
+            date: "il y a 3 semaines",
             priceEth: 0.91,
             priceEur: 1267.53,
           },
@@ -262,49 +263,49 @@ const NftSingle = () => {
       {
         profilePicture: "https://i.imgur.com/cCVIcNS.png",
         userName: "DonOfSomething",
-        date: "3 weeks ago ",
+        date: "il y a 3 semaines",
         priceEth: 0.91,
         priceEur: 1267.53,
       },
       {
         profilePicture: "https://i.imgur.com/cCVIcNS.png",
         userName: "DonOfSomething",
-        date: "3 weeks ago ",
+        date: "il y a 3 semaines",
         priceEth: 0.91,
         priceEur: 1267.53,
       },
       {
         profilePicture: "https://i.imgur.com/cCVIcNS.png",
         userName: "DonOfSomething",
-        date: "3 weeks ago ",
+        date: "il y a 3 semaines",
         priceEth: 0.91,
         priceEur: 1267.53,
       },
       {
         profilePicture: "https://i.imgur.com/cCVIcNS.png",
         userName: "DonOfSomething",
-        date: "3 weeks ago ",
+        date: "il y a 3 semaines",
         priceEth: 0.91,
         priceEur: 1267.53,
       },
       {
         profilePicture: "https://i.imgur.com/cCVIcNS.png",
         userName: "DonOfSomething",
-        date: "3 weeks ago ",
+        date: "il y a 3 semaines",
         priceEth: 0.91,
         priceEur: 1267.53,
       },
       {
         profilePicture: "https://i.imgur.com/cCVIcNS.png",
         userName: "DonOfSomething",
-        date: "3 weeks ago ",
+        date: "il y a 3 semaines",
         priceEth: 0.91,
         priceEur: 1267.53,
       },
       {
         profilePicture: "https://i.imgur.com/cCVIcNS.png",
         userName: "DonOfSomething",
-        date: "3 weeks ago ",
+        date: "il y a 3 semaines",
         priceEth: 0.91,
         priceEur: 1267.53,
       },
@@ -413,6 +414,10 @@ const NftSingle = () => {
             <NftCollectionSubMenu
               handleClickSubMenuButton={handleClickSubMenuButton}
               isSubMenuClicked={isSubMenuClicked}
+              nftsPropertiesCounter={dataSinglePageNftCollection.propertiesData[0].properties.length}
+              //
+              isNftPropertiesExist={isNftPropertiesExist}
+              setIsNftPropertiesExist={setIsNftPropertiesExist}
             />
           </div>
           {isSubMenuClicked[0] && (
@@ -435,6 +440,7 @@ const NftSingle = () => {
                 dataSinglePageNftCollection.propertiesData[0].properties
               }
               nftsFromOwner={nftsFromOwner}
+              isNftPropertiesExist={isNftPropertiesExist}
             />
           )}
           {isSubMenuClicked[2] && (
