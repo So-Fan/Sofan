@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import SofanLogo2 from "../../Assets/Image/sofanlogo2.svg";
 import Searchbar from "./Searchbar/Searchbar";
@@ -19,10 +19,24 @@ const Navbar = ({
   isNotificationButtonClicked,
   setIsNotificationButtonClicked,
 }) => {
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
+    useState();
   const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
+  const handlePixelScrolledAthleteProfilePage = () => {
+    setPixelScrolledAthleteProfilePage(window.scrollY);
+  };
   function handleSignInButtonClick() {
     setIsSignInButtonClicked(true);
   }
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      handlePixelScrolledAthleteProfilePage,
+      false
+    );
+  }, []);
+    // retirer le scroll lock lorsque le modal n'est plus la
+    document.querySelector("body").classList.remove("scroll-lock");
   return (
     <>
       {!isLogged && (
@@ -91,6 +105,7 @@ const Navbar = ({
       )}
       {isSignInButtonClicked && (
         <Modal
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsSignInButtonClicked}
           style={{ top: "28px", right: "20px", zIndex: "9999" }}
         >
