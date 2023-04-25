@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import SofanLogo2 from "../../Assets/Image/sofanlogo2.svg";
 import Searchbar from "./Searchbar/Searchbar";
@@ -11,14 +11,27 @@ import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import NotificationPopUp from "./NotificationPopUp/NotificationPopUp";
-const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup, isNotificationButtonClicked, setIsNotificationButtonClicked }) => {
+import LoginSignUpScreen from "../../Pages/LoginSignUpPage/LoginSignUpScreen";
+const Navbar = ({
+  isProfileClicked,
+  isLogged,
+  handleNotificationPopup,
+  isNotificationButtonClicked,
+  setIsNotificationButtonClicked,
+}) => {
+  const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
+  function handleSignInButtonClick() {
+    setIsSignInButtonClicked(true);
+  }
   return (
     <>
-     {!isLogged &&<style>
-    {`
+      {!isLogged && (
+        <style>
+          {`
     ${customNavbarMediaQueries}
     `}
-    </style>}
+        </style>
+      )}
       <section className="navbar-section">
         <div className="navbar-wrap">
           <div className="navbar-wrap-1">
@@ -38,17 +51,31 @@ const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup, isNotific
               <div className="navbar-wrap-2-subwrap-navicon-and-navprofile">
                 <div className="navbar-wrap-2-navicon-wrap">
                   <div className="navbar-vertical"></div>
-                  <NavIcon 
-                  handleNotificationPopup={handleNotificationPopup}
-                  src={notification} />
+                  <NavIcon
+                    handleNotificationPopup={handleNotificationPopup}
+                    src={notification}
+                  />
                   <div className="navbar-vertical"></div>
                 </div>
                 <NavProfile isProfileClicked={isProfileClicked} src={profile} />
               </div>
             ) : (
               <div className="navbar-wrap-2-subwrap-sign">
-                <Button text="Sign up" style={NavbarButtonStyle.signUp} customMediaQueries={customNavbarButtonMediaQueries}/>
-                <Button text="Sign in" style={NavbarButtonStyle.signIn} />
+                <div className="navbar-wrap-2-subwrap-sign-up-button">
+                  <Button
+                    onClick={handleSignInButtonClick}
+                    text="Sign up"
+                    style={NavbarButtonStyle.signUp}
+                    customMediaQueries={customNavbarButtonMediaQueries}
+                  />
+                </div>
+                <div className="navbar-wrap-2-subwrap-sign-in-button">
+                  <Button
+                    onClick={handleSignInButtonClick}
+                    text="Sign in"
+                    style={NavbarButtonStyle.signIn}
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -59,8 +86,16 @@ const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup, isNotific
           setState={setIsNotificationButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <NotificationPopUp 
-          notificationPopUpComponent={true}
+          <NotificationPopUp notificationPopUpComponent={true} />
+        </Modal>
+      )}
+      {isSignInButtonClicked && (
+        <Modal
+          setState={setIsSignInButtonClicked}
+          style={{ top: "28px", right: "20px", zIndex: "9999" }}
+        >
+          <LoginSignUpScreen
+          // isSignInButtonClicked={isSignInButtonClicked}
           />
         </Modal>
       )}
@@ -69,8 +104,10 @@ const Navbar = ({ isProfileClicked, isLogged, handleNotificationPopup, isNotific
 };
 export default Navbar;
 
-const customNavbarMediaQueries = "@media (max-width: 1200px) {.searchbar-input{width: 438px;}.navbar-wrap-1 {width: 600px;}} @media (max-width: 1139px) {.navbar-wrap-2-unauthenticated{width: 384px;}.navbar-wrap-1 { width: 500px;}.searchbar-input{width: 330px;}} @media (max-width: 1048px) {.navbar-wrap-1 {width: 450px;}.searchbar-input{width: 290px;}} @media (max-width: 940px) {.navbar-wrap {width: 95%;}.navbar-wrap-1 {width: 450px;}.searchbar-input{width: 290px;}} @media (max-width: 886px) {.navbar-wrap {width: 98%;}} @media (max-width: 860px) {.navbar-wrap-2-unauthenticated{width:350px;}} @media (max-width: 825px) {.navbar-wrap-2-unauthenticated{width:320px;}}"
-const customNavbarButtonMediaQueries ='@media (max-width: 860px) {.button-component{width:100px !important;}} @media (max-width: 860px) {.button-component{width:90px !important;}}'
+const customNavbarMediaQueries =
+  "@media (max-width: 1200px) {.searchbar-input{width: 438px;}.navbar-wrap-1 {width: 600px;}} @media (max-width: 1139px) {.navbar-wrap-2-unauthenticated{width: 384px;}.navbar-wrap-1 { width: 500px;}.searchbar-input{width: 330px;}} @media (max-width: 1048px) {.navbar-wrap-1 {width: 450px;}.searchbar-input{width: 290px;}} @media (max-width: 940px) {.navbar-wrap {width: 95%;}.navbar-wrap-1 {width: 450px;}.searchbar-input{width: 290px;}} @media (max-width: 886px) {.navbar-wrap {width: 98%;}} @media (max-width: 860px) {.navbar-wrap-2-unauthenticated{width:350px;}} @media (max-width: 825px) {.navbar-wrap-2-unauthenticated{width:320px;}}";
+const customNavbarButtonMediaQueries =
+  "@media (max-width: 860px) {.button-component{width:100px !important;}} @media (max-width: 860px) {.button-component{width:90px !important;}}";
 
 const NavbarButtonStyle = {
   signUp: {
@@ -79,9 +116,8 @@ const NavbarButtonStyle = {
     width: "117px",
     height: "40px",
     borderRadius: "5px",
-    fontFamily: 'Britanica-Heavy',
-    fontSize: "16px"
-
+    fontFamily: "Britanica-Heavy",
+    fontSize: "16px",
   },
   signIn: {
     backgroundColor: "#F6D463",
@@ -89,7 +125,7 @@ const NavbarButtonStyle = {
     width: "117px",
     height: "40px",
     borderRadius: "5px",
-    fontFamily: 'Britanica-Heavy',
-    fontSize: "16px"
+    fontFamily: "Britanica-Heavy",
+    fontSize: "16px",
   },
 };
