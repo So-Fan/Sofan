@@ -89,7 +89,7 @@ text-decoration: underline;
 }
 .nft-collection-history-bids-price {
   height: 44px;
-  max-width: 100px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

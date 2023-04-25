@@ -26,10 +26,11 @@ function NftCollectionHistory({history, ethPrice, handleBuyNftButtonClick}) {
               <div onClick={handleBuyNftButtonClick} className="nft-collection-history-bids-buy">acheter</div>
               <div className="nft-collection-history-bids-price">
                 <div className="nft-collection-history-bids-price-eth">
-                  {element.priceEth} ETH
+                  
+                 €566{(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 1})}
                 </div>
                 <div className="nft-collection-history-bids-price-eur">
-                  € {(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 3})}
+                {element.priceEth} ETH
                 </div>
               </div>
             </div>
