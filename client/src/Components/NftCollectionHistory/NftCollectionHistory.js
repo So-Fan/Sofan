@@ -27,7 +27,7 @@ function NftCollectionHistory({history, ethPrice, handleBuyNftButtonClick}) {
               <div className="nft-collection-history-bids-price">
                 <div className="nft-collection-history-bids-price-eth">
                   
-                 €566{(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 1})}
+                 €{(element.priceEth * ethPrice).toLocaleString('fr-FR', {maximumFractionDigits: 1})}
                 </div>
                 <div className="nft-collection-history-bids-price-eur">
                 {element.priceEth} ETH
