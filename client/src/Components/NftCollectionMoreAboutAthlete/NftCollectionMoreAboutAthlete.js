@@ -8,7 +8,7 @@ function NftCollectionMoreAboutAthlete({
 }) {
   // console.log("blabla " + moreAboutAthleteDescription);
   // console.log(moreAbout)
-console.log(moreAbout[0].fullName)
+// console.log(moreAbout[0].fullName)
   return (
     <section className="nft-collection-more-about-athlete-container">
       <div className="nft-collection-more-about-athlete-title">

@@ -9,7 +9,7 @@ function LaunchpadCollectionLiveUtilities({
 
   return (
     <section className="launchpad-collection-live-utilities-container">
-      <div className="launchpad-collection-live-utilities-title">Utilities</div>
+      <div className="launchpad-collection-live-utilities-title">Utilité</div>
    {utilitiesArray.map((element) => (
           <UtilitiesComponent
             key={uuidv4()}
