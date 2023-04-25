@@ -151,7 +151,7 @@ function NftCollectionHeader({
                   </div>
                   <div className="nft-collection-header-owner-creator-title-and-name-creator">
                     <span className="nft-collection-header-owner-creator-title-creator">
-                      Creator
+                      Créateur
                     </span>
                     <span className="nft-collection-header-owner-creator-name-creator">
                       {creatorName}
@@ -167,7 +167,7 @@ function NftCollectionHeader({
                   </div>
                   <div className="nft-collection-header-owner-creator-title-and-name-owner">
                     <span className="nft-collection-header-owner-creator-title-owner">
-                      Owner
+                      Propriétaire
                     </span>
                     <span className="nft-collection-header-owner-creator-name-owner">
                       {ownerName}
@@ -183,7 +183,7 @@ function NftCollectionHeader({
                   <div className="nft-collection-header-price-container">
                     <div className="nft-collection-header-price-wrap">
                       <span className="nft-collection-header-title-price">
-                        Price
+                        Prix
                       </span>
                       <span className="nft-collection-header-eth-price">
                         {ethPricePriceConverted} €
@@ -196,7 +196,7 @@ function NftCollectionHeader({
                   <div className="nft-collection-header-bid-container">
                     <div className="nft-collection-header-bid-wrap">
                       <span className="nft-collection-header-title-bid">
-                        Highest bid
+                        Offre la plus élevée
                       </span>
                       <span className="nft-collection-header-eth-bid">
                         {ethBidPriceConverted} €
@@ -212,13 +212,13 @@ function NftCollectionHeader({
                     className="nft-collection-header-buy-button"
                     onClick={handleBuyNftButtonClick}
                   >
-                    Buy NFT
+                    Acheter le NFT
                   </div>
                   <div
                     className="nft-collection-header-bid-button"
                     onClick={handleBidNftButtonClick}
                   >
-                    Place a bid
+                    Placer une offre
                   </div>
                 </div>
               </div>

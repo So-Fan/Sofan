@@ -27,7 +27,7 @@ useEffect(() => {
             : "nft-collection-submenu-button"
         }
       >
-        Overview
+        Vu d'ensemble
       </div>
       {isNftPropertiesExist ? <>
         <div
@@ -52,7 +52,7 @@ useEffect(() => {
             : "nft-collection-submenu-button"
         }
       >
-        Bids
+        Offres
       </div>
       <div
         onClick={handleClickSubMenuButton}
@@ -62,7 +62,7 @@ useEffect(() => {
             : "nft-collection-submenu-button"
         }
       >
-        Activity
+        Activité
       </div>
     </div>
   );

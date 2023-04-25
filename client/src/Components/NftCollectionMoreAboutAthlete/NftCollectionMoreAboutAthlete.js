@@ -8,11 +8,12 @@ function NftCollectionMoreAboutAthlete({
 }) {
   // console.log("blabla " + moreAboutAthleteDescription);
   // console.log(moreAbout)
-
+console.log(moreAbout[0].fullName)
   return (
     <section className="nft-collection-more-about-athlete-container">
       <div className="nft-collection-more-about-athlete-title">
-        More about the athlete
+        En savoir + sur   {launchpadCollectionLivePage ? <>{moreAboutAthlete.fullName}</> : <>{moreAbout[0].fullName}</>}
+
       </div>
       <div className="nft-collection-more-about-athlete-wrap">
         <div className="nft-collection-more-about-athlete-picture-container">
@@ -51,7 +52,7 @@ function NftCollectionMoreAboutAthlete({
             )}
           </div>
           <button className="nft-collection-more-about-athlete-view-profile-button">
-            See the profile
+            Voir le profil
           </button>
         </div>
       </div>

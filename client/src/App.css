@@ -5,9 +5,9 @@
   align-items: center;
   flex-direction: column;
 }
-button:active {
+/* button:active {
   transform: scale(0.45) !important;
-}
+} */
 .error-mobile-waiting-page{
   display: none;
 }

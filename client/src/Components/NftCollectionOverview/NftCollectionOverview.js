@@ -14,7 +14,7 @@ function NftCollectionOverview({
   return (
     <section className="nft-collection-overview-container">
       <div className="nft-collection-overview-utilities-container">
-        <div className="nft-collection-overview-utilities-title">Utilities</div>
+        <div className="nft-collection-overview-utilities-title">Utilités</div>
         {utilitiesArray.map((element) => (
           <UtilitiesComponent
             key={uuidv4()}

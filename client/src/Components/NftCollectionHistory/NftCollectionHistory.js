@@ -1,7 +1,7 @@
 import React from "react";
 import "./NftCollectionHistory.css";
 import { v4 as uuidv4 } from "uuid";
-function NftCollectionHistory({history, ethPrice}) {
+function NftCollectionHistory({history, ethPrice, handleBuyNftButtonClick}) {
   
   return (
     <section className="nft-collection-history-container">
@@ -23,7 +23,7 @@ function NftCollectionHistory({history, ethPrice}) {
                   {element.date}
                 </div>
               </div>
-              <div className="nft-collection-history-bids-buy">acheter</div>
+              <div onClick={handleBuyNftButtonClick} className="nft-collection-history-bids-buy">acheter</div>
               <div className="nft-collection-history-bids-price">
                 <div className="nft-collection-history-bids-price-eth">
                   {element.priceEth} ETH

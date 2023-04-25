@@ -65,6 +65,9 @@
   background-color: #f6d46391 !important;
   transition-duration: 500ms !important;
 }
+.navbar-wrap-2-subwrap-sign-up-button button:active{
+  transform: scale(0.45) !important;
+}
 .navbar-wrap-2-subwrap-sign-in-button button{
   background-color: #f6d463 !important;
   border-radius: 10px;
@@ -73,6 +76,9 @@
   background-color: #f7c520 !important;
   /* border-radius: 10px; */
   transition-duration: 300ms !important;
+}
+.navbar-wrap-2-subwrap-sign-in-button button:active{
+  transform: scale(0.45) !important;
 }
 
 /* background-color: #f7c520; */
