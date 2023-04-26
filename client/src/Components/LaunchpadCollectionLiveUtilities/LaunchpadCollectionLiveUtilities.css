@@ -3,7 +3,9 @@
     max-height: 691px;
     max-width: 612px;
     margin-top: 50px;
-    /* background-color: red; */
+    padding-left: 10px;
+    padding-right: 10px;
+    /* background-color: rgba(255, 0, 0, 0.178); */
 }
 .launchpad-collection-live-utilities-title{
     width: 100%;
@@ -11,4 +13,10 @@
     font-size: 30px;
     font-family: "britanica-heavy";
     margin-bottom: 20px;
+}
+
+@media (max-width:1180px) {
+    .launchpad-collection-live-utilities-container{
+        max-width: 550px;
+    }
 }

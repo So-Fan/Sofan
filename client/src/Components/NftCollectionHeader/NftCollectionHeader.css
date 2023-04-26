@@ -353,7 +353,7 @@
   border: none;
   position: absolute;
   bottom: 3.2258%;
-  right: 3.2258%;
+  right: 6.2258%;
   background: #ffffff;
   border-radius: 5px;
   width: 173px;
@@ -589,6 +589,9 @@
     max-width: 140px;
   }
   /* =================================================== */
+  .launchpad-collection-live-button-container{
+    /* right: 18%; */
+  }
   .launchpad-collection-live-header-right-wrap {
     margin-left: 25px;
     margin-top: 25px;

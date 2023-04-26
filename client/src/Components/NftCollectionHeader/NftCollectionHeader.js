@@ -57,7 +57,7 @@ function NftCollectionHeader({
   });
   return (
     <section className="nft-collection-header-container">
-      <div className="nft-collection-header-picture">
+      {/* <div className="nft-collection-header-picture">
         {launchpadCollectionLiveHeader && (
           <>
             <a href="/nftcollection">
@@ -68,7 +68,7 @@ function NftCollectionHeader({
           </>
         )}
         <img src={nftPicture} alt="IMAGE NFT" />
-      </div>
+      </div> */}
       {launchpadCollectionLiveHeader ? (
         <>
           <div className="launchpad-collection-live-header-right-container">

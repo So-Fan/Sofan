@@ -5,15 +5,70 @@
   display: flex;
 
   flex-direction: column;
+  /* flex-direction: row-reverse; */
+}
+.launchpad-collection-live-page-header-and-utilities-container{
+  width: 100%;
+  max-width: 1243px;
+  max-height: 620px;
+  /* overflow-y: scroll; */
+  display: flex;
+/* flex-wrap: wrap-reverse; */
+flex-direction: row-reverse;
+/* background-color: blueviolet; */
+position: relative !important;
+}
+.launchpad-collection-live-header-component-container{
+  /* background-color: yellow ; */
+  width: 50%;
 }
 .launchpad-collection-live-page-left-container {
   width: 100%;
   height: 100%;
-  max-width: 618px;
+  max-width: 650px;
+  max-height: 620px;
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
-  /* background-color: aquamarine; */
+  /* background-color: aquamarine !important; */
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+}
+.launchpad-collection-live-page-left-container::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+  /* position: absolute !important; */
+  /* right: 30px !important; */
+padding-left: 30px !important;
+}
+
+.launchpad-collection-live-page-left-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.launchpad-collection-live-page-left-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Style de la scrollbar pour Firefox */
+.launchpad-collection-live-page-left-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+/* Style de la scrollbar pour Internet Explorer */
+@-ms-viewport {
+  width: device-width;
+}
+
+.launchpad-collection-live-page-left-container {
+  -ms-overflow-style: none;
+}
+
+.launchpad-collection-live-page-left-container::-ms-scrollbar {
+  display: none;
 }
 .launchpad-collection-live-page-more-about-collection-container {
   width: 100%;
@@ -30,6 +85,13 @@
     max-width: 96%;
     align-items: center;
   }
+  .launchpad-collection-live-page-left-container {
+max-width: 580px;
+    /* padding-left: 20px !important; */
+    /* background-color: red; */
+    overflow: scroll !important;
+  }
+  
 }
 @media (max-width: 1080px) {
   .launchpad-collection-live-page-container {

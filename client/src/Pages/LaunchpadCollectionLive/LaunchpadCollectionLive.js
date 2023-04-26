@@ -8,7 +8,7 @@ import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAbo
 import { Network, Alchemy } from "alchemy-sdk";
 import MintPopUpBuy from "../../Components/MintPopUp/MintPopUpBuy/MintPopUpBuy";
 import Modal from "../../Components/Modal/Modal";
-import MintPopUp from "../../Components/MintPopUp/MintPopUp"
+import MintPopUp from "../../Components/MintPopUp/MintPopUp";
 function LaunchpadCollectionLive() {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
@@ -144,51 +144,78 @@ function LaunchpadCollectionLive() {
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
 
-  const [handleMintButtonClickFunction, setHandleMintButtonClickFunction] = useState()
-  
+  const [handleMintButtonClickFunction, setHandleMintButtonClickFunction] =
+    useState();
+
   // display mint pop up
   function handleMintButtonClick(e) {
-    setIsMintButtonClicked(true)
+    setIsMintButtonClicked(true);
     // console.log("test");
   }
-
+  let launchpadCollectionLiveHeader = true;
   return (
     <>
       <section className="launchpad-collection-live-page-container">
-        <LaunchpadCollectionLiveHeader
-          handleMintButtonClick={handleMintButtonClick}
-          //   dataBackend Firestore
-          launchpadCollectionLiveHeader={true}
-          creatorProfilePic={dataBackend.header[0].creatorProfilePic}
-          creatorName={dataBackend.header[0].creatorName}
-          collectionName={dataBackend.header[0].collectionName}
-          description={dataBackend.header[0].description}
-          minLimit={dataBackend.header[0].mintLimit}
-          // dataBacken RealTimeDb
-          timer={dataRealTimeDb.header[0].timer}
-          // FAKE apiData
-          nftPriceEth={dataApi.header[0].ethPrice}
-          nftPriceEur={dataApi.header[0].eurPrice}
-          counterNftMinted={dataApi.header[0].counterNftMinted}
-          totalNftMintable={dataApi.header[0].totalNftMintable}
-          // Api Alchemy
-          collectionNameApi={collectionNameApi}
-          collectionDescriptionApi={collectionDescriptionApi}
-          nftPicture={nftPicture}
-          // Api CoinGecko
-          ethPrice={ethPrice}
-          // display mint popup
-        />
-        <div className="launchpad-collection-live-page-left-container">
-          <LaunchpadCollectionLiveUtilities
-            utilitiesArray={dataBackend.utilities}
-          />
-          <div className="launchpad-collection-live-page-more-about-collection-container">
-            <LaunchpadCollectionLiveMoreAboutCollection
-              moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
+        {/*  */}
+        <div className="launchpad-collection-live-page-header-and-utilities-container">
+          <div className="launchpad-collection-live-header-component-container">
+            <LaunchpadCollectionLiveHeader
+              handleMintButtonClick={handleMintButtonClick}
+              //   dataBackend Firestore
+              launchpadCollectionLiveHeader={true}
+              creatorProfilePic={dataBackend.header[0].creatorProfilePic}
+              creatorName={dataBackend.header[0].creatorName}
+              collectionName={dataBackend.header[0].collectionName}
+              description={dataBackend.header[0].description}
+              minLimit={dataBackend.header[0].mintLimit}
+              // dataBacken RealTimeDb
+              timer={dataRealTimeDb.header[0].timer}
+              // FAKE apiData
+              nftPriceEth={dataApi.header[0].ethPrice}
+              nftPriceEur={dataApi.header[0].eurPrice}
+              counterNftMinted={dataApi.header[0].counterNftMinted}
+              totalNftMintable={dataApi.header[0].totalNftMintable}
+              // Api Alchemy
+              collectionNameApi={collectionNameApi}
+              collectionDescriptionApi={collectionDescriptionApi}
+              nftPicture={nftPicture}
+              // Api CoinGecko
+              ethPrice={ethPrice}
+              // display mint popup
             />
           </div>
+          {/* =====================================================
+          =========================================================
+          */}
+
+          <div className="launchpad-collection-live-page-left-container">
+            <div className="nft-collection-header-picture">
+              {launchpadCollectionLiveHeader && (
+                <>
+                  <a href="/nftcollection">
+                    <button className="launchpad-collection-live-button-container">
+                      Explorer la collection
+                    </button>
+                  </a>
+                </>
+              )}
+              <img src={nftPicture} alt="IMAGE NFT" />
+            </div>
+
+            {/* =====================================================
+            =========================================================
+            */}
+            <LaunchpadCollectionLiveUtilities
+              utilitiesArray={dataBackend.utilities}
+            />
+            <div className="launchpad-collection-live-page-more-about-collection-container">
+              <LaunchpadCollectionLiveMoreAboutCollection
+                moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
+              />
+            </div>
+          </div>
         </div>
+        {/*  */}
         <NftCollectionMoreAboutAthlete
           launchpadCollectionLivePage={true}
           moreAboutAthlete={dataBackend.moreAboutAthlete[0]}
@@ -201,7 +228,7 @@ function LaunchpadCollectionLive() {
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "25px", right: "26px" }}
         >
-          <MintPopUp/>
+          <MintPopUp />
           {/* <MintPopUpBuy/> */}
         </Modal>
       )}
