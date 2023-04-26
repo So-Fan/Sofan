@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 1243px;
   display: flex;
-
+  padding-bottom: 100px;
   flex-direction: column;
 }
 .launchpad-collection-live-page-left-container {
