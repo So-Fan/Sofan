@@ -24,7 +24,7 @@ const NftSingle = () => {
   const [isBidNftButtonClicked, setIsBidNftButtonClicked] = useState(false);
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-    const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
+  const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
   //
   const [ethPrice, setEthPrice] = useState(); // API CoinGecko
   const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
@@ -103,11 +103,11 @@ const NftSingle = () => {
 
   //
   function handleBuyNftButtonClick() {
-    handleBidNftButtonClick={handleBidNftButtonClick}
+    handleBidNftButtonClick = { handleBidNftButtonClick };
     setIsBuyNftButtonClicked(true);
   }
   function handleBidNftButtonClick() {
-    setIsBidNftButtonClicked(true)
+    setIsBidNftButtonClicked(true);
   }
   //
   function handleClickSubMenuButton(e) {
@@ -367,102 +367,116 @@ const NftSingle = () => {
   return (
     <>
       <section className="nft-single-collection-page-container">
-        <NftCollectionHeader
-          collectionName={
-            dataSinglePageNftCollection.headerData[0].collectionName
-          }
-          nftNumber={dataSinglePageNftCollection.headerData[0].nftNumber}
-          creatorName={dataSinglePageNftCollection.headerData[0].creatorName}
-          creatorProfilePic={
-            dataSinglePageNftCollection.headerData[0].creatorProfilePic
-          }
-          ownerName={dataSinglePageNftCollection.headerData[0].ownerName}
-          ownerProfilePic={
-          dataSinglePageNftCollection.headerData[0].ownerProfilePic
-          }
-          //
-          nftPriceEth={apiOpenSea[0].nftPriceEth}
-          nftPriceEur={apiOpenSea[0].nftPriceEur}
-          nftBidEth={apiOpenSea[0].nftBidEth}
-          nftBifEur={apiOpenSea[0].nftBidEur}
-          // Api Alchemy
-          collectionNameApi={collectionNameApi}
-          collectionDescriptionApi={collectionDescriptionApi}
-          nftIdApi={nftIdApi}
-          nftPicture={nftPicture}
-          // Api CoinGecko
-          ethPrice={ethPrice}
-          //
-          handleBuyNftButtonClick={handleBuyNftButtonClick}
-          handleBidNftButtonClick={handleBidNftButtonClick}
-        />
-        <div className="nft-single-collection-page-left-container">
-          {/* {isSubMenuClicked[0] ? <>
-          
-          </> :<>
-        </> } */}
-          <div
-            style={
-              isSubMenuClicked[0]
-                ? { marginBottom: "50px" }
-                : isSubMenuClicked[3]
-                ? { marginBottom: "20px" }
-                : {}
-            }
-            className="nft-single-collection-page-submenu-container"
-          >
-            <NftCollectionSubMenu
-              handleClickSubMenuButton={handleClickSubMenuButton}
-              isSubMenuClicked={isSubMenuClicked}
-              nftsPropertiesCounter={dataSinglePageNftCollection.propertiesData[0].properties.length}
+        <div className="nft-single-collection-page-header-and-utilities-container">
+          <div className="nft-single-collection-page-header-component-container">
+            <NftCollectionHeader
+              collectionName={
+                dataSinglePageNftCollection.headerData[0].collectionName
+              }
+              nftNumber={dataSinglePageNftCollection.headerData[0].nftNumber}
+              creatorName={
+                dataSinglePageNftCollection.headerData[0].creatorName
+              }
+              creatorProfilePic={
+                dataSinglePageNftCollection.headerData[0].creatorProfilePic
+              }
+              ownerName={dataSinglePageNftCollection.headerData[0].ownerName}
+              ownerProfilePic={
+                dataSinglePageNftCollection.headerData[0].ownerProfilePic
+              }
               //
-              isNftPropertiesExist={isNftPropertiesExist}
-              setIsNftPropertiesExist={setIsNftPropertiesExist}
+              nftPriceEth={apiOpenSea[0].nftPriceEth}
+              nftPriceEur={apiOpenSea[0].nftPriceEur}
+              nftBidEth={apiOpenSea[0].nftBidEth}
+              nftBifEur={apiOpenSea[0].nftBidEur}
+              // Api Alchemy
+              collectionNameApi={collectionNameApi}
+              collectionDescriptionApi={collectionDescriptionApi}
+              nftIdApi={nftIdApi}
+              nftPicture={nftPicture}
+              // Api CoinGecko
+              ethPrice={ethPrice}
+              //
+              handleBuyNftButtonClick={handleBuyNftButtonClick}
+              handleBidNftButtonClick={handleBidNftButtonClick}
             />
           </div>
-          {isSubMenuClicked[0] && (
-            <NftCollectionOverview
-              utilitiesArray={
-                dataSinglePageNftCollection.overviewData[0].utilities
+          <div className="nft-single-collection-page-left-container">
+            <div className="nft-collection-header-picture">
+              <img src={nftPicture} alt="IMAGE NFT" />
+            </div>
+            {/* {isSubMenuClicked[0] ? <>
+          
+          </> :<>
+          </> } */}
+            <div
+              style={
+                isSubMenuClicked[0]
+                  ? { marginBottom: "50px" }
+                  : isSubMenuClicked[3]
+                  ? { marginBottom: "20px" }
+                  : {}
               }
-              moreAboutCollectionArray={
-                dataSinglePageNftCollection.overviewData[0].moreAboutCollection
-              }
-              latestBidsArray={
-                dataSinglePageNftCollection.overviewData[0].latestBids
-              }
-              ethPrice={ethPrice}
-            />
-          )}
-          {isSubMenuClicked[1] && (
-            <NftCollectionProperties
-              properties={
-                dataSinglePageNftCollection.propertiesData[0].properties
-              }
-              nftsFromOwner={nftsFromOwner}
-              isNftPropertiesExist={isNftPropertiesExist}
-            />
-          )}
-          {isSubMenuClicked[2] && (
-            <NftCollectionLatestsBids
-              latestBidsArray={
-                dataSinglePageNftCollection.overviewData[0].latestBids
-              }
-              bidsSectionDeleteSpace={true}
-              ethPrice={ethPrice}
-            />
-          )}
-          {isSubMenuClicked[3] && (
-            <>
-              <div>
-                <NftCollectionHistory
-                  history={dataSinglePageNftCollection.history}
-                  ethPrice={ethPrice}
-                  handleBuyNftButtonClick={handleBuyNftButtonClick}
-                />
-              </div>
-            </>
-          )}
+              className="nft-single-collection-page-submenu-container"
+            >
+              <NftCollectionSubMenu
+                handleClickSubMenuButton={handleClickSubMenuButton}
+                isSubMenuClicked={isSubMenuClicked}
+                nftsPropertiesCounter={
+                  dataSinglePageNftCollection.propertiesData[0].properties
+                    .length
+                }
+                //
+                isNftPropertiesExist={isNftPropertiesExist}
+                setIsNftPropertiesExist={setIsNftPropertiesExist}
+              />
+            </div>
+            {isSubMenuClicked[0] && (
+              <NftCollectionOverview
+                utilitiesArray={
+                  dataSinglePageNftCollection.overviewData[0].utilities
+                }
+                moreAboutCollectionArray={
+                  dataSinglePageNftCollection.overviewData[0]
+                    .moreAboutCollection
+                }
+                latestBidsArray={
+                  dataSinglePageNftCollection.overviewData[0].latestBids
+                }
+                ethPrice={ethPrice}
+              />
+            )}
+            {isSubMenuClicked[1] && (
+              <NftCollectionProperties
+                properties={
+                  dataSinglePageNftCollection.propertiesData[0].properties
+                }
+                nftsFromOwner={nftsFromOwner}
+                isNftPropertiesExist={isNftPropertiesExist}
+              />
+            )}
+            {isSubMenuClicked[2] && (
+              <NftCollectionLatestsBids
+                latestBidsArray={
+                  dataSinglePageNftCollection.overviewData[0].latestBids
+                }
+                bidsSectionDeleteSpace={true}
+                ethPrice={ethPrice}
+              />
+            )}
+            {isSubMenuClicked[3] && (
+              <>
+                <div>
+                  <NftCollectionHistory
+                    history={dataSinglePageNftCollection.history}
+                    ethPrice={ethPrice}
+                    handleBuyNftButtonClick={handleBuyNftButtonClick}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+            </div>
           <div className="nft-single-collection-page-more-about-athlete-container">
             <NftCollectionMoreAboutAthlete
               moreAbout={dataSinglePageNftCollection.moreAbout}
@@ -473,7 +487,6 @@ const NftSingle = () => {
             nftsFromOwner={nftsFromOwner}
             hidePrice={true}
           />
-        </div>
       </section>
       {isBuyNftButtonClicked && (
         <Modal
@@ -492,7 +505,7 @@ const NftSingle = () => {
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "30px", right: "26px" }}
         >
-          <PopUpPlaceBid/>
+          <PopUpPlaceBid />
         </Modal>
       )}
     </>

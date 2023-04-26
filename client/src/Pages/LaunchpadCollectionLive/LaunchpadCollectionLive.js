@@ -186,7 +186,7 @@ function LaunchpadCollectionLive() {
           </div>
           {/* =====================================================
           =========================================================
-          */}
+        */}
 
           <div className="launchpad-collection-live-page-left-container">
             <div className="nft-collection-header-picture">

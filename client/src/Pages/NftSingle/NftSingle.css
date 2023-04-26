@@ -1,11 +1,24 @@
 .nft-single-collection-page-container {
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   max-width: 1243px;
+  max-height: 620px;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-direction: column;
-  /* background-color: red; */
+  background-color: red;
+}
+.nft-single-collection-page-header-and-utilities-container{
+  width: 100%;
+  max-width: 1243px;
+  /* height: 100%; */
+  display: flex;
+  /* align-items: center; */
+  flex-direction: row-reverse;
+  background-color: yellowgreen;
+}
+.nft-single-collection-page-header-component-container{
+  width: 50%;
 }
 .nft-single-collection-page-left-container {
   width: 100%;
