@@ -8,6 +8,7 @@ function LaunchpadAll({
   setIsLiveLaunchSportDropdownClicked,
   isUpcomingLaunchSportDropdownClicked,
   setIsUpcomingLaunchSportDropdownClicked,
+  handleLiveLaunchesSportDropdownClicked
 }) {
   const [launchpadAllData, setLaunchpadAllData] = useState();
   const [dimMain, setDimMain] = useState(window.innerWidth);
@@ -161,6 +162,7 @@ function LaunchpadAll({
           setIsLiveLaunchSportDropdownClicked={
             setIsLiveLaunchSportDropdownClicked
           }
+          handleLiveLaunchesSportDropdownClicked={handleLiveLaunchesSportDropdownClicked}
           data={launchpadAllData?.launchpadLive}
           setDimMain={setDimMain}
           hidePrice={true}

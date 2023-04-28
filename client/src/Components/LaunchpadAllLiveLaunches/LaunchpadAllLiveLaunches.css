@@ -25,6 +25,7 @@
   border-radius: 10px;
   cursor: pointer;
   position: relative;
+  user-select: none;
 }
 .launchpadalllivelaunches-top-wrap-dropdown-clicked {
   border-bottom-left-radius: 0 !important;

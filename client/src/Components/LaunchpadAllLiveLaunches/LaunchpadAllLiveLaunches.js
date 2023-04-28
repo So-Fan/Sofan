@@ -9,6 +9,7 @@ const LaunchpadAllLiveLaunches = ({
   data,
   setDimMain,
   hidePrice,
+  handleLiveLaunchesSportDropdownClicked
 }) => {
   const scrollRef = useHorizontalScroll();
   const [dim, setDim] = useState(window.innerWidth);
@@ -20,9 +21,22 @@ const LaunchpadAllLiveLaunches = ({
     setDim(window.innerWidth);
     setDimMain(window.innerWidth);
   };
-  const handleLiveLaunchesSportDropdownClicked = () => {
-    setIsLiveLaunchSportDropdownClicked(true);
-  };
+  // function handleLiveLaunchesSportDropdownClicked(e) {
+  //   console.log(e.target.id);
+  //   if (
+  //     e.target.className == "launchpadalllivelaunches-top-wrap-dropdown" ||
+  //     e.target.className ===
+  //       "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked" ||
+  //       e.target.id === "launchpadalllivelaunches-dropdown-main" ||
+  //       e.target.id === "launchpadalllivelaunches-dropdown-img" ||
+  //       e.target.id === "launchpadalllivelaunches-dropdown-span"
+  //   ) {
+  //     setIsLiveLaunchSportDropdownClicked(!isLiveLaunchSportDropdownClicked);
+  //   }
+  //   else {
+  //     setIsLiveLaunchSportDropdownClicked(false);
+  //   }
+  // }
   const handleLiveLaunchesSportChoiceClicked = (e) => {
     console.log(e);
     setCurrentLiveLaunchesSportSelectorSelected(e.target.innerHTML);
@@ -120,11 +134,12 @@ const LaunchpadAllLiveLaunches = ({
   return (
     <div className="launchpadalllivelaunches-component">
       <div
-        onClick={handleLiveLaunchesSportDropdownClicked}
+        // onClick={handleLiveLaunchesSportDropdownClicked}
         className="launchpadalllivelaunches-top-wrap"
         style={respWidthTop}
       >
         <span style={launchpadalllivelaunchesTopWrapSpan}>Live launches</span>
+        {/* Filter */}
         <div
           id="launchpadalllivelaunches-dropdown-main"
           className={
@@ -189,6 +204,7 @@ const LaunchpadAllLiveLaunches = ({
             </>
           )}
         </div>
+        {/* ----------------------------------------------------------------------------- */}
       </div>
       <div
         className="launchpadalllivelaunches-bottom-wrap"
