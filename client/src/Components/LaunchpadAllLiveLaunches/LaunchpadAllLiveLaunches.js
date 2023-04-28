@@ -211,7 +211,7 @@ const LaunchpadAllLiveLaunches = ({
         style={respMaxWidth}
         ref={scrollRef}
       >
-        <div style={launchpadAllLiveLaunchesDynamicWidth}>
+        <div className="launchpadalllivelaunches-bottom-subwrap" style={launchpadAllLiveLaunchesDynamicWidth}>
           {data?.map((launchpadlive) => (
             <div style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate

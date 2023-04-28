@@ -109,69 +109,74 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   }
   return (
     <div className="launchpadalllivelaunchestemplate-component">
-      <img
-        src={background}
-        alt="background"
-        style={launchpadalllivelaunchestemplateComponentImg}
-      />
-      <div
-        className="launchpadalllivelaunchestemplate-data-container"
-        style={launchpadalllivelaunchestemplateDataContainer}
-      >
+      <a href="/nftcollection">
+        <img
+          src={background}
+          alt="background"
+          style={launchpadalllivelaunchestemplateComponentImg}
+        />
         <div
-          className="launchpadalllivelaunchestemplate-data-container-live-wrap"
-          style={launchpadalllivelaunchestemplateDataContainerLiveWrap}
+          className="launchpadalllivelaunchestemplate-data-container"
+          style={launchpadalllivelaunchestemplateDataContainer}
         >
           <div
-            style={launchpadalllivelaunchestemplateDataContainerLiveWrapDiv}
-          ></div>
-          <span
-            style={launchpadalllivelaunchestemplateDataContainerLiveWrapSpan}
+            className="launchpadalllivelaunchestemplate-data-container-live-wrap"
+            style={launchpadalllivelaunchestemplateDataContainerLiveWrap}
           >
-            live
-          </span>
-        </div>
-        <div
-          className="launchpadalllivelaunchestemplate-data-wrap"
-          style={launchpadalllivelaunchestemplateDataWrap}
-        >
-          <a href="/athleteprofile" className="launchpadalllivelaunchestemplate-data-image-and-name">
             <div
-              className="launchpadalllivelaunchestemplate-data-wrap-img"
-              style={launchpadalllivelaunchestemplateDataWrapImg}
-            >
-              <img
-                src={profilePicture}
-                alt="profile"
-                style={launchpadalllivelaunchestemplateDataWrapImgImg}
-              />
-            </div>
+              style={launchpadalllivelaunchestemplateDataContainerLiveWrapDiv}
+            ></div>
             <span
-              className="launchpadalllivelaunchestemplate-data-wrap-athletename"
-              style={launchpadalllivelaunchestemplateDataWrapAthletename}
+              style={launchpadalllivelaunchestemplateDataContainerLiveWrapSpan}
             >
-              by {athleteName}
+              live
             </span>
-          </a>
-          <span
-            className="launchpadalllivelaunchestemplate-data-wrap-title"
-            style={launchpadalllivelaunchestemplateDataWrapTitle}
+          </div>
+          <div
+            className="launchpadalllivelaunchestemplate-data-wrap"
+            style={launchpadalllivelaunchestemplateDataWrap}
           >
-            {title}
-          </span>
-          <span
-            className="launchpadalllivelaunchestemplate-data-wrap-nft"
-            style={launchpadalllivelaunchestemplateDataWrapNft}
-          >
-            {nftLength} items
-            {hidePrice ? <></> : <>- {nftPrice} ETH</>}
-          </span>
-          <Button
-            text="Découvrir"
-            style={launchpadalllivelaunchestemplateDataWrapButton}
-          />
+            <a
+              href="/athleteprofile"
+              className="launchpadalllivelaunchestemplate-data-image-and-name"
+            >
+              <div
+                className="launchpadalllivelaunchestemplate-data-wrap-img"
+                style={launchpadalllivelaunchestemplateDataWrapImg}
+              >
+                <img
+                  src={profilePicture}
+                  alt="profile"
+                  style={launchpadalllivelaunchestemplateDataWrapImgImg}
+                />
+              </div>
+              <span
+                className="launchpadalllivelaunchestemplate-data-wrap-athletename"
+                style={launchpadalllivelaunchestemplateDataWrapAthletename}
+              >
+                by {athleteName}
+              </span>
+            </a>
+            <span
+              className="launchpadalllivelaunchestemplate-data-wrap-title"
+              style={launchpadalllivelaunchestemplateDataWrapTitle}
+            >
+              {title}
+            </span>
+            <span
+              className="launchpadalllivelaunchestemplate-data-wrap-nft"
+              style={launchpadalllivelaunchestemplateDataWrapNft}
+            >
+              {nftLength} items
+              {hidePrice ? <></> : <>- {nftPrice} ETH</>}
+            </span>
+            <Button
+              text="Découvrir"
+              style={launchpadalllivelaunchestemplateDataWrapButton}
+            />
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };

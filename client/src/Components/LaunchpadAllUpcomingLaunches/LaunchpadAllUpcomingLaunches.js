@@ -17,9 +17,9 @@ const LaunchpadAllUpcomingLaunches = ({
   ] = useState("All sports");
   const [dimLaunchpadAllUpcomingLaunches, setDimLaunchpadAllUpcomingLaunches] =
     useState(window.innerWidth);
-  const handleUpcomingLaunchesSportDropdownClicked = () => {
-    setIsUpcomingLaunchSportDropdownClicked(true);
-  };
+  // const handleUpcomingLaunchesSportDropdownClicked = () => {
+  //   setIsUpcomingLaunchSportDropdownClicked(true);
+  // };
   const handleUpcomingLaunchesSportChoiceClicked = (e) => {
     setCurrentUpcomingLaunchesSportSelectorSelected(e.target.innerHTML);
   };
@@ -131,7 +131,7 @@ const LaunchpadAllUpcomingLaunches = ({
   return (
     <div className="launchpadallupcominglaunches-component">
       <div
-        onClick={handleUpcomingLaunchesSportDropdownClicked}
+        // onClick={handleUpcomingLaunchesSportDropdownClicked}
         className="launchpadallupcominglaunches-top-wrap"
         style={respWidthTopLaunchpadAllUpcomingLaunches}
       >

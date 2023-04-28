@@ -95,132 +95,134 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
   }
   return (
     <div className="launchpadallupcominglaunchesTemplate-component">
-      <img
-        src={background}
-        alt="background"
-        style={launchpadallUpcominglaunchestemplateComponentImg}
-      />
-      <div
-        className="launchpadallupcominglaunchesTemplate-data-container"
-        style={launchpadallUpcominglaunchestemplateDataContainer}
-      >
+      <a href="/nftcollection">
+        <img
+          src={background}
+          alt="background"
+          style={launchpadallUpcominglaunchestemplateComponentImg}
+        />
         <div
-          className="launchpadallupcominglaunchesTemplate-data-wrap"
-          style={launchpadallUpcominglaunchestemplateDataWrap}
+          className="launchpadallupcominglaunchesTemplate-data-container"
+          style={launchpadallUpcominglaunchestemplateDataContainer}
         >
-          <a
-            href="/athleteprofile"
-            className="launchpadallupcominglaunchesTemplate-data-img-and-name"
-          >
-            <div
-              className="launchpadallupcominglaunchesTemplate-data-wrap-img"
-              style={launchpadallUpcominglaunchestemplateDataWrapImg}
-            >
-              <img
-                src={profilePicture}
-                alt="profile"
-                style={launchpadallUpcominglaunchestemplateDataWrapImgImg}
-              />
-            </div>
-            <span
-              className="launchpadallupcominglaunchesTemplate-data-wrap-athletename"
-              style={launchpadallUpcominglaunchestemplateDataWrapAthletename}
-            >
-              by {athleteName}
-            </span>
-          </a>
-          <span
-            className="launchpadallupcominglaunchesTemplate-data-wrap-title"
-            style={launchpadallUpcominglaunchestemplateDataWrapTitle}
-          >
-            {title}
-          </span>
-          <span
-            className="launchpadallupcominglaunchesTemplate-data-wrap-nft"
-            style={launchpadallUpcominglaunchestemplateDataWrapNft}
-          >
-            {nftLength} items
-            {hidePrice ? <></> : <>- {nftPrice} ETH</>}
-          </span>
           <div
-            className="launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap"
-            style={launchpadallUpcominglaunchestemplateDataWrapHourWrap}
+            className="launchpadallupcominglaunchesTemplate-data-wrap"
+            style={launchpadallUpcominglaunchestemplateDataWrap}
           >
-            <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+            <a
+              href="/athleteprofile"
+              className="launchpadallupcominglaunchesTemplate-data-img-and-name"
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+              <div
+                className="launchpadallupcominglaunchesTemplate-data-wrap-img"
+                style={launchpadallUpcominglaunchestemplateDataWrapImg}
               >
-                {date?.days}
-              </span>
+                <img
+                  src={profilePicture}
+                  alt="profile"
+                  style={launchpadallUpcominglaunchestemplateDataWrapImgImg}
+                />
+              </div>
               <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+                className="launchpadallupcominglaunchesTemplate-data-wrap-athletename"
+                style={launchpadallUpcominglaunchestemplateDataWrapAthletename}
               >
-                jours
+                by {athleteName}
               </span>
-            </div>
-            <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+            </a>
+            <span
+              className="launchpadallupcominglaunchesTemplate-data-wrap-title"
+              style={launchpadallUpcominglaunchestemplateDataWrapTitle}
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                {date?.hours}
-              </span>
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                heures
-              </span>
-            </div>
-            <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              {title}
+            </span>
+            <span
+              className="launchpadallupcominglaunchesTemplate-data-wrap-nft"
+              style={launchpadallUpcominglaunchestemplateDataWrapNft}
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                {date?.minutes}
-              </span>
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                min
-              </span>
-            </div>
+              {nftLength} items
+              {hidePrice ? <></> : <>- {nftPrice} ETH</>}
+            </span>
             <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              className="launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap"
+              style={launchpadallUpcominglaunchestemplateDataWrapHourWrap}
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
               >
-                {date?.seconds}
-              </span>
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.days}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  jours
+                </span>
+              </div>
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
               >
-                sec
-              </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.hours}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  heures
+                </span>
+              </div>
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              >
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.minutes}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  min
+                </span>
+              </div>
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              >
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.seconds}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  sec
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };

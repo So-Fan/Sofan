@@ -69,7 +69,8 @@
   overflow-y: hidden;
   height: 100%;
   max-height: 550px;
-  margin-top: 20px;
+  padding-top: 20px;
+  /* margin-top: 20px; */
 }
 .launchpadallupcominglaunches-bottom-wrap::-webkit-scrollbar {
   display: none;

@@ -100,7 +100,7 @@ function App() {
     } else {
       setIsUpcomingLaunchSportDropdownClicked(false);
     }
-    // console.log(e.target.id)
+    console.log(e.target.id)
   }
   // Redirection smooth au chargement de la page
   useEffect(() => {
