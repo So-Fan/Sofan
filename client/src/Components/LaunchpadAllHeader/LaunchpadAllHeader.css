@@ -31,6 +31,9 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.launchpadallheader-data-wrap-img-and-name{
+  text-decoration: none;
+}
 .launchpadallheader-data-wrap-img-and-name:hover{
   /* background-color: red; */
   background-color: #ddc3c385;

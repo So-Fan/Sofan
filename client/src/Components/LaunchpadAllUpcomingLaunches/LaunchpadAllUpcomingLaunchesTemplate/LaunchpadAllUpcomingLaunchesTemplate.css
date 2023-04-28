@@ -27,6 +27,24 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.launchpadallupcominglaunchesTemplate-data-img-and-name{
+  text-decoration: none;
+}
+.launchpadallupcominglaunchesTemplate-data-img-and-name:hover{
+  background-color: #ddc3c385;
+  transition-duration: 300ms !important;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: underline;
+  text-decoration-color: #fffcfc;
+  text-underline-offset: 4px; 
+}
+
+.launchpadallupcominglaunchesTemplate-data-img-and-name:active{
+  transform: scale(0.8);
+}
+
 .launchpadallupcominglaunchesTemplate-data-wrap-img {
   background-color: white;
   border-radius: 5px;

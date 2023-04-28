@@ -9,7 +9,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
   nftPrice,
   date,
   dim,
-  hidePrice
+  hidePrice,
 }) => {
   let launchpadallUpcominglaunchestemplateComponentImg;
   let launchpadallUpcominglaunchestemplateDataContainer;
@@ -108,22 +108,27 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
           className="launchpadallupcominglaunchesTemplate-data-wrap"
           style={launchpadallUpcominglaunchestemplateDataWrap}
         >
-          <div
-            className="launchpadallupcominglaunchesTemplate-data-wrap-img"
-            style={launchpadallUpcominglaunchestemplateDataWrapImg}
+          <a
+            href="/athleteprofile"
+            className="launchpadallupcominglaunchesTemplate-data-img-and-name"
           >
-            <img
-              src={profilePicture}
-              alt="profile"
-              style={launchpadallUpcominglaunchestemplateDataWrapImgImg}
-            />
-          </div>
-          <span
-            className="launchpadallupcominglaunchesTemplate-data-wrap-athletename"
-            style={launchpadallUpcominglaunchestemplateDataWrapAthletename}
-          >
-            by {athleteName}
-          </span>
+            <div
+              className="launchpadallupcominglaunchesTemplate-data-wrap-img"
+              style={launchpadallUpcominglaunchestemplateDataWrapImg}
+            >
+              <img
+                src={profilePicture}
+                alt="profile"
+                style={launchpadallUpcominglaunchestemplateDataWrapImgImg}
+              />
+            </div>
+            <span
+              className="launchpadallupcominglaunchesTemplate-data-wrap-athletename"
+              style={launchpadallUpcominglaunchestemplateDataWrapAthletename}
+            >
+              by {athleteName}
+            </span>
+          </a>
           <span
             className="launchpadallupcominglaunchesTemplate-data-wrap-title"
             style={launchpadallUpcominglaunchestemplateDataWrapTitle}
@@ -134,9 +139,8 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
             className="launchpadallupcominglaunchesTemplate-data-wrap-nft"
             style={launchpadallUpcominglaunchestemplateDataWrapNft}
           >
-            {nftLength} items 
-            {hidePrice ? <></>: <>- {nftPrice} ETH</>}
-            
+            {nftLength} items
+            {hidePrice ? <></> : <>- {nftPrice} ETH</>}
           </span>
           <div
             className="launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap"
