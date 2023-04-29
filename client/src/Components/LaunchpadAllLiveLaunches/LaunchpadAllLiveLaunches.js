@@ -3,13 +3,15 @@ import "./LaunchpadAllLiveLaunches.css";
 import Arrow from "../../Assets/Image/arrow_bottom.svg";
 import LaunchpadAllLiveLaunchesTemplate from "./LaunchpadAllLiveLaunchesTemplate/LaunchpadAllLiveLaunchesTemplate";
 import { useHorizontalScroll } from "../../CustomHook/useHorizontalScroll";
+import { v4 as uuidv4 } from "uuid";
+
 const LaunchpadAllLiveLaunches = ({
   setIsLiveLaunchSportDropdownClicked,
   isLiveLaunchSportDropdownClicked,
   data,
   setDimMain,
   hidePrice,
-  handleLiveLaunchesSportDropdownClicked
+  handleLiveLaunchesSportDropdownClicked,
 }) => {
   const scrollRef = useHorizontalScroll();
   const [dim, setDim] = useState(window.innerWidth);
@@ -211,10 +213,14 @@ const LaunchpadAllLiveLaunches = ({
         style={respMaxWidth}
         ref={scrollRef}
       >
-        <div className="launchpadalllivelaunches-bottom-subwrap" style={launchpadAllLiveLaunchesDynamicWidth}>
+        <div
+          className="launchpadalllivelaunches-bottom-subwrap"
+          style={launchpadAllLiveLaunchesDynamicWidth}
+        >
           {data?.map((launchpadlive) => (
             <div style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
+                key={uuidv4()}
                 hidePrice={hidePrice}
                 background={launchpadlive.background}
                 profilePicture={launchpadlive.profilePicture}

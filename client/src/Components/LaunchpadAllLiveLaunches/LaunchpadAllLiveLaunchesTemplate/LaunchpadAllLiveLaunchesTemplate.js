@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./LaunchpadAllLiveLaunchesTemplate.css";
 import Button from "../../Button/Button";
 const LaunchpadAllLiveLaunchesTemplate = ({
@@ -11,6 +11,15 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   dim,
   hidePrice,
 }) => {
+  const [isComponentActive, setIsComponentActive] = useState(true);
+
+  const handleMouseDown = () => {
+    setIsComponentActive(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsComponentActive(true);
+  };
   let launchpadalllivelaunchestemplateComponentImg;
   let launchpadalllivelaunchestemplateDataContainer;
   let launchpadalllivelaunchestemplateDataContainerLiveWrap;
@@ -108,7 +117,11 @@ const LaunchpadAllLiveLaunchesTemplate = ({
       );
   }
   return (
-    <div className="launchpadalllivelaunchestemplate-component">
+          <div
+      className={`launchpadalllivelaunchestemplate-component ${
+        isComponentActive ? "" : "no-active-effect"
+      }`}
+    >
       <a href="/nftcollection">
         <img
           src={background}
@@ -137,6 +150,8 @@ const LaunchpadAllLiveLaunchesTemplate = ({
             style={launchpadalllivelaunchestemplateDataWrap}
           >
             <a
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
               href="/athleteprofile"
               className="launchpadalllivelaunchestemplate-data-image-and-name"
             >

@@ -3,12 +3,13 @@ import "./LaunchpadAllUpcomingLaunches.css";
 import Arrow from "../../Assets/Image/arrow_bottom.svg";
 import { useHorizontalScroll } from "../../CustomHook/useHorizontalScroll";
 import LaunchpadAllUpcomingLaunchesTemplate from "./LaunchpadAllUpcomingLaunchesTemplate/LaunchpadAllUpcomingLaunchesTemplate";
+import { v4 as uuidv4 } from "uuid";
 
 const LaunchpadAllUpcomingLaunches = ({
   setIsUpcomingLaunchSportDropdownClicked,
   isUpcomingLaunchSportDropdownClicked,
   data,
-  hidePrice
+  hidePrice,
 }) => {
   const scrollRef = useHorizontalScroll();
   const [
@@ -215,7 +216,8 @@ const LaunchpadAllUpcomingLaunches = ({
           {data?.map((launchpadUpcoming) => (
             <div style={responsiveWidthLanchpadAllUpcomingLaunches}>
               <LaunchpadAllUpcomingLaunchesTemplate
-              hidePrice={hidePrice}
+                key={uuidv4()}
+                hidePrice={hidePrice}
                 background={launchpadUpcoming.background}
                 profilePicture={launchpadUpcoming.profilePicture}
                 athleteName={launchpadUpcoming.athleName}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./LaunchpadAllUpcomingLaunchesTemplate.css";
 const LaunchpadAllUpcomingLaunchesTemplate = ({
   background,
@@ -11,6 +11,36 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
   dim,
   hidePrice,
 }) => {
+  const [isComponentActive, setIsComponentActive] = useState(true);
+  const [isSecondPlural, setIsSecondPlural] = useState(false);
+  const [isMinutePlural, setIsMinutePlural] = useState(false);
+  const [isHourPlural, setIsHourPlural] = useState(false);
+  const [isDayPlural, setIsDayPlural] = useState(false);
+  function handlePlural() {
+    if (date?.seconds > 1) {
+      setIsSecondPlural(true);
+    }
+    if (date?.minutes > 1) {
+      setIsMinutePlural(true);
+    }
+    if (date?.hours > 1) {
+      setIsHourPlural(true);
+    }
+    if (date?.days > 1) {
+      setIsDayPlural(true);
+    }
+  }
+  useEffect(() => {
+    handlePlural();
+  }, []);
+  const handleMouseDown = () => {
+    setIsComponentActive(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsComponentActive(true);
+  };
+
   let launchpadallUpcominglaunchestemplateComponentImg;
   let launchpadallUpcominglaunchestemplateDataContainer;
   let launchpadallUpcominglaunchestemplateDataWrap;
@@ -94,7 +124,11 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
       });
   }
   return (
-    <div className="launchpadallupcominglaunchesTemplate-component">
+    <div
+      className={`launchpadallupcominglaunchesTemplate-component ${
+        isComponentActive ? "" : "no-active-effect"
+      }`}
+    >
       <a href="/nftcollection">
         <img
           src={background}
@@ -110,6 +144,8 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
             style={launchpadallUpcominglaunchestemplateDataWrap}
           >
             <a
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
               href="/athleteprofile"
               className="launchpadallupcominglaunchesTemplate-data-img-and-name"
             >
@@ -162,7 +198,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  jours
+                  jour{isDayPlural && <>s</>}
                 </span>
               </div>
               <div
@@ -180,7 +216,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  heures
+                  heure{isHourPlural && <>s</>}
                 </span>
               </div>
               <div
@@ -198,7 +234,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  min
+                  min{isMinutePlural && <>s</>}
                 </span>
               </div>
               <div
@@ -216,7 +252,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  sec
+                  sec{isSecondPlural && <>s</>}
                 </span>
               </div>
             </div>
