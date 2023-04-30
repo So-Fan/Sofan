@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-/* background-color: red; */
+/* background-color: yellow; */
 }
 .dashboard-stats-rectangle {
   width: 100%;
@@ -76,5 +76,21 @@
 @media (max-width:1000px) {
   .dashboard-stats-separation-line{
     margin-left: 10px;
+  }
+}
+@media (max-height: 800px) {
+  .dashboard-stats-container {
+    max-height: 620px !important;
+  }
+  .dashboard-stats-middle-container{
+    max-height: 300px;
+  }
+}
+@media (max-height:750px) {
+  .dashboard-stats-container {
+    max-height: 580px !important;
+  }
+  .dashboard-stats-middle-container{
+    max-height: 280px;
   }
 }
