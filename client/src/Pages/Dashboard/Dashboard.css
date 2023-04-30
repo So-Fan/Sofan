@@ -48,3 +48,8 @@
     /* justify-content: center ; */
   }
 }
+@media (max-height: 800px) {
+  .dashboard-page-container{
+    max-height: 650px !important;
+  }
+}
