@@ -69,6 +69,8 @@ function DashboardStats({dataApi, ethPrice}) {
           ethPrice={ethPrice}
           ethPricePriceConverted={ethPricePriceConverted}
           ethLastMonthEvolutionPriceConverted={ethLastMonthEvolutionPriceConverted}
+          //
+          tooltipText="Nombre total de NFTs vendus"
         />
         <div className="dashboard-stats-separation-line"></div>
         <DashboardStatsModule
@@ -89,6 +91,8 @@ function DashboardStats({dataApi, ethPrice}) {
           ethPrice={ethPrice}
           ethPricePriceConverted={ethPricePriceConverted}
           ethLastMonthEvolutionPriceConverted={ethLastMonthEvolutionPriceConverted}
+          //
+          tooltipText="CA total réalisé en Ethereum"
         />
         <div className="dashboard-stats-separation-line"></div>
         <DashboardStatsModule
@@ -105,6 +109,8 @@ function DashboardStats({dataApi, ethPrice}) {
           //
           ethPricePriceConverted={ethPricePriceConverted}
           ethLastMonthEvolutionPriceConverted={ethLastMonthEvolutionPriceConverted}
+          //
+          tooltipText="CA Total réalisé en Euros"
         />
         <div className="dashboard-stats-separation-line"></div>
         <div style={{ visibility: "hidden" }}>

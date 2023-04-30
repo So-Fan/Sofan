@@ -20,7 +20,8 @@ function DashboardStatsModule({
   totalRevenueEur,
   revenueEurPercent,
   ethPrice,
-  ethPricePriceConverted
+  ethPricePriceConverted,
+  tooltipText
 }) {
   // console.log(ethPricePriceConverted)
     // let calcul = totaRevenueEth * 2;
@@ -71,7 +72,7 @@ function DashboardStatsModule({
             <>NFTs vendus</>
           )}
         </div>
-        <div className="dashboard-stats-module-logo">
+        <div title={tooltipText} className="dashboard-stats-module-logo">
           <p>?</p>
         </div>
       </div>
