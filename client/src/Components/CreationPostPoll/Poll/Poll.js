@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Poll.css";
 import ArrowBottom from "../../../Assets/Image/arrow_bottom.svg";
 import YellowCross from "../../../Assets/Image/cross_add_yellow.svg";
-const Poll = ({setAddOption}) => {
+const Poll = ({ setAddOption }) => {
   const [day, setDay] = useState(0);
   const [displayDay, setDisplayDay] = useState(false);
   const [hour, setHour] = useState(0);
@@ -10,7 +10,10 @@ const Poll = ({setAddOption}) => {
   const [min, setMin] = useState(0);
   const [displayMin, setDisplayMin] = useState(false);
   // const [choiceCounter, setChoiceCounter] = useState(2)
-
+  const [inputs, setInputs] = useState([
+    { id: 1, placeholder: "Choix 1" },
+    { id: 2, placeholder: "Choix 2" },
+  ]);
   const handleDayClick = () => {
     setDisplayDay(!displayDay);
     setDisplayHour(false);
@@ -39,11 +42,20 @@ const Poll = ({setAddOption}) => {
   };
 
   const handleRemoveClick = () => {
-    setAddOption(0)
-  }
+    setAddOption(0);
+  };
   // const handleAddChoiceClick = e => {
-    
+
   // }
+  const handleAddInput = () => {
+    if (inputs.length < 4) {
+      setInputs([
+        ...inputs,
+        { id: inputs.length + 1, placeholder: `Choix ${inputs.length + 1}` },
+      ]);
+    }
+  };
+
   const dayArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
   const hourArray = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -51,7 +63,7 @@ const Poll = ({setAddOption}) => {
   ];
   const minArray = [];
 
-  for (let i = 0; i < 60; i ++) {
+  for (let i = 0; i < 60; i++) {
     minArray.push(i);
   }
   return (
@@ -61,12 +73,15 @@ const Poll = ({setAddOption}) => {
           <div className="poll-choice-wrap">
             <div>
               {/* faire un mapping */}
-              <input type="text" placeholder="Choix 1" />
-              <input type="text" placeholder="Choix 2" />
+              {inputs.map((input) => (
+                <input
+                  key={input.id}
+                  type="text"
+                  placeholder={input.placeholder}
+                />
+              ))}
             </div>
-            <button 
-            // onClick={handleAddChoiceClick}
-            >
+            <button onClick={handleAddInput}>
               <img src={YellowCross} alt="yellow cross" />
             </button>
           </div>

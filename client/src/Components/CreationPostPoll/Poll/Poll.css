@@ -35,7 +35,34 @@
   align-items: flex-end;
   justify-content: space-between;
   width: 100%;
+  overflow-y: scroll;
+  padding-right: 5px;
   /* background-color: aqua; */
+}
+/* Hide scrollbar for IE, Edge, and Firefox */
+.poll-choice-wrap::-webkit-scrollbar,
+.poll-choice-wrap {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Customize the scrollbar for WebKit-based browsers (e.g., Chrome, Safari) */
+.poll-choice-wrap::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+  border-radius: 10px;
+}
+
+.poll-choice-wrap::-webkit-scrollbar-track {
+  background: transparent; /* Set the track background */
+}
+
+.poll-choice-wrap::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar */
+  border-radius: 10px; /* Set the border-radius */
+}
+
+.poll-choice-wrap::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color when hovered */
 }
 .poll-choice-wrap > div {
   display: flex;
@@ -45,7 +72,8 @@
 }
 .poll-choice-wrap > div > input {
   width: 367px;
-  height: 46px;
+  min-height: 46px;
+  max-height: 46px;
   font-family: "Britanica-Heavy";
   font-style: normal;
   font-weight: 400;
@@ -54,6 +82,7 @@
   border: 0.3px solid #000000;
   border-radius: 5px;
   padding-left: 10px;
+  margin-bottom: 10px;
 }
 .poll-choice-wrap > div > input::placeholder {
   font-family: "Britanica-Regular";
