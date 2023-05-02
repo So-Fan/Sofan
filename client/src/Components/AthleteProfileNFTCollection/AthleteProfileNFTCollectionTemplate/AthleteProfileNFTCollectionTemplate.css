@@ -34,10 +34,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120.39px;
-  height: 120.39px;
+  width: 110.39px;
+  height: 110.39px;
   position: absolute;
-  top: -140.39px;
+  top: -125.39px;
+  left: 20px;
   background-color: white;
   border-radius: 10px;
 }
@@ -52,15 +53,15 @@
   align-items: center;
   width: 100%;
   font-family: "Britanica-Heavy";
-  font-size: 25px;
+  font-size: 20px;
   line-height: 30px;
 }
 .athleteprofilenftcollectiontemplate-content-nftnumber {
   font-family: "Britanica-Regular";
-  font-size: 20px;
+  font-size: 16px;
 }
 .athleteprofilenftcollectiontemplate-content-nftprice {
-  font-size: 20px;
+  font-size: 16px;
 }
 @media (max-width: 1060px) {
   .athleteprofilenftcollectiontemplate-content-wrap {
