@@ -13,6 +13,7 @@ const AthleteProfileNFTCollectionTemplate = ({
   nftsFromOwnerFloorPrice,
   nftsFromOwnerTotalSupply,
   hidePrice,
+  dashboardMyCollectionsStyle
 }) => {
   return (
     <Link

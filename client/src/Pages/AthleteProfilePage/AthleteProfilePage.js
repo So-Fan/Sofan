@@ -151,8 +151,8 @@ const AthleteProfilePage = ({
           twitter: "https://twitter.com",
           instagram: "https://instagram.com",
         },
-        banner: "https://i.imgur.com/6ozImSk.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
+        banner: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FbannerUserProfile.png?alt=media&token=3d74cbd8-399c-4522-8757-b4c42f39937b",
+        profilePicture: "/static/media/profilepicattanasio.2693ecb7f0a2a6aa2ade6dd93ae2eaae.svg",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere tellus vehicula leo iaculis luctus. Ut vulputate elit risus, eget faucibus justo consectetur in.",
       },
