@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Poll.css";
 import ArrowBottom from "../../../Assets/Image/arrow_bottom.svg";
 import YellowCross from "../../../Assets/Image/cross_add_yellow.svg";
-const Poll = ({setAddOption}) => {
+const Poll = ({ setAddOption }) => {
   const [day, setDay] = useState(0);
   const [displayDay, setDisplayDay] = useState(false);
   const [hour, setHour] = useState(0);
@@ -10,7 +10,15 @@ const Poll = ({setAddOption}) => {
   const [min, setMin] = useState(0);
   const [displayMin, setDisplayMin] = useState(false);
   // const [choiceCounter, setChoiceCounter] = useState(2)
+  const [isInputsArrayLengthThree, setIsInputsArrayLengthThree] =
+    useState(false);
+  const [isInputsArrayLengthFour, setIsInputsArrayLengthFour] = useState(false);
 
+
+  const [inputs, setInputs] = useState([
+    { id: 1, placeholder: "Choix 1" },
+    { id: 2, placeholder: "Choix 2" },
+  ]);
   const handleDayClick = () => {
     setDisplayDay(!displayDay);
     setDisplayHour(false);
@@ -39,11 +47,25 @@ const Poll = ({setAddOption}) => {
   };
 
   const handleRemoveClick = () => {
-    setAddOption(0)
-  }
+    setAddOption(0);
+  };
   // const handleAddChoiceClick = e => {
-    
+
   // }
+  const handleAddInput = () => {
+    if (inputs.length < 4) {
+      setInputs([
+        ...inputs,
+        { id: inputs.length + 1, placeholder: `Choix ${inputs.length + 1}` },
+      ]);
+    }
+  };
+  const handleDeleteInput = () => {
+    if (inputs.length > 2) {
+      setInputs(inputs.slice(0, -1));
+    }
+  };
+
   const dayArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
   const hourArray = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -51,9 +73,77 @@ const Poll = ({setAddOption}) => {
   ];
   const minArray = [];
 
-  for (let i = 0; i < 60; i ++) {
+  for (let i = 0; i < 60; i++) {
     minArray.push(i);
   }
+  // function handleInputs(e) {
+  //   console.log(inputs)
+  // }
+  // console.log(inputs)
+  function handleYellowCrossPosition() {
+    if (inputs.length === 3) {
+      setIsInputsArrayLengthFour(false);
+      setIsInputsArrayLengthThree(true);
+      console.log("c'est 3");
+    } else if (inputs.length === 4) {
+      setIsInputsArrayLengthThree(false);
+      setIsInputsArrayLengthFour(true);
+      console.log("c'est 4");
+    } else if (inputs.length === 2) {
+      setIsInputsArrayLengthThree(false);
+      setIsInputsArrayLengthFour(false);
+    }
+  }
+  // store poll data section
+  const [pollData, setPollData] = useState({
+    choices: [],
+    timer: {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      timestamp: 0,
+    },
+  });
+
+  useEffect(() => {
+    // Mettre à jour les choix dans pollData
+    const updatedChoices = inputs.map((input) => ({ id: input.id, text: "" }));
+    setPollData((prevState) => ({
+      ...prevState,
+      choices: updatedChoices,
+    }));
+  }, [inputs]);
+
+  const handleInputChange = (index, value) => {
+    // Mettre à jour le texte des choix dans pollData
+    setPollData((prevState) => {
+      const updatedChoices = [...prevState.choices];
+      updatedChoices[index].text = value;
+      return { ...prevState, choices: updatedChoices };
+    });
+  };
+
+  useEffect(() => {
+    const totalMilliseconds =
+      (Number(day) * 86400000) +
+      (Number(hour) * 3600000) +
+      (Number(min) * 60000);
+    const currentTimestamp = Date.now() + totalMilliseconds;
+
+    setPollData((prevState) => ({
+      ...prevState,
+      timer: {
+        days: day,
+        hours: hour,
+        minutes: min,
+        timestamp: currentTimestamp,
+      },
+    }));
+  }, [day, hour, min]);
+  console.log(pollData)
+  useEffect(() => {
+    handleYellowCrossPosition();
+  }, [inputs]);
   return (
     <div className="poll-component">
       <div className="poll-container">
@@ -61,14 +151,51 @@ const Poll = ({setAddOption}) => {
           <div className="poll-choice-wrap">
             <div>
               {/* faire un mapping */}
-              <input type="text" placeholder="Choix 1" />
-              <input type="text" placeholder="Choix 2" />
+              {inputs.map((input, index) => (
+                <input
+                  // onChange={handleInputs}
+                  key={input.id}
+                  type="text"
+                  placeholder={input.placeholder}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                />
+              ))}
             </div>
-            <button 
-            // onClick={handleAddChoiceClick}
-            >
-              <img src={YellowCross} alt="yellow cross" />
-            </button>
+            {isInputsArrayLengthFour ? (
+              <></>
+            ) : (
+              <>
+                <button
+                  // style={isInputsArrayLengthThree ? {top:"20px",right: "38px", position:"absolute"}: {}}
+                  className={
+                    isInputsArrayLengthThree
+                      ? "poll-choice-button-add-three-length"
+                      : isInputsArrayLengthFour
+                      ? "poll-choice-button-add-four-length"
+                      : ""
+                  }
+                  onClick={handleAddInput}
+                >
+                  <img src={YellowCross} alt="yellow cross" />
+                </button>
+              </>
+            )}
+            {isInputsArrayLengthThree && (
+              <button
+                onClick={handleDeleteInput}
+                className="poll-choice-button-delete-three-length"
+              >
+                -
+              </button>
+            )}
+            {isInputsArrayLengthFour && (
+              <button
+                onClick={handleDeleteInput}
+                className="poll-choice-button-delete-four-length"
+              >
+                -
+              </button>
+            )}
           </div>
           <div className="poll-duration-container">
             <span>Poll Length</span>
