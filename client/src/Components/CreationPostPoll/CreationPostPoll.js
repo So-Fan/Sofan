@@ -147,7 +147,7 @@ const CreationPostPoll = () => {
             <div
               id="0"
               onClick={handleVisibilityClicked}
-              className=""
+              className="creation-visibility-choice-fans-only"
               style={isVisibilityClicked[0]}
             >
               <span>Only my fans</span>
@@ -155,6 +155,7 @@ const CreationPostPoll = () => {
             <div
               id="1"
               onClick={handleVisibilityClicked}
+              className="creation-visibility-choice-everyone"
               style={isVisibilityClicked[1]}
             >
               <span>All SoFan users</span>
