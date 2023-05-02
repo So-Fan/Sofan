@@ -14,6 +14,7 @@ const Poll = ({ setAddOption }) => {
     useState(false);
   const [isInputsArrayLengthFour, setIsInputsArrayLengthFour] = useState(false);
 
+
   const [inputs, setInputs] = useState([
     { id: 1, placeholder: "Choix 1" },
     { id: 2, placeholder: "Choix 2" },
@@ -93,7 +94,53 @@ const Poll = ({ setAddOption }) => {
       setIsInputsArrayLengthFour(false);
     }
   }
+  // store poll data section
+  const [pollData, setPollData] = useState({
+    choices: [],
+    timer: {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      timestamp: 0,
+    },
+  });
 
+  useEffect(() => {
+    // Mettre à jour les choix dans pollData
+    const updatedChoices = inputs.map((input) => ({ id: input.id, text: "" }));
+    setPollData((prevState) => ({
+      ...prevState,
+      choices: updatedChoices,
+    }));
+  }, [inputs]);
+
+  const handleInputChange = (index, value) => {
+    // Mettre à jour le texte des choix dans pollData
+    setPollData((prevState) => {
+      const updatedChoices = [...prevState.choices];
+      updatedChoices[index].text = value;
+      return { ...prevState, choices: updatedChoices };
+    });
+  };
+
+  useEffect(() => {
+    const totalMilliseconds =
+      (Number(day) * 86400000) +
+      (Number(hour) * 3600000) +
+      (Number(min) * 60000);
+    const currentTimestamp = Date.now() + totalMilliseconds;
+
+    setPollData((prevState) => ({
+      ...prevState,
+      timer: {
+        days: day,
+        hours: hour,
+        minutes: min,
+        timestamp: currentTimestamp,
+      },
+    }));
+  }, [day, hour, min]);
+  console.log(pollData)
   useEffect(() => {
     handleYellowCrossPosition();
   }, [inputs]);
@@ -104,12 +151,13 @@ const Poll = ({ setAddOption }) => {
           <div className="poll-choice-wrap">
             <div>
               {/* faire un mapping */}
-              {inputs.map((input) => (
+              {inputs.map((input, index) => (
                 <input
                   // onChange={handleInputs}
                   key={input.id}
                   type="text"
                   placeholder={input.placeholder}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               ))}
             </div>
