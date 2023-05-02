@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Poll.css";
 import ArrowBottom from "../../../Assets/Image/arrow_bottom.svg";
 import YellowCross from "../../../Assets/Image/cross_add_yellow.svg";
@@ -10,6 +10,9 @@ const Poll = ({ setAddOption }) => {
   const [min, setMin] = useState(0);
   const [displayMin, setDisplayMin] = useState(false);
   // const [choiceCounter, setChoiceCounter] = useState(2)
+  const [isInputsArrayLengthThree, setIsInputsArrayLengthThree] = useState(false);
+  const [isInputsArrayLengthFour, setIsInputsArrayLengthFour] = useState(false);
+
   const [inputs, setInputs] = useState([
     { id: 1, placeholder: "Choix 1" },
     { id: 2, placeholder: "Choix 2" },
@@ -66,6 +69,26 @@ const Poll = ({ setAddOption }) => {
   for (let i = 0; i < 60; i++) {
     minArray.push(i);
   }
+// function handleInputs(e) {
+//   console.log(inputs)
+// }
+// console.log(inputs)
+function handleYellowCrossPosition() {
+  if (inputs.length === 3) {
+    setIsInputsArrayLengthFour(false)
+    setIsInputsArrayLengthThree(true)
+    console.log("c'est 3")
+  } else if (inputs.length === 4) {
+    setIsInputsArrayLengthThree(false)
+    setIsInputsArrayLengthFour(true)
+    console.log("c'est 4")
+  }
+
+}
+
+useEffect(() => {
+  handleYellowCrossPosition(); 
+}, [inputs])
   return (
     <div className="poll-component">
       <div className="poll-container">
@@ -75,13 +98,18 @@ const Poll = ({ setAddOption }) => {
               {/* faire un mapping */}
               {inputs.map((input) => (
                 <input
+                // onChange={handleInputs}
                   key={input.id}
                   type="text"
                   placeholder={input.placeholder}
                 />
               ))}
+
             </div>
-            <button onClick={handleAddInput}>
+            <button 
+            // style={isInputsArrayLengthThree ? {top:"20px",right: "38px", position:"absolute"}: {}}
+            className={isInputsArrayLengthThree ? "poll-choice-button-three-length": isInputsArrayLengthFour ? "poll-choice-button-four-length": ""} 
+            onClick={handleAddInput}>
               <img src={YellowCross} alt="yellow cross" />
             </button>
           </div>
