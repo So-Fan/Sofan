@@ -19,7 +19,7 @@ import EthProvider from "./contexts/EthContext/EthProvider";
 import TestSecondary from "./Pages/Test/TestSecondary";
 
 function App() {
-  const isLogged = false; // from Backend
+  const isLogged = true; // from Backend
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);

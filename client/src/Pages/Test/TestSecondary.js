@@ -11,6 +11,7 @@ import AthleteFollowersFansPopUp from '../../Components/TemplatePopUp/AthleteFol
 import PopUpBuyNft from '../../Components/PopUpBuyNft/PopUpBuyNft';
 import PopUpPlaceBid from '../../Components/PopUpPlaceBid/PopUpPlaceBid';
 import PopUpConfirmationOffer from '../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer';
+import CreationPostPoll from '../../Components/CreationPostPoll/CreationPostPoll';
 function TestSecondary() {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
@@ -36,7 +37,8 @@ function TestSecondary() {
       {/* <PopUpBuyNft/> */}
       {/* <PopUpPlaceBid/> */}
       {/* <MintPopUpBuy/> */}
-      <PopUpConfirmationOffer/>
+      {/* <PopUpConfirmationOffer/> */}
+      <CreationPostPoll/>
     </div>
   )
 }
