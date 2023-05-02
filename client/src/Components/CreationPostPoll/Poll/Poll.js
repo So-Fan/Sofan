@@ -10,7 +10,8 @@ const Poll = ({ setAddOption }) => {
   const [min, setMin] = useState(0);
   const [displayMin, setDisplayMin] = useState(false);
   // const [choiceCounter, setChoiceCounter] = useState(2)
-  const [isInputsArrayLengthThree, setIsInputsArrayLengthThree] = useState(false);
+  const [isInputsArrayLengthThree, setIsInputsArrayLengthThree] =
+    useState(false);
   const [isInputsArrayLengthFour, setIsInputsArrayLengthFour] = useState(false);
 
   const [inputs, setInputs] = useState([
@@ -58,6 +59,11 @@ const Poll = ({ setAddOption }) => {
       ]);
     }
   };
+  const handleDeleteInput = () => {
+    if (inputs.length > 2) {
+      setInputs(inputs.slice(0, -1));
+    }
+  };
 
   const dayArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
   const hourArray = [
@@ -69,26 +75,28 @@ const Poll = ({ setAddOption }) => {
   for (let i = 0; i < 60; i++) {
     minArray.push(i);
   }
-// function handleInputs(e) {
-//   console.log(inputs)
-// }
-// console.log(inputs)
-function handleYellowCrossPosition() {
-  if (inputs.length === 3) {
-    setIsInputsArrayLengthFour(false)
-    setIsInputsArrayLengthThree(true)
-    console.log("c'est 3")
-  } else if (inputs.length === 4) {
-    setIsInputsArrayLengthThree(false)
-    setIsInputsArrayLengthFour(true)
-    console.log("c'est 4")
+  // function handleInputs(e) {
+  //   console.log(inputs)
+  // }
+  // console.log(inputs)
+  function handleYellowCrossPosition() {
+    if (inputs.length === 3) {
+      setIsInputsArrayLengthFour(false);
+      setIsInputsArrayLengthThree(true);
+      console.log("c'est 3");
+    } else if (inputs.length === 4) {
+      setIsInputsArrayLengthThree(false);
+      setIsInputsArrayLengthFour(true);
+      console.log("c'est 4");
+    } else if (inputs.length === 2) {
+      setIsInputsArrayLengthThree(false);
+      setIsInputsArrayLengthFour(false);
+    }
   }
 
-}
-
-useEffect(() => {
-  handleYellowCrossPosition(); 
-}, [inputs])
+  useEffect(() => {
+    handleYellowCrossPosition();
+  }, [inputs]);
   return (
     <div className="poll-component">
       <div className="poll-container">
@@ -98,20 +106,48 @@ useEffect(() => {
               {/* faire un mapping */}
               {inputs.map((input) => (
                 <input
-                // onChange={handleInputs}
+                  // onChange={handleInputs}
                   key={input.id}
                   type="text"
                   placeholder={input.placeholder}
                 />
               ))}
-
             </div>
-            <button 
-            // style={isInputsArrayLengthThree ? {top:"20px",right: "38px", position:"absolute"}: {}}
-            className={isInputsArrayLengthThree ? "poll-choice-button-three-length": isInputsArrayLengthFour ? "poll-choice-button-four-length": ""} 
-            onClick={handleAddInput}>
-              <img src={YellowCross} alt="yellow cross" />
-            </button>
+            {isInputsArrayLengthFour ? (
+              <></>
+            ) : (
+              <>
+                <button
+                  // style={isInputsArrayLengthThree ? {top:"20px",right: "38px", position:"absolute"}: {}}
+                  className={
+                    isInputsArrayLengthThree
+                      ? "poll-choice-button-add-three-length"
+                      : isInputsArrayLengthFour
+                      ? "poll-choice-button-add-four-length"
+                      : ""
+                  }
+                  onClick={handleAddInput}
+                >
+                  <img src={YellowCross} alt="yellow cross" />
+                </button>
+              </>
+            )}
+            {isInputsArrayLengthThree && (
+              <button
+                onClick={handleDeleteInput}
+                className="poll-choice-button-delete-three-length"
+              >
+                -
+              </button>
+            )}
+            {isInputsArrayLengthFour && (
+              <button
+                onClick={handleDeleteInput}
+                className="poll-choice-button-delete-four-length"
+              >
+                -
+              </button>
+            )}
           </div>
           <div className="poll-duration-container">
             <span>Poll Length</span>
