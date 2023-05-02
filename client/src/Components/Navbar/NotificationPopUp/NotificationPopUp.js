@@ -27,7 +27,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "DonOfSomething",
             userId: "1",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
@@ -35,7 +35,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "DonOfSomething",
             userId: "2",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
@@ -45,7 +45,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "DonOfSomething",
             userId: "3",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
@@ -53,7 +53,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "JOSEPH",
             userId: "4",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
@@ -61,7 +61,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "JOSEPH",
             userId: "4",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
@@ -69,7 +69,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "JOSEPH",
             userId: "4",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
@@ -77,7 +77,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "JOSEPH",
             userId: "4",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
@@ -85,7 +85,7 @@ const NotificationPopUp = ({ handleClick, notificationPopUpComponent }) => {
           {
             username: "JOSEPH",
             userId: "4",
-            profilePicture: "https://i.imgur.com/4eGUfy3.png",
+            profilePicture: "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FnotificationUserProfilePicture.png?alt=media&token=1b0b9f18-5c19-42fb-87ed-2b1d0051ebd7",
             textTypeOffer: "has made an offer on your NFT",
             nftTitle: "Vip Meeting with 1200 holders.",
             time: "24 mins ago",
