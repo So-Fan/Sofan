@@ -2,19 +2,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 1246px;
+  max-width: 100%;
+  /* background-color: yellow; */
 }
 .athleteprofileheader-bannerandprofilepicture-wrap {
   max-height: 300px;
+  max-width: 1246px;
   position: relative;
 }
 .athleteprofileheader-bannerandprofilepicture-wrap > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  min-width: 1246px;
-  min-height: 300px;
+  min-width: 100%;
+  min-height: 100%;
   max-width: 100% !important;
+  max-height: 100%;
   border-radius: 20px;
 }
 .athleteprofileheader-profilepciture-wrap {
