@@ -7,7 +7,7 @@ import FormValidation from "../FormSteps/FormValidation/FormValidation";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(2);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
@@ -66,6 +66,7 @@ function SignUpAthletePage() {
     if (isFirstStepValidated) {
       setStep(2);
     } else if (isSecondStepValidated) {
+      console.log("on passe à l'étape 3")
       setStep(3);
     } else if (isThirdStepValidated) {
       setStep(4);
