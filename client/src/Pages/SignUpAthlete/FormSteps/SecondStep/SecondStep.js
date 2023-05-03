@@ -160,18 +160,18 @@ function SecondStep({ setSecondStepValidated }) {
     }
   }
   function handleBlurFifthInput(e) {
-    // const inputName = e.target.name;
+    const inputName = e.target.name;
 
-    // if (!e.target.value) {
-    //   e.target.placeholder = defaultValue[inputName];
-    // }
+    if (!e.target.value) {
+      e.target.placeholder = defaultValue[inputName];
+    }
 
-    // if (
-    //   e.target.value === "" ||
-    //   e.target.value === defaultValue[e.target.name]
-    // ) {
-    //   e.target.className = "";
-    // }
+    if (
+      e.target.value === "" ||
+      e.target.value === defaultValue[e.target.name]
+    ) {
+      e.target.className = "";
+    }
 
     if (phoneNumber) {
       if (isValidNumber(phoneNumber)) {
