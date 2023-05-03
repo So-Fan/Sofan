@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./SecondStep.css";
-import { v4 as uuidV4 } from "uuid";
+import { isValidNumber, parsePhoneNumber } from "libphonenumber-js";
+import CountryFlag from "react-country-flag";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 function SecondStep({ setSecondStepValidated }) {
   const [firstInputValidated, setFirstInputValidated] = useState(false);
@@ -8,8 +11,13 @@ function SecondStep({ setSecondStepValidated }) {
   const [thirdInputValidated, setThirdInputValidated] = useState(false);
   const [fourthInputValidated, setFourthInputValidated] = useState(false);
   const [fifthInputValidated, setFifthInputValidated] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [phoneCountryCode, setPhoneCountryCode] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const inputRef = useRef([]);
+
   // Backend here
   const defaultValue = {
     name: "Votre nom",
@@ -24,7 +32,7 @@ function SecondStep({ setSecondStepValidated }) {
     { defaultValue: "Nom d'athlete", name: "athletename" },
     { defaultValue: "Sport", name: "sport" },
     { defaultValue: "Votre mail", name: "mail" },
-    { defaultValue: "Numéro de téléphone", name: "phone" },
+    { defaultValue: "Numéro de téléphone: +33 06 06 06 06", name: "phone" },
   ];
 
   const handleChange = (e) => {
@@ -35,30 +43,24 @@ function SecondStep({ setSecondStepValidated }) {
       e.target.className = "";
     }
     if (
-      e.target.value !== "" ||
-      e.target.value === defaultValue[e.target.name]
+      e.target.value !== "" &&
+      e.target.value !== defaultValue[e.target.name]
     ) {
       e.target.className = "typed";
+      console.log("on ajoute la classe typed");
+    }
+    if (e.target.name === "phone") {
+      const phoneInputElement = document.querySelector(".PhoneInputInput");
+      if (phoneNumber !== "") {
+        phoneInputElement.classList.add("typed");
+      } else {
+        phoneInputElement.classList.remove("typed");
+      }
     }
   };
 
   const handleFocus = (e) => {
     e.target.placeholder = "";
-  };
-
-  const handleBlur = (e) => {
-    const inputName = e.target.name;
-
-    if (!e.target.value) {
-      e.target.placeholder = defaultValue[inputName];
-    }
-
-    if (
-      e.target.value === "" ||
-      e.target.value === defaultValue[e.target.name]
-    ) {
-      e.target.className = "";
-    }
   };
 
   function handleBlurFirstInput(e) {
@@ -134,15 +136,7 @@ function SecondStep({ setSecondStepValidated }) {
     }
   }
   function handleBlurFourthInput(e) {
-    if (
-      e.target.name === "mail" &&
-      e.target.value !== defaultValue[e.target.name] &&
-      e.target.name === "mail" &&
-      e.target.value !== ""
-    ) {
-      setFourthInputValidated(true);
-      console.log("input 4 validée");
-    }
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     const inputName = e.target.name;
 
     if (!e.target.value) {
@@ -154,31 +148,53 @@ function SecondStep({ setSecondStepValidated }) {
       e.target.value === defaultValue[e.target.name]
     ) {
       e.target.className = "";
+    }
+
+    if (emailRegex.test(e.target.value)) {
+      setFourthInputValidated(true);
+      setEmailError(false);
+      console.log("input 4 validée");
+    } else {
+      setFourthInputValidated(false);
+      setEmailError(true);
     }
   }
   function handleBlurFifthInput(e) {
-    if (
-      e.target.name === "phone" &&
-      e.target.value !== defaultValue[e.target.name] &&
-      e.target.name === "phone" &&
-      e.target.value !== ""
-    ) {
-      setFifthInputValidated(true);
-      console.log("input 5 validée");
-    }
-    const inputName = e.target.name;
+    // const inputName = e.target.name;
 
-    if (!e.target.value) {
-      e.target.placeholder = defaultValue[inputName];
-    }
+    // if (!e.target.value) {
+    //   e.target.placeholder = defaultValue[inputName];
+    // }
 
-    if (
-      e.target.value === "" ||
-      e.target.value === defaultValue[e.target.name]
-    ) {
-      e.target.className = "";
+    // if (
+    //   e.target.value === "" ||
+    //   e.target.value === defaultValue[e.target.name]
+    // ) {
+    //   e.target.className = "";
+    // }
+
+    if (phoneNumber) {
+      if (isValidNumber(phoneNumber)) {
+        const parsedPhoneNumber = parsePhoneNumber(phoneNumber);
+        setFifthInputValidated(true);
+        setPhoneError(false);
+        setPhoneCountryCode(parsedPhoneNumber.country);
+        console.log("input 5 validée");
+      } else {
+        setFifthInputValidated(false);
+        setPhoneError(true);
+        setPhoneCountryCode(null);
+      }
+    } else {
+      setFifthInputValidated(false);
+      setPhoneError(true);
     }
   }
+  const handlePhoneInputChange = (value) => {
+    setPhoneNumber(value);
+    setFifthInputValidated(false);
+    handleChange({ target: { name: "phone", value } });
+  };
   if (
     firstInputValidated === true &&
     secondInputValidated === true &&
@@ -199,20 +215,6 @@ function SecondStep({ setSecondStepValidated }) {
               Vos informations personnelles
             </h2>
             <div className="input-container-secondstep">
-              {/* {array.map((element, index) => {
-                return (
-                  <input
-                    name={element.name}
-                    type="text"
-                    onFocus={handleFocus}
-                    ref={(el) => (inputRef.current[index] = el)}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    key={uuidV4()}
-                    placeholder={array[0].defaultValue}
-                  />
-                );
-              })} */}
               <input
                 name={array[0].name}
                 placeholder={array[0].defaultValue}
@@ -245,14 +247,35 @@ function SecondStep({ setSecondStepValidated }) {
                 onBlur={handleBlurFourthInput}
                 type="text"
               />
-              <input
+              {emailError && (
+                <p className="second-step-form-error-message">
+                  Veuillez entrer une adresse e-mail valide.
+                </p>
+              )}
+              {/* <input
                 name={array[4].name}
                 placeholder={array[4].defaultValue}
                 onChange={handleChange}
                 onFocus={handleFocus}
                 onBlur={handleBlurFifthInput}
-                type="text"
+                type="tel"
+              /> */}
+              <PhoneInput
+                international
+                withCountryCallingCode
+                countryCallingCodeEditable={false}
+                defaultCountry="FR"
+                value={phoneNumber}
+                onChange={handlePhoneInputChange}
+                onBlur={handleBlurFifthInput}
+                placeholder={array[4].defaultValue}
+                inputClassName="phone-input-custom"
               />
+              {phoneError && (
+                <p className="second-step-form-error-message">
+                  Veuillez entrer un numéro de téléphone valide.
+                </p>
+              )}
             </div>
           </div>
         </form>
