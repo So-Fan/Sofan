@@ -51,9 +51,12 @@ function NftCollectionMoreAboutAthlete({
               <>{moreAbout[0].fansNumber} fans</>
             )}
           </div>
+          <a href="/athleteprofile">
+
           <button className="nft-collection-more-about-athlete-view-profile-button">
             Voir le profil
           </button>
+          </a>
         </div>
       </div>
     </section>

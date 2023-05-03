@@ -6,6 +6,7 @@
   align-items: center;
   flex-direction: column;
   /* background-color: red; */
+  margin-top: 95px;
 }
 .nft-single-collection-page-left-container {
   width: 100%;

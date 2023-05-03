@@ -6,6 +6,7 @@
   flex-direction: column;
   overflow-x: none;
   max-width: 1285px !important;
+  margin-top: 95px;
 }
 
 .userheader-container {

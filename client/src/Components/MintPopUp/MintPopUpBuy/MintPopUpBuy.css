@@ -58,6 +58,8 @@ border-radius: 20px;
   left: 10px;
   font-size: 36px;
   cursor: pointer;
+  user-select: none;
+
 }
 
 .mint-pop-up-buy-quantity-selector-counter {
@@ -79,6 +81,8 @@ border-radius: 20px;
   font-weight: 900;
   font-size: 36px;
   cursor: pointer;
+  user-select: none;
+
 }
 .mint-pop-up-line-separation-first {
   width: 450px !important;
