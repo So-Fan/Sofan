@@ -53,6 +53,10 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.button-counterpart-fourthstep:active{
+  transform: scale(0.75);
+  transition-duration: 450ms;
+}
 .button-counterpart-fourthstep-selected {
   width: 20%;
   max-width: 341px;
@@ -70,7 +74,10 @@
   border-radius: 10px;
   cursor: pointer;
 }
-
+.button-counterpart-fourthstep-selected:active{
+  transform: scale(0.75);
+  transition-duration: 250ms;
+}
 .fourthstep-container button:hover {
   background-color: #f6d46391 ;
 }
@@ -94,6 +101,10 @@
   font-weight: 400;
   line-height: 24px;
   font-family: "britanica-heavy";
+}
+.validation-button:hover{
+  background-color: #f7c520 !important;
+transition-duration:300ms !important;
 }
 
 .hide-textbutton-signup-athlete {

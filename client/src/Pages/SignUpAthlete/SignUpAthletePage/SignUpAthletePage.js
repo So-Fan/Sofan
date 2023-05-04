@@ -7,12 +7,13 @@ import FormValidation from "../FormSteps/FormValidation/FormValidation";
 import "./SignUpAthlete.css";
 
 function SignUpAthletePage() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(4);
   const [agent, setAgent] = useState(false);
   const [sportif, setSportif] = useState(false);
   const [isFirstStepValidated, setIsFirstStepValidated] = useState(false);
   const [isSecondStepValidated, setSecondStepValidated] = useState(false);
   const [isThirdStepValidated, setIsThirdStepValidated] = useState(false);
+  const [isFourthStepValidated, setFourthStepValidated] = useState(false);
   const [fourthState, setFourthState] = useState(false); // for disable next step button to submit button
   function changePositionButtonAndProgressBar() {
     if (step === 1) {
@@ -41,6 +42,8 @@ function SignUpAthletePage() {
       return (
         <FourthStep
           lastStepFormValidation={lastStepFormValidation}
+          setFourthStepValidated={setFourthStepValidated}
+          handleNextStep={handleNextStep}
           step={step}
         />
       );
@@ -62,22 +65,32 @@ function SignUpAthletePage() {
 
   const handleNextStep = (e) => {
     console.log(e);
-    lastStepFormValidation();
+    // lastStepFormValidation();
     if (isFirstStepValidated) {
       setStep(2);
-    } else if (isSecondStepValidated) {
-      console.log("on passe à l'étape 3")
+    }
+    if (isSecondStepValidated) {
+      console.log("on passe à l'étape 3");
       setStep(3);
-    } else if (isThirdStepValidated) {
+    }
+    if (isThirdStepValidated) {
       setStep(4);
     }
+    if (isFourthStepValidated) {
+      setStep(5);
+    }
   };
-
+  function handlePreviousStep() {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  }
   const lastStepFormValidation = () => {
     if (step === 4) {
       setFourthState(true);
     }
   };
+  console.log(isThirdStepValidated);
   return (
     <>
       <div className="signup-athlete-page">
@@ -113,6 +126,13 @@ function SignUpAthletePage() {
                     style={{ bottom: changePositionButtonAndProgressBar() }}
                   >
                     <div className="button-container">
+                      <button
+                        onClick={handlePreviousStep}
+                        style={{ marginRight: "15px" }}
+                        className="signup-athlete-button"
+                      >
+                        Etape précédent
+                      </button>
                       <button
                         className={
                           fourthState

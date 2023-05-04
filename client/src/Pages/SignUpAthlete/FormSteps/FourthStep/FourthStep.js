@@ -4,11 +4,9 @@ import meetingsLogo from "../../../../Assets/Image/meetings-logo.svg";
 import liveLogo from "../../../../Assets/Image/live-logo.svg";
 import merchLogo from "../../../../Assets/Image/merch-logo.svg";
 
-function FourthStep({ lastStepFormValidation }) {
+function FourthStep({ lastStepFormValidation, setFourthStepValidated, handleNextStep }) {
   // insert submit form here for backend
-  const handleValidation = (e) => {
-    e.preventDefault();
-  };
+  
 
   const [meetingsButton, setMeetingsButton] = useState(false);
   const [liveButton, setLiveButton] = useState(false);
@@ -28,16 +26,20 @@ function FourthStep({ lastStepFormValidation }) {
     e.preventDefault();
     setMerchButton((prevMerchButton) => !prevMerchButton);
   };
-
+  if (meetingsButton === true || liveButton === true || merchButton === true) {
+    setFourthStepValidated(true)
+  } else {
+    setFourthStepValidated(false)
+  }
+  lastStepFormValidation();
   return (
     <section className="fourthstep-container">
-      {lastStepFormValidation()}
       <div className="title-fourthstep">
         Quel genre de contreparties souhaitez-vous offrir à vos fans ?{" "}
       </div>
-        <span className="fourthstep-disclaimer">
-          (Cette question est à but informatif et ne vous engage à rien !)
-        </span>
+      <span className="fourthstep-disclaimer">
+        (Cette question est à but informatif et ne vous engage à rien !)
+      </span>
       <div className="fourthstep-form-container">
         <form>
           <button
@@ -75,7 +77,7 @@ function FourthStep({ lastStepFormValidation }) {
           </button>
         </form>
         <div className="validation-button-container">
-          <button className="validation-button" onClick={handleValidation}>
+          <button className="validation-button" onClick={handleNextStep}>
             Valider
           </button>
         </div>
