@@ -5,19 +5,18 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
-  useState(false);
+    useState(false);
   const [
     isDisplayConfirmationPasswordButtonClicked,
     setIsDisplayConfirmationPasswordButtonClicked,
   ] = useState(false);
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState(null); // backend
   const navigate = useNavigate();
-
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -51,7 +50,6 @@ function SignUp(props) {
     );
   }
 
-
   const handleSignUp = (e) => {
     e.preventDefault();
     const auth = getAuth();
@@ -69,7 +67,6 @@ function SignUp(props) {
       });
   };
 
-
   return (
     <div class="form-container register-container">
       <form action="#" onSubmit={handleSignUp}>
@@ -78,7 +75,12 @@ function SignUp(props) {
           <input type="text" placeholder="Nom" />
         </div>
         <div className="form-register-input-container">
-          <input type="email" placeholder="Email" value={email} onChange={handleEmailChange} />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={handleEmailChange}
+          />
         </div>
         <div className="form-register-input-container">
           <input
@@ -142,7 +144,11 @@ function SignUp(props) {
               </>
             )}
           </div>
-          {showError && <div className="password-error-message-signup">Les mots de passes ne correspondent pas.</div>}
+          {showError && (
+            <div className="password-error-message-signup">
+              Les mots de passes ne correspondent pas.
+            </div>
+          )}
         </div>
         <button>S'inscrire</button>
         <span>ou utilisez votre compte</span>
@@ -156,6 +162,10 @@ function SignUp(props) {
           <a href="#" class="social">
             <i class="lni lni-linkedin-original"></i>
           </a>
+        </div>
+        <div className="signup-page-confirmation-accept-cgu">
+          En cliquant sur "S'inscrire", vous acceptez nos 
+          <a target="blank" href="cgu">Conditions générales d'utilisation</a>.
         </div>
       </form>
     </div>
