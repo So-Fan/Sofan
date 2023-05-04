@@ -17,6 +17,7 @@ import LaunchpAll from "./Pages/LaunchpadAll/LaunchpadAll";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import EthProvider from "./contexts/EthContext/EthProvider";
 import TestSecondary from "./Pages/Test/TestSecondary";
+import CGU from "./Pages/CGU/CGU";
 
 function App() {
   const isLogged = true; // from Backend
@@ -214,6 +215,7 @@ function App() {
               }
             />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/cgu" element={<CGU/>}/>
           </Routes>
         </div>
         <section className="error-mobile-waiting-page">
