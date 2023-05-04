@@ -85,7 +85,9 @@
   margin-bottom: 10px;
 }
 .launchpadallupcominglaunchesTemplate-data-wrap-img > img {
-  width: 46px;
+  max-width: 46px;
+  max-height: 46px;
+  width: 46px !important;
   height: 46px;
   border-radius: 5px;
 }
