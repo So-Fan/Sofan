@@ -23,22 +23,21 @@ const LaunchpadAllLiveLaunches = ({
     setDim(window.innerWidth);
     setDimMain(window.innerWidth);
   };
-  // function handleLiveLaunchesSportDropdownClicked(e) {
-  //   console.log(e.target.id);
-  //   if (
-  //     e.target.className == "launchpadalllivelaunches-top-wrap-dropdown" ||
-  //     e.target.className ===
-  //       "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked" ||
-  //       e.target.id === "launchpadalllivelaunches-dropdown-main" ||
-  //       e.target.id === "launchpadalllivelaunches-dropdown-img" ||
-  //       e.target.id === "launchpadalllivelaunches-dropdown-span"
-  //   ) {
-  //     setIsLiveLaunchSportDropdownClicked(!isLiveLaunchSportDropdownClicked);
-  //   }
-  //   else {
-  //     setIsLiveLaunchSportDropdownClicked(false);
-  //   }
-  // }
+  function handleLiveLaunchesSportDropdownClicked(e) {
+    console.log(e.target.id);
+    if (
+      e.target.className == "launchpadalllivelaunches-top-wrap-dropdown" ||
+      e.target.className ===
+        "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked" ||
+      e.target.id === "launchpadalllivelaunches-dropdown-main" ||
+      e.target.id === "launchpadalllivelaunches-dropdown-img" ||
+      e.target.id === "launchpadalllivelaunches-dropdown-span"
+    ) {
+      setIsLiveLaunchSportDropdownClicked(!isLiveLaunchSportDropdownClicked);
+    } else {
+      setIsLiveLaunchSportDropdownClicked(false);
+    }
+  }
   const handleLiveLaunchesSportChoiceClicked = (e) => {
     console.log(e);
     setCurrentLiveLaunchesSportSelectorSelected(e.target.innerHTML);
@@ -133,10 +132,12 @@ const LaunchpadAllLiveLaunches = ({
   useEffect(() => {
     window.addEventListener("resize", handleDim, false);
   }, []);
+  document.documentElement.style.setProperty('--dim', window.innerWidth + 'px');
+
   return (
     <div className="launchpadalllivelaunches-component">
       <div
-        // onClick={handleLiveLaunchesSportDropdownClicked}
+        onClick={handleLiveLaunchesSportDropdownClicked}
         className="launchpadalllivelaunches-top-wrap"
         style={respWidthTop}
       >

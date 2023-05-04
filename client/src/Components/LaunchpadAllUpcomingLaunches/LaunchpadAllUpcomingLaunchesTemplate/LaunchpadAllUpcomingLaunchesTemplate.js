@@ -129,7 +129,8 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
         isComponentActive ? "" : "no-active-effect"
       }`}
     >
-      <a href="/nftcollection">
+
+      <a className="launchpadallupcominglaunchesTemplate-link" href="/nftcollection">
         <img
           src={background}
           alt="background"

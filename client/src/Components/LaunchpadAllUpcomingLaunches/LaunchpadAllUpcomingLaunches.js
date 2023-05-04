@@ -129,6 +129,7 @@ const LaunchpadAllUpcomingLaunches = ({
       false
     );
   }, []);
+  document.documentElement.style.setProperty('--dim', window.innerWidth + 'px');
   return (
     <div className="launchpadallupcominglaunches-component">
       <div
