@@ -67,6 +67,8 @@ button {
 }
 .lvl-blockchain-button:active{
   background-color: #fff2C7 !important;
+  transform: scale(0.75);
+  transition-duration: 450ms;
 }
 .lvl-blockchain-text {
   font-family: 'Britanica-Heavy';
@@ -84,6 +86,9 @@ font-size: 16px;
   opacity: 1 !important;
   border-radius: 10px;
   cursor: pointer;
+}
+.lvl-blockchain-button-selected:active{
+  transform: scale(0.75);
 }
 .next-button {
   font-family: "britanica-heavy";

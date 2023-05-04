@@ -91,6 +91,10 @@
   background-color: #f7c520;
   transition: 500ms;
 }
+.signup-athlete-button:active{
+  transform: scale(0.85);
+  transition-duration: 200ms;
+}
 
 
 /* .bg-progress-bar:hover {

@@ -204,8 +204,9 @@ function SecondStep({ setSecondStepValidated }) {
   ) {
     console.log("tout est validé !");
     setSecondStepValidated(true);
+  } else {
+    setSecondStepValidated(false)
   }
-
   return (
     <div className="secondstep-container">
       <div className="second-step-form-container">

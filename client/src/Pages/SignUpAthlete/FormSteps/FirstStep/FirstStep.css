@@ -46,6 +46,10 @@
   cursor: pointer;
   opacity: 1;
 }
+.btn-firststep:active{
+  transform: scale(0.75);
+  /* transition-duration: 200ms; */
+}
 .btn-firststep:hover {
   background-color: #f6d463 !important;
   transition: .2s ease-in-out;
