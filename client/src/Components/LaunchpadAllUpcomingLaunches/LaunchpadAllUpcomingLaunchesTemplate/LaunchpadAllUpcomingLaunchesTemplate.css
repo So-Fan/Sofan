@@ -5,15 +5,18 @@
   position: relative;
   cursor: pointer;
   z-index: 10;
-      transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
+  transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
 }
-.launchpadallupcominglaunchesTemplate-component:hover{
+.launchpadallupcominglaunchesTemplate-data-link {
+  background-color: rgba(0, 0, 0, 0);
+}
+.launchpadallupcominglaunchesTemplate-component:hover {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
   transform: translate(0px, -10px);
-  transition-duration:300ms ;
+  transition-duration: 300ms;
 }
-.launchpadallupcominglaunchesTemplate-component:active{
-transform: scale(0.8);
+.launchpadallupcominglaunchesTemplate-component:active {
+  transform: scale(0.8);
 }
 .no-active-effect:active {
   transform: none;
@@ -22,6 +25,18 @@ transform: scale(0.8);
   width: 100%;
   max-width: 500px;
   height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+.launchpadallupcominglaunchesTemplate-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.launchpadallupcominglaunchesTemplate-data-link > img {
+  object-fit: cover;
+  display: flex;
+  align-items: center;
   border-radius: 20px;
 }
 .launchpadallupcominglaunchesTemplate-data-container {
@@ -41,10 +56,10 @@ transform: scale(0.8);
   flex-direction: column;
   align-items: flex-start;
 }
-.launchpadallupcominglaunchesTemplate-data-img-and-name{
+.launchpadallupcominglaunchesTemplate-data-img-and-name {
   text-decoration: none;
 }
-.launchpadallupcominglaunchesTemplate-data-img-and-name:hover{
+.launchpadallupcominglaunchesTemplate-data-img-and-name:hover {
   background-color: #ddc3c385;
   transition-duration: 300ms !important;
   border-radius: 10px;
@@ -52,10 +67,10 @@ transform: scale(0.8);
   padding: 5px;
   text-decoration: underline;
   text-decoration-color: #fffcfc;
-  text-underline-offset: 4px; 
+  text-underline-offset: 4px;
 }
 
-.launchpadallupcominglaunchesTemplate-data-img-and-name:active{
+.launchpadallupcominglaunchesTemplate-data-img-and-name:active {
   transform: scale(0.8);
 }
 

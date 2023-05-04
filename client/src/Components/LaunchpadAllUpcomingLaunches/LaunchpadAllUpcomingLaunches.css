@@ -1,6 +1,7 @@
 .launchpadallupcominglaunches-component {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 }
 .launchpadallupcominglaunches-top-wrap {
   display: flex;
@@ -64,7 +65,7 @@
 .launchpadallupcominglaunches-bottom-wrap {
   display: flex;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1245px;
   overflow-x: scroll;
   overflow-y: hidden;
   height: 100%;
@@ -78,4 +79,9 @@
 .launchpadallupcominglaunches-bottom-wrap > div {
   display: flex;
   scroll-behavior: smooth !important;
+}
+.launchpadallupcominglaunches-bottom-wrap > div > div, .launchpadallupcominglaunches-bottom-wrap > div > div img {
+width: calc(520px - (1337px - var(--dim, 0px)) * 0.38);
+  max-width: 500px;
+  max-height: calc(550px * (1 - (1337px - var(--dim, 0px)) / 1300));
 }
