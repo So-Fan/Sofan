@@ -81,6 +81,9 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
   useEffect(() => {
     window.addEventListener("resize", handleDimLaunchpadHeader, false);
   }, []);
+  function redirectTo() {
+    window.location.href = "/collectionlive";
+  }
   return (
     <div className="launchpadallheader-component">
       <img
@@ -133,7 +136,7 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
             {data?.nftNumber} items{" "}
             {hidePrice ? <></> : <>- {data?.nftPrice} ETH</>}
           </span>
-          <Button text="Découvrir" style={launchpadallheaderDataWrapButton} />
+          <Button onClick={redirectTo} active="button-active-props" hover="button-hover-props" text="Découvrir" style={launchpadallheaderDataWrapButton} />
         </div>
       </div>
     </div>
