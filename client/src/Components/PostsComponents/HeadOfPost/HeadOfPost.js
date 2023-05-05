@@ -16,13 +16,20 @@ function HeadOfPost({
   postName,
   postDate,
   postDateType,
-  postType
+  postType,
 }) {
   const athleteName = "Romain Attanasio"; // reçu du backend
 
+  const redirectToAthleteProfile = () => {
+    window.location.href = "/athleteprofile";
+  };
+
   return (
     <div className="publication-head-container">
-      <div className={`publication-head-left-container ${headOfPostSizeLeft}`}>
+      <div
+        className={`publication-head-left-container ${headOfPostSizeLeft}`}
+        onClick={redirectToAthleteProfile}
+      >
         {/* Backend here */}
         <div className="profilepic-athlete-publication">
           <img src={profilePicAttanasio} alt="profil utilisateur" />
@@ -33,7 +40,10 @@ function HeadOfPost({
         </div>
         {/* Backend here */}
         {/* Import date backend data with props from home to here and from every page */}
-        <div className={`age-publication ${agePublicationPollPost}`}>{postDate}{postDateType}</div>
+        <div className={`age-publication ${agePublicationPollPost}`}>
+          {postDate}
+          {postDateType}
+        </div>
       </div>
       <div
         className={`publication-head-right-container ${headOfPostSizeRight}`}

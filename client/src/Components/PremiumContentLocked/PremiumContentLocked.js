@@ -10,9 +10,9 @@ function PremiumContentLocked() {
       <div className="premium-content-locked-cta-premium-content">
         Buy an NFT to unlock the premium content from this athlete
       </div>
-      <button className="premium-content-locked-button">
-        See NFT
-      </button>
+      <a href="/nftsingle">
+        <button className="premium-content-locked-button">See NFT</button>
+      </a>
     </div>
   );
 }

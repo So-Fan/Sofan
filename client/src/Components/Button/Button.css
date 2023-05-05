@@ -16,6 +16,9 @@
     background-color: #f7c520 !important;
     transition-duration: 300ms !important;
 }
+.button-active-props:active{
+transform: scale(0.8);
+}
 /* .button-component:hover{
     background-color: #f7c520 !important;
     transition-duration: 300ms !important;

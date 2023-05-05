@@ -26,7 +26,7 @@ function DropDownMenu() {
             <li>Copier le lien</li>
           </a>
           <div className="separation-line-dropdown-menu"></div>
-          <a href="/" id="link-dropdown-menu">
+          <a href="/athleteprofile" id="link-dropdown-menu">
             <li>Voir le profil</li>
           </a>
         </ul>
