@@ -1,3 +1,14 @@
+.athleteprofileevent-event-past-title{
+  font-size: 26px;
+  font-weight: bolder;
+  font-family: "britanica-heavy";
+  max-width: 1246px;
+width: 100%;
+height: 50px;
+display: flex;
+align-items: center;
+}
+
 .athleteprofileevent-component {
   display: flex;
   /* justify-content: center; */
@@ -17,4 +28,9 @@
       width: 100%;
     }
   }
+*/
+/* 
+box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+    transform: translate(0px, -10px);
+    transition-duration: 300ms;
 */
