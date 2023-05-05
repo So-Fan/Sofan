@@ -8,10 +8,10 @@ function PremiumContentLocked() {
         <img src={lockerLogo} alt="locker logo premium content" />
       </div>
       <div className="premium-content-locked-cta-premium-content">
-        Buy an NFT to unlock the premium content from this athlete
+        Acheter le NFT pour débloquer le contenu premium de cet athlète.
       </div>
       <a href="/nftsingle">
-        <button className="premium-content-locked-button">See NFT</button>
+        <button className="premium-content-locked-button">Voir le NFT</button>
       </a>
     </div>
   );

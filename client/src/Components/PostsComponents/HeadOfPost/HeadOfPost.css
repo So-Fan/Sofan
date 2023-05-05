@@ -19,6 +19,9 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.publication-head-left-container:active {
+  transform: scale(0.8);
+}
 .athlete-name-publication {
   font-size: 16px;
   font-family: "britanica-heavy";

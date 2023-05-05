@@ -19,7 +19,7 @@ const AthleteProfileEvent = ({ dataEvents }) => {
   return (
     <>
       <div className="athleteprofileevent-event-past-title">
-        Evenements à venir
+        Évenèments à venir
       </div>
       <div className="athleteprofileevent-component">
         {upcomingEvents?.map((event) => (
@@ -36,7 +36,7 @@ const AthleteProfileEvent = ({ dataEvents }) => {
         )}
       </div>
       <div className="athleteprofileevent-event-past-title">
-        Evenements passés
+      Évenèments passés
       </div>
       <div className="athleteprofileevent-component">
         {pastEvents?.map((event) => (
