@@ -12,33 +12,12 @@ import PopUpBuyNft from '../../Components/PopUpBuyNft/PopUpBuyNft';
 import PopUpPlaceBid from '../../Components/PopUpPlaceBid/PopUpPlaceBid';
 import PopUpConfirmationOffer from '../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer';
 import CreationPostPoll from '../../Components/CreationPostPoll/CreationPostPoll';
+import Signup from '../../Components/LoginSignupPopUp/Signup';
 function TestSecondary() {
-  const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
-    useState(false);
-    const handleCreatePostClick = () => {
-      setIsCreatePostButtonClicked(true);
-    };
+
   return (
     <div className='test-secondary-container'>
-        {/* <button className='test-secondary-button' onClick={handleCreatePostClick}>Bouton</button>
-        {isCreatePostButtonClicked && (
-          <Modal
-          setState={setIsCreatePostButtonClicked}
-          style={{ top: "24px", right: "20px" }} 
-          >
-            <AthleteFollowingSupportingPopUp/>
-        </Modal>
-      )}
-      <AthleteSuggestPopUp/> */}
-      {/* <NotificationPopUp/> */}
-      {/* <MintPopUpTemplate/> */}
-      {/* <AthleteSuggestPopUp/> */}
-      {/* <AthleteFollowersFansPopUp/> */}
-      {/* <PopUpBuyNft/> */}
-      {/* <PopUpPlaceBid/> */}
-      {/* <MintPopUpBuy/> */}
-      {/* <PopUpConfirmationOffer/> */}
-      <CreationPostPoll/>
+       <Signup/>
     </div>
   )
 }
