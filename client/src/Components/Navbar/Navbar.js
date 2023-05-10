@@ -12,6 +12,9 @@ import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import NotificationPopUp from "./NotificationPopUp/NotificationPopUp";
 import LoginSignUpScreen from "../../Pages/LoginSignUpPage/LoginSignUpScreen";
+import LoginSignUp from "../LoginSignUp/LoginSignUp";
+import SignUp from "../LoginSignUp/SignUp";
+import Signup from "../LoginSignupPopUp/Signup";
 const Navbar = ({
   isProfileClicked,
   isLogged,
@@ -35,8 +38,8 @@ const Navbar = ({
       false
     );
   }, []);
-    // retirer le scroll lock lorsque le modal n'est plus la
-    document.querySelector("body").classList.remove("scroll-lock");
+  // retirer le scroll lock lorsque le modal n'est plus la
+  document.querySelector("body").classList.remove("scroll-lock");
   return (
     <>
       {!isLogged && (
@@ -107,11 +110,12 @@ const Navbar = ({
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsSignInButtonClicked}
-          style={{ top: "28px", right: "20px", zIndex: "9999" }}
+          style={{ top: "15px", right: "20px", zIndex: "9999" }}
         >
-          <LoginSignUpScreen
+          {/* <LoginSignUpScreen
           // isSignInButtonClicked={isSignInButtonClicked}
-          />
+          /> */}
+          <Signup />
         </Modal>
       )}
     </>

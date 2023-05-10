@@ -13,11 +13,13 @@ import PopUpPlaceBid from '../../Components/PopUpPlaceBid/PopUpPlaceBid';
 import PopUpConfirmationOffer from '../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer';
 import CreationPostPoll from '../../Components/CreationPostPoll/CreationPostPoll';
 import Signup from '../../Components/LoginSignupPopUp/Signup';
+import LoginSignUpScreen from '../LoginSignUpPage/LoginSignUpScreen';
 function TestSecondary() {
 
   return (
     <div className='test-secondary-container'>
-       <Signup/>
+       {/* <Signup/> */}
+       <LoginSignUpScreen/>
     </div>
   )
 }

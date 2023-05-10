@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { isValidPhoneNumber } from "libphonenumber-js";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
 import "./Signup.css";
 function Signup() {
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
@@ -9,12 +13,20 @@ function Signup() {
   ] = useState(false);
 
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState(null); // backend
-  //   const navigate = useNavigate();
+  const [emailError, setEmailError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
+
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState(false);
+  const [opacityInputPhone, setOpacityInputPhone] = useState(false);
+  //   const navigate = useNavigate();
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -28,9 +40,7 @@ function Signup() {
       !isDisplayConfirmationPasswordButtonClicked
     );
   }
-  function passwordsMatch() {
-    return password === passwordConfirmation;
-  }
+
   function handlePasswordChange(e) {
     setPassword(e.target.value);
     setShowError(false);
@@ -46,7 +56,70 @@ function Signup() {
       password !== passwordConfirmation && passwordConfirmation !== ""
     );
   }
+  function validatePassword(password) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
 
+    return regex.test(password);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+    setPasswordError(!validatePassword(e.target.value)); // Met à jour l'état de passwordError
+  }
+  function handleConfirmPasswordChange(e) {
+    setPasswordConfirmation(e.target.value);
+    setShowError(password !== e.target.value);
+    setPasswordError(!validatePassword(e.target.value)); // Met à jour l'état de passwordError
+  }
+  function handlePasswordBlur() {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError(true);
+    }
+    setShowError(
+      password !== passwordConfirmation && passwordConfirmation !== ""
+    );
+  }
+  function handleConfirmPasswordBlur() {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    if (!passwordRegex.test(passwordConfirmation)) {
+      setPasswordError(true);
+    }
+    setShowError(
+      password !== passwordConfirmation && passwordConfirmation !== ""
+    );
+  }
+  function handleMailInput(e) {
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    if (emailRegex.test(e.target.value)) {
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+    }
+  }
+  //
+  function handleUsernameChange(e) {
+    setUsername(e.target.value);
+    const usernameRegex = /^[a-zA-Z0-9_]{1,14}$/;
+    if (usernameRegex.test(e.target.value)) {
+      setUsernameError(false);
+    } else {
+      setUsernameError(true);
+    }
+  }
+  //
+  function handlePhoneInput(value) {
+    setPhone(value);
+    if (value && isValidPhoneNumber(value)) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
+    }
+  }
+  function handleClickPhoneInput(e) {
+    var element = document.querySelector("#signup-user-phone-input-id");
+    element.classList.add("PhoneInputInputOpacity");
+  }
   return (
     <div className="signup-user-container">
       <form action="#" className="signup-user-wrap-form">
@@ -55,44 +128,71 @@ function Signup() {
           Sign up now to connect with athletes and explore exclusive NFT content
           within a vibrant community of sports enthusiasts!
         </div>
-        <div className="signup-user-mail-title">E-mail</div>
+        <div className="signup-user-mail-title">E-mail*</div>
         <input
           className="signup-user-mail-input"
           type="Email"
           value={email}
           onChange={handleEmailChange}
+          onBlur={handleMailInput}
           placeholder="Entrez votre mail"
           name=""
           id=""
         />
+        {emailError && (
+          <p className="signup-user-error-mail">
+            Veuillez entrer une adresse e-mail valide.
+          </p>
+        )}
 
-        <div className="signup-user-username-title">Pseudo</div>
+        <div className="signup-user-username-title">Pseudo*</div>
         <input
           className="signup-user-username-input"
           type="text"
+          value={username}
+          onChange={handleUsernameChange}
           placeholder="Choisissez votre pseudo"
-          name=""
-          id=""
         />
-
+        {usernameError && (
+          <p className="signup-user-error-username">
+            Veuillez entrer un pseudo valide. Il doit comporter 1 à 14
+            caractères alphanumériques ou des underscores.
+          </p>
+        )}
         <div className="signup-user-phone-title">Numéro de téléphone</div>
-        <input
+        <PhoneInput
+          id="signup-user-phone-input-id"
+          onClick={handleClickPhoneInput}
+          international
+          defaultCountry="FR"
+          value={phone}
+          onChange={handlePhoneInput}
           className="signup-user-phone-input"
-          type="tel"
-          placeholder="+33 06 06 06 06"
-          name=""
-          id=""
+          placeholder="Entrez votre numéro de téléphone"
         />
-        <div className="signup-user-password-title">Mot de passe</div>
+        {phoneError && (
+          <p className="signup-user-error-phone">
+            Veuillez entrer un numéro de téléphone valide.
+          </p>
+        )}
+        <div className="signup-user-password-title">Mot de passe*</div>
         <div className="signup-user-password-input-container">
           <input
             className="signup-user-password-input"
             type={isDisplayPasswordButtonClicked ? "text" : "password"}
             placeholder="Mot de passe"
             onChange={handlePasswordChange}
+            onBlur={handlePasswordBlur}            
             name=""
             id=""
           />
+          {password !== "" && !validatePassword(password) && (
+            <p className="signup-user-error-password">
+              Le mot de passe doit contenir au moins une majuscule, un chiffre
+              et un caractère spécial et 8 caractères minimum.
+            </p>
+          )}
+
           <div className="signup-user-input-display-button">
             {isDisplayPasswordButtonClicked ? (
               <>
@@ -118,7 +218,7 @@ function Signup() {
           </div>
         </div>
         <div className="signup-user-confirmation-password-title">
-          Confirmer mot de passe
+          Confirmer mot de passe*
         </div>
         <div className="signup-user-confirm-password-input-container">
           <input
@@ -128,7 +228,7 @@ function Signup() {
             }
             placeholder="Confirmez votre mot de passe"
             onChange={handleConfirmPasswordChange}
-            onBlur={handlePasswordBlur}
+            onBlur={handleConfirmPasswordBlur}
             name=""
             id=""
           />
@@ -166,7 +266,10 @@ function Signup() {
         </button>
         <div className="signup-page-confirmation-accept-cgu">
           En cliquant sur "S'inscrire", vous acceptez nos 
-          <a target="blank" href="cgu">Conditions générales d'utilisation</a>.
+          <a target="blank" href="cgu">
+            Conditions générales d'utilisation
+          </a>
+          .
         </div>
         <div className="signup-user-separation-line-container">
           <div className="signup-user-separation-line-left"></div>
