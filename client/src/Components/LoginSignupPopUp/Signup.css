@@ -101,7 +101,7 @@ height: 35px;
 /* background-color: red; */
 border-left: none !important;
 }
-.password-error-message-signup, .signup-user-error-mail,.signup-user-error-phone, .signup-user-error-username, .signup-user-error-password {
+.password-error-message-signup, .signup-user-error-mail,.signup-user-error-phone, .signup-user-error-username, .signup-user-error-password, .signup-user-error-fill-form {
   color: red;
   font-size: 12px;
   font-weight: 900;

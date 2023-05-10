@@ -21,15 +21,24 @@ function Signup() {
   const [emailError, setEmailError] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [emailRegexError, setEmailRegexError] = useState(false);
+  const [usernameRegexError, setUsernameRegexError] = useState(false);
+  const [passwordRegexError, setPasswordRegexError] = useState(false);
+  const [passwordConfirmRegexError, setPasswordConfirmRegexError] =
+    useState(false);
+  const [phoneRegexError, setPhoneRegexError] = useState(false);
 
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   //   const navigate = useNavigate();
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+  function handleEmailChange(event) {
+    const emailValue = event.target.value;
+    setEmail(emailValue);
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    setEmailRegexError(!emailRegex.test(emailValue));
+  }
 
   function handleDisplayPasswordButtonClick() {
     setIsDisplayPasswordButtonClicked(!isDisplayPasswordButtonClicked);
@@ -57,22 +66,32 @@ function Signup() {
     );
   }
   function validatePassword(password) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
 
     return regex.test(password);
   }
 
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-    setPasswordError(!validatePassword(e.target.value)); // Met à jour l'état de passwordError
+  function handlePasswordChange(event) {
+    const passwordValue = event.target.value;
+    setPassword(passwordValue);
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    setPasswordRegexError(!passwordRegex.test(passwordValue));
+    setPasswordConfirmRegexError(
+      passwordConfirmation !== "" && passwordConfirmation !== passwordValue
+    );
   }
-  function handleConfirmPasswordChange(e) {
-    setPasswordConfirmation(e.target.value);
-    setShowError(password !== e.target.value);
-    setPasswordError(!validatePassword(e.target.value)); // Met à jour l'état de passwordError
+  function handleConfirmPasswordChange(event) {
+    const passwordConfirmValue = event.target.value;
+    setPasswordConfirmation(passwordConfirmValue);
+    setPasswordConfirmRegexError(
+      password !== "" && password !== passwordConfirmValue
+    );
   }
   function handlePasswordBlur() {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
     if (!passwordRegex.test(password)) {
       setPasswordError(true);
     }
@@ -81,7 +100,8 @@ function Signup() {
     );
   }
   function handleConfirmPasswordBlur() {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
     if (!passwordRegex.test(passwordConfirmation)) {
       setPasswordError(true);
     }
@@ -98,28 +118,23 @@ function Signup() {
     }
   }
   //
-  function handleUsernameChange(e) {
-    setUsername(e.target.value);
+  function handleUsernameChange(event) {
+    const usernameValue = event.target.value;
+    setUsername(usernameValue);
     const usernameRegex = /^[a-zA-Z0-9_]{1,14}$/;
-    if (usernameRegex.test(e.target.value)) {
-      setUsernameError(false);
-    } else {
-      setUsernameError(true);
-    }
+    setUsernameRegexError(!usernameRegex.test(usernameValue));
   }
+
   //
   function handlePhoneInput(value) {
     setPhone(value);
-    if (value && isValidPhoneNumber(value)) {
-      setPhoneError(false);
-    } else {
-      setPhoneError(true);
-    }
+    setPhoneRegexError(value && !isValidPhoneNumber(value));
   }
   function handleClickPhoneInput(e) {
     var element = document.querySelector("#signup-user-phone-input-id");
     element.classList.add("PhoneInputInputOpacity");
   }
+
   return (
     <div className="signup-user-container">
       <form action="#" className="signup-user-wrap-form">
@@ -153,7 +168,7 @@ function Signup() {
           onChange={handleUsernameChange}
           placeholder="Choisissez votre pseudo"
         />
-        {usernameError && (
+        {usernameRegexError && (
           <p className="signup-user-error-username">
             Veuillez entrer un pseudo valide. Il doit comporter 1 à 14
             caractères alphanumériques ou des underscores.
@@ -170,7 +185,7 @@ function Signup() {
           className="signup-user-phone-input"
           placeholder="Entrez votre numéro de téléphone"
         />
-        {phoneError && (
+        {phoneRegexError && (
           <p className="signup-user-error-phone">
             Veuillez entrer un numéro de téléphone valide.
           </p>
@@ -182,7 +197,7 @@ function Signup() {
             type={isDisplayPasswordButtonClicked ? "text" : "password"}
             placeholder="Mot de passe"
             onChange={handlePasswordChange}
-            onBlur={handlePasswordBlur}            
+            onBlur={handlePasswordBlur}
             name=""
             id=""
           />
