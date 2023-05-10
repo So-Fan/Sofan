@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -134,7 +134,32 @@ function Signup() {
     var element = document.querySelector("#signup-user-phone-input-id");
     element.classList.add("PhoneInputInputOpacity");
   }
+  // console.log("Email est ",emailError,"Username est",usernameRegexError,"Password est ",)
+  function verifyFormIsValid(e) {
+    e.preventDefault()
+    if (emailError === false && usernameRegexError === false) {
+      if (
+        password !== "" &&
+        passwordConfirmation !== "" &&
+        validatePassword(password) &&
+        password === passwordConfirmation
+      ) {
+        console.log("tout est rempli");
+        setIsFormValid(true);
+      } else {
+        console.log("la deuxième condition n'est pas remplie");
+        setIsFormValid(false);
+      }
+    } else {
+      console.log("la première condition n'est pas remplie");
+      setIsFormValid(false);
+    }
+    console.log("oui");
+  }
 
+  // useEffect(() => {
+  //   verifyFormIsValid();
+  // }, []);
   return (
     <div className="signup-user-container">
       <form action="#" className="signup-user-wrap-form">
@@ -276,9 +301,17 @@ function Signup() {
             </div>
           )}
         </div>
-        <button className="signup-user-create-account-button">
+        <button onClick={verifyFormIsValid} className="signup-user-create-account-button">
           Créer mon compte
         </button>
+        {!isFormValid && (
+          <>
+            <p className="signup-user-error-fill-form">
+              Veuillez remplir tout les champs obligatoires. Ils contiennent une
+              astérisque (*)
+            </p>
+          </>
+        )}
         <div className="signup-page-confirmation-accept-cgu">
           En cliquant sur "S'inscrire", vous acceptez nos 
           <a target="blank" href="cgu">

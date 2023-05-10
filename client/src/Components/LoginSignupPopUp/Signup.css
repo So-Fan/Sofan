@@ -25,7 +25,6 @@
   justify-content: center;
   font-size: 35px;
   font-family: "britanica-heavy";
-  
 }
 .signup-user-title-description {
   font-size: 16px;
@@ -63,7 +62,8 @@
   /* background-color: tomato; */
   margin-top: 15px;
 }
-.signup-user-password-input-container, .signup-user-confirm-password-input-container{
+.signup-user-password-input-container,
+.signup-user-confirm-password-input-container {
   position: relative;
 }
 .signup-user-phone-input,
@@ -81,45 +81,55 @@
   margin-top: 10px;
   padding-left: 10px;
 }
-.PhoneInputInput{
+.PhoneInputInput {
   border: none;
   opacity: 0.5;
 }
-.PhoneInputInputOpacity{
+.PhoneInputInputOpacity {
   border: none;
   opacity: 0.5;
-opacity: 1 !important;
+  opacity: 1 !important;
 }
-.PhoneInputInput:active, .PhoneInputInput:focus{
+.PhoneInputInput:active,
+.PhoneInputInput:focus {
   border: none;
   opacity: 1;
 }
 .PhoneInputInput:focus-visible {
-border: none;
-width: 105% !important;
-height: 35px;
-/* background-color: red; */
-border-left: none !important;
+  border: none;
+  width: 105% !important;
+  height: 35px;
+  /* background-color: red; */
+  border-left: none !important;
 }
-.password-error-message-signup, .signup-user-error-mail,.signup-user-error-phone, .signup-user-error-username, .signup-user-error-password, .signup-user-error-fill-form {
+.password-error-message-signup,
+.signup-user-error-mail,
+.signup-user-error-phone,
+.signup-user-error-username,
+.signup-user-error-password,
+.signup-user-error-fill-form {
   color: red;
   font-size: 12px;
   font-weight: 900;
 }
+.signup-user-error-fill-form{
+  text-align: center;
+  margin-top: 5px;
+}
 .signup-user-input-display-button {
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    cursor: pointer;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  cursor: pointer;
 }
 .signup-user-create-account-button {
   outline: none;
   border: none;
   width: 100%;
   height: 56px;
-  margin-top: 40px;
+  margin-top: 20px;
   background: #f6d463;
   border-radius: 10px;
   font-family: "britanica-heavy";
@@ -180,8 +190,8 @@ border-left: none !important;
   transition-duration: 500ms !important;
 }
 .signup-user-google-signup:active {
- transform: scale(0.85);
- user-select: none;
+  transform: scale(0.85);
+  user-select: none;
 }
 .signup-user-google-signup img {
   width: 25px;
@@ -201,19 +211,18 @@ border-left: none !important;
   /* background-color: saddlebrown; */
 }
 .signup-user-already-an-account span {
-    position: relative;
+  position: relative;
   color: #f6d463;
   font-weight: 900;
   margin-left: 7px;
   cursor: pointer;
 }
 .signup-user-already-an-account span:hover:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 2px;
-    background-color: #f6d463;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: #f6d463;
 }
-
