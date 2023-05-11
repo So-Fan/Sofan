@@ -6,13 +6,18 @@ import PhoneInput from "react-phone-number-input";
 import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 function Signup() {
+  //
+  const [isFormValid, setIsFormValid] = useState(true);
+  const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
+  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
+  const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
+  //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
   const [
     isDisplayConfirmationPasswordButtonClicked,
     setIsDisplayConfirmationPasswordButtonClicked,
   ] = useState(false);
-
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +27,6 @@ function Signup() {
   const [emailError, setEmailError] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(true);
   const [emailRegexError, setEmailRegexError] = useState(false);
   const [usernameRegexError, setUsernameRegexError] = useState(false);
   const [passwordRegexError, setPasswordRegexError] = useState(false);
@@ -34,7 +38,6 @@ function Signup() {
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(true);
-  const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
@@ -169,13 +172,39 @@ function Signup() {
       }, 5000);
     }
   }, [isFormValid, isSubmitClicked]);
+  function handleSubmitConfirmationCodeClick() {
+    console.log("click");
+    if (isConfirmCodeValid) {
+      setDisplayConfirmationCode(false);
+      // setDisplaySetupProfile(true);
+      setTimeout(() => {
+        setDisplaySetupProfile(true);
+      }, 5000);
+    }
+  }
   return (
     <>
       {isFormValid && isSubmitClicked ? (
         <>
-          <div className={displayConfirmationCode ? "signup-user-confirmation-code-container" : "signup-user-container"}>
+          <div
+            className={
+              displayConfirmationCode
+                ? "signup-user-confirmation-code-container"
+                : "signup-user-container"
+            }
+          >
             {displayConfirmationCode ? (
-              <><ConfirmationCode/></>
+              <>
+                <ConfirmationCode
+                  setIsConfirmCodeValid={setIsConfirmCodeValid}
+                  isConfirmCodeValid={isConfirmCodeValid}
+                  handleSubmitConfirmationCodeClick={
+                    handleSubmitConfirmationCodeClick
+                  }
+                />
+              </>
+            ) : displaySetupProfile ? (
+              <>Setup Profile</>
             ) : (
               <>
                 <div className="lds-ripple">
