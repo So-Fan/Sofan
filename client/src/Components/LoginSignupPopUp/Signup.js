@@ -7,7 +7,7 @@ import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 function Signup() {
   //
-  const [isFormValid, setIsFormValid] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
@@ -37,7 +37,7 @@ function Signup() {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(true);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
