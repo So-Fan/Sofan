@@ -97,14 +97,14 @@ form > .form-and-title input:active {
 font-size: 12px;
 font-weight: 900;
 }
-.PhoneInput {
+.PhoneInput .secondstep-container{
   display: flex;
   width: 74% ;
   /* position: relative; */
   /* background-color: yellow; */
 }
 
-.PhoneInputCountry {
+.PhoneInputCountry .secondstep-container{
 /* position: relative; */
 /* left: 200px; */
   /* background-color: red; */
@@ -113,7 +113,7 @@ font-weight: 900;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.PhoneInputInput {
+.PhoneInputInput .secondstep-container{
   padding: 2%;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
@@ -124,17 +124,17 @@ font-weight: 900;
   width: 100%;
 }
 
-.PhoneInputInput:focus {
+.PhoneInputInput:focus .secondstep-container{
   text-align: center;
   outline: none;
 }
 
-.PhoneInputInput:active {
+.PhoneInputInput:active .secondstep-container{
   font-weight: 800;
   opacity: 1;
 }
 
-.PhoneInputInput.typed {
+.PhoneInputInput.typed .secondstep-container{
   color: rgb(0, 0, 0) !important;
   opacity: 1 !important;
   font-weight: 600 !important;
