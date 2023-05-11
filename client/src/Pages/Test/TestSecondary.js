@@ -18,8 +18,8 @@ function TestSecondary() {
 
   return (
     <div className='test-secondary-container'>
-       {/* <Signup/> */}
-       <LoginSignUpScreen/>
+       <Signup/>
+
     </div>
   )
 }

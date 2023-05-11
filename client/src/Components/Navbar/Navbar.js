@@ -110,7 +110,7 @@ const Navbar = ({
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsSignInButtonClicked}
-          style={{ top: "15px", right: "20px", zIndex: "9999" }}
+          style={{ top: "20px", right: "20px", zIndex: "9999" }}
         >
           {/* <LoginSignUpScreen
           // isSignInButtonClicked={isSignInButtonClicked}
