@@ -32,6 +32,8 @@ function Signup() {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
+
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
@@ -136,7 +138,8 @@ function Signup() {
   }
   // console.log("Email est ",emailError,"Username est",usernameRegexError,"Password est ",)
   function verifyFormIsValid(e) {
-    e.preventDefault()
+    e.preventDefault();
+    setIsSubmitClicked(true);
     if (emailError === false && usernameRegexError === false) {
       if (
         password !== "" &&
@@ -301,10 +304,13 @@ function Signup() {
             </div>
           )}
         </div>
-        <button onClick={verifyFormIsValid} className="signup-user-create-account-button">
+        <button
+          onClick={verifyFormIsValid}
+          className="signup-user-create-account-button"
+        >
           Créer mon compte
         </button>
-        {!isFormValid && (
+        {!isFormValid && isSubmitClicked && (
           <>
             <p className="signup-user-error-fill-form">
               Veuillez remplir tout les champs obligatoires. Ils contiennent une
