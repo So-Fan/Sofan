@@ -12,10 +12,26 @@
   justify-content: center;
 }
 /* When ConfirmationCode Component */
-.signup-user-confirmation-code-container{
+.signup-user-confirmation-code-container {
   width: 500px;
   min-height: 375px;
   height: 453px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
+  border-radius: 9.94299px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/*  */
+
+/* When Setup Profile Component */
+.signup-user-setup-profile-container {
+  width: 500px;
+  height: 629px;
+  min-height: 375px;
   background: #ffffff;
   border-radius: 20px;
   box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
@@ -315,7 +331,7 @@
     height: 28px;
     font-size: 25px;
   }
-  .signup-user-title-description{
+  .signup-user-title-description {
     font-size: 14px;
     height: 28px;
   }

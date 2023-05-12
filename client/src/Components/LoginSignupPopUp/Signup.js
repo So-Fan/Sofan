@@ -5,12 +5,13 @@ import PhoneInput from "react-phone-number-input";
 
 import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
+import SetupProfile from "./SetupProfile/SetupProfile";
 function Signup() {
   //
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
-  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
-  const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
+  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(true);
+  const [displaySetupProfile, setDisplaySetupProfile] = useState(true);
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -37,7 +38,7 @@ function Signup() {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(true);
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
@@ -168,7 +169,7 @@ function Signup() {
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
-        setDisplayConfirmationCode(true);
+        // setDisplayConfirmationCode(true);
       }, 5000);
     }
   }, [isFormValid, isSubmitClicked]);
@@ -179,7 +180,7 @@ function Signup() {
       // setDisplaySetupProfile(true);
       setTimeout(() => {
         setDisplaySetupProfile(true);
-      }, 5000);
+      }, 2000);
     }
   }
   return (
@@ -190,6 +191,8 @@ function Signup() {
             className={
               displayConfirmationCode
                 ? "signup-user-confirmation-code-container"
+                : displaySetupProfile
+                ? "signup-user-setup-profile-container"
                 : "signup-user-container"
             }
           >
@@ -204,7 +207,9 @@ function Signup() {
                 />
               </>
             ) : displaySetupProfile ? (
-              <>Setup Profile</>
+              <>
+              <SetupProfile/>
+              </>
             ) : (
               <>
                 <div className="lds-ripple">

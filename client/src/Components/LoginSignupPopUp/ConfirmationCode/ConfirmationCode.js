@@ -62,7 +62,7 @@ function ConfirmationCode({
   const inputRefs = useRef([]);
 
   return (
-    <div className="signup-user-confirmation-code-wrap">
+    <div className="signup-user-confirmation-code-container">
       <div className="signup-user-confirmation-code-previous-step">
         <img src={previousArrow} alt="FLÈCHE ÉTAPE PRÉCÉDENTE" />
       </div>
