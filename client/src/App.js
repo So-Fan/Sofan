@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import { useState, useEffect } from "react";
-import "./App.css";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 import Test from "./Pages/Test/Test";
@@ -20,7 +19,7 @@ import TestSecondary from "./Pages/Test/TestSecondary";
 import CGU from "./Pages/CGU/CGU";
 
 function App() {
-  const isLogged = true; // from Backend
+  const isLogged = false; // from Backend
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);

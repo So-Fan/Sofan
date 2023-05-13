@@ -6,7 +6,7 @@ import PhoneInput from "react-phone-number-input";
 import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 import SetupProfile from "./SetupProfile/SetupProfile";
-function Signup() {
+function Signup({setIsModalSignupUserCropImageClicked, preview}) {
   //
   const [isFormValid, setIsFormValid] = useState(true);
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
@@ -208,7 +208,10 @@ function Signup() {
               </>
             ) : displaySetupProfile ? (
               <>
-              <SetupProfile/>
+              <SetupProfile
+              setIsModalSignupUserCropImageClicked={setIsModalSignupUserCropImageClicked}
+              preview={preview}
+              />
               </>
             ) : (
               <>
