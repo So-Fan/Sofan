@@ -3,12 +3,22 @@ import "./SetupProfile.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import Img from "../../../Assets/Image/img.svg";
 
-function SetupProfile({ setIsModalSignupUserCropImageClicked, preview }) {
+function SetupProfile({
+  setIsModalSignupUserCropImageClicked,
+  preview,
+  handleSetupProfileNextButtonClick,
+  handleSetupProfileAddLaterClick,
+}) {
   // const [src, setSrc1] = useState(null);
   // const [preview, setPreview] = useState(null);
   const [displayImageCrop, setDisplayImageCrop] = useState(false);
   const [pixelScrolledPopUpSignupUser, setPixelScrolledPopUpSignupUser] =
     useState();
+  const [bioText, setBioText] = useState("");
+  const [bioTextLength, setBioTextLength] = useState(0);
+  const [bioTextLengthError, setBioTextLengthError] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
   const imageRef = useRef(null);
   const profilePicRef = useRef(null);
 
@@ -35,13 +45,33 @@ function SetupProfile({ setIsModalSignupUserCropImageClicked, preview }) {
   const handlePixelScrolledPopUpSignupUser = () => {
     setPixelScrolledPopUpSignupUser(window.scrollY);
   };
+  const handleBioTextChange = (event) => {
+    const text = event.target.value;
+    setBioText(text);
+    setBioTextLength(text.length);
+    if (text.length > 250) {
+      setBioTextLengthError(true);
+    } else {
+      setBioTextLengthError(false);
+    }
+  };
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+  function handleSetupProfileNextButtonClick() {}
+  function handleSetupProfileAddLaterClick() {}
   return (
     <>
       <div className="signup-user-setup-profile-wrap">
         <div className="signup-user-setup-profile-previous-step">
           <img src={previousArrow} alt="" />
         </div>
-        <div className="signup-user-setup-profile-title">SetupProfile</div>
+        <div className="signup-user-setup-profile-title">
+          Créez votre profil
+        </div>
         <div className="signup-user-setup-profile-banner-and-profile-pic">
           <div
             className="signup-user-setup-profile-banner-container"
@@ -85,12 +115,38 @@ function SetupProfile({ setIsModalSignupUserCropImageClicked, preview }) {
           </div>
         </div>
         <div className="signup-user-setup-profile-bio-title-and-length-limit">
-          <div className="signup-user-setup-profile-bio-title">
-            Bio
+          <div className="signup-user-setup-profile-bio-title">Bio</div>
+          <div className="signup-user-setup-profile-length-limit">
+            {" "}
+            {bioTextLength}/250
           </div>
-          <div className="signup-user-setup-profile-length-limit">0/250</div>
         </div>
-        <textarea className="signup-user-setup-profile-bio" name="" ></textarea>
+        <div className="signup-user-setup-profile-bio-container">
+          <textarea
+            className="signup-user-setup-profile-bio"
+            style={bioTextLengthError ? { borderColor: "red" } : {}}
+            name=""
+            value={bioText}
+            onChange={handleBioTextChange}
+          ></textarea>
+          {bioTextLengthError && (
+            <div className="signup-user-setup-profile-bio-error">
+              Votre bio dépasse la limite des 250 charactères maximum.
+            </div>
+          )}
+        </div>
+        <button
+          onClick={handleSetupProfileNextButtonClick}
+          className="signup-user-setup-profile-next-button"
+        >
+          Suivant
+        </button>
+        <button
+          onClick={handleSetupProfileAddLaterClick}
+          className="signup-user-setup-profile-add-later-button"
+        >
+          Ajouter plus tard
+        </button>
       </div>
     </>
   );

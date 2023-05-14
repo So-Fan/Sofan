@@ -110,37 +110,92 @@
 .signup-user-setup-profile-profile-pic-add-button:active {
   transform: scale(0.75);
 }
-.signup-user-setup-profile-bio-title-and-length-limit{
-    width: 100%;
-    height: 17px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    /* background-color: violet; */
+.signup-user-setup-profile-bio-title-and-length-limit {
+  width: 100%;
+  height: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  /* background-color: violet; */
 }
-.signup-user-setup-profile-bio-title{
-    font-size: 14px;
-    font-family: "britanica-heavy";
+.signup-user-setup-profile-bio-title {
+  font-size: 14px;
+  font-family: "britanica-heavy";
 }
-.signup-user-setup-profile-length-limit{
-    font-size: 14px;
+.signup-user-setup-profile-length-limit {
+  font-size: 14px;
 }
-.signup-user-setup-profile-bio{
-    width: calc(100% - 10px) ;
-    height: 94px;
+.signup-user-setup-profile-bio {
+  width: calc(100% - 10px);
+  height: 94px;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  resize: none;
+  font-family: "britanica-regular";
+  /* overflow-y: scroll; */
+}
+.signup-user-setup-profile-bio-container {
+  position: relative;
+}
+.signup-user-setup-profile-wrap textarea {
+  font-family: "britanica-regular" !important;
+  font-size: 15px;
+  font-weight: 900;
+  /* border-color: red; */
+}
+
+.signup-user-setup-profile-bio-error {
+  position: absolute;
+  color: red;
+  font-size: 12px;
+  font-weight: 900;
+}
+.signup-user-setup-profile-next-button {
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 56px;
+  width: 100%;
+  border-radius: 10px;
+  background: #F6D463;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.signup-user-setup-profile-next-button:hover{
+    background-color: #f7c520 !important;
+    transition-duration: 300ms;
+}
+.signup-user-setup-profile-next-button:active{
+   transform: scale(0.85);
+}
+.signup-user-setup-profile-add-later-button{
+    background: none;
     margin: 0;
     padding: 0;
-    padding-left: 10px;
-    padding-top: 10px;
-    border-radius: 5px;
-    margin-top: 5px;
-    resize: none;
-font-family: "britanica-regular";
-/* overflow-y: scroll; */
+    border: none;
+    height: 56px;
+    width: 100%;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid #000000;
+    font-size: 20px;
+    font-family: "britanica-heavy";
+    margin-top: 20px;
+    cursor: pointer;
 }
-.signup-user-setup-profile-wrap textarea{
-    font-family: "britanica-regular" !important;
-    font-size: 15px;
-    font-weight: 900;
+.signup-user-setup-profile-add-later-button:hover{
+    background-color: #00000015;
+    transition-duration: 300ms !important;
+}
+.signup-user-setup-profile-add-later-button:active{
+    transform: scale(0.85);
 }

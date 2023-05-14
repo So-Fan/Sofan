@@ -12,6 +12,7 @@ function Signup({setIsModalSignupUserCropImageClicked, preview}) {
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(true);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(true);
+  const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -183,6 +184,15 @@ function Signup({setIsModalSignupUserCropImageClicked, preview}) {
       }, 2000);
     }
   }
+  // Setup Profile step
+  function handleSetupProfileNextButtonClick() {
+    // passer à l'étape suivante
+    
+  }
+  function handleSetupProfileAddLaterClick() {
+    // passer à l'étape suivante
+    setIsSetupProfileValid(true);
+  }
   return (
     <>
       {isFormValid && isSubmitClicked ? (
@@ -211,6 +221,8 @@ function Signup({setIsModalSignupUserCropImageClicked, preview}) {
               <SetupProfile
               setIsModalSignupUserCropImageClicked={setIsModalSignupUserCropImageClicked}
               preview={preview}
+              handleSetupProfileNextButtonClick={handleSetupProfileNextButtonClick}
+              handleSetupProfileAddLaterClick={handleSetupProfileAddLaterClick}
               />
               </>
             ) : (
