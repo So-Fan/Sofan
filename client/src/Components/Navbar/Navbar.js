@@ -15,6 +15,8 @@ import LoginSignUpScreen from "../../Pages/LoginSignUpPage/LoginSignUpScreen";
 import LoginSignUp from "../LoginSignUp/LoginSignUp";
 import SignUp from "../LoginSignUp/SignUp";
 import Signup from "../LoginSignupPopUp/Signup";
+import Avatar from "react-avatar-edit";
+
 const Navbar = ({
   isProfileClicked,
   isLogged,
@@ -25,9 +27,16 @@ const Navbar = ({
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
   const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
+  const [
+    isModalSignupUserCropImageClicked,
+    setIsModalSignupUserCropImageClicked,
+  ] = useState(false);
   const handlePixelScrolledAthleteProfilePage = () => {
     setPixelScrolledAthleteProfilePage(window.scrollY);
   };
+  const [src, setSrc1] = useState(null);
+  const [preview, setPreview] = useState(null);
+
   function handleSignInButtonClick() {
     setIsSignInButtonClicked(true);
   }
@@ -40,6 +49,19 @@ const Navbar = ({
   }, []);
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
+
+  function handleModalSignupUserCropImageClick(e) {
+    console.log("handleModalSignupUserCropImageClick est clické ");
+    if (e.target.id === "navbar-signup-user-popup-crop-profile-pic-modal-id") {
+      setIsModalSignupUserCropImageClicked(false);
+    }
+  }
+  function onClose() {
+    setPreview(null);
+  }
+  function onCrop(view) {
+    setPreview(view);
+  }
   return (
     <>
       {!isLogged && (
@@ -115,8 +137,50 @@ const Navbar = ({
           {/* <LoginSignUpScreen
           // isSignInButtonClicked={isSignInButtonClicked}
           /> */}
-          <Signup />
+          <Signup
+            setIsModalSignupUserCropImageClicked={
+              setIsModalSignupUserCropImageClicked
+            }
+            preview={preview}
+          />
         </Modal>
+      )}
+      {isModalSignupUserCropImageClicked && (
+        <>
+          <div
+            onClick={handleModalSignupUserCropImageClick}
+            id="navbar-signup-user-popup-crop-profile-pic-modal-id"
+            className="navbar-signup-user-popup-crop-profile-pic-modal"
+          ></div>
+          <div className="signup-user-setup-profile-profile-pic-add-button-lib-container">
+            <div className="signup-user-setup-profile-profile-pic-add-button-lib">
+              <Avatar
+                width={300}
+                height={300}
+                src={src}
+                shadingOpacity={0.6}
+                onCrop={onCrop}
+                onClose={onClose}
+                // cropRadius={30}
+                label={"Choisissez une image"}
+                labelStyle={{
+                  fontSize: 22,
+                  fontFamily: "britanica-heavy",
+                  fontStyle: "italic",
+                  cursor: "pointer",
+                }}
+                borderStyle={{
+                  backgroundColor: "#f6d463",
+                  padding: "5px",
+                  borderRadius: "20px",
+                  display: "flex",
+                  justifyContent:"center",
+
+                }}
+              />
+            </div>
+          </div>
+        </>
       )}
     </>
   );

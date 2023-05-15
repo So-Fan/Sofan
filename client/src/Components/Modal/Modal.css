@@ -14,6 +14,9 @@
 .modal-component-wrap{
     position: relative;
 }
+.modal-component-wrap{
+    animation: bounceIn 400ms both;
+}
 .modal-component-wrap img {
     cursor: pointer;
     z-index: 2;
@@ -21,3 +24,14 @@
 #modal-component-cross{
     position: absolute;
 }
+@keyframes bounceIn {
+    0% {
+      transform: scale(0.4);
+    }
+    70% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

@@ -5,12 +5,16 @@ import PhoneInput from "react-phone-number-input";
 
 import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
-function Signup() {
+import SetupProfile from "./SetupProfile/SetupProfile";
+function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true);
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
-  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
-  const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
+  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(true);
+  const [displaySetupProfile, setDisplaySetupProfile] = useState(true);
+  const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
+  const [displaySportsFav, setDisplaySportsFav] = useState(false);
+
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -37,7 +41,7 @@ function Signup() {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(true);
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
@@ -168,7 +172,7 @@ function Signup() {
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
-        setDisplayConfirmationCode(true);
+        // setDisplayConfirmationCode(true);
       }, 5000);
     }
   }, [isFormValid, isSubmitClicked]);
@@ -179,8 +183,26 @@ function Signup() {
       // setDisplaySetupProfile(true);
       setTimeout(() => {
         setDisplaySetupProfile(true);
-      }, 5000);
+      }, 2000);
     }
+  }
+  // Setup Profile step
+  function handleSetupProfileNextButtonClick() {
+    // passer à l'étape suivante
+    // setTimeout(() => {
+    setDisplaySetupProfile(false);
+    // }, 2000);
+    console.log("oui");
+  }
+  function handleSetupProfileAddLaterClick() {
+    // passer à l'étape suivante
+    setIsSetupProfileValid(true);
+    // if (isSetupProfileValid) {
+    setDisplaySetupProfile(false);
+    setTimeout(() => {
+      setDisplaySportsFav(true);
+    }, 2000);
+    // }
   }
   return (
     <>
@@ -190,6 +212,8 @@ function Signup() {
             className={
               displayConfirmationCode
                 ? "signup-user-confirmation-code-container"
+                : displaySetupProfile
+                ? "signup-user-setup-profile-container"
                 : "signup-user-container"
             }
           >
@@ -204,7 +228,25 @@ function Signup() {
                 />
               </>
             ) : displaySetupProfile ? (
-              <>Setup Profile</>
+              <>
+                <SetupProfile
+                  setIsModalSignupUserCropImageClicked={
+                    setIsModalSignupUserCropImageClicked
+                  }
+                  preview={preview}
+                  handleSetupProfileNextButtonClick={
+                    handleSetupProfileNextButtonClick
+                  }
+                  handleSetupProfileAddLaterClick={
+                    handleSetupProfileAddLaterClick
+                  }
+                />
+              </>
+            ) : displaySportsFav ? (
+              <>
+                {" "}
+                <div>sports fav</div>
+              </>
             ) : (
               <>
                 <div className="lds-ripple">
