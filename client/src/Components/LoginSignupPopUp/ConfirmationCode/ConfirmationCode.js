@@ -104,7 +104,9 @@ function ConfirmationCode({
         Suivant
       </button>
       <div className="signup-user-confirmation-code-progress-bar-container">
-        <div className="signup-user-confirmation-code-progress-bar"></div>
+        <div 
+        style={{width : "25%"}}
+        className="signup-user-confirmation-code-progress-bar"></div>
       </div>
     </div>
   );

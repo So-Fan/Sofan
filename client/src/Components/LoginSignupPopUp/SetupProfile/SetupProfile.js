@@ -16,7 +16,9 @@ function SetupProfile({
     useState();
   const [bioText, setBioText] = useState("");
   const [bioTextLength, setBioTextLength] = useState(0);
-  const [bioTextLengthError, setBioTextLengthError] = useState(false);
+  const [bioTextMaxLengthError, setBioTextMaxLengthError] = useState(false);
+  const [bioTextMinimumLengthError, setBioTextMinimumLengthError] =
+    useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
   const imageRef = useRef(null);
@@ -50,9 +52,12 @@ function SetupProfile({
     setBioText(text);
     setBioTextLength(text.length);
     if (text.length > 250) {
-      setBioTextLengthError(true);
+      setBioTextMaxLengthError(true);
+    } else if (text.length < 50) {
+      setBioTextMinimumLengthError(true);
     } else {
-      setBioTextLengthError(false);
+      setBioTextMaxLengthError(false);
+      setBioTextMinimumLengthError(false);
     }
   };
   const handleFocus = () => {
@@ -61,8 +66,15 @@ function SetupProfile({
   const handleBlur = () => {
     setIsFocused(false);
   };
-  function handleSetupProfileNextButtonClick() {}
-  function handleSetupProfileAddLaterClick() {}
+  function checkProfileCompletion(preview, bioText) {
+    const hasBanner = !!preview; // Vérifie si la bannière est présente
+    const hasProfilePic = !!preview; // Vérifie si la photo de profil est présente
+    const hasValidBio = bioText.length >= 50 && bioText.length <= 250; // Vérifie si la bio a entre 50 et 250 caractères
+
+    return hasBanner && hasProfilePic && hasValidBio;
+  }
+  const isProfileComplete = checkProfileCompletion(preview, bioText);
+
   return (
     <>
       <div className="signup-user-setup-profile-wrap">
@@ -124,20 +136,26 @@ function SetupProfile({
         <div className="signup-user-setup-profile-bio-container">
           <textarea
             className="signup-user-setup-profile-bio"
-            style={bioTextLengthError ? { borderColor: "red" } : {}}
+            style={bioTextMaxLengthError ? { borderColor: "red" } : {}}
             name=""
             value={bioText}
             onChange={handleBioTextChange}
           ></textarea>
-          {bioTextLengthError && (
+          {bioTextMaxLengthError && (
             <div className="signup-user-setup-profile-bio-error">
               Votre bio dépasse la limite des 250 charactères maximum.
+            </div> 
+          )}
+          {bioTextMinimumLengthError && (
+            <div className="signup-user-setup-profile-bio-error">
+              Votre bio doit faire au moins 50 charactères.
             </div>
           )}
         </div>
         <button
           onClick={handleSetupProfileNextButtonClick}
           className="signup-user-setup-profile-next-button"
+          disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
         >
           Suivant
         </button>
@@ -147,6 +165,12 @@ function SetupProfile({
         >
           Ajouter plus tard
         </button>
+        <div className="signup-user-setup-profile-progress-bar-container">
+          <div
+            style={{ width: "50%" }}
+            className="signup-user-setup-profile-progress-bar"
+          ></div>
+        </div>
       </div>
     </>
   );

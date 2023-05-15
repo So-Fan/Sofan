@@ -6,13 +6,15 @@ import PhoneInput from "react-phone-number-input";
 import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 import SetupProfile from "./SetupProfile/SetupProfile";
-function Signup({setIsModalSignupUserCropImageClicked, preview}) {
+function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
   const [isFormValid, setIsFormValid] = useState(true);
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(true);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(true);
   const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
+  const [displaySportsFav, setDisplaySportsFav] = useState(false);
+
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -187,11 +189,20 @@ function Signup({setIsModalSignupUserCropImageClicked, preview}) {
   // Setup Profile step
   function handleSetupProfileNextButtonClick() {
     // passer à l'étape suivante
-    
+    // setTimeout(() => {
+    setDisplaySetupProfile(false);
+    // }, 2000);
+    console.log("oui");
   }
   function handleSetupProfileAddLaterClick() {
     // passer à l'étape suivante
     setIsSetupProfileValid(true);
+    // if (isSetupProfileValid) {
+    setDisplaySetupProfile(false);
+    setTimeout(() => {
+      setDisplaySportsFav(true);
+    }, 2000);
+    // }
   }
   return (
     <>
@@ -218,12 +229,23 @@ function Signup({setIsModalSignupUserCropImageClicked, preview}) {
               </>
             ) : displaySetupProfile ? (
               <>
-              <SetupProfile
-              setIsModalSignupUserCropImageClicked={setIsModalSignupUserCropImageClicked}
-              preview={preview}
-              handleSetupProfileNextButtonClick={handleSetupProfileNextButtonClick}
-              handleSetupProfileAddLaterClick={handleSetupProfileAddLaterClick}
-              />
+                <SetupProfile
+                  setIsModalSignupUserCropImageClicked={
+                    setIsModalSignupUserCropImageClicked
+                  }
+                  preview={preview}
+                  handleSetupProfileNextButtonClick={
+                    handleSetupProfileNextButtonClick
+                  }
+                  handleSetupProfileAddLaterClick={
+                    handleSetupProfileAddLaterClick
+                  }
+                />
+              </>
+            ) : displaySportsFav ? (
+              <>
+                {" "}
+                <div>sports fav</div>
               </>
             ) : (
               <>
