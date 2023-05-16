@@ -11,6 +11,8 @@
   align-items: center;
   justify-content: center;
 }
+/* =========================================================================== */
+/* ================== Conditionnal rendering component =================== */
 /* When ConfirmationCode Component */
 .signup-user-confirmation-code-container {
   width: 500px;
@@ -41,7 +43,20 @@
   align-items: center;
   justify-content: center;
 }
-/*  */
+.signup-user-sports-fav-select-container{
+  width: 500px;
+  height: 681.25px;
+  min-height: 375px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
+  border-radius: 9.94299px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* =========================================================================== */
 .signup-user-wrap-form {
   width: 460px;
   height: 755px;

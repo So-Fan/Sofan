@@ -6,6 +6,8 @@ import PhoneInput from "react-phone-number-input";
 import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 import SetupProfile from "./SetupProfile/SetupProfile";
+// import SportsFavSelect from "./SportsFavSelect/SportsFavSelect";
+import SportsFavSelect from "./SportsFavSelect/SportsFavSelect";
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
   const [isFormValid, setIsFormValid] = useState(true);
@@ -214,6 +216,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 ? "signup-user-confirmation-code-container"
                 : displaySetupProfile
                 ? "signup-user-setup-profile-container"
+                : displaySportsFav
+                ? "signup-user-sports-fav-select-container"
                 : "signup-user-container"
             }
           >
@@ -244,8 +248,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
               </>
             ) : displaySportsFav ? (
               <>
-                {" "}
-                <div>sports fav</div>
+                <SportsFavSelect />
+                {/* <div>sports fav</div> */}
               </>
             ) : (
               <>
