@@ -60,9 +60,11 @@ function NftCollectionHeader({
       <div className="nft-collection-header-picture">
         {launchpadCollectionLiveHeader && (
           <>
+            <a href="/nftcollection">
             <button className="launchpad-collection-live-button-container">
               Explorer la collection
             </button>
+            </a>
           </>
         )}
         <img src={nftPicture} alt="IMAGE NFT" />
@@ -71,14 +73,21 @@ function NftCollectionHeader({
         <>
           <div className="launchpad-collection-live-header-right-container">
             <div className="launchpad-collection-live-header-right-wrap">
-              <div className="launchpad-collection-live-header-right-creator-pic-and-usernamme">
-                <div>
-                  <img
-                    src={creatorProfilePic}
-                    alt="Photo de profile Createur"
-                  />
-                </div>
-                <div>by {creatorName}</div>
+              <div className="launchpad-collection-live-header-right-creator-pic-and-usernamme-container">
+                <a
+                  className="launchpad-collection-live-header-right-creator-username-creator-link"
+                  href="/athleteprofile"
+                >
+                  <div className="launchpad-collection-live-header-right-creator-pic-and-usernamme-wrap">
+                    <div>
+                      <img
+                        src={creatorProfilePic}
+                        alt="Photo de profile Createur"
+                      />
+                    </div>
+                    <div>par {creatorName}</div>
+                  </div>
+                </a>
               </div>
               <div className="launchpad-collection-live-header-right-collection-name">
                 {collectionNameApi}
@@ -98,10 +107,10 @@ function NftCollectionHeader({
               <div className="launchpad-collection-live-header-right-mint-module-container">
                 <div className="launchpad-collection-live-header-right-mint-module-timer-and-limit">
                   <div className="launchpad-collection-live-header-right-mint-module-timer">
-                    End in {timer}
+                    Fin dans {timer}
                   </div>
                   <div className="launchpad-collection-live-header-right-mint-module-limit">
-                    Limit {minLimit} per wallet
+                    Limité à {minLimit} par wallet
                   </div>
                 </div>
                 <LaunchPadMintProgressBar
@@ -115,7 +124,7 @@ function NftCollectionHeader({
                     className="launchpad-collection-live-header-right-mint-module-mint-button"
                     onClick={handleMintButtonClick}
                   >
-                    Mint now
+                    Mint maintenant
                   </button>
                 </div>
               </div>
@@ -151,7 +160,7 @@ function NftCollectionHeader({
                   </div>
                   <div className="nft-collection-header-owner-creator-title-and-name-creator">
                     <span className="nft-collection-header-owner-creator-title-creator">
-                      Creator
+                      Créateur
                     </span>
                     <span className="nft-collection-header-owner-creator-name-creator">
                       {creatorName}
@@ -167,7 +176,7 @@ function NftCollectionHeader({
                   </div>
                   <div className="nft-collection-header-owner-creator-title-and-name-owner">
                     <span className="nft-collection-header-owner-creator-title-owner">
-                      Owner
+                      Propriétaire
                     </span>
                     <span className="nft-collection-header-owner-creator-name-owner">
                       {ownerName}
@@ -183,7 +192,7 @@ function NftCollectionHeader({
                   <div className="nft-collection-header-price-container">
                     <div className="nft-collection-header-price-wrap">
                       <span className="nft-collection-header-title-price">
-                        Price
+                        Prix
                       </span>
                       <span className="nft-collection-header-eth-price">
                         {ethPricePriceConverted} €
@@ -196,7 +205,7 @@ function NftCollectionHeader({
                   <div className="nft-collection-header-bid-container">
                     <div className="nft-collection-header-bid-wrap">
                       <span className="nft-collection-header-title-bid">
-                        Highest bid
+                        Offre la plus élevée
                       </span>
                       <span className="nft-collection-header-eth-bid">
                         {ethBidPriceConverted} €
@@ -212,13 +221,13 @@ function NftCollectionHeader({
                     className="nft-collection-header-buy-button"
                     onClick={handleBuyNftButtonClick}
                   >
-                    Buy NFT
+                    Acheter le NFT
                   </div>
                   <div
                     className="nft-collection-header-bid-button"
                     onClick={handleBidNftButtonClick}
                   >
-                    Place a bid
+                    Placer une offre
                   </div>
                 </div>
               </div>

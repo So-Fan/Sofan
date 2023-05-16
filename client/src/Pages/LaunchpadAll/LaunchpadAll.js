@@ -8,33 +8,9 @@ function LaunchpadAll({
   setIsLiveLaunchSportDropdownClicked,
   isUpcomingLaunchSportDropdownClicked,
   setIsUpcomingLaunchSportDropdownClicked,
+  handleLiveLaunchesSportDropdownClicked,
 }) {
   const [launchpadAllData, setLaunchpadAllData] = useState();
-  const [dimMain, setDimMain] = useState(window.innerWidth);
-  let launchpadallLiveLaunchesWrap;
-  let launchpadallUpcomingLaunchesWrap;
-  const LaunchpadAllCalcProportional = (obj, totalPx) => {
-    let Obj = {};
-    for (let key in obj) {
-      let temp = {
-        temp: `${obj[key] * (1 - (1 - dimMain / totalPx))}px`,
-      };
-      Obj[key] = temp["temp"];
-    }
-    return Obj;
-  };
-  if (dimMain < 1300) {
-    launchpadallLiveLaunchesWrap = LaunchpadAllCalcProportional(
-      {
-        marginLeft: 80,
-      },
-      1300
-    );
-    launchpadallUpcomingLaunchesWrap = LaunchpadAllCalcProportional(
-      { marginLeft: 80 },
-      1300
-    );
-  }
   useEffect(() => {
     const data = {
       launchpad: {
@@ -49,7 +25,7 @@ function LaunchpadAll({
       },
       launchpadLive: [
         {
-          background: "https://i.imgur.com/C46TVU6.png",
+          background: "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
           profilePicture: "https://i.imgur.com/StsunkC.png",
           athleName: "Romain Attanasio",
           title: "Vendée Globe Final Tour",
@@ -111,7 +87,7 @@ function LaunchpadAll({
           },
         },
         {
-          background: "https://i.imgur.com/C46TVU6.png",
+          background: "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
           profilePicture: "https://i.imgur.com/StsunkC.png",
           athleName: "Romain Attanasio",
           title: "Vendée Globe Final Tour",
@@ -146,40 +122,44 @@ function LaunchpadAll({
 
   return (
     <div className="launchpadall-page">
-      <div className="launchpadall-header-wrap">
-        <LaunchpadAllHeader
-          data={launchpadAllData?.launchpad}
-          hidePrice={true}
-        />
-      </div>
-      <div
-        className="launchpad-livelaunches-wrap"
-        style={launchpadallLiveLaunchesWrap}
-      >
-        <LaunchpadAllLiveLaunches
-          isLiveLaunchSportDropdownClicked={isLiveLaunchSportDropdownClicked}
-          setIsLiveLaunchSportDropdownClicked={
-            setIsLiveLaunchSportDropdownClicked
-          }
-          data={launchpadAllData?.launchpadLive}
-          setDimMain={setDimMain}
-          hidePrice={true}
-        />
-      </div>
-      <div
-        className="launchpad-Upcominglaunches-wrap"
-        style={launchpadallUpcomingLaunchesWrap}
-      >
-        <LaunchpadAllUpcomingLaunches
-          hidePrice={true}
-          isUpcomingLaunchSportDropdownClicked={
-            isUpcomingLaunchSportDropdownClicked
-          }
-          setIsUpcomingLaunchSportDropdownClicked={
-            setIsUpcomingLaunchSportDropdownClicked
-          }
-          data={launchpadAllData?.launchpadUpcomings}
-        />
+      <div className="launchpadall-wrap">
+        <div className="launchpadall-header-wrap">
+          <LaunchpadAllHeader
+            data={launchpadAllData?.launchpad}
+            hidePrice={true}
+          />
+        </div>
+        <div
+          className="launchpad-livelaunches-wrap"
+        >
+          <LaunchpadAllLiveLaunches
+            isLiveLaunchSportDropdownClicked={isLiveLaunchSportDropdownClicked}
+            setIsLiveLaunchSportDropdownClicked={
+              setIsLiveLaunchSportDropdownClicked
+            }
+            handleLiveLaunchesSportDropdownClicked={
+              handleLiveLaunchesSportDropdownClicked
+            }
+            data={launchpadAllData?.launchpadLive}
+            // setDimMain={setDimMain}
+            hidePrice={true}
+          />
+        </div>
+        <div
+          className="launchpad-Upcominglaunches-wrap"
+          // style={launchpadallUpcomingLaunchesWrap}
+        >
+          <LaunchpadAllUpcomingLaunches
+            hidePrice={true}
+            isUpcomingLaunchSportDropdownClicked={
+              isUpcomingLaunchSportDropdownClicked
+            }
+            setIsUpcomingLaunchSportDropdownClicked={
+              setIsUpcomingLaunchSportDropdownClicked
+            }
+            data={launchpadAllData?.launchpadUpcomings}
+          />
+        </div>
       </div>
     </div>
   );

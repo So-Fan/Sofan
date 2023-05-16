@@ -3,11 +3,33 @@
   height: 100%;
   max-height: 550px;
   position: relative;
+  cursor: pointer;
+  z-index: 10;
+  transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
+}
+.launchpadalllivelaunchestemplate-component:hover {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+  transform: translate(0px, -10px);
+  transition-duration: 300ms;
+}
+.launchpadalllivelaunchestemplate-component:active {
+  transform: scale(0.8);
 }
 .launchpadalllivelaunchestemplate-component > img {
   width: 100%;
   max-width: 500px;
   height: 100%;
+  border-radius: 20px;
+}
+.launchpadalllivelaunchestemplate-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.launchpadalllivelaunchestemplate-link > img {
+  object-fit: cover;
+  display: flex;
+  align-items: center;
   border-radius: 20px;
 }
 .launchpadalllivelaunchestemplate-data-container {
@@ -52,6 +74,23 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.launchpadalllivelaunchestemplate-data-image-and-name {
+  cursor: pointer;
+  text-decoration: none;
+}
+.launchpadalllivelaunchestemplate-data-image-and-name:hover {
+  background-color: #ddc3c385;
+  transition-duration: 300ms !important;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: underline;
+  text-decoration-color: #fffcfc;
+  text-underline-offset: 4px;
+}
+.launchpadalllivelaunchestemplate-data-image-and-name:active {
+  transform: scale(0.8);
+}
 .launchpadalllivelaunchestemplate-data-wrap-img {
   background-color: white;
   border-radius: 5px;
@@ -95,4 +134,8 @@
   border: transparent;
   font-family: "Britanica-Heavy";
   font-size: 20px;
+}
+.launchpadalllivelaunchestemplate-data-wrap > button:active {
+  transform: scale(0.8);
+  transition-duration: 300ms;
 }

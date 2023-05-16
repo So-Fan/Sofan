@@ -26,7 +26,7 @@ function PostsFeed({
   postLikeNumber,
   postPicture,
   postCommentNumber,
-  // 
+  //
   pollDateType,
   pollFirstChoice,
   pollSecondChoice,
@@ -39,38 +39,45 @@ function PostsFeed({
   pollSecondChoiceNumber,
   pollThirdChoiceNumber,
   pollFourthChoiceNumber,
-  athleteProfilePageStyling
-  
-}) 
-{
+  athleteProfilePageStyling,
+}) {
   function handleClickShowComment(e) {
     e.preventDefault();
     setIsPostClicked(true);
-    
   }
   const [isModdleToggled, setIsModalToggled] = useState(false);
   function displayVote() {
     if (pollTotalVote < 1) {
-      return ;
+      return;
     } else if (pollTotalVote > 1) {
-      return <PollPost
-      pollFirstChoice={pollFirstChoice}
-      pollSecondChoice={pollSecondChoice}
-      pollThirdChoice={pollThirdChoice}
-      pollFourthChoice={pollFourthChoice}
-      pollFirstChoiceNumber={pollFirstChoiceNumber}
-      pollSecondChoiceNumber={pollSecondChoiceNumber}
-      pollThirdChoiceNumber={pollThirdChoiceNumber}
-      pollFourthChoiceNumber={pollFourthChoiceNumber}
-      pollDate={pollDate}
-      pollDateType={pollDateType}
-      pollTotalVote={pollTotalVote}
-    />
+      return (
+        <PollPost
+          pollFirstChoice={pollFirstChoice}
+          pollSecondChoice={pollSecondChoice}
+          pollThirdChoice={pollThirdChoice}
+          pollFourthChoice={pollFourthChoice}
+          pollFirstChoiceNumber={pollFirstChoiceNumber}
+          pollSecondChoiceNumber={pollSecondChoiceNumber}
+          pollThirdChoiceNumber={pollThirdChoiceNumber}
+          pollFourthChoiceNumber={pollFourthChoiceNumber}
+          pollDate={pollDate}
+          pollDateType={pollDateType}
+          pollTotalVote={pollTotalVote}
+        />
+      );
     }
   }
+  postCommentNumber = 1
   return (
     <>
-      <div style={athleteProfilePageStyling ? {marginBottom: "18px"}: {marginTop: "60px"}} className="publication-container">
+      <div
+        style={
+          athleteProfilePageStyling
+            ? { marginBottom: "18px" }
+            : { marginTop: "60px" }
+        }
+        className="publication-container"
+      >
         {lockPremiumContent && (
           <>
             <PremiumContentLocked />
@@ -83,8 +90,8 @@ function PostsFeed({
           {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
-            postName={postName}
-            // 
+              postName={postName}
+              //
               dropDownMenuSize="dropdown-button-point-size-M"
               headOfPostSizeLeft="publication-head-left-container-size-pollpost"
               headOfPostSizeRight="publication-head-right-container-pollpost"
@@ -123,8 +130,14 @@ function PostsFeed({
             postCommentNumber={postCommentNumber}
           />
           <div className="show-comments-button-publication">
-            <Link onClick={(e) => handleClickShowComment(e)}>Show {postCommentNumber} comments</Link>
+            <Link onClick={(e) => handleClickShowComment(e)}>
+              Voir{postCommentNumber > 1 ? " les" : ""}{" "}
+              {postCommentNumber > 1
+                ? postCommentNumber + " commentaires"
+                : "commentaire(s)"}
+            </Link>
           </div>
+
           <div className="line-separation-comments-publication-container">
             <div className="line-separation-comments-publication"></div>
           </div>

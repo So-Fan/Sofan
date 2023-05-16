@@ -31,6 +31,23 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.launchpadallheader-data-wrap-img-and-name{
+  text-decoration: none;
+}
+.launchpadallheader-data-wrap-img-and-name:hover{
+  /* background-color: red; */
+  background-color: #ddc3c385;
+  transition-duration: 300ms !important;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: underline;
+  text-decoration-color: #fffcfc;
+  text-underline-offset: 4px; 
+}
+.launchpadallheader-data-wrap-img-and-name:active{
+  transform: scale(0.80);
+}
 .launchpadallheader-data-wrap-img {
   background-color: white;
   border-radius: 5px;
@@ -81,4 +98,9 @@
   border: transparent;
   font-family: "Britanica-Heavy";
   font-size: 20px;
+}
+.launchpadallheader-data-wrap > button:active {
+transform: scale(0.80);
+/* transition: 300s; */
+transition-duration:300ms ;
 }

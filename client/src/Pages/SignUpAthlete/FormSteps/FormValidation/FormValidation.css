@@ -7,6 +7,10 @@
   flex-direction: column;
   /* background-color: red; */
 }
+.form-validation-signup-athlete-container a:active {
+  transform: scale(0.75);
+  /* transition-duration: 200ms; */
+}
 
 .form-validation-signup-athlete-container > div {
     height: 80%;
@@ -25,6 +29,7 @@
     align-items: center;
     flex-direction: column;
 }
+
 .title-validation-signup-athlete {
   font-size: 30px;
   font-family: "britanica-heavy";

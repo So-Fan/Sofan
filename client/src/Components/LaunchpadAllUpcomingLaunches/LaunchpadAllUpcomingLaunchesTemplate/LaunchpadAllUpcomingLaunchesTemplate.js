@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./LaunchpadAllUpcomingLaunchesTemplate.css";
 const LaunchpadAllUpcomingLaunchesTemplate = ({
   background,
@@ -9,8 +9,38 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
   nftPrice,
   date,
   dim,
-  hidePrice
+  hidePrice,
 }) => {
+  const [isComponentActive, setIsComponentActive] = useState(true);
+  const [isSecondPlural, setIsSecondPlural] = useState(false);
+  const [isMinutePlural, setIsMinutePlural] = useState(false);
+  const [isHourPlural, setIsHourPlural] = useState(false);
+  const [isDayPlural, setIsDayPlural] = useState(false);
+  function handlePlural() {
+    if (date?.seconds > 1) {
+      setIsSecondPlural(true);
+    }
+    if (date?.minutes > 1) {
+      setIsMinutePlural(true);
+    }
+    if (date?.hours > 1) {
+      setIsHourPlural(true);
+    }
+    if (date?.days > 1) {
+      setIsDayPlural(true);
+    }
+  }
+  useEffect(() => {
+    handlePlural();
+  }, []);
+  const handleMouseDown = () => {
+    setIsComponentActive(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsComponentActive(true);
+  };
+
   let launchpadallUpcominglaunchestemplateComponentImg;
   let launchpadallUpcominglaunchestemplateDataContainer;
   let launchpadallUpcominglaunchestemplateDataWrap;
@@ -94,129 +124,142 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
       });
   }
   return (
-    <div className="launchpadallupcominglaunchesTemplate-component">
-      <img
-        src={background}
-        alt="background"
-        style={launchpadallUpcominglaunchestemplateComponentImg}
-      />
-      <div
-        className="launchpadallupcominglaunchesTemplate-data-container"
-        style={launchpadallUpcominglaunchestemplateDataContainer}
-      >
+    <div
+      className={`launchpadallupcominglaunchesTemplate-component ${
+        isComponentActive ? "" : "no-active-effect"
+      }`}
+    >
+
+      <a className="launchpadallupcominglaunchesTemplate-link" href="/nftcollection">
+        <img
+          src={background}
+          alt="background"
+          style={launchpadallUpcominglaunchestemplateComponentImg}
+        />
         <div
-          className="launchpadallupcominglaunchesTemplate-data-wrap"
-          style={launchpadallUpcominglaunchestemplateDataWrap}
+          className="launchpadallupcominglaunchesTemplate-data-container"
+          style={launchpadallUpcominglaunchestemplateDataContainer}
         >
           <div
-            className="launchpadallupcominglaunchesTemplate-data-wrap-img"
-            style={launchpadallUpcominglaunchestemplateDataWrapImg}
+            className="launchpadallupcominglaunchesTemplate-data-wrap"
+            style={launchpadallUpcominglaunchestemplateDataWrap}
           >
-            <img
-              src={profilePicture}
-              alt="profile"
-              style={launchpadallUpcominglaunchestemplateDataWrapImgImg}
-            />
-          </div>
-          <span
-            className="launchpadallupcominglaunchesTemplate-data-wrap-athletename"
-            style={launchpadallUpcominglaunchestemplateDataWrapAthletename}
-          >
-            by {athleteName}
-          </span>
-          <span
-            className="launchpadallupcominglaunchesTemplate-data-wrap-title"
-            style={launchpadallUpcominglaunchestemplateDataWrapTitle}
-          >
-            {title}
-          </span>
-          <span
-            className="launchpadallupcominglaunchesTemplate-data-wrap-nft"
-            style={launchpadallUpcominglaunchestemplateDataWrapNft}
-          >
-            {nftLength} items 
-            {hidePrice ? <></>: <>- {nftPrice} ETH</>}
-            
-          </span>
-          <div
-            className="launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap"
-            style={launchpadallUpcominglaunchestemplateDataWrapHourWrap}
-          >
-            <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+            <a
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+              href="/athleteprofile"
+              className="launchpadallupcominglaunchesTemplate-data-img-and-name"
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+              <div
+                className="launchpadallupcominglaunchesTemplate-data-wrap-img"
+                style={launchpadallUpcominglaunchestemplateDataWrapImg}
               >
-                {date?.days}
-              </span>
+                <img
+                  src={profilePicture}
+                  alt="profile"
+                  style={launchpadallUpcominglaunchestemplateDataWrapImgImg}
+                />
+              </div>
               <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+                className="launchpadallupcominglaunchesTemplate-data-wrap-athletename"
+                style={launchpadallUpcominglaunchestemplateDataWrapAthletename}
               >
-                jours
+                by {athleteName}
               </span>
-            </div>
-            <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+            </a>
+            <span
+              className="launchpadallupcominglaunchesTemplate-data-wrap-title"
+              style={launchpadallUpcominglaunchestemplateDataWrapTitle}
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                {date?.hours}
-              </span>
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                heures
-              </span>
-            </div>
-            <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              {title}
+            </span>
+            <span
+              className="launchpadallupcominglaunchesTemplate-data-wrap-nft"
+              style={launchpadallUpcominglaunchestemplateDataWrapNft}
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                {date?.minutes}
-              </span>
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
-              >
-                min
-              </span>
-            </div>
+              {nftLength} items
+              {hidePrice ? <></> : <>- {nftPrice} ETH</>}
+            </span>
             <div
-              style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              className="launchpadallupcominglaunchesTemplate-data-wrap-hour-wrap"
+              style={launchpadallUpcominglaunchestemplateDataWrapHourWrap}
             >
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
               >
-                {date?.seconds}
-              </span>
-              <span
-                style={
-                  launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
-                }
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.days}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  jour{isDayPlural && <>s</>}
+                </span>
+              </div>
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
               >
-                sec
-              </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.hours}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  heure{isHourPlural && <>s</>}
+                </span>
+              </div>
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              >
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.minutes}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  min{isMinutePlural && <>s</>}
+                </span>
+              </div>
+              <div
+                style={launchpadallUpcominglaunchestemplateDataWrapHourWrapDiv}
+              >
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  {date?.seconds}
+                </span>
+                <span
+                  style={
+                    launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
+                  }
+                >
+                  sec{isSecondPlural && <>s</>}
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };

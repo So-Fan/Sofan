@@ -3,7 +3,15 @@
   max-width: 400px;
   max-height: 500px;
   border-radius: 10px;
-  background-color: red !important;
+  transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
+}
+.athleteprofileeventtemplate-component:hover{
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+  transform: translate(0px, -10px);
+  transition-duration: 300ms;
+}
+.athleteprofileeventtemplate-component:nth-child(){
+  transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
 }
 .athleteprofileeventtemplate-background {
   width: 100%;

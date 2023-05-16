@@ -4,6 +4,7 @@
   max-width: 1395px;
   display: flex;
   justify-content: center;
+  margin-top: 105px;
   /* background-color: red; */
 }
 .dashboard-page-wrap {
@@ -46,5 +47,10 @@
   .dashboard-page-my-collections-container {
     display: flex;
     /* justify-content: center ; */
+  }
+}
+@media (max-height: 800px) {
+  .dashboard-page-container{
+    max-height: 650px !important;
   }
 }

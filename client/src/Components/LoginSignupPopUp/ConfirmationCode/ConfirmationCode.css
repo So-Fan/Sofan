@@ -1,0 +1,107 @@
+.signup-user-confirmation-code-wrap {
+  width: 460px !important;
+  height: 413px !important;
+  position: relative;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signup-user-confirmation-code-previous-step {
+  position: absolute;
+  top: 2.85px;
+  left: 0px;
+}
+.signup-user-confirmation-code-title {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "britanica-heavy";
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  /* background-color: wheat; */
+}
+.signup-user-confirmation-code-description {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  margin-top: 20px;
+  /* background-color: violet; */
+}
+.signup-user-confirmation-code-mail {
+  /* width: 148px; */
+  height: 39px;
+  box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.15);
+  border-radius: 50px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  /* background-color: teal; */
+}
+.signup-user-confirmation-code-input-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  /* background-color: seagreen; */
+}
+.signup-user-confirmation-code-input {
+  width: 66.67px;
+  height: 68px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  text-align: center;
+}
+/* Faire disparaitre les fleches dans les inputs type number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.signup-user-confirmation-code-next-button {
+  width: 100%;
+  height: 56px;
+  background: #f6d463;
+  border-radius: 10px;
+  border: none;
+  margin-top: 70px;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  cursor: pointer;
+}
+.signup-user-confirmation-code-next-button:hover {
+  background-color: #f7c520 !important;
+  /* border-radius: 10px; */
+  transition-duration: 300ms !important;
+}
+.signup-user-confirmation-code-next-button:active {
+  transform: scale(0.85);
+}
+.signup-user-confirmation-code-progress-bar-container {
+  width: 100%;
+  height: 10px;
+  /* opacity: 0.2; */
+  border-radius: 40px;
+  margin-top: 20px;
+  background: #85d87e67;
+  z-index: 2 !important;
+}
+.signup-user-confirmation-code-progress-bar {
+  height: 100%;
+  /* width: 25%; */
+  border-radius: 40px;
+  background: #85d87e;
+  z-index: 10 !important;
+  /* opacity: 1 !important; */
+}

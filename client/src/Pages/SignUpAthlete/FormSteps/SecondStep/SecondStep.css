@@ -75,9 +75,9 @@ form > .form-and-title input:active {
 }
 
 .typed {
-  color: rgb(0, 0, 0);
-  opacity: 1;
-  font-weight: 600;
+  color: rgb(0, 0, 0) !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
 }
 
 .button-container {
@@ -87,6 +87,59 @@ form > .form-and-title input:active {
   justify-content: center;
   align-items: center;
 }
+.second-step-form-error-message{
+  display: inline-block;
+  background-color: #ffd7d7;
+  color: #dc3545;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.5s ease;
+font-size: 12px;
+font-weight: 900;
+}
+.PhoneInput .secondstep-container{
+  display: flex;
+  width: 74% ;
+  /* position: relative; */
+  /* background-color: yellow; */
+}
+
+.PhoneInputCountry .secondstep-container{
+/* position: relative; */
+/* left: 200px; */
+  /* background-color: red; */
+  /* display: inline-block; */
+  /* vertical-align: middle; */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.PhoneInputInput .secondstep-container{
+  padding: 2%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
+  text-align: center;
+  font-size: 20px;
+  line-height: 24px;
+  width: 100%;
+}
+
+.PhoneInputInput:focus .secondstep-container{
+  text-align: center;
+  outline: none;
+}
+
+.PhoneInputInput:active .secondstep-container{
+  font-weight: 800;
+  opacity: 1;
+}
+
+.PhoneInputInput.typed .secondstep-container{
+  color: rgb(0, 0, 0) !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
 @media (min-width: 1900px) {
   .secondstep-container {
     height: 80%;

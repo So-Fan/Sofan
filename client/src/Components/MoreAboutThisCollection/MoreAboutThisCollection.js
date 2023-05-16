@@ -5,7 +5,7 @@ function MoreAboutThisCollection({moreAboutCollectionArray}) {
   return (
     <div className="nft-collection-overview-more-about-collection-container">
         <div className="nft-collection-overview-more-about-collection-title">
-          En savoir + sur cette collection
+          En savoir + sur la collection
         </div>
         <div className="nft-collection-overview-more-about-collection-description">
           {moreAboutCollectionArray.map((element) => element.description)}

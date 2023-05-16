@@ -121,13 +121,13 @@
   width: 50px;
   height: 50px;
 }
-.nft-collection-header-owner-container{
+.nft-collection-header-owner-container {
   /* background-color: red; */
   display: flex;
   cursor: pointer;
   margin-right: 10px;
 }
-.nft-collection-header-owner-container:hover{
+.nft-collection-header-owner-container:hover {
   background-color: #00000015;
   transition-duration: 300ms !important;
   border-radius: 10px;
@@ -321,6 +321,9 @@
   background-color: #f7c520 !important;
   transition-duration: 300ms !important;
 }
+.nft-collection-header-buy-button:active {
+  transform: scale(0.75) !important;
+}
 .nft-collection-header-bid-button {
   width: 100%;
   height: 100%;
@@ -340,6 +343,9 @@
   background-color: #00000015;
   transition-duration: 300ms;
 }
+.nft-collection-header-bid-button:active {
+  transform: scale(0.75) !important;
+}
 /* ======================================================================== */
 
 /* ======== LaunchpadCollectionLiveHeader ======== */
@@ -358,10 +364,14 @@
   font-family: "britanica-heavy";
   cursor: pointer;
 }
-.launchpad-collection-live-button-container:hover{
+.launchpad-collection-live-button-container:active{
+  transform: scale(0.65);
+}
+.launchpad-collection-live-button-container:hover {
   background-color: #00000015;
   transition-duration: 300ms !important;
 }
+
 .launchpad-collection-live-header-right-container {
   width: 100%;
   height: 100%;
@@ -380,13 +390,25 @@
   margin-left: 50px;
   /* background-color: blueviolet; */
 }
-.launchpad-collection-live-header-right-creator-pic-and-usernamme {
+.launchpad-collection-live-header-right-creator-pic-and-usernamme-container {
   height: 36px;
   width: 100%;
   display: flex;
   align-items: center;
   font-family: "britanica-heavy";
   /* background-color: aquamarine; */
+}
+.launchpad-collection-live-header-right-creator-pic-and-usernamme-wrap {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+.launchpad-collection-live-header-right-creator-pic-and-usernamme-wrap:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  text-decoration: underline;
 }
 
 .launchpad-collection-live-header-right-container img {
@@ -395,6 +417,13 @@
   border-radius: 5px;
   margin-right: 8px;
 }
+.launchpad-collection-live-header-right-creator-username-creator-link {
+  text-decoration: none;
+  color: black;
+}
+/* .launchpad-collection-live-header-right-creator-username-creator-link:hover{
+  text-decoration: underline;
+} */
 .launchpad-collection-live-header-right-collection-name {
   width: 100%;
   height: 84px;
@@ -414,8 +443,8 @@
   margin-bottom: 10px;
   /* background-color: yellowgreen; */
 }
-.launchpad-collection-live-header-right-collection-description::-webkit-scrollbar{
-display: none;
+.launchpad-collection-live-header-right-collection-description::-webkit-scrollbar {
+  display: none;
 }
 .launchpad-collection-live-header-right-line-separation {
   width: 100%;
@@ -475,9 +504,12 @@ display: none;
   cursor: pointer;
   margin-top: 21px;
 }
-.launchpad-collection-live-header-right-mint-module-mint-button:hover{
+.launchpad-collection-live-header-right-mint-module-mint-button:hover {
   background-color: #f7c520 !important;
   transition-duration: 300ms !important;
+}
+.launchpad-collection-live-header-right-mint-module-mint-button:active {
+  transform: scale(0.75) !important;
 }
 /* =====  ===== */
 @media (max-width: 1280px) {

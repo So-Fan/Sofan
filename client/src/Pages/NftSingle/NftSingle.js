@@ -111,16 +111,16 @@ const NftSingle = () => {
   }
   //
   function handleClickSubMenuButton(e) {
-    if (e.target.innerHTML === "Overview") {
+    if (e.target.innerHTML === "Vu d'ensemble") {
       setIsSubMenuClicked([true, false, false, false]);
       return <NftCollectionOverview />;
     } else if (e.target.innerHTML === "Properties") {
       setIsSubMenuClicked([false, true, false, false]);
       return;
-    } else if (e.target.innerHTML === "Bids") {
+    } else if (e.target.innerHTML === "Offres") {
       setIsSubMenuClicked([false, false, true, false]);
       return;
-    } else if (e.target.innerHTML === "Activity") {
+    } else if (e.target.innerHTML === "Activité") {
       setIsSubMenuClicked([false, false, false, true]);
       return;
     }
@@ -458,6 +458,7 @@ const NftSingle = () => {
                 <NftCollectionHistory
                   history={dataSinglePageNftCollection.history}
                   ethPrice={ethPrice}
+                  handleBuyNftButtonClick={handleBuyNftButtonClick}
                 />
               </div>
             </>

@@ -151,8 +151,10 @@ const AthleteProfilePage = ({
           twitter: "https://twitter.com",
           instagram: "https://instagram.com",
         },
-        banner: "https://i.imgur.com/6ozImSk.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
+        banner:
+          "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FbannerUserProfile.png?alt=media&token=3d74cbd8-399c-4522-8757-b4c42f39937b",
+        profilePicture:
+          "/static/media/profilepicattanasio.2693ecb7f0a2a6aa2ade6dd93ae2eaae.svg",
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere tellus vehicula leo iaculis luctus. Ut vulputate elit risus, eget faucibus justo consectetur in.",
       },
@@ -309,67 +311,79 @@ const AthleteProfilePage = ({
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1705807109000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1660582800000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1683256709000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1660582800000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1705807109000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1683256709000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1660582800000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1660582800000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1683256709000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1660582800000,
         },
         {
           background: "https://i.imgur.com/I66BDmh.png",
           title: "VIP MEETING WITH 1200 HOLDERS ",
           location: "Paris, France",
-          date: "14 dec. 2022 - 9:00pm",
+          date: 1705807109000,
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: 1705807109000,
+        },
+        {
+          background: "https://i.imgur.com/I66BDmh.png",
+          title: "VIP MEETING WITH 1200 HOLDERS ",
+          location: "Paris, France",
+          date: 1895807109000,
         },
       ],
       athletes: [
@@ -616,14 +630,19 @@ const AthleteProfilePage = ({
       nftTransferDate,
     };
 
- setDataPopupConfirmation(prevConfirmation => [...prevConfirmation, newConfirmation]);
+    setDataPopupConfirmation((prevConfirmation) => [
+      ...prevConfirmation,
+      newConfirmation,
+    ]);
   }
- // récupérer les données de l'élément cliqué
-  function handleRejectedOffersClick( nftsFromOwnerImage,
+  // récupérer les données de l'élément cliqué
+  function handleRejectedOffersClick(
+    nftsFromOwnerImage,
     nftsFromOwnerNameCollection,
     nftsFromOwnerIdNft,
     receivedFrom,
-    nftTransferDate) {
+    nftTransferDate
+  ) {
     setIsRejectedOffersClicked(true);
     const newConfirmation = {
       nftsFromOwnerImage,
@@ -633,7 +652,10 @@ const AthleteProfilePage = ({
       nftTransferDate,
     };
 
- setDataPopupConfirmation(prevConfirmation => [...prevConfirmation, newConfirmation]);
+    setDataPopupConfirmation((prevConfirmation) => [
+      ...prevConfirmation,
+      newConfirmation,
+    ]);
   }
   useEffect(() => {
     const hash = window.location.hash;
@@ -770,32 +792,39 @@ const AthleteProfilePage = ({
   return (
     <>
       <div className="athleteprofilepage-component">
-        <AthleteProfileHeader
-          userInfo={dataConcat?.userPageInfo}
-          fansCounterApi={fansCounterApi}
-          setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
-          handleAthleteFollowersClick={handleAthleteFollowersClick}
-          handleAthleteSupportersClick={handleAthleteSupportersClick}
-          handleClickNftReceived={handleClickNftReceived}
-          handleClicNftsAvailable={handleClicNftsAvailable}
-          handlePalmaresButtonClick={handlePalmaresButtonClick}
-        />
-        <div className="athleteprofilepage-profilesubmenu-wrap">
-          <ProfileSubMenu
-            isPageAthlete={true}
-            isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
-            setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
-            profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-            setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+        {/* <div className="athleteprofilepage-wrap"> */}
+          <AthleteProfileHeader
+            userInfo={dataConcat?.userPageInfo}
+            fansCounterApi={fansCounterApi}
+            setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
+            handleAthleteFollowersClick={handleAthleteFollowersClick}
+            handleAthleteSupportersClick={handleAthleteSupportersClick}
+            handleClickNftReceived={handleClickNftReceived}
+            handleClicNftsAvailable={handleClicNftsAvailable}
+            handlePalmaresButtonClick={handlePalmaresButtonClick}
           />
-        </div>
-        {displayAthleteProfileSubMenu()}
+          <div className="athleteprofilepage-profilesubmenu-wrap">
+            <ProfileSubMenu
+              isPageAthlete={true}
+              isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
+              setIsProfileSubMenuButtonClicked={
+                setIsAthleteProfileSubMenuClicked
+              }
+              profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+              setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+            />
+          </div>
+          {displayAthleteProfileSubMenu()}
+        {/* </div> */}
       </div>
       {isAthleteFollowersClicked && (
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteFollowersClicked}
-          style={{ marginTop: pixelScrolledAthleteProfilePage, display: "none" }}
+          style={{
+            marginTop: pixelScrolledAthleteProfilePage,
+            display: "none",
+          }}
         >
           <AthleteFollowersFansPopUp
             isAthleteFollowersClicked={isAthleteFollowersClicked}
@@ -806,7 +835,10 @@ const AthleteProfilePage = ({
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteSupportersClicked}
-          style={{ marginTop: pixelScrolledAthleteProfilePage, display: "none" }}
+          style={{
+            marginTop: pixelScrolledAthleteProfilePage,
+            display: "none",
+          }}
         >
           <AthleteFollowersFansPopUp
             isAthleteSupportersClicked={isAthleteSupportersClicked}
@@ -821,7 +853,7 @@ const AthleteProfilePage = ({
           style={{ display: "none" }}
         >
           <AthleteProfileRanking
-          isPalmaresButtonClicked={isPalmaresButtonClicked}
+            isPalmaresButtonClicked={isPalmaresButtonClicked}
           />
         </Modal>
       )}
@@ -845,7 +877,7 @@ const AthleteProfilePage = ({
           style={{ display: "none" }}
         >
           <PopUpConfirmationOffer
-          // dataPopupConfirmation={dataPopupConfirmation}
+            // dataPopupConfirmation={dataPopupConfirmation}
             isRejectedOffersClicked={isRejectedOffersClicked}
           />
         </Modal>

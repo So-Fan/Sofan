@@ -81,6 +81,9 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
   useEffect(() => {
     window.addEventListener("resize", handleDimLaunchpadHeader, false);
   }, []);
+  function redirectTo() {
+    window.location.href = "/collectionlive";
+  }
   return (
     <div className="launchpadallheader-component">
       <img
@@ -96,22 +99,24 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
           className="launchpadallheader-data-wrap"
           style={launchpadallheaderDataWrap}
         >
-          <div
-            className="launchpadallheader-data-wrap-img"
-            style={launchpadallheaderDataWrapImg}
-          >
-            <img
-              src={data?.profilePicture}
-              alt="profile"
-              style={launchpadallheaderDataWrapImgImg}
-            />
-          </div>
-          <span
-            className="launchpadallheader-data-wrap-athletename"
-            style={launchpadallheaderDataWrapthletename}
-          >
-            by {data?.athlename}
-          </span>
+          <a href="/athleteprofile" className="launchpadallheader-data-wrap-img-and-name">
+            <div
+              className="launchpadallheader-data-wrap-img"
+              style={launchpadallheaderDataWrapImg}
+            >
+              <img
+                src={data?.profilePicture}
+                alt="profile"
+                style={launchpadallheaderDataWrapImgImg}
+              />
+            </div>
+            <span
+              className="launchpadallheader-data-wrap-athletename"
+              style={launchpadallheaderDataWrapthletename}
+            >
+              by {data?.athlename}
+            </span>
+          </a>
           <span
             className="launchpadallheader-data-wrap-title"
             style={launchpadallheaderDataWrapTitle}
@@ -128,9 +133,10 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
             className="launchpadallheader-data-wrap-nft"
             style={launchpadallheaderDataWrapNft}
           >
-            {data?.nftNumber} items {hidePrice ? <></>: <>- {data?.nftPrice} ETH</>} 
+            {data?.nftNumber} items{" "}
+            {hidePrice ? <></> : <>- {data?.nftPrice} ETH</>}
           </span>
-          <Button text="Discover" style={launchpadallheaderDataWrapButton} />
+          <Button onClick={redirectTo} active="button-active-props" hover="button-hover-props" text="Découvrir" style={launchpadallheaderDataWrapButton} />
         </div>
       </div>
     </div>

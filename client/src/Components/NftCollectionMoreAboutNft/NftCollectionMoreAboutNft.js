@@ -112,7 +112,7 @@ function NftCollectionMoreAboutNft({
         ) : (
           <div className="nft-collection-more-about-nft-title-and-button">
             <div className="nft-collection-more-about-nft-title">
-              More about the NFT collection
+              En savoir + sur la collection
             </div>
             <div className="nft-collection-more-about-title-button">
               <button>Voir tout</button>

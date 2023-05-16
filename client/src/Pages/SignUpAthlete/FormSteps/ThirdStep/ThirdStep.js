@@ -41,7 +41,6 @@ function ThirdStep({setIsThirdStepValidated}) {
     setIsThirdStepValidated(true);
   };
 
-
   return (
     <section className="container-thirdstep">
       <section className="form-lvl-blockchain-container">

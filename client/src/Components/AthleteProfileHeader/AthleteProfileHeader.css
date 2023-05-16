@@ -2,14 +2,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 1246px;
+  max-width: 100%;
+  /* background-color: yellow; */
 }
 .athleteprofileheader-bannerandprofilepicture-wrap {
   max-height: 300px;
+  max-width: 1246px;
   position: relative;
 }
 .athleteprofileheader-bannerandprofilepicture-wrap > img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: 100% !important;
+  max-height: 100%;
+  border-radius: 20px;
 }
 .athleteprofileheader-profilepciture-wrap {
   width: 170px;
@@ -26,7 +35,10 @@
 .athleteprofileheader-profilepciture-wrap > img {
   width: 93%;
   height: 93%;
+  max-width: 93%;
+  max-height: 93%;
   border-radius: 15px;
+  object-fit: cover;
 }
 .athleteprofileheader-content-container {
   display: flex;
@@ -96,6 +108,8 @@ text-decoration: none;
 .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap:hover{
   text-decoration: underline;
 }
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap:active{
+transform: scale(0.8);}
 .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap
   > span:nth-child(1),
 .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last
@@ -119,7 +133,12 @@ color: black;
 }
 .athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last:hover{
 text-decoration: underline;
-
+text-decoration-color: black;
+}
+.athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last:active{
+transform: scale(0.8);
+  text-decoration: underline;
+text-decoration-color: black;
 }
 .athleteprofileheader-content-wrap-namestatssocial-wrap-social-container {
   display: flex;

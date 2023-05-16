@@ -5,7 +5,7 @@
   width: 100%;
   min-height: 90px;
   padding-bottom: 4px;
-  position: sticky;
+  position: fixed;
   top: 0;
   background-color: white;
   z-index: 10000;
@@ -61,6 +61,67 @@
   justify-content: space-between;
   min-width: 244px;
 }
+.navbar-wrap-2-subwrap-sign-up-button button:hover {
+  background-color: #f6d46391 !important;
+  transition-duration: 500ms !important;
+}
+.navbar-wrap-2-subwrap-sign-up-button button:active {
+  transform: scale(0.45) !important;
+}
+.navbar-wrap-2-subwrap-sign-in-button button {
+  background-color: #f6d463 !important;
+  border-radius: 10px;
+}
+.navbar-wrap-2-subwrap-sign-in-button button:hover {
+  background-color: #f7c520 !important;
+  /* border-radius: 10px; */
+  transition-duration: 300ms !important;
+}
+.navbar-wrap-2-subwrap-sign-in-button button:active {
+  transform: scale(0.45) !important;
+}
+.navbar-signup-user-popup-crop-profile-pic-modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  width: 100vw;
+  height: 100vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999 !important;
+}
+.signup-user-setup-profile-profile-pic-add-button-lib-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh !important;
+}
+
+.signup-user-setup-profile-profile-pic-add-button-lib {
+  animation: bounceIn 500ms both;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.signup-user-setup-profile-profile-pic-add-button-lib {
+  /* background: white; */
+  z-index: 1321321321312 !important;
+  margin-top: 15%;
+  border-radius: 20px;
+}
+
+/* background-color: #f7c520; */
 @media (max-width: 1300px) {
   .navbar-wrap {
     width: 94%;
@@ -83,12 +144,12 @@
   }
 }
 @media (max-width: 860px) {
-  .navbar-wrap-2-subwrap-sign{
+  .navbar-wrap-2-subwrap-sign {
     min-width: 215px;
   }
 }
 @media (max-width: 825px) {
-  .navbar-wrap-2-subwrap-sign{
+  .navbar-wrap-2-subwrap-sign {
     min-width: 190px;
   }
 }

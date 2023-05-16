@@ -3,12 +3,15 @@ import "./LaunchpadAllLiveLaunches.css";
 import Arrow from "../../Assets/Image/arrow_bottom.svg";
 import LaunchpadAllLiveLaunchesTemplate from "./LaunchpadAllLiveLaunchesTemplate/LaunchpadAllLiveLaunchesTemplate";
 import { useHorizontalScroll } from "../../CustomHook/useHorizontalScroll";
+import { v4 as uuidv4 } from "uuid";
+
 const LaunchpadAllLiveLaunches = ({
   setIsLiveLaunchSportDropdownClicked,
   isLiveLaunchSportDropdownClicked,
   data,
   setDimMain,
   hidePrice,
+  handleLiveLaunchesSportDropdownClicked,
 }) => {
   const scrollRef = useHorizontalScroll();
   const [dim, setDim] = useState(window.innerWidth);
@@ -20,9 +23,21 @@ const LaunchpadAllLiveLaunches = ({
     setDim(window.innerWidth);
     setDimMain(window.innerWidth);
   };
-  const handleLiveLaunchesSportDropdownClicked = () => {
-    setIsLiveLaunchSportDropdownClicked(true);
-  };
+  function handleLiveLaunchesSportDropdownClicked(e) {
+    console.log(e.target.id);
+    if (
+      e.target.className == "launchpadalllivelaunches-top-wrap-dropdown" ||
+      e.target.className ===
+        "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked" ||
+      e.target.id === "launchpadalllivelaunches-dropdown-main" ||
+      e.target.id === "launchpadalllivelaunches-dropdown-img" ||
+      e.target.id === "launchpadalllivelaunches-dropdown-span"
+    ) {
+      setIsLiveLaunchSportDropdownClicked(!isLiveLaunchSportDropdownClicked);
+    } else {
+      setIsLiveLaunchSportDropdownClicked(false);
+    }
+  }
   const handleLiveLaunchesSportChoiceClicked = (e) => {
     console.log(e);
     setCurrentLiveLaunchesSportSelectorSelected(e.target.innerHTML);
@@ -117,6 +132,8 @@ const LaunchpadAllLiveLaunches = ({
   useEffect(() => {
     window.addEventListener("resize", handleDim, false);
   }, []);
+  document.documentElement.style.setProperty('--dim', window.innerWidth + 'px');
+
   return (
     <div className="launchpadalllivelaunches-component">
       <div
@@ -125,6 +142,7 @@ const LaunchpadAllLiveLaunches = ({
         style={respWidthTop}
       >
         <span style={launchpadalllivelaunchesTopWrapSpan}>Live launches</span>
+        {/* Filter */}
         <div
           id="launchpadalllivelaunches-dropdown-main"
           className={
@@ -189,16 +207,21 @@ const LaunchpadAllLiveLaunches = ({
             </>
           )}
         </div>
+        {/* ----------------------------------------------------------------------------- */}
       </div>
       <div
         className="launchpadalllivelaunches-bottom-wrap"
         style={respMaxWidth}
         ref={scrollRef}
       >
-        <div style={launchpadAllLiveLaunchesDynamicWidth}>
+        <div
+          className="launchpadalllivelaunches-bottom-subwrap"
+          style={launchpadAllLiveLaunchesDynamicWidth}
+        >
           {data?.map((launchpadlive) => (
             <div style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
+                key={uuidv4()}
                 hidePrice={hidePrice}
                 background={launchpadlive.background}
                 profilePicture={launchpadlive.profilePicture}

@@ -1,13 +1,24 @@
+.athleteprofileevent-event-past-title {
+  font-size: 26px;
+  font-weight: bolder;
+  font-family: "britanica-heavy";
+  max-width: 1246px;
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+}
+
 .athleteprofileevent-component {
   display: flex;
   /* justify-content: center; */
   flex-wrap: wrap;
   max-width: 1246px;
 }
-.athleteprofileeventtemplate-component:nth-child(n){
-    margin-top: 20px;
-    margin-right: 20px;
-    flex: 30%;
+.athleteprofileeventtemplate-component:nth-child(n) {
+  margin-top: 20px;
+  margin-right: 20px;
+  flex: 30%;
 }
 .athleteprofileeventtemplate-component:nth-child(3n) {
   margin-right: 0px !important;
@@ -17,4 +28,9 @@
       width: 100%;
     }
   }
+*/
+/* 
+box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+    transform: translate(0px, -10px);
+    transition-duration: 300ms;
 */

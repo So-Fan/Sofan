@@ -59,7 +59,7 @@ function UtilitiesComponent({
           {utilitiesDescription}
         </div>
         <div className="nft-collection-overview-utilities-one-date">
-          Date of the utility : {utilitiesDate}
+          Date de l'utilité: {utilitiesDate}
         </div>
       </div>
     </div>

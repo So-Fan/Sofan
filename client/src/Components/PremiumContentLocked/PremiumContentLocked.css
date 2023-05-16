@@ -49,3 +49,10 @@
   line-height: 24px;
   margin-top: 47px;
 }
+.premium-content-locked-button:hover{
+  background-color: #f7c520;
+  transition: 500ms;
+}
+.premium-content-locked-button:active{
+transform: scale(0.8);
+}

@@ -149,7 +149,7 @@ function LaunchpadCollectionLive() {
   // display mint pop up
   function handleMintButtonClick(e) {
     setIsMintButtonClicked(true)
-    console.log("test");
+    // console.log("test");
   }
 
   return (

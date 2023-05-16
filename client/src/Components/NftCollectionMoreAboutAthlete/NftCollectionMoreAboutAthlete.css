@@ -89,6 +89,14 @@
   font-size: 20px;
   font-family: "britanica-heavy";
 }
+.nft-collection-more-about-athlete-view-profile-button:active {
+  transform: scale(0.8);
+  transition-duration: 200ms;
+}
+.nft-collection-more-about-athlete-view-profile-button:hover {
+  background-color: #f7c520 !important;
+  transition-duration: 300ms !important;
+}
 
 @media (max-width: 1280px) {
   .nft-collection-more-about-athete-sport-title {

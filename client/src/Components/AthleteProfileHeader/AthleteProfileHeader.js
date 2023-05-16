@@ -97,6 +97,7 @@ function AthleteProfileHeader({
                 text={"Palmarès"}
                 style={AthleteProfileHeaderPalmaresButton}
                 hover="button-hover-props"
+                active="button-active-props"
               />
             </div>
           </div>
