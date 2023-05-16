@@ -5,10 +5,11 @@ import "../node_modules/erc721a/contracts/IERC721A.sol";
 import "../node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 import "./DefaultOperatorFilterer.sol";
-contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorFilterer {
+import "../node_modules/@openzeppelin/contracts/token/common/ERC2981.sol";
+contract SofanNftTemplate is ERC721A, ERC2981, Ownable, ReentrancyGuard, DefaultOperatorFilterer {
     string uri;
     bool isLimitByWallet;
-    uint8 limitByWallet;
+    uint256 limitByWallet;
     uint256 public collectionLimit;
     // bool isLaunchpad;
     uint256 launchpadTime;
@@ -18,31 +19,38 @@ contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorF
     address SofanWallet = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
     address AthleteWallet = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
     uint256 price;
+    address SofanSplitter = 0xd9145CCE52D386f254917e481eB44e9943F39138;
 
+    // demander wallet et %
     constructor(
-        string memory _collectionName,
-        string memory _collectionSymbol,
-        string memory _collectionBaserURI,
-        uint8 _limitByWallet,
-        uint256 _collectionLimit,
-        uint256 _launchpadTime,
+        string[3] memory _collectionData2,
+        // string memory _collectionName,
+        // string memory _collectionSymbol,
+        // string memory _collectionBaserURI,
+        uint[4] memory _collectionData,
+        // uint256 _limitByWallet,
+        // uint256 _collectionLimit,
+        // uint256 _launchpadTime,
         bool _isAbleChangeMaxLimitCollection,
-        uint256 _price
-    ) ERC721A(_collectionName, _collectionSymbol) {
-        uri = _collectionBaserURI;
-        if (_limitByWallet != 0) {
-            limitByWallet = _limitByWallet;
+        // uint256 _price,
+        address _splitterAddress,
+        uint96 _percentInBips // 2.5% = 250
+    ) ERC721A(_collectionData2[0], _collectionData2[1]) {
+        uri = _collectionData2[2];
+        if (_collectionData[0] != 0) {
+            limitByWallet = _collectionData[0];
             isLimitByWallet = true;
         }
-        collectionLimit = _collectionLimit;
-        if (_launchpadTime != 0) {
-            launchpadTime = _launchpadTime;
+        collectionLimit = _collectionData[1];
+        if (_collectionData[2] != 0) {
+            launchpadTime = _collectionData[2];
             // isLaunchpad = true;
         }
 
         deployDate = block.timestamp;
         isAbleChangeMaxLimitCollection = _isAbleChangeMaxLimitCollection;
-        price = _price;
+        price = _collectionData[3];
+        setRoyaltyInfo(_splitterAddress, _percentInBips);
     }
 
     function mint(address _to, uint256 _quantity)
@@ -87,7 +95,7 @@ contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorF
         launchpadTime = 0 seconds;
     }
 
-    function setLimitWallet(uint8 _newLimit) external onlyOwner {
+    function setLimitWallet(uint256 _newLimit) external onlyOwner {
         if (_newLimit > 0) {
             isLimitByWallet = true; // Optimize this for fees
             limitByWallet = _newLimit;
@@ -96,7 +104,7 @@ contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorF
         }
     }
 
-    function changeLimitOfMaxCollection(uint256 _newLimit) external onlyOwner {
+    function changeLimitOfMaxCollection(uint32 _newLimit) external onlyOwner {
         require(isAbleChangeMaxLimitCollection, "Cannot Change Limit");
         collectionLimit = _newLimit;
     }
@@ -146,7 +154,7 @@ contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorF
         address msgSender
     );
 
-    function approveCustom(address to, uint256 tokenId, address _msgSender) public payable {
+    function approveCustom(address to, uint256 tokenId, address _msgSender) public payable onlyAllowedOperatorApproval(to) {
         address owner = ERC721A.ownerOf(tokenId);
 
         if (_msgSender != owner){
@@ -159,31 +167,38 @@ contract SofanNftTemplate is ERC721A, Ownable, ReentrancyGuard, DefaultOperatorF
         emit IERC721A.Approval(owner, to, tokenId);
     }
 
+        function supportsInterface(bytes4 interfaceId) public view virtual override(ERC2981, ERC721A) returns (bool) {
+        return interfaceId == type(IERC2981).interfaceId || interfaceId == 0x01ffc9a7 || interfaceId == 0x80ac58cd || interfaceId == 0x5b5e139f || super.supportsInterface(interfaceId);
+    }
 
+    //ERC2981
+    function setRoyaltyInfo(address _receiver, uint96 _royaltyFeesInBips) public onlyOwner {
+        _setDefaultRoyalty(_receiver, _royaltyFeesInBips);
+    }
 
-    // besoin de revoir les approve de Sofan avec ça
-    // function setApprovalForAll(address operator, bool approved) public override onlyAllowedOperatorApproval(operator) {
-    //     super.setApprovalForAll(operator, approved);
-    // }
+    // Opensea
+    function setApprovalForAll(address operator, bool approved) public override onlyAllowedOperatorApproval(operator) {
+        super.setApprovalForAll(operator, approved);
+    }
 
-    // function approve(address operator, uint256 tokenId) public payable override onlyAllowedOperatorApproval(operator) {
-    //     super.approve(operator, tokenId);
-    // }
+    function approve(address operator, uint256 tokenId) public payable override onlyAllowedOperatorApproval(operator) {
+        super.approve(operator, tokenId);
+    }
 
-    // function transferFrom(address from, address to, uint256 tokenId) public payable override onlyAllowedOperator(from) {
-    //     super.transferFrom(from, to, tokenId);
-    // }
+    function transferFrom(address from, address to, uint256 tokenId) public payable override onlyAllowedOperator(from) {
+        super.transferFrom(from, to, tokenId);
+    }
 
-    // function safeTransferFrom(address from, address to, uint256 tokenId) public payable override onlyAllowedOperator(from) {
-    //     super.safeTransferFrom(from, to, tokenId);
-    // }
+    function safeTransferFrom(address from, address to, uint256 tokenId) public payable override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId);
+    }
 
-    // function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data)
-    //     public
-    //     payable
-    //     override
-    //     onlyAllowedOperator(from)
-    // {
-    //     super.safeTransferFrom(from, to, tokenId, data);
-    // }
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data)
+        public
+        payable
+        override
+        onlyAllowedOperator(from)
+    {
+        super.safeTransferFrom(from, to, tokenId, data);
+    }
 }
