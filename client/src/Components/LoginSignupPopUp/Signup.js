@@ -15,7 +15,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
   const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
   const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
-
+  const [isConnectWalletValid, setConnectWalletValid] = useState(false);
+  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -78,7 +79,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   }
   function validatePassword(password) {
     const regex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/;
 
     return regex.test(password);
   }
@@ -87,7 +88,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     const passwordValue = event.target.value;
     setPassword(passwordValue);
     const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/;
     setPasswordRegexError(!passwordRegex.test(passwordValue));
     setPasswordConfirmRegexError(
       passwordConfirmation !== "" && passwordConfirmation !== passwordValue
@@ -171,12 +172,19 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   // }
 
   useEffect(() => {
-    if (isFormValid && isSubmitClicked) {
-      setTimeout(() => {
-        setDisplayConfirmationCode(true);
-      }, 5000);
-    }
+  if (isFormValid && isSubmitClicked) {
+  setTimeout(() => {
+  setDisplayConfirmationCode(true);
+  }, 2000);
+  }
   }, [isFormValid, isSubmitClicked]);
+
+  // function handleFormSubmitClick() {
+  //   if (isFormValid && isSubmitClicked) {
+  //     setDisplayConfirmationCode(true);
+  //     console.log("fonction appelée et etat sur true")
+  //   }
+  // }
   function handleSubmitConfirmationCodeClick() {
     console.log("click");
     if (isConfirmCodeValid) {
@@ -190,11 +198,11 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   // Setup Profile step
   function handleSetupProfileNextButtonClick() {
     // passer à l'étape suivante
-    // setTimeout(() => {
     setDisplaySetupProfile(false);
-    setDisplayConnectWallet(true)
-    // }, 2000);
-    console.log("oui");
+    setTimeout(() => {
+      setDisplayConnectWallet(true);
+    }, 2000);
+    // console.log("oui");
   }
   function handleSetupProfileAddLaterClick() {
     // passer à l'étape suivante
@@ -203,14 +211,21 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     setDisplaySetupProfile(false);
     setTimeout(() => {
       setDisplayConnectWallet(true);
-    }, 2000); 
+    }, 2000);
     // }
+  }
+  function handleConnectWalletClick() {
+    setDisplayConnectWallet(false);
+    setTimeout(() => {
+      setDisplayConfirmWallet(true);
+    }, 2000);
   }
   return (
     <>
       {isFormValid && isSubmitClicked ? (
         <>
           <div
+          
             className={
               displayConfirmationCode
                 ? "signup-user-confirmation-code-container"
@@ -248,8 +263,12 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
               </>
             ) : displayConnectWallet ? (
               <>
-                <ConnectWallet />
+                <ConnectWallet
+                  handleConnectWalletClick={handleConnectWalletClick}
+                />
               </>
+            ) : displayConfirmWallet ? (
+              <>Confirm Wallet</>
             ) : (
               <>
                 <div className="lds-ripple">

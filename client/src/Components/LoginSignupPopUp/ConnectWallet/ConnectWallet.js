@@ -2,7 +2,7 @@ import React from "react";
 import "./ConnectWallet.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 
-function ConnectWallet() {
+function ConnectWallet({handleConnectWalletClick}) {
   return (
     <div className="signup-user-connect-wallet-wrap">
       <div className="signup-user-connect-wallet-previous-step">
@@ -46,7 +46,7 @@ function ConnectWallet() {
           </div>
         </div>
       </div>
-      <button className="signup-user-connect-wallet-next-button">
+      <button onClick={handleConnectWalletClick} className="signup-user-connect-wallet-next-button">
         Suivant
       </button>
       <div className=" "></div>
