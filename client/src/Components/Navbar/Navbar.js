@@ -175,7 +175,6 @@ const Navbar = ({
                   borderRadius: "20px",
                   display: "flex",
                   justifyContent:"center",
-
                 }}
               />
             </div>
