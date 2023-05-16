@@ -11,12 +11,14 @@
   align-items: center;
   justify-content: center;
 }
+/* =========================================================== */
+/* ================  Conditionnal rendering ========================================= */
 /* When ConfirmationCode Component */
 .signup-user-confirmation-code-container {
-  width: 500px;
+  width: 500px !important;
   min-height: 375px;
-  height: 453px;
-  background: #ffffff;
+  height: 483px !important;
+  background: white;
   border-radius: 20px;
   box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
   border-radius: 9.94299px;
@@ -41,7 +43,21 @@
   align-items: center;
   justify-content: center;
 }
-/*  */
+/* When Connect Wallet Compoenent */
+.signup-user-connect-wallet-container {
+  width: 500px;
+  height: 534px;
+  min-height: 375px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
+  border-radius: 9.94299px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* =========================================================== */
 .signup-user-wrap-form {
   width: 460px;
   height: 755px;

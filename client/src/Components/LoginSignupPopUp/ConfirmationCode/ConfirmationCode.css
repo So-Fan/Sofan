@@ -1,6 +1,6 @@
-.signup-user-confirmation-code-container {
-  width: 460px;
-  height: 413px;
+.signup-user-confirmation-code-wrap {
+  width: 460px !important;
+  height: 413px !important;
   position: relative;
   /* background-color: red; */
   display: flex;

@@ -6,14 +6,15 @@ import PhoneInput from "react-phone-number-input";
 import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 import SetupProfile from "./SetupProfile/SetupProfile";
+import ConnectWallet from "./ConnectWallet/ConnectWallet";
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
-  const [isFormValid, setIsFormValid] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
-  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(true);
-  const [displaySetupProfile, setDisplaySetupProfile] = useState(true);
+  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
+  const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
   const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
-  const [displaySportsFav, setDisplaySportsFav] = useState(false);
+  const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
 
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
@@ -41,7 +42,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(true);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
@@ -77,7 +78,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   }
   function validatePassword(password) {
     const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/
 
     return regex.test(password);
   }
@@ -86,7 +87,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     const passwordValue = event.target.value;
     setPassword(passwordValue);
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/
     setPasswordRegexError(!passwordRegex.test(passwordValue));
     setPasswordConfirmRegexError(
       passwordConfirmation !== "" && passwordConfirmation !== passwordValue
@@ -172,7 +173,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
-        // setDisplayConfirmationCode(true);
+        setDisplayConfirmationCode(true);
       }, 5000);
     }
   }, [isFormValid, isSubmitClicked]);
@@ -191,6 +192,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     // passer à l'étape suivante
     // setTimeout(() => {
     setDisplaySetupProfile(false);
+    setDisplayConnectWallet(true)
     // }, 2000);
     console.log("oui");
   }
@@ -200,8 +202,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     // if (isSetupProfileValid) {
     setDisplaySetupProfile(false);
     setTimeout(() => {
-      setDisplaySportsFav(true);
-    }, 2000);
+      setDisplayConnectWallet(true);
+    }, 2000); 
     // }
   }
   return (
@@ -214,6 +216,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 ? "signup-user-confirmation-code-container"
                 : displaySetupProfile
                 ? "signup-user-setup-profile-container"
+                : displayConnectWallet
+                ? "signup-user-connect-wallet-container"
                 : "signup-user-container"
             }
           >
@@ -242,10 +246,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   }
                 />
               </>
-            ) : displaySportsFav ? (
+            ) : displayConnectWallet ? (
               <>
-                {" "}
-                <div>sports fav</div>
+                <ConnectWallet />
               </>
             ) : (
               <>
