@@ -10,14 +10,14 @@ import ConnectWallet from "./ConnectWallet/ConnectWallet";
 import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
-  const [isFormValid, setIsFormValid] = useState(true); // à changer
+  const [isFormValid, setIsFormValid] = useState(false); // à changer
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
   const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
   const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
   const [isConnectWalletValid, setConnectWalletValid] = useState(false);
-  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(true);
+  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -44,7 +44,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(true); // a changer
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
@@ -175,7 +175,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
-        // setDisplayConfirmationCode(true);
+        setDisplayConfirmationCode(true);
       }, 2000);
     }
   }, [isFormValid, isSubmitClicked]);
