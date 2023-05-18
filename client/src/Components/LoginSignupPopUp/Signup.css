@@ -43,10 +43,24 @@
   align-items: center;
   justify-content: center;
 }
-/* When Connect Wallet Compoenent */
+/* When Connect Wallet Component */
 .signup-user-connect-wallet-container {
   width: 500px;
   height: 534px;
+  min-height: 375px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
+  border-radius: 9.94299px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* When Confirm Wallet Component */
+.signup-user-confirm-wallet-container {
+  width: 500px;
+  height: 502.25px;
   min-height: 375px;
   background: #ffffff;
   border-radius: 20px;

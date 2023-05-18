@@ -7,16 +7,17 @@ import "./Signup.css";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 import SetupProfile from "./SetupProfile/SetupProfile";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
+import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(true); // à changer
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
   const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
   const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
   const [isConnectWalletValid, setConnectWalletValid] = useState(false);
-  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
+  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(true);
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -43,7 +44,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(true); // a changer
   //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
@@ -172,11 +173,11 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   // }
 
   useEffect(() => {
-  if (isFormValid && isSubmitClicked) {
-  setTimeout(() => {
-  setDisplayConfirmationCode(true);
-  }, 2000);
-  }
+    if (isFormValid && isSubmitClicked) {
+      setTimeout(() => {
+        // setDisplayConfirmationCode(true);
+      }, 2000);
+    }
   }, [isFormValid, isSubmitClicked]);
 
   // function handleFormSubmitClick() {
@@ -225,7 +226,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
       {isFormValid && isSubmitClicked ? (
         <>
           <div
-          
             className={
               displayConfirmationCode
                 ? "signup-user-confirmation-code-container"
@@ -233,6 +233,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 ? "signup-user-setup-profile-container"
                 : displayConnectWallet
                 ? "signup-user-connect-wallet-container"
+                : displayConfirmWallet
+                ? "signup-user-confirm-wallet-container"
                 : "signup-user-container"
             }
           >
@@ -268,7 +270,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 />
               </>
             ) : displayConfirmWallet ? (
-              <>Confirm Wallet</>
+              <>
+                <ConfirmWallet />
+              </>
             ) : (
               <>
                 <div className="lds-ripple">
