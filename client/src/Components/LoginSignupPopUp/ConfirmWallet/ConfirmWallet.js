@@ -3,11 +3,11 @@ import "./ConfirmWallet.css";
 
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 
-function ConfirmWallet() {
+function ConfirmWallet({handleConfirmWalletClick,handlePreviousStepConfirmWallet}) {
   return (
     <div className="signup-user-confirm-wallet-wrap">
       <div className="signup-user-confirm-wallet-title">ConfirmWallet</div>
-      <div className="signup-user-confirm-wallet-previous-step">
+      <div onClick={handlePreviousStepConfirmWallet} className="signup-user-confirm-wallet-previous-step">
         <img src={previousArrow} alt="FLÈCHE ÉTAPE PRÉCÉDENTE" />
       </div>
       <div className="signup-user-confirm-wallet-address-container">
@@ -26,7 +26,7 @@ function ConfirmWallet() {
           </div>
         </div>
       </div>
-      <button className="signup-user-confirm-wallet-confirm-button">
+      <button onClick={handleConfirmWalletClick} className="signup-user-confirm-wallet-confirm-button">
         Confirmer
       </button>
       <button className="signup-user-confirm-wallet-change-wallet-button">

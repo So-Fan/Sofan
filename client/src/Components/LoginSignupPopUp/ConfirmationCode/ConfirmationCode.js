@@ -29,6 +29,7 @@ function ConfirmationCode({
   setIsConfirmCodeValid,
   isConfirmCodeValid,
   handleSubmitConfirmationCodeClick,
+  handleConfirmationCodePreviousStep,
 }) {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   useEffect(() => {
@@ -63,7 +64,10 @@ function ConfirmationCode({
 
   return (
     <div className="signup-user-confirmation-code-wrap">
-      <div className="signup-user-confirmation-code-previous-step">
+      <div
+        onClick={handleConfirmationCodePreviousStep}
+        className="signup-user-confirmation-code-previous-step"
+      >
         <img src={previousArrow} alt="FLÈCHE ÉTAPE PRÉCÉDENTE" />
       </div>
       <div className="signup-user-confirmation-code-title">Entrer le code</div>
@@ -104,9 +108,10 @@ function ConfirmationCode({
         Suivant
       </button>
       <div className="signup-user-confirmation-code-progress-bar-container">
-        <div 
-        style={{width : "25%"}}
-        className="signup-user-confirmation-code-progress-bar"></div>
+        <div
+          style={{ width: "25%" }}
+          className="signup-user-confirmation-code-progress-bar"
+        ></div>
       </div>
     </div>
   );
