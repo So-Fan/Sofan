@@ -8,6 +8,7 @@ function SetupProfile({
   preview,
   handleSetupProfileNextButtonClick,
   handleSetupProfileAddLaterClick,
+  handleSetupProfilePreviousStep
 }) {
   // const [src, setSrc1] = useState(null);
   // const [preview, setPreview] = useState(null);
@@ -78,7 +79,7 @@ function SetupProfile({
   return (
     <>
       <div className="signup-user-setup-profile-wrap">
-        <div className="signup-user-setup-profile-previous-step">
+        <div onClick={handleSetupProfilePreviousStep} className="signup-user-setup-profile-previous-step">
           <img src={previousArrow} alt="" />
         </div>
         <div className="signup-user-setup-profile-title">
