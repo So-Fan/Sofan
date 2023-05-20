@@ -13,12 +13,12 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
   const [isFormValid, setIsFormValid] = useState(true); // à changer
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
-  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(true);
+  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
   const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
   const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
-  const [isConnectWalletValid, setConnectWalletValid] = useState(true);
-  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(true);
+  const [isConnectWalletValid, setConnectWalletValid] = useState(false);
+  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
   const [displayValidationSignup, setDisplayValidationSignup] = useState(false);
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
@@ -46,7 +46,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
-  const [isSubmitClicked, setIsSubmitClicked] = useState(true); // a changer
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmail(emailValue);
