@@ -8,9 +8,10 @@ import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
 import SetupProfile from "./SetupProfile/SetupProfile";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
 import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
+import ValidationSignup from "./ValidationSignup/ValidationSignup";
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
-  const [isFormValid, setIsFormValid] = useState(false); // à changer
+  const [isFormValid, setIsFormValid] = useState(true); // à changer
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
@@ -18,6 +19,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
   const [isConnectWalletValid, setConnectWalletValid] = useState(false);
   const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
+  const [displayValidationSignup, setDisplayValidationSignup] = useState(false);
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -45,7 +47,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
-  //   const navigate = useNavigate();
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmail(emailValue);
@@ -169,23 +170,15 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     }
     console.log("oui");
   }
-  // function displayConfirmationCode() {
-  // }
 
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
-        setDisplayConfirmationCode(true);
+        // setDisplayConfirmationCode(true);
       }, 2000);
     }
   }, [isFormValid, isSubmitClicked]);
 
-  // function handleFormSubmitClick() {
-  //   if (isFormValid && isSubmitClicked) {
-  //     setDisplayConfirmationCode(true);
-  //     console.log("fonction appelée et etat sur true")
-  //   }
-  // }
   function handleSubmitConfirmationCodeClick() {
     console.log("click");
     if (isConfirmCodeValid) {
@@ -208,18 +201,39 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   function handleSetupProfileAddLaterClick() {
     // passer à l'étape suivante
     setIsSetupProfileValid(true);
-    // if (isSetupProfileValid) {
     setDisplaySetupProfile(false);
     setTimeout(() => {
       setDisplayConnectWallet(true);
     }, 2000);
-    // }
   }
   function handleConnectWalletClick() {
     setDisplayConnectWallet(false);
     setTimeout(() => {
       setDisplayConfirmWallet(true);
     }, 2000);
+  }
+  function handleConfirmWalletClick() {
+    setDisplayConfirmWallet(false);
+    setTimeout(() => {
+      setDisplayValidationSignup(true);
+    }, 2000);
+  }
+  function handleConfirmationCodePreviousStep() {
+    setDisplayConfirmationCode(false);
+    setIsFormValid(false);
+    setIsSubmitClicked(false);
+  }
+  function handleSetupProfilePreviousStep(e) {
+    setDisplaySetupProfile(false);
+    setDisplayConfirmationCode(true);
+  }
+  function handlePreviousStepConnectWallet(e) {
+    setDisplayConnectWallet(false);
+    setDisplaySetupProfile(true);
+  }
+  function handlePreviousStepConfirmWallet(e) {
+    setDisplayConfirmWallet(false);
+    setDisplayConnectWallet(true);
   }
   return (
     <>
@@ -235,6 +249,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 ? "signup-user-connect-wallet-container"
                 : displayConfirmWallet
                 ? "signup-user-confirm-wallet-container"
+                : displayValidationSignup
+                ? "signup-user-validation-signup-container"
                 : "signup-user-container"
             }
           >
@@ -245,6 +261,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   isConfirmCodeValid={isConfirmCodeValid}
                   handleSubmitConfirmationCodeClick={
                     handleSubmitConfirmationCodeClick
+                  }
+                  handleConfirmationCodePreviousStep={
+                    handleConfirmationCodePreviousStep
                   }
                 />
               </>
@@ -261,17 +280,32 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   handleSetupProfileAddLaterClick={
                     handleSetupProfileAddLaterClick
                   }
+                  handleSetupProfilePreviousStep={
+                    handleSetupProfilePreviousStep
+                  }
                 />
               </>
             ) : displayConnectWallet ? (
               <>
                 <ConnectWallet
                   handleConnectWalletClick={handleConnectWalletClick}
+                  handlePreviousStepConnectWallet={
+                    handlePreviousStepConnectWallet
+                  }
                 />
               </>
             ) : displayConfirmWallet ? (
               <>
-                <ConfirmWallet />
+                <ConfirmWallet
+                  handleConfirmWalletClick={handleConfirmWalletClick}
+                  handlePreviousStepConfirmWallet={
+                    handlePreviousStepConfirmWallet
+                  }
+                />
+              </>
+            ) : displayValidationSignup ? (
+              <>
+                <ValidationSignup />
               </>
             ) : (
               <>
