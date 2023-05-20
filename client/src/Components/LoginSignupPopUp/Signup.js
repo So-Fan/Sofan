@@ -249,6 +249,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 ? "signup-user-connect-wallet-container"
                 : displayConfirmWallet
                 ? "signup-user-confirm-wallet-container"
+                : displayValidationSignup
+                ? "signup-user-validation-signup-container"
                 : "signup-user-container"
             }
           >
@@ -302,7 +304,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 />
               </>
             ) : displayValidationSignup ? (
-              <><ValidationSignup/></>
+              <>
+                <ValidationSignup />
+              </>
             ) : (
               <>
                 <div className="lds-ripple">
