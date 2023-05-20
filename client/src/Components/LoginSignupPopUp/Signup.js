@@ -174,7 +174,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
-        // setDisplayConfirmationCode(true);
+        setDisplayConfirmationCode(true);
       }, 2000);
     }
   }, [isFormValid, isSubmitClicked]);
