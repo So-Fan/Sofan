@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Poll.css";
 import ArrowBottom from "../../../Assets/Image/arrow_bottom.svg";
 import YellowCross from "../../../Assets/Image/cross_add_yellow.svg";
+
 const Poll = ({ setAddOption }) => {
   const [day, setDay] = useState(0);
   const [displayDay, setDisplayDay] = useState(false);
@@ -13,22 +14,23 @@ const Poll = ({ setAddOption }) => {
   const [isInputsArrayLengthThree, setIsInputsArrayLengthThree] =
     useState(false);
   const [isInputsArrayLengthFour, setIsInputsArrayLengthFour] = useState(false);
-
-
   const [inputs, setInputs] = useState([
     { id: 1, placeholder: "Choix 1" },
     { id: 2, placeholder: "Choix 2" },
   ]);
+
   const handleDayClick = () => {
     setDisplayDay(!displayDay);
     setDisplayHour(false);
     setDisplayMin(false);
   };
+
   const handleHourClick = () => {
     setDisplayHour(!displayHour);
     setDisplayDay(false);
     setDisplayMin(false);
   };
+  
   const handleMinClick = () => {
     setDisplayMin(!displayMin);
     setDisplayDay(false);
@@ -144,6 +146,7 @@ const Poll = ({ setAddOption }) => {
   useEffect(() => {
     handleYellowCrossPosition();
   }, [inputs]);
+
   return (
     <div className="poll-component">
       <div className="poll-container">

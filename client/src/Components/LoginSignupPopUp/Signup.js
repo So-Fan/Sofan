@@ -9,6 +9,10 @@ import SetupProfile from "./SetupProfile/SetupProfile";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
 import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 import ValidationSignup from "./ValidationSignup/ValidationSignup";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db, ref } from "../../Configs/firebase";
+
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -148,7 +152,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     var element = document.querySelector("#signup-user-phone-input-id");
     element.classList.add("PhoneInputInputOpacity");
   }
-  function verifyFormIsValid(e) {
+  function verifyFormIsValid(e)  {
     e.preventDefault();
     setIsSubmitClicked(true);
     if (emailError === false && usernameRegexError === false) {
@@ -160,6 +164,43 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
       ) {
         console.log("tout est rempli");
         setIsFormValid(true);
+        const createdAt = new Date();
+        const auth = getAuth();
+        try {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then(async (userCredential) => {
+            // User signed up successfully
+            const user = userCredential.user;
+            const usersRef = collection(db, "users");
+            const newUser = {
+              id: user.uid,
+              email,
+              account_created: createdAt.getTime(),
+              account_type: 'free',
+              name: username,
+              username,
+              phone,
+              emailVerified: false,
+              news: false,
+              premium: false,
+              profile_banner: 'https://placehold.co/600x400',
+              status: true,
+            }
+
+            await addDoc(usersRef, newUser);
+            console.log(user);
+          })
+          .catch((error) => {
+            // Handle errors here
+            setError(error.message);
+            console.error(error);
+          });
+
+        }catch (error) {
+          console.error("Error adding post: ", error);
+          // Display an error message to the user
+        }
+
       } else {
         console.log("la deuxième condition n'est pas remplie");
         setIsFormValid(false);
