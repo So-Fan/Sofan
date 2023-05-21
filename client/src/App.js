@@ -19,7 +19,7 @@ import TestSecondary from "./Pages/Test/TestSecondary";
 import CGU from "./Pages/CGU/CGU";
 
 function App() {
-  const isLogged = true; // from Backend
+  const isLogged = false; // from Backend
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
