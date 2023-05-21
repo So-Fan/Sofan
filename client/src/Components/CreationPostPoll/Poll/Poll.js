@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Poll.css";
 import ArrowBottom from "../../../Assets/Image/arrow_bottom.svg";
 import YellowCross from "../../../Assets/Image/cross_add_yellow.svg";
+
 const Poll = ({ setAddOption }) => {
   const [day, setDay] = useState(0);
   const [displayDay, setDisplayDay] = useState(false);
