@@ -146,6 +146,7 @@ const Poll = ({ setAddOption }) => {
   useEffect(() => {
     handleYellowCrossPosition();
   }, [inputs]);
+
   return (
     <div className="poll-component">
       <div className="poll-container">
