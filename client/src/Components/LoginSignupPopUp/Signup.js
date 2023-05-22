@@ -528,7 +528,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 <div className="signup-user-separation-or">OU</div>
                 <div className="signup-user-separation-line-right"></div>
               </div>
-              <div className="signup-user-google-signup">
+              <button className="signup-user-google-signup">
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f"
                   alt="google logo"
@@ -536,7 +536,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 <div className="signup-user-google-signup-text">
                   S'inscrire avec Google
                 </div>
-              </div>
+              </button>
               <div className="signup-user-already-an-account">
                 Vous avez déjà un compte ? <span>Se connecter</span>
               </div>
