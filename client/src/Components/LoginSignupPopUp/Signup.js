@@ -9,8 +9,9 @@ import SetupProfile from "./SetupProfile/SetupProfile";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
 import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 import ValidationSignup from "./ValidationSignup/ValidationSignup";
+import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { auth, db, ref } from "../../Configs/firebase";
 
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
@@ -152,6 +153,13 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     var element = document.querySelector("#signup-user-phone-input-id");
     element.classList.add("PhoneInputInputOpacity");
   }
+
+  const generateVerificationCode = () => {
+    // Generate a random 6-digit number
+    const code = Math.floor(100000 + Math.random() * 900000);
+    return code.toString();
+  };
+
   function verifyFormIsValid(e)  {
     e.preventDefault();
     setIsSubmitClicked(true);
@@ -175,10 +183,11 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
             const newUser = {
               id: user.uid,
               email,
-              account_created: createdAt.getTime(),
+              account_created: Timestamp.fromMillis(createdAt.getTime()),
               account_type: 'free',
               name: username,
               username,
+              display_name: username,
               phone,
               emailVerified: false,
               news: false,
@@ -186,9 +195,17 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
               profile_banner: 'https://placehold.co/600x400',
               status: true,
             }
-
+            const emailValidRef = collection(db, "email_validations")
+            const validationData = {
+              userId: user.uid,
+              email,
+              code: generateVerificationCode(),
+              created_At: Timestamp.fromMillis(createdAt.getTime())
+            }
             await addDoc(usersRef, newUser);
-            console.log(user);
+            await addDoc(emailValidRef, validationData);
+
+
           })
           .catch((error) => {
             // Handle errors here
@@ -306,6 +323,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   handleConfirmationCodePreviousStep={
                     handleConfirmationCodePreviousStep
                   }
+                  UserEmail={email}
                 />
               </>
             ) : displaySetupProfile ? (
@@ -367,7 +385,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 Sign up now to connect with athletes and explore exclusive NFT
                 content within a vibrant community of sports enthusiasts!
               </div>
-              <div className="signup-user-mail-title">E-mail*</div>
+              <div className="signup-user-mail-title">E-mail <span style={{color: 'red'}}>*</span></div>
               <input
                 className="signup-user-mail-input"
                 type="Email"
@@ -384,7 +402,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 </p>
               )}
 
-              <div className="signup-user-username-title">Pseudo*</div>
+              <div className="signup-user-username-title">Pseudo <span style={{color: 'red'}}>*</span></div>
               <input
                 className="signup-user-username-input"
                 type="text"
@@ -414,7 +432,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   Veuillez entrer un numéro de téléphone valide.
                 </p>
               )}
-              <div className="signup-user-password-title">Mot de passe*</div>
+              <div className="signup-user-password-title">Mot de passe <span style={{color: 'red'}}>*</span></div>
               <div className="signup-user-password-input-container">
                 <input
                   className="signup-user-password-input"
@@ -457,7 +475,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 </div>
               </div>
               <div className="signup-user-confirmation-password-title">
-                Confirmer mot de passe*
+                Confirmer mot de passe <span style={{color: 'red'}}>*</span>
               </div>
               <div className="signup-user-confirm-password-input-container">
                 <input

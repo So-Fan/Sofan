@@ -30,6 +30,7 @@ function ConfirmationCode({
   isConfirmCodeValid,
   handleSubmitConfirmationCodeClick,
   handleConfirmationCodePreviousStep,
+  UserEmail,
 }) {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   useEffect(() => {
@@ -75,7 +76,7 @@ function ConfirmationCode({
         Nous vous avons envoyé un code de confirmation à 6 chiffres par mail.
       </div>
       <div className="signup-user-confirmation-code-mail">
-        donofsomething@gmail.com
+        {UserEmail}
       </div>
       <div className="signup-user-confirmation-code-input-container">
         {code.map((value, index) => (
