@@ -12,7 +12,8 @@ import ValidationSignup from "./ValidationSignup/ValidationSignup";
 import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { auth, db, ref } from "../../Configs/firebase";
+import { auth, db, ref, googleProvider } from "../../Configs/firebase";
+import { signInWithPopup } from "firebase/auth";
 
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
@@ -52,6 +53,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
+  const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmail(emailValue);
@@ -154,16 +156,71 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     element.classList.add("PhoneInputInputOpacity");
   }
 
+  const signUpWithGoogle = async (e) => {
+    e.preventDefault();
+    setIsGoogleSignUpClicked(true);
+    try {
+      const createdAt = new Date();
+      // Sign-in process using a popup
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const usersRef = collection(db, "users");
+
+      // Here you can manage and use the returned user object
+      // You could return it, log it, or do something else
+      console.log(user);
+
+      // Create a new user object using Google sign in details
+      const newUser = {
+        id: user.uid,
+        email: user.email,
+        account_created: Timestamp.fromMillis(createdAt.getTime()), // Replace 'user.metadata.creationTime' with appropriate field
+        account_type: "free",
+        name: user.displayName,
+        username: user.displayName.split(" ")[0], // Assuming first name as username
+        display_name: user.displayName,
+        phone: user.phoneNumber,
+        emailVerified: user.emailVerified,
+        news: false,
+        premium: false,
+        profile_banner: "https://placehold.co/600x400",
+        status: true,
+      };
+
+      console.log(newUser);
+      await addDoc(usersRef, newUser);
+      setDisplaySetupProfile(true);
+      setIsSubmitClicked(true);
+      setDisplayConfirmationCode(false);
+      isFormValid(true);
+    } catch (error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      const credential = error.credential;
+
+      console.log(`Error Code: ${errorCode}`);
+      console.log(`Error Message: ${errorMessage}`);
+    }
+  };
+
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
     const code = Math.floor(100000 + Math.random() * 900000);
     return code.toString();
   };
 
-  function verifyFormIsValid(e)  {
+  const handleCloseClick = () => {
+    console.log('sign innnnnnnnnn');
+  }
+
+  function verifyFormIsValid(e) {
     e.preventDefault();
     setIsSubmitClicked(true);
-    if (emailError === false && usernameRegexError === false) {
+    if (!emailError && !usernameRegexError) {
       if (
         password !== "" &&
         passwordConfirmation !== "" &&
@@ -175,49 +232,45 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
         const createdAt = new Date();
         const auth = getAuth();
         try {
-        createUserWithEmailAndPassword(auth, email, password)
-          .then(async (userCredential) => {
-            // User signed up successfully
-            const user = userCredential.user;
-            const usersRef = collection(db, "users");
-            const newUser = {
-              id: user.uid,
-              email,
-              account_created: Timestamp.fromMillis(createdAt.getTime()),
-              account_type: 'free',
-              name: username,
-              username,
-              display_name: username,
-              phone,
-              emailVerified: false,
-              news: false,
-              premium: false,
-              profile_banner: 'https://placehold.co/600x400',
-              status: true,
-            }
-            const emailValidRef = collection(db, "email_validations")
-            const validationData = {
-              userId: user.uid,
-              email,
-              code: generateVerificationCode(),
-              created_At: Timestamp.fromMillis(createdAt.getTime())
-            }
-            await addDoc(usersRef, newUser);
-            await addDoc(emailValidRef, validationData);
-
-
-          })
-          .catch((error) => {
-            // Handle errors here
-            setError(error.message);
-            console.error(error);
-          });
-
-        }catch (error) {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then(async (userCredential) => {
+              // User signed up successfully
+              const user = userCredential.user;
+              const usersRef = collection(db, "users");
+              const newUser = {
+                id: user.uid,
+                email,
+                account_created: Timestamp.fromMillis(createdAt.getTime()),
+                account_type: "free",
+                name: username,
+                username,
+                display_name: username,
+                phone,
+                emailVerified: false,
+                news: false,
+                premium: false,
+                profile_banner: "https://placehold.co/600x400",
+                status: true,
+              };
+              const emailValidRef = collection(db, "email_validations");
+              const validationData = {
+                userId: user.uid,
+                email,
+                code: generateVerificationCode(),
+                created_At: Timestamp.fromMillis(createdAt.getTime()),
+              };
+              await addDoc(usersRef, newUser);
+              await addDoc(emailValidRef, validationData);
+            })
+            .catch((error) => {
+              // Handle errors here
+              setError(error.message);
+              console.error(error);
+            });
+        } catch (error) {
           console.error("Error adding post: ", error);
           // Display an error message to the user
         }
-
       } else {
         console.log("la deuxième condition n'est pas remplie");
         setIsFormValid(false);
@@ -232,7 +285,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
-        setDisplayConfirmationCode(true);
+        if (!isGoogleSignUpClicked) {
+          setDisplayConfirmationCode(true);
+        }
       }, 2000);
     }
   }, [isFormValid, isSubmitClicked]);
@@ -364,7 +419,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
               </>
             ) : displayValidationSignup ? (
               <>
-                <ValidationSignup />
+                <ValidationSignup handleCloseClick={handleCloseClick} />
               </>
             ) : (
               <>
@@ -385,7 +440,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 Sign up now to connect with athletes and explore exclusive NFT
                 content within a vibrant community of sports enthusiasts!
               </div>
-              <div className="signup-user-mail-title">E-mail <span style={{color: 'red'}}>*</span></div>
+              <div className="signup-user-mail-title">
+                E-mail <span style={{ color: "red" }}>*</span>
+              </div>
               <input
                 className="signup-user-mail-input"
                 type="Email"
@@ -402,7 +459,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 </p>
               )}
 
-              <div className="signup-user-username-title">Pseudo <span style={{color: 'red'}}>*</span></div>
+              <div className="signup-user-username-title">
+                Pseudo <span style={{ color: "red" }}>*</span>
+              </div>
               <input
                 className="signup-user-username-input"
                 type="text"
@@ -432,7 +491,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   Veuillez entrer un numéro de téléphone valide.
                 </p>
               )}
-              <div className="signup-user-password-title">Mot de passe <span style={{color: 'red'}}>*</span></div>
+              <div className="signup-user-password-title">
+                Mot de passe <span style={{ color: "red" }}>*</span>
+              </div>
               <div className="signup-user-password-input-container">
                 <input
                   className="signup-user-password-input"
@@ -475,7 +536,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 </div>
               </div>
               <div className="signup-user-confirmation-password-title">
-                Confirmer mot de passe <span style={{color: 'red'}}>*</span>
+                Confirmer mot de passe <span style={{ color: "red" }}>*</span>
               </div>
               <div className="signup-user-confirm-password-input-container">
                 <input
@@ -546,7 +607,10 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 <div className="signup-user-separation-or">OU</div>
                 <div className="signup-user-separation-line-right"></div>
               </div>
-              <button className="signup-user-google-signup">
+              <button
+                onClick={(e) => signUpWithGoogle(e)}
+                className="signup-user-google-signup"
+              >
                 <img
                   src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f"
                   alt="google logo"
