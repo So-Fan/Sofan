@@ -19,6 +19,7 @@ import TestSecondary from "./Pages/Test/TestSecondary";
 import CGU from "./Pages/CGU/CGU";
 
 function App() {
+  const [user, setUser] = useState(null);
   const isLogged = false; // from Backend
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
