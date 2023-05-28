@@ -6,10 +6,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@web3auth/base": "^5.2.0",
+    "@web3auth/no-modal": "^5.2.0",
+    "@web3auth/openlogin-adapter": "^5.2.0",
     "alchemy-sdk": "^2.6.2",
     "autosize": "^6.0.1",
     "bootstrap": "^5.2.3",
-    "firebase": "^9.20.0",
+    "firebase": "^9.22.1",
     "libphonenumber-js": "^1.10.28",
     "opensea-js": "^4.0.24",
     "react": "^18.2.0",
@@ -23,7 +26,7 @@
     "react-scripts": "5.0.1",
     "scroll-lock": "^2.1.5",
     "web-vitals": "^2.1.4",
-    "web3": "^1.9.0"
+    "web3": "^1.10.0"
   },
   "scripts": {
     "start": "react-scripts start",

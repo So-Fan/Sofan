@@ -2,6 +2,7 @@
 
 .signup-login-form {
   box-sizing: border-box;
+  margin-top: 100px;
 }
 
 /* body {
@@ -337,9 +338,10 @@
 
 .signup-login-form .social-container {
   margin: 20px 0;
+  display: flex;
 }
 
-.signup-login-form .social-container a {
+.signup-login-form .social-container button {
   border: 1px solid #dddddd;
   border-radius: 50%;
   display: inline-flex;
@@ -349,6 +351,11 @@
   height: 40px;
   width: 40px;
   transition: 0.3s ease-in-out;
+  padding: 25px;
+}
+
+.signup-login-form .social-container button img {
+  width: 25px;
 }
 
 .signup-login-form .social-container a:hover {
