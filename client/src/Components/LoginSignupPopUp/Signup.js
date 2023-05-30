@@ -192,7 +192,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
       setDisplaySetupProfile(true);
       setIsSubmitClicked(true);
       setDisplayConfirmationCode(false);
-      isFormValid(true);
+      setIsFormValid(true);
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -203,7 +203,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
       const credential = error.credential;
 
       console.log(`Error Code: ${errorCode}`);
-      console.log(`Error Message: ${errorMessage}`);
+      console.error(`Error Message: ${errorMessage}`);
     }
   };
 
