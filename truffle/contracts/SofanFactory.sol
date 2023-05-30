@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "./SofanNftTemplate.sol";
-import "../node_modules/@openzeppelin/contracts/SofanSplitter.sol";
+import "./SofanSplitter.sol";
 /// @title A NFT Factory example
 /// @author JWMatheo
 /// @notice You can use this contract in order to create other contract !
