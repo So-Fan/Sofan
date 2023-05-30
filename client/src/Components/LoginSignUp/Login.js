@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
+
+
+
 function Login() {
-  const [loggedUser, setloggedUser] = useState(null);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +19,7 @@ function Login() {
         // Signed in
         const user = userCredential.user;
         setError(false);
-        setloggedUser(user);
+        // setloggedUser(user);
         navigate("/");
       })
       .catch((error) => {

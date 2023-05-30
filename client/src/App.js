@@ -17,10 +17,11 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import EthProvider from "./contexts/EthContext/EthProvider";
 import TestSecondary from "./Pages/Test/TestSecondary";
 import CGU from "./Pages/CGU/CGU";
+// import { UserContext } from './UserContext';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const isLogged = false; // from Backend
+  const [loggedUser, setLoggedUser] = useState(null);
+  const isLogged = true; // from Backend
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
