@@ -316,14 +316,14 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
         <div
           className="home-left-container"
           style={
-            isLogged
+            isLogged  && isLogged.account_type != 'free'
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
         >
           <div
             className="home-navlink-create-post-wrap"
-            style={isLogged ? { height: "138px" } : { height: "64px" }}
+            style={isLogged && isLogged.account_type != 'free' ? { height: "138px" } : { height: "64px" }}
           >
             <div className="home-feedsidenavlink-wrap">
               <FeedSideNavLink
@@ -343,9 +343,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
                 gap="8.59px"
               />
             </div>
-            {isLogged && (
+            {isLogged && isLogged.account_type != 'free' && (
               <Button
-                createPostButtonClass="button-component-create-post"
+                createPostButtonclassName="button-component-create-post"
                 style={CreatePostButtonStyle.inlineStyle}
                 customMediaQueries={CreatePostButtonStyle.customMediaQueries}
                 text="Create a post"

@@ -100,19 +100,19 @@ function FormulatedOffers({
           offersFromTitle="From"
           offersToTitle="To"
           offersStatusTitle="Status"
-          offersNftTitleClass="formulated-offers-nft-title"
-          yourOffersTitleClass="formulated-offers-your-offers-title"
-          offersFromTitleClass="formulated-offers-from-title"
-          offersToTitleClass="formulated-offers-to-title"
-          offersStatusTitleClass="formulated-offers-status-title"
-          offersDateTitleClass="formulated-offers-date-title"
+          offersNftTitleclassName="formulated-offers-nft-title"
+          yourOffersTitleclassName="formulated-offers-your-offers-title"
+          offersFromTitleclassName="formulated-offers-from-title"
+          offersToTitleclassName="formulated-offers-to-title"
+          offersStatusTitleclassName="formulated-offers-status-title"
+          offersDateTitleclassName="formulated-offers-date-title"
         />
         <div className="nft-list-formulated-offer-container">
           {reversedNftsFromOwner?.map((user, index, apiNftData) => (
             <NftList
               key={uuidv4()}
               isFormulatedOffersSectionActive={true}
-              offersDisplaySourceTypeClass="formulated-offers-display-source-type"
+              offersDisplaySourceTypeclassName="formulated-offers-display-source-type"
               receivedFrom={user.from}
               offersTo={user.to}
               nftTitle={user.nftTitle}
@@ -139,12 +139,12 @@ function FormulatedOffers({
                   <div className={displayCurrentOffersStatus()}></div>
                 </>
               }
-              offersNftContentClass="formulated-offers-nft-picture-and-title"
-              offersYourOffersPriceClass="formulated-offers-your-offers-price"
-              offersFromClass="formulated-offers-from"
-              offersToClass="formulated-offers-to"
-              offersStatusClass="formulated-offers-status"
-              offersDateClass="formulated-offers-date"
+              offersNftContentclassName="formulated-offers-nft-picture-and-title"
+              offersYourOffersPriceclassName="formulated-offers-your-offers-price"
+              offersFromclassName="formulated-offers-from"
+              offersToclassName="formulated-offers-to"
+              offersStatusclassName="formulated-offers-status"
+              offersDateclassName="formulated-offers-date"
             />
           ))}
         </div>

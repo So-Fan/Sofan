@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../Configs/firebase";
+import { auth, googleProvider, db } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
-
+import UserContext from "../../UserContext";
+import { getFirestore, getDocs, query, where, collection } from "firebase/firestore";
 
 // mathéo
 import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
@@ -14,8 +15,7 @@ import Web3 from "web3";
 
 
 function Login() {
-
-
+  const { setLoggedInUser } = useContext(UserContext);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,11 +25,30 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
+        
+        const q = query(collection(db, 'users'), where('id', '==', user.uid));
+        const querySnapshot = await getDocs(q);
+    
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            const userInfo = doc.data();
+
+            const AllUserInfo = {
+              ...user,
+              ...userInfo
+            }
+            setLoggedInUser(AllUserInfo);
+            // Do something with the user info
+          });
+        } else {
+          // Handle case when no user is found with the given ID
+          console.log('No user found');
+        }
         setError(false);
-        // setloggedUser(user);
+        
         navigate("/");
       })
       .catch((error) => {
@@ -54,6 +73,27 @@ function Login() {
     let idToken;
     try {
       const res = await signInWithPopup(auth, googleProvider);
+      
+
+      const q = query(collection(db, 'users'), where('id', '==', res.user.uid));
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userInfo = doc.data();
+          const AllUserInfo = {
+            ...res.user,
+            ...userInfo
+          }
+          setLoggedInUser(AllUserInfo);
+        });
+      } else {
+        // Handle case when no user is found with the given ID
+        console.log('No user found');
+      }
+
+
+      navigate("/");
       console.log(res);
       console.log(res.user.getIdToken(true));
       idToken = res.user.getIdToken(true);
@@ -116,7 +156,7 @@ function Login() {
   };
 
   return (
-    <div class="form-container login-container">
+    <div className="form-container login-container">
       <form action="#" onSubmit={handleLogin}>
         <h1 style={{ fontSize: 25 }}>Connectez-vous ici.</h1>
         {error && (
@@ -134,18 +174,18 @@ function Login() {
           placeholder="Mot de passe"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div class="content">
-          <div class="checkbox">
+        <div className="content">
+          <div className="checkbox">
             <input type="checkbox" name="checkbox" id="checkbox" />
             <label>Se souvenir de moi</label>
           </div>
-          <div class="pass-link">
+          <div className="pass-link">
             <a href="#">Mot de passe oublié?</a>
           </div>
         </div>
         <button>Se connecter</button>
         <span>ou utilisez votre compte</span>
-        <div class="social-container">
+        <div className="social-container">
           <button onClick={(e) => handleGoogleSignIn(e)} className="social">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f"

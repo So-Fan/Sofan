@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./NavProfile.css";
 import {Link} from "react-router-dom"
+import { auth } from "../../../Configs/firebase";
+import { signOut } from 'firebase/auth';
+import UserContext from '../../../UserContext';
+
+
 const NavProfile = ({ isProfileClicked, src }) => {
+  const { setLoggedInUser } = useContext(UserContext);
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setLoggedInUser(null);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="navbar-navprofile-container" >
@@ -12,6 +28,7 @@ const NavProfile = ({ isProfileClicked, src }) => {
         <Link to="/profile">Voir profil</Link>
         <Link to="/settings">Settings</Link>
         <Link to="/legals">Mentions<br />légales</Link>
+        <Link onClick={handleSignOut} to="/">Déconnecter</Link>
       </div>}
     </div>
   );
