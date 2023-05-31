@@ -5,6 +5,14 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
 import { getFirestore, getDocs, query, where, collection } from "firebase/firestore";
 
+// mathéo
+import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { Web3AuthNoModal } from "@web3auth/no-modal";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import useEth from "../../contexts/EthContext/useEth";
+import Web3 from "web3";
+// fin mathéo
+
 
 function Login() {
   const { setLoggedInUser } = useContext(UserContext);
@@ -53,10 +61,16 @@ function Login() {
       });
   };
 
+
+  const {
+    state: { contract, accounts, isOwner, isMintOn, mintPrice },
+    isWalletConnectClicked
+  } = useEth();
+
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     console.log("Google Logged");
-
+    let idToken;
     try {
       const res = await signInWithPopup(auth, googleProvider);
       
@@ -82,12 +96,59 @@ function Login() {
       navigate("/");
       console.log(res);
       console.log(res.user.getIdToken(true));
+      idToken = res.user.getIdToken(true);
     } catch (err) {
       console.error(err);
       throw err;
     }
-
+    // matheo
+    const web3auth = new Web3AuthNoModal({
+      clientId: "BJqBp0LJfmTafSfMeXtyOcKXLdZhsOl_94wb-C8dFKiB3BJAFQq8LgmAqhj9HTT_bPaWq_FOA5mwFljJ6QUzcRU",
+      web3AuthNetwork: "cyan",
+      chainConfig: {
+        chainNamespace: CHAIN_NAMESPACES.EIP155, // SOLANA, OTHER
+        chainId: "0x5",
+      },
+    });
+  
+    const openloginAdapter = new OpenloginAdapter({
+      adapterSettings: {
+        uxMode: "redirect",
+        loginConfig: {
+          jwt: {
+            name: "test",
+            verifier: "sofantest",
+            typeOfLogin: "jwt",
+            clientId: "640702967010-1us0pbfalm4lo039sv4ghjum3fsesalv.apps.googleusercontent.com",
+          },
+        },
+      },
+    });
+    
+    web3auth.configureAdapter(openloginAdapter);
+    await web3auth.init();
+    try {
+      await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
+        loginProvider: "jwt",
+        extraLoginOptions: {
+          id_token: idToken,
+          verifierIdField: "640702967010-1us0pbfalm4lo039sv4ghjum3fsesalv.apps.googleusercontent.com", // same as your JWT Verifier ID
+          domain: "https://YOUR-APPLICATION-DOMAIN" || "http://localhost:3000",
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    console.log("1");
+    const user = await web3auth.getUserInfo();
+    console.log("2");
+    console.log("User info", user);
+    const web3 = new Web3(web3auth.provider);
+    const userAccounts = await web3.eth.getAccounts();
+    console.log(userAccounts);
+    //fin mathéo
   };
+
 
   const handleAppleSignIn = async (e) => {
     e.preventDefault();
