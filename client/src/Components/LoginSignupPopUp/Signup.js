@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -14,9 +14,11 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { auth, db, ref, googleProvider } from "../../Configs/firebase";
 import { signInWithPopup } from "firebase/auth";
+import UserContext from "../../UserContext";
 
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
+  const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
@@ -187,6 +189,12 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
         status: true,
       };
 
+      const AllUserInfo = {
+        ...user,
+        ...newUser
+      }
+      setLoggedInUser(AllUserInfo);
+      
       console.log(newUser);
       await addDoc(usersRef, newUser);
       setDisplaySetupProfile(true);
@@ -214,8 +222,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   };
 
   const handleCloseClick = () => {
-    console.log('sign innnnnnnnnn');
-  }
+    console.log("sign innnnnnnnnn");
+  };
 
   function verifyFormIsValid(e) {
     e.preventDefault();

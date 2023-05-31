@@ -2,13 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import "./SetupProfile.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import Img from "../../../Assets/Image/img.svg";
+import { db, storage, ref, uploadBytes } from "../../../Configs/firebase";
+import { collection, addDoc, updateDoc } from "firebase/firestore";
+import UserContext from "../../../UserContext";
 
 function SetupProfile({
   setIsModalSignupUserCropImageClicked,
   preview,
   handleSetupProfileNextButtonClick,
   handleSetupProfileAddLaterClick,
-  handleSetupProfilePreviousStep
+  handleSetupProfilePreviousStep,
 }) {
   // const [src, setSrc1] = useState(null);
   // const [preview, setPreview] = useState(null);
@@ -21,20 +24,42 @@ function SetupProfile({
   const [bioTextMinimumLengthError, setBioTextMinimumLengthError] =
     useState(false);
   const [isFocused, setIsFocused] = useState(false);
-
+  const [loggedUser, setLoggedUser] = useState(null);
   const imageRef = useRef(null);
   const profilePicRef = useRef(null);
+  const storedUser = localStorage.getItem("loggedInUser");
+  if (storedUser) {
+    const loggedInUser = JSON.parse(storedUser);
+    setLoggedUser(loggedInUser);
+  }
 
-  const handleImageUpload = (event) => {
+  const handleBannerUpload = async (event) => {
     const file = event.target.files[0];
     if (file && file.type.substr(0, 5) === "image") {
-      const reader = new FileReader();
-      reader.onloadend = function (e) {
-        if (imageRef.current) {
-          imageRef.current.style.backgroundImage = `url(${e.target.result})`;
-        }
-      };
-      reader.readAsDataURL(file);
+     
+      //const imagePath = file.name ? `user_profile/banners/`
+      try {
+        // Upload the file to Firebase Storage
+
+        console.log(loggedUser);
+        // Get the download URL of the uploaded image
+        const imageUrl = await imageRef.getDownloadURL();
+
+        // Set the background image using FileReader
+        const reader = new FileReader();
+        reader.onloadend = function (e) {
+          if (imageRef.current) {
+            imageRef.current.style.backgroundImage = `url(${e.target.result})`;
+          }
+        };
+        reader.readAsDataURL(file);
+
+        // TODO: Save the image URL to Firestore or perform any additional actions
+
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
     } else {
       console.log("File is not an image.");
     }
@@ -79,7 +104,10 @@ function SetupProfile({
   return (
     <>
       <div className="signup-user-setup-profile-wrap">
-        <div onClick={handleSetupProfilePreviousStep} className="signup-user-setup-profile-previous-step">
+        <div
+          onClick={handleSetupProfilePreviousStep}
+          className="signup-user-setup-profile-previous-step"
+        >
           <img src={previousArrow} alt="" />
         </div>
         <div className="signup-user-setup-profile-title">
@@ -93,7 +121,7 @@ function SetupProfile({
             <input
               type="file"
               accept="image/*"
-              onChange={handleImageUpload}
+              onChange={handleBannerUpload}
               style={{ display: "none" }}
               id="image-upload"
             />
