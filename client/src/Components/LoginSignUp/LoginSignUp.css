@@ -71,7 +71,7 @@
 }
 
 .signup-login-form a:hover {
-  color: #4bb6b7;
+  color: rgb(246, 212, 99);
 }
 
 .signup-login-form .content {
@@ -359,7 +359,7 @@
 }
 
 .signup-login-form .social-container a:hover {
-  border: 1px solid #4bb6b7;
+  border: 1px solid rgb(246, 212, 99);
 }
 
 .error-message {

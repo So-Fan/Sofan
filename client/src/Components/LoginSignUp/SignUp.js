@@ -68,7 +68,7 @@ function SignUp(props) {
   };
 
   return (
-    <div class="form-container register-container">
+    <div className="form-container register-container">
       <form action="#" onSubmit={handleSignUp}>
         <h1>Inscrivez-vous ici.</h1>
         <div className="form-register-input-container">
@@ -152,15 +152,15 @@ function SignUp(props) {
         </div>
         <button>S'inscrire</button>
         <span>ou utilisez votre compte</span>
-        <div class="social-container">
-          <a href="#" class="social">
-            <i class="lni lni-facebook-fill"></i>
+        <div className="social-container">
+          <a href="#" className="social">
+            <i className="lni lni-facebook-fill"></i>
           </a>
-          <a href="#" class="social">
-            <i class="lni lni-google"></i>
+          <a href="#" className="social">
+            <i className="lni lni-google"></i>
           </a>
-          <a href="#" class="social">
-            <i class="lni lni-linkedin-original"></i>
+          <a href="#" className="social">
+            <i className="lni lni-linkedin-original"></i>
           </a>
         </div>
         <div className="signup-page-confirmation-accept-cgu">

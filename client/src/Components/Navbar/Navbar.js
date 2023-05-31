@@ -16,6 +16,7 @@ import LoginSignUp from "../LoginSignUp/LoginSignUp";
 import SignUp from "../LoginSignUp/SignUp";
 import Signup from "../LoginSignupPopUp/Signup";
 import Avatar from "react-avatar-edit";
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({
   isProfileClicked,
@@ -36,8 +37,13 @@ const Navbar = ({
   };
   const [src, setSrc1] = useState(null);
   const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
 
   function handleSignInButtonClick() {
+    navigate('/login');
+  }
+
+  function handleSignUpButtonClick() {
     setIsSignInButtonClicked(true);
   }
   useEffect(() => {
@@ -102,7 +108,7 @@ const Navbar = ({
               <div className="navbar-wrap-2-subwrap-sign">
                 <div className="navbar-wrap-2-subwrap-sign-up-button">
                   <Button
-                    onClick={handleSignInButtonClick}
+                    onClick={handleSignUpButtonClick}
                     text="Sign up"
                     style={NavbarButtonStyle.signUp}
                     customMediaQueries={customNavbarButtonMediaQueries}

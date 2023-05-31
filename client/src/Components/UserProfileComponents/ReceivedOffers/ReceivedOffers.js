@@ -50,18 +50,18 @@ function ReceivedOffers({
         offersFromTitle="From"
         offersToTitle="To"
         //
-        offersNftTitleClass="formulated-offers-nft-title"
-        yourOffersTitleClass="received-offers-offers-title"
-        offersFromTitleClass="received-offers-from-title"
-        offersToTitleClass="received-offers-to-title"
-        offersDateTitleClass="received-offers-date-title"
+        offersNftTitleclassName="formulated-offers-nft-title"
+        yourOffersTitleclassName="received-offers-offers-title"
+        offersFromTitleclassName="received-offers-from-title"
+        offersToTitleclassName="received-offers-to-title"
+        offersDateTitleclassName="received-offers-date-title"
         // Nft data list
       />
       <div className="received-offers-nft-list-container">
         {reversedNftsFromOwner?.map((user, i, apiNftData) => (
           <NftList
             key={uuidv4()}
-            offersDisplaySourceTypeClass="formulated-offers-display-source-type"
+            offersDisplaySourceTypeclassName="formulated-offers-display-source-type"
             receivedFrom={user.from}
             offersTo={user.to}
             priceEth={user.nftPriceEth}
@@ -88,13 +88,13 @@ function ReceivedOffers({
             //
             // setDataPopupConfirmation={setDataPopupConfirmation}
             //
-            offersNftContentClass="received-offers-nft-picture-and-title"
-            offersYourOffersPriceClass="received-offers-offers-price"
-            offersFromClass="received-offers-from"
-            offersToClass="received-offers-to"
-            offersDateClass="received-offers-date"
-            offersDeclineClass="received-offers-decline"
-            offersAcceptClass="received-offers-accept"
+            offersNftContentclassName="received-offers-nft-picture-and-title"
+            offersYourOffersPriceclassName="received-offers-offers-price"
+            offersFromclassName="received-offers-from"
+            offersToclassName="received-offers-to"
+            offersDateclassName="received-offers-date"
+            offersDeclineclassName="received-offers-decline"
+            offersAcceptclassName="received-offers-accept"
           />
         ))}
       </div>
