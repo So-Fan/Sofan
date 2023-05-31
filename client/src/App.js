@@ -21,7 +21,7 @@ import CGU from "./Pages/CGU/CGU";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
-  const isLogged = true; // from Backend
+  const isLogged = false; // from Backend
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
   const [isDropDownButtonClicked, setIsDropDownButtonClicked] = useState(false);
