@@ -698,7 +698,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
               <div className="signup-user-already-an-account">
                 Vous avez déjà un compte ? <span>Se connecter</span>
               </div>
-              <br /><button onClick={signOut}>Sign out</button>
+              
             </form>
           </div>
         </>

@@ -145,7 +145,7 @@ function SetupProfile({
           {bioTextMaxLengthError && (
             <div className="signup-user-setup-profile-bio-error">
               Votre bio dépasse la limite des 250 charactères maximum.
-            </div> 
+            </div>
           )}
           {bioTextMinimumLengthError && (
             <div className="signup-user-setup-profile-bio-error">
