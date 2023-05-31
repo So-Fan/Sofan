@@ -15,16 +15,6 @@ import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { auth, db, ref, googleProvider } from "../../Configs/firebase";
 import { signInWithPopup } from "firebase/auth";
 
-
-// mathéo
-import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import { Web3AuthNoModal } from "@web3auth/no-modal";
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import useEth from "../../contexts/EthContext/useEth";
-import Web3 from "web3";
-// fin mathéo
-
-
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -64,9 +54,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
-
-  const [web3auth, setWeb3auth] = useState();
-
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmail(emailValue);
@@ -172,66 +159,10 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const signUpWithGoogle = async (e) => {
     e.preventDefault();
     setIsGoogleSignUpClicked(true);
-    let idToken;
     try {
       const createdAt = new Date();
       // Sign-in process using a popup
       const result = await signInWithPopup(auth, googleProvider);
-
-      console.log(result.user.getIdToken(true));
-      idToken = result.user.getIdToken(true);
-      
-
-      // start matheo
-      const web3auth = new Web3AuthNoModal({
-      clientId: "BJqBp0LJfmTafSfMeXtyOcKXLdZhsOl_94wb-C8dFKiB3BJAFQq8LgmAqhj9HTT_bPaWq_FOA5mwFljJ6QUzcRU",
-      web3AuthNetwork: "cyan",
-      chainConfig: {
-        chainNamespace: CHAIN_NAMESPACES.EIP155, // SOLANA, OTHER
-        chainId: "0x5",
-      },
-    });
-  
-    const openloginAdapter = new OpenloginAdapter({
-      adapterSettings: {
-        uxMode: "redirect",
-        loginConfig: {
-          jwt: {
-            name: "test",
-            verifier: "sofantest",
-            typeOfLogin: "jwt",
-            clientId: "640702967010-1us0pbfalm4lo039sv4ghjum3fsesalv.apps.googleusercontent.com",
-          },
-        },
-      },
-    });
-    
-    web3auth.configureAdapter(openloginAdapter);
-    await web3auth.init();
-    try {
-      await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
-        loginProvider: "jwt",
-        extraLoginOptions: {
-          id_token: idToken,
-          verifierIdField: "640702967010-1us0pbfalm4lo039sv4ghjum3fsesalv.apps.googleusercontent.com", // same as your JWT Verifier ID
-          domain: "https://YOUR-APPLICATION-DOMAIN" || "http://localhost:3000",
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-    console.log("1");
-    const userr = await web3auth.getUserInfo();
-    console.log("2");
-    console.log("User info", userr);
-    const web3 = new Web3(web3auth.provider);
-    const userAccounts = await web3.eth.getAccounts();
-    console.log(userAccounts);
-    setWeb3auth(web3auth);
-      // end matheo
-
-
-
       const user = result.user;
       const usersRef = collection(db, "users");
 
@@ -254,9 +185,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
         premium: false,
         profile_banner: "https://placehold.co/600x400",
         status: true,
-        wallet: {
-          0: userAccounts[0],
-        },
       };
 
       console.log(newUser);
@@ -278,10 +206,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
       console.error(`Error Message: ${errorMessage}`);
     }
   };
-
-  const signOut = async () => {
-    await web3auth.logout();
-  }
 
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
@@ -698,7 +622,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
               <div className="signup-user-already-an-account">
                 Vous avez déjà un compte ? <span>Se connecter</span>
               </div>
-              <br /><button onClick={signOut}>Sign out</button>
             </form>
           </div>
         </>
