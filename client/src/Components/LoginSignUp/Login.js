@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, db } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
-import { getFirestore, getDocs, query, where, collection } from "firebase/firestore";
+import { getFirestore, getDocs, query, where, collection, addDoc, Timestamp } from "firebase/firestore";
 
 
 function Login() {
@@ -75,6 +75,27 @@ function Login() {
         });
       } else {
         // Handle case when no user is found with the given ID
+        const createdAt = new Date();
+        const user = res.user;
+        const usersRef = collection(db, "users");
+        const newUser = {
+          id: user.uid,
+          email: user.email,
+          account_created: Timestamp.fromMillis(createdAt.getTime()), // Replace 'user.metadata.creationTime' with appropriate field
+          account_type: "free",
+          name: user.displayName,
+          username: user.displayName.split(" ")[0], // Assuming first name as username
+          display_name: user.displayName,
+          phone: user.phoneNumber,
+          emailVerified: user.emailVerified,
+          news: false,
+          premium: false,
+          profile_banner: "https://placehold.co/600x400",
+          status: true,
+        };
+
+        await addDoc(usersRef, newUser);
+
         console.log('No user found');
       }
 
@@ -90,7 +111,7 @@ function Login() {
   };
 
   const handleAppleSignIn = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     console.log("Apple Logged");
   };
 

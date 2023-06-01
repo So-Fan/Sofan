@@ -11,8 +11,17 @@ import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 import ValidationSignup from "./ValidationSignup/ValidationSignup";
 import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  Timestamp,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { auth, db, ref, googleProvider } from "../../Configs/firebase";
+
 import { signInWithPopup } from "firebase/auth";
 import UserContext from "../../UserContext";
 
@@ -28,6 +37,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [isConnectWalletValid, setConnectWalletValid] = useState(false);
   const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
   const [displayValidationSignup, setDisplayValidationSignup] = useState(false);
+  const [allUserInfo, setAllUserInfo] = useState({});
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -38,6 +48,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [profileBio, setProfileBio] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState(null); // backend
@@ -189,12 +200,12 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
         status: true,
       };
 
-      const AllUserInfo = {
+      setAllUserInfo({
         ...user,
-        ...newUser
-      }
-      setLoggedInUser(AllUserInfo);
-      
+        ...newUser,
+      });
+      setLoggedInUser(allUserInfo);
+
       console.log(newUser);
       await addDoc(usersRef, newUser);
       setDisplaySetupProfile(true);
@@ -310,8 +321,73 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
       }, 2000);
     }
   }
+
+  const updateImagePaths = async (uid, avatarPath, bannerPath) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = {};
+
+          if (avatarPath) {
+            updatedData.profile_avatar = avatarPath;
+          }
+
+          if (bannerPath) {
+            updatedData.profile_banner = bannerPath;
+          }
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Image paths updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating image paths:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
   // Setup Profile step
-  function handleSetupProfileNextButtonClick() {
+  async function handleSetupProfileNextButtonClick() {
+    //save the profile bio, by shajeed
+
+    try {
+      const q = query(
+        collection(db, "users"),
+        where("id", "==", allUserInfo.id)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { bio: profileBio ? profileBio : "" };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Bio updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Bio:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
     // passer à l'étape suivante
     setDisplaySetupProfile(false);
     setTimeout(() => {
@@ -319,7 +395,16 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     }, 2000);
     // console.log("oui");
   }
+
   function handleSetupProfileAddLaterClick() {
+    // add the default avatar and banner
+
+    updateImagePaths(
+      allUserInfo.id,
+      "/static/media/profilepicattanasio.2693ecb7f0a2a6aa2ade6dd93ae2eaae.svg",
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FbannerUserProfile.png?alt=media&token=3d74cbd8-399c-4522-8757-b4c42f39937b"
+    );
+
     // passer à l'étape suivante
     setIsSetupProfileValid(true);
     setDisplaySetupProfile(false);
@@ -405,6 +490,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   handleSetupProfilePreviousStep={
                     handleSetupProfilePreviousStep
                   }
+                  allUserInfo={allUserInfo}
+                  setProfileBio={setProfileBio}
+                  ProfileBio={profileBio}
                 />
               </>
             ) : displayConnectWallet ? (

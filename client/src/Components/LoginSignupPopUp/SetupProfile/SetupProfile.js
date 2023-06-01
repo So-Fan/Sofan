@@ -3,7 +3,14 @@ import "./SetupProfile.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import Img from "../../../Assets/Image/img.svg";
 import { db, storage, ref, uploadBytes } from "../../../Configs/firebase";
-import { collection, addDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import UserContext from "../../../UserContext";
 
 function SetupProfile({
@@ -12,6 +19,9 @@ function SetupProfile({
   handleSetupProfileNextButtonClick,
   handleSetupProfileAddLaterClick,
   handleSetupProfilePreviousStep,
+  allUserInfo,
+  setProfileBio,
+  ProfileBio,
 }) {
   // const [src, setSrc1] = useState(null);
   // const [preview, setPreview] = useState(null);
@@ -27,23 +37,89 @@ function SetupProfile({
   const [loggedUser, setLoggedUser] = useState(null);
   const imageRef = useRef(null);
   const profilePicRef = useRef(null);
-  const storedUser = localStorage.getItem("loggedInUser");
-  if (storedUser) {
-    const loggedInUser = JSON.parse(storedUser);
-    setLoggedUser(loggedInUser);
-  }
+  const profileInputPicRef = useRef(null);
+
+  const updateBannerPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_banner: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Banner path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating banner path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+  const updateAvatarPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_avatar: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Avatar path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Avatar path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
 
   const handleBannerUpload = async (event) => {
+    // Check if a user is Logged in
+    // const storedUser = localStorage.getItem("loggedInUser");
+    // if (storedUser) {
+    //   const loggedInUser = JSON.parse(storedUser);
+    //   setLoggedUser(loggedInUser);
+    // }
+
     const file = event.target.files[0];
     if (file && file.type.substr(0, 5) === "image") {
-     
       //const imagePath = file.name ? `user_profile/banners/`
       try {
         // Upload the file to Firebase Storage
+        //shajeed
+        const createdAt = new Date();
+        const imagePath = `user_profile/banners/sofan_user_#${
+          allUserInfo.id
+        }#_banner_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, file).then((snapshot) => {
+          updateBannerPath(allUserInfo.id, imagePath);
+          console.log(snapshot);
+          console.log("Uploaded a blob or file!");
+        });
 
-        console.log(loggedUser);
         // Get the download URL of the uploaded image
-        const imageUrl = await imageRef.getDownloadURL();
+        //const imageUrl = await imageRef.getDownloadURL();
 
         // Set the background image using FileReader
         const reader = new FileReader();
@@ -65,8 +141,40 @@ function SetupProfile({
     }
   };
 
+  const handleProfileImageInputChange = () => {
+    // Access the selected file(s) using fileInputRef.current.files
+    const file = profileInputPicRef.current.files[0];
+    // Process the files as needed
+    if (file && file.type.substr(0, 5) === "image") {
+
+      try {
+        
+        //shajeed
+        const createdAt = new Date();
+        const imagePath = `user_profile/avatars/sofan_user_#${
+          allUserInfo.id
+        }#_avatar_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, file).then((snapshot) => {
+          updateAvatarPath(allUserInfo.id, imagePath);
+          console.log("Uploaded a blob or file!");
+        });
+
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+
+
+    } else {
+      console.log("profile is not an image.");
+    }
+  };
+
   function handleDisplayPreview() {
+    profileInputPicRef.current.click();
     console.log("click detecté");
+    //console.log(profilePicRef);
     setDisplayImageCrop(true);
     setIsModalSignupUserCropImageClicked(true);
   }
@@ -75,6 +183,7 @@ function SetupProfile({
   };
   const handleBioTextChange = (event) => {
     const text = event.target.value;
+    setProfileBio(text);
     setBioText(text);
     setBioTextLength(text.length);
     if (text.length > 250) {
@@ -96,7 +205,6 @@ function SetupProfile({
     const hasBanner = !!preview; // Vérifie si la bannière est présente
     const hasProfilePic = !!preview; // Vérifie si la photo de profil est présente
     const hasValidBio = bioText.length >= 50 && bioText.length <= 250; // Vérifie si la bio a entre 50 et 250 caractères
-
     return hasBanner && hasProfilePic && hasValidBio;
   }
   const isProfileComplete = checkProfileCompletion(preview, bioText);
@@ -152,6 +260,15 @@ function SetupProfile({
               onClick={handleDisplayPreview}
             >
               <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
+              <input
+                id="fileInput"
+                ref={profileInputPicRef}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                multiple={false}
+                onChange={handleProfileImageInputChange}
+              />
             </label>
           </div>
         </div>
