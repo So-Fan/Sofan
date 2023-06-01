@@ -13,8 +13,9 @@ function AthleteProfileHeader({
   handleAthleteSupportersClick,
   handleClickNftReceived,
   handleClicNftsAvailable,
-  handlePalmaresButtonClick
+  handlePalmaresButtonClick,
 }) {
+  const [isStoredUser, setIsStoredUser] = useState(false);
   // userInfo.followers = 300000; // fake data
   // Faire afficher le nombre dans un format K
   function convertNumberToDisplayFormat(number) {
@@ -31,12 +32,24 @@ function AthleteProfileHeader({
       }
     }
   }
+
+  const storedUser = localStorage.getItem("loggedInUser");
+  useEffect(() => {
+    
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      console.log(userInfo);
+
+      setIsStoredUser(parsedUser.id === userInfo.id);
+    }
+  }, [userInfo]);
+
   return (
     <div className="athleteprofileheader-component">
       <div className="athleteprofileheader-bannerandprofilepicture-wrap">
-        <img src={userInfo?.banner} alt="banner" />
+        <img src={userInfo?.profile_banner} alt="banner" />
         <div className="athleteprofileheader-profilepciture-wrap">
-          <img src={userInfo?.profilePicture} alt="profile" />
+          <img src={userInfo?.profile_avatar} alt="profile" />
         </div>
       </div>
       <div className="athleteprofileheader-content-container">
@@ -47,7 +60,7 @@ function AthleteProfileHeader({
           <div className="athleteprofileheader-content-wrap-namestatssocial-wrap">
             <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats">
               <span className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-title">
-                {userInfo?.username}
+                {userInfo?.display_name}
                 <img src={Checkmark} alt="Checkmark" />
               </span>
               <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap">
@@ -71,7 +84,10 @@ function AthleteProfileHeader({
                   <span>fans</span>
                 </div>
                 <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
-                <a href="#athletes-nfts-availables" onClick={handleClicNftsAvailable}>
+                <a
+                  href="#athletes-nfts-availables"
+                  onClick={handleClicNftsAvailable}
+                >
                   <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last">
                     <span>{userInfo?.nftAvailable}</span>
                     <span>NFTs disponible</span>
@@ -93,7 +109,7 @@ function AthleteProfileHeader({
               </div> */}
               {/* <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-social-container-separation"></div> */}
               <Button
-              onClick={handlePalmaresButtonClick}
+                onClick={handlePalmaresButtonClick}
                 text={"Palmarès"}
                 style={AthleteProfileHeaderPalmaresButton}
                 hover="button-hover-props"
@@ -102,15 +118,25 @@ function AthleteProfileHeader({
             </div>
           </div>
           <div className="athleteprofileheader-content-container-description">
-            {userInfo?.description}
+            {userInfo &&
+              userInfo.bio &&
+              (userInfo.bio.length > 250 ? (
+                <textarea value={userInfo.bio} />
+              ) : (
+                userInfo.bio
+              ))}
           </div>
-          <div className="athleteprofileheader-content-container-button-wrap">
+          { !isStoredUser && <div className="athleteprofileheader-content-container-button-wrap">
             <Button
               text={"Devenir un fan"}
               style={AthleteProfileHeaderFanButton}
             />
-            <Button className="athleteprofileheader-content-container-second-button" text={"Follow"} style={AthleteProfileHeaderFollowButton} />
-          </div>
+            <Button
+              className="athleteprofileheader-content-container-second-button"
+              text={"Follow"}
+              style={AthleteProfileHeaderFollowButton}
+            />
+          </div>}
         </div>
       </div>
     </div>

@@ -15,6 +15,9 @@ import Modal from "../../Components/Modal/Modal";
 import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../Configs/firebase";
+import { useParams } from "react-router-dom";
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -44,7 +47,31 @@ const AthleteProfilePage = ({
   const [fansCounterApi, setFansCounterApi] = useState();
   // API CoinGecko
   const [ethPrice, setEthPrice] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+  const { id } = useParams();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const q = query(collection(db, "users"), where("id", "==", id)); // Use the correct parameter name here
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userInfo = doc.data();
+          const AllUserInfo = {
+            ...userInfo,
+          };
+          // Do something with the user info
+          setUserInfo(AllUserInfo);
+        });
+      } else {
+        // Handle case when no user is found with the given ID
+        console.log("No user found");
+      }
+    };
+
+    fetchData();
+  }, [id]);
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -447,18 +474,6 @@ const AthleteProfilePage = ({
           postLikeNumber: 29,
           postCommentNumber: 10,
         },
-        {
-          postName: "Romain Attanasio",
-          postDescription:
-            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-          postPicture:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg/420px-Vend%C3%A9e_Globe_2016_-_Romain_Attanasio_(30880347105).jpg",
-          postDate: 9,
-          postDateType: "d",
-          postType: "Premium",
-          postLikeNumber: 29,
-          postCommentNumber: 10,
-        },
       ],
     };
     function concatStringFromTo(
@@ -794,7 +809,7 @@ const AthleteProfilePage = ({
       <div className="athleteprofilepage-component">
         {/* <div className="athleteprofilepage-wrap"> */}
           <AthleteProfileHeader
-            userInfo={dataConcat?.userPageInfo}
+            userInfo={!userInfo ? dataConcat?.userPageInfo : userInfo}
             fansCounterApi={fansCounterApi}
             setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
             handleAthleteFollowersClick={handleAthleteFollowersClick}

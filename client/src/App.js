@@ -22,6 +22,7 @@ import UserContext from "./UserContext";
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   
+
   
   useEffect(() => {
     // Check if user data exists in localStorage
@@ -36,6 +37,8 @@ function App() {
     if (loggedInUser) {
       localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
     }
+
+    // console.log(loggedInUser);
   }, [loggedInUser]);
 
   // useEffect(() => {
@@ -97,7 +100,7 @@ function App() {
     }
     // click outside for launchpad all page - live launch part
     if (
-      e.target.className == "launchpadalllivelaunches-top-wrap-dropdown" ||
+      e.target.className === "launchpadalllivelaunches-top-wrap-dropdown" ||
       e.target.className ===
         "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked" ||
       e.target.id === "launchpadalllivelaunches-dropdown-main" ||
@@ -175,7 +178,7 @@ function App() {
                 }
               />
               <Route
-                path="/userprofile"
+                path="/userprofile/:id"
                 element={
                   <UserProfilePage
                     setIsUSerProfileSeortBySelectorClicked={
@@ -192,7 +195,7 @@ function App() {
                 }
               />
               <Route
-                path="/athleteprofile"
+                path="/athleteprofile/:id"
                 element={
                   <AthleteProfilePage
                     setIsUSerProfileSeortBySelectorClicked={
