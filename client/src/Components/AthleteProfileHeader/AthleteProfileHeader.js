@@ -40,7 +40,7 @@ function AthleteProfileHeader({
       const parsedUser = JSON.parse(storedUser);
       console.log(userInfo);
 
-      setIsStoredUser(parsedUser.id === userInfo.id);
+      setIsStoredUser(parsedUser?.id === userInfo?.id);
     }
   }, [userInfo]);
 
