@@ -196,7 +196,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
         emailVerified: user.emailVerified,
         news: false,
         premium: false,
-        profile_banner: "https://placehold.co/600x400",
+        profile_avatar: "https://i.imgur.com/cCVIcNS.png",
+        profile_banner: "https://i.imgur.com/sJTNEVk.png",
         status: true,
       };
 
@@ -268,7 +269,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 emailVerified: false,
                 news: false,
                 premium: false,
-                profile_banner: "https://placehold.co/600x400",
+                profile_avatar: "https://i.imgur.com/cCVIcNS.png",
+                profile_banner: "https://i.imgur.com/sJTNEVk.png",
                 status: true,
               };
               const emailValidRef = collection(db, "email_validations");

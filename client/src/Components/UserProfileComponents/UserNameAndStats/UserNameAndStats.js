@@ -7,6 +7,7 @@ function UserNameAndStats({
   handleAthleteFollowingClick,
   handleAthleteSupportingClick,
   handleClickNftReceived,
+  allUserInfo
 }) {
   const [pluralNftCollected, setPluralNftCollected] = useState(false);
   // donne un effet smooth au click d'un #
@@ -32,7 +33,7 @@ function UserNameAndStats({
   return (
     <div className="username-and-stats-container">
       <div className="username-container-userpage">
-        {userNameAndStatsObject?.username}
+        {allUserInfo?.username}
       </div>
       <div className="stats-user-container">
         <div className="line-separation-userprofile"></div>

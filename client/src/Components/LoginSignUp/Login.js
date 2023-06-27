@@ -90,7 +90,8 @@ function Login() {
           emailVerified: user.emailVerified,
           news: false,
           premium: false,
-          profile_banner: "https://placehold.co/600x400",
+          profile_profile: "",
+          profile_banner: "https://i.imgur.com/sJTNEVk.png",
           status: true,
         };
 
