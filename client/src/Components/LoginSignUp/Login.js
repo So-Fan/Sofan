@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, db } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
-import { getFirestore, getDocs, query, where, collection } from "firebase/firestore";
+
 
 // mathéo
 import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
@@ -13,6 +13,7 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
 // fin mathéo
+import { getFirestore, getDocs, query, where, collection, addDoc, Timestamp } from "firebase/firestore";
 
 function Login() {
   const { setLoggedInUser } = useContext(UserContext);
@@ -132,7 +133,6 @@ useEffect(() => {
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     console.log("Google Logged");
-    // let idToken;
     try {
       const res = await signInWithPopup(auth, googleProvider);
       
@@ -152,7 +152,30 @@ useEffect(() => {
         return res
       } else {
         // Handle case when no user is found with the given ID
+        const createdAt = new Date();
+        const user = res.user;
+        const usersRef = collection(db, "users");
+        const newUser = {
+          id: user.uid,
+          email: user.email,
+          account_created: Timestamp.fromMillis(createdAt.getTime()), // Replace 'user.metadata.creationTime' with appropriate field
+          account_type: "free",
+          name: user.displayName,
+          username: user.displayName.split(" ")[0], // Assuming first name as username
+          display_name: user.displayName,
+          phone: user.phoneNumber,
+          emailVerified: user.emailVerified,
+          news: false,
+          premium: false,
+          profile_profile: "",
+          profile_banner: "https://i.imgur.com/sJTNEVk.png",
+          status: true,
+        };
+
+        await addDoc(usersRef, newUser);
+
         console.log('No user found');
+        return res
       }
       // navigate("/");
       // console.log(res);
@@ -188,43 +211,13 @@ useEffect(() => {
       }
     );
     setProvider(web3authProvider);
+    const account = accounts;
+    // rajouter backend pour ajouter le wallet
+    navigate("/");
   };
-
-  const getUserInfo = async () => {
-    if (!web3auth) {
-      console.log("web3auth not initialized yet");
-      return;
-    }
-    const user = await web3auth.getUserInfo();
-    console.log(user);
-  };
-
-  const logout = async () => {
-    if (!web3auth) {
-      console.log("web3auth not initialized yet");
-      return;
-    }
-    await web3auth.logout();
-    setProvider(null);
-  };
-
-  const getAccounts = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    try {
-      const web3 = new Web3(provider)
-      const accounts = await web3.eth.getAccounts()
-      console.log(accounts);
-    } catch (error) {
-      return error
-    }
-  };
-
 
   const handleAppleSignIn = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     console.log("Apple Logged");
   };
 
@@ -272,9 +265,6 @@ useEffect(() => {
               alt="Apple logo"
             />
           </button>
-          <button onClick={getUserInfo}>getUserInfo</button>
-          <button onClick={logout}>logout</button>
-          <button onClick={getAccounts}>getAccounts</button>
         </div>
       </form>
     </div>

@@ -102,7 +102,7 @@ const Navbar = ({
                   />
                   <div className="navbar-vertical"></div>
                 </div>
-                <NavProfile isProfileClicked={isProfileClicked} src={profile} />
+                <NavProfile userInfo={isLogged} isProfileClicked={isProfileClicked} src={profile} />
               </div>
             ) : (
               <div className="navbar-wrap-2-subwrap-sign">

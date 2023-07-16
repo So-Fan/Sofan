@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -11,22 +11,23 @@ import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 import ValidationSignup from "./ValidationSignup/ValidationSignup";
 import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  Timestamp,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { auth, db, ref, googleProvider } from "../../Configs/firebase";
+
 import { signInWithPopup } from "firebase/auth";
-
-
-// mathéo
-import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import { Web3AuthNoModal } from "@web3auth/no-modal";
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import useEth from "../../contexts/EthContext/useEth";
-import Web3 from "web3";
-// fin mathéo
-
+import UserContext from "../../UserContext";
 
 function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   //
+  const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
   const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
@@ -36,6 +37,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [isConnectWalletValid, setConnectWalletValid] = useState(false);
   const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
   const [displayValidationSignup, setDisplayValidationSignup] = useState(false);
+  const [allUserInfo, setAllUserInfo] = useState({});
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -46,6 +48,7 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [profileBio, setProfileBio] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState(null); // backend
@@ -64,9 +67,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
-
-  const [web3auth, setWeb3auth] = useState();
-
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmail(emailValue);
@@ -172,66 +172,10 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   const signUpWithGoogle = async (e) => {
     e.preventDefault();
     setIsGoogleSignUpClicked(true);
-    let idToken;
     try {
       const createdAt = new Date();
       // Sign-in process using a popup
       const result = await signInWithPopup(auth, googleProvider);
-
-      console.log(result.user.getIdToken(true));
-      idToken = result.user.getIdToken(true);
-      
-
-      // start matheo
-      const web3auth = new Web3AuthNoModal({
-      clientId: "BJqBp0LJfmTafSfMeXtyOcKXLdZhsOl_94wb-C8dFKiB3BJAFQq8LgmAqhj9HTT_bPaWq_FOA5mwFljJ6QUzcRU",
-      web3AuthNetwork: "cyan",
-      chainConfig: {
-        chainNamespace: CHAIN_NAMESPACES.EIP155, // SOLANA, OTHER
-        chainId: "0x5",
-      },
-    });
-  
-    const openloginAdapter = new OpenloginAdapter({
-      adapterSettings: {
-        uxMode: "redirect",
-        loginConfig: {
-          jwt: {
-            name: "test",
-            verifier: "sofantest",
-            typeOfLogin: "jwt",
-            clientId: "640702967010-1us0pbfalm4lo039sv4ghjum3fsesalv.apps.googleusercontent.com",
-          },
-        },
-      },
-    });
-    
-    web3auth.configureAdapter(openloginAdapter);
-    await web3auth.init();
-    try {
-      await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
-        loginProvider: "jwt",
-        extraLoginOptions: {
-          id_token: idToken,
-          verifierIdField: "640702967010-1us0pbfalm4lo039sv4ghjum3fsesalv.apps.googleusercontent.com", // same as your JWT Verifier ID
-          domain: "https://YOUR-APPLICATION-DOMAIN" || "http://localhost:3000",
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-    console.log("1");
-    const userr = await web3auth.getUserInfo();
-    console.log("2");
-    console.log("User info", userr);
-    const web3 = new Web3(web3auth.provider);
-    const userAccounts = await web3.eth.getAccounts();
-    console.log(userAccounts);
-    setWeb3auth(web3auth);
-      // end matheo
-
-
-
       const user = result.user;
       const usersRef = collection(db, "users");
 
@@ -252,12 +196,16 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
         emailVerified: user.emailVerified,
         news: false,
         premium: false,
-        profile_banner: "https://placehold.co/600x400",
+        profile_avatar: "https://i.imgur.com/cCVIcNS.png",
+        profile_banner: "https://i.imgur.com/sJTNEVk.png",
         status: true,
-        wallet: {
-          0: userAccounts[0],
-        },
       };
+
+      setAllUserInfo({
+        ...user,
+        ...newUser,
+      });
+      setLoggedInUser(allUserInfo);
 
       console.log(newUser);
       await addDoc(usersRef, newUser);
@@ -279,10 +227,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     }
   };
 
-  const signOut = async () => {
-    await web3auth.logout();
-  }
-
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
     const code = Math.floor(100000 + Math.random() * 900000);
@@ -290,8 +234,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
   };
 
   const handleCloseClick = () => {
-    console.log('sign innnnnnnnnn');
-  }
+    console.log("sign innnnnnnnnn");
+  };
 
   function verifyFormIsValid(e) {
     e.preventDefault();
@@ -325,7 +269,8 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                 emailVerified: false,
                 news: false,
                 premium: false,
-                profile_banner: "https://placehold.co/600x400",
+                profile_avatar: "https://i.imgur.com/cCVIcNS.png",
+                profile_banner: "https://i.imgur.com/sJTNEVk.png",
                 status: true,
               };
               const emailValidRef = collection(db, "email_validations");
@@ -378,8 +323,73 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
       }, 2000);
     }
   }
+
+  const updateImagePaths = async (uid, avatarPath, bannerPath) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = {};
+
+          if (avatarPath) {
+            updatedData.profile_avatar = avatarPath;
+          }
+
+          if (bannerPath) {
+            updatedData.profile_banner = bannerPath;
+          }
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Image paths updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating image paths:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
   // Setup Profile step
-  function handleSetupProfileNextButtonClick() {
+  async function handleSetupProfileNextButtonClick() {
+    //save the profile bio, by shajeed
+
+    try {
+      const q = query(
+        collection(db, "users"),
+        where("id", "==", allUserInfo.id)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { bio: profileBio ? profileBio : "" };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Bio updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Bio:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
     // passer à l'étape suivante
     setDisplaySetupProfile(false);
     setTimeout(() => {
@@ -387,7 +397,16 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
     }, 2000);
     // console.log("oui");
   }
+
   function handleSetupProfileAddLaterClick() {
+    // add the default avatar and banner
+
+    updateImagePaths(
+      allUserInfo.id,
+      "/static/media/profilepicattanasio.2693ecb7f0a2a6aa2ade6dd93ae2eaae.svg",
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FbannerUserProfile.png?alt=media&token=3d74cbd8-399c-4522-8757-b4c42f39937b"
+    );
+
     // passer à l'étape suivante
     setIsSetupProfileValid(true);
     setDisplaySetupProfile(false);
@@ -473,6 +492,9 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   handleSetupProfilePreviousStep={
                     handleSetupProfilePreviousStep
                   }
+                  allUserInfo={allUserInfo}
+                  setProfileBio={setProfileBio}
+                  ProfileBio={profileBio}
                 />
               </>
             ) : displayConnectWallet ? (
@@ -698,7 +720,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
               <div className="signup-user-already-an-account">
                 Vous avez déjà un compte ? <span>Se connecter</span>
               </div>
-              <br /><button onClick={signOut}>Sign out</button>
             </form>
           </div>
         </>

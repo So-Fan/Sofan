@@ -13,12 +13,16 @@ import "./UserProfilePage.css";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import Modal from "../../Components/Modal/Modal";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
+import { useParams } from "react-router-dom";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../Configs/firebase";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
   setProfileSubMenuOffresClicked,
   profileSubMenuOffresClicked,
+  userProfileLogged
 }) {
   // fonctionnal states
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
@@ -43,7 +47,33 @@ function UserProfilePage({
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
+  const [allUserInfo, setAllUserInfo] = useState(null);
+  const { id } = useParams();
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const q = query(collection(db, "users"), where("id", "==", id)); // Use the correct parameter name here
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userInfo = doc.data();
+          const AllUserInfo = {
+            ...userInfo,
+          };
+          // Do something with the user info
+          setAllUserInfo(AllUserInfo);
+        });
+      } else {
+        // Handle case when no user is found with the given ID
+        console.log("No user found");
+      }
+    };
+
+    fetchData();
+  }, [id]);
+  console.log(allUserInfo);
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -569,8 +599,8 @@ function UserProfilePage({
       >
         <div className="userheader-container">
           <BannerAndProfilePic
-            banner={dataConcat?.userPageInfo.banner}
-            profilePicture={dataConcat?.userPageInfo.avatar}
+            banner={allUserInfo?.profile_banner}
+            profilePicture={allUserInfo?.profile_avatar}
           />
           <div className="user-content-activity-nft">
             <div className="username-and-stats-component">
@@ -581,11 +611,12 @@ function UserProfilePage({
                 handleAthleteSupportingClick={handleAthleteSupportingClick}
                 nftCardRef={nftCardRef}
                 handleClickNftReceived={handleClickNftReceived}
+                allUserInfo={allUserInfo}
               />
             </div>
             <div className="userprofile-description-component">
               <UserProfileDescription
-                userDescription={dataConcat?.userPageInfo.description}
+                userDescription={allUserInfo?.bio}
               />
             </div>
             <ProfileSubMenu
