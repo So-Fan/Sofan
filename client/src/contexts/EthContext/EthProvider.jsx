@@ -9,10 +9,17 @@ function EthProvider({ children }) {
 
   const [isWalletConnectClicked, setIsWalletConnectClicked] = useState(false);
   const [isInit, setIsInit] = useState(false);
+  const [provider, setProvider] = useState(null);
+
   const init = useCallback(
     async artifact => {
       if (artifact) {
-        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+        let web3;
+        if(provider != null){
+          web3 = new Web3(provider); // come from web3auth check Login.js
+        }else{
+          web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+        }
         const accounts = await web3.eth.requestAccounts();
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
@@ -65,6 +72,8 @@ function EthProvider({ children }) {
       dispatch,
       setIsWalletConnectClicked,
       isWalletConnectClicked,
+      setProvider,
+      provider,
       isInit
     }}>
       {children}

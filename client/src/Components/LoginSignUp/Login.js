@@ -1,18 +1,95 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, db } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
-import { getFirestore, getDocs, query, where, collection, addDoc, Timestamp } from "firebase/firestore";
 
+
+// mathéo
+import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { Web3AuthNoModal } from "@web3auth/no-modal";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import useEth from "../../contexts/EthContext/useEth";
+import Web3 from "web3";
+// fin mathéo
+import { getFirestore, getDocs, query, where, collection, addDoc, Timestamp } from "firebase/firestore";
 
 function Login() {
   const { setLoggedInUser } = useContext(UserContext);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
+  // const clientId = process.env.WEB3AUTH_TOKEN_ID;
+  console.log(process.env.REACT_APP_WEB3AUTH_TOKEN_ID);
   const navigate = useNavigate();
+// debut matheo 
+
+const [web3auth, setWeb3auth] = useState(null);
+  // const [provider, setProvider] = useState(
+  //   null
+  // );
+  // debut matheo
+  const {
+    state: { contract, accounts, isOwner, isMintOn, mintPrice },
+    isWalletConnectClicked,
+    setIsWalletConnectClicked,
+    setProvider,
+    provider
+  } = useEth();
+// fin matheo
+
+useEffect(() => {
+  const init = async () => {
+    try {
+      let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
+      const chainConfig = {
+        chainNamespace: CHAIN_NAMESPACES.EIP155,
+        chainId: "0x5", // Please use 0x1 for Mainnet
+        rpcTarget: "https://rpc.ankr.com/eth_goerli",
+        displayName: "Goerli Testnet",
+        blockExplorer: "https://goerli.etherscan.io/",
+        ticker: "ETH",
+        tickerName: "Ethereum",
+      };
+      const web3auth = new Web3AuthNoModal({
+        clientId,
+        chainConfig,
+        web3AuthNetwork: "cyan",
+        useCoreKitKey: false,
+      });
+
+      const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
+
+      const openloginAdapter = new OpenloginAdapter({
+        privateKeyProvider,
+        adapterSettings: {
+          uxMode: "popup",
+          loginConfig: {
+            jwt: {
+              verifier: "sofantest2",
+              typeOfLogin: "jwt",
+              clientId,
+            },
+          },
+        },
+      });
+      web3auth.configureAdapter(openloginAdapter);
+      setWeb3auth(web3auth);
+
+      await web3auth.init();
+      setProvider(web3auth.provider);
+
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  init();
+}, []);
+// fin matheo
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -56,7 +133,6 @@ function Login() {
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     console.log("Google Logged");
-
     try {
       const res = await signInWithPopup(auth, googleProvider);
       
@@ -73,6 +149,7 @@ function Login() {
           }
           setLoggedInUser(AllUserInfo);
         });
+        return res
       } else {
         // Handle case when no user is found with the given ID
         const createdAt = new Date();
@@ -98,17 +175,45 @@ function Login() {
         await addDoc(usersRef, newUser);
 
         console.log('No user found');
+        return res
       }
+      // navigate("/");
+      // console.log(res);
+      // console.log(res.user.getIdToken(true));
+      // idToken = res.user.getIdToken(true);
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
+  };
 
-
-      navigate("/");
-      console.log(res);
-      console.log(res.user.getIdToken(true));
-    } catch (err) {
-      console.error(err);
-      throw err;
+  const login = async (e) => {
+    e.preventDefault();
+    if (!web3auth) {
+      console.log("web3auth not initialized yet");
+      return;
     }
+    // switch case pour chaque Signin
+    const loginRes = await handleGoogleSignIn(e);
+    // console.log("login details", loginRes);
+    const idToken = await loginRes.user.getIdToken(true);
+    // console.log("idToken", idToken);
 
+    const web3authProvider = await web3auth.connectTo(
+      WALLET_ADAPTERS.OPENLOGIN,
+      {
+        loginProvider: "jwt",
+        extraLoginOptions: {
+          id_token: idToken,
+          verifierIdField: "sub",
+          domain: "http://localhost:3000",
+        },
+      }
+    );
+    setProvider(web3authProvider);
+    const account = accounts;
+    // rajouter backend pour ajouter le wallet
+    navigate("/");
   };
 
   const handleAppleSignIn = async (e) => {
@@ -147,7 +252,8 @@ function Login() {
         <button>Se connecter</button>
         <span>ou utilisez votre compte</span>
         <div className="social-container">
-          <button onClick={(e) => handleGoogleSignIn(e)} className="social">
+          {/* <button onClick={(e) => handleGoogleSignIn(e)} className="social"> */}
+          <button onClick={(e) => login(e)} className="social">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f"
               alt="google logo"
