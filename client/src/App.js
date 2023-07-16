@@ -191,6 +191,7 @@ function App() {
                     setProfileSubMenuOffresClicked={
                       setProfileSubMenuOffresClicked
                     }
+                    userProfileLogged={loggedInUser}
                   />
                 }
               />

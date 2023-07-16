@@ -15,7 +15,9 @@ function BannerAndProfilePic({banner, profilePicture}) {
       <section className="banner-and-profile-container">
         <div className="banner-container">
           <img src={banner} alt="banner image" />
-          <div className="profile-pic-container" style={profilePicStyle}></div>
+          <div className="profile-pic-container" style={profilePicStyle}>
+            <img src={profilePicture}/>
+          </div>
         </div>
       </section>
     </>
