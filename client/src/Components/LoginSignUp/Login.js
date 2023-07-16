@@ -20,9 +20,6 @@ function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  // const clientId = process.env.WEB3AUTH_TOKEN_ID;
-  console.log(process.env.REACT_APP_WEB3AUTH_TOKEN_ID);
   const navigate = useNavigate();
 // debut matheo 
 
