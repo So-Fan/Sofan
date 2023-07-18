@@ -39,6 +39,9 @@ function SetupProfile({
   const profilePicRef = useRef(null);
   const profileInputPicRef = useRef(null);
 
+  const [banner, setBanner] = useState();
+  const [previewBanner, setPreviewBanner] = useState()
+
   const updateBannerPath = async (uid, path) => {
     try {
       const q = query(collection(db, "users"), where("id", "==", uid));
@@ -93,6 +96,14 @@ function SetupProfile({
     }
   };
 
+  useEffect(() => {
+    if (!banner) return;
+    let tmp = URL.createObjectURL(banner);
+    setPreviewBanner(tmp);
+    URL.revokeObjectURL(banner)
+    setBanner();
+  }, [banner])
+
   const handleBannerUpload = async (event) => {
     // Check if a user is Logged in
     // const storedUser = localStorage.getItem("loggedInUser");
@@ -102,6 +113,7 @@ function SetupProfile({
     // }
 
     const file = event.target.files[0];
+    console.log(file);
     if (file && file.type.substr(0, 5) === "image") {
       //const imagePath = file.name ? `user_profile/banners/`
       try {
@@ -122,20 +134,22 @@ function SetupProfile({
         //const imageUrl = await imageRef.getDownloadURL();
 
         // Set the background image using FileReader
-        const reader = new FileReader();
-        reader.onloadend = function (e) {
-          if (imageRef.current) {
-            imageRef.current.style.backgroundImage = `url(${e.target.result})`;
-          }
-        };
-        reader.readAsDataURL(file);
-
+        // Saajeed
+        // const reader = new FileReader();
+        // reader.onloadend = function (e) {
+        //   if (imageRef.current) {
+        //     imageRef.current.style.backgroundImage = `${file}`;
+        //   }
+        // };
+        // reader.readAsDataURL(file);
+        // fin saajeed
         // TODO: Save the image URL to Firestore or perform any additional actions
 
         console.log("Image uploaded successfully!");
       } catch (error) {
         console.error("Error uploading image:", error);
       }
+      setBanner(file)
     } else {
       console.log("File is not an image.");
     }
@@ -222,6 +236,27 @@ function SetupProfile({
           Créez votre profil
         </div>
         <div className="signup-user-setup-profile-banner-and-profile-pic">
+          {previewBanner ? 
+          <div
+          className="signup-user-setup-profile-banner-container"
+          ref={imageRef}
+        >
+          <img src={previewBanner} alt="banner" id="image-upload"/>
+          {/* <input
+            type="file"
+            accept="image/*"
+            onChange={handleBannerUpload}
+            style={{ display: "none" }}
+            id="image-upload"
+          /> */}
+          <label
+            htmlFor="image-upload"
+            className="signup-user-setup-profile-banner-add-button"
+          >
+          <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
+          </label>
+        </div>
+          : 
           <div
             className="signup-user-setup-profile-banner-container"
             ref={imageRef}
@@ -237,9 +272,9 @@ function SetupProfile({
               htmlFor="image-upload"
               className="signup-user-setup-profile-banner-add-button"
             >
-              <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
+            <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
             </label>
-          </div>
+          </div>}
           <div
             className="signup-user-setup-profile-profile-pic-container"
             style={{ backgroundImage: `url(${preview})` }}

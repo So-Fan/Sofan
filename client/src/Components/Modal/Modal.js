@@ -8,16 +8,19 @@ const Modal = (props) => {
     // setState is the function link to the state that render the Modal Component
     // style is an object to position the cross with top, bottom, left and right
     // by default the cross is black. To make it white pass a prop named color and write "white"
+    // If you want to lock scroll when clicked add document.querySelector('body').classList.add('scroll-lock') to your handle HTML Element that triggers the modal to pop
   const handleModalClick = (e) => {
     if (
       e.target.id === "modal-component" ||
       e.target.id === "modal-component-cross" || e.target.id === "custom-close-button"
     ) {
       props.setState(false);
+        // retirer le scroll lock lorsque le modal n'est plus la
+        document.querySelector("body").classList.remove("scroll-lock");
     } 
   };
   // useEffect(() => {
-    document.querySelector('body').classList.add('scroll-lock');
+    // document.querySelector('body').classList.add('scroll-lock');
   // }, [])
   
   return (

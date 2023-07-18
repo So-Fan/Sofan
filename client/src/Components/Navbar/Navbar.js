@@ -40,11 +40,12 @@ const Navbar = ({
   const navigate = useNavigate();
 
   function handleSignInButtonClick() {
-    navigate('/login');
+    navigate('/login'); // redirect to signin popup
   }
 
   function handleSignUpButtonClick() {
     setIsSignInButtonClicked(true);
+    document.querySelector('body').classList.add('scroll-lock');
   }
   useEffect(() => {
     window.addEventListener(
@@ -53,8 +54,7 @@ const Navbar = ({
       false
     );
   }, []);
-  // retirer le scroll lock lorsque le modal n'est plus la
-  document.querySelector("body").classList.remove("scroll-lock");
+
 
   function handleModalSignupUserCropImageClick(e) {
     console.log("handleModalSignupUserCropImageClick est clické ");
