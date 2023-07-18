@@ -25,7 +25,7 @@ import { auth, db, ref, googleProvider } from "../../Configs/firebase";
 import { signInWithPopup } from "firebase/auth";
 import UserContext from "../../UserContext";
 
-function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
+function Signup() {
   //
   const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -479,10 +479,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
             ) : displaySetupProfile ? (
               <>
                 <SetupProfile
-                  setIsModalSignupUserCropImageClicked={
-                    setIsModalSignupUserCropImageClicked
-                  }
-                  preview={preview}
                   handleSetupProfileNextButtonClick={
                     handleSetupProfileNextButtonClick
                   }
@@ -494,7 +490,6 @@ function Signup({ setIsModalSignupUserCropImageClicked, preview }) {
                   }
                   allUserInfo={allUserInfo}
                   setProfileBio={setProfileBio}
-                  ProfileBio={profileBio}
                 />
               </>
             ) : displayConnectWallet ? (

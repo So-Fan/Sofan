@@ -40,6 +40,13 @@
   background: #d9d9d9;
   position: relative;
 }
+.signup-user-setup-profile-banner-container > img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: scale-down;
+}
+
 .signup-user-setup-profile-banner-add-button {
   position: absolute;
   width: 36px;
@@ -85,6 +92,7 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .signup-user-setup-profile-profile-pic-add-button {

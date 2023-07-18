@@ -11,36 +11,27 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-import UserContext from "../../../UserContext";
 
 function SetupProfile({
-  setIsModalSignupUserCropImageClicked,
   preview,
   handleSetupProfileNextButtonClick,
   handleSetupProfileAddLaterClick,
   handleSetupProfilePreviousStep,
   allUserInfo,
   setProfileBio,
-  ProfileBio,
 }) {
-  // const [src, setSrc1] = useState(null);
-  // const [preview, setPreview] = useState(null);
-  const [displayImageCrop, setDisplayImageCrop] = useState(false);
-  const [pixelScrolledPopUpSignupUser, setPixelScrolledPopUpSignupUser] =
-    useState();
   const [bioText, setBioText] = useState("");
   const [bioTextLength, setBioTextLength] = useState(0);
   const [bioTextMaxLengthError, setBioTextMaxLengthError] = useState(false);
   const [bioTextMinimumLengthError, setBioTextMinimumLengthError] =
     useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const [loggedUser, setLoggedUser] = useState(null);
-  const imageRef = useRef(null);
-  const profilePicRef = useRef(null);
   const profileInputPicRef = useRef(null);
 
   const [banner, setBanner] = useState();
   const [previewBanner, setPreviewBanner] = useState()
+
+  const [profile, setProfile] = useState()
+  const [previewProfile, setPreviewProfile] = useState()
 
   const updateBannerPath = async (uid, path) => {
     try {
@@ -103,15 +94,17 @@ function SetupProfile({
     URL.revokeObjectURL(banner)
     setBanner();
   }, [banner])
+  
+  useEffect(() => {
+    if (!profile) return;
+    let tmp = URL.createObjectURL(profile);
+    setPreviewProfile(tmp);
+    URL.revokeObjectURL(profile)
+    setProfile();
+  }, [profile])
+
 
   const handleBannerUpload = async (event) => {
-    // Check if a user is Logged in
-    // const storedUser = localStorage.getItem("loggedInUser");
-    // if (storedUser) {
-    //   const loggedInUser = JSON.parse(storedUser);
-    //   setLoggedUser(loggedInUser);
-    // }
-
     const file = event.target.files[0];
     console.log(file);
     if (file && file.type.substr(0, 5) === "image") {
@@ -130,19 +123,6 @@ function SetupProfile({
           console.log("Uploaded a blob or file!");
         });
 
-        // Get the download URL of the uploaded image
-        //const imageUrl = await imageRef.getDownloadURL();
-
-        // Set the background image using FileReader
-        // Saajeed
-        // const reader = new FileReader();
-        // reader.onloadend = function (e) {
-        //   if (imageRef.current) {
-        //     imageRef.current.style.backgroundImage = `${file}`;
-        //   }
-        // };
-        // reader.readAsDataURL(file);
-        // fin saajeed
         // TODO: Save the image URL to Firestore or perform any additional actions
 
         console.log("Image uploaded successfully!");
@@ -178,7 +158,7 @@ function SetupProfile({
       } catch (error) {
         console.error("Error uploading image:", error);
       }
-
+      setProfile(file)
 
     } else {
       console.log("profile is not an image.");
@@ -188,13 +168,7 @@ function SetupProfile({
   function handleDisplayPreview() {
     profileInputPicRef.current.click();
     console.log("click detecté");
-    //console.log(profilePicRef);
-    setDisplayImageCrop(true);
-    setIsModalSignupUserCropImageClicked(true);
   }
-  const handlePixelScrolledPopUpSignupUser = () => {
-    setPixelScrolledPopUpSignupUser(window.scrollY);
-  };
   const handleBioTextChange = (event) => {
     const text = event.target.value;
     setProfileBio(text);
@@ -208,12 +182,6 @@ function SetupProfile({
       setBioTextMaxLengthError(false);
       setBioTextMinimumLengthError(false);
     }
-  };
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-  const handleBlur = () => {
-    setIsFocused(false);
   };
   function checkProfileCompletion(preview, bioText) {
     const hasBanner = !!preview; // Vérifie si la bannière est présente
@@ -235,32 +203,11 @@ function SetupProfile({
         <div className="signup-user-setup-profile-title">
           Créez votre profil
         </div>
-        <div className="signup-user-setup-profile-banner-and-profile-pic">
-          {previewBanner ? 
-          <div
-          className="signup-user-setup-profile-banner-container"
-          ref={imageRef}
-        >
-          <img src={previewBanner} alt="banner" id="image-upload"/>
-          {/* <input
-            type="file"
-            accept="image/*"
-            onChange={handleBannerUpload}
-            style={{ display: "none" }}
-            id="image-upload"
-          /> */}
-          <label
-            htmlFor="image-upload"
-            className="signup-user-setup-profile-banner-add-button"
-          >
-          <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
-          </label>
-        </div>
-          : 
+        <div className="signup-user-setup-profile-banner-and-profile-pic">   
           <div
             className="signup-user-setup-profile-banner-container"
-            ref={imageRef}
           >
+            {previewBanner && <img src={previewBanner} alt="banner" />}
             <input
               type="file"
               accept="image/*"
@@ -274,16 +221,14 @@ function SetupProfile({
             >
             <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
             </label>
-          </div>}
+          </div>
           <div
             className="signup-user-setup-profile-profile-pic-container"
-            style={{ backgroundImage: `url(${preview})` }}
-            ref={profilePicRef}
           >
-            {preview && (
+            {previewProfile && (
               <>
                 <img
-                  src={preview}
+                  src={previewProfile}
                   className="signup-user-setup-profile-profile-pic"
                   alt=""
                 />
