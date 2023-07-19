@@ -15,7 +15,7 @@ import Web3 from "web3";
 // fin mathéo
 import { getFirestore, getDocs, query, where, collection, addDoc, Timestamp } from "firebase/firestore";
 
-function Login() {
+function Login({web3auth, setWeb3auth}) {
   const { setLoggedInUser } = useContext(UserContext);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
@@ -23,7 +23,6 @@ function Login() {
   const navigate = useNavigate();
 // debut matheo 
 
-const [web3auth, setWeb3auth] = useState(null);
   // const [provider, setProvider] = useState(
   //   null
   // );

@@ -7,7 +7,7 @@ import { reducer, actions, initialState } from "./state";
 function EthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [isWalletConnectClicked, setIsWalletConnectClicked] = useState(false);
+  const [isWalletConnectClicked, setIsWalletConnectClicked] = useState(true);
   const [isInit, setIsInit] = useState(false);
   const [provider, setProvider] = useState(null);
 
@@ -20,17 +20,18 @@ function EthProvider({ children }) {
         }else{
           web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
         }
-        const accounts = await web3.eth.requestAccounts();
+        // const accounts = await web3.eth.requestAccounts();
+        const accounts = await web3.eth.getAccounts();
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
         let address, contract;
         setIsInit(true);
-        try {
-          address = artifact.networks[networkID].address;
-          contract = new web3.eth.Contract(abi, address);
-        } catch (err) {
-          console.error(err);
-        }
+        // try {
+        //   address = artifact.networks[networkID].address;
+        //   contract = new web3.eth.Contract(abi, address);
+        // } catch (err) {
+        //   console.error(err);
+        // }
         dispatch({
           type: actions.init,
           data: { artifact, web3, accounts, networkID, contract }
@@ -52,7 +53,7 @@ function EthProvider({ children }) {
     } else {
       console.log('Not connected');
     }
-  }, [init, isWalletConnectClicked]);
+  }, [init, isWalletConnectClicked, provider]);
 
   useEffect(() => {
     const events = ["chainChanged", "accountsChanged"];

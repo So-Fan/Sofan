@@ -25,7 +25,16 @@ import { auth, db, ref, googleProvider } from "../../Configs/firebase";
 import { signInWithPopup } from "firebase/auth";
 import UserContext from "../../UserContext";
 
-function Signup() {
+// mathéo
+import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { Web3AuthNoModal } from "@web3auth/no-modal";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import useEth from "../../contexts/EthContext/useEth";
+import Web3 from "web3";
+// fin mathéo
+
+function Signup({web3auth, setWeb3auth}) {
   //
   const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -67,6 +76,66 @@ function Signup() {
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
+
+  const [googleIdToken, setGoogleIdToken] = useState()
+  const {
+    state: { contract, accounts, isOwner, isMintOn, mintPrice },
+    isWalletConnectClicked,
+    setIsWalletConnectClicked,
+    setProvider,
+    provider
+  } = useEth();
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
+        const chainConfig = {
+          chainNamespace: CHAIN_NAMESPACES.EIP155,
+          chainId: "0x5", // Please use 0x1 for Mainnet
+          rpcTarget: "https://rpc.ankr.com/eth_goerli",
+          displayName: "Goerli Testnet",
+          blockExplorer: "https://goerli.etherscan.io/",
+          ticker: "ETH",
+          tickerName: "Ethereum",
+        };
+        const web3auth = new Web3AuthNoModal({
+          clientId,
+          chainConfig,
+          web3AuthNetwork: "cyan",
+          useCoreKitKey: false,
+        });
+  
+        const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
+  
+        const openloginAdapter = new OpenloginAdapter({
+          privateKeyProvider,
+          adapterSettings: {
+            uxMode: "popup",
+            loginConfig: {
+              jwt: {
+                verifier: "sofantest2",
+                typeOfLogin: "jwt",
+                clientId,
+              },
+            },
+          },
+        });
+        web3auth.configureAdapter(openloginAdapter);
+        setWeb3auth(web3auth);
+  
+        await web3auth.init();
+        setProvider(web3auth.provider);
+  
+        
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    init();
+  }, []);
+
   function handleEmailChange(event) {
     const emailValue = event.target.value;
     setEmail(emailValue);
@@ -169,6 +238,66 @@ function Signup() {
     element.classList.add("PhoneInputInputOpacity");
   }
 
+  // const signUpWithGoogle = async (e) => {
+  //   e.preventDefault();
+  //   setIsGoogleSignUpClicked(true);
+  //   try {
+  //     const createdAt = new Date();
+  //     // Sign-in process using a popup
+  //     const result = await signInWithPopup(auth, googleProvider);
+  //     const user = result.user;
+  //     const usersRef = collection(db, "users");
+
+  //     // Here you can manage and use the returned user object
+  //     // You could return it, log it, or do something else
+  //     console.log(user);
+
+  //     // Create a new user object using Google sign in details
+  //     const newUser = {
+  //       id: user.uid,
+  //       email: user.email,
+  //       account_created: Timestamp.fromMillis(createdAt.getTime()), // Replace 'user.metadata.creationTime' with appropriate field
+  //       account_type: "free",
+  //       name: user.displayName,
+  //       username: user.displayName.split(" ")[0], // Assuming first name as username
+  //       display_name: user.displayName,
+  //       phone: user.phoneNumber,
+  //       emailVerified: user.emailVerified,
+  //       news: false,
+  //       premium: false,
+  //       profile_avatar: "https://i.imgur.com/cCVIcNS.png",
+  //       profile_banner: "https://i.imgur.com/sJTNEVk.png",
+  //       status: true,
+  //       wallet: [],
+  //     };
+
+  //     setAllUserInfo({
+  //       ...user,
+  //       ...newUser,
+  //     });
+  //     setLoggedInUser(allUserInfo);
+
+  //     console.log(newUser);
+  //     await addDoc(usersRef, newUser);
+  //     setDisplaySetupProfile(true);
+  //     setIsSubmitClicked(true);
+  //     setDisplayConfirmationCode(false);
+  //     setIsFormValid(true);
+  //     return result;
+  //   } catch (error) {
+  //     // Handle Errors here.
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     const email = error.email;
+  //     // The firebase.auth.AuthCredential type that was used.
+  //     const credential = error.credential;
+
+  //     console.log(`Error Code: ${errorCode}`);
+  //     console.error(`Error Message: ${errorMessage}`);
+  //   }
+  // };
+
   const signUpWithGoogle = async (e) => {
     e.preventDefault();
     setIsGoogleSignUpClicked(true);
@@ -199,6 +328,7 @@ function Signup() {
         profile_avatar: "https://i.imgur.com/cCVIcNS.png",
         profile_banner: "https://i.imgur.com/sJTNEVk.png",
         status: true,
+        wallet: [],
       };
 
       setAllUserInfo({
@@ -213,6 +343,8 @@ function Signup() {
       setIsSubmitClicked(true);
       setDisplayConfirmationCode(false);
       setIsFormValid(true);
+      const idToken = await result.user.getIdToken(true);
+      setGoogleIdToken(idToken);
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -226,6 +358,8 @@ function Signup() {
       console.error(`Error Message: ${errorMessage}`);
     }
   };
+
+  
 
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
@@ -499,6 +633,8 @@ function Signup() {
                   handlePreviousStepConnectWallet={
                     handlePreviousStepConnectWallet
                   }
+                  web3auth={web3auth}
+                  googleIdToken={googleIdToken}
                 />
               </>
             ) : displayConfirmWallet ? (

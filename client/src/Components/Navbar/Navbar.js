@@ -23,6 +23,8 @@ const Navbar = ({
   handleNotificationPopup,
   isNotificationButtonClicked,
   setIsNotificationButtonClicked,
+  web3auth,
+  setWeb3auth
 }) => {
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
@@ -82,7 +84,7 @@ const Navbar = ({
                   />
                   <div className="navbar-vertical"></div>
                 </div>
-                <NavProfile userInfo={isLogged} isProfileClicked={isProfileClicked} src={profile} />
+                <NavProfile userInfo={isLogged} isProfileClicked={isProfileClicked} src={profile} web3auth={web3auth} />
               </div>
             ) : (
               <div className="navbar-wrap-2-subwrap-sign">
@@ -120,7 +122,7 @@ const Navbar = ({
           setState={setIsSignInButtonClicked}
           style={{ top: "20px", right: "20px", zIndex: "9999" }}
         >
-          <Signup/>
+          <Signup web3auth={web3auth} setWeb3auth={setWeb3auth} />
         </Modal>
       )}
     </>

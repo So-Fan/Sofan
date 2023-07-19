@@ -12,6 +12,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import CropEasy from "../../CropEasy/CropEasy";
+import Web3 from "web3";
+import useEth from "../../../contexts/EthContext/useEth";
 
 function SetupProfile({
   preview,
