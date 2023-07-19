@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./SetupProfile.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import Img from "../../../Assets/Image/img.svg";
-import { db, storage, ref, uploadBytes } from "../../../Configs/firebase";
+import { db, storage, ref, uploadBytes, getDownloadURL } from "../../../Configs/firebase";
 import {
   collection,
   addDoc,
@@ -11,6 +11,7 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
+import CropEasy from "../../CropEasy/CropEasy";
 
 function SetupProfile({
   preview,
@@ -28,10 +29,12 @@ function SetupProfile({
   const profileInputPicRef = useRef(null);
 
   const [banner, setBanner] = useState();
-  const [previewBanner, setPreviewBanner] = useState()
+  const [previewBanner, setPreviewBanner] = useState();
 
-  const [profile, setProfile] = useState()
-  const [previewProfile, setPreviewProfile] = useState()
+  const [profile, setProfile] = useState();
+  const [previewProfile, setPreviewProfile] = useState();
+
+  const [currentlyCropping, setCurrentlyCropping] = useState(false);
 
   const updateBannerPath = async (uid, path) => {
     try {
@@ -89,20 +92,20 @@ function SetupProfile({
 
   useEffect(() => {
     if (!banner) return;
+    // setCurrentlyCropping(true);
     let tmp = URL.createObjectURL(banner);
     setPreviewBanner(tmp);
     URL.revokeObjectURL(banner)
     setBanner();
-  }, [banner])
-  
+  }, [banner]);
+  // tambouriner le crop easy
   useEffect(() => {
     if (!profile) return;
     let tmp = URL.createObjectURL(profile);
     setPreviewProfile(tmp);
-    URL.revokeObjectURL(profile)
+    URL.revokeObjectURL(profile);
     setProfile();
-  }, [profile])
-
+  }, [profile]);
 
   const handleBannerUpload = async (event) => {
     const file = event.target.files[0];
@@ -117,19 +120,20 @@ function SetupProfile({
           allUserInfo.id
         }#_banner_${createdAt.getTime()}_${file.name}`;
         const imageRef = ref(storage, imagePath);
-        uploadBytes(imageRef, file).then((snapshot) => {
-          updateBannerPath(allUserInfo.id, imagePath);
-          console.log(snapshot);
+        uploadBytes(imageRef, file).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+              updateBannerPath(allUserInfo.id, url);
+          })
           console.log("Uploaded a blob or file!");
         });
-
+          
         // TODO: Save the image URL to Firestore or perform any additional actions
 
         console.log("Image uploaded successfully!");
       } catch (error) {
         console.error("Error uploading image:", error);
       }
-      setBanner(file)
+      setBanner(file);
     } else {
       console.log("File is not an image.");
     }
@@ -140,17 +144,17 @@ function SetupProfile({
     const file = profileInputPicRef.current.files[0];
     // Process the files as needed
     if (file && file.type.substr(0, 5) === "image") {
-
       try {
-        
         //shajeed
         const createdAt = new Date();
         const imagePath = `user_profile/avatars/sofan_user_#${
           allUserInfo.id
         }#_avatar_${createdAt.getTime()}_${file.name}`;
         const imageRef = ref(storage, imagePath);
-        uploadBytes(imageRef, file).then((snapshot) => {
-          updateAvatarPath(allUserInfo.id, imagePath);
+        uploadBytes(imageRef, file).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+            updateAvatarPath(allUserInfo.id, url);
+        })
           console.log("Uploaded a blob or file!");
         });
 
@@ -158,8 +162,7 @@ function SetupProfile({
       } catch (error) {
         console.error("Error uploading image:", error);
       }
-      setProfile(file)
-
+      setProfile(file);
     } else {
       console.log("profile is not an image.");
     }
@@ -189,115 +192,120 @@ function SetupProfile({
     const hasValidBio = bioText.length >= 50 && bioText.length <= 250; // Vérifie si la bio a entre 50 et 250 caractères
     return hasBanner && hasProfilePic && hasValidBio;
   }
-  const isProfileComplete = checkProfileCompletion(preview, bioText);
+  const isProfileComplete = true
+  //  checkProfileCompletion(preview, bioText);
 
   return (
     <>
-      <div className="signup-user-setup-profile-wrap">
-        <div
-          onClick={handleSetupProfilePreviousStep}
-          className="signup-user-setup-profile-previous-step"
-        >
-          <img src={previousArrow} alt="" />
-        </div>
-        <div className="signup-user-setup-profile-title">
-          Créez votre profil
-        </div>
-        <div className="signup-user-setup-profile-banner-and-profile-pic">   
-          <div
-            className="signup-user-setup-profile-banner-container"
-          >
-            {previewBanner && <img src={previewBanner} alt="banner" />}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleBannerUpload}
-              style={{ display: "none" }}
-              id="image-upload"
-            />
-            <label
-              htmlFor="image-upload"
-              className="signup-user-setup-profile-banner-add-button"
-            >
-            <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
-            </label>
+      {/* {currentlyCropping ? (
+        <>
+          <div className="signup-user-setup-profile-cropeasy-container">
+            <CropEasy photoURL={previewBanner} />
           </div>
+        </>
+      ) : ( */}
+        <div className="signup-user-setup-profile-wrap">
           <div
-            className="signup-user-setup-profile-profile-pic-container"
+            onClick={handleSetupProfilePreviousStep}
+            className="signup-user-setup-profile-previous-step"
           >
-            {previewProfile && (
-              <>
-                <img
-                  src={previewProfile}
-                  className="signup-user-setup-profile-profile-pic"
-                  alt=""
-                />
-              </>
-            )}
-            <label
-              htmlFor="profile-pic-upload"
-              className="signup-user-setup-profile-profile-pic-add-button"
-              onClick={handleDisplayPreview}
-            >
-              <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
+            <img src={previousArrow} alt="" />
+          </div>
+          <div className="signup-user-setup-profile-title">
+            Créez votre profil
+          </div>
+          <div className="signup-user-setup-profile-banner-and-profile-pic">
+            <div className="signup-user-setup-profile-banner-container">
+              {previewBanner && <img src={previewBanner} alt="banner" />}
               <input
-                id="fileInput"
-                ref={profileInputPicRef}
                 type="file"
                 accept="image/*"
+                onChange={handleBannerUpload}
                 style={{ display: "none" }}
-                multiple={false}
-                onChange={handleProfileImageInputChange}
+                id="image-upload"
               />
-            </label>
+              <label
+                htmlFor="image-upload"
+                className="signup-user-setup-profile-banner-add-button"
+              >
+                <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
+              </label>
+            </div>
+            <div className="signup-user-setup-profile-profile-pic-container">
+              {previewProfile && (
+                <>
+                  <img
+                    src={previewProfile}
+                    className="signup-user-setup-profile-profile-pic"
+                    alt=""
+                  />
+                </>
+              )}
+              <label
+                htmlFor="profile-pic-upload"
+                className="signup-user-setup-profile-profile-pic-add-button"
+                onClick={handleDisplayPreview}
+              >
+                <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
+                <input
+                  id="fileInput"
+                  ref={profileInputPicRef}
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  multiple={false}
+                  onChange={handleProfileImageInputChange}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="signup-user-setup-profile-bio-title-and-length-limit">
+            <div className="signup-user-setup-profile-bio-title">Bio</div>
+            <div className="signup-user-setup-profile-length-limit">
+              {" "}
+              {bioTextLength}/250
+            </div>
+          </div>
+          <div className="signup-user-setup-profile-bio-container">
+            <textarea
+              className="signup-user-setup-profile-bio"
+              style={bioTextMaxLengthError ? { borderColor: "red" } : {}}
+              name=""
+              value={bioText}
+              onChange={handleBioTextChange}
+            ></textarea>
+            {bioTextMaxLengthError && (
+              <div className="signup-user-setup-profile-bio-error">
+                Votre bio dépasse la limite des 250 charactères maximum.
+              </div>
+            )}
+            {bioTextMinimumLengthError && (
+              <div className="signup-user-setup-profile-bio-error">
+                Votre bio doit faire au moins 50 charactères.
+              </div>
+            )}
+          </div>
+          <button
+            onClick={handleSetupProfileNextButtonClick}
+            className="signup-user-setup-profile-next-button"
+            disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
+          >
+            Suivant
+          </button>
+          <button
+            onClick={handleSetupProfileAddLaterClick}
+            className="signup-user-setup-profile-add-later-button"
+          >
+            Ajouter plus tard
+          </button>
+          <div className="signup-user-setup-profile-progress-bar-container">
+            <div
+              style={{ width: "50%" }}
+              className="signup-user-setup-profile-progress-bar"
+            ></div>
           </div>
         </div>
-        <div className="signup-user-setup-profile-bio-title-and-length-limit">
-          <div className="signup-user-setup-profile-bio-title">Bio</div>
-          <div className="signup-user-setup-profile-length-limit">
-            {" "}
-            {bioTextLength}/250
-          </div>
-        </div>
-        <div className="signup-user-setup-profile-bio-container">
-          <textarea
-            className="signup-user-setup-profile-bio"
-            style={bioTextMaxLengthError ? { borderColor: "red" } : {}}
-            name=""
-            value={bioText}
-            onChange={handleBioTextChange}
-          ></textarea>
-          {bioTextMaxLengthError && (
-            <div className="signup-user-setup-profile-bio-error">
-              Votre bio dépasse la limite des 250 charactères maximum.
-            </div>
-          )}
-          {bioTextMinimumLengthError && (
-            <div className="signup-user-setup-profile-bio-error">
-              Votre bio doit faire au moins 50 charactères.
-            </div>
-          )}
-        </div>
-        <button
-          onClick={handleSetupProfileNextButtonClick}
-          className="signup-user-setup-profile-next-button"
-          disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
-        >
-          Suivant
-        </button>
-        <button
-          onClick={handleSetupProfileAddLaterClick}
-          className="signup-user-setup-profile-add-later-button"
-        >
-          Ajouter plus tard
-        </button>
-        <div className="signup-user-setup-profile-progress-bar-container">
-          <div
-            style={{ width: "50%" }}
-            className="signup-user-setup-profile-progress-bar"
-          ></div>
-        </div>
-      </div>
+      {/* ) */}
     </>
   );
 }

@@ -229,3 +229,16 @@
     /* opacity: 1 !important; */
   }
   
+  .signup-user-setup-profile-cropeasy-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .signup-user-setup-profile-cropeasy-container > div{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+  }
