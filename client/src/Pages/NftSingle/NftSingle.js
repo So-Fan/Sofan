@@ -395,6 +395,8 @@ const NftSingle = () => {
           //
           handleBuyNftButtonClick={handleBuyNftButtonClick}
           handleBidNftButtonClick={handleBidNftButtonClick}
+          isNFTOwner={true} // comparer wallet de la session utilisateur et propriétaire du nft
+          isNFTListed={true} // check listing status on contract
         />
         <div className="nft-single-collection-page-left-container">
           {/* {isSubMenuClicked[0] ? <>
