@@ -255,7 +255,7 @@ function SetupProfile({
                 image={previewBanner}
                 zoom={zoom}
                 crop={crop}
-                aspect={16 / 9}
+                aspect={46 / 11}
                 onCropChange={setCrop}
                 onZoomChange={setZoom}
                 onCropComplete={onCropComplete}
