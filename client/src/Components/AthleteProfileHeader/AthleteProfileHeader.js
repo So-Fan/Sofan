@@ -43,7 +43,7 @@ function AthleteProfileHeader({
       setIsStoredUser(parsedUser?.id === userInfo?.id);
     }
   }, [userInfo]);
-
+  console.log(userInfo)
   return (
     <div className="athleteprofileheader-component">
       <div className="athleteprofileheader-bannerandprofilepicture-wrap">

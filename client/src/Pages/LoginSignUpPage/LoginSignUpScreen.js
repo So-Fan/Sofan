@@ -1,10 +1,10 @@
 import React from "react";
 import LoginSignup from "../../Components/LoginSignUp/LoginSignUp";
 
-function LoginSignUpScreen() {
+function LoginSignUpScreen({web3auth, setWeb3auth}) {
   return (
     <div className="signup-login-form">
-      <LoginSignup />
+      <LoginSignup web3auth={web3auth} setWeb3auth={setWeb3auth} />
     </div>
   );
 }

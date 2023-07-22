@@ -4,7 +4,7 @@ import OverlayMessage from "./OverlayMessage";
 import SignUp from "./SignUp";
 import "./LoginSignUp.css";
 
-function LoginSignUp() {
+function LoginSignUp({web3auth, setWeb3auth}) {
   const [activeButton, setActiveButton] = useState(null);
   const containerClassName =
     activeButton === "register" ? "right-panel-active" : "";
@@ -19,7 +19,7 @@ function LoginSignUp() {
       className={`forms-container ${containerClassName}`}
     >
       <SignUp />
-      <Login />
+      <Login web3auth={web3auth} setWeb3auth={setWeb3auth} />
       <OverlayMessage
         onClickLogin={() => handleButtonClick("login")}
         onClickRegister={() => handleButtonClick("register")}

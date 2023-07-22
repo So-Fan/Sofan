@@ -18,6 +18,8 @@ import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopU
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { useParams } from "react-router-dom";
+import { getStorage, ref, getMetadata } from "firebase/storage";
+
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -69,6 +71,8 @@ const AthleteProfilePage = ({
         console.log("No user found");
       }
     };
+
+
 
     fetchData();
   }, [id]);
@@ -809,7 +813,7 @@ const AthleteProfilePage = ({
       <div className="athleteprofilepage-component">
         {/* <div className="athleteprofilepage-wrap"> */}
           <AthleteProfileHeader
-            userInfo={!userInfo ? dataConcat?.userPageInfo : userInfo}
+            userInfo={userInfo}
             fansCounterApi={fansCounterApi}
             setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
             handleAthleteFollowersClick={handleAthleteFollowersClick}

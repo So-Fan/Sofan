@@ -21,7 +21,7 @@ import UserContext from "./UserContext";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  
+  const [web3auth, setWeb3auth] = useState(null);
 
   
   useEffect(() => {
@@ -156,6 +156,8 @@ function App() {
               setIsNotificationButtonClicked={setIsNotificationButtonClicked}
               isProfileClicked={isProfileClicked}
               isLogged={loggedInUser}
+              web3auth={web3auth}
+              setWeb3auth={setWeb3auth}
             />
 
             <Routes>
@@ -217,7 +219,7 @@ function App() {
               <Route path="signupathlete" element={<SignUpAthletePage />} />
               <Route path="/test" element={<Test />} />
               <Route path="/testsecondary" element={<TestSecondary />} />
-              <Route path="/login" element={<LoginSignUpScreen />} />
+              <Route path="/login" element={<LoginSignUpScreen web3auth={web3auth} setWeb3auth={setWeb3auth} />} />
               <Route
                 path="/collectionlive"
                 element={<LaunchpadCollectionLive />}

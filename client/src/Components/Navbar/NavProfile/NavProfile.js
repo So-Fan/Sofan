@@ -4,12 +4,21 @@ import {Link} from "react-router-dom"
 import { auth } from "../../../Configs/firebase";
 import { signOut } from 'firebase/auth';
 import UserContext from '../../../UserContext';
+import useEth from "../../../contexts/EthContext/useEth";
 
 
-const NavProfile = ({ isProfileClicked, src, userInfo = null }) => {
+const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
   const { setLoggedInUser } = useContext(UserContext);
+  const {
+    state: { contract, accounts, isOwner, isMintOn, mintPrice },
+    isWalletConnectClicked,
+    setIsWalletConnectClicked,
+    setProvider,
+    provider
+  } = useEth();
 
-  const handleSignOut = () => {
+  const handleSignOut = async() => {
+    setProvider(null)
     signOut(auth)
       .then(() => {
         setLoggedInUser(null);
@@ -18,6 +27,8 @@ const NavProfile = ({ isProfileClicked, src, userInfo = null }) => {
       .catch((error) => {
         console.log(error);
       });
+      if(!web3auth) return;
+    await web3auth.logout();
   };
 
   return (

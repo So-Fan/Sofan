@@ -17,12 +17,13 @@
 .modal-component-wrap{
     animation: bounceIn 400ms both;
 }
-.modal-component-wrap img {
-    cursor: pointer;
-    z-index: 2;
-}
+/* .modal-component-wrap img {
+    
+} */
 #modal-component-cross{
     position: absolute;
+    cursor: pointer;
+    z-index: 2;
 }
 @keyframes bounceIn {
     0% {

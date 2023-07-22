@@ -1,11 +1,54 @@
 import React from "react";
 import "./ConnectWallet.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
+import {
+  WALLET_ADAPTERS,
+  CHAIN_NAMESPACES,
+  SafeEventEmitterProvider,
+} from "@web3auth/base";
+import useEth from "../../../contexts/EthContext/useEth";
+import Web3 from "web3";
+function ConnectWallet({
+  handleConnectWalletClick,
+  handlePreviousStepConnectWallet,
+  web3auth,
+  googleIdToken,
+}) {
+  const { setProvider } = useEth();
 
-function ConnectWallet({handleConnectWalletClick, handlePreviousStepConnectWallet}) {
+  const handleCreateWallet = async (e) => {
+    e.preventDefault();
+    if (!web3auth) {
+      console.log("web3auth not initialized yet");
+      return;
+    }
+
+    const web3authProvider = await web3auth.connectTo(
+      WALLET_ADAPTERS.OPENLOGIN,
+      {
+        loginProvider: "jwt",
+        extraLoginOptions: {
+          id_token: googleIdToken,
+          verifierIdField: "sub",
+          domain: "http://localhost:3000",
+        },
+      }
+    );
+    setProvider(web3authProvider);
+    const web3 = new Web3(web3authProvider);
+    const accounts = await web3.eth.getAccounts();
+    console.log(accounts);
+
+    // construct backend here
+
+    //End backend
+  };
   return (
     <div className="signup-user-connect-wallet-wrap">
-      <div onClick={handlePreviousStepConnectWallet} className="signup-user-connect-wallet-previous-step">
+      <div
+        onClick={handlePreviousStepConnectWallet}
+        className="signup-user-connect-wallet-previous-step"
+      >
         <img src={previousArrow} alt="Etape précédente" />
       </div>
       <div className="signup-user-connect-wallet-title">
@@ -46,7 +89,10 @@ function ConnectWallet({handleConnectWalletClick, handlePreviousStepConnectWalle
           </div>
         </div>
       </div>
-      <button onClick={handleConnectWalletClick} className="signup-user-connect-wallet-next-button">
+      <button
+        onClick={handleConnectWalletClick}
+        className="signup-user-connect-wallet-next-button"
+      >
         Suivant
       </button>
       <div className=" "></div>
@@ -62,7 +108,10 @@ function ConnectWallet({handleConnectWalletClick, handlePreviousStepConnectWalle
             alt=""
           />
         </div>
-        <div className="signup-user-connect-wallet-button-title">
+        <div
+          className="signup-user-connect-wallet-button-title"
+          onClick={handleCreateWallet}
+        >
           Créer mon wallet
         </div>
       </button>
