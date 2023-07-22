@@ -210,7 +210,7 @@ function SetupProfile({
     const hasValidBio = bioText.length >= 50 && bioText.length <= 250; // Vérifie si la bio a entre 50 et 250 caractères
     return hasBanner && hasProfilePic && hasValidBio;
   }
-  const isProfileComplete = true;
+  const isProfileComplete = true; // Faire une fonction qui trigger l'upload et qui return true 
   //  checkProfileCompletion(preview, bioText);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
