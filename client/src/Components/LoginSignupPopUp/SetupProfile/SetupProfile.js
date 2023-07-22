@@ -45,10 +45,12 @@ function SetupProfile({
   const [previewProfile, setPreviewProfile] = useState();
 
   const [currentlyCroppingBanner, setCurrentlyCroppingBanner] = useState(false);
+  const [currentlyCroppingAvatar, setCurrentlyCroppingAvatar] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState();
   const [croppedBanner, setCroppedBanner] = useState();
+  const [croppedAvatar, setCroppedAvatar] = useState();
 
   const updateBannerPath = async (uid, path) => {
     try {
@@ -118,6 +120,7 @@ function SetupProfile({
     if (!profile) return;
     let tmp = URL.createObjectURL(profile);
     setPreviewProfile(tmp);
+    setCurrentlyCroppingAvatar(true);
     URL.revokeObjectURL(profile);
     setProfile();
   }, [profile]);
@@ -222,10 +225,25 @@ function SetupProfile({
       );
       console.log("donee", { croppedImage });
       setCroppedBanner(croppedImage);
+      setCurrentlyCroppingBanner(false);
     } catch (e) {
       console.error(e);
     }
   }, [previewBanner, croppedAreaPixels]);
+
+  const showCroppedAvatar = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        previewProfile,
+        croppedAreaPixels
+      );
+      console.log("donee", { croppedImage });
+      setCroppedAvatar(croppedImage);
+      setCurrentlyCroppingAvatar(false);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [previewProfile, croppedAreaPixels]);
 
   return (
     <>
@@ -258,6 +276,41 @@ function SetupProfile({
               />
               <button onClick={showCroppedBanner}>Show results</button>
             </div>
+            {/* <div className="result"><img src={croppedBanner} alt="" /></div> */}
+          </div>
+        </>
+      ) : currentlyCroppingAvatar ? (
+        <>
+          <div className="signup-user-setup-profile-cropeasy-container">
+            <div className="signup-user-setup-profile-cropeasy-container-wrap">
+              <Cropper
+                image={previewProfile}
+                zoom={zoom}
+                crop={crop}
+                cropShape="round"
+                showGrid={false}
+                aspect={1}
+                onCropChange={setCrop}
+                onZoomChange={setZoom}
+                onCropComplete={onCropComplete}
+              />
+            </div>
+            <div className="controls">
+              <input
+                type="range"
+                value={zoom}
+                min={1}
+                max={3}
+                step={0.1}
+                aria-labelledby="Zoom"
+                onChange={(e) => {
+                  setZoom(e.target.value);
+                }}
+                className="zoom-range"
+              />
+              <button onClick={showCroppedAvatar}>Show results</button>
+            </div>
+            {/* <div className="result"><img src={croppedAvatar} alt="" /></div> */}
           </div>
         </>
       ) : (
@@ -289,10 +342,10 @@ function SetupProfile({
               </label>
             </div>
             <div className="signup-user-setup-profile-profile-pic-container">
-              {previewProfile && (
+              {croppedAvatar && (
                 <>
                   <img
-                    src={previewProfile}
+                    src={croppedAvatar}
                     className="signup-user-setup-profile-profile-pic"
                     alt=""
                   />
