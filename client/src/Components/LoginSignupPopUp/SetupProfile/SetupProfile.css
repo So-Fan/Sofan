@@ -40,7 +40,7 @@
   background: #d9d9d9;
   position: relative;
 }
-.signup-user-setup-profile-banner-container > img{
+.signup-user-setup-profile-banner-container > img {
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -171,74 +171,83 @@
   height: 56px;
   width: 100%;
   border-radius: 10px;
-  background: #F6D463;
+  background: #f6d463;
   font-size: 20px;
   font-family: "britanica-heavy";
   margin-top: 40px;
   cursor: pointer;
 }
 
-.signup-user-setup-profile-next-button:hover{
-    background-color: #f7c520 !important;
-    transition-duration: 300ms;
+.signup-user-setup-profile-next-button:hover {
+  background-color: #f7c520 !important;
+  transition-duration: 300ms;
 }
-.signup-user-setup-profile-next-button:active{
-   transform: scale(0.85);
+.signup-user-setup-profile-next-button:active {
+  transform: scale(0.85);
 }
-.signup-user-setup-profile-add-later-button{
-    background: none;
-    margin: 0;
-    padding: 0;
-    border: none;
-    height: 56px;
-    width: 100%;
-    border-radius: 10px;
-    background: white;
-    border: 1px solid #000000;
-    font-size: 20px;
-    font-family: "britanica-heavy";
-    margin-top: 20px;
-    cursor: pointer;
+.signup-user-setup-profile-add-later-button {
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 56px;
+  width: 100%;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #000000;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  margin-top: 20px;
+  cursor: pointer;
 }
-.signup-user-setup-profile-add-later-button:hover{
-    background-color: #00000015;
-    transition-duration: 300ms !important;
+.signup-user-setup-profile-add-later-button:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
 }
-.signup-user-setup-profile-add-later-button:active{
-    transform: scale(0.85);
+.signup-user-setup-profile-add-later-button:active {
+  transform: scale(0.85);
 }
 .signup-user-setup-profile-next-button:disabled {
-    pointer-events: none; 
-    opacity: 0.5; 
-  }
-  .signup-user-setup-profile-progress-bar-container {
-    width: 100%;
-    height: 10px;
-    /* opacity: 0.2; */
-    border-radius: 40px;
-    margin-top: 20px;
-    background: #85d87e67;
-    z-index: 2 !important;
-  }
-  .signup-user-setup-profile-progress-bar {
-    height: 100%;
-    /* width: 25%; */
-    border-radius: 40px;
-    background: #85d87e;
-    z-index: 10 !important;
-    /* opacity: 1 !important; */
-  }
-  
-  .signup-user-setup-profile-cropeasy-container{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-  .signup-user-setup-profile-cropeasy-container > div{
-    position: absolute;
-    width: 200px;
-    height: 200px;
-  }
+  pointer-events: none;
+  opacity: 0.5;
+}
+.signup-user-setup-profile-progress-bar-container {
+  width: 100%;
+  height: 10px;
+  /* opacity: 0.2; */
+  border-radius: 40px;
+  margin-top: 20px;
+  background: #85d87e67;
+  z-index: 2 !important;
+}
+.signup-user-setup-profile-progress-bar {
+  height: 100%;
+  /* width: 25%; */
+  border-radius: 40px;
+  background: #85d87e;
+  z-index: 10 !important;
+  /* opacity: 1 !important; */
+}
+
+.signup-user-setup-profile-cropeasy-container {
+  width: 460px;
+  height: 589px;
+}
+.signup-user-setup-profile-cropeasy-container-wrap{
+  position: relative;
+  width: 100%;
+  height: 489px;
+}
+
+.controls {
+  width: 50%;
+  background-color: red;
+}
+
+.result{
+  position: absolute;
+  /* background-color: dimgray; */
+  top: 95px;
+  width: 400px;
+  height: 300px;
+}

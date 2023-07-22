@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./SetupProfile.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import Img from "../../../Assets/Image/img.svg";
-import { db, storage, ref, uploadBytes, getDownloadURL } from "../../../Configs/firebase";
+import {
+  db,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "../../../Configs/firebase";
 import {
   collection,
   addDoc,
@@ -14,6 +20,8 @@ import {
 import CropEasy from "../../CropEasy/CropEasy";
 import Web3 from "web3";
 import useEth from "../../../contexts/EthContext/useEth";
+import Cropper from "react-easy-crop";
+import { getCroppedImg } from "./CanvasUtils";
 
 function SetupProfile({
   preview,
@@ -36,7 +44,11 @@ function SetupProfile({
   const [profile, setProfile] = useState();
   const [previewProfile, setPreviewProfile] = useState();
 
-  const [currentlyCropping, setCurrentlyCropping] = useState(false);
+  const [currentlyCroppingBanner, setCurrentlyCroppingBanner] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState();
+  const [croppedBanner, setCroppedBanner] = useState();
 
   const updateBannerPath = async (uid, path) => {
     try {
@@ -97,7 +109,8 @@ function SetupProfile({
     // setCurrentlyCropping(true);
     let tmp = URL.createObjectURL(banner);
     setPreviewBanner(tmp);
-    URL.revokeObjectURL(banner)
+    setCurrentlyCroppingBanner(true);
+    URL.revokeObjectURL(banner);
     setBanner();
   }, [banner]);
   // tambouriner le crop easy
@@ -124,11 +137,11 @@ function SetupProfile({
         const imageRef = ref(storage, imagePath);
         uploadBytes(imageRef, file).then(() => {
           getDownloadURL(ref(storage, imagePath)).then((url) => {
-              updateBannerPath(allUserInfo.id, url);
-          })
+            updateBannerPath(allUserInfo.id, url);
+          });
           console.log("Uploaded a blob or file!");
         });
-          
+
         // TODO: Save the image URL to Firestore or perform any additional actions
 
         console.log("Image uploaded successfully!");
@@ -156,7 +169,7 @@ function SetupProfile({
         uploadBytes(imageRef, file).then(() => {
           getDownloadURL(ref(storage, imagePath)).then((url) => {
             updateAvatarPath(allUserInfo.id, url);
-        })
+          });
           console.log("Uploaded a blob or file!");
         });
 
@@ -194,18 +207,60 @@ function SetupProfile({
     const hasValidBio = bioText.length >= 50 && bioText.length <= 250; // Vérifie si la bio a entre 50 et 250 caractères
     return hasBanner && hasProfilePic && hasValidBio;
   }
-  const isProfileComplete = true
+  const isProfileComplete = true;
   //  checkProfileCompletion(preview, bioText);
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const showCroppedBanner = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        previewBanner,
+        croppedAreaPixels
+      );
+      console.log("donee", { croppedImage });
+      setCroppedBanner(croppedImage);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [previewBanner, croppedAreaPixels]);
 
   return (
     <>
-      {/* {currentlyCropping ? (
+      {currentlyCroppingBanner ? (
         <>
           <div className="signup-user-setup-profile-cropeasy-container">
-            <CropEasy photoURL={previewBanner} />
+            <div className="signup-user-setup-profile-cropeasy-container-wrap">
+              <Cropper
+                image={previewBanner}
+                zoom={zoom}
+                crop={crop}
+                aspect={16 / 9}
+                onCropChange={setCrop}
+                onZoomChange={setZoom}
+                onCropComplete={onCropComplete}
+              />
+            </div>
+            <div className="controls">
+              <input
+                type="range"
+                value={zoom}
+                min={1}
+                max={3}
+                step={0.1}
+                aria-labelledby="Zoom"
+                onChange={(e) => {
+                  setZoom(e.target.value);
+                }}
+                className="zoom-range"
+              />
+              <button onClick={showCroppedBanner}>Show results</button>
+            </div>
           </div>
         </>
-      ) : ( */}
+      ) : (
         <div className="signup-user-setup-profile-wrap">
           <div
             onClick={handleSetupProfilePreviousStep}
@@ -218,7 +273,7 @@ function SetupProfile({
           </div>
           <div className="signup-user-setup-profile-banner-and-profile-pic">
             <div className="signup-user-setup-profile-banner-container">
-              {previewBanner && <img src={previewBanner} alt="banner" />}
+              {croppedBanner && <img src={croppedBanner} alt="banner" />}
               <input
                 type="file"
                 accept="image/*"
@@ -307,7 +362,7 @@ function SetupProfile({
             ></div>
           </div>
         </div>
-      {/* ) */}
+      )}
     </>
   );
 }

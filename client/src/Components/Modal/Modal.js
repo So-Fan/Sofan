@@ -26,7 +26,7 @@ const Modal = (props) => {
   return (
     <div id="modal-component" 
     style={{marginTop: props.dynamicPositionPopUpMargin}}
-    onClick={handleModalClick}>
+    onMouseDown={handleModalClick}>
       <div className="modal-component-wrap">
         <img id="modal-component-cross" src={props.color ? CrossWhite : CrossBlack} alt="cross" style={props.style} />
         {props.children}
