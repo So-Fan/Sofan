@@ -50,11 +50,10 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
         }}
       > */}
       {/* <Modal> */}
-      <div>
         <Cropper
           image={photoURL}
           crop={crop}
-          zoom={1}
+          zoom={2}
           rotation={rotation}
           aspect={4/3}
           onZoomChange={setZoom}
@@ -62,7 +61,6 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
           onCropChange={setCrop}
           onCropComplete={cropComplete}
         />
-      </div>
       {/* </Modal> */}
       {/* </DialogContent> */}
       {/* <DialogActions sx={{ flexDirection: 'column', mx: 3, my: 2 }}>
