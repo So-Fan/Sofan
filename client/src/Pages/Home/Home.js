@@ -297,6 +297,8 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
     getEvents();
   }, []);
 
+  console.log(feedPost);
+
   // function displayFullPagePost() {
   //   return (
   //     <>
