@@ -16,6 +16,8 @@ import { v4 as uuidv4 } from "uuid";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
+import { db } from "../../Configs/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificationPopup, setIsNotificationButtonClicked, isNotificationButtonClicked }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
@@ -282,6 +284,19 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
     }
     setData(dataBackend);
   }, [setData]);
+
+  const [feedPost, setFeedPost] = useState([]);
+  const feedPostCollectionRef = collection(db, "feed_post");
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const data = await getDocs(feedPostCollectionRef);
+      setFeedPost(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getEvents();
+  }, []);
+
   // function displayFullPagePost() {
   //   return (
   //     <>
