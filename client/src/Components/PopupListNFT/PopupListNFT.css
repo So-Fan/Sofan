@@ -12,7 +12,6 @@
   width: 468px;
   height: 431px;
   margin-top: 23px;
-  background-color: red;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -54,4 +53,9 @@
   font-family: "britanica-black" !important;
   font-size: 19px !important;
   letter-spacing: -0.285px !important;
+}
+.popuplistnft-container-line{
+  border-top: solid 1px black;
+  width: 100%;
+  height: 1px;
 }

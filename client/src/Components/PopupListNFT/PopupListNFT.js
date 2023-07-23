@@ -22,7 +22,7 @@ const PopupListNFT = () => {
             </div>
           </div>
         </div>
-        <div></div>
+        <div className="popuplistnft-container-line"></div>
         <div>
           <input type="number" />
           <div>
@@ -30,7 +30,7 @@ const PopupListNFT = () => {
             <img src="" alt="arrow bottom" />
           </div>
         </div>
-        <div></div>
+        <div className="popuplistnft-container-line"></div>
         <div>
           <span>Service fee 5% </span>
           <div>
