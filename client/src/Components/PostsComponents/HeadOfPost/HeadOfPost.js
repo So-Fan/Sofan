@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
@@ -18,11 +18,15 @@ function HeadOfPost({
   postDateType,
   postType,
 }) {
+  // const [isPostTypePremium, setIsPostTypePremium] = useState([
+  //   postType
+  // ]);
+
   const athleteName = "Romain Attanasio"; // reçu du backend
 
   const redirectToAthleteProfile = () => {
     window.location.href = "/athleteprofile";
-  };
+  };  
 
   return (
     <div className="publication-head-container">
@@ -49,7 +53,7 @@ function HeadOfPost({
         className={`publication-head-right-container ${headOfPostSizeRight}`}
       >
         {/* Backend here si contenu PREMIUM ou FREE */}
-        <div
+        <div style={postType == "Premium" ? {} : {visibility: "hidden"}}
           className={`publication-type ${publicationTypeHeadOfPostPollPost}`}
         >
           {postType}
