@@ -40,7 +40,9 @@ function PostsFeed({
   pollThirdChoiceNumber,
   pollFourthChoiceNumber,
   athleteProfilePageStyling,
+  setPostStates
 }) {
+  
   function handleClickShowComment(e) {
     e.preventDefault();
     setIsPostClicked(true);
@@ -90,6 +92,7 @@ function PostsFeed({
           {isDropdownClicked && <DropDownMenu />}
           <div className="publication-head-container">
             <HeadOfPost
+            setPostStates={setPostStates}
               postName={postName}
               //
               dropDownMenuSize="dropdown-button-point-size-M"
