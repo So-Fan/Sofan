@@ -326,7 +326,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
-
+  const [postStates, setPostStates] = useState({});
   return (
     <>
       <section className="home-component">
