@@ -23,7 +23,6 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [web3auth, setWeb3auth] = useState(null);
 
-  
   useEffect(() => {
     // Check if user data exists in localStorage
     const storedUser = localStorage.getItem("loggedInUser");
@@ -165,6 +164,7 @@ function App() {
                 index
                 element={
                   <Home
+                    loggedInUser={loggedInUser}
                     isDropDownButtonClicked={isDropDownButtonClicked}
                     setIsDropDownButtonClicked={setIsDropDownButtonClicked}
                     data={data}
@@ -219,7 +219,15 @@ function App() {
               <Route path="signupathlete" element={<SignUpAthletePage />} />
               <Route path="/test" element={<Test />} />
               <Route path="/testsecondary" element={<TestSecondary />} />
-              <Route path="/login" element={<LoginSignUpScreen web3auth={web3auth} setWeb3auth={setWeb3auth} />} />
+              <Route
+                path="/login"
+                element={
+                  <LoginSignUpScreen
+                    web3auth={web3auth}
+                    setWeb3auth={setWeb3auth}
+                  />
+                }
+              />
               <Route
                 path="/collectionlive"
                 element={<LaunchpadCollectionLive />}

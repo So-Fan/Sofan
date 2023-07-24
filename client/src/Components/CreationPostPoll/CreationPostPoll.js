@@ -4,7 +4,7 @@ import PostPoll from "./PostPoll/PostPoll";
 import { db, storage, ref, uploadBytes } from "../../Configs/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
-const CreationPostPoll = () => {
+const CreationPostPoll = ({userId}) => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState({});
   const [isFile, setIsFile] = useState(0);
@@ -39,6 +39,7 @@ const CreationPostPoll = () => {
 
       // Create a new post object to upload to Firestore
       const post = {
+        userId,
         text,
         visibility:
           isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
