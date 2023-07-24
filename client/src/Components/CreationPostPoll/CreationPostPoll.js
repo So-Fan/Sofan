@@ -41,7 +41,7 @@ const CreationPostPoll = () => {
       const post = {
         text,
         visibility:
-          isVisibilityClicked[0].backgroundColor === "#F6D463" ? "fans" : "all",
+          isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
         createdAt,
         imagePath: image.name ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}` : null,
         postType,
