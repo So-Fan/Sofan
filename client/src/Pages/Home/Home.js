@@ -19,7 +19,7 @@ import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/Notific
 import { db } from "../../Configs/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificationPopup, setIsNotificationButtonClicked, isNotificationButtonClicked }) {
+function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, handleNotificationPopup, setIsNotificationButtonClicked, isNotificationButtonClicked }) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
@@ -424,7 +424,9 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
           setState={setIsCreatePostButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <CreationPostPoll />
+          <CreationPostPoll
+          userId={loggedInUser.id}
+          />
         </Modal>
       )}
       {isPostClicked && (
