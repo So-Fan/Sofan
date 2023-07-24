@@ -26,7 +26,11 @@ import { signInWithPopup } from "firebase/auth";
 import UserContext from "../../UserContext";
 
 // mathéo
-import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import {
+  WALLET_ADAPTERS,
+  CHAIN_NAMESPACES,
+  SafeEventEmitterProvider,
+} from "@web3auth/base";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
@@ -34,7 +38,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
 // fin mathéo
 
-function Signup({web3auth, setWeb3auth}) {
+function Signup({ web3auth, setWeb3auth }) {
   //
   const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -77,13 +81,13 @@ function Signup({web3auth, setWeb3auth}) {
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
 
-  const [googleIdToken, setGoogleIdToken] = useState()
+  const [googleIdToken, setGoogleIdToken] = useState();
   const {
     state: { contract, accounts, isOwner, isMintOn, mintPrice },
     isWalletConnectClicked,
     setIsWalletConnectClicked,
     setProvider,
-    provider
+    provider,
   } = useEth();
 
   useEffect(() => {
@@ -105,9 +109,11 @@ function Signup({web3auth, setWeb3auth}) {
           web3AuthNetwork: "cyan",
           useCoreKitKey: false,
         });
-  
-        const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
-  
+
+        const privateKeyProvider = new EthereumPrivateKeyProvider({
+          config: { chainConfig },
+        });
+
         const openloginAdapter = new OpenloginAdapter({
           privateKeyProvider,
           adapterSettings: {
@@ -123,16 +129,14 @@ function Signup({web3auth, setWeb3auth}) {
         });
         web3auth.configureAdapter(openloginAdapter);
         setWeb3auth(web3auth);
-  
+
         await web3auth.init();
         setProvider(web3auth.provider);
-  
-        
       } catch (error) {
         console.error(error);
       }
     };
-  
+
     init();
   }, []);
 
@@ -358,8 +362,6 @@ function Signup({web3auth, setWeb3auth}) {
       console.error(`Error Message: ${errorMessage}`);
     }
   };
-
-  
 
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
