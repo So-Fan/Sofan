@@ -189,6 +189,18 @@
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
   border-radius: 13.5142px;
 }
+.nft-collection-header-buy-module-container-owner{
+  width: 100%;
+  height: 100%;
+  max-width: 576px;
+  max-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 13.5142px;
+}
 .nft-collection-header-buy-module-wrap {
   width: 100%;
   height: 100%;
@@ -203,6 +215,15 @@
   display: flex;
   justify-content: space-between;
   /* background-color: rgba(25, 25, 112, 0.274); */
+}
+.nft-collection-header-price-and-bid-container-owner {
+  width: 100%;
+  height: 100%;
+  max-height: 109px;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: rgba(25, 25, 112, 0.274); */
+  margin-top: 17px;
 }
 .nft-collection-header-price-container {
   width: 100%;

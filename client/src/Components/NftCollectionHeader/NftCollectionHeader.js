@@ -36,6 +36,8 @@ function NftCollectionHeader({
   handleBidNftButtonClick,
   //
   handleMintButtonClick,
+  isNFTOwner,
+  isNFTListed
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
 
@@ -186,9 +188,9 @@ function NftCollectionHeader({
               </div>
             </div>
             <div className="nft-collection-header-line-separation"></div>
-            <div className="nft-collection-header-buy-module-container">
+            <div className={isNFTOwner ? "nft-collection-header-buy-module-container-owner" : "nft-collection-header-buy-module-container"}>
               <div className="nft-collection-header-buy-module-wrap">
-                <div className="nft-collection-header-price-and-bid-container">
+                <div className={isNFTOwner ? "nft-collection-header-price-and-bid-container-owner" : "nft-collection-header-price-and-bid-container"}>
                   <div className="nft-collection-header-price-container">
                     <div className="nft-collection-header-price-wrap">
                       <span className="nft-collection-header-title-price">
@@ -205,7 +207,7 @@ function NftCollectionHeader({
                   <div className="nft-collection-header-bid-container">
                     <div className="nft-collection-header-bid-wrap">
                       <span className="nft-collection-header-title-bid">
-                        Offre la plus élevée
+                        Meilleur offre
                       </span>
                       <span className="nft-collection-header-eth-bid">
                         {ethBidPriceConverted} €
@@ -217,18 +219,43 @@ function NftCollectionHeader({
                   </div>
                 </div>
                 <div className="nft-collection-header-buttons-container">
+                  {isNFTOwner && isNFTListed ?
+                  <>
                   <div
                     className="nft-collection-header-buy-button"
                     onClick={handleBuyNftButtonClick}
-                  >
+                    >
+                    Annuler
+                  </div>
+                  </> 
+                  :
+
+                  isNFTOwner && !isNFTListed ?
+                  <>
+                  <div
+                    className="nft-collection-header-buy-button"
+                    onClick={handleBuyNftButtonClick}
+                    >
+                    Mettre en vente
+                  </div>
+                  
+                  </>
+                  :
+                  <>
+                  <div
+                    className="nft-collection-header-buy-button"
+                    onClick={handleBuyNftButtonClick}
+                    >
                     Acheter le NFT
                   </div>
                   <div
                     className="nft-collection-header-bid-button"
                     onClick={handleBidNftButtonClick}
-                  >
+                    >
                     Placer une offre
                   </div>
+                    </>
+                  }
                 </div>
               </div>
             </div>
