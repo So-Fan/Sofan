@@ -23,6 +23,7 @@ import {
 import { auth, db, ref, googleProvider } from "../../Configs/firebase";
 
 import { signInWithPopup } from "firebase/auth";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import UserContext from "../../UserContext";
 
 // mathéo
@@ -341,8 +342,19 @@ function Signup({ web3auth, setWeb3auth }) {
       });
       setLoggedInUser(allUserInfo);
 
-      console.log(newUser);
-      await addDoc(usersRef, newUser);
+      //console.log(newUser);
+      const userDocRef = doc(usersRef, user.uid);
+      const userDoc = await getDoc(userDocRef);
+      const userExists = userDoc.exists();
+
+      if (!userExists) {
+        // User does not exist in Firestore, so add the document
+        await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+      } else {
+        console.log("User already exists in Firestore:", userDoc.data());
+      }
+
+      //await addDoc(usersRef, newUser);
       setDisplaySetupProfile(true);
       setIsSubmitClicked(true);
       setDisplayConfirmationCode(false);
@@ -416,7 +428,20 @@ function Signup({ web3auth, setWeb3auth }) {
                 code: generateVerificationCode(),
                 created_At: Timestamp.fromMillis(createdAt.getTime()),
               };
-              await addDoc(usersRef, newUser);
+              const userDocRef = doc(usersRef, user.uid);
+              const userDoc = await getDoc(userDocRef);
+              const userExists = userDoc.exists();
+
+              if (!userExists) {
+                // User does not exist in Firestore, so add the document
+                await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+              } else {
+                console.log(
+                  "User with email and pass already exists in Firestore:",
+                  userDoc.data()
+                );
+              }
+              //await addDoc(usersRef, newUser);
               await addDoc(emailValidRef, validationData);
             })
             .catch((error) => {
