@@ -183,7 +183,7 @@ useEffect(() => {
       }
   };
 
-  const login = async (e) => {
+  const googleLogin = async (e) => {
     e.preventDefault();
     if (!web3auth) {
       console.log("web3auth not initialized yet");
@@ -249,7 +249,7 @@ useEffect(() => {
         <span>ou utilisez votre compte</span>
         <div className="social-container">
           {/* <button onClick={(e) => handleGoogleSignIn(e)} className="social"> */}
-          <button onClick={(e) => login(e)} className="social">
+          <button onClick={(e) => googleLogin(e)} className="social">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f"
               alt="google logo"
