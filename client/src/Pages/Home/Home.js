@@ -294,7 +294,7 @@ function Home({
       // console.log(lockPremiumContent);
     }
     // setData(dataBackend);
-    setData(feedPost);
+    // setData(feedPost);
   }, [setData]);
 
   const [feedPost, setFeedPost] = useState([]);
@@ -304,7 +304,8 @@ function Home({
     setIsLoading(true);
     const getEvents = async () => {
       const data = await getDocs(feedPostCollectionRef);
-      setFeedPost(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const feedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setData(feedData);
       setIsLoading(false);
     };
 

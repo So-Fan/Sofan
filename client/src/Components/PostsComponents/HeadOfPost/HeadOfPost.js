@@ -3,6 +3,7 @@ import "./HeadOfPost.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
 import { formatDistanceToNow } from 'date-fns'
+import { fr } from 'date-fns/locale';
 
 function HeadOfPost({
   dropDownMenuSize,
@@ -28,6 +29,11 @@ function HeadOfPost({
   const redirectToAthleteProfile = () => {
     window.location.href = "/athleteprofile";
   };  
+  postDate = formatDistanceToNow(postDate * 1000, { 
+    locale: fr,
+    addSuffix: true,
+  })
+   postDate = postDate.replace('environ ', '');
 
   return (
     <div className="publication-head-container">
