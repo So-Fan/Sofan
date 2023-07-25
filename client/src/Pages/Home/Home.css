@@ -36,6 +36,8 @@
 .home-center-container > div {
   display: flex;
   flex-direction: column;
+  width: 530px !important;
+  /* background-color: rgba(255, 0, 0, 0.247); */
 }
 .home-center-container::-webkit-scrollbar {
   display: none;
