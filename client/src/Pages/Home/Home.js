@@ -23,6 +23,7 @@ function Home({
   loggedInUser,
   setData,
   data,
+  isDropdownClicked,
   setIsDropdownClicked,
   isLogged,
   handleNotificationPopup,
@@ -288,11 +289,11 @@ function Home({
       },
     ];
     // gérer le state local de chaque post pour le clique dropdown button
-    for (let i = 0; i < dataBackend.length; i++) {
-      dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
-      // console.log(dataBackend[i].postType)
-      // console.log(lockPremiumContent);
-    }
+    // for (let i = 0; i < dataBackend.length; i++) {
+    //   dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
+    //   // console.log(dataBackend[i].postType)
+    //   // console.log(lockPremiumContent);
+    // }
     // setData(dataBackend);
     // setData(feedPost);
   }, [setData]);
@@ -307,6 +308,11 @@ function Home({
       const feedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setData(feedData);
       setIsLoading(false);
+      for (let i = 0; i < feedData.length; i++) {
+        feedData[i] = { ...feedData[i], ...{ isDropdownClicked: false } };
+        // console.log(dataBackend[i].postType)
+        // console.log(lockPremiumContent);
+      }
     };
 
     getEvents();
@@ -320,15 +326,14 @@ function Home({
   //   );
   // }
 
-  // setTimeout(() => {
-
-  // }, 10);
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < data.length; i++) {
       if (
-        parseInt(e.currentTarget.id) === data[i].id &&
+        e.currentTarget.id === data[i].id &&
         data[i].isDropdownClicked === false
-      ) {
+        ) {
+        console.log(e.currentTarget.id)
+        console.log(data[i].id)
         const newData = [...data];
         newData[i].isDropdownClicked = true;
         setData(newData);
@@ -343,9 +348,6 @@ function Home({
   //   setData
   // }, [])
   console.log(data);
-  // console.log(feedPost);
-  // console.log(feedPost[0]);
-  // console.log(feedPost[0]?.comments.length);
   return (
     <>
       <section className="home-component">
@@ -410,6 +412,7 @@ function Home({
             ) : (
               <>
                 {data?.map((post, index) => {
+                  console.log(post.isDropdownClicked)
                   return (
                     <PostsFeed
                       key={uuidv4()}
@@ -420,9 +423,12 @@ function Home({
                       postLikeNumber={post.likes}
                       postCommentNumber={post.comments.length}
                       postType={post.visibility}
-                      lockPremiumContent={handleDisplayPremiumContent(index)}
                       // postPicture="https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg"
-                    />
+                      //
+                      lockPremiumContent={handleDisplayPremiumContent(index)}
+                      handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+                      isDropdownClicked={isDropdownClicked}
+                      />
                   );
                 })}
               </>
