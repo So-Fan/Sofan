@@ -343,8 +343,8 @@ function Home({
   //   setData
   // }, [])
   console.log(data);
-  console.log(feedPost);
-  console.log(feedPost[0]);
+  // console.log(feedPost);
+  // console.log(feedPost[0]);
   // console.log(feedPost[0]?.comments.length);
   return (
     <>
@@ -414,8 +414,12 @@ function Home({
                     <PostsFeed
                       key={uuidv4()}
                       id={post.id}
-                      postName={post.userId}
+                      postName="Rami Abdou"
                       postDate={post.createdAt.seconds}
+                      postDescription={post.text}
+                      postCommentNumber={post.comments.length}
+
+                      // postPicture="https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg"
                     />
                   );
                 })}

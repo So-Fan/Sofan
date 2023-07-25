@@ -69,7 +69,6 @@ function PostsFeed({
       );
     }
   }
-  postCommentNumber = 1
   return (
     <>
       <div
