@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
+import { formatDistanceToNow } from 'date-fns'
 
 function HeadOfPost({
   dropDownMenuSize,

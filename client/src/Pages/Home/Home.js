@@ -19,7 +19,16 @@ import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/Notific
 import { db } from "../../Configs/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, handleNotificationPopup, setIsNotificationButtonClicked, isNotificationButtonClicked }) {
+function Home({
+  loggedInUser,
+  setData,
+  data,
+  setIsDropdownClicked,
+  isLogged,
+  handleNotificationPopup,
+  setIsNotificationButtonClicked,
+  isNotificationButtonClicked,
+}) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
@@ -27,6 +36,7 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
   const [isSuggestionSeeMoreButtonClicked, setIsSuggestSeeMoreButtonClicked] =
     useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   function handleAthleteSuggestionClick(e) {
     setIsSuggestSeeMoreButtonClicked(true);
   }
@@ -277,27 +287,29 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
         pollDateType: "day",
       },
     ];
+    // gérer le state local de chaque post pour le clique dropdown button
     for (let i = 0; i < dataBackend.length; i++) {
       dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
       // console.log(dataBackend[i].postType)
       // console.log(lockPremiumContent);
     }
-    setData(dataBackend);
+    // setData(dataBackend);
+    setData(feedPost);
   }, [setData]);
 
   const [feedPost, setFeedPost] = useState([]);
   const feedPostCollectionRef = collection(db, "feed_post");
 
   useEffect(() => {
+    setIsLoading(true);
     const getEvents = async () => {
       const data = await getDocs(feedPostCollectionRef);
       setFeedPost(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setIsLoading(false);
     };
 
     getEvents();
   }, []);
-
-  console.log(feedPost);
 
   // function displayFullPagePost() {
   //   return (
@@ -326,21 +338,31 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
-  const [postStates, setPostStates] = useState({});
+  // useEffect(() => {
+  //   setData
+  // }, [])
+  console.log(data);
+  console.log(feedPost);
+  console.log(feedPost[0]);
+  // console.log(feedPost[0]?.comments.length);
   return (
     <>
       <section className="home-component">
         <div
           className="home-left-container"
           style={
-            isLogged  && isLogged.account_type != 'free'
+            isLogged && isLogged.account_type != "free"
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
         >
           <div
             className="home-navlink-create-post-wrap"
-            style={isLogged && isLogged.account_type != 'free' ? { height: "138px" } : { height: "64px" }}
+            style={
+              isLogged && isLogged.account_type != "free"
+                ? { height: "138px" }
+                : { height: "64px" }
+            }
           >
             <div className="home-feedsidenavlink-wrap">
               <FeedSideNavLink
@@ -360,7 +382,7 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
                 gap="8.59px"
               />
             </div>
-            {isLogged && isLogged.account_type != 'free' && (
+            {isLogged && isLogged.account_type != "free" && (
               <Button
                 createPostButtonclassName="button-component-create-post"
                 style={CreatePostButtonStyle.inlineStyle}
@@ -371,13 +393,35 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
             )}
           </div>
           <FavAthlete />
-          <FeedSuggestions 
-          handleAthleteSuggestionClick={handleAthleteSuggestionClick}
+          <FeedSuggestions
+            handleAthleteSuggestionClick={handleAthleteSuggestionClick}
           />
         </div>
         <div className="home-center-container">
           <div>
-            {data?.map((post, index) => {
+            {isLoading ? (
+              <>
+                <div className="lds-ripple">
+                  <div></div>
+                  <div></div>
+                </div>
+              </>
+            ) : (
+              <>
+                {data?.map((post, index) => {
+                  return (
+                    <PostsFeed
+                      key={uuidv4()}
+                      id={post.id}
+                      postName={post.userId}
+                      postDate={post.createdAt.seconds}
+                    />
+                  );
+                })}
+              </>
+            )}
+            {/* <PostsFeed /> */}
+            {/* {data?.map((post, index) => {
               return (
                 <PostsFeed
                   key={uuidv4()}
@@ -411,7 +455,7 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
                   lockPremiumContent={handleDisplayPremiumContent(index)}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className="home-right-container">
@@ -424,9 +468,7 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
           setState={setIsCreatePostButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <CreationPostPoll
-          userId={loggedInUser.id}
-          />
+          <CreationPostPoll userId={loggedInUser.id} />
         </Modal>
       )}
       {isPostClicked && (
@@ -452,9 +494,7 @@ function Home({ loggedInUser ,setData, data, setIsDropdownClicked, isLogged, han
           setState={setIsNotificationButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <NotificationPopUp 
-          notificationPopUpComponent={true}
-          />
+          <NotificationPopUp notificationPopUpComponent={true} />
         </Modal>
       )}
     </>
