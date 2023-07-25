@@ -41,11 +41,9 @@ function HeadOfPost({
         className={`publication-head-left-container ${headOfPostSizeLeft}`}
         onClick={redirectToAthleteProfile}
       >
-        {/* Backend here */}
         <div className="profilepic-athlete-publication">
           <img src={profilePicAttanasio} alt="profil utilisateur" />
         </div>
-        {/* Backend here */}
         <div className={`athlete-name-publication ${athleteNamePollPost}`}>
           {postName}
         </div>
@@ -53,7 +51,7 @@ function HeadOfPost({
         {/* Import date backend data with props from home to here and from every page */}
         <div className={`age-publication ${agePublicationPollPost}`}>
           {postDate}
-          {postDateType}
+          {/* {postDateType} */}
         </div>
       </div>
       <div
