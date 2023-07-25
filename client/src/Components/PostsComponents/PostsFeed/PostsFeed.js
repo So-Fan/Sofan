@@ -69,6 +69,7 @@ function PostsFeed({
       );
     }
   }
+  console.log(lockPremiumContent)
   return (
     <>
       <div
