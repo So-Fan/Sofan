@@ -60,10 +60,10 @@ function HeadOfPost({
         className={`publication-head-right-container ${headOfPostSizeRight}`}
       >
         {/* Backend here si contenu PREMIUM ou FREE */}
-        <div style={postType == "Premium" ? {} : {visibility: "hidden"}}
+        <div style={postType == false ? {} : {visibility: "hidden"}}
           className={`publication-type ${publicationTypeHeadOfPostPollPost}`}
         >
-          {postType}
+          {postType ? <></> : <>Premium</>}
         </div>
         <DropDownButtonMenu
           handleDropdownPostFeedClick={handleDropdownPostFeedClick}

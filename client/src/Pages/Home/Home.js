@@ -41,11 +41,11 @@ function Home({
     setIsSuggestSeeMoreButtonClicked(true);
   }
   function handleDisplayPremiumContent(i) {
-    if (isUserFan === false && data[i]?.postType === "Premium") {
+    if (isUserFan === false && data[i]?.visibility === false) {
       return true;
-    } else if (isUserFan === true && data[i]?.postType === "Premium") {
+    } else if (isUserFan === true && data[i]?.visibility === false) {
       return false;
-    } else if (data[i]?.postType === "Free") {
+    } else if (data[i]?.visibility === true) {
       return false;
     }
   }
@@ -418,7 +418,8 @@ function Home({
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
                       postCommentNumber={post.comments.length}
-
+                      postType={post.visibility}
+                      lockPremiumContent={handleDisplayPremiumContent(index)}
                       // postPicture="https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg"
                     />
                   );
