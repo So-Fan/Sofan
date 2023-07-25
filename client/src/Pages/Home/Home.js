@@ -417,6 +417,7 @@ function Home({
                       postName="Rami Abdou"
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
+                      postLikeNumber={post.likes}
                       postCommentNumber={post.comments.length}
                       postType={post.visibility}
                       lockPremiumContent={handleDisplayPremiumContent(index)}
