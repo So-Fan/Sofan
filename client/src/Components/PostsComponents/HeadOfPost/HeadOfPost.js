@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./HeadOfPost.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
-import { formatDistanceToNow } from 'date-fns'
-import { fr } from 'date-fns/locale';
+import { formatDistanceToNow } from "date-fns";
+import { fr } from "date-fns/locale";
+import { collection, doc, getDoc } from "firebase/firestore";
+import { db } from "../../../Configs/firebase";
+import { useNavigate } from "react-router-dom";
 
 function HeadOfPost({
   dropDownMenuSize,
@@ -14,6 +17,7 @@ function HeadOfPost({
   athleteNamePollPost,
   handleDropdownPostFeedClick,
   id,
+  postCreatorId,
   //
   postName,
   postDate,
@@ -23,17 +27,47 @@ function HeadOfPost({
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
   // ]);
+  const [postCreatorData, setPostCreatorData] = useState(null);
+  const navigate = useNavigate();
 
-  const athleteName = "Romain Attanasio"; // reçu du backend
+  const getPostCreatorData = async (uid) => {
+    try {
+      if (!uid) {
+        console.log("UID is undefined or null");
+        return null;
+      }
 
-  const redirectToAthleteProfile = () => {
-    window.location.href = "/athleteprofile";
-  };  
-  postDate = formatDistanceToNow(postDate * 1000, { 
+      const userDocRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        return userDoc.data();
+      } else {
+        console.log("No such user!");
+        return null;
+      }
+    } catch (error) {
+      console.log("Error getting user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchCreatorData = async () => {
+      const data = await getPostCreatorData(postCreatorId);
+      setPostCreatorData(data);
+    };
+
+    fetchCreatorData();
+  }, [postCreatorId]);
+
+  const redirectToAthleteProfile = (postCreatorId) => {
+    navigate(`/athleteprofile/${postCreatorData.id}`);
+  };
+  postDate = formatDistanceToNow(postDate * 1000, {
     locale: fr,
     addSuffix: true,
-  })
-   postDate = postDate.replace('environ ', '');
+  });
+  postDate = postDate.replace("environ ", "");
 
   return (
     <div className="publication-head-container">
@@ -42,23 +76,31 @@ function HeadOfPost({
         onClick={redirectToAthleteProfile}
       >
         <div className="profilepic-athlete-publication">
-          <img src={profilePicAttanasio} alt="profil utilisateur" />
+          <img
+            src={
+              postCreatorData
+                ? postCreatorData.profile_avatar
+                : "https://i.gifer.com/ZKZg.gif"
+            }
+            alt="profil utilisateur"
+          />
         </div>
-        <div className={`athlete-name-publication ${athleteNamePollPost}`}>
-          {postName}
-        </div>
-        {/* Backend here */}
-        {/* Import date backend data with props from home to here and from every page */}
-        <div className={`age-publication ${agePublicationPollPost}`}>
-          {postDate}
-          {/* {postDateType} */}
+        <div className="profile-side-info-container">
+          <div className={`athlete-name-publication ${athleteNamePollPost}`}>
+            {postCreatorData ? postCreatorData.display_name : "Loading..."}
+          </div>
+          <div className={`age-publication ${agePublicationPollPost}`}>
+            {postDate}
+            {/* {postDateType} */}
+          </div>
         </div>
       </div>
       <div
         className={`publication-head-right-container ${headOfPostSizeRight}`}
       >
         {/* Backend here si contenu PREMIUM ou FREE */}
-        <div style={postType == false ? {} : {visibility: "hidden"}}
+        <div
+          style={!postType ? {} : { visibility: "hidden" }}
           className={`publication-type ${publicationTypeHeadOfPostPollPost}`}
         >
           {postType ? <></> : <>Premium</>}
