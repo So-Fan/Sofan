@@ -392,6 +392,8 @@ function Home({
                 customMediaQueries={CreatePostButtonStyle.customMediaQueries}
                 text="Create a post"
                 onClick={handleCreatePostClick}
+                hover="button-hover-props"
+                active="button-active-props"
               />
             )}
           </div>

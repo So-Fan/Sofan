@@ -12,7 +12,8 @@ const Button = ({
   onClick,
   id,
   createPostButtonClass,
-  hover
+  hover,
+  active
 }) => {
   return (
     <>
@@ -23,7 +24,7 @@ const Button = ({
   </style>
       {isLink ? (
         <Link
-          className={`button-component ${createPostButtonClass} ${hover}`}
+          className={`button-component ${createPostButtonClass} ${hover} ${active}`}
           to={to}
           style={style}
           onClick={onClick}
@@ -33,7 +34,7 @@ const Button = ({
         </Link>
       ) : (
         <button
-          className={`button-component ${createPostButtonClass} ${hover}`}
+          className={`button-component ${createPostButtonClass} ${hover} ${active}`}
           style={style}
           onClick={onClick}
           id={id}
