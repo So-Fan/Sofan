@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
 import "./LikesCommentsCounter.css";
@@ -12,8 +12,17 @@ function LikesCommentsCounter({
   logoCommentsPublicationPollPost,
   setIsPostClicked,
   postLikeNumber,
-  postCommentNumber
+  postCommentNumber,
 }) {
+  const [pluralLikes, setPluralLikes] = useState();
+  useEffect(() => {
+    if (postLikeNumber > 1) {
+      setPluralLikes(true);
+    } else {
+      setPluralLikes(false);
+    }
+  }, []);
+
   return (
     <div
       className={`likes-comments-container-publication ${likesCommentsContainerPublicationPollPost} `}
@@ -27,7 +36,9 @@ function LikesCommentsCounter({
         <div
           className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
         >
-          <Link onClick={setIsPostClicked}>{postLikeNumber} likes</Link>
+          <Link onClick={setIsPostClicked}>
+            {postLikeNumber} like{pluralLikes && "s"}
+          </Link>
         </div>
       </div>
       <div className={`comments-publication ${commentPublicationPollPost} `}>

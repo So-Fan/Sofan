@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PostsFeed.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import PostsDescription from "../PostsDescription/PostsDescription";
@@ -69,7 +69,9 @@ function PostsFeed({
       );
     }
   }
-  postCommentNumber = 1
+  // console.log(lockPremiumContent)
+console.log(isDropdownClicked)
+  
   return (
     <>
       <div
@@ -90,6 +92,7 @@ function PostsFeed({
           style={lockPremiumContent ? { filter: "blur(17px)" } : {}}
         >
           {isDropdownClicked && <DropDownMenu />}
+          {/* <DropDownMenu/> */}
           <div className="publication-head-container">
             <HeadOfPost
             setPostStates={setPostStates}

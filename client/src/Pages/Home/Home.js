@@ -19,7 +19,17 @@ import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/Notific
 import { db } from "../../Configs/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificationPopup, setIsNotificationButtonClicked, isNotificationButtonClicked }) {
+function Home({
+  loggedInUser,
+  setData,
+  data,
+  isDropdownClicked,
+  setIsDropdownClicked,
+  isLogged,
+  handleNotificationPopup,
+  setIsNotificationButtonClicked,
+  isNotificationButtonClicked,
+}) {
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
@@ -27,15 +37,16 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
   const [isSuggestionSeeMoreButtonClicked, setIsSuggestSeeMoreButtonClicked] =
     useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   function handleAthleteSuggestionClick(e) {
     setIsSuggestSeeMoreButtonClicked(true);
   }
   function handleDisplayPremiumContent(i) {
-    if (isUserFan === false && data[i]?.postType === "Premium") {
+    if (isUserFan === false && data[i]?.visibility === false) {
       return true;
-    } else if (isUserFan === true && data[i]?.postType === "Premium") {
+    } else if (isUserFan === true && data[i]?.visibility === false) {
       return false;
-    } else if (data[i]?.postType === "Free") {
+    } else if (data[i]?.visibility === true) {
       return false;
     }
   }
@@ -277,27 +288,35 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
         pollDateType: "day",
       },
     ];
-    for (let i = 0; i < dataBackend.length; i++) {
-      dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
-      // console.log(dataBackend[i].postType)
-      // console.log(lockPremiumContent);
-    }
-    setData(dataBackend);
+    // gérer le state local de chaque post pour le clique dropdown button
+    // for (let i = 0; i < dataBackend.length; i++) {
+    //   dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
+    //   // console.log(dataBackend[i].postType)
+    //   // console.log(lockPremiumContent);
+    // }
+    // setData(dataBackend);
+    // setData(feedPost);
   }, [setData]);
 
   const [feedPost, setFeedPost] = useState([]);
   const feedPostCollectionRef = collection(db, "feed_post");
 
   useEffect(() => {
+    setIsLoading(true);
     const getEvents = async () => {
       const data = await getDocs(feedPostCollectionRef);
-      setFeedPost(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const feedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setData(feedData);
+      setIsLoading(false);
+      for (let i = 0; i < feedData.length; i++) {
+        feedData[i] = { ...feedData[i], ...{ isDropdownClicked: false } };
+        // console.log(dataBackend[i].postType)
+        // console.log(lockPremiumContent);
+      }
     };
 
     getEvents();
   }, []);
-
-  console.log(feedPost);
 
   // function displayFullPagePost() {
   //   return (
@@ -307,15 +326,14 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
   //   );
   // }
 
-  // setTimeout(() => {
-
-  // }, 10);
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < data.length; i++) {
       if (
-        parseInt(e.currentTarget.id) === data[i].id &&
+        e.currentTarget.id === data[i].id &&
         data[i].isDropdownClicked === false
-      ) {
+        ) {
+        console.log(e.currentTarget.id)
+        console.log(data[i].id)
         const newData = [...data];
         newData[i].isDropdownClicked = true;
         setData(newData);
@@ -326,21 +344,28 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
-  const [postStates, setPostStates] = useState({});
+  // useEffect(() => {
+  //   setData
+  // }, [])
+  console.log(data);
   return (
     <>
       <section className="home-component">
         <div
           className="home-left-container"
           style={
-            isLogged  && isLogged.account_type != 'free'
+            isLogged && isLogged.account_type != "free"
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
         >
           <div
             className="home-navlink-create-post-wrap"
-            style={isLogged && isLogged.account_type != 'free' ? { height: "138px" } : { height: "64px" }}
+            style={
+              isLogged && isLogged.account_type != "free"
+                ? { height: "138px" }
+                : { height: "64px" }
+            }
           >
             <div className="home-feedsidenavlink-wrap">
               <FeedSideNavLink
@@ -360,24 +385,58 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
                 gap="8.59px"
               />
             </div>
-            {isLogged && isLogged.account_type != 'free' && (
+            {isLogged && isLogged.account_type != "free" && (
               <Button
                 createPostButtonclassName="button-component-create-post"
                 style={CreatePostButtonStyle.inlineStyle}
                 customMediaQueries={CreatePostButtonStyle.customMediaQueries}
                 text="Create a post"
                 onClick={handleCreatePostClick}
+                hover="button-hover-props"
+                active="button-active-props"
               />
             )}
           </div>
           <FavAthlete />
-          <FeedSuggestions 
-          handleAthleteSuggestionClick={handleAthleteSuggestionClick}
+          <FeedSuggestions
+            handleAthleteSuggestionClick={handleAthleteSuggestionClick}
           />
         </div>
         <div className="home-center-container">
           <div>
-            {data?.map((post, index) => {
+            {isLoading ? (
+              <>
+                <div className="lds-ripple">
+                  <div></div>
+                  <div></div>
+                </div>
+              </>
+            ) : (
+              <>
+                {data?.map((post, index) => {
+                  console.log(post.isDropdownClicked)
+                  return (
+                    <PostsFeed
+                      key={uuidv4()}
+                      id={post.id}
+                      postName="Rami Abdou"
+                      postDate={post.createdAt.seconds}
+                      postDescription={post.text}
+                      postLikeNumber={post.likes}
+                      postCommentNumber={post.comments.length}
+                      postType={post.visibility}
+                      // postPicture="https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg"
+                      //
+                      lockPremiumContent={handleDisplayPremiumContent(index)}
+                      handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+                      isDropdownClicked={isDropdownClicked}
+                      />
+                  );
+                })}
+              </>
+            )}
+            {/* <PostsFeed /> */}
+            {/* {data?.map((post, index) => {
               return (
                 <PostsFeed
                   key={uuidv4()}
@@ -411,7 +470,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
                   lockPremiumContent={handleDisplayPremiumContent(index)}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className="home-right-container">
@@ -424,7 +483,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
           setState={setIsCreatePostButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <CreationPostPoll />
+          <CreationPostPoll userId={loggedInUser.id} />
         </Modal>
       )}
       {isPostClicked && (
@@ -450,9 +509,7 @@ function Home({ setData, data, setIsDropdownClicked, isLogged, handleNotificatio
           setState={setIsNotificationButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <NotificationPopUp 
-          notificationPopUpComponent={true}
-          />
+          <NotificationPopUp notificationPopUpComponent={true} />
         </Modal>
       )}
     </>
