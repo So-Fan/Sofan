@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import autosize from "autosize"
 import "./AddCommentInput.css";
 
@@ -9,18 +9,30 @@ function AddCommentInput({
   inputCommentPublicationPollPost,
   publishButtonAddCommentPollPost,
 }) {
-  const handleChange = (e) => {};
+  const [focusInputComment, setFocusInputComment] = useState()
+  const [blurInputComment, setBlurInputComment] = useState()
+  const handleChangeInputComment = (e) => {};
   const textareaRef = useRef(null);
   useEffect(() => {
     if (textareaRef.current) {
       autosize(textareaRef.current);
     }
   }, []);
+  function handleFocusInputComment(e) {
+    setBlurInputComment(false)
+    setFocusInputComment(true)    
+  };
+  function handleBlurInputComment(e) {
+    setFocusInputComment(false)
+    setBlurInputComment(true)
+  }
   return (
     <div
       className={`input-comment-container-publication ${inputAddCommentContainer}`}
     >
-      <div className={`input-comment-elements ${inputCommentElementsPollPost}`}>
+      <div className={`input-comment-elements ${inputCommentElementsPollPost}`}
+      style={focusInputComment ? {border:"3px rgba(0, 0, 0, 0.486) solid"}: {}}
+      >
         <div
           className={`emoji-comment-publication ${emojiCommentPublicationPollPost}`}
         >
@@ -44,14 +56,16 @@ function AddCommentInput({
           placeholder="Publiez un commentaire..."
           className={`input-comment-publication ${inputCommentPublicationPollPost}`}
           type="text"
-          onChange={handleChange}
+          onChange={handleChangeInputComment}
+          onFocus={handleFocusInputComment}
+          onBlur={handleBlurInputComment}
         />
         <div
           className={`publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`}
         >
           
             {/* Backend here */}
-            <button>Publish</button>
+            <button>Publier</button>
           
         </div>
       </div>
