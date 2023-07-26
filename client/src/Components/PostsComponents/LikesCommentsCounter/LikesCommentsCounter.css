@@ -10,11 +10,11 @@
   width: 100px;
   height: 20px;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  align-items: center;
 }
-.like-button-container-pollpost{
+.like-button-container-pollpost {
   width: 105px;
   /* background-color: red; */
 }
@@ -22,6 +22,7 @@
 .likes-counter-publication {
   font-family: "britanica-heavy";
   font-size: 14px;
+  margin-left: 5px;
 }
 .likes-counter-publication a {
   text-decoration: none;
@@ -35,15 +36,15 @@
   width: 120px;
   height: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .comments-counter-publication {
   font-family: "britanica-heavy";
   font-size: 14px;
+  margin-left: 5px;
 }
 .comments-counter-publication a {
   text-decoration: none;
