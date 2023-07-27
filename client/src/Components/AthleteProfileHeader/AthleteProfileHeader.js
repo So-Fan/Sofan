@@ -41,13 +41,13 @@ function AthleteProfileHeader({
     
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      console.log(userInfo);
+      // console.log(userInfo);
 
       setIsStoredUser(parsedUser?.id === userInfo?.id);
     }
   }, [userInfo]);
-  console.log(userInfo)
-  
+  // console.log(userInfo)
+  console.log(fansCounterApi)
   return (
     <div className="athleteprofileheader-component">
       <div className="athleteprofileheader-bannerandprofilepicture-wrap">

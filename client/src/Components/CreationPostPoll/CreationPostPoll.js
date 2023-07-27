@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./CreationPostPoll.css";
+import validationLogo from "../../Assets/Image/greencross-offers.svg";
 import PostPoll from "./PostPoll/PostPoll";
-import { db, storage, ref, uploadBytes, getDownloadURL, } from "../../Configs/firebase";
-import { collection, addDoc, getDoc, doc } from "firebase/firestore";
 import {
-  updateDoc,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+  db,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "../../Configs/firebase";
+import { collection, addDoc, getDoc, doc } from "firebase/firestore";
+import { updateDoc, query, where, getDocs } from "firebase/firestore";
 
-const CreationPostPoll = ({userId}) => {
+const CreationPostPoll = ({ userId }) => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState({});
   const [isFile, setIsFile] = useState(0);
@@ -20,6 +22,8 @@ const CreationPostPoll = ({userId}) => {
     1: { backgroundColor: "white" },
   });
   const [text, setText] = useState("");
+  const [loadingPublishPost, setLoadingPublishPost] = useState(false);
+  const [validationPublishPost, setValidationPublishPost] = useState(false);
   const handleFileUpload = (e) => {
     setFile(URL.createObjectURL(e.target.files[0]));
     setImage(e.target.files[0]);
@@ -40,10 +44,13 @@ const CreationPostPoll = ({userId}) => {
     ) {
       // Publier le contenu dans la BDD
       console.log("Post about to be posted");
+      setLoadingPublishPost(true);
       const createdAt = new Date();
       const postType = "normal";
-      
-      const imagePath = image.name ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}` : null;
+
+      const imagePath = image.name
+        ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}`
+        : null;
       // Create a new post object to upload to Firestore
       const post = {
         userId,
@@ -51,7 +58,7 @@ const CreationPostPoll = ({userId}) => {
         visibility:
           isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
         createdAt,
-        imagePath: '',
+        imagePath: "",
         postType,
         likes: 0,
         comments: [],
@@ -71,8 +78,8 @@ const CreationPostPoll = ({userId}) => {
           const imageRef = ref(storage, imagePath);
           uploadBytes(imageRef, image).then((snapshot) => {
             console.log(snapshot);
-            console.log('Uploaded a blob or file!');
-            
+            console.log("Uploaded a blob or file!");
+
             if (imagePath) {
               getDownloadURL(ref(storage, imagePath)).then((url) => {
                 updatePostImagePath(postUid, url);
@@ -82,8 +89,9 @@ const CreationPostPoll = ({userId}) => {
             // Mettre une message de validation
           });
         }
-
         console.log("Post added successfully!");
+        setLoadingPublishPost(false);
+        setValidationPublishPost(true);
         // Reset state and navigate to the homepage or display a success message
       } catch (error) {
         console.error("Error adding post: ", error);
@@ -97,10 +105,10 @@ const CreationPostPoll = ({userId}) => {
     try {
       const postRef = doc(db, "feed_post", uid);
       const postDoc = await getDoc(postRef);
-  
+
       if (postDoc.exists()) {
         const updatedData = { imagePath: path };
-  
+
         updateDoc(postRef, updatedData)
           .then(() => {
             console.log("Image path updated successfully!");
@@ -116,7 +124,6 @@ const CreationPostPoll = ({userId}) => {
       throw err;
     }
   };
-
 
   const handleVisibilityClicked = (e) => {
     if (e.target.id === "0") {
@@ -167,7 +174,7 @@ const CreationPostPoll = ({userId}) => {
         className="creation-post-wrap"
         style={select.creationPostWrap[isFile]}
       >
-        <div className="creation-text-wrap">
+        <div style={validationPublishPost ? {visibility:"hidden"}: {}} className="creation-text-wrap">
           <span>{step != 1 ? "Create a post" : "Who can see your post"}</span>
           <button className="cancel-button-creation-post">
             {/* <img src={Cross} alt="a cross" /> */}
@@ -186,6 +193,24 @@ const CreationPostPoll = ({userId}) => {
             text={text}
             handleTextChange={handleTextChange}
           />
+        ) : loadingPublishPost ? (
+          <>
+            <div className="lds-ripple">
+              <div></div>
+              <div></div>
+            </div>
+          </>
+        ) : validationPublishPost ? (
+          <>
+            <div className="creation-post-validation-message">
+              <div>
+                <img src={validationLogo} alt="" />
+              </div>
+              <p>
+              Votre publication a bien été posté !
+              </p>
+              </div>
+          </>
         ) : (
           <div className="creation-visibility-choice-container">
             <div
@@ -206,7 +231,7 @@ const CreationPostPoll = ({userId}) => {
             </div>
           </div>
         )}
-        <button onClick={handleNextClick}>
+        <button style={validationPublishPost ? {visibility:"hidden"}: {}} onClick={handleNextClick}>
           {step != 1 ? "Next" : "Publish"}
         </button>
       </div>
