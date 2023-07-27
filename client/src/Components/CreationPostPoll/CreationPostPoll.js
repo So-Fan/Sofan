@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./CreationPostPoll.css";
 import PostPoll from "./PostPoll/PostPoll";
-import { db, storage, ref, uploadBytes } from "../../Configs/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { db, storage, ref, uploadBytes, getDownloadURL, } from "../../Configs/firebase";
+import { collection, addDoc, getDoc, doc } from "firebase/firestore";
+import {
+  updateDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
 const CreationPostPoll = ({userId}) => {
   const [file, setFile] = useState(null);
@@ -36,7 +42,8 @@ const CreationPostPoll = ({userId}) => {
       console.log("Post about to be posted");
       const createdAt = new Date();
       const postType = "normal";
-
+      
+      const imagePath = image.name ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}` : null;
       // Create a new post object to upload to Firestore
       const post = {
         userId,
@@ -44,7 +51,7 @@ const CreationPostPoll = ({userId}) => {
         visibility:
           isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
         createdAt,
-        imagePath: image.name ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}` : null,
+        imagePath: '',
         postType,
         likes: 0,
         comments: [],
@@ -54,15 +61,24 @@ const CreationPostPoll = ({userId}) => {
       try {
         // Upload the post object to Firestore
         const postRef = collection(db, "feed_post");
-
-        await addDoc(postRef, post);
+        let postUid;
+        await addDoc(postRef, post).then((snapshot) => {
+          postUid = snapshot.id;
+        });
 
         // If an image was uploaded, upload it to Firebase Storage
         if (image) {
-          const imageRef = ref(storage, post.imagePath);
+          const imageRef = ref(storage, imagePath);
           uploadBytes(imageRef, image).then((snapshot) => {
             console.log(snapshot);
             console.log('Uploaded a blob or file!');
+            
+            if (imagePath) {
+              getDownloadURL(ref(storage, imagePath)).then((url) => {
+                updatePostImagePath(postUid, url);
+              });
+            }
+
             // Mettre une message de validation
           });
         }
@@ -75,6 +91,33 @@ const CreationPostPoll = ({userId}) => {
       }
     }
   };
+
+  // Update Post Image Path With URL
+  const updatePostImagePath = async (uid, path) => {
+    try {
+      const postRef = doc(db, "feed_post", uid);
+      const postDoc = await getDoc(postRef);
+  
+      if (postDoc.exists()) {
+        const updatedData = { imagePath: path };
+  
+        updateDoc(postRef, updatedData)
+          .then(() => {
+            console.log("Image path updated successfully!");
+          })
+          .catch((error) => {
+            console.error("Error updating image path:", error);
+          });
+      } else {
+        console.log("No post found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+
   const handleVisibilityClicked = (e) => {
     if (e.target.id === "0") {
       setIsVisibilityClicked({

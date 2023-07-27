@@ -23,10 +23,15 @@ import {
 import { auth, db, ref, googleProvider } from "../../Configs/firebase";
 
 import { signInWithPopup } from "firebase/auth";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import UserContext from "../../UserContext";
 
 // mathéo
-import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import {
+  WALLET_ADAPTERS,
+  CHAIN_NAMESPACES,
+  SafeEventEmitterProvider,
+} from "@web3auth/base";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
@@ -34,7 +39,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
 // fin mathéo
 
-function Signup({web3auth, setWeb3auth}) {
+function Signup({ web3auth, setWeb3auth }) {
   //
   const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -77,13 +82,13 @@ function Signup({web3auth, setWeb3auth}) {
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
 
-  const [googleIdToken, setGoogleIdToken] = useState()
+  const [googleIdToken, setGoogleIdToken] = useState();
   const {
     state: { contract, accounts, isOwner, isMintOn, mintPrice },
     isWalletConnectClicked,
     setIsWalletConnectClicked,
     setProvider,
-    provider
+    provider,
   } = useEth();
 
   useEffect(() => {
@@ -105,9 +110,11 @@ function Signup({web3auth, setWeb3auth}) {
           web3AuthNetwork: "cyan",
           useCoreKitKey: false,
         });
-  
-        const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
-  
+
+        const privateKeyProvider = new EthereumPrivateKeyProvider({
+          config: { chainConfig },
+        });
+
         const openloginAdapter = new OpenloginAdapter({
           privateKeyProvider,
           adapterSettings: {
@@ -123,16 +130,14 @@ function Signup({web3auth, setWeb3auth}) {
         });
         web3auth.configureAdapter(openloginAdapter);
         setWeb3auth(web3auth);
-  
+
         await web3auth.init();
         setProvider(web3auth.provider);
-  
-        
       } catch (error) {
         console.error(error);
       }
     };
-  
+
     init();
   }, []);
 
@@ -337,8 +342,19 @@ function Signup({web3auth, setWeb3auth}) {
       });
       setLoggedInUser(allUserInfo);
 
-      console.log(newUser);
-      await addDoc(usersRef, newUser);
+      //console.log(newUser);
+      const userDocRef = doc(usersRef, user.uid);
+      const userDoc = await getDoc(userDocRef);
+      const userExists = userDoc.exists();
+
+      if (!userExists) {
+        // User does not exist in Firestore, so add the document
+        await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+      } else {
+        console.log("User already exists in Firestore:", userDoc.data());
+      }
+
+      //await addDoc(usersRef, newUser);
       setDisplaySetupProfile(true);
       setIsSubmitClicked(true);
       setDisplayConfirmationCode(false);
@@ -358,8 +374,6 @@ function Signup({web3auth, setWeb3auth}) {
       console.error(`Error Message: ${errorMessage}`);
     }
   };
-
-  
 
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
@@ -414,7 +428,20 @@ function Signup({web3auth, setWeb3auth}) {
                 code: generateVerificationCode(),
                 created_At: Timestamp.fromMillis(createdAt.getTime()),
               };
-              await addDoc(usersRef, newUser);
+              const userDocRef = doc(usersRef, user.uid);
+              const userDoc = await getDoc(userDocRef);
+              const userExists = userDoc.exists();
+
+              if (!userExists) {
+                // User does not exist in Firestore, so add the document
+                await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+              } else {
+                console.log(
+                  "User with email and pass already exists in Firestore:",
+                  userDoc.data()
+                );
+              }
+              //await addDoc(usersRef, newUser);
               await addDoc(emailValidRef, validationData);
             })
             .catch((error) => {

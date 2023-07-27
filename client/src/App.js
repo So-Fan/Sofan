@@ -60,7 +60,7 @@ function App() {
     isUSerProfileSeortBySelectorClicked,
     setIsUSerProfileSeortBySelectorClicked,
   ] = useState(false);
-  const [data, setData] = useState([]);
+  const [dataPost, setPostData] = useState([]);
   const [isDropdownClicked, setIsDropdownClicked] = useState();
   const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
     useState(false);
@@ -73,13 +73,13 @@ function App() {
     }
     // Dropdown
     if (isDropdownClicked) {
-      for (let i = 0; i < data.length; i++) {
-        // console.log(data[i]);
-        if (data[i].isDropdownClicked === true) {
+      for (let i = 0; i < dataPost.length; i++) {
+        // console.log(dataPost[i]);
+        if (dataPost[i].isDropdownClicked === true) {
           // console.log("je suis ici");
-          const newData = [...data];
+          const newData = [...dataPost];
           newData[i].isDropdownClicked = false;
-          setData(newData);
+          setPostData(newData);
           setIsDropdownClicked(false);
         }
       }
@@ -167,8 +167,8 @@ function App() {
                     loggedInUser={loggedInUser}
                     isDropDownButtonClicked={isDropDownButtonClicked}
                     setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-                    data={data}
-                    setData={setData}
+                    dataPost={dataPost}
+                    setPostData={setPostData}
                     setIsDropdownClicked={setIsDropdownClicked}
                     isLogged={loggedInUser}
                     handleNotificationPopup={handleNotificationPopup}

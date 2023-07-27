@@ -23,9 +23,10 @@ function PostsFeed({
   postDateType,
   postType,
   postDescription,
-  postLikeNumber,
+  postLikes,
   postPicture,
   postCommentNumber,
+  postCreatorId,
   //
   pollDateType,
   pollFirstChoice,
@@ -40,7 +41,7 @@ function PostsFeed({
   pollThirdChoiceNumber,
   pollFourthChoiceNumber,
   athleteProfilePageStyling,
-  setPostStates
+  setPostStates,
 }) {
   
   function handleClickShowComment(e) {
@@ -95,7 +96,7 @@ console.log(isDropdownClicked)
           {/* <DropDownMenu/> */}
           <div className="publication-head-container">
             <HeadOfPost
-            setPostStates={setPostStates}
+              setPostStates={setPostStates}
               postName={postName}
               //
               dropDownMenuSize="dropdown-button-point-size-M"
@@ -106,6 +107,7 @@ console.log(isDropdownClicked)
               agePublicationPollPost="age-publication-pollpost"
               handleDropdownPostFeedClick={handleDropdownPostFeedClick}
               id={id}
+              postCreatorId={postCreatorId}
               //
               postDate={postDate}
               postDateType={postDateType}
@@ -132,7 +134,7 @@ console.log(isDropdownClicked)
             likeButtonContainerPollPost="like-button-container-pollpost"
             logoCommentsPublicationPollPost="logo-comments-publication-pollpost"
             setIsPostClicked={setIsPostClicked}
-            postLikeNumber={postLikeNumber}
+            postLikes={postLikes}
             postCommentNumber={postCommentNumber}
           />
           <div className="show-comments-button-publication">

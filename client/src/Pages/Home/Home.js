@@ -17,12 +17,12 @@ import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/Athl
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
 import { db } from "../../Configs/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 
 function Home({
   loggedInUser,
-  setData,
-  data,
+  setPostData,
+  dataPost,
   isDropdownClicked,
   setIsDropdownClicked,
   isLogged,
@@ -42,11 +42,11 @@ function Home({
     setIsSuggestSeeMoreButtonClicked(true);
   }
   function handleDisplayPremiumContent(i) {
-    if (isUserFan === false && data[i]?.visibility === false) {
+    if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
-    } else if (isUserFan === true && data[i]?.visibility === false) {
+    } else if (isUserFan === true && dataPost[i]?.visibility === false) {
       return false;
-    } else if (data[i]?.visibility === true) {
+    } else if (dataPost[i]?.visibility === true) {
       return false;
     }
   }
@@ -296,25 +296,23 @@ function Home({
     // }
     // setData(dataBackend);
     // setData(feedPost);
-  }, [setData]);
+  }, [setPostData]);
 
-  const [feedPost, setFeedPost] = useState([]);
   const feedPostCollectionRef = collection(db, "feed_post");
 
   useEffect(() => {
     setIsLoading(true);
     const getEvents = async () => {
-      const data = await getDocs(feedPostCollectionRef);
+      const q = query(feedPostCollectionRef, orderBy("createdAt", "desc")); // Order by 'createdAt' in descending order
+      const data = await getDocs(q);
       const feedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setData(feedData);
+      setPostData(feedData);
       setIsLoading(false);
       for (let i = 0; i < feedData.length; i++) {
         feedData[i] = { ...feedData[i], ...{ isDropdownClicked: false } };
-        // console.log(dataBackend[i].postType)
-        // console.log(lockPremiumContent);
       }
     };
-
+  
     getEvents();
   }, []);
 
@@ -327,16 +325,16 @@ function Home({
   // }
 
   const handleDropdownPostFeedClick = (e) => {
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < dataPost.length; i++) {
       if (
-        e.currentTarget.id === data[i].id &&
-        data[i].isDropdownClicked === false
+        e.currentTarget.id === dataPost[i].id &&
+        dataPost[i].isDropdownClicked === false
         ) {
         console.log(e.currentTarget.id)
-        console.log(data[i].id)
-        const newData = [...data];
+        console.log(dataPost[i].id)
+        const newData = [...dataPost];
         newData[i].isDropdownClicked = true;
-        setData(newData);
+        setPostData(newData);
         setIsDropdownClicked(true);
       }
     }
@@ -347,14 +345,14 @@ function Home({
   // useEffect(() => {
   //   setData
   // }, [])
-  console.log(data);
+  console.log(dataPost);
   return (
     <>
       <section className="home-component">
         <div
           className="home-left-container"
           style={
-            isLogged && isLogged.account_type != "free"
+            isLogged && isLogged.account_type !== "free"
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
@@ -362,7 +360,7 @@ function Home({
           <div
             className="home-navlink-create-post-wrap"
             style={
-              isLogged && isLogged.account_type != "free"
+              isLogged && isLogged.account_type !== "free"
                 ? { height: "138px" }
                 : { height: "64px" }
             }
@@ -385,7 +383,7 @@ function Home({
                 gap="8.59px"
               />
             </div>
-            {isLogged && isLogged.account_type != "free" && (
+            {isLogged && isLogged.account_type !== "free" && (
               <Button
                 createPostButtonclassName="button-component-create-post"
                 style={CreatePostButtonStyle.inlineStyle}
@@ -413,8 +411,9 @@ function Home({
               </>
             ) : (
               <>
-                {data?.map((post, index) => {
-                  console.log(post.isDropdownClicked)
+                {dataPost?.map((post, index) => {
+                  // console.log(post.isDropdownClicked)
+                  // console.log(data);
                   return (
                     <PostsFeed
                       key={uuidv4()}
@@ -422,10 +421,11 @@ function Home({
                       postName="Rami Abdou"
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
-                      postLikeNumber={post.likes}
+                      postLikes={post.likes.length}
                       postCommentNumber={post.comments.length}
                       postType={post.visibility}
-                      // postPicture="https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg"
+                      postPicture={post.imagePath}
+                      postCreatorId={post.userId}
                       //
                       lockPremiumContent={handleDisplayPremiumContent(index)}
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}
@@ -493,7 +493,7 @@ function Home({
           color="white"
         >
           {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
-          <FullPagePost postType={data.postType} />
+          <FullPagePost postType={dataPost.postType} />
         </Modal>
       )}
       {isSuggestionSeeMoreButtonClicked && (
