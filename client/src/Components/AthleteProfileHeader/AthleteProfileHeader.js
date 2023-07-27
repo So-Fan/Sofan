@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AthleteProfileHeader.css";
+import settingsLogo from "../../Assets/Image/settings-logo.svg"
 import Checkmark from "../../Assets/Image/checkmark_profile.svg";
 import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
@@ -14,6 +15,8 @@ function AthleteProfileHeader({
   handleClickNftReceived,
   handleClicNftsAvailable,
   handlePalmaresButtonClick,
+  setSettingsAthletePageClicked,
+  handleSettingsAthletePageClick
 }) {
   const [isStoredUser, setIsStoredUser] = useState(false);
   // userInfo.followers = 300000; // fake data
@@ -38,12 +41,13 @@ function AthleteProfileHeader({
     
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      console.log(userInfo);
+      // console.log(userInfo);
 
       setIsStoredUser(parsedUser?.id === userInfo?.id);
     }
   }, [userInfo]);
-  console.log(userInfo)
+  // console.log(userInfo)
+  console.log(fansCounterApi)
   return (
     <div className="athleteprofileheader-component">
       <div className="athleteprofileheader-bannerandprofilepicture-wrap">
@@ -115,6 +119,9 @@ function AthleteProfileHeader({
                 hover="button-hover-props"
                 active="button-active-props"
               />
+              <div onClick={handleSettingsAthletePageClick} className="athleteprofileheader-content-settings-button">
+                <img src={settingsLogo} alt="" />
+              </div>
             </div>
           </div>
           <div className="athleteprofileheader-content-container-description">
