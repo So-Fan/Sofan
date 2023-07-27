@@ -11,6 +11,7 @@ import UserActivity from "../../Components/UserProfileComponents/UserActivity/Us
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
 import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
+import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import Modal from "../../Components/Modal/Modal";
 import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
@@ -19,6 +20,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { useParams } from "react-router-dom";
 import { getStorage, ref, getMetadata } from "firebase/storage";
+import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -36,6 +38,8 @@ const AthleteProfilePage = ({
   const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
   const [isAcceptedOffersClicked, setIsAcceptedOffersClicked] = useState(false);
   const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
+  const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
+    useState(false);
   // popup states info
   const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // Backend
@@ -71,8 +75,6 @@ const AthleteProfilePage = ({
         console.log("No user found");
       }
     };
-
-
 
     fetchData();
   }, [id]);
@@ -633,6 +635,9 @@ const AthleteProfilePage = ({
   function handlePalmaresButtonClick() {
     setIsPalmaresButtonClicked(true);
   }
+  function handleSettingsAthletePageClick() {
+    setSettingsAthletePageClicked(true);
+  }
   function handleAcceptOffersClick(
     nftsFromOwnerImage,
     nftsFromOwnerNameCollection,
@@ -812,28 +817,28 @@ const AthleteProfilePage = ({
     <>
       <div className="athleteprofilepage-component">
         {/* <div className="athleteprofilepage-wrap"> */}
-          <AthleteProfileHeader
-            userInfo={userInfo}
-            fansCounterApi={fansCounterApi}
-            setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
-            handleAthleteFollowersClick={handleAthleteFollowersClick}
-            handleAthleteSupportersClick={handleAthleteSupportersClick}
-            handleClickNftReceived={handleClickNftReceived}
-            handleClicNftsAvailable={handleClicNftsAvailable}
-            handlePalmaresButtonClick={handlePalmaresButtonClick}
+        <AthleteProfileHeader
+          userInfo={userInfo}
+          fansCounterApi={fansCounterApi}
+          setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
+          handleAthleteFollowersClick={handleAthleteFollowersClick}
+          handleAthleteSupportersClick={handleAthleteSupportersClick}
+          handleClickNftReceived={handleClickNftReceived}
+          handleClicNftsAvailable={handleClicNftsAvailable}
+          handlePalmaresButtonClick={handlePalmaresButtonClick}
+          setSettingsAthletePageClicked={setSettingsAthletePageClicked}
+          handleSettingsAthletePageClick={handleSettingsAthletePageClick}
+        />
+        <div className="athleteprofilepage-profilesubmenu-wrap">
+          <ProfileSubMenu
+            isPageAthlete={true}
+            isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
+            setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
+            profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+            setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
           />
-          <div className="athleteprofilepage-profilesubmenu-wrap">
-            <ProfileSubMenu
-              isPageAthlete={true}
-              isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
-              setIsProfileSubMenuButtonClicked={
-                setIsAthleteProfileSubMenuClicked
-              }
-              profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-              setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
-            />
-          </div>
-          {displayAthleteProfileSubMenu()}
+        </div>
+        {displayAthleteProfileSubMenu()}
         {/* </div> */}
       </div>
       {isAthleteFollowersClicked && (
@@ -898,6 +903,16 @@ const AthleteProfilePage = ({
           <PopUpConfirmationOffer
             // dataPopupConfirmation={dataPopupConfirmation}
             isRejectedOffersClicked={isRejectedOffersClicked}
+          />
+        </Modal>
+      )}
+      {isSettingsAthletePageClicked && (
+        <Modal
+        setState={setSettingsAthletePageClicked}
+        style={{ right: "5%", top: "18px" }}
+        >
+          <EditProfilePopUp 
+          
           />
         </Modal>
       )}
