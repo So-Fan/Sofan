@@ -4,7 +4,6 @@ import "./EditProfilePopUp.css";
 import previousArrow from "../../Assets/Image/arrow-previous.svg";
 import Img from "../../Assets/Image/img.svg";
 
-
 function EditProfilePopUp() {
   const [croppedBanner, setCroppedBanner] = useState();
   const [bioText, setBioText] = useState("");
@@ -40,6 +39,7 @@ function EditProfilePopUp() {
   //     } catch (error) {
   //       console.error("Error uploading image:", error);
   //     }
+
   //     setBanner(file);
   //   } else {
   //     console.log("File is not an image.");
@@ -62,17 +62,11 @@ function EditProfilePopUp() {
   return (
     <div className="edit-profile-popup-container">
       <div className="edit-profile-popup-wrap">
-        <div
-          // onClick={ }
-          className="signup-user-setup-profile-previous-step"
-        >
-          <img src={previousArrow} alt="" />
+        <div className="edit-profile-popup-title">
+          Éditez votre profil
         </div>
-        <div className="signup-user-setup-profile-title">
-          Créez votre profil
-        </div>
-        <div className="signup-user-setup-profile-banner-and-profile-pic">
-          <div className="signup-user-setup-profile-banner-container">
+        <div className="edit-profile-popup-banner-and-profile-pic">
+          <div className="edit-profile-popup-banner-container">
             {croppedBanner && <img src={croppedBanner} alt="banner" />}
             <input
               type="file"
@@ -83,33 +77,27 @@ function EditProfilePopUp() {
             />
             <label
               htmlFor="image-upload"
-              className="signup-user-setup-profile-banner-add-button"
+              className="edit-profile-popup-banner-add-button"
             >
-              <img
-                src={Img}
-                alt="BOUTON LOGO IMAGE AJOUTER BANNIERE"
-              />
+              <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
             </label>
           </div>
-          <div className="signup-user-setup-profile-profile-pic-container">
+          <div className="edit-profile-popup-profile-pic-container">
             {/* {croppedAvatar && ( */}
             <>
               <img
                 // src={croppedAvatar}
-                className="signup-user-setup-profile-profile-pic"
+                className="edit-profile-popup-profile-pic"
                 alt=""
               />
             </>
             {/* )} */}
             <label
               htmlFor="profile-pic-upload"
-              className="signup-user-setup-profile-profile-pic-add-button"
+              className="edit-profile-popup-profile-pic-add-button"
               // onClick={handleDisplayPreview}
             >
-              <img
-                src={Img}
-                alt="BOUTON LOGO IMAGE AJOUTER BANNIERE"
-              />
+              <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
               <input
                 id="fileInput"
                 // ref={profileInputPicRef}
@@ -122,9 +110,13 @@ function EditProfilePopUp() {
             </label>
           </div>
         </div>
-        <div className="signup-user-setup-profile-bio-title-and-length-limit">
-          <div className="signup-user-setup-profile-bio-title">Bio</div>
-          <div className="signup-user-setup-profile-length-limit">
+        <div className="">
+ramiabdou
+        {/* <input type="text" /> */}
+        </div>
+        <div className="edit-profile-popup-bio-title-and-length-limit">
+          <div className="edit-profile-popup-bio-title">Bio</div>
+          <div className="edit-profile-popup-">
             {" "}
             {bioTextLength}/250
           </div>
@@ -153,20 +145,8 @@ function EditProfilePopUp() {
           className="signup-user-setup-profile-next-button"
           // disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
         >
-          Suivant
+          Sauvegarder les changements
         </button>
-        <button
-          // onClick={handleSetupProfileAddLaterClick}
-          className="signup-user-setup-profile-add-later-button"
-        >
-          Ajouter plus tard
-        </button>
-        <div className="signup-user-setup-profile-progress-bar-container">
-          <div
-            style={{ width: "50%" }}
-            className="signup-user-setup-profile-progress-bar"
-          ></div>
-        </div>
       </div>
     </div>
   );
