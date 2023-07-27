@@ -330,10 +330,13 @@ function Signup({ web3auth, setWeb3auth }) {
         emailVerified: user.emailVerified,
         news: false,
         premium: false,
-        profile_avatar: "https://i.imgur.com/cCVIcNS.png",
-        profile_banner: "https://i.imgur.com/sJTNEVk.png",
+        profile_avatar:
+          "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+        profile_banner:
+          "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
         status: true,
         wallet: [],
+        sport: "",
       };
 
       setAllUserInfo({
@@ -417,9 +420,12 @@ function Signup({ web3auth, setWeb3auth }) {
                 emailVerified: false,
                 news: false,
                 premium: false,
-                profile_avatar: "https://i.imgur.com/cCVIcNS.png",
-                profile_banner: "https://i.imgur.com/sJTNEVk.png",
+                profile_avatar:
+                  "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+                profile_banner:
+                  "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
                 status: true,
+                sport: "",
               };
               const emailValidRef = collection(db, "email_validations");
               const validationData = {
