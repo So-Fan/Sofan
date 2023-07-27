@@ -21,6 +21,14 @@ function EditProfilePopUp() {
     const usernameRegex = /^[a-zA-Z0-9_]{1,14}$/;
     setUsernameRegexError(!usernameRegex.test(usernameValue));
   }
+  const isBioValid = 
+  bioText.length >= 50 &&
+  bioText.length <= 250 && 
+  !bioTextMinimumLengthError &&
+  !bioTextMaxLengthError;
+
+  const isUsernameValid = !usernameRegexError;
+  const isBioAndUsernameValid = isBioValid && isUsernameValid;
 
   // const handleBannerUpload = async (event) => {
   //   const file = event.target.files[0];
@@ -160,6 +168,7 @@ function EditProfilePopUp() {
         <button
           // onClick={handleSetupProfileNextButtonClick}
           className="edit-profile-popup-save-button"
+          disabled={!isBioAndUsernameValid} 
           // disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
         >
           Sauvegarder les changements

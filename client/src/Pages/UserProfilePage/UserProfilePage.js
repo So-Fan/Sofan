@@ -10,19 +10,21 @@ import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAnd
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import "./UserProfilePage.css";
+import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import Modal from "../../Components/Modal/Modal";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
 import { useParams } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
   setProfileSubMenuOffresClicked,
   profileSubMenuOffresClicked,
-  userProfileLogged
+  userProfileLogged,
 }) {
   // fonctionnal states
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
@@ -35,6 +37,8 @@ function UserProfilePage({
   const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
   const [pixelScrolledUserProfilePage, setPixelScrolledUserProfilePage] =
     useState();
+  const [isSettingsUserPageClicked, setSettingsUserPageClicked] =
+    useState(false);
   // popup states info
   const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // backend states
@@ -49,7 +53,6 @@ function UserProfilePage({
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
   const [allUserInfo, setAllUserInfo] = useState(null);
   const { id } = useParams();
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -526,6 +529,9 @@ function UserProfilePage({
       newConfirmation,
     ]);
   }
+  function handleSettingsUserPageClick() {
+    setSettingsUserPageClicked(true);
+  }
   function handleSectionWheel(e) {
     if (isAthleteFollowingClicked) {
       e.preventDefault();
@@ -603,21 +609,24 @@ function UserProfilePage({
             profilePicture={allUserInfo?.profile_avatar}
           />
           <div className="user-content-activity-nft">
-            <div className="username-and-stats-component">
-              <UserNameAndStats
-                userNameAndStatsObject={dataConcat?.userPageInfo}
-                nftsCollectedCounter={nftsFromOwner.length}
-                handleAthleteFollowingClick={handleAthleteFollowingClick}
-                handleAthleteSupportingClick={handleAthleteSupportingClick}
-                nftCardRef={nftCardRef}
-                handleClickNftReceived={handleClickNftReceived}
-                allUserInfo={allUserInfo}
-              />
+            <div className="user-content-username-and-stats-and-settings">
+              <div className="username-and-stats-component">
+                <UserNameAndStats
+                  userNameAndStatsObject={dataConcat?.userPageInfo}
+                  nftsCollectedCounter={nftsFromOwner.length}
+                  handleAthleteFollowingClick={handleAthleteFollowingClick}
+                  handleAthleteSupportingClick={handleAthleteSupportingClick}
+                  nftCardRef={nftCardRef}
+                  handleClickNftReceived={handleClickNftReceived}
+                  allUserInfo={allUserInfo}
+                />
+              </div>
+              <div onClick={handleSettingsUserPageClick} className="user-content-settings-button">
+                <img src={settingsLogo} alt="" />
+              </div>
             </div>
             <div className="userprofile-description-component">
-              <UserProfileDescription
-                userDescription={allUserInfo?.bio}
-              />
+              <UserProfileDescription userDescription={allUserInfo?.bio} />
             </div>
             <ProfileSubMenu
               isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}
@@ -675,6 +684,18 @@ function UserProfilePage({
           <PopUpConfirmationOffer
             // dataPopupConfirmation={dataPopupConfirmation}
             isRejectedOffersClicked={isRejectedOffersClicked}
+          />
+        </Modal>
+      )}
+      {isSettingsUserPageClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
+          setState={setSettingsUserPageClicked}
+          style={{ marginTop: pixelScrolledUserProfilePage, display: "none" }}
+
+        >
+          <EditProfilePopUp
+          
           />
         </Modal>
       )}
