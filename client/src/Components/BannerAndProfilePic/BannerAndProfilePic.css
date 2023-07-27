@@ -38,6 +38,7 @@ height: 100%;
   top: 53%;
   right: 84.751%;
   cursor: pointer;
+  overflow: hidden;
 }
 
 @media (max-width: 1300px) {

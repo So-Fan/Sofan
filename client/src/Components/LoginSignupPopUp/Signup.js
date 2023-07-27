@@ -433,6 +433,7 @@ function Signup({ web3auth, setWeb3auth }) {
               const userExists = userDoc.exists();
 
               if (!userExists) {
+                setAllUserInfo(newUser);
                 // User does not exist in Firestore, so add the document
                 await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
               } else {

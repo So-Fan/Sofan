@@ -1,7 +1,7 @@
 .edit-profile-popup-container {
   width: 500px;
   min-height: 375px;
-  height: 525px;
+  height: 565px;
   background: #ffffff;
   border-radius: 20px;
   box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
@@ -12,14 +12,14 @@
   justify-content: center;
 }
 .edit-profile-popup-wrap {
-  height: 515px;
+  height: 545px;
   width: 460px;
   /* background-color: yellow; */
   position: relative;
   display: flex;
   flex-direction: column;
 }
-.edit-profile-popup-title{
+.edit-profile-popup-title {
   height: 30px;
   width: 100%;
   font-size: 25px;
@@ -121,6 +121,32 @@
 .edit-profile-popup-profile-pic-add-button:active {
   transform: scale(0.75);
 }
+.edit-profile-popup-username {
+  width: 100%;
+  height: 40px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "britanica-heavy";
+  /* background-color: yellow; */
+  text-align: center;
+}
+.edit-profile-popup-error-username {
+  margin-top: 10px;
+  color: red;
+  font-size: 11px;
+  font-weight: 900;
+}
+.edit-profile-popup-username input {
+  font-family: "britanica-heavy" !important;
+  font-size: 14px;
+  border: solid 1px black;
+  border-radius: 5px;
+  border-color: #9b9b9b;
+  text-align: center;
+  height: 20px;
+}
 .edit-profile-popup-bio-title-and-length-limit {
   width: 100%;
   height: 17px;
@@ -134,6 +160,59 @@
   font-size: 14px;
   font-family: "britanica-heavy";
 }
-.signup-user-setup-profile-length-limit {
+.edit-profile-popup-length-limit {
   font-size: 14px;
+}
+.edit-profile-popup-bio-container {
+  position: relative;
+}
+.edit-profile-popup-container textarea {
+  font-family: "britanica-regular" !important;
+  font-size: 15px;
+  font-weight: 900;
+  /* border-color: red; */
+}
+.edit-profile-popup-bio {
+  width: calc(100% - 10px);
+  height: 94px;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  resize: none;
+  font-family: "britanica-regular";
+}
+.edit-profile-popup-bio-error {
+  position: absolute;
+  color: red;
+  font-size: 12px;
+  font-weight: 900;
+}
+.edit-profile-popup-save-button {
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 56px;
+  width: 100%;
+  border-radius: 10px;
+  background: #f6d463;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.edit-profile-popup-save-button:hover {
+  background-color: #f7c520 !important;
+  transition-duration: 300ms;
+}
+.edit-profile-popup-save-button:active {
+  transform: scale(0.85);
+}
+.edit-profile-popup-save-button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }

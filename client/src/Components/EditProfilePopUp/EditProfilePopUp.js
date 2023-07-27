@@ -12,6 +12,15 @@ function EditProfilePopUp() {
   const [bioTextMinimumLengthError, setBioTextMinimumLengthError] =
     useState(false);
   const [profileBio, setProfileBio] = useState("");
+  const [username, setUsername] = useState("");
+  const [usernameRegexError, setUsernameRegexError] = useState(false);
+
+  function handleUsernameChange(event) {
+    const usernameValue = event.target.value;
+    setUsername(usernameValue);
+    const usernameRegex = /^[a-zA-Z0-9_]{1,14}$/;
+    setUsernameRegexError(!usernameRegex.test(usernameValue));
+  }
 
   // const handleBannerUpload = async (event) => {
   //   const file = event.target.files[0];
@@ -62,9 +71,7 @@ function EditProfilePopUp() {
   return (
     <div className="edit-profile-popup-container">
       <div className="edit-profile-popup-wrap">
-        <div className="edit-profile-popup-title">
-          Éditez votre profil
-        </div>
+        <div className="edit-profile-popup-title">Éditez votre profil</div>
         <div className="edit-profile-popup-banner-and-profile-pic">
           <div className="edit-profile-popup-banner-container">
             {croppedBanner && <img src={croppedBanner} alt="banner" />}
@@ -110,39 +117,49 @@ function EditProfilePopUp() {
             </label>
           </div>
         </div>
-        <div className="">
-ramiabdou
-        {/* <input type="text" /> */}
+        <div className="edit-profile-popup-username">
+          <input
+            type="text"
+            defaultValue="ramiabdou"
+            // value="ramiabdou"
+            onChange={handleUsernameChange}
+          />
+          {usernameRegexError && (
+            <p className="edit-profile-popup-error-username">
+              Veuillez entrer un pseudo valide. Il doit comporter 1 à 14
+              caractères alphanumériques ou des underscores.
+            </p>
+          )}
         </div>
         <div className="edit-profile-popup-bio-title-and-length-limit">
           <div className="edit-profile-popup-bio-title">Bio</div>
-          <div className="edit-profile-popup-">
+          <div className="edit-profile-popup-length-limit">
             {" "}
             {bioTextLength}/250
           </div>
         </div>
-        <div className="signup-user-setup-profile-bio-container">
+        <div className="edit-profile-popup-bio-container">
           <textarea
-            className="signup-user-setup-profile-bio"
+            className="edit-profile-popup-bio"
             style={bioTextMaxLengthError ? { borderColor: "red" } : {}}
             name=""
             value={bioText}
             onChange={handleBioTextChange}
           ></textarea>
           {bioTextMaxLengthError && (
-            <div className="signup-user-setup-profile-bio-error">
+            <div className="edit-profile-popup-bio-error">
               Votre bio dépasse la limite des 250 charactères maximum.
             </div>
           )}
           {bioTextMinimumLengthError && (
-            <div className="signup-user-setup-profile-bio-error">
+            <div className="edit-profile-popup-bio-error">
               Votre bio doit faire au moins 50 charactères.
             </div>
           )}
         </div>
         <button
           // onClick={handleSetupProfileNextButtonClick}
-          className="signup-user-setup-profile-next-button"
+          className="edit-profile-popup-save-button"
           // disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
         >
           Sauvegarder les changements

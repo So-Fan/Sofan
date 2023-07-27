@@ -185,7 +185,6 @@ function SetupProfile({
       console.log("profile is not an image.");
     }
   };
-
   function handleDisplayPreview() {
     profileInputPicRef.current.click();
     console.log("click detecté");
