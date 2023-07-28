@@ -66,7 +66,7 @@
   transition-duration: 500ms !important;
 }
 .navbar-wrap-2-subwrap-sign-up-button button:active {
-  transform: scale(0.8) !important;
+  transform: scale(0.9) !important;
 }
 .navbar-wrap-2-subwrap-sign-in-button button {
   background-color: #f6d463 !important;
@@ -78,7 +78,7 @@
   transition-duration: 300ms !important;
 }
 .navbar-wrap-2-subwrap-sign-in-button button:active {
-  transform: scale(0.8) !important;
+  transform: scale(0.9) !important;
 }
 .navbar-signup-user-popup-crop-profile-pic-modal {
   background-color: rgba(0, 0, 0, 0.7);
