@@ -212,8 +212,6 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
       }
     );
     setProvider(web3authProvider);
-    const account = accounts;
-    // rajouter backend pour ajouter le wallet
     setIsSignInButtonClicked(false)
     navigate("/");
   };

@@ -137,7 +137,7 @@ const Navbar = ({
         </Modal>
       )}
       {isSignInButtonClicked && (
-        <Modal style={{visibility: "hidden"}} setState={() => setIsSignInButtonClicked()} >
+        <Modal style={{visibility: "hidden"}} setState={() => setIsSignInButtonClicked()} dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage} >
             <PopUpSignIn web3auth={web3auth} setWeb3auth={setWeb3auth} handlePopoUpSignInSignUpClick={handlePopoUpSignInSignUpClick} setIsSignInButtonClicked={setIsSignInButtonClicked} />
         </Modal>
       )}
