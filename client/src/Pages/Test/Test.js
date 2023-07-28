@@ -5,12 +5,13 @@ import NftCollectionHeader from "../../Components/NftCollectionHeader/NftCollect
 import NftSingle from "../NftSingle/NftSingle";
 import PopupListNFT from "../../Components/PopupListNFT/PopupListNFT";
 import Modal from "../../Components/Modal/Modal";
+import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 const Test = () => {
 
   return (
     <>
     <Modal style={{top: "20px", right: "20px"}}>
-     <PopupListNFT />
+     <PopUpValidate />
     </Modal>
     </>
   );
