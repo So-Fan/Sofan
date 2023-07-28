@@ -12,6 +12,8 @@ import "./NftSingle.css";
 import Modal from "../../Components/Modal/Modal";
 import PopUpBuyNft from "../../Components/PopUpBuyNft/PopUpBuyNft";
 import PopUpPlaceBid from "../../Components/PopUpPlaceBid/PopUpPlaceBid";
+import PopupListNFT from "../../Components/PopupListNFT/PopupListNFT";
+import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -24,7 +26,7 @@ const NftSingle = () => {
   const [isBidNftButtonClicked, setIsBidNftButtonClicked] = useState(false);
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-    const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
+  const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
   //
   const [ethPrice, setEthPrice] = useState(); // API CoinGecko
   const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
@@ -103,11 +105,11 @@ const NftSingle = () => {
 
   //
   function handleBuyNftButtonClick() {
-    handleBidNftButtonClick={handleBidNftButtonClick}
+    handleBidNftButtonClick = { handleBidNftButtonClick };
     setIsBuyNftButtonClicked(true);
   }
   function handleBidNftButtonClick() {
-    setIsBidNftButtonClicked(true)
+    setIsBidNftButtonClicked(true);
   }
   //
   function handleClickSubMenuButton(e) {
@@ -364,6 +366,26 @@ const NftSingle = () => {
       nftBidEur: 8182,
     },
   ];
+
+  const [isListClicked, setIsListClicked] = useState();
+  const handleListNftButton = () => {
+    setIsListClicked(true);
+  };
+  // const handlePopupListNFT = () => {
+  //   setIsListClicked(false)
+  // }
+
+  const [isListed , setIsListed] = useState();
+
+  const handleListingPopup = async () => {
+    // Call blockchain si c'est bon alors setIsListed(true) sinon false
+    setIsListed(true)
+  } 
+  const handleListClosed = () => {
+    setIsListed(false)
+    setIsListClicked(false)
+  }
+
   return (
     <>
       <section className="nft-single-collection-page-container">
@@ -378,7 +400,7 @@ const NftSingle = () => {
           }
           ownerName={dataSinglePageNftCollection.headerData[0].ownerName}
           ownerProfilePic={
-          dataSinglePageNftCollection.headerData[0].ownerProfilePic
+            dataSinglePageNftCollection.headerData[0].ownerProfilePic
           }
           //
           nftPriceEth={apiOpenSea[0].nftPriceEth}
@@ -395,8 +417,9 @@ const NftSingle = () => {
           //
           handleBuyNftButtonClick={handleBuyNftButtonClick}
           handleBidNftButtonClick={handleBidNftButtonClick}
+          handleListNftButton={handleListNftButton}
           isNFTOwner={true} // comparer wallet de la session utilisateur et propriétaire du nft
-          isNFTListed={true} // check listing status on contract
+          isNFTListed={false} // check listing status on contract
         />
         <div className="nft-single-collection-page-left-container">
           {/* {isSubMenuClicked[0] ? <>
@@ -416,7 +439,9 @@ const NftSingle = () => {
             <NftCollectionSubMenu
               handleClickSubMenuButton={handleClickSubMenuButton}
               isSubMenuClicked={isSubMenuClicked}
-              nftsPropertiesCounter={dataSinglePageNftCollection.propertiesData[0].properties.length}
+              nftsPropertiesCounter={
+                dataSinglePageNftCollection.propertiesData[0].properties.length
+              }
               //
               isNftPropertiesExist={isNftPropertiesExist}
               setIsNftPropertiesExist={setIsNftPropertiesExist}
@@ -494,8 +519,15 @@ const NftSingle = () => {
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "30px", right: "26px" }}
         >
-          <PopUpPlaceBid/>
+          <PopUpPlaceBid />
         </Modal>
+      )}
+      {isListClicked && (
+        <>
+          <Modal style={{ top: "20px", right: "20px" }} setState={() => setIsListClicked(false)} >
+            {isListed ? <PopUpValidate text={"Félicitations ! Votre NFT a été mis en vente"} customWidth={"251px"} onClick={handleListClosed} /> : <PopupListNFT handlePopupListNFT={handleListingPopup} />}
+          </Modal>
+        </>
       )}
     </>
   );

@@ -4,6 +4,8 @@ import explorePicture from "../../Assets/Image/explorepicture.svg";
 import DropDownButtonMenu from "../PostsComponents/DropDownButtonMenu/DropDownButtonMenu";
 import LaunchPadMintProgressBar from "../LaunchPadMintProgressBar/LaunchPadMintProgressBar";
 import Button from "../Button/Button";
+import Modal from "../Modal/Modal";
+import PopupListNFT from "../PopupListNFT/PopupListNFT";
 
 function NftCollectionHeader({
   collectionName,
@@ -37,7 +39,8 @@ function NftCollectionHeader({
   //
   handleMintButtonClick,
   isNFTOwner,
-  isNFTListed
+  isNFTListed,
+  handleListNftButton,
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
 
@@ -223,7 +226,7 @@ function NftCollectionHeader({
                   <>
                   <div
                     className="nft-collection-header-buy-button"
-                    onClick={handleBuyNftButtonClick}
+                    // onClick={handleBuyNftButtonClick}
                     >
                     Annuler
                   </div>
@@ -234,7 +237,7 @@ function NftCollectionHeader({
                   <>
                   <div
                     className="nft-collection-header-buy-button"
-                    onClick={handleBuyNftButtonClick}
+                    onClick={handleListNftButton}
                     >
                     Mettre en vente
                   </div>

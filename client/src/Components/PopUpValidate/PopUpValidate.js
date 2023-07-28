@@ -2,16 +2,17 @@ import React from "react";
 import "./PopUpValidate.css";
 import Button from "../Button/Button";
 
-const PopUpValidate = ({text, customWidth}) => {
+const PopUpValidate = ({text, customWidth, onClick}) => {
   const validate =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/Vector.svg?alt=media&token=4296ec1f-711a-4dac-aabb-ccb544448027";
   return (
     <div className="popupvalidate-component">
       <img src={validate} alt="validate" />
-      <span style={{width:"251px"}}>{text}</span>
+      <span style={{width: {customWidth}}}>{text}</span>
       <Button
         style={popUpValidateButton}
         text={"Fermer"}
+        onClick={onClick}
         hover={"button-component-create-post"}
         customMediaQueries={".button-component:active{transform: scale(0.92)}"}
       />

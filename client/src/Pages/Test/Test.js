@@ -10,9 +10,9 @@ const Test = () => {
 
   return (
     <>
-    <Modal style={{top: "20px", right: "20px"}}>
-     <PopUpValidate />
-    </Modal>
+    {/* <Modal style={{top: "20px", right: "20px"}}> */}
+     <NftSingle />
+    {/* </Modal> */}
     </>
   );
 };
