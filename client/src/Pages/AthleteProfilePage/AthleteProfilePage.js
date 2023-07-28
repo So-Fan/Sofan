@@ -21,6 +21,7 @@ import { db } from "../../Configs/firebase";
 import { useParams } from "react-router-dom";
 import { getStorage, ref, getMetadata } from "firebase/storage";
 import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
+import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -911,8 +912,8 @@ const AthleteProfilePage = ({
         setState={setSettingsAthletePageClicked}
         style={{ right: "5%", top: "18px" }}
         >
-          <EditProfilePopUp 
-          
+          <PopUpEditProfile 
+          allUserInfo={userInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
           />
         </Modal>
       )}

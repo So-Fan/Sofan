@@ -21,13 +21,14 @@ import {
 import Img from "../../Assets/Image/img.svg";
 import "./PopUpEditProfile.css"
 
-// afficher les infos de la bdd en provenance de la page user/athlete
+// afficher les infos de la bdd en provenance de la page user/athlete + J'ai mis en commentaire les mêmes fonctions liés au backend que dans signup garde ce que tu as à garder et supprime le reste
+// handleSaveProfile sert à push croppedBanner et croppedAvatar sur la bdd
+// allUserInfo est en parametre car j'imagine que tu charges ça dans atheleteProfilePage ou userProfilePage
 
 const PopUpEditProfile = ({
-  handleSaveProfile,
-  handleEditProfilePreviousStep,
+  // handleEditProfilePreviousStep,
   allUserInfo,
-  setProfileBio,
+  // setProfileBio,
 }) => {
   const [bioText, setBioText] = useState("");
   const [bioTextLength, setBioTextLength] = useState(0);
@@ -69,87 +70,87 @@ const PopUpEditProfile = ({
     setProfile();
   }, [profile]);
 
-  const updateBannerPath = async (uid, path) => {
-    try {
-      const q = query(collection(db, "users"), where("id", "==", uid));
-      const querySnapshot = await getDocs(q);
+  // const updateBannerPath = async (uid, path) => {
+  //   try {
+  //     const q = query(collection(db, "users"), where("id", "==", uid));
+  //     const querySnapshot = await getDocs(q);
 
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const userRef = doc.ref;
-          const updatedData = { profile_banner: path };
+  //     if (!querySnapshot.empty) {
+  //       querySnapshot.forEach((doc) => {
+  //         const userRef = doc.ref;
+  //         const updatedData = { profile_banner: path };
 
-          updateDoc(userRef, updatedData)
-            .then(() => {
-              console.log("Banner path updated successfully!");
-            })
-            .catch((error) => {
-              console.error("Error updating banner path:", error);
-            });
-        });
-      } else {
-        console.log("No user found");
-      }
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
+  //         updateDoc(userRef, updatedData)
+  //           .then(() => {
+  //             console.log("Banner path updated successfully!");
+  //           })
+  //           .catch((error) => {
+  //             console.error("Error updating banner path:", error);
+  //           });
+  //       });
+  //     } else {
+  //       console.log("No user found");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     throw err;
+  //   }
+  // };
 
-  const updateAvatarPath = async (uid, path) => {
-    try {
-      const q = query(collection(db, "users"), where("id", "==", uid));
-      const querySnapshot = await getDocs(q);
+  // const updateAvatarPath = async (uid, path) => {
+  //   try {
+  //     const q = query(collection(db, "users"), where("id", "==", uid));
+  //     const querySnapshot = await getDocs(q);
 
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const userRef = doc.ref;
-          const updatedData = { profile_avatar: path };
+  //     if (!querySnapshot.empty) {
+  //       querySnapshot.forEach((doc) => {
+  //         const userRef = doc.ref;
+  //         const updatedData = { profile_avatar: path };
 
-          updateDoc(userRef, updatedData)
-            .then(() => {
-              console.log("Avatar path updated successfully!");
-            })
-            .catch((error) => {
-              console.error("Error updating Avatar path:", error);
-            });
-        });
-      } else {
-        console.log("No user found");
-      }
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
+  //         updateDoc(userRef, updatedData)
+  //           .then(() => {
+  //             console.log("Avatar path updated successfully!");
+  //           })
+  //           .catch((error) => {
+  //             console.error("Error updating Avatar path:", error);
+  //           });
+  //       });
+  //     } else {
+  //       console.log("No user found");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     throw err;
+  //   }
+  // };
 
 
   const handleBannerUpload = async (event) => {
     const file = event.target.files[0];
     console.log(file);
     if (file && file.type.substr(0, 5) === "image") {
-      //const imagePath = file.name ? `user_profile/banners/`
-      try {
-        // Upload the file to Firebase Storage
-        //shajeed
-        const createdAt = new Date();
-        const imagePath = `user_profile/banners/sofan_user_#${
-          allUserInfo.id
-        }#_banner_${createdAt.getTime()}_${file.name}`;
-        const imageRef = ref(storage, imagePath);
-        uploadBytes(imageRef, file).then(() => {
-          getDownloadURL(ref(storage, imagePath)).then((url) => {
-            updateBannerPath(allUserInfo.id, url);
-          });
-          console.log("Uploaded a blob or file!");
-        });
+      // //const imagePath = file.name ? `user_profile/banners/`
+      // try {
+      //   // Upload the file to Firebase Storage
+      //   //shajeed
+      //   const createdAt = new Date();
+      //   const imagePath = `user_profile/banners/sofan_user_#${
+      //     allUserInfo.id
+      //   }#_banner_${createdAt.getTime()}_${file.name}`;
+      //   const imageRef = ref(storage, imagePath);
+      //   uploadBytes(imageRef, file).then(() => {
+      //     getDownloadURL(ref(storage, imagePath)).then((url) => {
+      //       updateBannerPath(allUserInfo.id, url);
+      //     });
+      //     console.log("Uploaded a blob or file!");
+      //   });
 
-        // TODO: Save the image URL to Firestore or perform any additional actions
+      //   // TODO: Save the image URL to Firestore or perform any additional actions
 
-        console.log("Image uploaded successfully!");
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
+      //   console.log("Image uploaded successfully!");
+      // } catch (error) {
+      //   console.error("Error uploading image:", error);
+      // }
       setBanner(file);
     } else {
       console.log("File is not an image.");
@@ -161,34 +162,35 @@ const PopUpEditProfile = ({
     const file = profileInputPicRef.current.files[0];
     // Process the files as needed
     if (file && file.type.substr(0, 5) === "image") {
-      try {
-        //shajeed
-        const createdAt = new Date();
-        const imagePath = `user_profile/avatars/sofan_user_#${
-          allUserInfo.id
-        }#_avatar_${createdAt.getTime()}_${file.name}`;
-        const imageRef = ref(storage, imagePath);
-        uploadBytes(imageRef, file).then(() => {
-          getDownloadURL(ref(storage, imagePath)).then((url) => {
-            updateAvatarPath(allUserInfo.id, url);
-          });
-          console.log("Uploaded a blob or file!");
-        });
+      // try {
+      //   //shajeed
+      //   const createdAt = new Date();
+      //   const imagePath = `user_profile/avatars/sofan_user_#${
+      //     allUserInfo.id
+      //   }#_avatar_${createdAt.getTime()}_${file.name}`;
+      //   const imageRef = ref(storage, imagePath);
+      //   uploadBytes(imageRef, file).then(() => {
+      //     getDownloadURL(ref(storage, imagePath)).then((url) => {
+      //       updateAvatarPath(allUserInfo.id, url);
+      //     });
+      //     console.log("Uploaded a blob or file!");
+      //   });
 
-        console.log("Image uploaded successfully!");
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
+      //   console.log("Image uploaded successfully!");
+      // } catch (error) {
+      //   console.error("Error uploading image:", error);
+      // }
       setProfile(file);
     } else {
       console.log("profile is not an image.");
     }
   };
 
-  function handleDisplayPreview() {
-    profileInputPicRef.current.click();
-    console.log("click detecté");
-  }
+  // function handleDisplayPreview() {
+  //   profileInputPicRef.current.click();
+  //   console.log("click detecté");
+  // }
+
   const handleBioTextChange = (event) => {
     const text = event.target.value;
     // setProfileBio(text);
@@ -203,9 +205,6 @@ const PopUpEditProfile = ({
       setBioTextMinimumLengthError(false);
     }
   };
-
-  const isProfileComplete = true; // Faire une fonction qui trigger l'upload et qui return true
-  //  checkProfileCompletion(preview, bioText);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -239,9 +238,12 @@ const PopUpEditProfile = ({
     }
   }, [previewProfile, croppedAreaPixels]);
 
+  const handleSaveProfile = async() => {
+
+  }
+
   return (
     <>
-    <Modal style={{top: "20px", right: "20px"}}>
       {currentlyCroppingBanner ? (
         <>
           <div className="popup-edit-profile-cropeasy-container">
@@ -311,7 +313,7 @@ const PopUpEditProfile = ({
       ) : (
         <div className="popup-edit-profile-wrap">
           <div
-            onClick={handleEditProfilePreviousStep}
+            // onClick={handleEditProfilePreviousStep}
             className="popup-edit-profile-previous-step"
           >
             <img src={previousArrow} alt="" />
@@ -349,11 +351,11 @@ const PopUpEditProfile = ({
               <label
                 htmlFor="profile-pic-upload"
                 className="popup-edit-profile-profile-pic-add-button"
-                onClick={handleDisplayPreview}
+                // onClick={handleDisplayPreview}
               >
                 <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
                 <input
-                  id="fileInput"
+                  id="profile-pic-upload"
                   ref={profileInputPicRef}
                   type="file"
                   accept="image/*"
@@ -393,13 +395,11 @@ const PopUpEditProfile = ({
           <button
             onClick={handleSaveProfile}
             className="popup-edit-profile-next-button"
-            disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
           >
             Sauvegarder
           </button>
         </div>
       )}
-      </Modal>
     </>
   );
 };
