@@ -11,10 +11,10 @@ const Test = () => {
 
   return (
     <>
-    <Modal style={{top: "20px", right: "20px"}}>
-     {/* <NftSingle /> */}
-     <PopUpUnlistNFT />
-    </Modal>
+    {/* <Modal style={{top: "20px", right: "20px"}}> */}
+     <NftSingle />
+     {/* <PopUpUnlistNFT /> */}
+    {/* </Modal> */}
     </>
   );
 };

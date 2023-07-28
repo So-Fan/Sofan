@@ -2,12 +2,12 @@ import React from "react";
 import "./PopUpUnlistNFT.css";
 import Button from "../Button/Button";
 
-const PopUpUnlistNFT = () => {
+const PopUpUnlistNFT = ({handlePopupUnlistNFT, handlePopupUnlistNFTClosed}) => {
   return (
     <div className="popupunlistnft-component">
       <span>Annuler la mise en vente du NFT ?</span>
-      <Button style={popupUnlistNFTWhiteButton} text={"Oui"} />
-      <Button style={popupUnlistNFTYellowButton} text={"Non"} />
+      <Button onClick={handlePopupUnlistNFT} style={popupUnlistNFTWhiteButton} text={"Oui"} />
+      <Button onClick={handlePopupUnlistNFTClosed} style={popupUnlistNFTYellowButton} text={"Non"} />
     </div>
   );
 };

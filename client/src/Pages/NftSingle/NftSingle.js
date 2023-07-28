@@ -14,6 +14,7 @@ import PopUpBuyNft from "../../Components/PopUpBuyNft/PopUpBuyNft";
 import PopUpPlaceBid from "../../Components/PopUpPlaceBid/PopUpPlaceBid";
 import PopupListNFT from "../../Components/PopupListNFT/PopupListNFT";
 import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
+import PopUpUnlistNFT from "../../Components/PopUpUnlistNFT/PopUpUnlistNFT";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -386,6 +387,21 @@ const NftSingle = () => {
     setIsListClicked(false)
   }
 
+  const [isUnlistClicked, setIsUnlistClicked] = useState()
+  const handleUnlistButton = () => {
+    setIsUnlistClicked(true)
+  }
+
+  const [isUnlist, setisUnlist] = useState()
+
+  const handleUnlistPopup = async () => {
+    setisUnlist(true)
+  }
+
+  const handleUnlistClosed = () => {
+    setisUnlist(false)
+    setIsUnlistClicked(false)
+  }
   return (
     <>
       <section className="nft-single-collection-page-container">
@@ -419,7 +435,8 @@ const NftSingle = () => {
           handleBidNftButtonClick={handleBidNftButtonClick}
           handleListNftButton={handleListNftButton}
           isNFTOwner={true} // comparer wallet de la session utilisateur et propriétaire du nft
-          isNFTListed={false} // check listing status on contract
+          isNFTListed={true} // check listing status on contract
+          handleUnlistButton={handleUnlistButton}
         />
         <div className="nft-single-collection-page-left-container">
           {/* {isSubMenuClicked[0] ? <>
@@ -526,6 +543,13 @@ const NftSingle = () => {
         <>
           <Modal style={{ top: "20px", right: "20px" }} setState={() => setIsListClicked(false)} >
             {isListed ? <PopUpValidate text={"Félicitations ! Votre NFT a été mis en vente"} customWidth={"251px"} onClick={handleListClosed} /> : <PopupListNFT handlePopupListNFT={handleListingPopup} />}
+          </Modal>
+        </>
+      )}
+      {isUnlistClicked && (
+        <>
+          <Modal style={{ top: "20px", right: "20px" }} setState={() => setIsUnlistClicked(false)}>
+            {isUnlist ? <PopUpValidate text={"Votre NFT a été retiré de la vente"} onClick={handleUnlistClosed} /> : <PopUpUnlistNFT handlePopupUnlistNFT={handleUnlistPopup} handlePopupUnlistNFTClosed={handleUnlistClosed} />}
           </Modal>
         </>
       )}
