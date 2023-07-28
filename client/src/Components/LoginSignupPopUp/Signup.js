@@ -37,9 +37,15 @@ import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
+import Button from "../Button/Button";
 // fin mathéo
 
-function Signup({ web3auth, setWeb3auth }) {
+function Signup({
+  web3auth,
+  setWeb3auth,
+  setIsSignUpButtonClicked,
+  handlePopoUpSignUpSignInClick,
+}) {
   //
   const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -883,7 +889,15 @@ function Signup({ web3auth, setWeb3auth }) {
                 </div>
               </button>
               <div className="signup-user-already-an-account">
-                Vous avez déjà un compte ? <span>Se connecter</span>
+                <span>Vous avez déjà un compte ? </span>
+                <Button
+                  customMediaQueries={
+                    "button-component:hover:after{content: ''; position: absolute;left: 0; bottom: -2px; width: 100%; height: 2px;background: #f6d463;}"
+                  }
+                  onClick={handlePopoUpSignUpSignInClick}
+                  text={"Se connecter"}
+                  style={popUpSignUnSignInRedirectButton}
+                />
               </div>
             </form>
           </div>
@@ -894,3 +908,13 @@ function Signup({ web3auth, setWeb3auth }) {
 }
 
 export default Signup;
+
+const popUpSignUnSignInRedirectButton = {
+  color: "#F6D463",
+  fontFamily: "britanica-heavy",
+  lineHeight: "normal",
+  fontSize: "16px",
+  outline: "none",
+  border: "transparent",
+  backgroundColor: "transparent",
+};

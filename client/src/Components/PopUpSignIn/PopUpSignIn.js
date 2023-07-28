@@ -28,7 +28,7 @@ import {
 import "./PopUpSignIn.css";
 import Button from "../Button/Button";
 
-const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick }) => {
+const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, setIsSignInButtonClicked }) => {
   const googleImage =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f";
 
@@ -119,7 +119,7 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick }) =
           console.log("No user found");
         }
         setError(false);
-
+        setIsSignInButtonClicked(false)
         navigate("/");
       })
       .catch((error) => {
@@ -214,6 +214,7 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick }) =
     setProvider(web3authProvider);
     const account = accounts;
     // rajouter backend pour ajouter le wallet
+    setIsSignInButtonClicked(false)
     navigate("/");
   };
 
@@ -260,7 +261,7 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick }) =
         </div>
         <div className="popupsignin-signup-container">
           <span>You don't have an account ? </span>
-          <Button onClick={handlePopoUpSignInSignUpClick} text={"Sign up"} style={popUpSignInSignUpRedirectButton} />
+          <Button onClick={handlePopoUpSignInSignUpClick} text={"Créer un compte"} style={popUpSignInSignUpRedirectButton} />
         </div>
       </div>
     </>
@@ -311,6 +312,7 @@ const popUpSignInSignUpRedirectButton = {
   color: "#F6D463",
   fontFamily: "britanica-heavy",
   lineHeight: "normal",
+  fontSize: "16px",
   outline: "none",
   border: "transparent",
   backgroundColor: "transparent",
