@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ConnectWallet.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import {
@@ -9,8 +9,9 @@ import {
 } from "@web3auth/base";
 import useEth from "../../../contexts/EthContext/useEth";
 import Web3 from "web3";
-import { db } from "../../../Configs/firebase";
+import { db, auth } from "../../../Configs/firebase";
 import { updateDoc, setDoc, doc, collection, getDoc } from "firebase/firestore";
+
 function ConnectWallet({
   handleConnectWalletClick,
   handlePreviousStepConnectWallet,
@@ -19,6 +20,7 @@ function ConnectWallet({
   userData,
 }) {
   const { setProvider } = useEth();
+  const [firebaseIdToken, setFirebaseIdToken] = useState("");
 
   const handleCreateWallet = async (e) => {
     e.preventDefault();
@@ -27,12 +29,24 @@ function ConnectWallet({
       return;
     }
 
+    auth.currentUser
+      .getIdToken(true)
+      .then(function (idToken) {
+        // Send token to your backend via HTTPS
+        setFirebaseIdToken(idToken);
+      })
+      .catch(function (error) {
+        // Handle error
+        console.error("Error getting ID token:", error);
+      });
+
+    console.log(googleIdToken);
     const web3authProvider = await web3auth.connectTo(
       WALLET_ADAPTERS.OPENLOGIN,
       {
         loginProvider: "jwt",
         extraLoginOptions: {
-          id_token: googleIdToken,
+          id_token: googleIdToken ? googleIdToken : firebaseIdToken,
           verifierIdField: "sub",
           domain: "http://localhost:3000",
         },

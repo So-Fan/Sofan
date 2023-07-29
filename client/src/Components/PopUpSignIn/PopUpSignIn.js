@@ -237,6 +237,11 @@ const PopUpSignIn = ({
           Sign up now to connect with athletes and explore exclusive NFT content
           within a vibrant community of sports enthusiasts!
         </span>
+        {error && (
+          <span className="error-message">
+            Votre Email ou votre Mot de Passe est incorrect.
+          </span>
+        )}
         <div className="popupsignin-input-container">
           <span>E-mail</span>
           <input
@@ -248,7 +253,7 @@ const PopUpSignIn = ({
         <div className="popupsignin-input-container">
           <span>Password</span>
           <input
-            type="text"
+            type="password"
             placeholder={"Confirm you password"}
             onChange={(e) => setPassword(e.target.value)}
           />
