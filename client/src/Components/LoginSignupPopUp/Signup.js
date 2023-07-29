@@ -181,6 +181,9 @@ function Signup({
     );
   }
   function validatePassword(password) {
+    if (!password) {
+      return false;
+    }
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/;
 
@@ -397,90 +400,93 @@ function Signup({
   async function verifyFormIsValid(e) {
     e.preventDefault();
     setIsSubmitClicked(true);
-    if (!emailError && !usernameRegexError) {
-      if (
-        password !== "" &&
-        passwordConfirmation !== "" &&
-        validatePassword(password) &&
-        password === passwordConfirmation
-      ) {
-        console.log("tout est rempli");
-        setIsFormValid(true);
-        const createdAt = new Date();
-        const auth = getAuth();
-        try {
-          createUserWithEmailAndPassword(auth, email, password)
-            .then(async (userCredential) => {
-              // User signed up successfully
-              const user = userCredential.user;
-              const usersRef = collection(db, "users");
-              const newUser = {
-                id: user.uid,
-                email,
-                account_created: Timestamp.fromMillis(createdAt.getTime()),
-                account_type: "free",
-                name: username,
-                username,
-                display_name: username,
-                phone,
-                emailVerified: false,
-                news: false,
-                premium: false,
-                profile_avatar:
-                  "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
-                profile_banner:
-                  "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
-                status: true,
-                sport: "",
-              };
-              const emailValidRef = collection(db, "email_validations");
-              const validationData = {
-                userId: user.uid,
-                email,
-                code: generateVerificationCode(),
-                created_At: Timestamp.fromMillis(createdAt.getTime()),
-              };
-              const userDocRef = doc(usersRef, user.uid);
-              const userDoc = await getDoc(userDocRef);
-              const userExists = userDoc.exists();
+    if (
+      !emailError &&
+      !usernameRegexError &&
+      validatePassword(password) &&
+      password === passwordConfirmation
+    ) {
+      console.log("tout est rempli");
+      setIsFormValid(true);
+      const createdAt = new Date();
+      try {
+        console.log(
+          "about to create an account with firebase auth email: ",
+          email,
+          " and  password: ",
+          password
+        );
+        console.log("checking if the auth is ok : ", auth);
+        createUserWithEmailAndPassword(auth, email, password)
+          .then(async (userCredential) => {
+            // User signed up successfully
+            const user = userCredential.user;
+            const usersRef = collection(db, "users");
+            const newUser = {
+              id: user.uid,
+              email,
+              account_created: Timestamp.fromMillis(createdAt.getTime()),
+              account_type: "free",
+              name: username,
+              username,
+              display_name: username,
+              phone,
+              emailVerified: false,
+              news: false,
+              premium: false,
+              profile_avatar:
+                "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+              profile_banner:
+                "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
+              status: true,
+              sport: "",
+            };
+            const emailValidRef = collection(db, "email_validations");
+            const validationData = {
+              userId: user.uid,
+              email,
+              code: generateVerificationCode(),
+              created_At: Timestamp.fromMillis(createdAt.getTime()),
+            };
+            const userDocRef = doc(usersRef, user.uid);
+            const userDoc = await getDoc(userDocRef);
+            console.log(userDoc , "\nUser Doc called from firebase ");
+            const userExists = userDoc.exists();
 
-              if (!userExists) {
-                setAllUserInfo(newUser);
-                // User does not exist in Firestore, so add the document
-                await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
-              } else {
-                console.log(
-                  "User with email and pass already exists in Firestore:",
-                  userDoc.data()
-                );
-              }
-              //await addDoc(usersRef, newUser);
-              await addDoc(emailValidRef, validationData);
-            })
-            .catch((error) => {
-              // Handle errors here
-              setError(error.message);
-              console.error(error);
-            });
-          
-            await auth.currentUser
-            .getIdToken(true)
-            .then(function (idToken) {
-              // Send token to your backend via HTTPS
-              setFirebaseIdToken(idToken);
-            })
-            .catch(function (error) {
-              // Handle error
-              console.error("Error getting ID token:", error);
-            });
-          
-        } catch (error) {
-          console.error("Error adding post: ", error);
-          // Display an error message to the user
-        }
-      } else {
-        console.log("la deuxième condition n'est pas remplie");
-        setIsFormValid(false);
+            if (!userExists) {
+              setAllUserInfo(newUser);
+              // User does not exist in Firestore, so add the document
+              await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+              console.log('User Data Uploaded Successfully');
+              await auth.currentUser
+              .getIdToken(true)
+              .then(function (idToken) {
+                console.log(auth.currentUser);
+                // Send token to your backend via HTTPS
+                setFirebaseIdToken(idToken);
+              })
+              .catch(function (error) {
+                // Handle error
+                console.error("Error getting ID token:", error);
+              });
+            } else {
+              console.log(
+                "User with email and pass already exists in Firestore:",
+                userDoc.data()
+              );
+            }
+            //await addDoc(usersRef, newUser);
+            await addDoc(emailValidRef, validationData);
+            
+          })
+          .catch((error) => {
+            // Handle errors here
+            setError(error.message);
+            console.error(error);
+          });
+      } catch (error) {
+        console.error("Error adding post: ", error);
+        // Display an error message to the user
       }
     } else {
       console.log("la première condition n'est pas remplie");
@@ -686,7 +692,9 @@ function Signup({
                     handlePreviousStepConnectWallet
                   }
                   web3auth={web3auth}
-                  collectedIdToken={googleIdToken ? googleIdToken : firebaseIdToken}
+                  collectedIdToken={
+                    googleIdToken ? googleIdToken : firebaseIdToken
+                  }
                   userData={allUserInfo}
                 />
               </>

@@ -38,6 +38,7 @@ function Home({
   const [isSuggestionSeeMoreButtonClicked, setIsSuggestSeeMoreButtonClicked] =
     useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  console.log(process.env.REACT_APP_DOMAIN_TOKEN_ID);
   function handleAthleteSuggestionClick(e) {
     setIsSuggestSeeMoreButtonClicked(true);
   }

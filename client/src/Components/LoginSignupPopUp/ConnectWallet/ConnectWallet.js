@@ -20,7 +20,7 @@ function ConnectWallet({
   userData,
 }) {
   const { setProvider } = useEth();
-  const [firebaseIdToken, setFirebaseIdToken] = useState("");
+  const [newFirebaseIdToken, setNewFirebaseIdToken] = useState("");
 
   const handleCreateWallet = async (e) => {
     e.preventDefault();
@@ -29,16 +29,29 @@ function ConnectWallet({
       return;
     }
 
+    if (!collectedIdToken) {
+      console.log("1st attempt of token ID creation Failed");
+      await auth.currentUser
+        .getIdToken(true)
+        .then(function (idToken) {
+          console.log(auth.currentUser);
+          // Send token to your backend via HTTPS
+          setNewFirebaseIdToken(idToken);
+        })
+        .catch(function (error) {
+          // Handle error
+          console.error("Error getting ID token:", error);
+        });
+    }
 
-    console.log(collectedIdToken);
     const web3authProvider = await web3auth.connectTo(
       WALLET_ADAPTERS.OPENLOGIN,
       {
         loginProvider: "jwt",
         extraLoginOptions: {
-          id_token: collectedIdToken,
+          id_token: collectedIdToken ? collectedIdToken : newFirebaseIdToken,
           verifierIdField: "sub",
-          domain: "http://localhost:3000",
+          domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
         },
       }
     );
