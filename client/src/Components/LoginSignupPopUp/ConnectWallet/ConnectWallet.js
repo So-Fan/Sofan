@@ -16,7 +16,7 @@ function ConnectWallet({
   handleConnectWalletClick,
   handlePreviousStepConnectWallet,
   web3auth,
-  googleIdToken,
+  collectedIdToken,
   userData,
 }) {
   const { setProvider } = useEth();
@@ -29,24 +29,14 @@ function ConnectWallet({
       return;
     }
 
-    auth.currentUser
-      .getIdToken(true)
-      .then(function (idToken) {
-        // Send token to your backend via HTTPS
-        setFirebaseIdToken(idToken);
-      })
-      .catch(function (error) {
-        // Handle error
-        console.error("Error getting ID token:", error);
-      });
 
-    console.log(googleIdToken);
+    console.log(collectedIdToken);
     const web3authProvider = await web3auth.connectTo(
       WALLET_ADAPTERS.OPENLOGIN,
       {
         loginProvider: "jwt",
         extraLoginOptions: {
-          id_token: googleIdToken ? googleIdToken : firebaseIdToken,
+          id_token: collectedIdToken,
           verifierIdField: "sub",
           domain: "http://localhost:3000",
         },

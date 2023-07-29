@@ -89,6 +89,7 @@ function Signup({
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
 
   const [googleIdToken, setGoogleIdToken] = useState();
+  const [firebaseIdToken, setFirebaseIdToken] = useState();
   const {
     state: { contract, accounts, isOwner, isMintOn, mintPrice },
     isWalletConnectClicked,
@@ -393,7 +394,7 @@ function Signup({
     console.log("sign innnnnnnnnn");
   };
 
-  function verifyFormIsValid(e) {
+  async function verifyFormIsValid(e) {
     e.preventDefault();
     setIsSubmitClicked(true);
     if (!emailError && !usernameRegexError) {
@@ -461,6 +462,18 @@ function Signup({
               setError(error.message);
               console.error(error);
             });
+          
+            await auth.currentUser
+            .getIdToken(true)
+            .then(function (idToken) {
+              // Send token to your backend via HTTPS
+              setFirebaseIdToken(idToken);
+            })
+            .catch(function (error) {
+              // Handle error
+              console.error("Error getting ID token:", error);
+            });
+          
         } catch (error) {
           console.error("Error adding post: ", error);
           // Display an error message to the user
@@ -673,7 +686,7 @@ function Signup({
                     handlePreviousStepConnectWallet
                   }
                   web3auth={web3auth}
-                  googleIdToken={googleIdToken}
+                  collectedIdToken={googleIdToken ? googleIdToken : firebaseIdToken}
                   userData={allUserInfo}
                 />
               </>
