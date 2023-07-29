@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, db } from "../../Configs/firebase";
+import { auth, googleProvider, db, ref} from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
 
@@ -17,18 +17,25 @@ import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
 // fin mathéo
 import {
-  getFirestore,
-  getDocs,
+  addDoc,
+  collection,
+  Timestamp,
   query,
   where,
-  collection,
-  addDoc,
-  Timestamp,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
 } from "firebase/firestore";
 import "./PopUpSignIn.css";
 import Button from "../Button/Button";
 
-const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, setIsSignInButtonClicked }) => {
+const PopUpSignIn = ({
+  web3auth,
+  setWeb3auth,
+  handlePopoUpSignInSignUpClick,
+  setIsSignInButtonClicked,
+}) => {
   const googleImage =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f";
 
@@ -37,9 +44,10 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [allUserInfo, setAllUserInfo] = useState({});
 
   const {
-    state: {accounts},
+    state: { accounts },
     setProvider,
   } = useEth();
 
@@ -119,7 +127,7 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
           console.log("No user found");
         }
         setError(false);
-        setIsSignInButtonClicked(false)
+        setIsSignInButtonClicked(false);
         navigate("/");
       })
       .catch((error) => {
@@ -134,28 +142,22 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
 
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
-    console.log("Google Logged");
     try {
-      const res = await signInWithPopup(auth, googleProvider);
-
-      const q = query(collection(db, "users"), where("id", "==", res.user.uid));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const userInfo = doc.data();
-          const AllUserInfo = {
-            ...res.user,
-            ...userInfo,
-          };
-          setLoggedInUser(AllUserInfo);
-        });
-        return res;
+      const res = await signInWithPopup(auth, googleProvider); // Google auth check
+      const usersRef = collection(db, "users");
+      const userDocRef = doc(usersRef, res.user.uid);
+      const userDoc = await getDoc(userDocRef);
+    
+      if (userDoc.exists()) {
+        const userInfo = userDoc.data();
+        const AllUserInfo = {
+          ...res.user,
+          ...userInfo,
+        };
+        setLoggedInUser(AllUserInfo);
       } else {
-        // Handle case when no user is found with the given ID
         const createdAt = new Date();
         const user = res.user;
-        const usersRef = collection(db, "users");
         const newUser = {
           id: user.uid,
           email: user.email,
@@ -168,24 +170,33 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
           emailVerified: user.emailVerified,
           news: false,
           premium: false,
-          profile_profile: "",
-          profile_banner: "https://i.imgur.com/sJTNEVk.png",
+          profile_avatar:
+            "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+          profile_banner:
+            "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
           status: true,
+          sport: "",
         };
-
-        await addDoc(usersRef, newUser);
-
-        console.log("No user found");
-        return res;
+    
+        setLoggedInUser(newUser);
+    
+        await setDoc(userDocRef, newUser);
       }
-      // navigate("/");
-      // console.log(res);
-      // console.log(res.user.getIdToken(true));
-      // idToken = res.user.getIdToken(true);
-    } catch (err) {
-      console.error(err);
-      throw err;
+      console.log(res);
+      return res;
+    } catch (error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      const credential = error.credential;
+    
+      console.log(`Error Code: ${errorCode}`);
+      console.error(`Error Message: ${errorMessage}`);
     }
+    
   };
 
   const googleLogin = async (e) => {
@@ -196,8 +207,10 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
     }
     // switch case pour chaque Signin
     const loginRes = await handleGoogleSignIn(e);
+    console.log(loginRes);
     // console.log("login details", loginRes);
     const idToken = await loginRes.user.getIdToken(true);
+    console.log(idToken);
     // console.log("idToken", idToken);
 
     const web3authProvider = await web3auth.connectTo(
@@ -212,7 +225,7 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
       }
     );
     setProvider(web3authProvider);
-    setIsSignInButtonClicked(false)
+    setIsSignInButtonClicked(false);
     navigate("/");
   };
 
@@ -231,11 +244,19 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
         </span>
         <div className="popupsignin-input-container">
           <span>E-mail</span>
-          <input type="text" placeholder={"Enter your e-mail"} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="text"
+            placeholder={"Enter your e-mail"}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="popupsignin-input-container">
           <span>Password</span>
-          <input type="text" placeholder={"Confirm you password"} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="text"
+            placeholder={"Confirm you password"}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <Button
           style={popUpSignInForgotPasswordButton}
@@ -243,7 +264,11 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
           to={"/forgetpassword"}
           text={"Mot de passe oublié"}
         />
-        <Button onClick={handleLogin} style={popUpSignInButton} text={"Sign In"} />
+        <Button
+          onClick={handleLogin}
+          style={popUpSignInButton}
+          text={"Sign In"}
+        />
         <div className="popupsignin-style-container">
           <div></div>
           <span>OU</span>
@@ -259,7 +284,11 @@ const PopUpSignIn = ({ web3auth, setWeb3auth, handlePopoUpSignInSignUpClick, set
         </div>
         <div className="popupsignin-signup-container">
           <span>You don't have an account ? </span>
-          <Button onClick={handlePopoUpSignInSignUpClick} text={"Créer un compte"} style={popUpSignInSignUpRedirectButton} />
+          <Button
+            onClick={handlePopoUpSignInSignUpClick}
+            text={"Créer un compte"}
+            style={popUpSignInSignUpRedirectButton}
+          />
         </div>
       </div>
     </>
@@ -290,7 +319,7 @@ const popUpSignInButton = {
   marginBottom: "20px",
   borderRadius: "10px",
   width: "460px",
-  height: "56px"
+  height: "56px",
 };
 
 const popUpSignInGoogleButton = {
@@ -299,7 +328,7 @@ const popUpSignInGoogleButton = {
   lineHeight: "normal",
   backgroundColor: "white",
   marginBottom: "20px",
-  borderRadius:"10px",
+  borderRadius: "10px",
   border: "1px solid rgba(60, 64, 69, 0.40)",
   width: "425px",
   height: "56px",
@@ -314,4 +343,4 @@ const popUpSignInSignUpRedirectButton = {
   outline: "none",
   border: "transparent",
   backgroundColor: "transparent",
-}
+};

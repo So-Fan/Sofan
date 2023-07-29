@@ -5,14 +5,18 @@ import {
   WALLET_ADAPTERS,
   CHAIN_NAMESPACES,
   SafeEventEmitterProvider,
+  log,
 } from "@web3auth/base";
 import useEth from "../../../contexts/EthContext/useEth";
 import Web3 from "web3";
+import { db } from "../../../Configs/firebase";
+import { updateDoc, setDoc, doc, collection } from "firebase/firestore";
 function ConnectWallet({
   handleConnectWalletClick,
   handlePreviousStepConnectWallet,
   web3auth,
   googleIdToken,
+  userData,
 }) {
   const { setProvider } = useEth();
 
@@ -37,11 +41,30 @@ function ConnectWallet({
     setProvider(web3authProvider);
     const web3 = new Web3(web3authProvider);
 
-    const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
+    const accountWallet = await web3.eth.getAccounts();
+    console.log(accountWallet);
 
     // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
+    
+    
+    const newWallet = {
+      web3AuthWallet: accountWallet,
+    };
 
+    if (userData.id) {
+      console.log(newWallet);
+
+      try { 
+        const usersRef = collection(db, "users");
+        const userDocRef = doc(usersRef, userData.id);
+
+        updateDoc(userDocRef,{...userData,...newWallet});
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    
     //End backend
   };
   return (
