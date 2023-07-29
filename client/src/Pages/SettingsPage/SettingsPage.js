@@ -65,6 +65,16 @@ function SettingsPage() {
       !isDisplayConfirmNewPasswordButtonClicked
     );
   }
+  function handleConfirmPasswordChange(event) {
+    const passwordValue = event.target.value;
+    setPassword(passwordValue);
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/;
+    setPasswordRegexError(!passwordRegex.test(passwordValue));
+    setPasswordConfirmRegexError(
+      passwordConfirmation !== "" && passwordConfirmation !== passwordValue
+    );
+  }
   function handlePasswordChange(event) {
     const passwordValue = event.target.value;
     setPassword(passwordValue);
@@ -255,13 +265,14 @@ function SettingsPage() {
               <div className="settings-page-password-change-current-password-and-display-button">
                 <input
                   type={
-                    isDisplayConfirmNewPasswordButtonClicked ? "text" : "password"
+                    isDisplayConfirmNewPasswordButtonClicked
+                      ? "text"
+                      : "password"
                   }
-                  placeholder="Mot de passe actuel"
-                  // onChange={handlePasswordChange}
-                  // onBlur={handlePasswordBlur}
+                  placeholder="Confirmez nouveau mot de passe"
+                  onChange={handleConfirmPasswordChange}
+                  onBlur={handleConfirmPasswordBlur}
                   // value={username}
-                  // onChange={handleUsernameChange}
                 />
                 <div className="settings-page-input-display-button">
                   {isDisplayConfirmNewPasswordButtonClicked ? (
@@ -287,6 +298,11 @@ function SettingsPage() {
                   )}
                 </div>
               </div>
+              {showError && (
+                <div className="password-error-message-signup">
+                  Les mots de passes ne correspondent pas.
+                </div>
+              )}
               {/* {password !== "" && !validatePassword(password) && (
                 <p className="settings-page-error-password-change">
                   Le mot de passe doit contenir au moins une majuscule, un
@@ -301,6 +317,24 @@ function SettingsPage() {
                 hover="button-hover-props"
                 active="button-active-props"
               />
+            </div>
+            <div className="settings-page-line-separation"></div>
+            <div className="settings-page-wallet-change-container">
+              <div className="settings-page-wallet-change-wrap">
+                <div className="settings-page-wallet-change-title">Wallet</div>
+                <div className="settings-page-wallet-change-current-wallet">
+                  0x6Bde457Df68E2c4Ec1b2d8CFb951324195E6a7Be
+                </div>
+
+                <div className="settings-page-validation-button-container">
+                  <Button
+                    text={"Changer de wallet"}
+                    hover="button-hover-props"
+                    active="button-active-props"
+                  />
+                </div>
+              </div>
+              <div className="settings-page-line-separation"></div>
             </div>
           </div>
         </div>

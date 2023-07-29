@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   font-size: 34px;
-} 
+}
 .settings-page-display-name-title {
   font-size: 18px;
   height: 25px;
@@ -167,4 +167,28 @@
   margin-top: 30px;
 }
 
-/* ------ */
+.settings-page-wallet-change-container {
+  width: 300px;
+  /* background-color: yellowgreen; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+.settings-page-wallet-change-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.settings-page-wallet-change-title {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.settings-page-wallet-change-current-wallet {
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  font-family: "britanica-black";
+  padding: 10px 20px;
+  width: 320px;
+  margin-top: 20px;
+}
