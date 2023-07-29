@@ -136,7 +136,6 @@ const PopUpSignIn = ({
         console.log(errorCode);
         console.log(errorMessage);
         setError(true);
-        // ..
       });
   };
 
