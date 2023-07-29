@@ -10,7 +10,7 @@ import {
 import useEth from "../../../contexts/EthContext/useEth";
 import Web3 from "web3";
 import { db } from "../../../Configs/firebase";
-import { updateDoc, setDoc, doc, collection } from "firebase/firestore";
+import { updateDoc, setDoc, doc, collection, getDoc } from "firebase/firestore";
 function ConnectWallet({
   handleConnectWalletClick,
   handlePreviousStepConnectWallet,
@@ -45,25 +45,32 @@ function ConnectWallet({
     console.log(accountWallet);
 
     // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
-    
-    
+
     const newWallet = {
       web3AuthWallet: accountWallet,
     };
 
     if (userData.id) {
-      console.log(newWallet);
-
-      try { 
+      try {
         const usersRef = collection(db, "users");
         const userDocRef = doc(usersRef, userData.id);
+        const userDoc = await getDoc(userDocRef);
 
-        updateDoc(userDocRef,{...userData,...newWallet});
+        if (userDoc.exists()) {
+          const existingUserData = userDoc.data();
+          const updatedUserData = { ...existingUserData, ...newWallet };
+
+          await setDoc(userDocRef, updatedUserData);
+          console.log("Update successful");
+        } else {
+          console.log(`No user found with ID: ${userData.id}`);
+        }
       } catch (err) {
-        console.log(err);
+        console.log("Error updating document:", err);
       }
+    } else {
+      console.log("userData.id is not defined");
     }
-
   };
   return (
     <div className="signup-user-connect-wallet-wrap">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, db, ref} from "../../Configs/firebase";
+import { auth, googleProvider, db, ref } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../UserContext";
 
@@ -146,7 +146,7 @@ const PopUpSignIn = ({
       const usersRef = collection(db, "users");
       const userDocRef = doc(usersRef, res.user.uid);
       const userDoc = await getDoc(userDocRef);
-    
+
       if (userDoc.exists()) {
         const userInfo = userDoc.data();
         const AllUserInfo = {
@@ -176,9 +176,9 @@ const PopUpSignIn = ({
           status: true,
           sport: "",
         };
-    
+
         setLoggedInUser(newUser);
-    
+
         await setDoc(userDocRef, newUser);
       }
       console.log(res);
@@ -191,11 +191,10 @@ const PopUpSignIn = ({
       const email = error.email;
       // The firebase.auth.AuthCredential type that was used.
       const credential = error.credential;
-    
+
       console.log(`Error Code: ${errorCode}`);
       console.error(`Error Message: ${errorMessage}`);
     }
-    
   };
 
   const googleLogin = async (e) => {

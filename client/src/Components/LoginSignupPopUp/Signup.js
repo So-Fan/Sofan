@@ -576,8 +576,8 @@ function Signup({
 
     updateImagePaths(
       allUserInfo.id,
-      "/static/media/profilepicattanasio.2693ecb7f0a2a6aa2ade6dd93ae2eaae.svg",
-      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FbannerUserProfile.png?alt=media&token=3d74cbd8-399c-4522-8757-b4c42f39937b"
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a"
     );
 
     // passer à l'étape suivante
