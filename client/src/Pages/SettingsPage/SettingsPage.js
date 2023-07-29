@@ -370,7 +370,7 @@ function SettingsPage() {
                   )}
                   <div className="settings-page-validation-button-container">
                     <Button
-                      text={"Changer wallet"}
+                      text={"Changer téléphone"}
                       hover="button-hover-props"
                       active="button-active-props"
                     />
