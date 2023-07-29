@@ -9,7 +9,7 @@ import SetupProfile from "./SetupProfile/SetupProfile";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
 import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 import ValidationSignup from "./ValidationSignup/ValidationSignup";
-import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
+// import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   addDoc,
@@ -20,7 +20,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { auth, db, ref, googleProvider } from "../../Configs/firebase";
+import { auth, db, googleProvider } from "../../Configs/firebase";
 
 import { signInWithPopup } from "firebase/auth";
 import { getDoc, doc, setDoc } from "firebase/firestore";
@@ -36,10 +36,16 @@ import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
-import Web3 from "web3";
+// import Web3 from "web3";
+import Button from "../Button/Button";
 // fin mathéo
 
-function Signup({ web3auth, setWeb3auth }) {
+function Signup({
+  web3auth,
+  setWeb3auth,
+  setIsSignUpButtonClicked,
+  handlePopoUpSignUpSignInClick,
+}) {
   //
   const { setLoggedInUser } = useContext(UserContext);
   const [isFormValid, setIsFormValid] = useState(true); // à changer
@@ -83,6 +89,7 @@ function Signup({ web3auth, setWeb3auth }) {
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
 
   const [googleIdToken, setGoogleIdToken] = useState();
+  const [firebaseIdToken, setFirebaseIdToken] = useState();
   const {
     state: { contract, accounts, isOwner, isMintOn, mintPrice },
     isWalletConnectClicked,
@@ -174,6 +181,9 @@ function Signup({ web3auth, setWeb3auth }) {
     );
   }
   function validatePassword(password) {
+    if (!password) {
+      return false;
+    }
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/;
 
@@ -335,15 +345,10 @@ function Signup({ web3auth, setWeb3auth }) {
         profile_banner:
           "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
         status: true,
-        wallet: [],
         sport: "",
       };
 
-      setAllUserInfo({
-        ...user,
-        ...newUser,
-      });
-      setLoggedInUser(allUserInfo);
+      
 
       //console.log(newUser);
       const userDocRef = doc(usersRef, user.uid);
@@ -353,6 +358,11 @@ function Signup({ web3auth, setWeb3auth }) {
       if (!userExists) {
         // User does not exist in Firestore, so add the document
         await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+
+        setAllUserInfo({
+          ...user,
+          ...newUser,
+        });
       } else {
         console.log("User already exists in Firestore:", userDoc.data());
       }
@@ -376,7 +386,13 @@ function Signup({ web3auth, setWeb3auth }) {
       console.log(`Error Code: ${errorCode}`);
       console.error(`Error Message: ${errorMessage}`);
     }
+
   };
+
+
+  useEffect(() => {
+    setLoggedInUser(allUserInfo);
+  },[allUserInfo]) 
 
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
@@ -388,81 +404,96 @@ function Signup({ web3auth, setWeb3auth }) {
     console.log("sign innnnnnnnnn");
   };
 
-  function verifyFormIsValid(e) {
+  async function verifyFormIsValid(e) {
     e.preventDefault();
     setIsSubmitClicked(true);
-    if (!emailError && !usernameRegexError) {
-      if (
-        password !== "" &&
-        passwordConfirmation !== "" &&
-        validatePassword(password) &&
-        password === passwordConfirmation
-      ) {
-        console.log("tout est rempli");
-        setIsFormValid(true);
-        const createdAt = new Date();
-        const auth = getAuth();
-        try {
-          createUserWithEmailAndPassword(auth, email, password)
-            .then(async (userCredential) => {
-              // User signed up successfully
-              const user = userCredential.user;
-              const usersRef = collection(db, "users");
-              const newUser = {
-                id: user.uid,
-                email,
-                account_created: Timestamp.fromMillis(createdAt.getTime()),
-                account_type: "free",
-                name: username,
-                username,
-                display_name: username,
-                phone,
-                emailVerified: false,
-                news: false,
-                premium: false,
-                profile_avatar:
-                  "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
-                profile_banner:
-                  "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
-                status: true,
-                sport: "",
-              };
-              const emailValidRef = collection(db, "email_validations");
-              const validationData = {
-                userId: user.uid,
-                email,
-                code: generateVerificationCode(),
-                created_At: Timestamp.fromMillis(createdAt.getTime()),
-              };
-              const userDocRef = doc(usersRef, user.uid);
-              const userDoc = await getDoc(userDocRef);
-              const userExists = userDoc.exists();
+    if (
+      !emailError &&
+      !usernameRegexError &&
+      validatePassword(password) &&
+      password === passwordConfirmation
+    ) {
+      console.log("tout est rempli");
+      setIsFormValid(true);
+      const createdAt = new Date();
+      try {
+        console.log(
+          "about to create an account with firebase auth email: ",
+          email,
+          " and  password: ",
+          password
+        );
+        console.log("checking if the auth is ok : ", auth);
+        createUserWithEmailAndPassword(auth, email, password)
+          .then(async (userCredential) => {
+            // User signed up successfully
+            const user = userCredential.user;
+            const usersRef = collection(db, "users");
+            const newUser = {
+              id: user.uid,
+              email,
+              account_created: Timestamp.fromMillis(createdAt.getTime()),
+              account_type: "free",
+              name: username,
+              username,
+              display_name: username,
+              phone,
+              emailVerified: false,
+              news: false,
+              premium: false,
+              profile_avatar:
+                "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+              profile_banner:
+                "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
+              status: true,
+              sport: "",
+            };
+            const emailValidRef = collection(db, "email_validations");
+            const validationData = {
+              userId: user.uid,
+              email,
+              code: generateVerificationCode(),
+              created_At: Timestamp.fromMillis(createdAt.getTime()),
+            };
+            const userDocRef = doc(usersRef, user.uid);
+            const userDoc = await getDoc(userDocRef);
+            console.log(userDoc , "\nUser Doc called from firebase ");
+            const userExists = userDoc.exists();
 
-              if (!userExists) {
-                setAllUserInfo(newUser);
-                // User does not exist in Firestore, so add the document
-                await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
-              } else {
-                console.log(
-                  "User with email and pass already exists in Firestore:",
-                  userDoc.data()
-                );
-              }
-              //await addDoc(usersRef, newUser);
-              await addDoc(emailValidRef, validationData);
-            })
-            .catch((error) => {
-              // Handle errors here
-              setError(error.message);
-              console.error(error);
-            });
-        } catch (error) {
-          console.error("Error adding post: ", error);
-          // Display an error message to the user
-        }
-      } else {
-        console.log("la deuxième condition n'est pas remplie");
-        setIsFormValid(false);
+            if (!userExists) {
+              setAllUserInfo(newUser);
+              // User does not exist in Firestore, so add the document
+              await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+              console.log('User Data Uploaded Successfully');
+              await auth.currentUser
+              .getIdToken(true)
+              .then(function (idToken) {
+                console.log(auth.currentUser);
+                // Send token to your backend via HTTPS
+                setFirebaseIdToken(idToken);
+              })
+              .catch(function (error) {
+                // Handle error
+                console.error("Error getting ID token:", error);
+              });
+            } else {
+              console.log(
+                "User with email and pass already exists in Firestore:",
+                userDoc.data()
+              );
+            }
+            //await addDoc(usersRef, newUser);
+            await addDoc(emailValidRef, validationData);
+            
+          })
+          .catch((error) => {
+            // Handle errors here
+            setError(error.message);
+            console.error(error);
+          });
+      } catch (error) {
+        console.error("Error adding post: ", error);
+        // Display an error message to the user
       }
     } else {
       console.log("la première condition n'est pas remplie");
@@ -571,8 +602,8 @@ function Signup({ web3auth, setWeb3auth }) {
 
     updateImagePaths(
       allUserInfo.id,
-      "/static/media/profilepicattanasio.2693ecb7f0a2a6aa2ade6dd93ae2eaae.svg",
-      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/feed_post_img%2FbannerUserProfile.png?alt=media&token=3d74cbd8-399c-4522-8757-b4c42f39937b"
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a"
     );
 
     // passer à l'étape suivante
@@ -668,7 +699,10 @@ function Signup({ web3auth, setWeb3auth }) {
                     handlePreviousStepConnectWallet
                   }
                   web3auth={web3auth}
-                  googleIdToken={googleIdToken}
+                  collectedIdToken={
+                    googleIdToken ? googleIdToken : firebaseIdToken
+                  }
+                  userData={allUserInfo}
                 />
               </>
             ) : displayConfirmWallet ? (
@@ -883,7 +917,15 @@ function Signup({ web3auth, setWeb3auth }) {
                 </div>
               </button>
               <div className="signup-user-already-an-account">
-                Vous avez déjà un compte ? <span>Se connecter</span>
+                <span>Vous avez déjà un compte ? </span>
+                <Button
+                  customMediaQueries={
+                    "button-component:hover:after{content: ''; position: absolute;left: 0; bottom: -2px; width: 100%; height: 2px;background: #f6d463;}"
+                  }
+                  onClick={handlePopoUpSignUpSignInClick}
+                  text={"Se connecter"}
+                  style={popUpSignUnSignInRedirectButton}
+                />
               </div>
             </form>
           </div>
@@ -894,3 +936,13 @@ function Signup({ web3auth, setWeb3auth }) {
 }
 
 export default Signup;
+
+const popUpSignUnSignInRedirectButton = {
+  color: "#F6D463",
+  fontFamily: "britanica-heavy",
+  lineHeight: "normal",
+  fontSize: "16px",
+  outline: "none",
+  border: "transparent",
+  backgroundColor: "transparent",
+};

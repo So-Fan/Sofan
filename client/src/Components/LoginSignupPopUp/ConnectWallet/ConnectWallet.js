@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ConnectWallet.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import {
   WALLET_ADAPTERS,
   CHAIN_NAMESPACES,
   SafeEventEmitterProvider,
+  log,
 } from "@web3auth/base";
 import useEth from "../../../contexts/EthContext/useEth";
 import Web3 from "web3";
+import { db, auth } from "../../../Configs/firebase";
+import { updateDoc, setDoc, doc, collection, getDoc } from "firebase/firestore";
+
 function ConnectWallet({
   handleConnectWalletClick,
   handlePreviousStepConnectWallet,
   web3auth,
-  googleIdToken,
+  collectedIdToken,
+  userData,
 }) {
   const { setProvider } = useEth();
+  const [newFirebaseIdToken, setNewFirebaseIdToken] = useState("");
 
   const handleCreateWallet = async (e) => {
     e.preventDefault();
@@ -23,25 +29,64 @@ function ConnectWallet({
       return;
     }
 
+    if (!collectedIdToken) {
+      console.log("1st attempt of token ID creation Failed");
+      await auth.currentUser
+        .getIdToken(true)
+        .then(function (idToken) {
+          console.log(auth.currentUser);
+          // Send token to your backend via HTTPS
+          setNewFirebaseIdToken(idToken);
+        })
+        .catch(function (error) {
+          // Handle error
+          console.error("Error getting ID token:", error);
+        });
+    }
+
     const web3authProvider = await web3auth.connectTo(
       WALLET_ADAPTERS.OPENLOGIN,
       {
         loginProvider: "jwt",
         extraLoginOptions: {
-          id_token: googleIdToken,
+          id_token: collectedIdToken ? collectedIdToken : newFirebaseIdToken,
           verifierIdField: "sub",
-          domain: "http://localhost:3000",
+          domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
         },
       }
     );
     setProvider(web3authProvider);
     const web3 = new Web3(web3authProvider);
-    const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
 
-    // construct backend here
+    const accountWallet = await web3.eth.getAccounts();
 
-    //End backend
+    // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
+
+    const newWallet = {
+      web3AuthWallet: accountWallet,
+    };
+
+    if (userData.id) {
+      try {
+        const usersRef = collection(db, "users");
+        const userDocRef = doc(usersRef, userData.id);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          const existingUserData = userDoc.data();
+          const updatedUserData = { ...existingUserData, ...newWallet };
+
+          await setDoc(userDocRef, updatedUserData);
+          console.log("Update successful");
+        } else {
+          console.log(`No user found with ID: ${userData.id}`);
+        }
+      } catch (err) {
+        console.log("Error updating document:", err);
+      }
+    } else {
+      console.log("userData.id is not defined");
+    }
   };
   return (
     <div className="signup-user-connect-wallet-wrap">

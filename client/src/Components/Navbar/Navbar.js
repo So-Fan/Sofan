@@ -16,6 +16,7 @@ import LoginSignUp from "../LoginSignUp/LoginSignUp";
 import SignUp from "../LoginSignUp/SignUp";
 import Signup from "../LoginSignupPopUp/Signup";
 import { useNavigate } from 'react-router-dom';
+import PopUpSignIn from "../PopUpSignIn/PopUpSignIn";
 
 const Navbar = ({
   isProfileClicked,
@@ -26,20 +27,22 @@ const Navbar = ({
   web3auth,
   setWeb3auth
 }) => {
-  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
-    useState();
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] = useState();
+  const [isSignUpButtonClicked, setIsSignUpButtonClicked] = useState(false);
   const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
   const handlePixelScrolledAthleteProfilePage = () => {
     setPixelScrolledAthleteProfilePage(window.scrollY);
   };
   const navigate = useNavigate();
 
+  
   function handleSignInButtonClick() {
-    navigate('/login'); // redirect to signin popup
+    // navigate('/login'); // redirect to signin popup
+    setIsSignInButtonClicked(true)
   }
 
   function handleSignUpButtonClick() {
-    setIsSignInButtonClicked(true);
+    setIsSignUpButtonClicked(true);
     document.querySelector('body').classList.add('scroll-lock');
   }
   useEffect(() => {
@@ -50,6 +53,14 @@ const Navbar = ({
     );
   }, []);
 
+  const handlePopoUpSignInSignUpClick = () => {
+    setIsSignInButtonClicked(false)
+    setIsSignUpButtonClicked(true)
+  }
+  const handlePopoUpSignUpSignInClick = () => {
+    setIsSignUpButtonClicked(false)
+    setIsSignInButtonClicked(true)
+  }
   return (
     <>
       {!isLogged && (
@@ -116,13 +127,18 @@ const Navbar = ({
           <NotificationPopUp notificationPopUpComponent={true} />
         </Modal>
       )}
-      {isSignInButtonClicked && (
+      {isSignUpButtonClicked && (
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
-          setState={setIsSignInButtonClicked}
+          setState={setIsSignUpButtonClicked}
           style={{ top: "20px", right: "20px", zIndex: "9999" }}
         >
-          <Signup web3auth={web3auth} setWeb3auth={setWeb3auth} />
+          <Signup web3auth={web3auth} setWeb3auth={setWeb3auth} handlePopoUpSignUpSignInClick={handlePopoUpSignUpSignInClick} setIsSignUpButtonClicked={setIsSignUpButtonClicked} />
+        </Modal>
+      )}
+      {isSignInButtonClicked && (
+        <Modal style={{visibility: "hidden"}} setState={() => setIsSignInButtonClicked()} dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage} >
+            <PopUpSignIn web3auth={web3auth} setWeb3auth={setWeb3auth} handlePopoUpSignInSignUpClick={handlePopoUpSignInSignUpClick} setIsSignInButtonClicked={setIsSignInButtonClicked} />
         </Modal>
       )}
     </>

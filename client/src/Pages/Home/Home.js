@@ -345,7 +345,6 @@ function Home({
   // useEffect(() => {
   //   setData
   // }, [])
-  console.log(dataPost);
   return (
     <>
       <section className="home-component">

@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
+import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
@@ -694,8 +695,8 @@ function UserProfilePage({
           style={{ marginTop: pixelScrolledUserProfilePage, display: "none" }}
 
         >
-          <EditProfilePopUp
-          
+          <PopUpEditProfile
+          allUserInfo={allUserInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
           />
         </Modal>
       )}
