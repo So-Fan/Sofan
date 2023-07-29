@@ -15,6 +15,7 @@
   /* background-color:green; */
   display: flex;
   align-items: center;
+  font-size: 34px;
 }
 .settings-page-display-name-title {
   font-size: 16px;
@@ -44,11 +45,12 @@
   border: solid 1px black;
   border-radius: 5px;
   border-color: #9b9b9b;
-  text-align: center;
+  /* text-align: center; */
+  padding-left: 10px;
   height: 20px;
   color: rgba(0, 0, 0, 0.432);
 }
-.settings-page-error-display-name{
+.settings-page-error-display-name {
   color: red;
   font-size: 12px;
   font-weight: 900;
@@ -83,8 +85,72 @@
   margin-top: 30px;
 }
 
+/* Password change */
 
-
-/* .settings-page-display-name-input input:focus {
-  color: black ;
-} */
+.settings-page-password-change-title {
+  font-size: 16px;
+  height: 25px;
+}
+.settings-page-password-change-container {
+  width: 300px;
+  /* background-color: yellowgreen; */
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.settings-page-password-change-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.settings-page-password-change-input {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* background-color: blue !important; */
+}
+.settings-page-password-change-input input {
+  width: 90%;
+  font-family: "britanica-heavy" !important;
+  font-size: 14px;
+  border: solid 1px black;
+  border-radius: 5px;
+  border-color: #9b9b9b;
+  text-align: center;
+  height: 20px;
+  color: black;
+  text-align: start;
+  padding-left: 10px;
+}
+.settings-page-error-password-change {
+  color: red;
+  font-size: 12px;
+  font-weight: 900;
+  margin-top: 5px;
+}
+.settings-page-display-name-input img {
+  /* background-color: red; */
+  margin-left: 15px;
+  fill: black !important;
+}
+.settings-page-validation-button-container {
+  width: 100%;
+  /* background-color: turquoise; */
+  display: flex;
+}
+.settings-page-validation-button-container button {
+  border: none;
+  margin: none;
+  margin-top: 10px;
+  outline: none;
+  width: 180px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--yellow, #f6d463);
+  font-family: "britanica-heavy";
+}
+.settings-page-line-separation {
+  border-top: 1px solid black;
+  width: 250px;
+  opacity: 0.3;
+  margin-top: 30px;
+}

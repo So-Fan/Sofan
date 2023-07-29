@@ -15,7 +15,9 @@ function SettingsPage() {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordRegexError, setPasswordRegexError] = useState(false);
   const [passwordConfirmRegexError, setPasswordConfirmRegexError] =
-  useState(false);
+    useState(false);
+    const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
+    useState(false);
   const [showError, setShowError] = useState(false);
 
   let displayName = "ramiabdou";
@@ -31,15 +33,18 @@ function SettingsPage() {
   function onChangeInputDisplayName(e) {
     // setIsFocusDisplayName(true);
     setValueInputDisplayName(e.target.value);
-    const displayNameRegex =  /^[A-Za-z0-9][A-Za-z0-9 ]{1,29}$/;
+    const displayNameRegex = /^[A-Za-z0-9 ][A-Za-z0-9 ]{1,29}$/;
     setUsernameRegexError(!displayNameRegex.test(e.target.value));
   }
-//   function handleUsernameChange(e) {
-//     const usernameValue = e.target.value;
-//     setUsername(usernameValue);
-//     const usernameRegex = /^[a-zA-Z0-9_]{1,14}$/;
-//     setUsernameRegexError(!usernameRegex.test(e.target.value));
-//   }
+  //   function handleUsernameChange(e) {
+  //     const usernameValue = e.target.value;
+  //     setUsername(usernameValue);
+  //     const usernameRegex = /^[a-zA-Z0-9_]{1,14}$/;
+  //     setUsernameRegexError(!usernameRegex.test(e.target.value));
+  //   }
+  function handleDisplayPasswordButtonClick() {
+    setIsDisplayPasswordButtonClicked(!isDisplayPasswordButtonClicked);
+  }
   function handlePasswordChange(event) {
     const passwordValue = event.target.value;
     setPassword(passwordValue);
@@ -66,6 +71,11 @@ function SettingsPage() {
     setShowError(
       password !== passwordConfirmation && passwordConfirmation !== ""
     );
+  }
+  function validatePassword(password) {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/;
+    return regex.test(password);
   }
   function handleConfirmPasswordBlur() {
     const passwordRegex =
@@ -100,8 +110,8 @@ function SettingsPage() {
               />
               {usernameRegexError && (
                 <p className="settings-page-error-display-name">
-                  Veuillez entrer un nom d'affichage valide. Il doit comporter 2 à 29 caractères
-                   alphanumérique
+                  Veuillez entrer un nom d'affichage valide. Il doit comporter 2
+                  à 29 caractères alphanumérique.
                 </p>
               )}
               {/* <img src={validationLogo} alt="" /> */}
@@ -117,6 +127,39 @@ function SettingsPage() {
           </div>
         </div>
         <div className="settings-page-line-separation"></div>
+        <div className="settings-page-password-change-container">
+          <div className="settings-page-password-change-wrap">
+            <div className="settings-page-password-change-title">
+              Changer mon mot de passe
+            </div>
+            <div style={{color:"black"}} className="settings-page-password-change-input">
+              <input
+                type={isDisplayPasswordButtonClicked ? "text" : "password"}
+                  placeholder="Mot de passe"
+                  onChange={handlePasswordChange}
+                  onBlur={handlePasswordBlur}
+                // value={username}
+                // onChange={handleUsernameChange}
+              />
+          
+              {password !== "" && !validatePassword(password) && (
+                  <p className="settings-page-error-password-change">
+                    Le mot de passe doit contenir au moins une majuscule, un
+                    chiffre et un caractère spécial et 8 caractères minimum.
+                  </p>
+                )}
+              {/* <img src={validationLogo} alt="" /> */}
+            </div>
+            {/* <button className="settings-page-validation-button">Changer pseudo</button> */}
+            <div className="settings-page-validation-button-container">
+              <Button
+                text={"Changer mot de passe"}
+                hover="button-hover-props"
+                active="button-active-props"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
