@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./SettingsPage.css";
 import validationLogo from "../../Assets/Image/cross-validation-black.svg";
 import Button from "../../Components/Button/Button";
+import PhoneInput from "react-phone-number-input";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 function SettingsPage() {
   const [isFocusDisplayName, setIsFocusDisplayName] = useState(false);
@@ -29,6 +31,8 @@ function SettingsPage() {
     setIsDisplayConfirmNewPasswordButtonClicked,
   ] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [phoneRegexError, setPhoneRegexError] = useState(false);
 
   let displayName = "ramiabdou";
 
@@ -116,6 +120,14 @@ function SettingsPage() {
     setShowError(
       password !== passwordConfirmation && passwordConfirmation !== ""
     );
+  }
+  function handleClickPhoneInput(e) {
+    var element = document.querySelector("#settings-page-phone-input");
+    element.classList.add("PhoneInputInputOpacity");
+  }
+  function handlePhoneInput(value) {
+    setPhone(value);
+    setPhoneRegexError(value && !isValidPhoneNumber(value));
   }
   return (
     <div className="settings-page-container">
@@ -335,6 +347,36 @@ function SettingsPage() {
                 </div>
               </div>
               <div className="settings-page-line-separation"></div>
+              <div className="settings-page-phone-change-container">
+                <div className="settings-page-phone-change-wrap">
+                  <div className="settings-page-phone-change-title">
+                    Téléphone
+                  </div>
+                  <PhoneInput
+                    // flags={{ style: { width: '22px', height: '22px' } }}
+                    id="settings-page-phone-input"
+                    onClick={handleClickPhoneInput}
+                    international
+                    defaultCountry="FR"
+                    value={phone}
+                    onChange={handlePhoneInput}
+                    className="signup-user-phone-input"
+                    placeholder="Entrez votre numéro de téléphone"
+                  />
+                  {phoneRegexError && (
+                    <p className="signup-user-error-phone">
+                      Veuillez entrer un numéro de téléphone valide.
+                    </p>
+                  )}
+                  <div className="settings-page-validation-button-container">
+                    <Button
+                      text={"Changer wallet"}
+                      hover="button-hover-props"
+                      active="button-active-props"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
