@@ -124,7 +124,7 @@
 /* background-color: #f7c520; */
 @media (max-width: 1300px) {
   .navbar-wrap {
-    width: 94%;
+    width: 97%;
   }
 }
 @media (max-width: 1060px) {
@@ -134,7 +134,7 @@
 }
 @media (max-width: 910px) {
   .navbar-wrap {
-    width: 95%;
+    width: 97%;
   }
   .navbar-wrap-1 {
     width: 500px;
