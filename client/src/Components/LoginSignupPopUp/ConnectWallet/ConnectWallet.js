@@ -64,8 +64,6 @@ function ConnectWallet({
       }
     }
 
-    
-    //End backend
   };
   return (
     <div className="signup-user-connect-wallet-wrap">
