@@ -18,6 +18,7 @@ import EthProvider from "./contexts/EthContext/EthProvider";
 import TestSecondary from "./Pages/Test/TestSecondary";
 import CGU from "./Pages/CGU/CGU";
 import UserContext from "./UserContext";
+import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -217,6 +218,7 @@ function App() {
               <Route path="/nftcollection" element={<NftCollection />} />
               <Route path="/nftsingle" element={<NftSingle />} />
               <Route path="signupathlete" element={<SignUpAthletePage />} />
+              <Route path="/settings" element={<SettingsPage/>} />
               <Route path="/test" element={<Test />} />
               <Route path="/testsecondary" element={<TestSecondary />} />
               <Route
