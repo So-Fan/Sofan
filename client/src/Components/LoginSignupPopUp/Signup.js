@@ -341,7 +341,6 @@ function Signup({
         profile_banner:
           "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a",
         status: true,
-        wallet: [],
         sport: "",
       };
 
@@ -675,6 +674,7 @@ function Signup({
                   }
                   web3auth={web3auth}
                   googleIdToken={googleIdToken}
+                  userData={allUserInfo}
                 />
               </>
             ) : displayConfirmWallet ? (
