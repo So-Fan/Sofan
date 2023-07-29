@@ -18,7 +18,7 @@
   font-size: 34px;
 }
 .settings-page-display-name-title {
-  font-size: 16px;
+  font-size: 18px;
   height: 25px;
 }
 .settings-page-display-name-container {
@@ -41,13 +41,13 @@
 .settings-page-display-name-input input {
   width: 90%;
   font-family: "britanica-heavy" !important;
-  font-size: 14px;
+  font-size: 16px;
   border: solid 1px black;
   border-radius: 5px;
   border-color: #9b9b9b;
   /* text-align: center; */
   padding-left: 10px;
-  height: 20px;
+  height: 30px;
   color: rgba(0, 0, 0, 0.432);
 }
 .settings-page-error-display-name {
@@ -88,7 +88,7 @@
 /* Password change */
 
 .settings-page-password-change-title {
-  font-size: 16px;
+  font-size: 18px;
   height: 25px;
 }
 .settings-page-password-change-container {
@@ -107,6 +107,11 @@
   flex-direction: column;
   /* align-items: center; */
   /* background-color: blue !important; */
+  position: relative;
+}
+.settings-page-password-change-current-password-and-display-button,
+.settings-page-password-change-new-password-and-display-button {
+  position: relative;
 }
 .settings-page-password-change-input input {
   width: 90%;
@@ -116,21 +121,25 @@
   border-radius: 5px;
   border-color: #9b9b9b;
   text-align: center;
-  height: 20px;
+  height: 30px;
   color: black;
   text-align: start;
   padding-left: 10px;
+  position: relative;
 }
 .settings-page-error-password-change {
   color: red;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 900;
   margin-top: 5px;
 }
-.settings-page-display-name-input img {
-  /* background-color: red; */
-  margin-left: 15px;
-  fill: black !important;
+.settings-page-input-display-button {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  right: 25px;
+  bottom: 13px;
+  cursor: pointer;
 }
 .settings-page-validation-button-container {
   width: 100%;
