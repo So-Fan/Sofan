@@ -17,7 +17,6 @@ import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
 // fin mathéo
 import {
-  addDoc,
   collection,
   Timestamp,
   query,
@@ -205,10 +204,8 @@ const PopUpSignIn = ({
     }
     // switch case pour chaque Signin
     const loginRes = await handleGoogleSignIn(e);
-    console.log(loginRes);
     // console.log("login details", loginRes);
     const idToken = await loginRes.user.getIdToken(true);
-    console.log(idToken);
     // console.log("idToken", idToken);
 
     const web3authProvider = await web3auth.connectTo(
@@ -276,7 +273,7 @@ const PopUpSignIn = ({
           <img src={googleImage} alt="google sign in" />
           <Button
             style={popUpSignInGoogleButton}
-            text={"Sign In with Google"}
+            text={"Connecter avec Google"}
             onClick={googleLogin}
           />
         </div>

@@ -9,7 +9,7 @@ import SetupProfile from "./SetupProfile/SetupProfile";
 import ConnectWallet from "./ConnectWallet/ConnectWallet";
 import ConfirmWallet from "./ConfirmWallet/ConfirmWallet";
 import ValidationSignup from "./ValidationSignup/ValidationSignup";
-import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
+// import VerificationCodeEmail from "../Emails/VerificationCodeEmail";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   addDoc,
@@ -20,7 +20,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { auth, db, ref, googleProvider } from "../../Configs/firebase";
+import { auth, db, googleProvider } from "../../Configs/firebase";
 
 import { signInWithPopup } from "firebase/auth";
 import { getDoc, doc, setDoc } from "firebase/firestore";
@@ -36,7 +36,7 @@ import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
-import Web3 from "web3";
+// import Web3 from "web3";
 import Button from "../Button/Button";
 // fin mathéo
 
