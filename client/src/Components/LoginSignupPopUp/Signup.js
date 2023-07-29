@@ -348,11 +348,7 @@ function Signup({
         sport: "",
       };
 
-      setAllUserInfo({
-        ...user,
-        ...newUser,
-      });
-      setLoggedInUser(allUserInfo);
+      
 
       //console.log(newUser);
       const userDocRef = doc(usersRef, user.uid);
@@ -362,6 +358,11 @@ function Signup({
       if (!userExists) {
         // User does not exist in Firestore, so add the document
         await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
+
+        setAllUserInfo({
+          ...user,
+          ...newUser,
+        });
       } else {
         console.log("User already exists in Firestore:", userDoc.data());
       }
@@ -385,7 +386,13 @@ function Signup({
       console.log(`Error Code: ${errorCode}`);
       console.error(`Error Message: ${errorMessage}`);
     }
+
   };
+
+
+  useEffect(() => {
+    setLoggedInUser(allUserInfo);
+  },[allUserInfo]) 
 
   const generateVerificationCode = () => {
     // Generate a random 6-digit number

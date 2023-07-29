@@ -44,6 +44,8 @@ const PopUpSignIn = ({
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [allUserInfo, setAllUserInfo] = useState({});
+  const [firebaseIdToken, setFirebaseIdToken] = useState();
+
 
   const {
     state: { accounts },
@@ -106,7 +108,6 @@ const PopUpSignIn = ({
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-
         const q = query(collection(db, "users"), where("id", "==", user.uid));
         const querySnapshot = await getDocs(q);
 
@@ -121,6 +122,29 @@ const PopUpSignIn = ({
             setLoggedInUser(AllUserInfo);
             // Do something with the user info
           });
+          await auth.currentUser
+            .getIdToken(true)
+            .then(async function (idToken) {
+              console.log(auth.currentUser, idToken);
+
+              const web3authProvider = await web3auth.connectTo(
+                WALLET_ADAPTERS.OPENLOGIN,
+                {
+                  loginProvider: "jwt",
+                  extraLoginOptions: {
+                    id_token: idToken,
+                    verifierIdField: "sub",
+                    domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
+                  },
+                }
+              );
+              setProvider(web3authProvider);
+
+            })
+            .catch(function (error) {
+              // Handle error
+              console.error("Error getting ID token:", error);
+            });
         } else {
           // Handle case when no user is found with the given ID
           console.log("No user found");
