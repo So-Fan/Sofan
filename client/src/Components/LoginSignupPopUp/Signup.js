@@ -391,7 +391,9 @@ function Signup({
 
 
   useEffect(() => {
-    setLoggedInUser(allUserInfo);
+    if (allUserInfo) {
+      setLoggedInUser(allUserInfo);
+    }
   },[allUserInfo]) 
 
   const generateVerificationCode = () => {

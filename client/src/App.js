@@ -23,6 +23,8 @@ import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [web3auth, setWeb3auth] = useState(null);
+  
+  console.log(loggedInUser);
 
   useEffect(() => {
     // Check if user data exists in localStorage
@@ -37,7 +39,6 @@ function App() {
     if (loggedInUser) {
       localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
     }
-
     // console.log(loggedInUser);
   }, [loggedInUser]);
 
@@ -141,6 +142,22 @@ function App() {
       }
     }
   }, []);
+
+  const checkWalletProvider = (userData) => {
+    if (userData.web3AuthWallet) {
+      return "web3auth";
+    } else if (userData.metaMask) {
+      return "metaMask";
+    } else if (userData.coinbase) {
+      return "coinbase";
+    } else if (userData.walletConnet) {
+      return "walletConnet";
+    } else {
+      return null;
+    }
+  };
+
+
   //
   function handleNotificationPopup(e) {
     setIsNotificationButtonClicked(true);
@@ -158,6 +175,7 @@ function App() {
               isLogged={loggedInUser}
               web3auth={web3auth}
               setWeb3auth={setWeb3auth}
+              checkWalletProvider={checkWalletProvider}
             />
 
             <Routes>

@@ -15,7 +15,7 @@ import LoginSignUpScreen from "../../Pages/LoginSignUpPage/LoginSignUpScreen";
 import LoginSignUp from "../LoginSignUp/LoginSignUp";
 import SignUp from "../LoginSignUp/SignUp";
 import Signup from "../LoginSignupPopUp/Signup";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import PopUpSignIn from "../PopUpSignIn/PopUpSignIn";
 
 const Navbar = ({
@@ -25,9 +25,11 @@ const Navbar = ({
   isNotificationButtonClicked,
   setIsNotificationButtonClicked,
   web3auth,
-  setWeb3auth
+  setWeb3auth,
+  checkWalletProvider,
 }) => {
-  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] = useState();
+  const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
+    useState();
   const [isSignUpButtonClicked, setIsSignUpButtonClicked] = useState(false);
   const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
   const handlePixelScrolledAthleteProfilePage = () => {
@@ -35,15 +37,14 @@ const Navbar = ({
   };
   const navigate = useNavigate();
 
-  
   function handleSignInButtonClick() {
     // navigate('/login'); // redirect to signin popup
-    setIsSignInButtonClicked(true)
+    setIsSignInButtonClicked(true);
   }
 
   function handleSignUpButtonClick() {
     setIsSignUpButtonClicked(true);
-    document.querySelector('body').classList.add('scroll-lock');
+    document.querySelector("body").classList.add("scroll-lock");
   }
   useEffect(() => {
     window.addEventListener(
@@ -54,13 +55,14 @@ const Navbar = ({
   }, []);
 
   const handlePopoUpSignInSignUpClick = () => {
-    setIsSignInButtonClicked(false)
-    setIsSignUpButtonClicked(true)
-  }
+    setIsSignInButtonClicked(false);
+    setIsSignUpButtonClicked(true);
+  };
   const handlePopoUpSignUpSignInClick = () => {
-    setIsSignUpButtonClicked(false)
-    setIsSignInButtonClicked(true)
-  }
+    setIsSignUpButtonClicked(false);
+    setIsSignInButtonClicked(true);
+  };
+
   return (
     <>
       {!isLogged && (
@@ -72,7 +74,7 @@ const Navbar = ({
       )}
       <section className="navbar-section">
         <div className="navbar-wrap">
-          <div className="navbar-wrap-1">
+          <div className="navbar-wrap-1">S
             <Link to="/">
               <img className="navbar-main-logo" src={SofanLogo2} alt="Sofan" />
             </Link>
@@ -80,12 +82,12 @@ const Navbar = ({
           </div>
           <div
             className={
-              isLogged ? "navbar-wrap-2" : "navbar-wrap-2-unauthenticated"
+              isLogged && Object.keys(isLogged).length > 0 ? "navbar-wrap-2" : "navbar-wrap-2-unauthenticated"
             }
           >
             <NavLink name="Feed" link="/Feed" />
             <NavLink name="Launchpad" link="/Launchpad" />
-            {isLogged ? (
+            {isLogged && Object.keys(isLogged).length > 0 ? (
               <div className="navbar-wrap-2-subwrap-navicon-and-navprofile">
                 <div className="navbar-wrap-2-navicon-wrap">
                   <div className="navbar-vertical"></div>
@@ -95,7 +97,12 @@ const Navbar = ({
                   />
                   <div className="navbar-vertical"></div>
                 </div>
-                <NavProfile userInfo={isLogged} isProfileClicked={isProfileClicked} src={profile} web3auth={web3auth} />
+                <NavProfile
+                  userInfo={isLogged}
+                  isProfileClicked={isProfileClicked}
+                  src={profile}
+                  web3auth={web3auth}
+                />
               </div>
             ) : (
               <div className="navbar-wrap-2-subwrap-sign">
@@ -133,12 +140,27 @@ const Navbar = ({
           setState={setIsSignUpButtonClicked}
           style={{ top: "20px", right: "20px", zIndex: "9999" }}
         >
-          <Signup web3auth={web3auth} setWeb3auth={setWeb3auth} handlePopoUpSignUpSignInClick={handlePopoUpSignUpSignInClick} setIsSignUpButtonClicked={setIsSignUpButtonClicked} />
+          <Signup
+            web3auth={web3auth}
+            setWeb3auth={setWeb3auth}
+            handlePopoUpSignUpSignInClick={handlePopoUpSignUpSignInClick}
+            setIsSignUpButtonClicked={setIsSignUpButtonClicked}
+          />
         </Modal>
       )}
       {isSignInButtonClicked && (
-        <Modal style={{visibility: "hidden"}} setState={() => setIsSignInButtonClicked()} dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage} >
-            <PopUpSignIn web3auth={web3auth} setWeb3auth={setWeb3auth} handlePopoUpSignInSignUpClick={handlePopoUpSignInSignUpClick} setIsSignInButtonClicked={setIsSignInButtonClicked} />
+        <Modal
+          style={{ visibility: "hidden" }}
+          setState={() => setIsSignInButtonClicked()}
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+        >
+          <PopUpSignIn
+            web3auth={web3auth}
+            setWeb3auth={setWeb3auth}
+            handlePopoUpSignInSignUpClick={handlePopoUpSignInSignUpClick}
+            setIsSignInButtonClicked={setIsSignInButtonClicked}
+            checkWalletProvider={checkWalletProvider}
+          />
         </Modal>
       )}
     </>

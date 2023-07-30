@@ -29,7 +29,10 @@ function ConnectWallet({
       return;
     }
 
+    await web3auth.logout();
+
     if (!collectedIdToken) {
+      
       console.log("1st attempt of token ID creation Failed");
       await auth.currentUser
         .getIdToken(true)
