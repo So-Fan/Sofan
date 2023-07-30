@@ -501,18 +501,20 @@ function Signup({
                 body: JSON.stringify({ email, verificationCode }),
               }
             )
-              .then((response) => { 
-                console.log(response);
-                //response.json()
-              })
+              .then((response) => response.json()) // Extract the JSON body of the response
               .then((data) => {
-                // Handle success, e.g., show a success message to the user
+                if (data.success) {
+                  console.log(data.success);
+                  // Handle success, e.g., show a success message to the user
+                } else if (data.error) {
+                  console.error("Error sending verification email:", data.error, data.details);
+                  // Handle error, e.g., show an error message to the user
+                }
               })
               .catch((error) => {
-                // Handle error, e.g., show an error message to the user
-                console.error("Error sending verification email:", error);
+                console.error("Error processing response:", error);
               });
-          
+            
           
           
           })
