@@ -302,7 +302,7 @@ const PopUpSignIn = ({
             <Button
               style={popUpSignInForgotPasswordButton}
               isLink={true}
-              to={"/forgetpassword"}
+              // to={"/forgetpassword"}
               text={"Mot de passe oublié"}
               onClick={handleForgotPasswordClick}
             />
