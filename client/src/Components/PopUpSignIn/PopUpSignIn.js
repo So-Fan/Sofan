@@ -28,6 +28,7 @@ import {
 } from "firebase/firestore";
 import "./PopUpSignIn.css";
 import Button from "../Button/Button";
+import ForgotPassword from "../LoginSignupPopUp/ForgotPassword/ForgotPassword";
 
 const PopUpSignIn = ({
   web3auth,
@@ -46,6 +47,7 @@ const PopUpSignIn = ({
   const navigate = useNavigate();
   const [allUserInfo, setAllUserInfo] = useState({});
   const [firebaseIdToken, setFirebaseIdToken] = useState();
+  const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
 
   const {
     state: { accounts },
@@ -256,71 +258,83 @@ const PopUpSignIn = ({
     e.preventDefault();
     console.log("Apple Logged");
   };
+  function handleForgotPasswordClick(e) {
+    setIsForgotPasswordClicked(true);
+  }
 
   
 
   return (
     <>
-      <div className="popupsignin-component">
-        <span>Sign In</span>
-        <span>
-          Sign up now to connect with athletes and explore exclusive NFT content
-          within a vibrant community of sports enthusiasts!
-        </span>
-        {error && (
-          <span className="error-message">
-            Votre Email ou votre Mot de Passe est incorrect.
-          </span>
-        )}
-        <div className="popupsignin-input-container">
-          <span>E-mail</span>
-          <input
-            type="text"
-            placeholder={"Enter your e-mail"}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="popupsignin-input-container">
-          <span>Password</span>
-          <input
-            type="password"
-            placeholder={"Confirm you password"}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <Button
-          style={popUpSignInForgotPasswordButton}
-          isLink={true}
-          to={"/forgetpassword"}
-          text={"Mot de passe oublié"}
-        />
-        <Button
-          onClick={handleLogin}
-          style={popUpSignInButton}
-          text={"Sign In"}
-        />
-        <div className="popupsignin-style-container">
-          <div></div>
-          <span>OU</span>
-          <div></div>
-        </div>
-        <div className="popupsignin-socials-container">
-          <img src={googleImage} alt="google sign in" />
-          <Button
-            style={popUpSignInGoogleButton}
-            text={"Connecter avec Google"}
-            onClick={googleLogin}
-          />
-        </div>
-        <div className="popupsignin-signup-container">
-          <span>You don't have an account ? </span>
-          <Button
-            onClick={handlePopoUpSignInSignUpClick}
-            text={"Créer un compte"}
-            style={popUpSignInSignUpRedirectButton}
-          />
-        </div>
-      </div>
+      {isForgotPasswordClicked ? (
+        <>
+          <ForgotPassword />
+        </>
+      ) : (
+        <>
+          <div className="popupsignin-component">
+            <span>Sign In</span>
+            <span>
+              Sign up now to connect with athletes and explore exclusive NFT
+              content within a vibrant community of sports enthusiasts!
+            </span>
+            {error && (
+              <span className="error-message">
+                Votre Email ou votre Mot de Passe est incorrect.
+              </span>
+            )}
+            <div className="popupsignin-input-container">
+              <span>E-mail</span>
+              <input
+                type="text"
+                placeholder={"Enter your e-mail"}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="popupsignin-input-container">
+              <span>Password</span>
+              <input
+                type="password"
+                placeholder={"Confirm you password"}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button
+              style={popUpSignInForgotPasswordButton}
+              isLink={true}
+              to={"/forgetpassword"}
+              text={"Mot de passe oublié"}
+              onClick={handleForgotPasswordClick}
+            />
+            <Button
+              onClick={handleLogin}
+              style={popUpSignInButton}
+              text={"Sign In"}
+            />
+            <div className="popupsignin-style-container">
+              <div></div>
+              <span>OU</span>
+              <div></div>
+            </div>
+            <div className="popupsignin-socials-container">
+              <img src={googleImage} alt="google sign in" />
+              <Button
+                style={popUpSignInGoogleButton}
+                text={"Connecter avec Google"}
+                onClick={googleLogin}
+              />
+            </div>
+            <div className="popupsignin-signup-container">
+              <span>You don't have an account ? </span>
+              <Button
+                onClick={handlePopoUpSignInSignUpClick}
+                text={"Créer un compte"}
+                style={popUpSignInSignUpRedirectButton}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
