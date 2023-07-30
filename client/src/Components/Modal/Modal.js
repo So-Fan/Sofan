@@ -14,7 +14,9 @@ const Modal = (props) => {
       e.target.id === "modal-component" ||
       e.target.id === "modal-component-cross" || e.target.id === "custom-close-button"
     ) {
+        if(props.setState){
       props.setState(false);
+        }
         // retirer le scroll lock lorsque le modal n'est plus la
         document.querySelector("body").classList.remove("scroll-lock");
     } 
