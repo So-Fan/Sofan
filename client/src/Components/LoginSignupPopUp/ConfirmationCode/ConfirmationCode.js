@@ -61,6 +61,16 @@ function ConfirmationCode({
     }
   }
 
+  function handlePaste(event, index) {
+    const pastedData = event.clipboardData.getData('text');
+    if (pastedData.length === 6 && /^\d{6}$/.test(pastedData)) {
+      const newCode = pastedData.split('');
+      setCode(newCode);
+      event.preventDefault(); // Prevent the default paste action
+    }
+  }
+  
+
   const inputRefs = useRef([]);
 
   return (
@@ -88,6 +98,7 @@ function ConfirmationCode({
             pattern="\d"
             value={value}
             onChange={(e) => handleChange(index, e.target.value)}
+            onPaste={(e) => handlePaste(e, index)}
             onKeyUp={(e) => {
               if (e.target.value) {
                 e.target.nextSibling && e.target.nextSibling.focus();

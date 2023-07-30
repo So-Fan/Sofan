@@ -264,6 +264,9 @@ const PopUpSignIn = ({
 
   
 
+  function handleForgotPasswordClick(e) {
+    setIsForgotPasswordClicked(true);
+  }
   return (
     <>
       {isForgotPasswordClicked ? (

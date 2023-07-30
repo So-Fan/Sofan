@@ -24,7 +24,6 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [web3auth, setWeb3auth] = useState(null);
   
-  console.log(loggedInUser);
 
   useEffect(() => {
     // Check if user data exists in localStorage
