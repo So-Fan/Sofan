@@ -8,6 +8,10 @@ function ForgotPassword() {
   const [isMailValidAndButtonClicked, setIsMailValidAndButtonClicked] =
     useState();
   const [
+    isForgotPasswordFirstSendMailLoading,
+    setIsForgotPasswordFirstSendMailLoading,
+  ] = useState();
+  const [
     isForgotPasswordResendMailLoading,
     setIsForgotPasswordResendMailLoading,
   ] = useState(false);
@@ -25,7 +29,11 @@ function ForgotPassword() {
   }
   function handleClickSendResetPasswordLink() {
     if (isValidEmail === true) {
-      setIsMailValidAndButtonClicked(true);
+      setIsForgotPasswordFirstSendMailLoading(true);
+      setTimeout(() => {
+        setIsForgotPasswordFirstSendMailLoading(false);
+        setIsMailValidAndButtonClicked(true);
+      }, 2000);
     } else {
       setIsMailValidAndButtonClicked(false);
     }
@@ -59,12 +67,10 @@ function ForgotPassword() {
                       </span>{" "}
                       pour le renvoyer.
                     </p>
-                    
+
                     {isForgotPasswordResendMailLoading ? (
                       <>
-                        <div
-                          className="lds-ellipsis"
-                        >
+                        <div className="lds-ellipsis">
                           <div></div>
                           <div></div>
                           <div></div>
@@ -77,7 +83,7 @@ function ForgotPassword() {
                           <>
                             <p className="forgot-password-popup-validation-message-resend-confirmation">
                               Un nouveau mail a été envoyé. Pensez à vérifier
-                              vos spams
+                              vos spams.
                             </p>
                           </>
                         ) : (
@@ -85,6 +91,15 @@ function ForgotPassword() {
                         )}
                       </>
                     )}
+                  </div>
+                </div>
+              </>
+            ) : isForgotPasswordFirstSendMailLoading ? (
+              <>
+                <div className="forgot-password-popup-validation-message-loading">
+                  <div className="lds-ripple">
+                    <div></div>
+                    <div></div>
                   </div>
                 </div>
               </>
