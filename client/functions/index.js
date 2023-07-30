@@ -6,7 +6,7 @@ const cors = require('cors')({ origin: ['http://localhost:3000', 'https://www.so
 // // https://firebase.google.com/docs/functions/get-started
 
 const nodemailer = require("nodemailer");
-//const generateVerificationCodeEmailHTML = require("./generateVerificationCodeEmailHTML");
+const generateVerificationCodeEmailHTML = require("./generateVerificationCodeEmailHTML");
 
 const transporter = nodemailer.createTransport({
   host: "mail.gandi.net",
@@ -22,18 +22,17 @@ const transporter = nodemailer.createTransport({
 
 exports.sendVerificationEmail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
-    // Your function code here
     if (req.method !== "POST") {
       return res.status(405).send("Method Not Allowed");
     }
-  
-    const { email, verificationCode } = req.body; // Extracting email and code from request
+
+    const { email, verificationCode } = req.body;
     const htmlContent = generateVerificationCodeEmailHTML({
       code: verificationCode,
     });
-  
+
     const mailOptions = {
-      from: functions.config().email.user, // Adjusted to use Firebase functions config
+      from: functions.config().email.user,
       to: email,
       subject: "Sign Up Verification Code",
       html: htmlContent,
@@ -42,11 +41,11 @@ exports.sendVerificationEmail = functions.https.onRequest((req, res) => {
     try {
       await transporter.sendMail(mailOptions);
       functions.logger.log("Email sent successfully");
+      res.send({ success: "Email sent successfully" }); // Send success response
     } catch (err) {
       functions.logger.error("Error sending email:", err);
+      res.status(500).send({ error: "Error sending email", details: err }); // Send error details
     }
-    
-    //res.send('CORS enabled!');
   });
-  
 });
+
