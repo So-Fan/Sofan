@@ -29,7 +29,7 @@ function ConnectWallet({
       return;
     }
 
-    await web3auth.logout();
+    // await web3auth.logout();
 
     if (!collectedIdToken) {
       
