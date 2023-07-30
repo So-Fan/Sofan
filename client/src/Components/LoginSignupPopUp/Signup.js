@@ -348,8 +348,6 @@ function Signup({
         sport: "",
       };
 
-      
-
       //console.log(newUser);
       const userDocRef = doc(usersRef, user.uid);
       const userDoc = await getDoc(userDocRef);
@@ -386,15 +384,13 @@ function Signup({
       console.log(`Error Code: ${errorCode}`);
       console.error(`Error Message: ${errorMessage}`);
     }
-
   };
-
 
   useEffect(() => {
     if (allUserInfo) {
       setLoggedInUser(allUserInfo);
     }
-  },[allUserInfo]) 
+  }, [allUserInfo]);
 
   const generateVerificationCode = () => {
     // Generate a random 6-digit number
@@ -450,34 +446,28 @@ function Signup({
               status: true,
               sport: "",
             };
-            const emailValidRef = collection(db, "email_validations");
-            const validationData = {
-              userId: user.uid,
-              email,
-              code: generateVerificationCode(),
-              created_At: Timestamp.fromMillis(createdAt.getTime()),
-            };
+
             const userDocRef = doc(usersRef, user.uid);
             const userDoc = await getDoc(userDocRef);
-            console.log(userDoc , "\nUser Doc called from firebase ");
+            console.log(userDoc, "\nUser Doc called from firebase ");
             const userExists = userDoc.exists();
 
             if (!userExists) {
               setAllUserInfo(newUser);
               // User does not exist in Firestore, so add the document
               await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
-              console.log('User Data Uploaded Successfully');
+              console.log("User Data Uploaded Successfully");
               await auth.currentUser
-              .getIdToken(true)
-              .then(function (idToken) {
-                console.log(auth.currentUser);
-                // Send token to your backend via HTTPS
-                setFirebaseIdToken(idToken);
-              })
-              .catch(function (error) {
-                // Handle error
-                console.error("Error getting ID token:", error);
-              });
+                .getIdToken(true)
+                .then(function (idToken) {
+                  console.log(auth.currentUser);
+                  // Send token to your backend via HTTPS
+                  setFirebaseIdToken(idToken);
+                })
+                .catch(function (error) {
+                  // Handle error
+                  console.error("Error getting ID token:", error);
+                });
             } else {
               console.log(
                 "User with email and pass already exists in Firestore:",
@@ -485,8 +475,46 @@ function Signup({
               );
             }
             //await addDoc(usersRef, newUser);
+
+            // SEND EMAIL VERIFICATION CODE
+            const emailValidRef = collection(db, "email_validations");
+            let verificationCode = generateVerificationCode();
+            const validationData = {
+              userId: user.uid,
+              email,
+              code: verificationCode,
+              created_At: Timestamp.fromMillis(createdAt.getTime()),
+            };
+
             await addDoc(emailValidRef, validationData);
-            
+
+            // ...
+
+            // Make a POST request to the Cloud Function to send the verification email
+            fetch(
+              "https://us-central1-sofan-app.cloudfunctions.net/sendVerificationEmail",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, verificationCode }),
+              }
+            )
+              .then((response) => { 
+                console.log(response);
+                //response.json()
+              })
+              .then((data) => {
+                // Handle success, e.g., show a success message to the user
+              })
+              .catch((error) => {
+                // Handle error, e.g., show an error message to the user
+                console.error("Error sending verification email:", error);
+              });
+          
+          
+          
           })
           .catch((error) => {
             // Handle errors here
@@ -515,7 +543,6 @@ function Signup({
   }, [isFormValid, isSubmitClicked]);
 
   function handleSubmitConfirmationCodeClick() {
-    console.log("click");
     if (isConfirmCodeValid) {
       setDisplayConfirmationCode(false);
       // setDisplaySetupProfile(true);
