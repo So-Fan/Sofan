@@ -62,7 +62,11 @@ const Navbar = ({
     setIsSignUpButtonClicked(false);
     setIsSignInButtonClicked(true);
   };
-
+function handleSignupPopupDisplay(e) {
+  if (e.target.id === "modal-component-cross") {
+    setIsSignUpButtonClicked(false)
+  }
+}
   return (
     <>
       {!isLogged && (
@@ -74,7 +78,7 @@ const Navbar = ({
       )}
       <section className="navbar-section">
         <div className="navbar-wrap">
-          <div className="navbar-wrap-1">S
+          <div className="navbar-wrap-1">
             <Link to="/">
               <img className="navbar-main-logo" src={SofanLogo2} alt="Sofan" />
             </Link>
@@ -137,7 +141,9 @@ const Navbar = ({
       {isSignUpButtonClicked && (
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
-          setState={setIsSignUpButtonClicked}
+          // setState={setIsSignUpButtonClicked}
+          handleSignupPopupDisplay={handleSignupPopupDisplay}
+          quitModalWithCrossOnly={true}
           style={{ top: "20px", right: "20px", zIndex: "9999" }}
         >
           <Signup
