@@ -35,6 +35,7 @@ const PopUpSignIn = ({
   setWeb3auth,
   handlePopoUpSignInSignUpClick,
   setIsSignInButtonClicked,
+  checkWalletProvider,
 }) => {
   const googleImage =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f";
@@ -111,7 +112,7 @@ const PopUpSignIn = ({
         const user = userCredential.user;
         const q = query(collection(db, "users"), where("id", "==", user.uid));
         const querySnapshot = await getDocs(q);
-
+        let tempUserData;
         if (!querySnapshot.empty) {
           querySnapshot.forEach((doc) => {
             const userInfo = doc.data();
@@ -120,13 +121,16 @@ const PopUpSignIn = ({
               ...user,
               ...userInfo,
             };
+            tempUserData = AllUserInfo;
             setLoggedInUser(AllUserInfo);
-            // Do something with the user info
+
           });
-          await auth.currentUser
+
+          if (checkWalletProvider(tempUserData) === "web3auth") {
+            await web3auth.logout();
+            await auth.currentUser
             .getIdToken(true)
             .then(async function (idToken) {
-              console.log(auth.currentUser, idToken);
 
               const web3authProvider = await web3auth.connectTo(
                 WALLET_ADAPTERS.OPENLOGIN,
@@ -145,6 +149,8 @@ const PopUpSignIn = ({
               // Handle error
               console.error("Error getting ID token:", error);
             });
+          }
+
         } else {
           // Handle case when no user is found with the given ID
           console.log("No user found");
@@ -255,6 +261,9 @@ const PopUpSignIn = ({
   function handleForgotPasswordClick(e) {
     setIsForgotPasswordClicked(true);
   }
+
+  
+
   return (
     <>
       {isForgotPasswordClicked ? (
