@@ -19,6 +19,7 @@ import TestSecondary from "./Pages/Test/TestSecondary";
 import CGU from "./Pages/CGU/CGU";
 import UserContext from "./UserContext";
 import SettingsPage from "./Pages/SettingsPage/SettingsPage";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -272,6 +273,7 @@ function App() {
               />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/cgu" element={<CGU />} />
+              <Route path="/error" element={<ErrorPage/>} />
             </Routes>
           </div>
           <section className="error-mobile-waiting-page">
