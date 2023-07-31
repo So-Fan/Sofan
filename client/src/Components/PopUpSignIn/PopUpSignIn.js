@@ -319,19 +319,25 @@ const PopUpSignIn = ({
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <Button
+            {/* <Button
               style={popUpSignInForgotPasswordButton}
               isLink={true}
               // to={"/forgetpassword"}
               text={"Mot de passe oublié ?"}
               onClick={handleForgotPasswordClick}
-            />
-            <Button
+            /> */}
+            <button className="popupsignin-forget-password">
+              Mot de passe oublié ?
+            </button>
+            {/* <Button
               onClick={handleLogin}
               style={popUpSignInButton}
               text={"Se connecter"}
               id="popupsignin-signin-button"
-            />
+            /> */}
+            <button onClick={handleLogin} className="popupsignin-signin-button">
+              Se connecter
+            </button>
             <div className="popupsignin-style-container">
               <div></div>
               <span>OU</span>
@@ -339,19 +345,21 @@ const PopUpSignIn = ({
             </div>
             <div className="popupsignin-socials-container">
               <img src={googleImage} alt="google sign in" />
-              <Button
-                style={popUpSignInGoogleButton}
-                text={"Se connecter avec Google"}
+              <button
+                className="popupsignin-google-button"
                 onClick={googleLogin}
-              />
+              >
+                Se connecter avec Google
+              </button>
             </div>
             <div className="popupsignin-signup-container">
               <span>Vous n'avez pas de compte ? </span>
-              <Button
+              {/* <Button
                 onClick={handlePopoUpSignInSignUpClick}
                 text={"Créer un compte"}
                 style={popUpSignInSignUpRedirectButton}
-              />
+              /> */}
+              <button className="popupsignin-signup-button">Créer un compte</button>
             </div>
           </div>
         </>
