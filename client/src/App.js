@@ -43,26 +43,7 @@ function App() {
     // console.log(loggedInUser);
   }, [loggedInUser]);
 
-  useEffect(() => {
-    // Check if user data exists in localStorage
-    const storedWeb3AuthProvider = localStorage.getItem(
-      "localWeb3authProvider"
-    );
-    if (storedWeb3AuthProvider) {
-      setLocalWeb3authProvider(JSON.parse(storedWeb3AuthProvider));
-    }
-  }, []);
 
-  useEffect(() => {
-    // Save loggedInUser to localStorage when it changes
-    if (localWeb3authProvider) {
-      localStorage.setItem(
-        "localWeb3authProvider",
-        JSON.stringify(localWeb3authProvider)
-      );
-    }
-    // console.log(loggedInUser);
-  }, [localWeb3authProvider]);
 
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
@@ -189,7 +170,7 @@ function App() {
       }}
     >
       <BrowserRouter>
-        <EthProvider>
+        <EthProvider setWeb3auth={setWeb3auth}>
           <div className="App" onClick={handleClickOutside}>
             <Navbar
               isNotificationButtonClicked={isNotificationButtonClicked}
