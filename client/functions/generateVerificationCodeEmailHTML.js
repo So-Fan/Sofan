@@ -1,7 +1,4 @@
-//const VerificationCodeEmail = require("../src/Components/Emails/VerificationCodeEmail");
 
-// Function to generate the HTML content of the email
-// generateVerificationCodeEmailHTML.js
 const generateVerificationCodeEmailHTML = ({ code }) => {
   const bodyStyle = "font-family: Arial, sans-serif; background-color: #fafafa; margin: 0; padding: 0; line-height: 1.6;";
   const containerStyle = "max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); background-color: #ffffff; box-sizing: border-box;";

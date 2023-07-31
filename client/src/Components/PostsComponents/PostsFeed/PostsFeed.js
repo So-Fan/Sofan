@@ -71,7 +71,6 @@ function PostsFeed({
     }
   }
   // console.log(lockPremiumContent)
-console.log(isDropdownClicked)
   
   return (
     <>

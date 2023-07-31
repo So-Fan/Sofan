@@ -109,7 +109,7 @@ const Navbar = ({
                 <NavProfile
                   userInfo={isLogged}
                   isProfileClicked={isProfileClicked}
-                  src={profile}
+                  src={isLogged.profile_avatar}
                   web3auth={web3auth}
                 />
               </div>

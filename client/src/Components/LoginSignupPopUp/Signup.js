@@ -99,11 +99,7 @@ function Signup({
   const [googleIdToken, setGoogleIdToken] = useState();
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const {
-    state: { contract, accounts, isOwner, isMintOn, mintPrice },
-    isWalletConnectClicked,
-    setIsWalletConnectClicked,
-    setProvider,
-    provider,
+    setWeb3authProvider,
   } = useEth();
 
   useEffect(() => {
@@ -147,7 +143,7 @@ function Signup({
         setWeb3auth(web3auth);
 
         await web3auth.init();
-        setProvider(web3auth.provider);
+        setWeb3authProvider(web3auth.provider);
       } catch (error) {
         console.error(error);
       }
@@ -312,6 +308,35 @@ function Signup({
           ...user,
           ...newUser,
         });
+        let emailAddress = user.email;
+        fetch(
+          "https://us-central1-sofan-app.cloudfunctions.net/sendWelcomeEmail",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ emailAddress }),
+          }
+        )
+          .then((response) => response.json()) // Extract the JSON body of the response
+          .then((data) => {
+            if (data.success) {
+              console.log(data.success);
+              // Handle success, e.g., show a success message to the user
+            } else if (data.error) {
+              console.error(
+                "Error sending welcome email:",
+                data.error,
+                data.details
+              );
+              // Handle error, e.g., show an error message to the user
+            }
+          })
+          .catch((error) => {
+            console.error("Error processing response:", error);
+          });
+        
       } else {
         setIsGoogleSignupLoading(false);
         setgoogleErrorAlreadyRegister(true);

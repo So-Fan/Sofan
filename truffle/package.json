@@ -4,13 +4,12 @@
     "description": "Sofan",
     "main": "truffle-config.js",
     "dependencies": {
-      "@truffle/hdwallet-provider": "^2.0.10"
+        "@truffle/hdwallet-provider": "^2.0.10",
+        "dotenv": "^16.3.1"
     },
-    "devDependencies": {},
     "scripts": {
-      "test": "truffle test"
+        "test": "truffle test"
     },
     "author": "",
     "license": "MIT"
-  }
-  
+}

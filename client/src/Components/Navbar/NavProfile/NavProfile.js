@@ -8,27 +8,28 @@ import useEth from "../../../contexts/EthContext/useEth";
 
 
 const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
-  const { setLoggedInUser } = useContext(UserContext);
+  const { setLoggedInUser, setLocalWeb3authProvider } = useContext(UserContext);
   const {
-    state: { contract, accounts, isOwner, isMintOn, mintPrice },
-    isWalletConnectClicked,
-    setIsWalletConnectClicked,
-    setProvider,
-    provider
+    setWeb3authProvider,
   } = useEth();
 
   const handleSignOut = async() => {
-    setProvider(null)
+    setWeb3authProvider(null);
     signOut(auth)
-      .then(() => {
-        setLoggedInUser(null);
+    .then(() => {
+      setLoggedInUser(null);
+      setLocalWeb3authProvider(null);
         localStorage.removeItem("loggedInUser");
       })
       .catch((error) => {
         console.log(error);
       });
-      if(!web3auth) return;
-    await web3auth.logout();
+    try {
+      if (!web3auth) return;
+      await web3auth.logout();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -40,7 +41,9 @@ const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
         <Link to={userInfo.account_type !== 'free' ? `/athleteprofile/${userInfo.id}` : `/userprofile/${userInfo.id}`}>Voir profil</Link>
         <Link to="/settings">Settings</Link>
         <Link to="/legals">Mentions<br />légales</Link>
-        <Link onClick={handleSignOut} to="/">Déconnecter</Link>
+        <Link onClick={handleSignOut} 
+        // to="/"
+        >Déconnecter</Link>
       </div>}
     </div>
   );
