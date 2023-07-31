@@ -87,6 +87,9 @@ function Signup({
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
+  const [isGoogleSignupLoading, setIsGoogleSignupLoading] = useState(false);
+  // Backend
+  const [codeMatched, setCodeMatched] = useState(false);
 
   const [googleIdToken, setGoogleIdToken] = useState();
   const [firebaseIdToken, setFirebaseIdToken] = useState();
@@ -253,70 +256,12 @@ function Signup({
     element.classList.add("PhoneInputInputOpacity");
   }
 
-  // const signUpWithGoogle = async (e) => {
-  //   e.preventDefault();
-  //   setIsGoogleSignUpClicked(true);
-  //   try {
-  //     const createdAt = new Date();
-  //     // Sign-in process using a popup
-  //     const result = await signInWithPopup(auth, googleProvider);
-  //     const user = result.user;
-  //     const usersRef = collection(db, "users");
-
-  //     // Here you can manage and use the returned user object
-  //     // You could return it, log it, or do something else
-  //     console.log(user);
-
-  //     // Create a new user object using Google sign in details
-  //     const newUser = {
-  //       id: user.uid,
-  //       email: user.email,
-  //       account_created: Timestamp.fromMillis(createdAt.getTime()), // Replace 'user.metadata.creationTime' with appropriate field
-  //       account_type: "free",
-  //       name: user.displayName,
-  //       username: user.displayName.split(" ")[0], // Assuming first name as username
-  //       display_name: user.displayName,
-  //       phone: user.phoneNumber,
-  //       emailVerified: user.emailVerified,
-  //       news: false,
-  //       premium: false,
-  //       profile_avatar: "https://i.imgur.com/cCVIcNS.png",
-  //       profile_banner: "https://i.imgur.com/sJTNEVk.png",
-  //       status: true,
-  //       wallet: [],
-  //     };
-
-  //     setAllUserInfo({
-  //       ...user,
-  //       ...newUser,
-  //     });
-  //     setLoggedInUser(allUserInfo);
-
-  //     console.log(newUser);
-  //     await addDoc(usersRef, newUser);
-  //     setDisplaySetupProfile(true);
-  //     setIsSubmitClicked(true);
-  //     setDisplayConfirmationCode(false);
-  //     setIsFormValid(true);
-  //     return result;
-  //   } catch (error) {
-  //     // Handle Errors here.
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     const email = error.email;
-  //     // The firebase.auth.AuthCredential type that was used.
-  //     const credential = error.credential;
-
-  //     console.log(`Error Code: ${errorCode}`);
-  //     console.error(`Error Message: ${errorMessage}`);
-  //   }
-  // };
-
   const signUpWithGoogle = async (e) => {
     e.preventDefault();
     setIsGoogleSignUpClicked(true);
     try {
+      setIsGoogleSignupLoading(true);
+      console.log("loading est true")
       const createdAt = new Date();
       // Sign-in process using a popup
       const result = await signInWithPopup(auth, googleProvider);
@@ -362,16 +307,22 @@ function Signup({
           ...newUser,
         });
       } else {
+        // Mettre ERREUR Google ici Rami "Votre compte existe déjà, veuillezz vous connecter"
+        // Mettre aussi un return pour éviter que ça continue à la prochaine étape
         console.log("User already exists in Firestore:", userDoc.data());
       }
 
+      const idToken = await result.user.getIdToken(true);
+      setGoogleIdToken(idToken);
       //await addDoc(usersRef, newUser);
-      setDisplaySetupProfile(true);
       setIsSubmitClicked(true);
       setDisplayConfirmationCode(false);
       setIsFormValid(true);
-      const idToken = await result.user.getIdToken(true);
-      setGoogleIdToken(idToken);
+      setTimeout(() => {
+        setDisplaySetupProfile(true);
+        setIsGoogleSignupLoading(false);
+        console.log("timeout marche !!")
+      }, 2000);
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -383,6 +334,7 @@ function Signup({
 
       console.log(`Error Code: ${errorCode}`);
       console.error(`Error Message: ${errorMessage}`);
+      // Mettre ERREUR Google ici Rami "Oops quelque chose s'est mal passé avec google"
     }
   };
 
@@ -507,16 +459,17 @@ function Signup({
                   console.log(data.success);
                   // Handle success, e.g., show a success message to the user
                 } else if (data.error) {
-                  console.error("Error sending verification email:", data.error, data.details);
+                  console.error(
+                    "Error sending verification email:",
+                    data.error,
+                    data.details
+                  );
                   // Handle error, e.g., show an error message to the user
                 }
               })
               .catch((error) => {
                 console.error("Error processing response:", error);
               });
-            
-          
-          
           })
           .catch((error) => {
             // Handle errors here
@@ -544,14 +497,32 @@ function Signup({
     }
   }, [isFormValid, isSubmitClicked]);
 
-  function handleSubmitConfirmationCodeClick() {
-    if (isConfirmCodeValid) {
-      setDisplayConfirmationCode(false);
-      // setDisplaySetupProfile(true);
-      setTimeout(() => {
-        setDisplaySetupProfile(true);
-      }, 2000);
+  async function handleSubmitConfirmationCodeClick(e, code) {
+    e.preventDefault();
+
+    const uid = allUserInfo.id;
+    if (!uid) {
+      console.error("UID is undefined");
+      return;
     }
+
+    const emailValidRef = collection(db, "email_validations");
+    const q = query(emailValidRef, where("userId", "==", uid));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      if (isConfirmCodeValid && doc.data().code === code) {
+        setCodeMatched(true);
+        setDisplayConfirmationCode(false);
+
+        setTimeout(() => {
+          setDisplaySetupProfile(true);
+        }, 2500);
+        return;
+      } else {
+        setCodeMatched = false;
+      }
+    });
   }
 
   const updateImagePaths = async (uid, avatarPath, bannerPath) => {
@@ -677,87 +648,100 @@ function Signup({
     <>
       {isFormValid && isSubmitClicked ? (
         <>
-          <div
-            className={
-              displayConfirmationCode
-                ? "signup-user-confirmation-code-container"
-                : displaySetupProfile
-                ? "signup-user-setup-profile-container"
-                : displayConnectWallet
-                ? "signup-user-connect-wallet-container"
-                : displayConfirmWallet
-                ? "signup-user-confirm-wallet-container"
-                : displayValidationSignup
-                ? "signup-user-validation-signup-container"
-                : "signup-user-container"
-            }
-          >
-            {displayConfirmationCode ? (
-              <>
-                <ConfirmationCode
-                  setIsConfirmCodeValid={setIsConfirmCodeValid}
-                  isConfirmCodeValid={isConfirmCodeValid}
-                  handleSubmitConfirmationCodeClick={
-                    handleSubmitConfirmationCodeClick
-                  }
-                  handleConfirmationCodePreviousStep={
-                    handleConfirmationCodePreviousStep
-                  }
-                  UserEmail={email}
-                />
-              </>
-            ) : displaySetupProfile ? (
-              <>
-                <SetupProfile
-                  handleSetupProfileNextButtonClick={
-                    handleSetupProfileNextButtonClick
-                  }
-                  handleSetupProfileAddLaterClick={
-                    handleSetupProfileAddLaterClick
-                  }
-                  handleSetupProfilePreviousStep={
-                    handleSetupProfilePreviousStep
-                  }
-                  allUserInfo={allUserInfo}
-                  setProfileBio={setProfileBio}
-                />
-              </>
-            ) : displayConnectWallet ? (
-              <>
-                <ConnectWallet
-                  handleConnectWalletClick={handleConnectWalletClick}
-                  handlePreviousStepConnectWallet={
-                    handlePreviousStepConnectWallet
-                  }
-                  web3auth={web3auth}
-                  collectedIdToken={
-                    googleIdToken ? googleIdToken : firebaseIdToken
-                  }
-                  userData={allUserInfo}
-                />
-              </>
-            ) : displayConfirmWallet ? (
-              <>
-                <ConfirmWallet
-                  handleConfirmWalletClick={handleConfirmWalletClick}
-                  handlePreviousStepConfirmWallet={
-                    handlePreviousStepConfirmWallet
-                  }
-                />
-              </>
-            ) : displayValidationSignup ? (
-              <>
-                <ValidationSignup handleCloseClick={handleCloseClick} />
-              </>
-            ) : (
-              <>
+          {isGoogleSignupLoading ? (
+            <>
+              <div className="signup-user-setup-profile-container">
                 <div className="lds-ripple">
                   <div></div>
                   <div></div>
                 </div>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div
+                className={
+                  displayConfirmationCode
+                    ? "signup-user-confirmation-code-container"
+                    : displaySetupProfile
+                    ? "signup-user-setup-profile-container"
+                    : displayConnectWallet
+                    ? "signup-user-connect-wallet-container"
+                    : displayConfirmWallet
+                    ? "signup-user-confirm-wallet-container"
+                    : displayValidationSignup
+                    ? "signup-user-validation-signup-container"
+                    : "signup-user-container"
+                }
+              >
+                {displayConfirmationCode ? (
+                  <>
+                    <ConfirmationCode
+                      setIsConfirmCodeValid={setIsConfirmCodeValid}
+                      isConfirmCodeValid={isConfirmCodeValid}
+                      handleSubmitConfirmationCodeClick={
+                        handleSubmitConfirmationCodeClick
+                      }
+                      handleConfirmationCodePreviousStep={
+                        handleConfirmationCodePreviousStep
+                      }
+                      UserEmail={email}
+                    />
+                  </>
+                ) : displaySetupProfile ? (
+                  <>
+                    <SetupProfile
+                      handleSetupProfileNextButtonClick={
+                        handleSetupProfileNextButtonClick
+                      }
+                      handleSetupProfileAddLaterClick={
+                        handleSetupProfileAddLaterClick
+                      }
+                      handleSetupProfilePreviousStep={
+                        handleSetupProfilePreviousStep
+                      }
+                      allUserInfo={allUserInfo}
+                      setProfileBio={setProfileBio}
+                    />
+                  </>
+                ) : displayConnectWallet ? (
+                  <>
+                    <ConnectWallet
+                      handleConnectWalletClick={handleConnectWalletClick}
+                      handlePreviousStepConnectWallet={
+                        handlePreviousStepConnectWallet
+                      }
+                      web3auth={web3auth}
+                      collectedIdToken={
+                        googleIdToken ? googleIdToken : firebaseIdToken
+                      }
+                      userData={allUserInfo}
+                    />
+                  </>
+                ) : displayConfirmWallet ? (
+                  <>
+                    <ConfirmWallet
+                      handleConfirmWalletClick={handleConfirmWalletClick}
+                      handlePreviousStepConfirmWallet={
+                        handlePreviousStepConfirmWallet
+                      }
+                    />
+                  </>
+                ) : displayValidationSignup ? (
+                  <>
+                    <ValidationSignup handleCloseClick={handleCloseClick} />
+                  </>
+                ) : (
+                  <>
+                    <div className="lds-ripple">
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </>
       ) : (
         <>

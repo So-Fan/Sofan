@@ -62,11 +62,14 @@ const Navbar = ({
     setIsSignUpButtonClicked(false);
     setIsSignInButtonClicked(true);
   };
-function handleSignupPopupDisplay(e) {
-  if (e.target.id === "modal-component-cross") {
-    setIsSignUpButtonClicked(false)
+  function handleSignupPopupDisplay(e) {
+    if (
+      e.target.id === "modal-component-cross" ||
+      e.target.id === "custom-close-button"
+    ) {
+      setIsSignUpButtonClicked(false);
+    }
   }
-}
   return (
     <>
       {!isLogged && (
@@ -86,7 +89,9 @@ function handleSignupPopupDisplay(e) {
           </div>
           <div
             className={
-              isLogged && Object.keys(isLogged).length > 0 ? "navbar-wrap-2" : "navbar-wrap-2-unauthenticated"
+              isLogged && Object.keys(isLogged).length > 0
+                ? "navbar-wrap-2"
+                : "navbar-wrap-2-unauthenticated"
             }
           >
             <NavLink name="Feed" link="/Feed" />
