@@ -23,6 +23,7 @@ import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [localWeb3authProvider, setLocalWeb3authProvider] = useState(null);
   const [web3auth, setWeb3auth] = useState(null);
   
 
@@ -42,9 +43,28 @@ function App() {
     // console.log(loggedInUser);
   }, [loggedInUser]);
 
-  // useEffect(() => {
-  //   console.log(loggedInUser);
-  // },[loggedInUser])
+
+
+
+  useEffect(() => {
+    // Check if user data exists in localStorage
+    const storedWeb3AuthProvider = localStorage.getItem("localWeb3authProvider");
+    if (storedWeb3AuthProvider) {
+      setLocalWeb3authProvider(JSON.parse(storedWeb3AuthProvider));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save loggedInUser to localStorage when it changes
+    if (localWeb3authProvider) {
+      localStorage.setItem("localWeb3authProvider", JSON.stringify(localWeb3authProvider));
+    }
+    // console.log(loggedInUser);
+  }, [localWeb3authProvider]);
+
+
+
+
 
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);
@@ -163,7 +183,7 @@ function App() {
     setIsNotificationButtonClicked(true);
   }
   return (
-    <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+    <UserContext.Provider value={{ loggedInUser, setLoggedInUser, localWeb3authProvider, setLocalWeb3authProvider }}>
       <BrowserRouter>
         <EthProvider>
           <div className="App" onClick={handleClickOutside}>

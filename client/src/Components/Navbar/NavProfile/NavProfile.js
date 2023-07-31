@@ -8,16 +8,17 @@ import useEth from "../../../contexts/EthContext/useEth";
 
 
 const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
-  const { setLoggedInUser } = useContext(UserContext);
+  const { setLoggedInUser, setLocalWeb3authProvider } = useContext(UserContext);
   const {
     setWeb3authProvider,
   } = useEth();
 
   const handleSignOut = async() => {
-    setWeb3authProvider(null)
+    setWeb3authProvider(null);
     signOut(auth)
-      .then(() => {
-        setLoggedInUser(null);
+    .then(() => {
+      setLoggedInUser(null);
+      setLocalWeb3authProvider(null);
         localStorage.removeItem("loggedInUser");
       })
       .catch((error) => {
