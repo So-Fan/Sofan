@@ -342,13 +342,14 @@ function Signup({
 
       console.log(`Error Code: ${errorCode}`);
       if (errorCode === "auth/popup-closed-by-user") {
-        console.log("il fermé le popup !");
         setIsSubmitClicked(false);
         setIsFormValid(false);
       }
       console.error(`Error Message: ${errorMessage}`);
       // Mettre ERREUR Google ici Rami "Oops quelque chose s'est mal passé avec google"
       // setIsGoogleSignupLoading(false);
+      setIsSubmitClicked(false);
+      setIsFormValid(false);
       setgoogleErrorGeneral(true);
     }
   };
@@ -984,6 +985,14 @@ function Signup({
                       S'inscrire avec Google
                     </div>
                   </button>
+                  {googleErrorGeneral && (
+                    <>
+                      <div className="signup-user-google-error-general-message">
+                        Oops quelque chose s'est mal passé avec votre
+                        inscription Google Veuillez réessayer.
+                      </div>
+                    </>
+                  )}
                   <div className="signup-user-already-an-account">
                     <span>Vous avez déjà un compte ? </span>
                     <Button

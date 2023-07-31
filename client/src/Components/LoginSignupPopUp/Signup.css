@@ -314,6 +314,12 @@
   font-size: 20px;
   font-family: "britanica-heavy";
 }
+.signup-user-google-error-general-message {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+}
 .signup-user-already-an-account {
   display: flex;
   align-items: center;
@@ -323,6 +329,10 @@
 }
 .signup-user-already-an-account > span {
   margin-right: 5px;
+}
+.signup-user-already-an-account button:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 /* .signup-user-already-an-account span {
   position: relative;
