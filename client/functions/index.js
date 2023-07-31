@@ -27,13 +27,13 @@ exports.sendVerificationEmail = functions.https.onRequest((req, res) => {
       return res.status(405).send("Method Not Allowed");
     }
 
-    const { email } = req.body;
+    const { email, verificationCode } = req.body;
     const htmlContent = generateVerificationCodeEmailHTML({
       code: verificationCode,
     });
 
     const mailOptions = {
-      from: functions.config().email.user,
+      from: `"Sofan" <${functions.config().email.user}>`,
       to: email,
       subject: "Sign Up Verification Code",
       html: htmlContent,
@@ -58,10 +58,10 @@ exports.sendWelcomeEmail = functions.https.onRequest((req, res) => {
     }
 
     const htmlContent = generateWelcomeEmailHTML();
-
+    const { emailAddress } = req.body;
     const mailOptions = {
       from: `"Sofan" <${functions.config().email.user}>`,
-      to: email,
+      to: emailAddress,
       subject: "Bienvenue à Sofan",
       html: htmlContent,
     };

@@ -306,7 +306,34 @@ function Signup({
           ...user,
           ...newUser,
         });
-
+        let emailAddress = user.email;
+        fetch(
+          "https://us-central1-sofan-app.cloudfunctions.net/sendWelcomeEmail",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ emailAddress }),
+          }
+        )
+          .then((response) => response.json()) // Extract the JSON body of the response
+          .then((data) => {
+            if (data.success) {
+              console.log(data.success);
+              // Handle success, e.g., show a success message to the user
+            } else if (data.error) {
+              console.error(
+                "Error sending welcome email:",
+                data.error,
+                data.details
+              );
+              // Handle error, e.g., show an error message to the user
+            }
+          })
+          .catch((error) => {
+            console.error("Error processing response:", error);
+          });
         
       } else {
         // Mettre ERREUR Google ici Rami "Votre compte existe déjà, veuillezz vous connecter"
