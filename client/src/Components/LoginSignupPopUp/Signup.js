@@ -266,13 +266,14 @@ function Signup({
     setIsGoogleSignUpClicked(true);
     try {
       setIsGoogleSignupLoading(true);
+      setIsFormValid(true);
+      setIsSubmitClicked(true);
       console.log("loading est true");
       const createdAt = new Date();
       // Sign-in process using a popup
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       const usersRef = collection(db, "users");
-
       // Here you can manage and use the returned user object
       // You could return it, log it, or do something else
       console.log(user);
@@ -312,14 +313,11 @@ function Signup({
           ...newUser,
         });
       } else {
-        // Mettre ERREUR Google ici Rami "Votre compte existe déjà, veuillezz vous connecter"
         setIsGoogleSignupLoading(false);
         setgoogleErrorAlreadyRegister(true);
-        // console.log(user.email)
-        setEmail(user.email)
-        // 
+        setEmail(user.email); // faire afficher le mail dans le message d'erreur google already exist
+        //
         return console.log("User already exists in Firestore:", userDoc.data());
-        // Mettre aussi un return pour éviter que ça continue à la prochaine étape
       }
 
       const idToken = await result.user.getIdToken(true);
@@ -332,7 +330,7 @@ function Signup({
         setDisplaySetupProfile(true);
         setIsGoogleSignupLoading(false);
         console.log("timeout marche !!");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -343,6 +341,11 @@ function Signup({
       const credential = error.credential;
 
       console.log(`Error Code: ${errorCode}`);
+      if (errorCode === "auth/popup-closed-by-user") {
+        console.log("il fermé le popup !");
+        setIsSubmitClicked(false);
+        setIsFormValid(false);
+      }
       console.error(`Error Message: ${errorMessage}`);
       // Mettre ERREUR Google ici Rami "Oops quelque chose s'est mal passé avec google"
       // setIsGoogleSignupLoading(false);
@@ -656,20 +659,31 @@ function Signup({
     setDisplayConfirmWallet(false);
     setDisplayConnectWallet(true);
   }
-  // 
+  //
   function handlePreviousStepErrorGoogleAlreadyExist(e) {
     setgoogleErrorAlreadyRegister(false);
+    setIsFormValid(false);
+    setIsSubmitClicked(false);
   }
   return (
     <>
       {googleErrorAlreadyRegister ? (
         <>
           <div className="signup-user-error-google-message-container">
-            <img onClick={handlePreviousStepErrorGoogleAlreadyExist} className="signup-user-error-google-message-previous-step" src={previousArrow} alt="flèche étape précédente" />
-            <img className="signup-user-error-google-message-error-logo" src={errorLogo} alt="ERROR LOGO" />
+            <img
+              onClick={handlePreviousStepErrorGoogleAlreadyExist}
+              className="signup-user-error-google-message-previous-step"
+              src={previousArrow}
+              alt="flèche étape précédente"
+            />
+            <img
+              className="signup-user-error-google-message-error-logo"
+              src={errorLogo}
+              alt="ERROR LOGO"
+            />
             <p>
               Il semblerait que vous ayez déjà un compte Sofan ! Veuillez vous
-              connecter avec {email}
+              connecter avec <span>{email}</span>
             </p>
           </div>
         </>
