@@ -253,7 +253,7 @@ function App() {
                 element={<LaunchpadCollectionLive />}
               />
               <Route
-                path="/launchpadall"
+                path="/launchpad"
                 element={
                   <LaunchpAll
                     isLiveLaunchSportDropdownClicked={

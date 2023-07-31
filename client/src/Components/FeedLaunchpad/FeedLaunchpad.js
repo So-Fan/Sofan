@@ -23,7 +23,7 @@ const FeedLaunchpad = () => {
     <div className="feedlaunchpad-component">
       <div className="feedlaunchpad-header-container">
         <span className="feedlaunchpad-header-title">Launchpad</span>
-        <Link to="/launchpadall" className="feedlaunchpad-header-button">
+        <Link to="/launchpad" className="feedlaunchpad-header-button">
           voir plus
         </Link>
       </div>

@@ -366,7 +366,7 @@ function Home({
           >
             <div className="home-feedsidenavlink-wrap">
               <FeedSideNavLink
-                href="/"
+                href="/launchpad"
                 svg={World}
                 alt="world"
                 title="Découverte"
