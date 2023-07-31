@@ -64,7 +64,7 @@ const PopUpSignIn = ({
         const chainConfig = {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
           chainId: "0x5", // Please use 0x1 for Mainnet
-          rpcTarget: process.env.INFURA_ID,
+          rpcTarget: process.env.REACT_APP_INFURA_ID,
           blockExplorer: "https://goerli.etherscan.io/",
           ticker: "ETH",
           tickerName: "Ethereum",

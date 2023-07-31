@@ -23,8 +23,12 @@ const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
       .catch((error) => {
         console.log(error);
       });
-      if(!web3auth) return;
-    await web3auth.logout();
+    try {
+      if (!web3auth) return;
+      await web3auth.logout();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
