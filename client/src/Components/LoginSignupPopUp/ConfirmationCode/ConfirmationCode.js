@@ -114,7 +114,7 @@ function ConfirmationCode({
         ))}
       </div>
       <button
-        onClick={handleSubmitConfirmationCodeClick}
+        onClick={(event) => handleSubmitConfirmationCodeClick(event,code.join(""))}
         className="signup-user-confirmation-code-next-button"
       >
         Suivant

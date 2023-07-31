@@ -87,6 +87,7 @@ function Signup({
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
+  const [codeMatched, setCodeMatched] = useState(false);
 
   const [googleIdToken, setGoogleIdToken] = useState();
   const [firebaseIdToken, setFirebaseIdToken] = useState();
@@ -507,16 +508,17 @@ function Signup({
                   console.log(data.success);
                   // Handle success, e.g., show a success message to the user
                 } else if (data.error) {
-                  console.error("Error sending verification email:", data.error, data.details);
+                  console.error(
+                    "Error sending verification email:",
+                    data.error,
+                    data.details
+                  );
                   // Handle error, e.g., show an error message to the user
                 }
               })
               .catch((error) => {
                 console.error("Error processing response:", error);
               });
-            
-          
-          
           })
           .catch((error) => {
             // Handle errors here
@@ -544,14 +546,32 @@ function Signup({
     }
   }, [isFormValid, isSubmitClicked]);
 
-  function handleSubmitConfirmationCodeClick() {
-    if (isConfirmCodeValid) {
-      setDisplayConfirmationCode(false);
-      // setDisplaySetupProfile(true);
-      setTimeout(() => {
-        setDisplaySetupProfile(true);
-      }, 2000);
+  async function handleSubmitConfirmationCodeClick(e, code) {
+    e.preventDefault();
+
+    const uid = allUserInfo.id;
+    if (!uid) {
+      console.error("UID is undefined");
+      return;
     }
+
+    const emailValidRef = collection(db, "email_validations");
+    const q = query(emailValidRef, where("userId", "==", uid));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      if (isConfirmCodeValid && doc.data().code === code) {
+        setCodeMatched(true);
+        setDisplayConfirmationCode(false);
+
+        setTimeout(() => {
+          setDisplaySetupProfile(true);
+        }, 2500);
+        return;
+      } else {
+        setCodeMatched = false;
+      }
+    });
   }
 
   const updateImagePaths = async (uid, avatarPath, bannerPath) => {
