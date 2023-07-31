@@ -43,6 +43,8 @@ const PopUpSignIn = ({
   const { setLoggedInUser } = useContext(UserContext);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
+  const [emailRegexError, setEmailRegexError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [allUserInfo, setAllUserInfo] = useState({});
@@ -103,6 +105,20 @@ const PopUpSignIn = ({
 
     init();
   }, []);
+  function handleEmailChange(event) {
+    const emailValue = event.target.value;
+    setEmail(emailValue);
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    setEmailRegexError(!emailRegex.test(emailValue));
+  }
+  function handleMailInput(e) {
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    if (emailRegex.test(e.target.value)) {
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+    }
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -123,34 +139,31 @@ const PopUpSignIn = ({
             };
             tempUserData = AllUserInfo;
             setLoggedInUser(AllUserInfo);
-
           });
 
           if (checkWalletProvider(tempUserData) === "web3auth") {
             await web3auth.logout();
             await auth.currentUser
-            .getIdToken(true)
-            .then(async function (idToken) {
-
-              const web3authProvider = await web3auth.connectTo(
-                WALLET_ADAPTERS.OPENLOGIN,
-                {
-                  loginProvider: "jwt",
-                  extraLoginOptions: {
-                    id_token: idToken,
-                    verifierIdField: "sub",
-                    domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
-                  },
-                }
-              );
-              setProvider(web3authProvider);
-            })
-            .catch(function (error) {
-              // Handle error
-              console.error("Error getting ID token:", error);
-            });
+              .getIdToken(true)
+              .then(async function (idToken) {
+                const web3authProvider = await web3auth.connectTo(
+                  WALLET_ADAPTERS.OPENLOGIN,
+                  {
+                    loginProvider: "jwt",
+                    extraLoginOptions: {
+                      id_token: idToken,
+                      verifierIdField: "sub",
+                      domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
+                    },
+                  }
+                );
+                setProvider(web3authProvider);
+              })
+              .catch(function (error) {
+                // Handle error
+                console.error("Error getting ID token:", error);
+              });
           }
-
         } else {
           // Handle case when no user is found with the given ID
           console.log("No user found");
@@ -262,8 +275,6 @@ const PopUpSignIn = ({
     setIsForgotPasswordClicked(true);
   }
 
-  
-
   function handleForgotPasswordClick(e) {
     setIsForgotPasswordClicked(true);
   }
@@ -276,13 +287,13 @@ const PopUpSignIn = ({
       ) : (
         <>
           <div className="popupsignin-component">
-            <span>Sign In</span>
+            <span>Se connecter</span>
             <span>
               Sign up now to connect with athletes and explore exclusive NFT
               content within a vibrant community of sports enthusiasts!
             </span>
             {error && (
-              <span className="error-message">
+              <span className="popupsignin-error-message">
                 Votre Email ou votre Mot de Passe est incorrect.
               </span>
             )}
@@ -290,15 +301,21 @@ const PopUpSignIn = ({
               <span>E-mail</span>
               <input
                 type="text"
-                placeholder={"Enter your e-mail"}
+                placeholder={"Entrez votre mail"}
                 onChange={(e) => setEmail(e.target.value)}
+                onBlur={handleMailInput}
               />
+              {emailError && (
+                <p className="popupsignin-input-mail-error">
+                  Veuillez entrer une adresse e-mail valide.
+                </p>
+              )}
             </div>
             <div className="popupsignin-input-container">
-              <span>Password</span>
+              <span>Mot de passe</span>
               <input
                 type="password"
-                placeholder={"Confirm you password"}
+                placeholder={"Entrez votre mot de passe"}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -306,13 +323,14 @@ const PopUpSignIn = ({
               style={popUpSignInForgotPasswordButton}
               isLink={true}
               // to={"/forgetpassword"}
-              text={"Mot de passe oublié"}
+              text={"Mot de passe oublié ?"}
               onClick={handleForgotPasswordClick}
             />
             <Button
               onClick={handleLogin}
               style={popUpSignInButton}
-              text={"Sign In"}
+              text={"Se connecter"}
+              id="popupsignin-signin-button"
             />
             <div className="popupsignin-style-container">
               <div></div>
@@ -323,12 +341,12 @@ const PopUpSignIn = ({
               <img src={googleImage} alt="google sign in" />
               <Button
                 style={popUpSignInGoogleButton}
-                text={"Connecter avec Google"}
+                text={"Se connecter avec Google"}
                 onClick={googleLogin}
               />
             </div>
             <div className="popupsignin-signup-container">
-              <span>You don't have an account ? </span>
+              <span>Vous n'avez pas de compte ? </span>
               <Button
                 onClick={handlePopoUpSignInSignUpClick}
                 text={"Créer un compte"}
@@ -356,7 +374,7 @@ const popUpSignInForgotPasswordButton = {
 };
 
 const popUpSignInButton = {
-  color: "#3C4045",
+  // color: "#3C4045",
   fontFamily: "britanica-heavy",
   fontSize: "20px",
   lineHeight: "normal",

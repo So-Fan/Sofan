@@ -9,6 +9,12 @@
   background-color: white;
   border-radius: 20px;
 }
+.popupsignin-error-message {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+}
 .popupsignin-component > span:nth-child(1) {
   font-family: "britanica-heavy";
   font-size: 35px;
@@ -29,6 +35,12 @@
   margin-bottom: 20px;
   width: 460px;
   height: 71px;
+}
+.popupsignin-input-mail-error {
+  color: red;
+  font-size: 12px;
+  font-weight: 900;
+  margin-top: 5px;
 }
 .popupsignin-input-container > span {
   font-family: "britanica-heavy";
@@ -54,6 +66,13 @@
   height: 20px;
   margin-bottom: 20px;
 }
+#popupsignin-signin-button:hover {
+  background: #f7c520 !important;
+  transition-duration: 300ms !important;
+}
+#popupsignin-signin-button:active {
+  transform: scale(0.85);
+}
 .popupsignin-style-container > div {
   background-color: rgba(0, 0, 0, 0.5);
   width: 200px;
@@ -69,18 +88,27 @@
   position: relative;
   margin-bottom: 20px;
 }
+.popupsignin-socials-container button:hover {
+  background: #f6d46391 !important;
+  transition-duration: 500ms !important;
+}
 .popupsignin-socials-container > img {
   width: 25px;
   height: 25px;
   position: absolute;
   top: 16px;
-  left: 110px;
+  left: 95px;
 }
-.popupsignin-signup-container{
-    display: flex;
-    margin-bottom: 30px;
+/*     background: #f6d463 */
+.popupsignin-signup-container {
+  display: flex;
+  margin-bottom: 30px;
 }
-.popupsignin-signup-container > span{
-    line-height: normal;
-    margin-right: 5px;
+.popupsignin-signup-container > span {
+  line-height: normal;
+  margin-right: 5px;
+}
+.popupsignin-signup-container button:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
