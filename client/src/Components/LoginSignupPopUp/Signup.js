@@ -306,6 +306,8 @@ function Signup({
           ...user,
           ...newUser,
         });
+
+        
       } else {
         // Mettre ERREUR Google ici Rami "Votre compte existe déjà, veuillezz vous connecter"
         // Mettre aussi un return pour éviter que ça continue à la prochaine étape

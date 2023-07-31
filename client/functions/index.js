@@ -7,6 +7,7 @@ const cors = require('cors')({ origin: ['http://localhost:3000', 'https://www.so
 
 const nodemailer = require("nodemailer");
 const generateVerificationCodeEmailHTML = require("./generateVerificationCodeEmailHTML");
+const generateWelcomeEmailHTML = require("./generateWelcomeEmailHTML");
 
 const transporter = nodemailer.createTransport({
   host: "mail.gandi.net",
@@ -26,7 +27,7 @@ exports.sendVerificationEmail = functions.https.onRequest((req, res) => {
       return res.status(405).send("Method Not Allowed");
     }
 
-    const { email, verificationCode } = req.body;
+    const { email } = req.body;
     const htmlContent = generateVerificationCodeEmailHTML({
       code: verificationCode,
     });
@@ -35,6 +36,33 @@ exports.sendVerificationEmail = functions.https.onRequest((req, res) => {
       from: functions.config().email.user,
       to: email,
       subject: "Sign Up Verification Code",
+      html: htmlContent,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      functions.logger.log("Email sent successfully");
+      res.send({ success: "Email sent successfully" }); // Send success response
+    } catch (err) {
+      functions.logger.error("Error sending email:", err);
+      res.status(500).send({ error: "Error sending email", details: err }); // Send error details
+    }
+  });
+});
+
+
+exports.sendWelcomeEmail = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    if (req.method !== "POST") {
+      return res.status(405).send("Method Not Allowed");
+    }
+
+    const htmlContent = generateWelcomeEmailHTML();
+
+    const mailOptions = {
+      from: `"Sofan" <${functions.config().email.user}>`,
+      to: email,
+      subject: "Bienvenue à Sofan",
       html: htmlContent,
     };
 
