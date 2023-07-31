@@ -23,16 +23,10 @@ function Login({web3auth, setWeb3auth}) {
   const navigate = useNavigate();
 // debut matheo 
 
-  // const [provider, setProvider] = useState(
-  //   null
-  // );
   // debut matheo
   const {
-    state: { contract, accounts, isOwner, isMintOn, mintPrice },
-    isWalletConnectClicked,
-    setIsWalletConnectClicked,
-    setProvider,
-    provider
+    state: { accounts },
+    setWeb3authProvider,
   } = useEth();
 // fin matheo
 
@@ -75,7 +69,7 @@ useEffect(() => {
       setWeb3auth(web3auth);
 
       await web3auth.init();
-      setProvider(web3auth.provider);
+      setWeb3authProvider(web3auth.provider);
 
       
     } catch (error) {
@@ -206,7 +200,7 @@ useEffect(() => {
         },
       }
     );
-    setProvider(web3authProvider);
+    setWeb3authProvider(web3authProvider);
     const account = accounts;
     // rajouter backend pour ajouter le wallet
     navigate("/");

@@ -10,7 +10,7 @@ import {
 import useEth from "../../../contexts/EthContext/useEth";
 import Web3 from "web3";
 import { db, auth } from "../../../Configs/firebase";
-import { updateDoc, setDoc, doc, collection, getDoc } from "firebase/firestore";
+import { updateDoc, setDoc, doc, collection, getDoc, QuerySnapshot } from "firebase/firestore";
 
 function ConnectWallet({
   handleConnectWalletClick,
@@ -19,7 +19,7 @@ function ConnectWallet({
   collectedIdToken,
   userData,
 }) {
-  const { setProvider } = useEth();
+  const { setWeb3authProvider, setIsWalletConnectClicked, setIsWeb3authConnectClicked } = useEth();
   const [newFirebaseIdToken, setNewFirebaseIdToken] = useState("");
 
   const handleCreateWallet = async (e) => {
@@ -58,7 +58,8 @@ function ConnectWallet({
         },
       }
     );
-    setProvider(web3authProvider);
+    setWeb3authProvider(web3authProvider);
+    
     const web3 = new Web3(web3authProvider);
 
     const accountWallet = await web3.eth.getAccounts();
@@ -68,7 +69,6 @@ function ConnectWallet({
     const newWallet = {
       web3AuthWallet: accountWallet,
     };
-
     if (userData.id) {
       try {
         const usersRef = collection(db, "users");
@@ -78,7 +78,6 @@ function ConnectWallet({
         if (userDoc.exists()) {
           const existingUserData = userDoc.data();
           const updatedUserData = { ...existingUserData, ...newWallet };
-
           await setDoc(userDocRef, updatedUserData);
           console.log("Update successful");
         } else {
@@ -90,7 +89,14 @@ function ConnectWallet({
     } else {
       console.log("userData.id is not defined");
     }
+    setIsWeb3authConnectClicked([true,web3authProvider])
   };
+
+
+  const handleConnectMetamaskWalletClick = async() => {
+    console.log("click metamask button");
+    setIsWalletConnectClicked(true)
+  }
   return (
     <div className="signup-user-connect-wallet-wrap">
       <div
@@ -103,7 +109,7 @@ function ConnectWallet({
         Connectez votre wallet
       </div>
       <div className="signup-user-connect-wallet-list-container">
-        <div className="signup-user-connect-wallet-list-wrap">
+        <div onClick={handleConnectMetamaskWalletClick} className="signup-user-connect-wallet-list-wrap">
           <div className="signup-user-connect-wallet-list-logo">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/Metamask.png?alt=media&token=2baf71ad-f4a4-48be-826b-1f0a23384ee1"

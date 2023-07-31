@@ -10,15 +10,11 @@ import useEth from "../../../contexts/EthContext/useEth";
 const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
   const { setLoggedInUser } = useContext(UserContext);
   const {
-    state: { contract, accounts, isOwner, isMintOn, mintPrice },
-    isWalletConnectClicked,
-    setIsWalletConnectClicked,
-    setProvider,
-    provider
+    setWeb3authProvider,
   } = useEth();
 
   const handleSignOut = async() => {
-    setProvider(null)
+    setWeb3authProvider(null)
     signOut(auth)
       .then(() => {
         setLoggedInUser(null);
@@ -40,7 +36,9 @@ const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
         <Link to={userInfo.account_type !== 'free' ? `/athleteprofile/${userInfo.id}` : `/userprofile/${userInfo.id}`}>Voir profil</Link>
         <Link to="/settings">Settings</Link>
         <Link to="/legals">Mentions<br />légales</Link>
-        <Link onClick={handleSignOut} to="/">Déconnecter</Link>
+        <Link onClick={handleSignOut} 
+        // to="/"
+        >Déconnecter</Link>
       </div>}
     </div>
   );

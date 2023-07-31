@@ -94,11 +94,7 @@ function Signup({
   const [googleIdToken, setGoogleIdToken] = useState();
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const {
-    state: { contract, accounts, isOwner, isMintOn, mintPrice },
-    isWalletConnectClicked,
-    setIsWalletConnectClicked,
-    setProvider,
-    provider,
+    setWeb3authProvider,
   } = useEth();
 
   useEffect(() => {
@@ -142,7 +138,7 @@ function Signup({
         setWeb3auth(web3auth);
 
         await web3auth.init();
-        setProvider(web3auth.provider);
+        setWeb3authProvider(web3auth.provider);
       } catch (error) {
         console.error(error);
       }

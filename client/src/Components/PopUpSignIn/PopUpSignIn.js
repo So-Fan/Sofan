@@ -49,9 +49,12 @@ const PopUpSignIn = ({
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
 
+  // const [endGoogleLogin, setEndGoogleLogin] = useState(false)
   const {
     state: { accounts },
-    setProvider,
+    setWeb3authProvider,
+    setIsWalletConnectClicked,
+    setIsWeb3authConnectClicked
   } = useEth();
 
   useEffect(() => {
@@ -61,8 +64,7 @@ const PopUpSignIn = ({
         const chainConfig = {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
           chainId: "0x5", // Please use 0x1 for Mainnet
-          rpcTarget: "https://rpc.ankr.com/eth_goerli",
-          displayName: "Goerli Testnet",
+          rpcTarget: process.env.INFURA_ID,
           blockExplorer: "https://goerli.etherscan.io/",
           ticker: "ETH",
           tickerName: "Ethereum",
@@ -95,7 +97,7 @@ const PopUpSignIn = ({
         setWeb3auth(web3auth);
 
         await web3auth.init();
-        setProvider(web3auth.provider);
+        setWeb3authProvider(web3auth.provider);
       } catch (error) {
         console.error(error);
       }
@@ -127,7 +129,7 @@ const PopUpSignIn = ({
           });
 
           if (checkWalletProvider(tempUserData) === "web3auth") {
-            await web3auth.logout();
+            // await web3auth.logout();
             await auth.currentUser
             .getIdToken(true)
             .then(async function (idToken) {
@@ -143,12 +145,15 @@ const PopUpSignIn = ({
                   },
                 }
               );
-              setProvider(web3authProvider);
+              setWeb3authProvider(web3authProvider);
+              setIsWeb3authConnectClicked([true, web3authProvider]) 
             })
             .catch(function (error) {
               // Handle error
               console.error("Error getting ID token:", error);
             });
+          } else {
+            setIsWalletConnectClicked(true)
           }
 
         } else {
@@ -157,7 +162,7 @@ const PopUpSignIn = ({
         }
         setError(false);
         setIsSignInButtonClicked(false);
-        navigate("/");
+        // navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -175,13 +180,14 @@ const PopUpSignIn = ({
       const usersRef = collection(db, "users");
       const userDocRef = doc(usersRef, res.user.uid);
       const userDoc = await getDoc(userDocRef);
-
+      let tempUserInfo
       if (userDoc.exists()) {
         const userInfo = userDoc.data();
         const AllUserInfo = {
           ...res.user,
           ...userInfo,
         };
+        tempUserInfo = AllUserInfo
         setLoggedInUser(AllUserInfo);
       } else {
         const createdAt = new Date();
@@ -211,7 +217,7 @@ const PopUpSignIn = ({
         await setDoc(userDocRef, newUser);
       }
       console.log(res);
-      return res;
+      return [res, tempUserInfo];
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -226,6 +232,17 @@ const PopUpSignIn = ({
     }
   };
 
+ 
+
+  // useEffect(() => {
+  //   if(endGoogleLogin === true){
+  //     setIsWeb3authConnectClicked(true) 
+  //   console.log("useEffect sign in set isWeb3authConnectClicked");
+  //   }else{
+  //     console.log("useEffect sign in not triggered");
+  //   }
+  // }, [endGoogleLogin] )
+
   const googleLogin = async (e) => {
     e.preventDefault();
     if (!web3auth) {
@@ -234,8 +251,10 @@ const PopUpSignIn = ({
     }
     // switch case pour chaque Signin
     const loginRes = await handleGoogleSignIn(e);
+    console.log(loginRes);
+    if (checkWalletProvider(loginRes[1]) === "web3auth") {
     // console.log("login details", loginRes);
-    const idToken = await loginRes.user.getIdToken(true);
+    const idToken = await loginRes[0].user.getIdToken(true);
     // console.log("idToken", idToken);
 
     const web3authProvider = await web3auth.connectTo(
@@ -249,9 +268,17 @@ const PopUpSignIn = ({
         },
       }
     );
-    setProvider(web3authProvider);
+    setWeb3authProvider(web3authProvider);
+    setIsWeb3authConnectClicked([true, web3authProvider]) 
+    // console.log("endGoogleLogin : ", endGoogleLogin);
+    console.log("sign in web3auth");
+    }else {
+      setIsWalletConnectClicked(true)
+      console.log("sigin metamsk");
+    }
+
     setIsSignInButtonClicked(false);
-    navigate("/");
+    // navigate("/");
   };
 
   const handleAppleSignIn = async (e) => {
