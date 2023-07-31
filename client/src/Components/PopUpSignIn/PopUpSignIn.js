@@ -50,6 +50,8 @@ const PopUpSignIn = ({
   const [allUserInfo, setAllUserInfo] = useState({});
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
+  const [isSigninLoading, setIsSigninLoading] = useState(false);
+
 
   const {
     state: { accounts },
@@ -122,6 +124,7 @@ const PopUpSignIn = ({
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setIsSigninLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
@@ -163,6 +166,7 @@ const PopUpSignIn = ({
                 // Handle error
                 console.error("Error getting ID token:", error);
               });
+              console.log("je suis dans le if")
           }
         } else {
           // Handle case when no user is found with the given ID
@@ -282,7 +286,9 @@ const PopUpSignIn = ({
     <>
       {isForgotPasswordClicked ? (
         <>
-          <ForgotPassword />
+          <ForgotPassword
+          setIsForgotPasswordClicked={setIsForgotPasswordClicked}
+          />
         </>
       ) : (
         <>
@@ -319,22 +325,12 @@ const PopUpSignIn = ({
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {/* <Button
-              style={popUpSignInForgotPasswordButton}
-              isLink={true}
-              // to={"/forgetpassword"}
-              text={"Mot de passe oublié ?"}
+            <button
               onClick={handleForgotPasswordClick}
-            /> */}
-            <button className="popupsignin-forget-password">
+              className="popupsignin-forget-password"
+            >
               Mot de passe oublié ?
             </button>
-            {/* <Button
-              onClick={handleLogin}
-              style={popUpSignInButton}
-              text={"Se connecter"}
-              id="popupsignin-signin-button"
-            /> */}
             <button onClick={handleLogin} className="popupsignin-signin-button">
               Se connecter
             </button>
@@ -354,12 +350,12 @@ const PopUpSignIn = ({
             </div>
             <div className="popupsignin-signup-container">
               <span>Vous n'avez pas de compte ? </span>
-              {/* <Button
+              <button
                 onClick={handlePopoUpSignInSignUpClick}
-                text={"Créer un compte"}
-                style={popUpSignInSignUpRedirectButton}
-              /> */}
-              <button className="popupsignin-signup-button">Créer un compte</button>
+                className="popupsignin-signup-button"
+              >
+                Créer un compte
+              </button>
             </div>
           </div>
         </>

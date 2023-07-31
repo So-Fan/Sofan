@@ -14,6 +14,8 @@
   font-size: 14px;
   font-weight: 900;
   font-style: italic;
+  position: absolute;
+  top: 150px;
 }
 .popupsignin-component > span:nth-child(1) {
   font-family: "britanica-heavy";
@@ -65,13 +67,6 @@
   width: 460px;
   height: 20px;
   margin-bottom: 20px;
-}
-#popupsignin-signin-button:hover {
-  background: #f7c520 !important;
-  transition-duration: 300ms !important;
-}
-#popupsignin-signin-button:active {
-  transform: scale(0.85);
 }
 .popupsignin-style-container > div {
   background-color: rgba(0, 0, 0, 0.5);
@@ -129,7 +124,16 @@
   margin-bottom: 20px;
   border-radius: 10px;
   width: 460px;
-  height: 56px;
+  height: 56px !important;
+  cursor: pointer;
+}
+.popupsignin-signin-button:hover {
+  background: #f7c520 !important;
+  transition-duration: 300ms !important;
+}
+.popupsignin-signin-button:active {
+  transform: scale(0.85);
+
 }
 .popupsignin-google-button {
   font-family: "britanica-heavy";
