@@ -89,6 +89,8 @@ function Signup({
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
   const [isGoogleSignupLoading, setIsGoogleSignupLoading] = useState(false);
   // Backend
+  const [codeMatched, setCodeMatched] = useState(false);
+
   const [googleIdToken, setGoogleIdToken] = useState();
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const {
@@ -495,14 +497,32 @@ function Signup({
     }
   }, [isFormValid, isSubmitClicked]);
 
-  function handleSubmitConfirmationCodeClick() {
-    if (isConfirmCodeValid) {
-      setDisplayConfirmationCode(false);
-      // setDisplaySetupProfile(true);
-      setTimeout(() => {
-        setDisplaySetupProfile(true);
-      }, 2000);
+  async function handleSubmitConfirmationCodeClick(e, code) {
+    e.preventDefault();
+
+    const uid = allUserInfo.id;
+    if (!uid) {
+      console.error("UID is undefined");
+      return;
     }
+
+    const emailValidRef = collection(db, "email_validations");
+    const q = query(emailValidRef, where("userId", "==", uid));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      if (isConfirmCodeValid && doc.data().code === code) {
+        setCodeMatched(true);
+        setDisplayConfirmationCode(false);
+
+        setTimeout(() => {
+          setDisplaySetupProfile(true);
+        }, 2500);
+        return;
+      } else {
+        setCodeMatched = false;
+      }
+    });
   }
 
   const updateImagePaths = async (uid, avatarPath, bannerPath) => {
