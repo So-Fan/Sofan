@@ -50,7 +50,11 @@ const PopUpSignIn = ({
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
   const [isSigninLoading, setIsSigninLoading] = useState(false);
+  const [isSigninGoogleLoading, setIsSigninGoogleLoading] = useState(false);
+  const [errorGoogleNotRegister, setErrorGoogleNotRegister] = useState(false);
   const [isSigninFormValid, setIsSignInFormValid] = useState(false);
+  const [isGoogleSignInPopupClosed, setIsGoogleSigninPopupCLosed] =
+    useState(false);
   // const [endGoogleLogin, setEndGoogleLogin] = useState(false)
   const {
     state: { accounts },
@@ -192,6 +196,7 @@ const PopUpSignIn = ({
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
+      setIsSigninGoogleLoading(true);
       const res = await signInWithPopup(auth, googleProvider); // Google auth check
       const usersRef = collection(db, "users");
       const userDocRef = doc(usersRef, res.user.uid);
@@ -206,6 +211,7 @@ const PopUpSignIn = ({
         tempUserInfo = AllUserInfo;
         setLoggedInUser(AllUserInfo);
       } else {
+        setIsSigninGoogleLoading(false);
         const createdAt = new Date();
         const user = res.user;
         const newUser = {
@@ -231,10 +237,15 @@ const PopUpSignIn = ({
         setLoggedInUser(newUser);
 
         await setDoc(userDocRef, newUser);
+        setIsSigninGoogleLoading(false);
       }
       console.log(res);
       return [res, tempUserInfo];
     } catch (error) {
+      setIsSigninGoogleLoading(false);
+      if (error.code === "auth/popup-closed-by-user") {
+        setIsGoogleSigninPopupCLosed(true);
+      }
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -261,6 +272,7 @@ const PopUpSignIn = ({
     e.preventDefault();
     if (!web3auth) {
       console.log("web3auth not initialized yet");
+      setErrorGoogleNotRegister(true);
       return;
     }
     // switch case pour chaque Signin
@@ -334,6 +346,15 @@ const PopUpSignIn = ({
             setIsForgotPasswordClicked={setIsForgotPasswordClicked}
           />
         </>
+      ) : isSigninGoogleLoading ? (
+        <>
+          <div className="popupsignin-loading-google-animation">
+            <div className="lds-ripple">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </>
       ) : (
         <>
           <div className="popupsignin-component">
@@ -345,6 +366,13 @@ const PopUpSignIn = ({
             {error && (
               <span className="popupsignin-error-message">
                 Votre Email ou votre Mot de Passe est incorrect.
+              </span>
+            )}
+            {errorGoogleNotRegister && (
+              <span className="popupsignin-error-message-google-not-register">
+                Vous n'êtes pas encore inscris chez nous. Cliquer{" "}
+                <span onClick={handlePopoUpSignInSignUpClick}>ICI</span>
+                pour vous inscrire !
               </span>
             )}
             <div className="popupsignin-input-container">
@@ -419,6 +447,14 @@ const PopUpSignIn = ({
                 Se connecter avec Google
               </button>
             </div>
+            {isGoogleSignInPopupClosed && (
+              <>
+                <div className="popupsignin-google-error">
+                  Oops quelque chose s'est mal passé avec votre connexion Google
+                </div>
+                Veuillez réessayer.
+              </>
+            )}
             <div className="popupsignin-signup-container">
               <span>Vous n'avez pas de compte ? </span>
               <button

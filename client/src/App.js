@@ -20,7 +20,6 @@ import CGU from "./Pages/CGU/CGU";
 import UserContext from "./UserContext";
 import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
-import Footer from "./Components/Footer/Footer";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -305,7 +304,6 @@ function App() {
               </div>
             </div>
           </section>
-          <Footer />
         </EthProvider>
       </BrowserRouter>
     </UserContext.Provider>

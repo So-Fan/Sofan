@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ForgotPassword.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
-function ForgotPassword({setIsForgotPasswordClicked}) {
+function ForgotPassword({ setIsForgotPasswordClicked }) {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isMailValidAndButtonClicked, setIsMailValidAndButtonClicked] =
@@ -21,7 +21,7 @@ function ForgotPassword({setIsForgotPasswordClicked}) {
   ] = useState(false);
 
   function handlePreviousStepButtonClick() {
-    setIsForgotPasswordClicked(false); 
+    setIsForgotPasswordClicked(false);
   }
 
   function handleEmailVerificationRegex(event) {
@@ -113,12 +113,12 @@ function ForgotPassword({setIsForgotPasswordClicked}) {
                 <div className="forgot-password-popup-title">
                   Rénitialisez votre mot de passe
                 </div>
-                  <img
+                <img
                   onClick={handlePreviousStepButtonClick}
-                    className="forgot-password-previous-step-button"
-                    src={previousArrow}
-                    alt="bouton étape précédente"
-                  />
+                  className="forgot-password-previous-step-button"
+                  src={previousArrow}
+                  alt="bouton étape précédente"
+                />
 
                 <div className="forgot-password-popup-description-and-input-container">
                   <div className="forgot-password-popup-description">

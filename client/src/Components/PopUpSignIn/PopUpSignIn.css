@@ -1,3 +1,15 @@
+.popupsignin-loading-google-animation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 500px;
+  height: 644px;
+  background-color: white;
+  border-radius: 20px;
+}
+
 .popupsignin-component {
   display: flex;
   flex-direction: column;
@@ -17,6 +29,15 @@
   position: absolute;
   top: 150px;
 }
+.popupsignin-error-message-google-not-register {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  position: absolute;
+  top: 135px;
+}
+
 .popupsignin-component > span:nth-child(1) {
   font-family: "britanica-heavy";
   font-size: 35px;
@@ -114,7 +135,7 @@
   cursor: pointer;
   font-size: 16px;
 }
-.popupsignin-loading-mail-signin-animation{
+.popupsignin-loading-mail-signin-animation {
   position: absolute;
   top: 390px;
 }
@@ -138,7 +159,6 @@
 }
 .popupsignin-signin-button:active {
   transform: scale(0.85);
-
 }
 .popupsignin-google-button {
   font-family: "britanica-heavy";
@@ -154,7 +174,14 @@
   padding-left: 35px;
   cursor: pointer;
 }
-
+.popupsignin-google-error {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  position: absolute;
+  top: 560px;
+}
 .popupsignin-signup-button {
   color: #f6d463;
   font-family: "britanica-heavy";
