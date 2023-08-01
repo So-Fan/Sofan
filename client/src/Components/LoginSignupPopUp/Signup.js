@@ -97,7 +97,10 @@ function Signup({
 
   const [googleIdToken, setGoogleIdToken] = useState();
   const [firebaseIdToken, setFirebaseIdToken] = useState();
-  const { setWeb3authProvider } = useEth();
+  const {
+    setWeb3authProvider,
+    state: { accounts },
+  } = useEth();
 
   useEffect(() => {
     const init = async () => {
@@ -653,11 +656,13 @@ function Signup({
     }, 2000);
   }
   function handleConnectWalletClick() {
-    setDisplayConnectWallet(false);
-    setTimeout(() => {
-      setDisplayConfirmWallet(true);
-    }, 2000);
+      setDisplayConnectWallet(false);
+      setTimeout(() => {
+        setDisplayConfirmWallet(true);
+      }, 2000);
   }
+
+  
   function handleConfirmWalletClick() {
     setDisplayConfirmWallet(false);
     setTimeout(() => {
