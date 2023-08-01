@@ -20,6 +20,7 @@ import CGU from "./Pages/CGU/CGU";
 import UserContext from "./UserContext";
 import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -41,9 +42,6 @@ function App() {
     }
     // console.log(loggedInUser);
   }, [loggedInUser]);
-
-
-
 
 
 
@@ -158,13 +156,19 @@ function App() {
     }
   };
 
-
   //
   function handleNotificationPopup(e) {
     setIsNotificationButtonClicked(true);
   }
   return (
-    <UserContext.Provider value={{ loggedInUser, setLoggedInUser, localWeb3authProvider, setLocalWeb3authProvider }}>
+    <UserContext.Provider
+      value={{
+        loggedInUser,
+        setLoggedInUser,
+        localWeb3authProvider,
+        setLocalWeb3authProvider,
+      }}
+    >
       <BrowserRouter>
         <EthProvider setWeb3auth={setWeb3auth}>
           <div className="App" onClick={handleClickOutside}>
@@ -237,7 +241,7 @@ function App() {
               <Route path="/nftcollection" element={<NftCollection />} />
               <Route path="/nftsingle" element={<NftSingle />} />
               <Route path="signupathlete" element={<SignUpAthletePage />} />
-              <Route path="/settings" element={<SettingsPage/>} />
+              <Route path="/settings" element={<SettingsPage />} />
               <Route path="/test" element={<Test />} />
               <Route path="/testsecondary" element={<TestSecondary />} />
               <Route
@@ -274,7 +278,7 @@ function App() {
               />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/cgu" element={<CGU />} />
-              <Route path="/error" element={<ErrorPage/>} />
+              <Route path="/error" element={<ErrorPage />} />
             </Routes>
           </div>
           <section className="error-mobile-waiting-page">
@@ -301,6 +305,7 @@ function App() {
               </div>
             </div>
           </section>
+          <Footer />
         </EthProvider>
       </BrowserRouter>
     </UserContext.Provider>
