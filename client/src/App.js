@@ -305,7 +305,7 @@ function App() {
               </div>
             </div>
           </section>
-          <Footer />
+          {/* <Footer /> */}
         </EthProvider>
       </BrowserRouter>
     </UserContext.Provider>

@@ -3,7 +3,7 @@ import "./Poll.css";
 import ArrowBottom from "../../../Assets/Image/arrow_bottom.svg";
 import YellowCross from "../../../Assets/Image/cross_add_yellow.svg";
 
-const Poll = ({ setAddOption }) => {
+const Poll = ({ setAddOption, pollData, setPollData }) => {
   const [day, setDay] = useState(0);
   const [displayDay, setDisplayDay] = useState(false);
   const [hour, setHour] = useState(0);
@@ -30,7 +30,7 @@ const Poll = ({ setAddOption }) => {
     setDisplayDay(false);
     setDisplayMin(false);
   };
-  
+
   const handleMinClick = () => {
     setDisplayMin(!displayMin);
     setDisplayDay(false);
@@ -49,6 +49,20 @@ const Poll = ({ setAddOption }) => {
   };
 
   const handleRemoveClick = () => {
+    setPollData({
+      choices: [
+        { id: 1, text: "" },
+        { id: 2, text: "" },
+        { id: 3, text: "" },
+        { id: 4, text: "" },
+      ],
+      timer: {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        timestamp: 0,
+      },
+    });
     setAddOption(0);
   };
   // const handleAddChoiceClick = e => {
@@ -64,8 +78,16 @@ const Poll = ({ setAddOption }) => {
   };
   const handleDeleteInput = () => {
     if (inputs.length > 2) {
+      switch (inputs.length) {
+        case 4: pollData.choices[3].text = ""
+        break;
+        case 3: pollData.choices[2].text = ""
+        break;
+        default: break;
+      }
       setInputs(inputs.slice(0, -1));
-    }
+  }
+
   };
 
   const dayArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -97,24 +119,6 @@ const Poll = ({ setAddOption }) => {
     }
   }
   // store poll data section
-  const [pollData, setPollData] = useState({
-    choices: [],
-    timer: {
-      days: 0,
-      hours: 0,
-      minutes: 0,
-      timestamp: 0,
-    },
-  });
-
-  useEffect(() => {
-    // Mettre à jour les choix dans pollData
-    const updatedChoices = inputs.map((input) => ({ id: input.id, text: "" }));
-    setPollData((prevState) => ({
-      ...prevState,
-      choices: updatedChoices,
-    }));
-  }, [inputs]);
 
   const handleInputChange = (index, value) => {
     // Mettre à jour le texte des choix dans pollData
@@ -126,10 +130,20 @@ const Poll = ({ setAddOption }) => {
   };
 
   useEffect(() => {
+    // Mettre à jour les choix dans pollData
+    handleYellowCrossPosition();
+    const updatedChoices = pollData?.choices.map(
+      (input) => ({ id: input.id, text: input.text })
+    );
+    setPollData((prevState) => ({
+      ...prevState,
+      choices: updatedChoices,
+    }));
+  }, [inputs]);
+
+  useEffect(() => {
     const totalMilliseconds =
-      (Number(day) * 86400000) +
-      (Number(hour) * 3600000) +
-      (Number(min) * 60000);
+      Number(day) * 86400000 + Number(hour) * 3600000 + Number(min) * 60000;
     const currentTimestamp = Date.now() + totalMilliseconds;
 
     setPollData((prevState) => ({
@@ -142,10 +156,7 @@ const Poll = ({ setAddOption }) => {
       },
     }));
   }, [day, hour, min]);
-  console.log(pollData)
-  useEffect(() => {
-    handleYellowCrossPosition();
-  }, [inputs]);
+
 
   return (
     <div className="poll-component">
