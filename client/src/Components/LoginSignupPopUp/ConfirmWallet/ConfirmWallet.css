@@ -13,6 +13,10 @@
   left: 20px;
   cursor: pointer;
 }
+.signup-user-confirm-wallet-message{
+  position: absolute;
+  top: 100px;
+}
 .signup-user-confirm-wallet-title {
   width: 100%;
   height: 30px;

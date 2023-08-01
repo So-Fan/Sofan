@@ -240,6 +240,7 @@ const PopUpSignIn = ({
         setIsSigninGoogleLoading(false);
       }
       console.log(res);
+      setIsSignInButtonClicked(false);
       return [res, tempUserInfo];
     } catch (error) {
       setIsSigninGoogleLoading(false);
