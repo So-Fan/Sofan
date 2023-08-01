@@ -43,7 +43,6 @@ const PopUpSignIn = ({
   const { setLoggedInUser } = useContext(UserContext);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
-  const [emailRegexError, setEmailRegexError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -51,14 +50,13 @@ const PopUpSignIn = ({
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
   const [isSigninLoading, setIsSigninLoading] = useState(false);
-
-
+  const [isSigninFormValid, setIsSignInFormValid] = useState(false);
   // const [endGoogleLogin, setEndGoogleLogin] = useState(false)
   const {
     state: { accounts },
     setWeb3authProvider,
     setIsWalletConnectClicked,
-    setIsWeb3authConnectClicked
+    setIsWeb3authConnectClicked,
   } = useEth();
 
   useEffect(() => {
@@ -109,12 +107,7 @@ const PopUpSignIn = ({
 
     init();
   }, []);
-  function handleEmailChange(event) {
-    const emailValue = event.target.value;
-    setEmail(emailValue);
-    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    setEmailRegexError(!emailRegex.test(emailValue));
-  }
+
   function handleMailInput(e) {
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     if (emailRegex.test(e.target.value)) {
@@ -149,36 +142,41 @@ const PopUpSignIn = ({
           if (checkWalletProvider(tempUserData) === "web3auth") {
             // await web3auth.logout();
             await auth.currentUser
-            .getIdToken(true)
-            .then(async function (idToken) {
-
-              const web3authProvider = await web3auth.connectTo(
-                WALLET_ADAPTERS.OPENLOGIN,
-                {
-                  loginProvider: "jwt",
-                  extraLoginOptions: {
-                    id_token: idToken,
-                    verifierIdField: "sub",
-                    domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
-                  },
-                }
-              );
-              setWeb3authProvider(web3authProvider);
-              setIsWeb3authConnectClicked([true, web3authProvider]) 
-            })
-            .catch(function (error) {
-              // Handle error
-              console.error("Error getting ID token:", error);
-            });
+              .getIdToken(true)
+              .then(async function (idToken) {
+                const web3authProvider = await web3auth.connectTo(
+                  WALLET_ADAPTERS.OPENLOGIN,
+                  {
+                    loginProvider: "jwt",
+                    extraLoginOptions: {
+                      id_token: idToken,
+                      verifierIdField: "sub",
+                      domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
+                    },
+                  }
+                );
+                setWeb3authProvider(web3authProvider);
+                setIsWeb3authConnectClicked([true, web3authProvider]);
+              })
+              .catch(function (error) {
+                // Handle error
+                console.error("Error getting ID token:", error);
+              });
+            // setTimeout(() => {
+            setIsSigninLoading(false);
+            // }, 2000);
           } else {
-            setIsWalletConnectClicked(true)
+            setIsWalletConnectClicked(true);
           }
         } else {
           // Handle case when no user is found with the given ID
+          setIsSigninLoading(false);
           console.log("No user found");
         }
         setError(false);
         setIsSignInButtonClicked(false);
+        setIsSigninLoading(false);
+
         // navigate("/");
       })
       .catch((error) => {
@@ -187,6 +185,7 @@ const PopUpSignIn = ({
         console.log(errorCode);
         console.log(errorMessage);
         setError(true);
+        setIsSigninLoading(false);
       });
   };
 
@@ -197,14 +196,14 @@ const PopUpSignIn = ({
       const usersRef = collection(db, "users");
       const userDocRef = doc(usersRef, res.user.uid);
       const userDoc = await getDoc(userDocRef);
-      let tempUserInfo
+      let tempUserInfo;
       if (userDoc.exists()) {
         const userInfo = userDoc.data();
         const AllUserInfo = {
           ...res.user,
           ...userInfo,
         };
-        tempUserInfo = AllUserInfo
+        tempUserInfo = AllUserInfo;
         setLoggedInUser(AllUserInfo);
       } else {
         const createdAt = new Date();
@@ -249,11 +248,9 @@ const PopUpSignIn = ({
     }
   };
 
- 
-
   // useEffect(() => {
   //   if(endGoogleLogin === true){
-  //     setIsWeb3authConnectClicked(true) 
+  //     setIsWeb3authConnectClicked(true)
   //   console.log("useEffect sign in set isWeb3authConnectClicked");
   //   }else{
   //     console.log("useEffect sign in not triggered");
@@ -270,27 +267,27 @@ const PopUpSignIn = ({
     const loginRes = await handleGoogleSignIn(e);
     console.log(loginRes);
     if (checkWalletProvider(loginRes[1]) === "web3auth") {
-    // console.log("login details", loginRes);
-    const idToken = await loginRes[0].user.getIdToken(true);
-    // console.log("idToken", idToken);
+      // console.log("login details", loginRes);
+      const idToken = await loginRes[0].user.getIdToken(true);
+      // console.log("idToken", idToken);
 
-    const web3authProvider = await web3auth.connectTo(
-      WALLET_ADAPTERS.OPENLOGIN,
-      {
-        loginProvider: "jwt",
-        extraLoginOptions: {
-          id_token: idToken,
-          verifierIdField: "sub",
-          domain: "http://localhost:3000",
-        },
-      }
-    );
-    setWeb3authProvider(web3authProvider);
-    setIsWeb3authConnectClicked([true, web3authProvider]) 
-    // console.log("endGoogleLogin : ", endGoogleLogin);
-    console.log("sign in web3auth");
-    }else {
-      setIsWalletConnectClicked(true)
+      const web3authProvider = await web3auth.connectTo(
+        WALLET_ADAPTERS.OPENLOGIN,
+        {
+          loginProvider: "jwt",
+          extraLoginOptions: {
+            id_token: idToken,
+            verifierIdField: "sub",
+            domain: "http://localhost:3000",
+          },
+        }
+      );
+      setWeb3authProvider(web3authProvider);
+      setIsWeb3authConnectClicked([true, web3authProvider]);
+      // console.log("endGoogleLogin : ", endGoogleLogin);
+      console.log("sign in web3auth");
+    } else {
+      setIsWalletConnectClicked(true);
       console.log("sigin metamsk");
     }
 
@@ -309,12 +306,32 @@ const PopUpSignIn = ({
   function handleForgotPasswordClick(e) {
     setIsForgotPasswordClicked(true);
   }
+  function handleSigninFormValid() {
+    if (email !== "" && emailError === false) {
+      console.log("Le form sign in est valide");
+      setIsSignInFormValid(true);
+    } else if (email === "" || emailError === true) {
+      console.log("Le form sign in est pas valide");
+      setIsSignInFormValid(false);
+    }
+  }
+  // useEffect(() => {
+
+  //   handleSigninFormValid();
+  // }, [])
+  useEffect(() => {
+    if (email !== "" && !emailError && password !== "" && password.length > 8) {
+      setIsSignInFormValid(true);
+    } else {
+      setIsSignInFormValid(false);
+    }
+  }, [email, emailError, password]);
   return (
     <>
       {isForgotPasswordClicked ? (
         <>
           <ForgotPassword
-          setIsForgotPasswordClicked={setIsForgotPasswordClicked}
+            setIsForgotPasswordClicked={setIsForgotPasswordClicked}
           />
         </>
       ) : (
@@ -358,8 +375,35 @@ const PopUpSignIn = ({
             >
               Mot de passe oublié ?
             </button>
-            <button onClick={handleLogin} className="popupsignin-signin-button">
-              Se connecter
+            {isSigninLoading && (
+              <>
+                <div className="popupsignin-loading-mail-signin-animation">
+                  <div className="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </>
+            )}
+            <button
+              disabled={!isSigninFormValid || isSigninLoading}
+              style={
+                isSigninLoading
+                  ? {
+                      backgroundColor: "#f6d46349",
+                      border: "#f6d463 1px solid",
+                      pointerEvents: "none",
+                    }
+                  : !isSigninFormValid
+                  ? { opacity: 0.5 }
+                  : {}
+              }
+              onClick={handleLogin}
+              className="popupsignin-signin-button"
+            >
+              {isSigninLoading ? <></> : <>Se connecter</>}
             </button>
             <div className="popupsignin-style-container">
               <div></div>

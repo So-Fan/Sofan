@@ -114,6 +114,10 @@
   cursor: pointer;
   font-size: 16px;
 }
+.popupsignin-loading-mail-signin-animation{
+  position: absolute;
+  top: 390px;
+}
 .popupsignin-signin-button {
   font-family: "britanica-heavy";
   font-size: 20px;
@@ -126,6 +130,7 @@
   width: 460px;
   height: 56px !important;
   cursor: pointer;
+  user-select: none;
 }
 .popupsignin-signin-button:hover {
   background: #f7c520 !important;
