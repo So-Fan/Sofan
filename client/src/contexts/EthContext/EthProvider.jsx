@@ -145,7 +145,7 @@ function EthProvider({ children, setWeb3auth }) {
     ) {
       const tryInit = async () => {
         try {
-          const artifact = require("../../contracts/Storage.json");
+          const artifact = require("../../contracts/SofanNftTemplate.json");
           init(artifact, tempIsWeb3authConnectClicked);
           console.log("end init ethprovider");
         } catch (err) {
