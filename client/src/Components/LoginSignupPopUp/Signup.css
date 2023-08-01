@@ -11,6 +11,41 @@
   align-items: center;
   justify-content: center;
 }
+
+.signup-user-error-google-message-container {
+  width: 500px;
+  /* min-height: 375px; */
+  height: 250px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20.3424px rgba(0, 0, 0, 0.08);
+  border-radius: 9.94299px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  position: relative;
+  text-align: center;
+  font-size: 18px;
+  font-family: "britanica-black";
+  padding: 20px;
+}
+.signup-user-error-google-message-container p {
+  position: absolute;
+  top: 55%;
+}
+.signup-user-error-google-message-error-logo {
+  position: absolute;
+  top: 15%;
+  margin-bottom: 80px;
+}
+.signup-user-error-google-message-previous-step {
+  position: absolute;
+  top: 7%;
+  left: 2.5%;
+  margin-bottom: 80px;
+  cursor: pointer;
+}
 /* =========================================================== */
 /* ================  Conditionnal rendering ========================================= */
 /* When ConfirmationCode Component */
@@ -72,7 +107,7 @@
   justify-content: center;
 }
 /* When Validation Signup */
-.signup-user-validation-signup-container{
+.signup-user-validation-signup-container {
   width: 500px;
   height: 418px;
   min-height: 375px;
@@ -84,7 +119,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-} 
+}
 /* =========================================================== */
 .signup-user-wrap-form {
   width: 460px;
@@ -279,6 +314,12 @@
   font-size: 20px;
   font-family: "britanica-heavy";
 }
+.signup-user-google-error-general-message {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+}
 .signup-user-already-an-account {
   display: flex;
   align-items: center;
@@ -288,6 +329,10 @@
 }
 .signup-user-already-an-account > span {
   margin-right: 5px;
+}
+.signup-user-already-an-account button:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 /* .signup-user-already-an-account span {
   position: relative;

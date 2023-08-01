@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ConnectWallet.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import {
@@ -19,7 +19,7 @@ function ConnectWallet({
   collectedIdToken,
   userData,
 }) {
-  const { setWeb3authProvider, setIsWalletConnectClicked, setIsWeb3authConnectClicked } = useEth();
+  const { setWeb3authProvider, setIsWalletConnectClicked, setIsWeb3authConnectClicked, isWalletConnectClicked, state:{accounts} } = useEth();
   const [newFirebaseIdToken, setNewFirebaseIdToken] = useState("");
 
   const handleCreateWallet = async (e) => {
@@ -63,7 +63,6 @@ function ConnectWallet({
     const web3 = new Web3(web3authProvider);
 
     const accountWallet = await web3.eth.getAccounts();
-
     // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
 
     const newWallet = {
@@ -80,6 +79,7 @@ function ConnectWallet({
           const updatedUserData = { ...existingUserData, ...newWallet };
           await setDoc(userDocRef, updatedUserData);
           console.log("Update successful");
+          handleConnectWalletClick();
         } else {
           console.log(`No user found with ID: ${userData.id}`);
         }
@@ -96,7 +96,13 @@ function ConnectWallet({
   const handleConnectMetamaskWalletClick = async() => {
     console.log("click metamask button");
     setIsWalletConnectClicked(true)
+  
   }
+  useEffect(() => {
+    if (!localStorage.getItem("Web3Auth-cachedAdapter") && accounts) {
+      handleConnectWalletClick()
+    }
+  }, [accounts])
   return (
     <div className="signup-user-connect-wallet-wrap">
       <div

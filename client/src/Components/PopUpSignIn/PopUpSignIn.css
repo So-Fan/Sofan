@@ -1,3 +1,15 @@
+.popupsignin-loading-google-animation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 500px;
+  height: 644px;
+  background-color: white;
+  border-radius: 20px;
+}
+
 .popupsignin-component {
   display: flex;
   flex-direction: column;
@@ -9,6 +21,23 @@
   background-color: white;
   border-radius: 20px;
 }
+.popupsignin-error-message {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  position: absolute;
+  top: 150px;
+}
+.popupsignin-error-message-google-not-register {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  position: absolute;
+  top: 135px;
+}
+
 .popupsignin-component > span:nth-child(1) {
   font-family: "britanica-heavy";
   font-size: 35px;
@@ -29,6 +58,12 @@
   margin-bottom: 20px;
   width: 460px;
   height: 71px;
+}
+.popupsignin-input-mail-error {
+  color: red;
+  font-size: 12px;
+  font-weight: 900;
+  margin-top: 5px;
 }
 .popupsignin-input-container > span {
   font-family: "britanica-heavy";
@@ -69,18 +104,96 @@
   position: relative;
   margin-bottom: 20px;
 }
+.popupsignin-socials-container button:hover {
+  background: #f6d46391 !important;
+  transition-duration: 500ms !important;
+}
 .popupsignin-socials-container > img {
   width: 25px;
   height: 25px;
   position: absolute;
   top: 16px;
-  left: 110px;
+  left: 95px;
 }
-.popupsignin-signup-container{
-    display: flex;
-    margin-bottom: 30px;
+.popupsignin-signup-container {
+  display: flex;
+  margin-bottom: 30px;
 }
-.popupsignin-signup-container > span{
-    line-height: normal;
-    margin-right: 5px;
+.popupsignin-signup-container > span {
+  line-height: normal;
+  margin-right: 5px;
+}
+.popupsignin-forget-password {
+  color: #3c4045;
+  font-family: "britanica-heavy";
+  line-height: normal;
+  text-decoration-line: underline;
+  outline: none;
+  border: transparent;
+  background-color: transparent;
+  margin-bottom: 40px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.popupsignin-loading-mail-signin-animation {
+  position: absolute;
+  top: 390px;
+}
+.popupsignin-signin-button {
+  font-family: "britanica-heavy";
+  font-size: 20px;
+  line-height: normal;
+  outline: none;
+  border: transparent;
+  background-color: #f6d463;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 460px;
+  height: 56px !important;
+  cursor: pointer;
+  user-select: none;
+}
+.popupsignin-signin-button:hover {
+  background: #f7c520 !important;
+  transition-duration: 300ms !important;
+}
+.popupsignin-signin-button:active {
+  transform: scale(0.85);
+}
+.popupsignin-google-button {
+  font-family: "britanica-heavy";
+  font-size: 20px;
+  line-height: normal;
+  background-color: white;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(60, 64, 69, 0.4);
+  /* width: 425px; */
+  width: 100%;
+  height: 56px;
+  padding-left: 35px;
+  cursor: pointer;
+}
+.popupsignin-google-error {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  position: absolute;
+  top: 560px;
+}
+.popupsignin-signup-button {
+  color: #f6d463;
+  font-family: "britanica-heavy";
+  line-height: normal;
+  font-size: 16px;
+  outline: none;
+  border: transparent;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+.popupsignin-signup-container button:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
