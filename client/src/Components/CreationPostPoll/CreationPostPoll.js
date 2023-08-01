@@ -24,6 +24,21 @@ const CreationPostPoll = ({ userId }) => {
   const [text, setText] = useState("");
   const [loadingPublishPost, setLoadingPublishPost] = useState(false);
   const [validationPublishPost, setValidationPublishPost] = useState(false);
+
+  const [pollData, setPollData] = useState({
+    choices: [
+      { id: 1, text: "" },
+      { id: 2, text: "" },
+      { id: 3, text: "" },
+      { id: 4, text: "" },
+    ],
+    timer: {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      timestamp: 0,
+    },
+  });
   const handleFileUpload = (e) => {
     setFile(URL.createObjectURL(e.target.files[0]));
     setImage(e.target.files[0]);
@@ -32,6 +47,21 @@ const CreationPostPoll = ({ userId }) => {
     // e.preventDefault();
     // setIsFile(0);
     setFile(null);
+  };
+
+  const arrayVerifier = {
+    choices: [
+      { id: 1, text: "" },
+      { id: 2, text: "" },
+      { id: 3, text: "" },
+      { id: 4, text: "" },
+    ],
+    timer: {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      timestamp: 0,
+    },
   };
 
   const handleNextClick = async () => {
@@ -46,24 +76,42 @@ const CreationPostPoll = ({ userId }) => {
       console.log("Post about to be posted");
       setLoadingPublishPost(true);
       const createdAt = new Date();
-      const postType = "normal";
 
-      const imagePath = image.name
-        ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}`
-        : null;
+      console.log(pollData);
+      let post;
+
+      if (
+        pollData.choices !== arrayVerifier.choices &&
+        pollData.timer !== arrayVerifier.timer
+      ) {
+        const postType = "poll";
+        post = {
+          userId,
+          text,
+          visibility:
+            isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
+          createdAt,
+          postType,
+          pollData,
+          likes: [],
+          comments: [],
+        };
+      } else {
+        const postType = "post";
+        post = {
+          userId,
+          text,
+          visibility:
+            isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
+          createdAt,
+          imagePath: "",
+          postType,
+          likes: [],
+          comments: [],
+        };
+      }
+
       // Create a new post object to upload to Firestore
-      const post = {
-        userId,
-        text,
-        visibility:
-          isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
-        createdAt,
-        imagePath: "",
-        postType,
-        likes: 0,
-        comments: [],
-        // Add any other data you want to save for the post
-      };
 
       try {
         // Upload the post object to Firestore
@@ -75,19 +123,21 @@ const CreationPostPoll = ({ userId }) => {
 
         // If an image was uploaded, upload it to Firebase Storage
         if (image) {
-          const imageRef = ref(storage, imagePath);
-          uploadBytes(imageRef, image).then((snapshot) => {
-            console.log(snapshot);
-            console.log("Uploaded a blob or file!");
+          const imagePath =
+            image && image.name
+              ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}`
+              : null;
 
-            if (imagePath) {
+          const imageRef = ref(storage, imagePath);
+          if (image && imagePath) {
+            uploadBytes(imageRef, image).then((snapshot) => {
+              console.log(snapshot);
+              console.log("Uploaded a blob or file!");
               getDownloadURL(ref(storage, imagePath)).then((url) => {
                 updatePostImagePath(postUid, url);
               });
-            }
-
-            // Mettre une message de validation
-          });
+            });
+          }
         }
         console.log("Post added successfully!");
         setLoadingPublishPost(false);
@@ -174,7 +224,10 @@ const CreationPostPoll = ({ userId }) => {
         className="creation-post-wrap"
         style={select.creationPostWrap[isFile]}
       >
-        <div style={validationPublishPost ? {visibility:"hidden"}: {}} className="creation-text-wrap">
+        <div
+          style={validationPublishPost ? { visibility: "hidden" } : {}}
+          className="creation-text-wrap"
+        >
           <span>{step != 1 ? "Create a post" : "Who can see your post"}</span>
           <button className="cancel-button-creation-post">
             {/* <img src={Cross} alt="a cross" /> */}
@@ -192,6 +245,8 @@ const CreationPostPoll = ({ userId }) => {
             postPollPollTextArea={select.postPollComponentTextArea[2]}
             text={text}
             handleTextChange={handleTextChange}
+            pollData={pollData}
+            setPollData={setPollData}
           />
         ) : loadingPublishPost ? (
           <>
@@ -206,10 +261,8 @@ const CreationPostPoll = ({ userId }) => {
               <div>
                 <img src={validationLogo} alt="" />
               </div>
-              <p>
-              Votre publication a bien été posté !
-              </p>
-              </div>
+              <p>Votre publication a bien été posté !</p>
+            </div>
           </>
         ) : (
           <div className="creation-visibility-choice-container">
@@ -231,7 +284,10 @@ const CreationPostPoll = ({ userId }) => {
             </div>
           </div>
         )}
-        <button style={validationPublishPost ? {visibility:"hidden"}: {}} onClick={handleNextClick}>
+        <button
+          style={validationPublishPost ? { visibility: "hidden" } : {}}
+          onClick={handleNextClick}
+        >
           {step != 1 ? "Next" : "Publish"}
         </button>
       </div>

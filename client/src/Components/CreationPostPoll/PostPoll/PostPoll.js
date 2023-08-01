@@ -14,7 +14,9 @@ const PostPoll = ({
   postPollComponentTextArea,
   postPollPollTextArea,
   text,
-  handleTextChange
+  handleTextChange,
+  pollData,
+  setPollData,
 }) => {
   const [addOption, setAddOption] = useState(0);
   const ref = useRef();
@@ -42,7 +44,7 @@ const PostPoll = ({
         onChange={handleTextChange}
       />
 
-      {addOption === 2 && <Poll setAddOption={setAddOption} />}
+      {addOption === 2 && <Poll setAddOption={setAddOption} setPollData={setPollData} pollData={pollData} />}
 
       {file != null && (
         <div className="post-poll-file-wrap">

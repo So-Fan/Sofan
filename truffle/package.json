@@ -5,7 +5,8 @@
     "main": "truffle-config.js",
     "dependencies": {
         "@truffle/hdwallet-provider": "^2.0.10",
-        "dotenv": "^16.3.1"
+        "dotenv": "^16.3.1",
+        "erc721a": "^4.2.3"
     },
     "scripts": {
         "test": "truffle test"
