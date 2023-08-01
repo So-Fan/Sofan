@@ -62,7 +62,7 @@ const CreationPostPoll = ({ userId }) => {
       minutes: 0,
       timestamp: 0,
     },
-  }
+  };
 
   const handleNextClick = async () => {
     console.log(image.name);
@@ -79,8 +79,11 @@ const CreationPostPoll = ({ userId }) => {
 
       console.log(pollData);
       let post;
-      
-      if (pollData.choices !== arrayVerifier.choices && pollData.timer !== arrayVerifier.timer) {
+
+      if (
+        pollData.choices !== arrayVerifier.choices &&
+        pollData.timer !== arrayVerifier.timer
+      ) {
         const postType = "poll";
         post = {
           userId,
@@ -108,10 +111,7 @@ const CreationPostPoll = ({ userId }) => {
         };
       }
 
-      
-
       // Create a new post object to upload to Firestore
-      
 
       try {
         // Upload the post object to Firestore
@@ -123,24 +123,21 @@ const CreationPostPoll = ({ userId }) => {
 
         // If an image was uploaded, upload it to Firebase Storage
         if (image) {
+          const imagePath =
+            image && image.name
+              ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}`
+              : null;
 
-          const imagePath = image.name
-            ? `feed_post_img/sofan_post_${createdAt.getTime()}_${image.name}`
-            : null;
-          
           const imageRef = ref(storage, imagePath);
-          uploadBytes(imageRef, image).then((snapshot) => {
-            console.log(snapshot);
-            console.log("Uploaded a blob or file!");
-
-            if (imagePath) {
+          if (image && imagePath) {
+            uploadBytes(imageRef, image).then((snapshot) => {
+              console.log(snapshot);
+              console.log("Uploaded a blob or file!");
               getDownloadURL(ref(storage, imagePath)).then((url) => {
                 updatePostImagePath(postUid, url);
               });
-            }
-
-            // Mettre une message de validation
-          });
+            });
+          }
         }
         console.log("Post added successfully!");
         setLoadingPublishPost(false);
