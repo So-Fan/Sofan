@@ -63,7 +63,6 @@ function ConnectWallet({
     const web3 = new Web3(web3authProvider);
 
     const accountWallet = await web3.eth.getAccounts();
-
     // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
 
     const newWallet = {

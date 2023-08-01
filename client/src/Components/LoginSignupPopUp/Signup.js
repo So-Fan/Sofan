@@ -92,15 +92,12 @@ function Signup({
   const [googleErrorGeneral, setgoogleErrorGeneral] = useState(false);
   const [googleErrorAlreadyRegister, setgoogleErrorAlreadyRegister] =
     useState(false);
-
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
   const [googleIdToken, setGoogleIdToken] = useState();
   const [firebaseIdToken, setFirebaseIdToken] = useState();
-  const {
-    setWeb3authProvider,
-  } = useEth();
+  const { setWeb3authProvider } = useEth();
 
   useEffect(() => {
     const init = async () => {
@@ -336,7 +333,6 @@ function Signup({
           .catch((error) => {
             console.error("Error processing response:", error);
           });
-        
       } else {
         setIsGoogleSignupLoading(false);
         setgoogleErrorAlreadyRegister(true);

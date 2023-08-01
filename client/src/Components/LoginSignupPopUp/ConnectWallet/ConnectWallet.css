@@ -140,3 +140,12 @@ transform: scale(0.75);
   font-size: 20px;
   margin-left: 10px;
 }
+@keyframes copy-animation {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+.copy-animation {
+  animation: copy-animation 2s;
+}
