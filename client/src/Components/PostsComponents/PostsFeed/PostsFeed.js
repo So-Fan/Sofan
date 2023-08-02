@@ -42,6 +42,7 @@ function PostsFeed({
   pollFourthChoiceNumber,
   athleteProfilePageStyling,
   setPostStates,
+  loggedInUser,
 }) {
   
   function handleClickShowComment(e) {
@@ -135,6 +136,8 @@ function PostsFeed({
             setIsPostClicked={setIsPostClicked}
             postLikes={postLikes}
             postCommentNumber={postCommentNumber}
+            postId={id}
+            loggedInUserId={loggedInUser?.id}
           />
           <div className="show-comments-button-publication">
             <Link onClick={(e) => handleClickShowComment(e)}>

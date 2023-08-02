@@ -5,31 +5,34 @@ import { auth } from "../../../Configs/firebase";
 import { signOut } from 'firebase/auth';
 import UserContext from '../../../UserContext';
 import useEth from "../../../contexts/EthContext/useEth";
-
+import { useNavigate } from "react-router-dom";
 
 const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
   const { setLoggedInUser, setLocalWeb3authProvider } = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     setWeb3authProvider,
   } = useEth();
 
   const handleSignOut = async() => {
     setWeb3authProvider(null);
-    signOut(auth)
-    .then(() => {
-      setLoggedInUser(null);
-      setLocalWeb3authProvider(null);
-        localStorage.removeItem("loggedInUser");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
     try {
       if (!web3auth) return;
       await web3auth.logout();
     } catch (err) {
       console.error(err);
     }
+    signOut(auth)
+    .then(() => {
+      setLoggedInUser(null);
+      setLocalWeb3authProvider(null);
+        localStorage.removeItem("loggedInUser");
+      navigate('/')
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+    
   };
 
   return (

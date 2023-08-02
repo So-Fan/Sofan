@@ -13,6 +13,7 @@ function LikesCommentsCounter({
   setIsPostClicked,
   postLikeNumber,
   postCommentNumber,
+  postId,
 }) {
   const [pluralLikes, setPluralLikes] = useState();
   useEffect(() => {
@@ -31,6 +32,7 @@ function LikesCommentsCounter({
         <LikeButton
           likeButtonSizePollPost={likeButtonSizePollPost}
           likeButtonSize={"likeButton-M-size"}
+          postId={postId}
           // likeButtonContainerPollPost={likeButtonContainerPollPost}
         />
         <div
