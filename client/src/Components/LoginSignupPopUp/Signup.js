@@ -527,7 +527,12 @@ function Signup({
     }
     console.log("oui");
   }
-
+function handleKeyDown(event) {
+  // Si la touche pressée est "ENTRÉE", déclenchez le clic sur le bouton
+  if (event.key === 'Enter') {
+    verifyFormIsValid();
+  }
+}
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
@@ -833,6 +838,7 @@ function Signup({
                     value={email}
                     onChange={handleEmailChange}
                     onBlur={handleMailInput}
+                    onKeyDown={handleKeyDown}
                     placeholder="Entrez votre mail"
                     name=""
                     id=""
@@ -851,6 +857,7 @@ function Signup({
                     type="text"
                     value={username}
                     onChange={handleUsernameChange}
+                    onKeyDown={handleKeyDown}
                     placeholder="Choisissez votre pseudo"
                   />
                   {usernameRegexError && (
@@ -865,6 +872,7 @@ function Signup({
                   <PhoneInput
                     id="signup-user-phone-input-id"
                     onClick={handleClickPhoneInput}
+                    onKeyDown={handleKeyDown}
                     international
                     defaultCountry="FR"
                     value={phone}
@@ -889,6 +897,7 @@ function Signup({
                       placeholder="Mot de passe"
                       onChange={handlePasswordChange}
                       onBlur={handlePasswordBlur}
+                      onKeyDown={handleKeyDown}
                       name=""
                       id=""
                     />
@@ -938,6 +947,7 @@ function Signup({
                       placeholder="Confirmez votre mot de passe"
                       onChange={handleConfirmPasswordChange}
                       onBlur={handleConfirmPasswordBlur}
+                      onKeyDown={handleKeyDown}
                       name=""
                       id=""
                     />
