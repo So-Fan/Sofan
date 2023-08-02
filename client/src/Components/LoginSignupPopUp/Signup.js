@@ -401,7 +401,8 @@ function Signup({
       !emailError &&
       !usernameRegexError &&
       validatePassword(password) &&
-      password === passwordConfirmation
+      password === passwordConfirmation 
+      && usernameRegexError === false && username !== ""
     ) {
       console.log("tout est rempli");
       setIsFormValid(true);
