@@ -43,7 +43,6 @@ function ConfirmationCode({
   handleConfirmMailResendCode,
 }) {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
-
   useEffect(() => {
     const isAllCodeFilled = code.every((value) => value !== "");
     setIsConfirmCodeValid(isAllCodeFilled);
