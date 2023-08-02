@@ -172,6 +172,9 @@
   /* background-color: tomato; */
   margin-top: 15px;
 }
+.signup-user-confirmation-password-title{
+  margin-top: 20px !important;
+}
 .signup-user-password-input-container,
 .signup-user-confirm-password-input-container {
   position: relative;
@@ -188,7 +191,7 @@
   border: 1px solid rgba(0, 0, 0, 0.281);
   /* opacity: 0.5; */
   caret-color: #f6d463;
-  margin-top: 10px;
+  margin-top:8px;
   padding-left: 10px;
 }
 .PhoneInputInput {
@@ -219,8 +222,11 @@
 .signup-user-error-password,
 .signup-user-error-fill-form {
   color: red;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 900;
+}
+.signup-user-error-username, .signup-user-error-password{
+  position: absolute;
 }
 .signup-user-error-fill-form {
   text-align: center;
@@ -268,7 +274,7 @@
   height: 17px;
   width: 100%;
   /* background-color: violet; */
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
   align-items: center;
 }
@@ -289,7 +295,7 @@
   height: 56px;
   border: 0.3px solid rgba(60, 64, 69, 0.4);
   border-radius: 10px;
-  margin-top: 20.5px;
+  margin-top: 15.5px;
   display: flex;
   justify-content: center;
   align-items: center;
