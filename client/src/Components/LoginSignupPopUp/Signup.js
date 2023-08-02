@@ -59,6 +59,7 @@ function Signup({
   const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
   const [displayValidationSignup, setDisplayValidationSignup] = useState(false);
   const [allUserInfo, setAllUserInfo] = useState({});
+  const [isAllFieldsComplete, setIsAllFieldsComplete] = useState();
   //
   const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
     useState(false);
@@ -82,7 +83,6 @@ function Signup({
   const [passwordConfirmRegexError, setPasswordConfirmRegexError] =
     useState(false);
   const [phoneRegexError, setPhoneRegexError] = useState(false);
-
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
   const [opacityInputPhone, setOpacityInputPhone] = useState(false);
@@ -92,6 +92,7 @@ function Signup({
   const [googleErrorGeneral, setgoogleErrorGeneral] = useState(false);
   const [googleErrorAlreadyRegister, setgoogleErrorAlreadyRegister] =
     useState(false);
+    const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
@@ -172,12 +173,14 @@ function Signup({
   function handlePasswordChange(e) {
     setPassword(e.target.value);
     setShowError(false);
+    setIsPasswordMatch(e.target.value === passwordConfirmation);
   }
 
-  function handleConfirmPasswordChange(e) {
-    setPasswordConfirmation(e.target.value);
-    setShowError(password !== e.target.value);
-  }
+  // function handleConfirmPasswordChange(e) {
+  //   console.log(e.target.value);
+  //   setPasswordConfirmation(e.target.value);
+  //   setShowError(password !== e.target.value);
+  // }
 
   function handlePasswordBlur() {
     setShowError(
@@ -205,11 +208,13 @@ function Signup({
     );
   }
   function handleConfirmPasswordChange(event) {
+    console.log(event.target.value);
     const passwordConfirmValue = event.target.value;
     setPasswordConfirmation(passwordConfirmValue);
     setPasswordConfirmRegexError(
       password !== "" && password !== passwordConfirmValue
     );
+    setIsPasswordMatch(password === event.target.value);
   }
   function handlePasswordBlur() {
     const passwordRegex =
@@ -401,8 +406,9 @@ function Signup({
       !emailError &&
       !usernameRegexError &&
       validatePassword(password) &&
-      password === passwordConfirmation 
-      && usernameRegexError === false && username !== ""
+      password === passwordConfirmation &&
+      usernameRegexError === false &&
+      username !== ""
     ) {
       console.log("tout est rempli");
       setIsFormValid(true);
@@ -527,12 +533,12 @@ function Signup({
     }
     console.log("oui");
   }
-function handleKeyDown(event) {
-  // Si la touche pressée est "ENTRÉE", déclenchez le clic sur le bouton
-  if (event.key === 'Enter') {
-    verifyFormIsValid();
+  function handleKeyDown(event) {
+    // Si la touche pressée est "ENTRÉE", déclenchez le clic sur le bouton
+    if (event.key === "Enter") {
+      verifyFormIsValid();
+    }
   }
-}
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
@@ -662,13 +668,12 @@ function handleKeyDown(event) {
     }, 2000);
   }
   function handleConnectWalletClick() {
-      setDisplayConnectWallet(false);
-      setTimeout(() => {
-        setDisplayConfirmWallet(true);
-      }, 2000);
+    setDisplayConnectWallet(false);
+    setTimeout(() => {
+      setDisplayConfirmWallet(true);
+    }, 2000);
   }
 
-  
   function handleConfirmWalletClick() {
     setDisplayConfirmWallet(false);
     setTimeout(() => {
@@ -698,6 +703,25 @@ function handleKeyDown(event) {
     setIsFormValid(false);
     setIsSubmitClicked(false);
   }
+  useEffect(() => {
+    const allFieldsValid = 
+      !emailError && 
+      email !== '' &&
+      !usernameRegexError &&
+      username !== '' &&
+      !passwordError &&
+      password !== '' && 
+      !showError &&
+      isPasswordMatch;
+  
+    if (allFieldsValid) {
+      console.log('Tout est bon!'); 
+      setIsAllFieldsComplete(true);
+    } else {
+      setIsAllFieldsComplete(false);
+      console.log("tout n'est pas bon");
+    }
+  }, [email, username, password, showError, isPasswordMatch]);
   return (
     <>
       {googleErrorAlreadyRegister ? (
@@ -823,7 +847,12 @@ function handleKeyDown(event) {
             <>
               <div className="signup-user-container">
                 <form action="#" className="signup-user-wrap-form">
-                  <div className="signup-user-title">S'inscrire</div>
+                  <div
+                    // onClick={verifyAllFieldAreFull}
+                    className="signup-user-title"
+                  >
+                    S'inscrire
+                  </div>
                   <div className="signup-user-title-description">
                     Sign up now to connect with athletes and explore exclusive
                     NFT content within a vibrant community of sports
@@ -863,8 +892,8 @@ function handleKeyDown(event) {
                   />
                   {usernameRegexError && (
                     <p className="signup-user-error-username">
-                      Votre pseudo doit comporter 1 à 14
-                      caractères alphanumériques ou des underscores.
+                      Votre pseudo doit comporter 1 à 14 caractères
+                      alphanumériques ou des underscores.
                     </p>
                   )}
                   <div className="signup-user-phone-title">
@@ -986,6 +1015,8 @@ function handleKeyDown(event) {
                     )}
                   </div>
                   <button
+                    disabled={!isAllFieldsComplete}
+                    // style={!isFormValid ? {pointerEvents:"none"}: {}}
                     onClick={verifyFormIsValid}
                     className="signup-user-create-account-button"
                   >
