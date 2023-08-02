@@ -857,6 +857,7 @@ function handleKeyDown(event) {
                     type="text"
                     value={username}
                     onChange={handleUsernameChange}
+                    onBlur={handleUsernameChange}
                     onKeyDown={handleKeyDown}
                     placeholder="Choisissez votre pseudo"
                   />
