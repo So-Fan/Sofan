@@ -5,7 +5,7 @@ function LikeButton({ likeButtonSize, likeButtonSizePollPost, postId, loggedInUs
   const [isPostLiked, setIsPostedLiked] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
-    //console.log(postId, " ", loggedInUserId);
+    console.log(postId, " ", loggedInUserId);
     if (loggedInUserId) {
       setIsPostedLiked(!isPostLiked);
     } else {
