@@ -43,7 +43,6 @@ function ConfirmationCode({
   handleConfirmMailResendCode,
 }) {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
-
   useEffect(() => {
     const isAllCodeFilled = code.every((value) => value !== "");
     setIsConfirmCodeValid(isAllCodeFilled);
@@ -82,7 +81,13 @@ function ConfirmationCode({
   }
 
   const inputRefs = useRef([]);
-
+  function handleConfirmMailResendCode() {
+    setIsResendCodeMailLoading(true);
+    setTimeout(() => {
+      setIsResendCodeMailLoading(false);
+      setConfirmCodeResend(true);
+    }, 2000);
+  }
   return (
     <div className="signup-user-confirmation-code-wrap">
       <div
