@@ -863,7 +863,7 @@ function handleKeyDown(event) {
                   />
                   {usernameRegexError && (
                     <p className="signup-user-error-username">
-                      Veuillez entrer un pseudo valide. Il doit comporter 1 à 14
+                      Votre pseudo doit comporter 1 à 14
                       caractères alphanumériques ou des underscores.
                     </p>
                   )}
