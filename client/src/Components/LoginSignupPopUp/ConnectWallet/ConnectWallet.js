@@ -9,6 +9,7 @@ import {
 } from "@web3auth/base";
 import useEth from "../../../contexts/EthContext/useEth";
 import Web3 from "web3";
+import { WalletLoginError } from "@web3auth/base";
 import { db, auth } from "../../../Configs/firebase";
 import {
   updateDoc,
@@ -36,10 +37,16 @@ function ConnectWallet({
   const [newFirebaseIdToken, setNewFirebaseIdToken] = useState("");
   const [isMetamaskConnectWalletLoading, setIsMetamaskConnectWalletLoading] =
     useState(false);
+  const [isWeb3AuthConnectWalletLoading, setIsWeb3authConnectLoading] =
+    useState(false);
+  const [metamaskError, setMetamaskError] = useState(false);
+  const [web3AuthError, setWeb3AuthError] = useState(false)
   const handleCreateWallet = async (e) => {
     e.preventDefault();
+    setIsWeb3authConnectLoading(true);
     if (!web3auth) {
       console.log("web3auth not initialized yet");
+      setIsWeb3authConnectLoading(false);
       return;
     }
 
@@ -47,6 +54,7 @@ function ConnectWallet({
 
     if (!collectedIdToken) {
       console.log("1st attempt of token ID creation Failed");
+      setIsWeb3authConnectLoading(false);
       await auth.currentUser
         .getIdToken(true)
         .then(function (idToken) {
@@ -56,6 +64,7 @@ function ConnectWallet({
         })
         .catch(function (error) {
           // Handle error
+          setIsWeb3authConnectLoading(false);
           console.error("Error getting ID token:", error);
         });
     }
@@ -92,14 +101,18 @@ function ConnectWallet({
           const updatedUserData = { ...existingUserData, ...newWallet };
           await setDoc(userDocRef, updatedUserData);
           console.log("Update successful");
+          setIsWeb3authConnectLoading(false);
           handleConnectWalletClick();
         } else {
+          setIsWeb3authConnectLoading(false);
           console.log(`No user found with ID: ${userData.id}`);
         }
       } catch (err) {
+        setIsWeb3authConnectLoading(false);
         console.log("Error updating document:", err);
       }
     } else {
+      setIsWeb3authConnectLoading(false);
       console.log("userData.id is not defined");
     }
     setIsWeb3authConnectClicked([true, web3authProvider]);
@@ -117,9 +130,32 @@ function ConnectWallet({
       handleConnectWalletClick();
     }
   }, [accounts]);
+
+  window.addEventListener("unhandledrejection", function (event) {
+    // detecte quand le popup web3Auth a été fermé
+    if (event.reason instanceof WalletLoginError) {
+      setIsWeb3authConnectLoading(false);
+      setWeb3AuthError(true);
+    }
+  });
+
+  useEffect(() => {
+    function handleErrors(event) {
+      if (event?.reason?.code === 4001) {
+        console.log("Metamask popup has been closed by the user");
+        setIsMetamaskConnectWalletLoading(false);
+        setMetamaskError(true);
+      }
+    }
+    window.addEventListener("unhandledrejection", handleErrors);
+
+    return () => {
+      window.removeEventListener("unhandledrejection", handleErrors);
+    };
+  }, []);
   return (
     <>
-      {isMetamaskConnectWalletLoading ? (
+      {isMetamaskConnectWalletLoading || isWeb3AuthConnectWalletLoading ? (
         <>
           <div className="lds-ripple">
             <div></div>
@@ -176,6 +212,14 @@ function ConnectWallet({
                 </div>
               </div>
             </div>
+            {metamaskError && (
+              <>
+                <div className="signup-user-connect-wallet-error-metamask">
+                  Oops il semblerait que quelque chose s'est mal passé avec
+                  votre wallet Metamask
+                </div>
+              </>
+            )}
             <button
               onClick={handleConnectWalletClick}
               className="signup-user-connect-wallet-next-button"
@@ -199,8 +243,15 @@ function ConnectWallet({
                 className="signup-user-connect-wallet-button-title"
                 onClick={handleCreateWallet}
               >
-                Créer mon wallet
+                Créer mon wallet avec mon mail
               </div>
+              {web3AuthError && (
+              <>
+                <div className="signup-user-connect-wallet-error-web3auth">
+                  Oops il semblerait que quelque chose s'est mal passé avec Web3Auth
+                </div>
+              </>
+            )}
             </button>
             <div className="signup-user-connect-wallet-progress-bar-container">
               <div
