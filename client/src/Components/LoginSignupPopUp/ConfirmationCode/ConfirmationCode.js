@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ConfirmationCode.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
+import {
+  addDoc,
+  collection,
+  Timestamp,
+} from "firebase/firestore";
+import { db } from "../../../Configs/firebase";
+
 
 function InputCodeSquare(props) {
   return (
@@ -31,10 +38,12 @@ function ConfirmationCode({
   handleSubmitConfirmationCodeClick,
   handleConfirmationCodePreviousStep,
   UserEmail,
+  isResendCodeMailLoading,
+  confirmCodeResend,
+  handleConfirmMailResendCode,
 }) {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
-  const [isResendCodeMailLoading, setIsResendCodeMailLoading] = useState();
-  const [confirmCodeResend, setConfirmCodeResend] = useState();
+
   useEffect(() => {
     const isAllCodeFilled = code.every((value) => value !== "");
     setIsConfirmCodeValid(isAllCodeFilled);
@@ -73,13 +82,7 @@ function ConfirmationCode({
   }
 
   const inputRefs = useRef([]);
-  function handleConfirmMailResendCode() {
-    setIsResendCodeMailLoading(true);
-    setTimeout(() => {
-      setIsResendCodeMailLoading(false);
-      setConfirmCodeResend(true);
-    }, 2000);
-  }
+
   return (
     <div className="signup-user-confirmation-code-wrap">
       <div
