@@ -93,6 +93,9 @@ function Signup({
   const [googleErrorAlreadyRegister, setgoogleErrorAlreadyRegister] =
     useState(false);
     const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+
+  const [isResendCodeMailLoading, setIsResendCodeMailLoading] = useState();
+  const [confirmCodeResend, setConfirmCodeResend] = useState();
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
@@ -533,12 +536,14 @@ function Signup({
     }
     console.log("oui");
   }
+
   function handleKeyDown(event) {
     // Si la touche pressée est "ENTRÉE", déclenchez le clic sur le bouton
     if (event.key === "Enter") {
       verifyFormIsValid();
     }
   }
+
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {
@@ -548,6 +553,63 @@ function Signup({
       }, 2000);
     }
   }, [isFormValid, isSubmitClicked]);
+
+  async function handleConfirmMailResendCode() {
+    setIsResendCodeMailLoading(true);
+
+    try {
+      // SEND EMAIL VERIFICATION CODE
+      const createdAt = new Date();
+      const emailValidRef = collection(db, "email_validations");
+      let verificationCode = generateVerificationCode();
+      const validationData = {
+        userId: allUserInfo.id,
+        email: email,
+        code: verificationCode,
+        created_At: Timestamp.fromMillis(createdAt.getTime()),
+      };
+
+      await addDoc(emailValidRef, validationData);
+
+      // ...
+      console.log(email, "  ", verificationCode);
+      // Make a POST request to the Cloud Function to send the verification email
+      fetch(
+        "https://us-central1-sofan-app.cloudfunctions.net/sendVerificationEmail",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, verificationCode }),
+        }
+      )
+        .then((response) => response.json()) // Extract the JSON body of the response
+        .then((data) => {
+          if (data.success) {
+            // Handle success, e.g., show a success message to the user
+          } else if (data.error) {
+            console.error(
+              "Error sending verification email:",
+              data.error,
+              data.details
+            );
+            // Handle error, e.g., show an error message to the user
+          }
+        })
+        .catch((error) => {
+          console.error("Error processing response:", error);
+        });
+
+      setTimeout(() => {
+        setIsResendCodeMailLoading(false);
+        setConfirmCodeResend(true);
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
 
   async function handleSubmitConfirmationCodeClick(e, code) {
     e.preventDefault();
@@ -722,6 +784,7 @@ function Signup({
       console.log("tout n'est pas bon");
     }
   }, [email, username, password, showError, isPasswordMatch]);
+
   return (
     <>
       {googleErrorAlreadyRegister ? (
@@ -786,6 +849,11 @@ function Signup({
                             handleConfirmationCodePreviousStep
                           }
                           UserEmail={email}
+                          isResendCodeMailLoading={isResendCodeMailLoading}
+                          confirmCodeResend={confirmCodeResend}
+                          handleConfirmMailResendCode={
+                            handleConfirmMailResendCode
+                          }
                         />
                       </>
                     ) : displaySetupProfile ? (

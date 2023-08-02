@@ -425,6 +425,8 @@ function Home({
                       postType={post.visibility}
                       postPicture={post.imagePath}
                       postCreatorId={post.userId}
+                      loggedInUser={loggedInUser}
+                      //setIsPostClicked={setIsPostClicked}
                       //
                       lockPremiumContent={handleDisplayPremiumContent(index)}
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}

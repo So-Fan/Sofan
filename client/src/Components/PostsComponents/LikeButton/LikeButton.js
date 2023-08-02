@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import "./LikeButton.css";
 
-function LikeButton({ likeButtonSize, likeButtonSizePollPost }) {
+function LikeButton({ likeButtonSize, likeButtonSizePollPost, postId, loggedInUserId }) {
   const [isPostLiked, setIsPostedLiked] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
-    setIsPostedLiked(!isPostLiked);
+    console.log(postId, " ", loggedInUserId);
+    if (loggedInUserId) {
+      setIsPostedLiked(!isPostLiked);
+    } else {
+      console.log("please log in first");
+    }
   };
   const handleSizeWidth = () => {
     if (likeButtonSize === "likeButton-M-size") {
