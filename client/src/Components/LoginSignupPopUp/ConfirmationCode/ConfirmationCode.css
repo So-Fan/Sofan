@@ -9,8 +9,20 @@
 }
 .signup-user-confirmation-code-previous-step {
   position: absolute;
-  top: 2.85px;
+  top: -12px;
   left: 0px;
+  cursor: pointer;
+  padding: 5px;
+}
+.signup-user-confirmation-code-previous-step:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+  padding: 5px;
+}
+.signup-user-confirmation-code-previous-step:active {
+  transform: scale(0.65);
+  transition: 300ms;
 }
 .signup-user-confirmation-code-title {
   width: 100%;
@@ -92,6 +104,13 @@ input[type="number"] {
   font-size: 11px;
   position: absolute;
   bottom: 90px;
+}
+.signup-user-confirmation-code-message-error{
+  color: red;
+  font-weight: 900;
+  font-size: 12px;
+  position: absolute;
+  bottom: 96px;
 }
 .signup-user-confirmation-code-message-resend-confirmation{
   font-style: italic;

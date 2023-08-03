@@ -100,6 +100,7 @@ function Signup({
   const [isResendCodeMailLoading, setIsResendCodeMailLoading] = useState();
   const [confirmCodeResend, setConfirmCodeResend] = useState();
   const [isConfirmCodeErrorMessage, setIsConfirmCodeErrorMessage] = useState();
+  const [timeRemainingResendMail, setTimeRemainingResendMail] = useState(0);
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
@@ -558,34 +559,51 @@ function Signup({
     }
   }, [isFormValid, isSubmitClicked]);
 
+  let intervalId = null; // Store the interval ID at a higher scope
+
   function handleConfirmMailResendCodeInterval() {
+    if (isConfirmCodeResendInterval === false) {
+      handleConfirmMailResendCode();
+    }
     const currentTime = new Date().getTime();
     const diff = currentTime - confirmCodeResendLastClick;
+
+    // Clear previous interval if one exists
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
     if (diff < 10000 && confirmCodeResendLastClick !== null) {
       setIsResendCodeMailLoading(true);
       setIsConfirmCodeResendInterval(false);
       setTimeout(() => {
+        let remainingTime = 10 - Math.floor(diff / 1000);
+        setTimeRemainingResendMail(remainingTime);
+
+        // Start countdown
+        intervalId = setInterval(() => {
+          remainingTime -= 1;
+          setTimeRemainingResendMail(remainingTime);
+
+          if (remainingTime <= 0) {
+            clearInterval(intervalId); // Stop countdown when time reaches 0
+            intervalId = null;
+          }
+        }, 1000); // Update every second
         setIsResendCodeMailLoading(false);
         setIsConfirmCodeResendInterval(true);
       }, 2000);
-      console.log("ça fait moins de 10 secondes")
+      console.log("ça fait moins de 10 secondes");
     } else if (diff > 10000) {
       setIsConfirmCodeResendInterval(false);
-      console.log("ça fait + de 10 secondes")
+      console.log("ça fait + de 10 secondes");
+      handleConfirmMailResendCode();
     } else {
       setIsConfirmCodeResendInterval(false);
       setIsResendCodeMailLoading(false);
-      console.log("ça fait + de 10 secondes")
+      console.log("ça fait + de 10 secondes");
     }
     setConfirmCodeResendLastClick(currentTime);
-    if (isConfirmCodeResendInterval === false) {
-      handleConfirmMailResendCode();
-    }
-    // isConfirmCodeResendInterval
-    // setIsConfirmCodeResendInterval(false);
-    // setTimeout(() => {
-    //   setIsConfirmCodeResendInterval(true);
-    // }, 2000);
   }
   async function handleConfirmMailResendCode() {
     setIsResendCodeMailLoading(true);
@@ -623,6 +641,7 @@ function Signup({
           } else if (data.error) {
             setTimeout(() => {
               setIsResendCodeMailLoading(false);
+              setIsConfirmCodeErrorMessage(true);
             }, 1000);
             console.error(
               "Error sending verification email:",
@@ -635,6 +654,7 @@ function Signup({
         .catch((error) => {
           setTimeout(() => {
             setIsResendCodeMailLoading(false);
+            setIsConfirmCodeErrorMessage(true);
           }, 1000);
           console.error("Error processing response:", error);
         });
@@ -646,6 +666,7 @@ function Signup({
     } catch (err) {
       setTimeout(() => {
         setIsResendCodeMailLoading(false);
+        setIsConfirmCodeErrorMessage(true);
       }, 1000);
       console.error(err);
       throw err;
@@ -836,12 +857,12 @@ function Signup({
     passwordError,
     passwordRegexError,
   ]);
-useEffect(() => {
-  if (isConfirmCodeResendInterval) {
-    setIsResendCodeMailLoading(false)
-    console.log("kod")
-  }
-}, [])
+  useEffect(() => {
+    if (isConfirmCodeResendInterval) {
+      setIsResendCodeMailLoading(false);
+      console.log("kod");
+    }
+  }, []);
 
   return (
     <>
@@ -918,6 +939,8 @@ useEffect(() => {
                           isConfirmCodeResendInterval={
                             isConfirmCodeResendInterval
                           }
+                          timeRemainingResendMail={timeRemainingResendMail}
+                          isConfirmCodeErrorMessage={isConfirmCodeErrorMessage}
                         />
                       </>
                     ) : displaySetupProfile ? (
