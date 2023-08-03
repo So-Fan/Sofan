@@ -38,8 +38,12 @@ function ConfirmationCode({
   handleConfirmMailResendCode,
   handleConfirmMailResendCodeInterval,
   isConfirmCodeResendInterval,
+  timeRemainingResendMail,
+  isConfirmCodeErrorMessage,
 }) {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [showIntervalResendMailError, setShowIntervalResendMailError] =
+    useState(false);
   useEffect(() => {
     const isAllCodeFilled = code.every((value) => value !== "");
     setIsConfirmCodeValid(isAllCodeFilled);
@@ -78,13 +82,13 @@ function ConfirmationCode({
   }
 
   const inputRefs = useRef([]);
-  function handleConfirmMailResendCode() {
-    setIsResendCodeMailLoading(true);
-    setTimeout(() => {
-      setIsResendCodeMailLoading(false);
-      setConfirmCodeResend(true);
-    }, 2000);
-  }
+  // useEffect(() => {
+  //   const timerId = setInterval(() => {
+  //     setTimeRemainingResendMail((time) => time - 1);
+  //   }, 1000);
+
+  //   return () => clearInterval(timerId);
+  // }, []);
   return (
     <div className="signup-user-confirmation-code-wrap">
       <div
@@ -128,10 +132,11 @@ function ConfirmationCode({
         <span onClick={handleConfirmMailResendCodeInterval}>ICI</span> pour le
         renvoyer.
       </p>
-      {isConfirmCodeResendInterval && (
+      {isConfirmCodeResendInterval && timeRemainingResendMail !== 0 && (
         <>
           <div className="signup-user-confirmation-code-message-interval-limit">
-            Vous pourrez renvoyer un mail dans 10 secondes
+            Vous pourrez renvoyer un mail dans {timeRemainingResendMail}{" "}
+            secondes
           </div>
         </>
       )}
@@ -146,9 +151,16 @@ function ConfirmationCode({
             </div>
           </div>
         </>
+      ) : isConfirmCodeErrorMessage && !isConfirmCodeResendInterval ? (
+        <>
+          <div className="signup-user-confirmation-code-message-error">
+            Oops une erreur est survenue durant le renvoi de mail. Veuillez
+            réessayer
+          </div>
+        </>
       ) : (
         <>
-          {confirmCodeResend && isConfirmCodeResendInterval === false ?(
+          {confirmCodeResend && isConfirmCodeResendInterval === false ? (
             <>
               <p className="signup-user-confirmation-code-message-resend-confirmation">
                 Un nouveau mail a été envoyé. Pensez à vérifier vos spams.
