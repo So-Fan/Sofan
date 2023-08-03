@@ -561,8 +561,10 @@ function Signup({
     const currentTime = new Date().getTime();
     const diff = currentTime - confirmCodeResendLastClick;
     if (diff < 10000 && confirmCodeResendLastClick !== null) {
+      setIsResendCodeMailLoading(true);
+      setIsConfirmCodeResendInterval(false);
       setTimeout(() => {
-        setIsResendCodeMailLoading(true);
+        setIsResendCodeMailLoading(false);
         setIsConfirmCodeResendInterval(true);
       }, 2000);
       console.log("ça fait moins de 10 secondes")
@@ -571,6 +573,7 @@ function Signup({
       console.log("ça fait + de 10 secondes")
     } else {
       setIsConfirmCodeResendInterval(false);
+      setIsResendCodeMailLoading(false);
       console.log("ça fait + de 10 secondes")
     }
     setConfirmCodeResendLastClick(currentTime);
