@@ -15,6 +15,9 @@ border-radius: 20px;
   flex-direction: column;
   /* background-color: violet; */
 }
+.mint-pop-up-buy-wrap-hidden{
+  visibility: hidden;
+}
 .mint-pop-up-buy-title-and-cancel-button {
   height: 30px;
   width: 100%;

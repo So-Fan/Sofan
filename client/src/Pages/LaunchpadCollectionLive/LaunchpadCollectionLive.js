@@ -14,7 +14,7 @@ function LaunchpadCollectionLive() {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-  const [isMintButtonClicked, setIsMintButtonClicked] = useState();
+  const [isMintButtonClicked, setIsMintButtonClicked] = useState(false);
   // API + Backend states
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
   const [nftPicture, setNftPicture] = useState();

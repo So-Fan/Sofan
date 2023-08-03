@@ -9,7 +9,14 @@ function MintPopUpProcessing() {
         </div>
         <div>
             <p className='mint-pop-up-processing-text-title'>Your purchase is processing...</p>
+            <div className="lds-ellipsis mint-pop-up-processing-animation">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
             <p className='mint-pop-up-processing-text'>please do not close the window</p>
+            
         </div>
     </div>
   )
