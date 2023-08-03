@@ -86,13 +86,21 @@ input[type="number"] {
   cursor: pointer;
   color: #f7c520 !important;
 }
+.signup-user-confirmation-code-message-interval-limit{
+  color: red;
+  font-weight: 900;
+  font-size: 11px;
+  position: absolute;
+  bottom: 90px;
+}
 .signup-user-confirmation-code-message-resend-confirmation{
   font-style: italic;
   color: #85d87e;
-  font-size: 16px;
+  font-size: 14px;
   position: absolute;
   bottom: 0px;
-  bottom: 100px;
+  bottom: 105px;
+  animation: slide-in 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275);
 }
 .signup-user-confirmation-code-animation-container{
 left: 190px;
@@ -242,5 +250,13 @@ left: 190px;
   }
   100% {
     transform: translate(24px, 0);
+  }
+}
+@keyframes slide-in {
+  0% {  
+    transform: translateX(-50px);
+  }
+  100% { 
+    transform: translateX(0);
   }
 }

@@ -92,10 +92,14 @@ function Signup({
   const [googleErrorGeneral, setgoogleErrorGeneral] = useState(false);
   const [googleErrorAlreadyRegister, setgoogleErrorAlreadyRegister] =
     useState(false);
-    const [isPasswordMatch, setIsPasswordMatch] = useState(false);
-
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+  const [isConfirmCodeResendInterval, setIsConfirmCodeResendInterval] =
+    useState(false);
+  const [confirmCodeResendLastClick, setConfirmCodeResendLastClick] =
+    useState(null);
   const [isResendCodeMailLoading, setIsResendCodeMailLoading] = useState();
   const [confirmCodeResend, setConfirmCodeResend] = useState();
+  const [isConfirmCodeErrorMessage, setIsConfirmCodeErrorMessage] = useState();
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
@@ -554,9 +558,34 @@ function Signup({
     }
   }, [isFormValid, isSubmitClicked]);
 
+  function handleConfirmMailResendCodeInterval() {
+    const currentTime = new Date().getTime();
+    const diff = currentTime - confirmCodeResendLastClick;
+    if (diff < 10000 && confirmCodeResendLastClick !== null) {
+      setTimeout(() => {
+        setIsResendCodeMailLoading(true);
+        setIsConfirmCodeResendInterval(true);
+      }, 2000);
+      console.log("ça fait moins de 10 secondes")
+    } else if (diff > 10000) {
+      setIsConfirmCodeResendInterval(false);
+      console.log("ça fait + de 10 secondes")
+    } else {
+      setIsConfirmCodeResendInterval(false);
+      console.log("ça fait + de 10 secondes")
+    }
+    setConfirmCodeResendLastClick(currentTime);
+    if (isConfirmCodeResendInterval === false) {
+      handleConfirmMailResendCode();
+    }
+    // isConfirmCodeResendInterval
+    // setIsConfirmCodeResendInterval(false);
+    // setTimeout(() => {
+    //   setIsConfirmCodeResendInterval(true);
+    // }, 2000);
+  }
   async function handleConfirmMailResendCode() {
     setIsResendCodeMailLoading(true);
-
     try {
       // SEND EMAIL VERIFICATION CODE
       const createdAt = new Date();
@@ -589,6 +618,9 @@ function Signup({
           if (data.success) {
             // Handle success, e.g., show a success message to the user
           } else if (data.error) {
+            setTimeout(() => {
+              setIsResendCodeMailLoading(false);
+            }, 1000);
             console.error(
               "Error sending verification email:",
               data.error,
@@ -598,6 +630,9 @@ function Signup({
           }
         })
         .catch((error) => {
+          setTimeout(() => {
+            setIsResendCodeMailLoading(false);
+          }, 1000);
           console.error("Error processing response:", error);
         });
 
@@ -606,6 +641,9 @@ function Signup({
         setConfirmCodeResend(true);
       }, 2000);
     } catch (err) {
+      setTimeout(() => {
+        setIsResendCodeMailLoading(false);
+      }, 1000);
       console.error(err);
       throw err;
     }
@@ -766,24 +804,41 @@ function Signup({
     setIsSubmitClicked(false);
   }
   useEffect(() => {
-    const allFieldsValid = 
-      !emailError && 
-      email !== '' &&
+    const allFieldsValid =
+      !emailError &&
+      email !== "" &&
       !usernameRegexError &&
-      username !== '' &&
+      username !== "" &&
       !passwordError &&
-      password !== '' && 
+      password !== "" &&
       !showError &&
       isPasswordMatch;
-  
+
     if (allFieldsValid) {
-      console.log('Tout est bon!'); 
+      console.log("Tout est bon!");
       setIsAllFieldsComplete(true);
     } else {
       setIsAllFieldsComplete(false);
       console.log("tout n'est pas bon");
     }
-  }, [email, username, password, showError, isPasswordMatch]);
+    // }, [email, username, password, showError, isPasswordMatch]);
+  }, [
+    email,
+    username,
+    password,
+    showError,
+    isPasswordMatch,
+    emailError,
+    usernameRegexError,
+    passwordError,
+    passwordRegexError,
+  ]);
+useEffect(() => {
+  if (isConfirmCodeResendInterval) {
+    setIsResendCodeMailLoading(false)
+    console.log("kod")
+  }
+}, [])
 
   return (
     <>
@@ -853,6 +908,12 @@ function Signup({
                           confirmCodeResend={confirmCodeResend}
                           handleConfirmMailResendCode={
                             handleConfirmMailResendCode
+                          }
+                          handleConfirmMailResendCodeInterval={
+                            handleConfirmMailResendCodeInterval
+                          }
+                          isConfirmCodeResendInterval={
+                            isConfirmCodeResendInterval
                           }
                         />
                       </>
@@ -1083,7 +1144,7 @@ function Signup({
                     )}
                   </div>
                   <button
-                    disabled={!isAllFieldsComplete}
+                    // disabled={!isAllFieldsComplete}
                     // style={!isFormValid ? {pointerEvents:"none"}: {}}
                     onClick={verifyFormIsValid}
                     className="signup-user-create-account-button"
