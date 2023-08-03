@@ -4,8 +4,7 @@ import MintPopUpBuy from "./MintPopUpBuy/MintPopUpBuy";
 import MintPopUpStatus from "./MintPopUpStatus/MintPopUpStatus";
 function MintPopUpTemplate() {
   // change those state for passing to buy module to processing
-  const [isMintingProcessBegan, setIsMintingProcessBegan] = useState(false);
-  const [isMintComponentCalled, setIsMintComponentCalled] = useState(true);
+ 
   const [mintCounter, setMintCounter] = useState(1);
 const [ethPriceApi, setEthPriceApi] = useState();
 // API Coingecko price ETH
@@ -42,24 +41,26 @@ useEffect(() => {
       },
     ],
   };
-  function handleStateMint() {
-    if (isMintingProcessBegan === true) {
-      setIsMintComponentCalled(false);
-    } else if (isMintingProcessBegan === false) {
-      setIsMintComponentCalled(true);
-    } else if (isMintComponentCalled === true) {
-      setIsMintingProcessBegan(false);
-    } else if (isMintComponentCalled === false) {
-      setIsMintingProcessBegan(true);
-    }
-  }
-  useEffect(() => {
-    handleStateMint();
-  }, []);
+  // function handleStateMint() {
+  //   if (isMintingProcessBegan === true) {
+  //     setIsMintComponentCalled(false);
+  //   } else if (isMintingProcessBegan === false) {
+  //     setIsMintComponentCalled(true);
+  //   } else if (isMintComponentCalled === true) {
+  //     setIsMintingProcessBegan(false);
+  //   } else if (isMintComponentCalled === false) {
+  //     setIsMintingProcessBegan(true);
+  //   }
+  // }
+  // useEffect(() => {
+  //   handleStateMint();
+  // }, []);
+
+  
 
   return (
     <section className="mint-pop-up-container">
-      {isMintComponentCalled && (
+
         <MintPopUpBuy
           maxMint={dataBackend.mint[0].maximum}
           mintCounter={mintCounter}
@@ -72,15 +73,9 @@ useEffect(() => {
           totalNftMintable={dataApi.popup[0].totalNftMintable}
           //
           ethPriceApi={ethPriceApi}
+          dataBlockchain={dataBlockchain}
         />
-      )}
-
-      {isMintingProcessBegan && (
-        <MintPopUpStatus
-          statusMint={dataBlockchain.mint[0].status}
-          statusProcessing={dataBlockchain.mint[0].processing}
-        />
-      )}
+ 
     </section>
   );
 }
