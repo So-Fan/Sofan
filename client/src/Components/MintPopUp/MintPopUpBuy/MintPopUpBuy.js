@@ -2,6 +2,7 @@ import React from "react";
 import "./MintPopUpBuy.css";
 import crossButton from "../../../Assets/Image/cross.svg";
 import LaunchPadMintProgressBar from "../../LaunchPadMintProgressBar/LaunchPadMintProgressBar";
+import useEth from "../../../contexts/EthContext/useEth";
 function MintPopUpBuy({
   maxMint,
   mintCounter,
@@ -13,6 +14,8 @@ function MintPopUpBuy({
   //
   ethPriceApi       
 }) {
+
+  const {state: {web3, contract, accounts}} = useEth()
   let ethPricePriceConverted = (ethPriceApi * ethPrice).toLocaleString('fr-FR', { minimumFractionDigits: 1 });
   console.log(ethPricePriceConverted)
   function handleClick(e) {
@@ -34,6 +37,31 @@ function MintPopUpBuy({
     }
   }
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
+
+  const approve = async() => {
+    // const web3Instance = new Web3(Web3.givenProvider)
+    // await web3.eth.requestAccounts();
+    console.log("create Instance");
+    const artifact = require("../../../Pages/Test/USDC.json");
+      const {abi} = artifact;
+      let addressUSDC = "0x07865c6E87B9F70255377e024ace6630C1Eaa37F";
+      let contractUSDCInstance = new web3.eth.Contract(abi, addressUSDC);
+    try {
+      const price = 1000000
+      const result = await contractUSDCInstance.methods.approve(contract._address, price).send({from: accounts[0]})
+      console.log(result);
+      if(result.status){
+        mint();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  const mint = async () => {
+    const result2 = await contract.methods.mint("0x8451e365cC9f3034fc35F9e4F9D62Fc1C8D610e1", 1, 1000000).send({from : accounts[0]})
+    console.log(result2);
+  }
   return (
     <div className="mint-pop-up-buy-container">
       <div className="mint-pop-up-buy-wrap">
@@ -73,7 +101,7 @@ function MintPopUpBuy({
           </div>
         </div>
         <div className="mint-pop-up-line-separation-second"></div>
-        <button className="mint-pop-up-mint-button">Mint maintenant</button>
+        <button className="mint-pop-up-mint-button" onClick={approve}>Mint maintenant</button>
         <div className="mint-pop-up-progress-bar-and-total-minted">
           <LaunchPadMintProgressBar
             nftMintedCalculated={nftMintedCalculated}
