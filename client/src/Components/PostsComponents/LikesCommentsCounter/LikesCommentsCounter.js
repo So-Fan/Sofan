@@ -15,10 +15,11 @@ function LikesCommentsCounter({
   postCommentNumber,
   postId,
   loggedInUserId,
+  postLikes,
 }) {
   const [pluralLikes, setPluralLikes] = useState();
   useEffect(() => {
-    if (postLikeNumber > 1) {
+    if (postLikes > 1) {
       setPluralLikes(true);
     } else {
       setPluralLikes(false);
@@ -41,7 +42,7 @@ function LikesCommentsCounter({
           className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
         >
           <Link onClick={setIsPostClicked}>
-            {postLikeNumber} like{pluralLikes && "s"}
+            {postLikes} like{pluralLikes && "s"}
           </Link>
         </div>
       </div>

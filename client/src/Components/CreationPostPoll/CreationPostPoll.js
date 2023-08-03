@@ -9,8 +9,7 @@ import {
   uploadBytes,
   getDownloadURL,
 } from "../../Configs/firebase";
-import { collection, addDoc, getDoc, doc } from "firebase/firestore";
-import { updateDoc, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDoc, doc, updateDoc } from "firebase/firestore";
 
 const CreationPostPoll = ({ userId }) => {
   const [file, setFile] = useState(null);
@@ -77,7 +76,7 @@ const CreationPostPoll = ({ userId }) => {
       setLoadingPublishPost(true);
       const createdAt = new Date();
 
-      console.log(pollData);
+      // console.log(pollData);
       let post;
 
       if (
@@ -228,7 +227,7 @@ const CreationPostPoll = ({ userId }) => {
           style={validationPublishPost ? { visibility: "hidden" } : {}}
           className="creation-text-wrap"
         >
-          <span>{step != 1 ? "Create a post" : "Who can see your post"}</span>
+          <span>{step !== 1 ? "Create a post" : "Who can see your post"}</span>
           <button className="cancel-button-creation-post">
             {/* <img src={Cross} alt="a cross" /> */}
           </button>
@@ -288,7 +287,7 @@ const CreationPostPoll = ({ userId }) => {
           style={validationPublishPost ? { visibility: "hidden" } : {}}
           onClick={handleNextClick}
         >
-          {step != 1 ? "Next" : "Publish"}
+          {step !== 1 ? "Next" : "Publish"}
         </button>
       </div>
     </div>
