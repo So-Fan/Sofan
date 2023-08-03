@@ -4,11 +4,14 @@ import Web3 from "web3";
 import EthContext from "./EthContext";
 import UserContext from "../../UserContext";
 import { reducer, actions, initialState } from "./state";
-import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import {
+  WALLET_ADAPTERS,
+  CHAIN_NAMESPACES,
+  SafeEventEmitterProvider,
+} from "@web3auth/base";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
-
 
 function EthProvider({ children, setWeb3auth }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -23,66 +26,60 @@ function EthProvider({ children, setWeb3auth }) {
     useState(false);
   const [contractAddress, setContractAddress] = useState(null); // declencher useEffect quand contractAddress change
 
-
-
   useEffect(() => {
-    if(localStorage.getItem("Web3Auth-cachedAdapter"))
-    {const init = async () => {
-      try {
-        let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
-        const chainConfig = {
-          chainNamespace: CHAIN_NAMESPACES.EIP155,
-          chainId: "0x5", // Please use 0x1 for Mainnet
-          rpcTarget: "https://rpc.ankr.com/eth_goerli",
-          displayName: "Goerli Testnet",
-          blockExplorer: "https://goerli.etherscan.io/",
-          ticker: "ETH",
-          tickerName: "Ethereum",
-        };
-        const web3auth = new Web3AuthNoModal({
-          clientId,
-          chainConfig,
-          web3AuthNetwork: "cyan",
-          useCoreKitKey: false,
-        });
-  
-        const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
-  
-        const openloginAdapter = new OpenloginAdapter({
-          privateKeyProvider,
-          adapterSettings: {
-            uxMode: "popup",
-            loginConfig: {
-              jwt: {
-                verifier: "sofantest2",
-                typeOfLogin: "jwt",
-                clientId,
+    if (localStorage.getItem("Web3Auth-cachedAdapter")) {
+      const init = async () => {
+        try {
+          let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
+          const chainConfig = {
+            chainNamespace: CHAIN_NAMESPACES.EIP155,
+            chainId: "0x5", // Please use 0x1 for Mainnet
+            rpcTarget: "https://rpc.ankr.com/eth_goerli",
+            displayName: "Goerli Testnet",
+            blockExplorer: "https://goerli.etherscan.io/",
+            ticker: "ETH",
+            tickerName: "Ethereum",
+          };
+          const web3auth = new Web3AuthNoModal({
+            clientId,
+            chainConfig,
+            web3AuthNetwork: "cyan",
+            useCoreKitKey: false,
+          });
+
+          const privateKeyProvider = new EthereumPrivateKeyProvider({
+            config: { chainConfig },
+          });
+
+          const openloginAdapter = new OpenloginAdapter({
+            privateKeyProvider,
+            adapterSettings: {
+              uxMode: "popup",
+              loginConfig: {
+                jwt: {
+                  verifier: "sofantest2",
+                  typeOfLogin: "jwt",
+                  clientId,
+                },
               },
             },
-          },
-        });
-        web3auth.configureAdapter(openloginAdapter);
-        setWeb3auth(web3auth);
-  
-        await web3auth.init();
-        setWeb3authProvider(web3auth.provider);
-        setIsWeb3authConnectClicked([true, web3auth.provider])  
-        
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    init();
-  }
-    else{
+          });
+          web3auth.configureAdapter(openloginAdapter);
+          setWeb3auth(web3auth);
+
+          await web3auth.init();
+          setWeb3authProvider(web3auth.provider);
+          setIsWeb3authConnectClicked([true, web3auth.provider]);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      init();
+    } else {
       console.log("not init web3auth on load");
     }
   }, []);
-
-
-
-
 
   const init = useCallback(async (artifact, tempIsWeb3authConnectClicked) => {
     if (artifact) {
@@ -117,6 +114,7 @@ function EthProvider({ children, setWeb3auth }) {
       try {
         address = artifact.networks[networkID].address;
         contract = new web3.eth.Contract(abi, address);
+        setContractAddress(contract);
       } catch (err) {
         console.error(err);
       }
@@ -127,7 +125,54 @@ function EthProvider({ children, setWeb3auth }) {
     }
   }, []);
 
+  useEffect(() => {
+    // si déja co
+    if (window.ethereum && window.ethereum.enable()) {
+      const tryInit = async () => {
+        const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+        let address, contract, accounts, networkID;
+        const artifact = require("../../contracts/SofanNftTemplate.json");
+        const { abi } = artifact;
+        
+        
+        try {
+          accounts = await web3.eth.getAccounts();
+          networkID = await web3.eth.net.getId();
 
+          setIsInit(true);
+          address = "0x000000000000000000000000000000000000dEaD";
+          contract = new web3.eth.Contract(abi, address);
+          setContractAddress(address);
+          console.log("je suis déjà connecté", accounts);
+        } catch (err) {
+          console.error(err);
+        }
+        dispatch({
+          type: actions.init,
+          data: { artifact, web3, accounts, networkID, contract },
+        });
+      };
+      tryInit();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (contractAddress !== null && contractAddress !== "0x000000000000000000000000000000000000dEaD") {
+      const artifact = require("../../contracts/SofanNftTemplate.json");
+      const abi = artifact.abi;
+      try {
+        const tempWeb3 = state.web3;
+        const currentContract = new tempWeb3.eth.Contract(abi, contractAddress);
+        console.log("current contract", currentContract);
+        dispatch({
+          type: actions.init,
+          data: { ...state, contract: currentContract },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [contractAddress]);
 
   useEffect(() => {
     console.log(
@@ -183,6 +228,8 @@ function EthProvider({ children, setWeb3auth }) {
         setWeb3authProvider,
         web3authProvider,
         isInit,
+        setContractAddress,
+        contractAddress,
       }}
     >
       {children}
