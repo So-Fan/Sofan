@@ -8,18 +8,39 @@ import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAbo
 import { Network, Alchemy } from "alchemy-sdk";
 import MintPopUpBuy from "../../Components/MintPopUp/MintPopUpBuy/MintPopUpBuy";
 import Modal from "../../Components/Modal/Modal";
-import MintPopUp from "../../Components/MintPopUp/MintPopUp"
+import MintPopUp from "../../Components/MintPopUp/MintPopUp";
+import useEth from "../../contexts/EthContext/useEth";
 function LaunchpadCollectionLive() {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-  const [isMintButtonClicked, setIsMintButtonClicked] = useState();
+  const [isMintButtonClicked, setIsMintButtonClicked] = useState(false);
   // API + Backend states
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
   const [nftPicture, setNftPicture] = useState();
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
+
+  const { setContractAddress, state: {contract} } = useEth();
+  // // Start Backend
+  // useEffect(() => {
+  //   // retrieve collection address from firestore below
+
+  //       // Start temporary code
+  //         const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+  //       // End temporary code
+  //   // then pass it to the state below
+  //   setContractAddress(collectionAddress);
+  // }, []);
+  // End Backend
   // API Coingecko price ETH
+
+  const handleButtonClick = () => {
+    // const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    //     // End temporary code
+    // // then pass it to the state below
+    // setContractAddress(collectionAddress);
+  }
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
@@ -144,17 +165,23 @@ function LaunchpadCollectionLive() {
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
 
-  const [handleMintButtonClickFunction, setHandleMintButtonClickFunction] = useState()
-  
+  const [handleMintButtonClickFunction, setHandleMintButtonClickFunction] =
+    useState();
+
   // display mint pop up
   function handleMintButtonClick(e) {
-    setIsMintButtonClicked(true)
+    const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+        // End temporary code
+    // then pass it to the state below
+    setContractAddress(collectionAddress);
+    setIsMintButtonClicked(true);
     // console.log("test");
   }
 
   return (
     <>
       <section className="launchpad-collection-live-page-container">
+        <button onClick={handleButtonClick}>handleButtonClick</button>
         <LaunchpadCollectionLiveHeader
           handleMintButtonClick={handleMintButtonClick}
           //   dataBackend Firestore
@@ -201,7 +228,7 @@ function LaunchpadCollectionLive() {
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "25px", right: "26px" }}
         >
-          <MintPopUp/>
+          <MintPopUp />
           {/* <MintPopUpBuy/> */}
         </Modal>
       )}

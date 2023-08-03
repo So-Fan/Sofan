@@ -17,8 +17,13 @@
 .mint-pop-up-processing-text{
 
     position: absolute;
-    top: 356px;
+    top: 380px;
     right: 118px;
     width: 213px;
     height: 19px;
+}
+.mint-pop-up-processing-animation{
+  position: absolute;
+  bottom: 12px;
+  right: 195px;
 }
