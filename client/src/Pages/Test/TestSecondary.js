@@ -6,7 +6,7 @@ import ConfirmationCode from "../../Components/LoginSignupPopUp/ConfirmationCode
 function TestSecondary() {
   return (
     <div className="test-secondary-container">
-      <ConfirmWallet/>
+      {/* <ConfirmationCode /> */}
     </div>
   );
 }
