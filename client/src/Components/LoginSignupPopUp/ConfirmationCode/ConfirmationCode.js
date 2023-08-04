@@ -3,7 +3,6 @@ import "./ConfirmationCode.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../../../Configs/firebase";
-import handleKeyDown from "../../../Utils/enterKeyboardValidForm.js"
 
 function InputCodeSquare(props) {
   return (
@@ -116,8 +115,9 @@ function ConfirmationCode({
             onKeyDown={(e) => {
               if (e.key === "Backspace" || e.key === "Delete") {
                 handleDelete(index);
+              } else if (e.key === "Enter") {
+                handleSubmitConfirmationCodeClick(e, code.join(""));
               }
-              handleKeyDown(e,handleSubmitConfirmationCodeClick() )
             }}
             ref={(el) => (inputRefs.current[index] = el)}
           />

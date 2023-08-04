@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./SetupProfile.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import Img from "../../../Assets/Image/img.svg";
+import handleKeyDown from "../../../Utils/enterKeyboardValidForm";
 import {
   db,
   storage,
@@ -209,7 +210,7 @@ function SetupProfile({
     const hasValidBio = bioText.length >= 50 && bioText.length <= 250; // Vérifie si la bio a entre 50 et 250 caractères
     return hasBanner && hasProfilePic && hasValidBio;
   }
-  const isProfileComplete = true; // Faire une fonction qui trigger l'upload et qui return true 
+  const isProfileComplete = true; // Faire une fonction qui trigger l'upload et qui return true
   //  checkProfileCompletion(preview, bioText);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
@@ -377,6 +378,9 @@ function SetupProfile({
           </div>
           <div className="signup-user-setup-profile-bio-container">
             <textarea
+              onKeyDown={(e) =>
+                handleKeyDown(e, handleSetupProfileNextButtonClick)
+              }
               className="signup-user-setup-profile-bio"
               style={bioTextMaxLengthError ? { borderColor: "red" } : {}}
               name=""

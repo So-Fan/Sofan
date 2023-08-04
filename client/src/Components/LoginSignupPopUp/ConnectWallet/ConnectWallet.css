@@ -75,7 +75,7 @@
   font-family: "britanica-heavy";
   margin-left: 10px;
 }
-.signup-user-connect-wallet-error-metamask{
+.signup-user-connect-wallet-error-metamask {
   font-weight: 900;
   color: red;
   font-size: 14px;
@@ -162,29 +162,46 @@
 .signup-user-connect-wallet-web3auth-button div {
   font-family: "britanica-heavy";
 }
-.signup-user-connect-wallet-button-title{
+.signup-user-connect-wallet-button-title {
   font-size: 20px;
   margin-left: 10px;
 }
-.signup-user-connect-wallet-error-web3auth{
+.signup-user-connect-wallet-error-web3auth {
   font-weight: 900;
   color: red;
   font-size: 14px;
   text-align: center;
   position: absolute;
-  bottom: 95px;
+  bottom: 105px;
   font-style: italic;
+  animation: slide-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 @keyframes copy-animation {
-  0% { opacity: 0; transform: scale(0.5); }
-  50% { opacity: 1; }
-  100% { opacity: 0; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
 }
 
 .copy-animation {
   animation: copy-animation 2s;
 }
-
 
 @keyframes lds-ripple {
   0% {

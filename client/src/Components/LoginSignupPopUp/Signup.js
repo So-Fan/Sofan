@@ -465,6 +465,9 @@ function Signup({
               // User does not exist in Firestore, so add the document
               await setDoc(userDocRef, newUser); // Use setDoc to ensure the document is created with the user's UID
               console.log("User Data Uploaded Successfully");
+              setDisplayConfirmationCode(true);
+              setIsFormValid(true);
+              setIsSubmitClicked(true);
               await auth.currentUser
                 .getIdToken(true)
                 .then(function (idToken) {
@@ -512,7 +515,7 @@ function Signup({
               .then((response) => response.json()) // Extract the JSON body of the response
               .then((data) => {
                 if (data.success) {
-                  errorBackendRegister(false);
+                  setErrorBackendRegister(false);
                   console.log(data.success);
                   // Handle success, e.g., show a success message to the user
                 } else if (data.error) {
@@ -680,11 +683,12 @@ function Signup({
   }
 
   async function handleSubmitConfirmationCodeClick(e, code) {
-    e.preventDefault();
-
+    if (e) {
+      e.preventDefault();
+    }
     const uid = allUserInfo.id;
     if (!uid) {
-      setErrorBackendRegister(true);
+      // setErrorBackendRegister(true);
       console.error("UID is undefined");
       return;
     }
