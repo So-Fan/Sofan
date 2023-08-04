@@ -101,7 +101,7 @@ function Signup({
   const [confirmCodeResend, setConfirmCodeResend] = useState();
   const [isConfirmCodeErrorMessage, setIsConfirmCodeErrorMessage] = useState();
   const [timeRemainingResendMail, setTimeRemainingResendMail] = useState(0);
-const [errorBackendRegister, setErrorBackendRegister ] = useState(false)
+  const [errorBackendRegister, setErrorBackendRegister] = useState(false);
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
@@ -564,6 +564,9 @@ const [errorBackendRegister, setErrorBackendRegister ] = useState(false)
   let intervalId = null; // Store the interval ID at a higher scope
 
   function handleConfirmMailResendCodeInterval() {
+    if (isConfirmCodeResendInterval) {
+      return;
+    }
     if (isConfirmCodeResendInterval === false) {
       handleConfirmMailResendCode();
     }
@@ -681,7 +684,7 @@ const [errorBackendRegister, setErrorBackendRegister ] = useState(false)
 
     const uid = allUserInfo.id;
     if (!uid) {
-      setErrorBackendRegister(true)
+      setErrorBackendRegister(true);
       console.error("UID is undefined");
       return;
     }
@@ -1200,7 +1203,8 @@ const [errorBackendRegister, setErrorBackendRegister ] = useState(false)
                   {errorBackendRegister && (
                     <>
                       <p className="signup-user-error-fill-form">
-                        Oops quelque chose s'est mal passé durant votre inscription. Rafraichissez votre page.
+                        Oops quelque chose s'est mal passé durant votre
+                        inscription. Rafraichissez votre page.
                       </p>
                     </>
                   )}
