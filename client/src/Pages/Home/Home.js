@@ -17,7 +17,7 @@ import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/Athl
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
 import { db } from "../../Configs/firebase";
-import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, getDocs } from "firebase/firestore";
 
 function Home({
   loggedInUser,
@@ -298,22 +298,24 @@ function Home({
     // setData(feedPost);
   }, [setPostData]);
 
-  const feedPostCollectionRef = collection(db, "feed_post");
 
   useEffect(() => {
     setIsLoading(true);
-    const getEvents = async () => {
-      const q = query(feedPostCollectionRef, orderBy("createdAt", "desc")); // Order by 'createdAt' in descending order
-      const data = await getDocs(q);
-      const feedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    
+    const feedPostCollectionRef = collection(db, "feed_post");  // Make sure to set your collection name
+    const q = query(feedPostCollectionRef, orderBy("createdAt", "desc")); // Order by 'createdAt' in descending order
+  
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const feedData = [];
+      querySnapshot.forEach((doc) => {
+        feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
+      });
       setPostData(feedData);
       setIsLoading(false);
-      for (let i = 0; i < feedData.length; i++) {
-        feedData[i] = { ...feedData[i], ...{ isDropdownClicked: false } };
-      }
-    };
+    });
   
-    getEvents();
+    // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
+    return () => unsubscribe();
   }, []);
 
   // function displayFullPagePost() {
@@ -420,14 +422,13 @@ function Home({
                       postName="Rami Abdou"
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
-                      postLikes={post.likes.length}
+                      postLikes={post.likes ? post.likes.length : 0}
                       postCommentNumber={post.comments.length}
                       postType={post.visibility}
                       postPicture={post.imagePath}
                       postCreatorId={post.userId}
                       loggedInUser={loggedInUser}
                       //setIsPostClicked={setIsPostClicked}
-                      //
                       lockPremiumContent={handleDisplayPremiumContent(index)}
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                       isDropdownClicked={isDropdownClicked}

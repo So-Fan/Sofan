@@ -182,6 +182,14 @@
   position: absolute;
   top: 560px;
 }
+.popupsignin-no-user-found-error {
+  color: red;
+  font-size: 14px;
+  font-weight: 900;
+  font-style: italic;
+  position: absolute;
+  top: 560px;
+}
 .popupsignin-signup-button {
   color: #f6d463;
   font-family: "britanica-heavy";

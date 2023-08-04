@@ -548,7 +548,6 @@ function Signup({
       verifyFormIsValid();
     }
   }
-
   useEffect(() => {
     if (isFormValid && isSubmitClicked) {
       setTimeout(() => {

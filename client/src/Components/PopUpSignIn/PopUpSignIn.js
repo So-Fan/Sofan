@@ -51,10 +51,11 @@ const PopUpSignIn = ({
   const [isForgotPasswordClicked, setIsForgotPasswordClicked] = useState(false);
   const [isSigninLoading, setIsSigninLoading] = useState(false);
   const [isSigninGoogleLoading, setIsSigninGoogleLoading] = useState(false);
-  const [errorGoogleNotRegister, setErrorGoogleNotRegister] = useState(false);
   const [isSigninFormValid, setIsSignInFormValid] = useState(false);
   const [isGoogleSignInPopupClosed, setIsGoogleSigninPopupCLosed] =
     useState(false);
+  const [errorGoogleNotRegister, setErrorGoogleNotRegister] = useState(false);
+  const [errorNoUserFound, setErrorNoUserFound] = useState();
   // const [endGoogleLogin, setEndGoogleLogin] = useState(false)
   const {
     state: { accounts },
@@ -175,10 +176,11 @@ const PopUpSignIn = ({
         } else {
           // Handle case when no user is found with the given ID
           setIsSigninLoading(false);
+          setErrorNoUserFound(true);
           console.log("No user found");
         }
         setError(false);
-        setIsSignInButtonClicked(false);
+        // setIsSignInButtonClicked(false);
         setIsSigninLoading(false);
 
         // navigate("/");
@@ -452,10 +454,18 @@ const PopUpSignIn = ({
               <>
                 <div className="popupsignin-google-error">
                   Oops quelque chose s'est mal passé avec votre connexion Google
+                  Veuillez réessayer.
+                </div>
+              </>
+            )}
+            {/* {errorNoUserFound && (
+              <>
+                <div className="popupsignin-no-user-found-error">
+                  Oops il semblerait que vous n'avez pas de compte chez nous. Veuillez en créer un cliquant ci 
                 </div>
                 Veuillez réessayer.
               </>
-            )}
+            )} */}
             <div className="popupsignin-signup-container">
               <span>Vous n'avez pas de compte ? </span>
               <button
