@@ -101,6 +101,7 @@ function Signup({
   const [confirmCodeResend, setConfirmCodeResend] = useState();
   const [isConfirmCodeErrorMessage, setIsConfirmCodeErrorMessage] = useState();
   const [timeRemainingResendMail, setTimeRemainingResendMail] = useState(0);
+const [errorBackendRegister, setErrorBackendRegister ] = useState(false)
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
@@ -511,6 +512,7 @@ function Signup({
               .then((response) => response.json()) // Extract the JSON body of the response
               .then((data) => {
                 if (data.success) {
+                  errorBackendRegister(false);
                   console.log(data.success);
                   // Handle success, e.g., show a success message to the user
                 } else if (data.error) {
@@ -529,6 +531,7 @@ function Signup({
           .catch((error) => {
             // Handle errors here
             setError(error.message);
+            setErrorBackendRegister(true);
             console.error(error);
           });
       } catch (error) {
@@ -637,6 +640,7 @@ function Signup({
         .then((data) => {
           if (data.success) {
             // Handle success, e.g., show a success message to the user
+            setIsConfirmCodeErrorMessage(false);
           } else if (data.error) {
             setTimeout(() => {
               setIsResendCodeMailLoading(false);
@@ -677,6 +681,7 @@ function Signup({
 
     const uid = allUserInfo.id;
     if (!uid) {
+      setErrorBackendRegister(true)
       console.error("UID is undefined");
       return;
     }
@@ -895,7 +900,7 @@ function Signup({
         </>
       ) : (
         <>
-          {isFormValid && isSubmitClicked ? (
+          {isFormValid && isSubmitClicked && !errorBackendRegister ? (
             <>
               {isGoogleSignupLoading ? (
                 <>
@@ -1189,6 +1194,13 @@ function Signup({
                       <p className="signup-user-error-fill-form">
                         Veuillez remplir tout les champs obligatoires. Ils
                         contiennent une astérisque (*)
+                      </p>
+                    </>
+                  )}
+                  {errorBackendRegister && (
+                    <>
+                      <p className="signup-user-error-fill-form">
+                        Oops quelque chose s'est mal passé durant votre inscription. Rafraichissez votre page.
                       </p>
                     </>
                   )}
