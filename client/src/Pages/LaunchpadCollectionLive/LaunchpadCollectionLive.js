@@ -35,12 +35,12 @@ function LaunchpadCollectionLive() {
   // End Backend
   // API Coingecko price ETH
 
-  const handleButtonClick = () => {
-    // const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    //     // End temporary code
-    // // then pass it to the state below
-    // setContractAddress(collectionAddress);
-  }
+  // const handleButtonClick = () => {
+  //   // const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+  //   //     // End temporary code
+  //   // // then pass it to the state below
+  //   // setContractAddress(collectionAddress);
+  // }
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
@@ -170,7 +170,8 @@ function LaunchpadCollectionLive() {
 
   // display mint pop up
   function handleMintButtonClick(e) {
-    const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    // TODO : load contract address from backend
+    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
         // End temporary code
     // then pass it to the state below
     setContractAddress(collectionAddress);
@@ -181,7 +182,7 @@ function LaunchpadCollectionLive() {
   return (
     <>
       <section className="launchpad-collection-live-page-container">
-        <button onClick={handleButtonClick}>handleButtonClick</button>
+        {/* <button onClick={handleButtonClick}>handleButtonClick</button> */}
         <LaunchpadCollectionLiveHeader
           handleMintButtonClick={handleMintButtonClick}
           //   dataBackend Firestore

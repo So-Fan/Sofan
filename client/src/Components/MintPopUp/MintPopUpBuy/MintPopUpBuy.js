@@ -88,8 +88,9 @@ function MintPopUpBuy({
   };
 
   const mint = async () => {
+    console.log(accounts, contract);
     const result2 = await contract.methods
-      .mint("0x8451e365cC9f3034fc35F9e4F9D62Fc1C8D610e1", 1, 1000000)
+      .mint("0x266a8e449A62878A6d63BB14c90a95F425a3d30f", 1, 1000000)
       .send({ from: accounts[0] });
       if(result2.status){
         setIsMintingProcessEndedSuccessfully(true)
