@@ -353,7 +353,7 @@ function Home({
         <div
           className="home-left-container"
           style={
-            isLogged && isLogged.account_type !== "free"
+            isLogged && isLogged.account_type !== "free"  && isLogged.loggedIn
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
@@ -361,7 +361,7 @@ function Home({
           <div
             className="home-navlink-create-post-wrap"
             style={
-              isLogged && isLogged.account_type !== "free"
+              isLogged && isLogged.account_type !== "free" && isLogged.loggedIn
                 ? { height: "138px" }
                 : { height: "64px" }
             }
@@ -384,7 +384,7 @@ function Home({
                 gap="8.59px"
               />
             </div>
-            {isLogged && isLogged.account_type !== "free" && (
+            {isLogged && isLogged.loggedIn && isLogged.account_type !== "free" && (
               <Button
                 createPostButtonclassName="button-component-create-post"
                 style={CreatePostButtonStyle.inlineStyle}
