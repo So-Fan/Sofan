@@ -805,8 +805,16 @@ function Signup({
   }
   function handleConfirmationCodePreviousStep() {
     setDisplayConfirmationCode(false);
-    setIsFormValid(false);
     setIsSubmitClicked(false);
+    setIsFormValid(false);
+    setUsername("");
+    setPhone("");
+    setPassword("");
+    setEmail("");
+    setUsernameRegexError(false);
+    setPhoneRegexError(false);
+    setShowError(false);
+    setEmailError(false);
   }
   function handleSetupProfilePreviousStep(e) {
     setDisplaySetupProfile(false);
