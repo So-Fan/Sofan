@@ -41,6 +41,7 @@ function ConnectWallet({
     useState(false);
   const [metamaskError, setMetamaskError] = useState(false);
   const [web3AuthError, setWeb3AuthError] = useState(false)
+
   const handleCreateWallet = async (e) => {
     e.preventDefault();
     setIsWeb3authConnectLoading(true);
@@ -124,6 +125,7 @@ function ConnectWallet({
     setIsMetamaskConnectWalletLoading(true);
   };
   useEffect(() => {
+    console.log(accounts);
     if (!localStorage.getItem("Web3Auth-cachedAdapter") && accounts) {
       // Si Metamask est connecté alors on passe à l'étape suivante
       setIsMetamaskConnectWalletLoading(false);

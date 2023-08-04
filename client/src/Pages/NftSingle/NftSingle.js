@@ -431,12 +431,12 @@ const NftSingle = () => {
           // Api CoinGecko
           ethPrice={ethPrice}
           //
-          handleBuyNftButtonClick={handleBuyNftButtonClick}
-          handleBidNftButtonClick={handleBidNftButtonClick}
-          handleListNftButton={handleListNftButton}
-          isNFTOwner={true} // comparer wallet de la session utilisateur et propriétaire du nft
+          handleBuyNftButtonClick={handleBuyNftButtonClick} // Buy Now
+          handleBidNftButtonClick={handleBidNftButtonClick} // place a bid
+          handleListNftButton={handleListNftButton} // list
+          isNFTOwner={false} // comparer wallet de la session utilisateur et propriétaire du nft
           isNFTListed={true} // check listing status on contract
-          handleUnlistButton={handleUnlistButton}
+          handleUnlistButton={handleUnlistButton} // unlist
         />
         <div className="nft-single-collection-page-left-container">
           {/* {isSubMenuClicked[0] ? <>

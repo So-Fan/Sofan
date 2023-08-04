@@ -2844,7 +2844,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-07-31T23:51:33.592Z",
+  "updatedAt": "2023-08-04T13:01:14.029Z",
   "devdoc": {
     "errors": {
       "InitialRegistryAddressCannotBeZeroAddress()": [
