@@ -401,7 +401,8 @@ function SetupProfile({
           <button
             onClick={handleSetupProfileNextButtonClick}
             className="signup-user-setup-profile-next-button"
-            disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
+            // disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
+            disabled={bioText.length < 50 || bioText.length > 250} 
           >
             Suivant
           </button>
