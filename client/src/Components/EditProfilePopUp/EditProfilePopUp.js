@@ -30,38 +30,6 @@ function EditProfilePopUp() {
   const isUsernameValid = !usernameRegexError;
   const isBioAndUsernameValid = isBioValid && isUsernameValid;
 
-  // const handleBannerUpload = async (event) => {
-  //   const file = event.target.files[0];
-  //   console.log(file);
-  //   if (file && file.type.substr(0, 5) === "image") {
-  //     //const imagePath = file.name ? `user_profile/banners/`
-  //     try {
-  //       // Upload the file to Firebase Storage
-  //       //shajeed
-  //       const createdAt = new Date();
-  //       const imagePath = `user_profile/banners/sofan_user_#${
-  //         allUserInfo.id
-  //       }#_banner_${createdAt.getTime()}_${file.name}`;
-  //       const imageRef = ref(storage, imagePath);
-  //       uploadBytes(imageRef, file).then(() => {
-  //         getDownloadURL(ref(storage, imagePath)).then((url) => {
-  //           updateBannerPath(allUserInfo.id, url);
-  //         });
-  //         console.log("Uploaded a blob or file!");
-  //       });
-
-  //       // TODO: Save the image URL to Firestore or perform any additional actions
-
-  //       console.log("Image uploaded successfully!");
-  //     } catch (error) {
-  //       console.error("Error uploading image:", error);
-  //     }
-
-  //     setBanner(file);
-  //   } else {
-  //     console.log("File is not an image.");
-  //   }
-  // };
   const handleBioTextChange = (event) => {
     const text = event.target.value;
     setProfileBio(text);
@@ -168,7 +136,7 @@ function EditProfilePopUp() {
         <button
           // onClick={handleSetupProfileNextButtonClick}
           className="edit-profile-popup-save-button"
-          disabled={!isBioAndUsernameValid} 
+          disabled={bioText.length < 50 || bioText.length > 250} 
           // disabled={!isProfileComplete} // Désactive le bouton si le profil n'est pas complet
         >
           Sauvegarder les changements

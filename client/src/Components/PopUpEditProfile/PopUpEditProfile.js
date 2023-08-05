@@ -395,8 +395,9 @@ const PopUpEditProfile = ({
           <button
             onClick={handleSaveProfile}
             className="popup-edit-profile-next-button"
+            disabled={bioText.length < 50 || bioText.length > 250} 
           >
-            Sauvegarder
+            Sauvegarder les changements
           </button>
         </div>
       )}
