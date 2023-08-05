@@ -21,9 +21,9 @@ const Modal = (props) => {
         document.querySelector("body").classList.remove("scroll-lock");
     } 
   };
-  // useEffect(() => {
-    // document.querySelector('body').classList.add('scroll-lock');
-  // }, [])
+  useEffect(() => {
+    document.querySelector('body').classList.add('scroll-lock');
+  }, [])
   
   return (
     <div id="modal-component" 

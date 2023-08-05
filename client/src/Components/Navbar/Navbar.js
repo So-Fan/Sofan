@@ -44,7 +44,7 @@ const Navbar = ({
 
   function handleSignUpButtonClick() {
     setIsSignUpButtonClicked(true);
-    document.querySelector("body").classList.add("scroll-lock");
+    // document.querySelector("body").classList.add("scroll-lock");
   }
   useEffect(() => {
     window.addEventListener(
@@ -52,7 +52,24 @@ const Navbar = ({
       handlePixelScrolledAthleteProfilePage,
       false
     );
-  }, []);
+
+    // isSignInButtonClicked &&
+    //   document.querySelector("body").classList.add("scroll-lock");
+    // isSignUpButtonClicked &&
+    //   document.querySelector("body").classList.add("scroll-lock");
+  }, [])
+  useEffect(() => {
+    
+  if (isSignInButtonClicked || isSignUpButtonClicked) {
+    document.body.style.overflow = 'hidden';
+    console.log("ajouter scroll-lock")
+  } else {
+    document.body.style.overflow = 'auto';
+    console.log("retirer scroll-lock")
+  }
+    
+  }, [isSignInButtonClicked, isSignUpButtonClicked])
+  
 
   const handlePopoUpSignInSignUpClick = () => {
     setIsSignInButtonClicked(false);
