@@ -381,6 +381,9 @@ const PopUpSignIn = ({
             <div className="popupsignin-input-container">
               <span>E-mail</span>
               <input
+              onKeyDown={(e) =>{ if (e.key ==="Enter") {
+                handleLogin(e);
+            }}}
                 type="text"
                 placeholder={"Entrez votre mail"}
                 onChange={(e) => setEmail(e.target.value)}
@@ -395,6 +398,9 @@ const PopUpSignIn = ({
             <div className="popupsignin-input-container">
               <span>Mot de passe</span>
               <input
+                onKeyDown={(e) =>{ if (e.key ==="Enter") {
+                    handleLogin(e);
+                }}}
                 type="password"
                 placeholder={"Entrez votre mot de passe"}
                 onChange={(e) => setPassword(e.target.value)}

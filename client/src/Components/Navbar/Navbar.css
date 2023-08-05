@@ -1,3 +1,6 @@
+.scroll-lock {
+  overflow: hidden !important;
+}
 .navbar-section {
   display: flex;
   align-items: center;

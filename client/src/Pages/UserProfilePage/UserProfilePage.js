@@ -77,7 +77,7 @@ function UserProfilePage({
 
     fetchData();
   }, [id]);
-  console.log(allUserInfo);
+  // console.log(allUserInfo);
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",

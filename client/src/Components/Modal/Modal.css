@@ -1,5 +1,5 @@
 .scroll-lock {
-    overflow: hidden;
+    overflow: hidden !important;
   }
 #modal-component{
     background-color: rgba(0, 0, 0, 0.7);
