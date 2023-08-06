@@ -130,7 +130,7 @@ const Navbar = ({
                 <div className="navbar-wrap-2-subwrap-sign-up-button">
                   <Button
                     onClick={handleSignUpButtonClick}
-                    text="Sign up"
+                    text="S'inscrire"
                     style={NavbarButtonStyle.signUp}
                     customMediaQueries={customNavbarButtonMediaQueries}
                   />
@@ -138,7 +138,7 @@ const Navbar = ({
                 <div className="navbar-wrap-2-subwrap-sign-in-button">
                   <Button
                     onClick={handleSignInButtonClick}
-                    text="Sign in"
+                    text="Se connecter"
                     style={NavbarButtonStyle.signIn}
                   />
                 </div>

@@ -7,6 +7,7 @@ import { fr } from "date-fns/locale";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
+import spinnerAnimation from "../../../Assets/Image/spinner-animation-small.svg"
 
 function HeadOfPost({
   dropDownMenuSize,
@@ -80,14 +81,14 @@ function HeadOfPost({
             src={
               postCreatorData
                 ? postCreatorData.profile_avatar
-                : "https://i.gifer.com/ZKZg.gif"
+                : spinnerAnimation
             }
             alt="profil utilisateur"
           />
         </div>
         <div className="profile-side-info-container">
           <div className={`athlete-name-publication ${athleteNamePollPost}`}>
-            {postCreatorData ? postCreatorData.display_name : "Loading..."}
+            {postCreatorData ? postCreatorData.display_name : "Chargement..."}
           </div>
           <div className={`age-publication ${agePublicationPollPost}`}>
             {postDate}
