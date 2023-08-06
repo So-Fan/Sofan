@@ -39,6 +39,7 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
 // import Web3 from "web3";
 import Button from "../Button/Button";
+import LoadingAnimation from "../LoadingEllipsisAnimation/LoadingEllipsisAnimation";
 // fin mathéo
 
 function Signup({
@@ -912,10 +913,7 @@ function Signup({
               {isGoogleSignupLoading ? (
                 <>
                   <div className="signup-user-setup-profile-container">
-                    <div className="lds-ripple">
-                      <div></div>
-                      <div></div>
-                    </div>
+                    <LoadingAnimation />
                   </div>
                 </>
               ) : (

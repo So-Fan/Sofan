@@ -8,6 +8,43 @@
   align-items: center;
   flex-direction: column;
 }
+.popup-edit-profile-animation-wrap {
+  height: 525px;
+  width: 500px;
+  background-color: white;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.popup-edit-profile-validation-container,
+.popup-edit-profile-error-container {
+  height: 525px;
+  width: 500px;
+  background-color: white;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.popup-edit-profile-validation-container img,
+.popup-edit-profile-error-container img {
+  width: 40px !important;
+  height: 40px !important;
+}
+.popup-edit-profile-validation-message,
+.popup-edit-profile-error-message {
+  font-size: 30px;
+  /* font-weight: 900; */
+  margin-top: 40px;
+  font-family: "britanica-heavy";
+  text-align: center;
+  padding: 10px;
+}
 .popup-edit-profile-previous-step {
   position: absolute;
   top: 20px;
