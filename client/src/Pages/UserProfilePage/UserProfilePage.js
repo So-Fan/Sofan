@@ -622,7 +622,10 @@ function UserProfilePage({
                   allUserInfo={allUserInfo}
                 />
               </div>
-              <div onClick={handleSettingsUserPageClick} className="user-content-settings-button">
+              <div
+                onClick={handleSettingsUserPageClick}
+                className="user-content-settings-button"
+              >
                 <img src={settingsLogo} alt="" />
               </div>
             </div>
@@ -693,10 +696,9 @@ function UserProfilePage({
           dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
           setState={setSettingsUserPageClicked}
           style={{ marginTop: pixelScrolledUserProfilePage, display: "none" }}
-
         >
           <PopUpEditProfile
-          allUserInfo={allUserInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
+            allUserInfo={allUserInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
           />
         </Modal>
       )}
