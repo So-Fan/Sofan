@@ -3,23 +3,26 @@ import Modal from "../Modal/Modal";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "../LoginSignupPopUp/SetupProfile/CanvasUtils";
 import {
-    db,
-    storage,
-    ref,
-    uploadBytes,
-    getDownloadURL,
-  } from "../../Configs/firebase";
-  import {
-    collection,
-    addDoc,
-    updateDoc,
-    query,
-    where,
-    getDocs,
-  } from "firebase/firestore";
-  import previousArrow from "../../Assets/Image/arrow-previous.svg";
+  db,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "../../Configs/firebase";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import previousArrow from "../../Assets/Image/arrow-previous.svg";
 import Img from "../../Assets/Image/img.svg";
-import "./PopUpEditProfile.css"
+import "./PopUpEditProfile.css";
+import greenCross from "../../Assets/Image/greencross-offers.svg";
+import redCross from "../../Assets/Image/redcross-offers.svg";
+import LoadingEllipsisAnimation from "../LoadingEllipsisAnimation/LoadingEllipsisAnimation";
 
 // afficher les infos de la bdd en provenance de la page user/athlete + J'ai mis en commentaire les mêmes fonctions liés au backend que dans signup garde ce que tu as à garder et supprime le reste
 // handleSaveProfile sert à push croppedBanner et croppedAvatar sur la bdd
@@ -50,6 +53,9 @@ const PopUpEditProfile = ({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState();
   const [croppedBanner, setCroppedBanner] = useState();
   const [croppedAvatar, setCroppedAvatar] = useState();
+  const [loadingEditProfile, setLoadingEditProfile] = useState();
+  const [validationEditProfile, setValidationEditProfile] = useState();
+  const [errorEditProfile, setErrorEditProfile] = useState(false);
 
   useEffect(() => {
     if (!banner) return;
@@ -124,7 +130,6 @@ const PopUpEditProfile = ({
   //   }
   // };
 
-
   const handleBannerUpload = async (event) => {
     const file = event.target.files[0];
     console.log(file);
@@ -156,7 +161,7 @@ const PopUpEditProfile = ({
       console.log("File is not an image.");
     }
   };
-
+  console.log(allUserInfo);
   const handleProfileImageInputChange = () => {
     // Access the selected file(s) using fileInputRef.current.files
     const file = profileInputPicRef.current.files[0];
@@ -193,8 +198,13 @@ const PopUpEditProfile = ({
 
   const handleBioTextChange = (event) => {
     const text = event.target.value;
+    // console.log(text)
     // setProfileBio(text);
+    // if (text === "") {
+    //   setBioText(allUserInfo?.bio);
+    // } else {
     setBioText(text);
+    // }
     setBioTextLength(text.length);
     if (text.length > 250) {
       setBioTextMaxLengthError(true);
@@ -205,6 +215,9 @@ const PopUpEditProfile = ({
       setBioTextMinimumLengthError(false);
     }
   };
+  useEffect(() => {
+    allUserInfo?.bio && setBioTextLength(allUserInfo?.bio.length);
+  }, []);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -238,10 +251,23 @@ const PopUpEditProfile = ({
     }
   }, [previewProfile, croppedAreaPixels]);
 
-  const handleSaveProfile = async() => {
-
+  function handleSaveProfile() {
+    setLoadingEditProfile(true);
   }
+  useEffect(() => {
+    if (loadingEditProfile === true) {
+      setTimeout(() => {
+        setLoadingEditProfile(false);
+        if (errorEditProfile) {
+          setErrorEditProfile(true)
+        } else {
+          setValidationEditProfile(true);
+        }
+      }, 500);
+    }
+  }, [loadingEditProfile]);
 
+  // profilePicture={allUserInfo?.profile_avatar}
   return (
     <>
       {currentlyCroppingBanner ? (
@@ -310,20 +336,50 @@ const PopUpEditProfile = ({
             {/* <div className="result"><img src={croppedAvatar} alt="" /></div> */}
           </div>
         </>
-      ) : (
+      ) : loadingEditProfile ? (
+        <>
+          <div className="popup-edit-profile-animation-wrap">
+            <LoadingEllipsisAnimation />
+          </div>
+        </>
+      ) : validationEditProfile ? (
+        <>
+          <div className="popup-edit-profile-validation-container">
+            <img src={greenCross} alt="LOGO VALIDATION" />
+            <p className="popup-edit-profile-validation-message">
+              Votre profil a bien été mis à jour.
+            </p>
+          </div>
+        </>
+      ) : errorEditProfile ? <>
+      <div className="popup-edit-profile-error-container">
+        <img src={redCross} alt="LOGO ERREUR" />
+            <p className="popup-edit-profile-error-message">
+              Oops quelque chose s'est mal passé. Veuillez réessayer...
+            </p>
+      </div>
+      </> : (
         <div className="popup-edit-profile-wrap">
           <div
             // onClick={handleEditProfilePreviousStep}
             className="popup-edit-profile-previous-step"
           >
-            <img src={previousArrow} alt="" />
+            {/* <img src={previousArrow} alt="FLECHE ETAPE" /> */}
           </div>
-          <div className="popup-edit-profile-title">
-            Créez votre profil
-          </div>
+          <div className="popup-edit-profile-title">Créez votre profil</div>
           <div className="popup-edit-profile-banner-and-profile-pic">
             <div className="popup-edit-profile-banner-container">
-              {croppedBanner && <img src={croppedBanner} alt="banner" />}
+              {croppedBanner ? (
+                <img src={croppedBanner} alt="banner" />
+              ) : (
+                <>
+                  <img
+                    src={allUserInfo?.profile_banner}
+                    className="popup-edit-profile-profile-pic"
+                    alt=""
+                  />
+                </>
+              )}
               <input
                 type="file"
                 accept="image/*"
@@ -339,10 +395,18 @@ const PopUpEditProfile = ({
               </label>
             </div>
             <div className="popup-edit-profile-profile-pic-container">
-              {croppedAvatar && (
+              {croppedAvatar ? (
                 <>
                   <img
                     src={croppedAvatar}
+                    className="popup-edit-profile-profile-pic"
+                    alt=""
+                  />
+                </>
+              ) : (
+                <>
+                  <img
+                    src={allUserInfo?.profile_avatar}
                     className="popup-edit-profile-profile-pic"
                     alt=""
                   />
@@ -378,7 +442,8 @@ const PopUpEditProfile = ({
               className="popup-edit-profile-bio"
               style={bioTextMaxLengthError ? { borderColor: "red" } : {}}
               name=""
-              value={bioText}
+              defaultValue={allUserInfo?.bio}
+              // value={allUserInfo?.bio}
               onChange={handleBioTextChange}
             ></textarea>
             {bioTextMaxLengthError && (
