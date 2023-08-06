@@ -464,7 +464,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-08-04T13:26:32.083Z",
+  "updatedAt": "2023-08-06T01:58:35.430Z",
   "devdoc": {
     "details": "Please note that if your token contract does not provide an owner with EIP-173, it must provide         administration methods on the contract itself to interact with the registry otherwise the subscription         will be locked to the options set during construction.",
     "errors": {

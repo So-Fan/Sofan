@@ -15,6 +15,7 @@ import PopUpPlaceBid from "../../Components/PopUpPlaceBid/PopUpPlaceBid";
 import PopupListNFT from "../../Components/PopupListNFT/PopupListNFT";
 import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 import PopUpUnlistNFT from "../../Components/PopUpUnlistNFT/PopUpUnlistNFT";
+import useEth from "../../contexts/EthContext/useEth";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -35,6 +36,8 @@ const NftSingle = () => {
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
   const [nftIdApi, setNftIdApi] = useState();
+  const { setContractAddress, state: {contract} } = useEth();
+
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -106,6 +109,9 @@ const NftSingle = () => {
 
   //
   function handleBuyNftButtonClick() {
+     // TODO : load contract address from backend
+    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
+    setContractAddress(collectionAddress);
     handleBidNftButtonClick = { handleBidNftButtonClick };
     setIsBuyNftButtonClicked(true);
   }
