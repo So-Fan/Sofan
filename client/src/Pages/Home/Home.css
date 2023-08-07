@@ -32,6 +32,7 @@
   flex-direction: column;
   max-height: calc(100vh - 131px);
   overflow-y: scroll;
+  width: 534px !important;
 }
 .home-center-container > div {
   display: flex;

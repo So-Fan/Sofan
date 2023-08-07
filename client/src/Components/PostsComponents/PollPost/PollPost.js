@@ -16,7 +16,7 @@ const PollPost = ({
   pollFourthChoice,
   pollDate,
   pollDateType,
-  // 
+  //
   pollTotalVote,
   pollFirstChoiceNumber,
   pollSecondChoiceNumber,
@@ -110,41 +110,66 @@ const PollPost = ({
       });
     }
   };
+
   return (
     <section className="pollpost-container">
       <div className="pollpost-wrap">
-        <ProgressBarPollPost
-          isVoted={isVoted}
-          choiceNumberArray={choiceNumberArray[0]}
-          choiceName={choiceName[0]}
-          choiceSelected={choiceSelected.choice1}
-          checkMark={checkMark}
-          showSurveyResult={showSurveyResult}
-        />
-        <ProgressBarPollPost
-          isVoted={isVoted}
-          choiceNumberArray={choiceNumberArray[1]}
-          choiceName={choiceName[1]}
-          choiceSelected={choiceSelected.choice2}
-          checkMark={checkMark}
-          showSurveyResult={showSurveyResult}
-        />
-        <ProgressBarPollPost
-          isVoted={isVoted}
-          choiceNumberArray={choiceNumberArray[2]}
-          choiceName={choiceName[2]}
-          choiceSelected={choiceSelected.choice3}
-          checkMark={checkMark}
-          showSurveyResult={showSurveyResult}
-        />
-        <ProgressBarPollPost
-          isVoted={isVoted}
-          choiceNumberArray={choiceNumberArray[3]}
-          choiceName={choiceName[3]}
-          choiceSelected={choiceSelected.choice4}
-          checkMark={checkMark}
-          showSurveyResult={showSurveyResult}
-        />
+        {pollFirstChoice === "" ? (
+          <></>
+        ) : (
+          <>
+            <ProgressBarPollPost
+              isVoted={isVoted}
+              choiceNumberArray={choiceNumberArray[0]}
+              choiceName={choiceName[0]}
+              choiceSelected={choiceSelected.choice1}
+              checkMark={checkMark}
+              showSurveyResult={showSurveyResult}
+            />
+          </>
+        )}
+        {pollSecondChoice === "" ? (
+          <></>
+        ) : (
+          <>
+            <ProgressBarPollPost
+              isVoted={isVoted}
+              choiceNumberArray={choiceNumberArray[1]}
+              choiceName={choiceName[1]}
+              choiceSelected={choiceSelected.choice2}
+              checkMark={checkMark}
+              showSurveyResult={showSurveyResult}
+            />
+          </>
+        )}
+        {pollThirdChoice === "" ? (
+          <></>
+        ) : (
+          <>
+            <ProgressBarPollPost
+              isVoted={isVoted}
+              choiceNumberArray={choiceNumberArray[2]}
+              choiceName={choiceName[2]}
+              choiceSelected={choiceSelected.choice3}
+              checkMark={checkMark}
+              showSurveyResult={showSurveyResult}
+            />
+          </>
+        )}
+        {pollFourthChoice === "" ? (
+          <></>
+        ) : (
+          <>
+            <ProgressBarPollPost
+              isVoted={isVoted}
+              choiceNumberArray={choiceNumberArray[3]}
+              choiceName={choiceName[3]}
+              choiceSelected={choiceSelected.choice4}
+              checkMark={checkMark}
+              showSurveyResult={showSurveyResult}
+            />
+          </>
+        )}
 
         <div className="ageofpost-poll-container">
           <div className="ageofpost-poll-wrap">

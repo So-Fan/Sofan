@@ -43,23 +43,31 @@ function PostsFeed({
   athleteProfilePageStyling,
   setPostStates,
   loggedInUser,
+  polldata,
 }) {
-  
   function handleClickShowComment(e) {
     e.preventDefault();
     setIsPostClicked(true);
   }
   const [isModdleToggled, setIsModalToggled] = useState(false);
   function displayVote() {
-    if (pollTotalVote < 1) {
+    if (
+      polldata?.choices[0].text === "" &&
+      polldata?.choices[1].text === "" &&
+      polldata?.choices[2].text === "" &&
+      polldata?.choices[3].text === ""
+    ) {
       return;
-    } else if (pollTotalVote > 1) {
+    } else if (
+      polldata?.choices[0].text !== "" &&
+      polldata?.choices[1].text !== ""
+    ) {
       return (
         <PollPost
-          pollFirstChoice={pollFirstChoice}
-          pollSecondChoice={pollSecondChoice}
-          pollThirdChoice={pollThirdChoice}
-          pollFourthChoice={pollFourthChoice}
+          pollFirstChoice={ polldata?.choices[0].text}
+          pollSecondChoice={polldata?.choices[1].text}
+          pollThirdChoice={polldata?.choices[2].text}
+          pollFourthChoice={polldata?.choices[3].text}
           pollFirstChoiceNumber={pollFirstChoiceNumber}
           pollSecondChoiceNumber={pollSecondChoiceNumber}
           pollThirdChoiceNumber={pollThirdChoiceNumber}
@@ -68,11 +76,12 @@ function PostsFeed({
           pollDateType={pollDateType}
           pollTotalVote={pollTotalVote}
         />
+       
       );
-    }
+    } 
   }
   // console.log(lockPremiumContent)
-  
+
   return (
     <>
       <div

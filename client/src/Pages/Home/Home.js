@@ -17,7 +17,13 @@ import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/Athl
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
 import { db } from "../../Configs/firebase";
-import { collection, query, orderBy, onSnapshot, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  getDocs,
+} from "firebase/firestore";
 
 function Home({
   loggedInUser,
@@ -41,6 +47,7 @@ function Home({
   function handleAthleteSuggestionClick(e) {
     setIsSuggestSeeMoreButtonClicked(true);
   }
+  const [displayPollPost,setDisplayPollPost ] = useState(false)
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
@@ -50,261 +57,13 @@ function Home({
       return false;
     }
   }
-  useEffect(() => {
-    // simulate fake post data from backend
-    const dataBackend = [
-      {
-        id: 0,
-        postName: "Romain Attanasio",
-        postDate: 5,
-        postDateType: "h",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postPicture:
-          "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 0,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 1,
-        postName: "Alexia Barrier",
-        postDate: 2,
-        postDateType: "d",
-        postType: "Premium",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-
-        postPicture:
-          "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 0,
-        pollDate: 0,
-        pollDateType: "day",
-      },
-      {
-        id: 2,
-        postName: "Romain Attanasio",
-        postDate: 3,
-        postDateType: "h",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        postPicture:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Romain_Attanasio_Vend%C3%A9e_Globe.jpg/280px-Romain_Attanasio_Vend%C3%A9e_Globe.jpg",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 0,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 3,
-        postName: "Alexia Barrier",
-        postDate: 2,
-        postDateType: "y",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postPicture: "",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 0,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 4,
-        postName: "Romain Attanasio",
-        postDate: 3,
-        postDateType: "h",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postPicture: "",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 2456,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 5,
-        postName: "Alexia Barrier",
-        postDate: 2,
-        postDateType: "d",
-        postType: "Premium",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postPicture: "",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 2456,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 6,
-        postName: "Romain Attanasio",
-        postDate: 9,
-        postDateType: "h",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        postPicture: "",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 2456,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 7,
-        postName: "Romain Attanasio",
-        postDate: 3,
-        postDateType: "h",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        postPicture: "",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 2456,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 8,
-        postName: "Romain Attanasio",
-        postDate: 3,
-        postDateType: "h",
-        postType: "Free",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postPicture: "",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 2456,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-      {
-        id: 9,
-        postName: "Romain Attanasio",
-        postDate: 3,
-        postDateType: "h",
-        postType: "Premium",
-        postDescription:
-          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-        pollFirstChoice: "Barrier",
-        pollSecondChoice: "Attanasio",
-        pollThirdChoice: "John",
-        pollFourthChoice: "Arthur",
-        postPicture: "",
-        postLikeNumber: 29,
-        postCommentNumber: 10,
-        pollFirstChoiceNumber: 570,
-        pollSecondChoiceNumber: 98,
-        pollThirdChoiceNumber: 120,
-        pollFourthChoiceNumber: 302,
-        pollTotalVote: 2456,
-        pollDate: 1,
-        pollDateType: "day",
-      },
-    ];
-    // gérer le state local de chaque post pour le clique dropdown button
-    // for (let i = 0; i < dataBackend.length; i++) {
-    //   dataBackend[i] = { ...dataBackend[i], ...{ isDropdownClicked: false } };
-    //   // console.log(dataBackend[i].postType)
-    //   // console.log(lockPremiumContent);
-    // }
-    // setData(dataBackend);
-    // setData(feedPost);
-  }, [setPostData]);
-
-
+ 
   useEffect(() => {
     setIsLoading(true);
-    
-    const feedPostCollectionRef = collection(db, "feed_post");  // Make sure to set your collection name
+
+    const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
     const q = query(feedPostCollectionRef, orderBy("createdAt", "desc")); // Order by 'createdAt' in descending order
-  
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const feedData = [];
       querySnapshot.forEach((doc) => {
@@ -313,27 +72,19 @@ function Home({
       setPostData(feedData);
       setIsLoading(false);
     });
-  
+
     // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
     return () => unsubscribe();
   }, []);
-
-  // function displayFullPagePost() {
-  //   return (
-  //     <>
-  //       <FullPagePost postType={data.postType} />;
-  //     </>
-  //   );
-  // }
 
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < dataPost.length; i++) {
       if (
         e.currentTarget.id === dataPost[i].id &&
         dataPost[i].isDropdownClicked === false
-        ) {
-        console.log(e.currentTarget.id)
-        console.log(dataPost[i].id)
+      ) {
+        console.log(e.currentTarget.id);
+        console.log(dataPost[i].id);
         const newData = [...dataPost];
         newData[i].isDropdownClicked = true;
         setPostData(newData);
@@ -344,16 +95,15 @@ function Home({
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
-  // useEffect(() => {
-  //   setData
-  // }, [])
+
+  console.log(dataPost)
   return (
     <>
       <section className="home-component">
         <div
           className="home-left-container"
           style={
-            isLogged && isLogged.account_type !== "free"  && isLogged.loggedIn
+            isLogged && isLogged.account_type !== "free" && isLogged.loggedIn
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
@@ -384,17 +134,19 @@ function Home({
                 gap="8.59px"
               />
             </div>
-            {isLogged && isLogged.loggedIn && isLogged.account_type !== "free" && (
-              <Button
-                createPostButtonclassName="button-component-create-post"
-                style={CreatePostButtonStyle.inlineStyle}
-                customMediaQueries={CreatePostButtonStyle.customMediaQueries}
-                text="Create a post"
-                onClick={handleCreatePostClick}
-                hover="button-hover-props"
-                active="button-active-props"
-              />
-            )}
+            {isLogged &&
+              isLogged.loggedIn &&
+              isLogged.account_type !== "free" && (
+                <Button
+                  createPostButtonclassName="button-component-create-post"
+                  style={CreatePostButtonStyle.inlineStyle}
+                  customMediaQueries={CreatePostButtonStyle.customMediaQueries}
+                  text="Create a post"
+                  onClick={handleCreatePostClick}
+                  hover="button-hover-props"
+                  active="button-active-props"
+                />
+              )}
           </div>
           <FavAthlete />
           <FeedSuggestions
@@ -428,51 +180,16 @@ function Home({
                       postPicture={post.imagePath}
                       postCreatorId={post.userId}
                       loggedInUser={loggedInUser}
+                      polldata={post.pollData}
                       //setIsPostClicked={setIsPostClicked}
                       lockPremiumContent={handleDisplayPremiumContent(index)}
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                       isDropdownClicked={isDropdownClicked}
-                      />
+                    />
                   );
                 })}
               </>
             )}
-            {/* <PostsFeed /> */}
-            {/* {data?.map((post, index) => {
-              return (
-                <PostsFeed
-                  key={uuidv4()}
-                  id={post.id}
-                  // Backend data
-                  postName={post.postName}
-                  postDate={post.postDate}
-                  postDateType={post.postDateType}
-                  postType={post.postType}
-                  postDescription={post.postDescription}
-                  postPicture={post.postPicture}
-                  postLikeNumber={post.postLikeNumber}
-                  postCommentNumber={post.postCommentNumber}
-                  //  Backend poll data
-                  pollFirstChoice={post.pollFirstChoice}
-                  pollSecondChoice={post.pollSecondChoice}
-                  pollThirdChoice={post.pollThirdChoice}
-                  pollFourthChoice={post.pollFourthChoice}
-                  pollFirstChoiceNumber={post.pollFirstChoiceNumber}
-                  pollSecondChoiceNumber={post.pollSecondChoiceNumber}
-                  pollThirdChoiceNumber={post.pollThirdChoiceNumber}
-                  pollFourthChoiceNumber={post.pollFourthChoiceNumber}
-                  pollDate={post.pollDate}
-                  pollDateType={post.pollDateType}
-                  pollTotalVote={post.pollTotalVote}
-                  // states and functions
-                  isDropdownClicked={post.isDropdownClicked}
-                  handleDropdownPostFeedClick={handleDropdownPostFeedClick}
-                  setIsPostClicked={setIsPostClicked}
-                  isPostClicked={isPostClicked}
-                  lockPremiumContent={handleDisplayPremiumContent(index)}
-                />
-              );
-            })} */}
           </div>
         </div>
         <div className="home-right-container">
