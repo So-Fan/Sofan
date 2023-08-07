@@ -1,0 +1,43 @@
+.popupblockchainerror-component {
+  background-color: white;
+  width: 450px;
+  height: 415px;
+  border-radius: 13.514px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.popupblockchainerror-component > img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 17px;
+  margin-top: 79px
+}
+.popupblockchainerror-component > span:nth-child(2) {
+  text-align: center;
+  font-family: "britanica-heavy";
+  font-size: 25px;
+  line-height: normal;
+  width: 236px;
+  margin-bottom: 38px;
+}
+.popupblockchainerror-component > span:nth-child(3) {
+  text-align: center;
+  font-family: "britanica-regular";
+  line-height: normal;
+  width: 235px;
+  margin-bottom: 47px;
+}
+.popupblockchainerror-component > button {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: #f6d463;
+  width: 410px;
+  height: 56px;
+  font-family: "britanica-heavy";
+  font-size: 20px;
+  line-height: normal;
+  outline: none;
+  border: none;
+}

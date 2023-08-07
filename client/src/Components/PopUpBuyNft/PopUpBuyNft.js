@@ -31,7 +31,7 @@ const PopUpBuyNft = () => {
   const {state:{web3, accounts, contract}, marketplaceAddress} = useEth()
 
   const handleBuyListingClick = async () => {
-
+    console.log('proceed to payment clicked');
     const artifacts = require("../../contracts/Sofan.json")
     const {abi} = artifacts
     const web3MarketplaceInstance = new web3.eth.Contract(abi, marketplaceAddress)
@@ -86,6 +86,7 @@ const PopUpBuyNft = () => {
         </div>
       </div>
       <Button 
+      onClick={handleBuyListingClick}
       hover="button-hover-props"
       text="Procéder au paiement" style={popUpBuyNftPaymentButton} />
     </div>

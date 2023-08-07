@@ -1,14 +1,24 @@
 import React from "react";
 import Button from "../Button/Button";
 import "./PopupListNFT.css";
+import MintPopUpProcessing from "../MintPopUp/MintPopUpProcessing/MintPopUpProcessing";
+import MintPopUpStatus from "../MintPopUp/MintPopUpStatus/MintPopUpStatus";
 
-const PopupListNFT = ({ handlePopupListNFT }) => {
+const PopupListNFT = ({ handlePopupListNFT, mintPopUpProccesing }) => {
   const arrowBottom =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/arrow_bottom.svg?alt=media&token=f2e7b3b5-65da-4edc-9758-9aeda489d2dc";
   const nftImage =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/Rectangle%20131.png?alt=media&token=f394cf39-6fa3-475a-9f3e-9ac5a63c0027";
+
+    
+    
   return (
-    <div className="popuplistnft-component">
+    <>
+      <div className="popuplistnft-component">
+    {
+      mintPopUpProccesing ? 
+      <MintPopUpStatus statusProcessing={mintPopUpProccesing} statusMint={false} />
+      :
       <div className="popuplistnft-container">
         <span>Mettre en vente</span>
         <div className="popuplistnft-container-nft-wrap">
@@ -59,7 +69,9 @@ const PopupListNFT = ({ handlePopupListNFT }) => {
           customMediaQueries={".button-component:active{transform: scale(0.92)}"}
         />
       </div>
+    }
     </div>
+    </>
   );
 };
 

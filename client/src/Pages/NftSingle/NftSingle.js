@@ -36,7 +36,12 @@ const NftSingle = () => {
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
   const [nftIdApi, setNftIdApi] = useState();
-  const { setContractAddress, state: {contract} } = useEth();
+  const [mintPopUpProccesing, setMintPopUpProccesing] = useState(false)
+  const {
+    setContractAddress,
+    state: { contract, accounts, web3 },
+    marketplaceAddress,
+  } = useEth();
 
   // Api Alchemy setup
   const settings = {
@@ -109,8 +114,8 @@ const NftSingle = () => {
 
   //
   function handleBuyNftButtonClick() {
-     // TODO : load contract address from backend
-    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
+    // TODO : load contract address from backend
+    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
     setContractAddress(collectionAddress);
     handleBidNftButtonClick = { handleBidNftButtonClick };
     setIsBuyNftButtonClicked(true);
@@ -376,38 +381,69 @@ const NftSingle = () => {
 
   const [isListClicked, setIsListClicked] = useState();
   const handleListNftButton = () => {
+    // TODO: Load from BACKEND
+    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+    setContractAddress(collectionAddress);
     setIsListClicked(true);
   };
   // const handlePopupListNFT = () => {
   //   setIsListClicked(false)
   // }
 
-  const [isListed , setIsListed] = useState();
+  const [isListed, setIsListed] = useState();
+  const [isListBlockchainError, setIsListBlockchainError] = useState(false)
 
   const handleListingPopup = async () => {
+    console.log("Bouton Vendre cliqué");
+    const artifacts = require("../../contracts/Sofan.json");
+    const { abi } = artifacts;
+    const web3MarketplaceInstance = new web3.eth.Contract(
+      abi,
+      marketplaceAddress
+    );
+    console.log(web3MarketplaceInstance);
+    console.log(typeof(contract._address));
+    try {
+      setMintPopUpProccesing(true)
+      // param 1: address of nft contract 2: nft tokenId 3: price
+      const result = await web3MarketplaceInstance.methods.listToSell(contract._address, 1, 1000000).send({from: accounts[0]});
+      if (result.status) {
+        console.log("Successfully list token");
+        setMintPopUpProccesing(false)
+        setIsListed(true);
+      } else {
+        console.log("An error has occured. Please try again. ", result);
+        // setMintPopUpProccesing(false)
+        // setIsListed(false);
+      }
+    } catch (error) {
+      console.log(error);
+      // setMintPopUpProccesing(false)
+        // setIsListed(false);
+    }
+
     // Call blockchain si c'est bon alors setIsListed(true) sinon false
-    setIsListed(true)
-  } 
+  };
   const handleListClosed = () => {
-    setIsListed(false)
-    setIsListClicked(false)
-  }
+    setIsListed(false);
+    setIsListClicked(false);
+  };
 
-  const [isUnlistClicked, setIsUnlistClicked] = useState()
+  const [isUnlistClicked, setIsUnlistClicked] = useState();
   const handleUnlistButton = () => {
-    setIsUnlistClicked(true)
-  }
+    setIsUnlistClicked(true);
+  };
 
-  const [isUnlist, setisUnlist] = useState()
+  const [isUnlist, setisUnlist] = useState();
 
   const handleUnlistPopup = async () => {
-    setisUnlist(true)
-  }
+    setisUnlist(true);
+  };
 
   const handleUnlistClosed = () => {
-    setisUnlist(false)
-    setIsUnlistClicked(false)
-  }
+    setisUnlist(false);
+    setIsUnlistClicked(false);
+  };
   return (
     <>
       <section className="nft-single-collection-page-container">
@@ -440,8 +476,8 @@ const NftSingle = () => {
           handleBuyNftButtonClick={handleBuyNftButtonClick} // Buy Now
           handleBidNftButtonClick={handleBidNftButtonClick} // place a bid
           handleListNftButton={handleListNftButton} // list
-          isNFTOwner={false} // comparer wallet de la session utilisateur et propriétaire du nft
-          isNFTListed={true} // check listing status on contract
+          isNFTOwner={true} // comparer wallet de la session utilisateur et propriétaire du nft
+          isNFTListed={false} // check listing status on contract
           handleUnlistButton={handleUnlistButton} // unlist
         />
         <div className="nft-single-collection-page-left-container">
@@ -547,15 +583,39 @@ const NftSingle = () => {
       )}
       {isListClicked && (
         <>
-          <Modal style={{ top: "20px", right: "20px" }} setState={() => setIsListClicked(false)} >
-            {isListed ? <PopUpValidate text={"Félicitations ! Votre NFT a été mis en vente"} customWidth={"251px"} onClick={handleListClosed} /> : <PopupListNFT handlePopupListNFT={handleListingPopup} />}
+          <Modal
+            style={{ top: "20px", right: "20px" }}
+            setState={() => setIsListClicked(false)}
+          >
+            {isListed ? (
+              <PopUpValidate
+                text={"Félicitations ! Votre NFT a été mis en vente"}
+                customWidth={"251px"}
+                onClick={handleListClosed}
+              />
+            ) : (
+              <PopupListNFT handlePopupListNFT={handleListingPopup} mintPopUpProccesing={mintPopUpProccesing} />
+            )}
           </Modal>
         </>
       )}
       {isUnlistClicked && (
         <>
-          <Modal style={{ top: "20px", right: "20px" }} setState={() => setIsUnlistClicked(false)}>
-            {isUnlist ? <PopUpValidate text={"Votre NFT a été retiré de la vente"} onClick={handleUnlistClosed} /> : <PopUpUnlistNFT handlePopupUnlistNFT={handleUnlistPopup} handlePopupUnlistNFTClosed={handleUnlistClosed} />}
+          <Modal
+            style={{ top: "20px", right: "20px" }}
+            setState={() => setIsUnlistClicked(false)}
+          >
+            {isUnlist ? (
+              <PopUpValidate
+                text={"Votre NFT a été retiré de la vente"}
+                onClick={handleUnlistClosed}
+              />
+            ) : (
+              <PopUpUnlistNFT
+                handlePopupUnlistNFT={handleUnlistPopup}
+                handlePopupUnlistNFTClosed={handleUnlistClosed}
+              />
+            )}
           </Modal>
         </>
       )}
