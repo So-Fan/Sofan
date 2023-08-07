@@ -52,19 +52,14 @@ const Navbar = ({
       handlePixelScrolledAthleteProfilePage,
       false
     );
-
-
-  }, [])
+  }, []);
   useEffect(() => {
-    
-  if (isSignInButtonClicked || isSignUpButtonClicked) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = 'auto';
-  }
-    
-  }, [isSignInButtonClicked, isSignUpButtonClicked])
-  
+    if (isSignInButtonClicked || isSignUpButtonClicked) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isSignInButtonClicked, isSignUpButtonClicked]);
 
   const handlePopoUpSignInSignUpClick = () => {
     setIsSignInButtonClicked(false);
@@ -150,6 +145,7 @@ const Navbar = ({
       {isNotificationButtonClicked && (
         <Modal
           setState={setIsNotificationButtonClicked}
+          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           style={{ top: "24px", right: "20px" }}
         >
           <NotificationPopUp notificationPopUpComponent={true} />
@@ -171,7 +167,7 @@ const Navbar = ({
           />
         </Modal>
       )}
-      {isSignInButtonClicked && (
+      {isSignInButtonClicked && !isLogged && (
         <Modal
           style={{ visibility: "hidden" }}
           setState={() => setIsSignInButtonClicked()}

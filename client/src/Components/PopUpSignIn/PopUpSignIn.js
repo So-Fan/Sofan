@@ -31,6 +31,7 @@ import Button from "../Button/Button";
 import ForgotPassword from "../LoginSignupPopUp/ForgotPassword/ForgotPassword";
 
 const PopUpSignIn = ({
+  isLogged,
   web3auth,
   setWeb3auth,
   handlePopoUpSignInSignUpClick,
