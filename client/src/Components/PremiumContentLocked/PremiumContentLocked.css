@@ -12,6 +12,10 @@
   filter: blur(0px) !important;
   z-index: 959;
   border-radius: 20px;
+  border: solid 2px #f6d463 !important;
+  /* border-right: solid 2px #f6d463 !important;
+  margin-right:0px !important ;
+  padding-right:0px !important ; */
 }
 .premium-content-locked-locker-logo {
   width: 60px;
