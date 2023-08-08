@@ -17,7 +17,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import EthProvider from "./contexts/EthContext/EthProvider";
 import TestSecondary from "./Pages/Test/TestSecondary";
 import CGU from "./Pages/CGU/CGU";
-import UserContext from "./contexts/UserContext/UserContext";
+import UserContext from "./UserContext";
 import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 
@@ -41,6 +41,8 @@ function App() {
     }
     // console.log(loggedInUser);
   }, [loggedInUser]);
+
+
 
   const [isNotificationButtonClicked, setIsNotificationButtonClicked] =
     useState(false);

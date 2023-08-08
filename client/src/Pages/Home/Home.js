@@ -103,7 +103,7 @@ function Home({
         <div
           className="home-left-container"
           style={
-            isLogged && isLogged.account_type !== "free"
+            isLogged && isLogged.account_type !== "free" && isLogged.loggedIn
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
@@ -111,7 +111,7 @@ function Home({
           <div
             className="home-navlink-create-post-wrap"
             style={
-              isLogged && isLogged.account_type !== "free"
+              isLogged && isLogged.account_type !== "free" && isLogged.loggedIn
                 ? { height: "138px" }
                 : { height: "64px" }
             }
@@ -134,17 +134,19 @@ function Home({
                 gap="8.59px"
               />
             </div>
-            {isLogged && isLogged.account_type !== "free" && (
-              <Button
-                createPostButtonclassName="button-component-create-post"
-                style={CreatePostButtonStyle.inlineStyle}
-                customMediaQueries={CreatePostButtonStyle.customMediaQueries}
-                text="Create a post"
-                onClick={handleCreatePostClick}
-                hover="button-hover-props"
-                active="button-active-props"
-              />
-            )}
+            {isLogged &&
+              isLogged.loggedIn &&
+              isLogged.account_type !== "free" && (
+                <Button
+                  createPostButtonclassName="button-component-create-post"
+                  style={CreatePostButtonStyle.inlineStyle}
+                  customMediaQueries={CreatePostButtonStyle.customMediaQueries}
+                  text="Create a post"
+                  onClick={handleCreatePostClick}
+                  hover="button-hover-props"
+                  active="button-active-props"
+                />
+              )}
           </div>
           <FavAthlete />
           <FeedSuggestions
@@ -169,19 +171,17 @@ function Home({
                     <PostsFeed
                       key={uuidv4()}
                       id={post.id}
-                      singlePostData={post}
                       postName="Rami Abdou"
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
                       postLikes={post.likes ? post.likes.length : 0}
-                      postCommentNumber={post?.comments?.length}
+                      postCommentNumber={post.comments.length}
                       postType={post.visibility}
                       postPicture={post.imagePath}
                       postCreatorId={post.userId}
                       loggedInUser={loggedInUser}
                       polldata={post.pollData}
                       //setIsPostClicked={setIsPostClicked}
-                      setIsPostClicked={setIsPostClicked}
                       lockPremiumContent={handleDisplayPremiumContent(index)}
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                       isDropdownClicked={isDropdownClicked}
@@ -203,6 +203,16 @@ function Home({
           style={{ top: "24px", right: "20px" }}
         >
           <CreationPostPoll userId={loggedInUser.id} />
+        </Modal>
+      )}
+      {isPostClicked && (
+        <Modal
+          setState={setIsPostClicked}
+          style={{ top: "-44px", right: "2px" }}
+          color="white"
+        >
+          {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
+          <FullPagePost postType={dataPost.postType} />
         </Modal>
       )}
       {isSuggestionSeeMoreButtonClicked && (

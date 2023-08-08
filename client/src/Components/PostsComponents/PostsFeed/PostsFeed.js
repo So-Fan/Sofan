@@ -15,6 +15,8 @@ function PostsFeed({
   handleDropdownPostFeedClick,
   isDropdownClicked,
   id,
+  setIsPostClicked,
+  isPostClicked,
   lockPremiumContent,
   postName,
   postDate,
@@ -42,15 +44,12 @@ function PostsFeed({
   setPostStates,
   loggedInUser,
   polldata,
-  singlePostData,
 }) {
-  
-  const [isPostClicked, setIsPostClicked] = useState(false);
-  const [isModdleToggled, setIsModalToggled] = useState(false);
   function handleClickShowComment(e) {
     e.preventDefault();
     setIsPostClicked(true);
   }
+  const [isModdleToggled, setIsModalToggled] = useState(false);
   function displayVote() {
     if (
       polldata?.choices[0].text === "" &&
@@ -170,16 +169,6 @@ function PostsFeed({
           />
         </div>
       </div>
-      {isPostClicked && (
-        <Modal
-          setState={setIsPostClicked}
-          style={{ top: "-44px", right: "2px" }}
-          color="white"
-        >
-          {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
-          <FullPagePost postType={singlePostData.postType === "normal"} />
-        </Modal>
-      )}
     </>
   );
 }

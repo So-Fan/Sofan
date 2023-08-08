@@ -1,38 +1,38 @@
 .scroll-lock {
-  overflow: hidden !important;
+    overflow: hidden !important;
+  }
+#modal-component{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    width: 100vw;
+    height: 100vh !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999 !important;
 }
-#modal-component {
-  background-color: rgba(0, 0, 0, 0.7);
-  position: absolute;
-  width: 100vw;
-  height: 100vh !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 99999 !important;
+.modal-component-wrap{
+    position: relative;
 }
-.modal-component-wrap {
-  position: relative;
-}
-.modal-component-wrap {
-  animation: bounceIn 400ms both;
+.modal-component-wrap{
+    animation: bounceIn 400ms both;
 }
 /* .modal-component-wrap img {
     
 } */
-#modal-component-cross {
-  position: absolute;
-  cursor: pointer;
-  z-index: 2;
+#modal-component-cross{
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
 }
 @keyframes bounceIn {
-  0% {
-    transform: scale(0.4);
+    0% {
+      transform: scale(0.4);
+    }
+    70% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
-  70% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}

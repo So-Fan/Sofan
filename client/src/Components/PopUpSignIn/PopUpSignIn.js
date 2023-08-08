@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, db, ref } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../../contexts/UserContext/UserContext";
+import UserContext from "../../UserContext";
 
 // mathéo
 import {
@@ -381,11 +381,9 @@ const PopUpSignIn = ({
             <div className="popupsignin-input-container">
               <span>E-mail</span>
               <input
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleLogin(e);
-                  }
-                }}
+              onKeyDown={(e) =>{ if (e.key ==="Enter") {
+                handleLogin(e);
+            }}}
                 type="text"
                 placeholder={"Entrez votre mail"}
                 onChange={(e) => setEmail(e.target.value)}
@@ -400,11 +398,9 @@ const PopUpSignIn = ({
             <div className="popupsignin-input-container">
               <span>Mot de passe</span>
               <input
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
+                onKeyDown={(e) =>{ if (e.key ==="Enter") {
                     handleLogin(e);
-                  }
-                }}
+                }}}
                 type="password"
                 placeholder={"Entrez votre mot de passe"}
                 onChange={(e) => setPassword(e.target.value)}
