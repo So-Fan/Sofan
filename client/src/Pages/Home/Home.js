@@ -423,7 +423,7 @@ function Home({
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
                       postLikes={post.likes ? post.likes.length : 0}
-                      postCommentNumber={post.comments.length}
+                      postCommentNumber={post?.comments?.length}
                       postType={post.visibility}
                       postPicture={post.imagePath}
                       postCreatorId={post.userId}
