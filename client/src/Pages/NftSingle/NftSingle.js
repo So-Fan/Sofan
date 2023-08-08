@@ -418,6 +418,7 @@ const NftSingle = () => {
         setMintPopUpProccesing(false);
         // setIsListed(false);
         setBlockchainError(true);
+        setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
       }
     } catch (error) {
       console.log(error);
@@ -459,19 +460,30 @@ const NftSingle = () => {
     console.log(web3MarketplaceInstance);
     console.log(typeof contract._address);
     try {
+      setMintPopUpProccesing(true);
       // param 1: index
       const result = await web3MarketplaceInstance.methods
-        .cancelListing(1)
+        .cancelListing(0)
         .send({ from: accounts[0] });
       if (result.status) {
         console.log("Successfully list token");
+        setMintPopUpProccesing(false);
+        setisUnlist(true);
+        setIsNFTListed(false);
       } else {
         console.log("An error has occured. Please try again. ", result);
+        setMintPopUpProccesing(false);
+        // setIsListed(false);
+        setBlockchainError(true);
+        setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
       }
     } catch (error) {
       console.log(error);
+      setListingBlockchainError(error.message);
+      setMintPopUpProccesing(false);
+      setBlockchainError(true);
     }
-    setisUnlist(true);
+    // setisUnlist(true);
   };
 
   const handleUnlistClosed = () => {
@@ -482,31 +494,6 @@ const NftSingle = () => {
   const [isNFTOwner, setIsNFTOwner] = useState(false);
 
   useEffect(() => {
-    // const handleListings = async (
-    //   Contractinstance,
-    //   collectionAddress,
-    //   tokenId
-    // ) => {
-    //   const result = await Contractinstance.methods
-    //     .getListing(accounts[0])
-    //     .call({ from: accounts[0] });
-
-    //   for (let i = 0; i < result.length; i++) {
-    //     const element = result[i];
-    //     console.log("Je suis element", element);
-
-    //     if (
-    //       element.listingStauts === "1" &&
-    //       element.contractAddress === collectionAddress &&
-    //       element.tokenId === tokenId
-    //     ) {
-    //       setIsNFTListed(true);
-    //       console.log("change state");
-    //       return;
-    //     }
-    //   }
-    // };
-
     const init = async () => {
       // TODO: Ce useEffect est trigger quand la personne recharge la page car accounts se reset mais sera-t il
       // TODO: Remplacer 0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a par la string de l'adresse du contrat depuis le backend
@@ -721,7 +708,7 @@ const NftSingle = () => {
             setState={setIsListClicked}
             setState2={setBlockchainError}
             setState3={setIsListed}
-            setState4={setMintPopUpProccesing}
+            // setState4={setMintPopUpProccesing}
           >
             {isListed ? (
               <PopUpValidate
@@ -747,7 +734,10 @@ const NftSingle = () => {
         <>
           <Modal
             style={{ top: "20px", right: "20px" }}
-            setState={() => setIsUnlistClicked(false)}
+            setState={setIsUnlistClicked}
+            setState2={setBlockchainError}
+            setState3={setisUnlist}
+            // setState4={setMintPopUpProccesing}
           >
             {isUnlist ? (
               <PopUpValidate
@@ -757,7 +747,13 @@ const NftSingle = () => {
             ) : (
               <PopUpUnlistNFT
                 handlePopupUnlistNFT={handleUnlistPopup}
+                mintPopUpProccesing={mintPopUpProccesing}
+                blockchainError={blockchainError}
+                listingBlockchainError={listingBlockchainError}
                 handlePopupUnlistNFTClosed={handleUnlistClosed}
+                handleBlockchainListingErrorPreviousStepButtonClicked={
+                  handleListingErrorPreviousStepClick
+                }
               />
             )}
           </Modal>

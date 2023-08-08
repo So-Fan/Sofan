@@ -1,7 +1,13 @@
 import React from "react";
 import "./PopUpBlockchainError.css";
 import Button from "../Button/Button";
-const PopUpBlockchainError = ({ style, contractError, buttonText, handleButtonClick, buttonStyle }) => {
+const PopUpBlockchainError = ({
+  style,
+  contractError,
+  buttonText,
+  handleButtonClick,
+  buttonStyle,
+}) => {
   // Override
 
   const PopUpBlockchainErrorSVG =
@@ -10,8 +16,12 @@ const PopUpBlockchainError = ({ style, contractError, buttonText, handleButtonCl
     <div className="popupblockchainerror-component" style={style}>
       <img src={PopUpBlockchainErrorSVG} alt="Error" />
       <span>An error has occured, please try again</span>
-      <span>Reason provided by the contract : {contractError}</span>
-      <Button text={buttonText} onClick={handleButtonClick} style={buttonStyle} />
+      <span>Reason provided : {contractError}</span>
+      <Button
+        text={buttonText}
+        onClick={handleButtonClick}
+        style={buttonStyle}
+      />
     </div>
   );
 };
