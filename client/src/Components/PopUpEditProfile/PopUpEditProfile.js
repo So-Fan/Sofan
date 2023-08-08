@@ -75,7 +75,10 @@ const PopUpEditProfile = ({
     URL.revokeObjectURL(profile);
     setProfile();
   }, [profile]);
-
+  function handlePreviousStepCroppClick() {
+    setCurrentlyCroppingAvatar(false);
+    setCurrentlyCroppingBanner(false);
+  }
   // const updateBannerPath = async (uid, path) => {
   //   try {
   //     const q = query(collection(db, "users"), where("id", "==", uid));
@@ -259,7 +262,7 @@ const PopUpEditProfile = ({
       setTimeout(() => {
         setLoadingEditProfile(false);
         if (errorEditProfile) {
-          setErrorEditProfile(true)
+          setErrorEditProfile(true);
         } else {
           setValidationEditProfile(true);
         }
@@ -305,6 +308,16 @@ const PopUpEditProfile = ({
       ) : currentlyCroppingAvatar ? (
         <>
           <div className="popup-edit-profile-cropeasy-container">
+            <img
+            onClick={handlePreviousStepCroppClick}
+              className="popup-edit-profile-cropeasy-previous-step"
+              src={previousArrow}
+              alt="ETAP PRECEDENTE BOUTON"
+            />
+            <div className="popup-edit-profile-cropeasy-title">
+              Redimensionnez votre image
+            </div>
+
             <div className="popup-edit-profile-cropeasy-container-wrap">
               <Cropper
                 image={previewProfile}
@@ -316,9 +329,15 @@ const PopUpEditProfile = ({
                 onCropChange={setCrop}
                 onZoomChange={setZoom}
                 onCropComplete={onCropComplete}
+                style={{
+                  containerStyle: { borderRadius: "10px" },
+                  mediaStyle: { width: "80%" },
+                  cropAreaStyle: {},
+                }}
+                // classes={{containerClassName : "popup-edit-profile-cursor-container", mediaClassName: "", cropAreaClassName: ""}}
               />
             </div>
-            <div className="controls">
+            <div className="popup-edit-profile-cropeasy-input-and-button-container">
               <input
                 type="range"
                 value={zoom}
@@ -326,6 +345,7 @@ const PopUpEditProfile = ({
                 max={3}
                 step={0.1}
                 aria-labelledby="Zoom"
+                ù
                 onChange={(e) => {
                   setZoom(e.target.value);
                 }}
@@ -351,14 +371,16 @@ const PopUpEditProfile = ({
             </p>
           </div>
         </>
-      ) : errorEditProfile ? <>
-      <div className="popup-edit-profile-error-container">
-        <img src={redCross} alt="LOGO ERREUR" />
+      ) : errorEditProfile ? (
+        <>
+          <div className="popup-edit-profile-error-container">
+            <img src={redCross} alt="LOGO ERREUR" />
             <p className="popup-edit-profile-error-message">
               Oops quelque chose s'est mal passé. Veuillez réessayer...
             </p>
-      </div>
-      </> : (
+          </div>
+        </>
+      ) : (
         <div className="popup-edit-profile-wrap">
           <div
             // onClick={handleEditProfilePreviousStep}
@@ -460,7 +482,7 @@ const PopUpEditProfile = ({
           <button
             onClick={handleSaveProfile}
             className="popup-edit-profile-next-button"
-            disabled={bioText.length < 50 || bioText.length > 250} 
+            disabled={bioText.length < 50 || bioText.length > 250}
           >
             Sauvegarder les changements
           </button>
