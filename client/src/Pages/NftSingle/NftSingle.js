@@ -441,6 +441,7 @@ const NftSingle = () => {
   };
 
   const [isUnlistClicked, setIsUnlistClicked] = useState();
+
   const handleUnlistButton = () => {
     setIsUnlistClicked(true);
   };
@@ -448,6 +449,28 @@ const NftSingle = () => {
   const [isUnlist, setisUnlist] = useState();
 
   const handleUnlistPopup = async () => {
+    console.log("Bouton Annuler cliqué");
+    const artifacts = require("../../contracts/Sofan.json");
+    const { abi } = artifacts;
+    const web3MarketplaceInstance = new web3.eth.Contract(
+      abi,
+      marketplaceAddress
+    );
+    console.log(web3MarketplaceInstance);
+    console.log(typeof(contract._address));
+    try {
+
+      // param 1: index
+      const result = await web3MarketplaceInstance.methods.cancelListing(1).send({from: accounts[0]});
+      if (result.status) {
+        console.log("Successfully list token");
+
+      } else {
+        console.log("An error has occured. Please try again. ", result);
+      }
+    } catch (error) {
+      console.log(error);
+    }
     setisUnlist(true);
   };
 
@@ -455,8 +478,9 @@ const NftSingle = () => {
     setisUnlist(false);
     setIsUnlistClicked(false);
   };
-const [isNFTListed, setIsNFTListed] = useState(false)
-const [isNFTOwner, setIsNFTOwner] = useState(false)
+const [isNFTListed, setIsNFTListed] = useState(true)
+const [isNFTOwner, setIsNFTOwner] = useState(true)
+// TODO: Detecter si owner 
   return (
     <>
       <section className="nft-single-collection-page-container">
