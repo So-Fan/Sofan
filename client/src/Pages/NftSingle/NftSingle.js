@@ -482,58 +482,176 @@ const NftSingle = () => {
   const [isNFTOwner, setIsNFTOwner] = useState(false);
 
   useEffect(() => {
-    // Charger données  Backend
-    const handleListings = async (
-      Contractinstance,
-      collectionAddress,
-      tokenId
-    ) => {
-      const result = await Contractinstance.methods
-        .getListing(accounts[0])
-        .call({ from: accounts[0] });
+    // const handleListings = async (
+    //   Contractinstance,
+    //   collectionAddress,
+    //   tokenId
+    // ) => {
+    //   const result = await Contractinstance.methods
+    //     .getListing(accounts[0])
+    //     .call({ from: accounts[0] });
 
-      for (let i = 0; i < result.length; i++) {
-        const element = result[i];
-        console.log("Je suis element", element);
+    //   for (let i = 0; i < result.length; i++) {
+    //     const element = result[i];
+    //     console.log("Je suis element", element);
 
-        if (
-          element.listingStauts === "1" &&
-          element.contractAddress === collectionAddress &&
-          element.tokenId === tokenId
-        ) {
-          setIsNFTListed(true);
-          console.log("change state");
-          return;
-        }
-      }
-    };
-    // TODO: Remplacer 0xd423DCBd697164e282717009044312fDBC6C04f0 par la string du Wallet enregistré dans le backend
-    if (accounts) {
-      if (accounts[0] === "0xd423DCBd697164e282717009044312fDBC6C04f0") {
-        setIsNFTOwner(true);
-        const artifacts = require("../../contracts/Sofan.json");
-        const { abi } = artifacts;
-        const web3MarketplaceInstance = new web3.eth.Contract(
-          abi,
-          marketplaceAddress
+    //     if (
+    //       element.listingStauts === "1" &&
+    //       element.contractAddress === collectionAddress &&
+    //       element.tokenId === tokenId
+    //     ) {
+    //       setIsNFTListed(true);
+    //       console.log("change state");
+    //       return;
+    //     }
+    //   }
+    // };
+
+    const init = async () => {
+      // TODO: Remplacer 0xd423DCBd697164e282717009044312fDBC6C04f0 par la string du Wallet enregistré dans le backend
+      // TODO: Remplacer 0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a par la string de l'adresse du contrat depuis le backend
+      // TODO: Remplacer "0" par la string du tokenId du contrat depuis le backend
+      const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+      const tokenId = "0";
+      if (accounts) {
+        let nftContractArtifact = require("../../contracts/SofanNftTemplate.json");
+        // const nftContractAbi = nftContractArtifact.abi;
+        const { abi: nftContractAbi } = nftContractArtifact;
+        const nftContractInstance = new web3.eth.Contract(
+          nftContractAbi,
+          collectionAddress
         );
+        let currentNftOwnerFromBlockchain;
         try {
-          // TODO: Remplacer 0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a par la string de l'adresse du contrat depuis le backend
-          // TODO: Remplacer "0" par la string du tokenId du contrat depuis le backend
-          const collectionAddress =
-            "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
-          const tokenId = "1";
-          handleListings(web3MarketplaceInstance, collectionAddress, tokenId);
-          setContractAddress(collectionAddress);
+          const result = await nftContractInstance.methods
+            .ownerOf(parseInt(tokenId))
+            .call({ from: accounts[0] });
+          currentNftOwnerFromBlockchain = result;
+          console.log("je suis le resultat", result);
+          console.log(currentNftOwnerFromBlockchain);
         } catch (error) {
           console.log(error);
         }
-      } else {
-        setIsNFTOwner(false);
-        console.log("je suis ici");
+        if (accounts[0] === currentNftOwnerFromBlockchain) {
+          console.log("je suis rentré");
+          setIsNFTOwner(true);
+          const artifacts = require("../../contracts/Sofan.json");
+          const { abi } = artifacts;
+          const web3MarketplaceInstance = new web3.eth.Contract(
+            abi,
+            marketplaceAddress
+          );
+          try {
+            // handleListings(web3MarketplaceInstance, collectionAddress, tokenId);
+            const result = await web3MarketplaceInstance.methods
+              .getListing(accounts[0])
+              .call({ from: accounts[0] });
+
+            for (let i = 0; i < result.length; i++) {
+              const element = result[i];
+              console.log("Je suis element", element);
+
+              if (
+                element.listingStauts === "1" &&
+                element.contractAddress === collectionAddress &&
+                element.tokenId === tokenId
+              ) {
+                setIsNFTListed(true);
+                console.log("change state");
+                return;
+              }
+            }
+            console.log("before");
+            setContractAddress(collectionAddress);
+            console.log("after");
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          setIsNFTOwner(false);
+          console.log("je suis ici");
+        }
       }
-    }
+    };
+
+    init();
   }, [accounts]);
+
+  // useEffect(() => {
+  //   // Charger données  Backend
+  //   let currentNftOwnerFromBlockchain;
+
+  //   const handleListings = async (
+  //     Contractinstance,
+  //     collectionAddress,
+  //     tokenId
+  //   ) => {
+  //     const result = await Contractinstance.methods
+  //       .getListing(accounts[0])
+  //       .call({ from: accounts[0] });
+
+  //     for (let i = 0; i < result.length; i++) {
+  //       const element = result[i];
+  //       console.log("Je suis element", element);
+
+  //       if (
+  //         element.listingStauts === "1" &&
+  //         element.contractAddress === collectionAddress &&
+  //         element.tokenId === tokenId
+  //       ) {
+  //         setIsNFTListed(true);
+  //         console.log("change state");
+  //         return;
+  //       }
+  //     }
+  //   };
+  //   const handleOwner = async (nftContractInstance, tokenId) => {
+  //     const result = await nftContractInstance.methods
+  //       .ownerOf(parseInt(tokenId))
+  //       .call({ from: accounts[0] });
+  //     console.log("je suis le resultat", typeof result);
+  //     currentNftOwnerFromBlockchain = result;
+  //   };
+  //   // TODO: Remplacer 0xd423DCBd697164e282717009044312fDBC6C04f0 par la string du Wallet enregistré dans le backend
+  //   // TODO: Remplacer 0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a par la string de l'adresse du contrat depuis le backend
+  //   // TODO: Remplacer "0" par la string du tokenId du contrat depuis le backend
+  //   const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+  //   const tokenId = "0";
+  //   if (accounts) {
+  //     let nftContractArtifact = require("../../contracts/SofanNftTemplate.json");
+  //     // const nftContractAbi = nftContractArtifact.abi;
+  //     const { abi: nftContractAbi } = nftContractArtifact;
+  //     const nftContractInstance = new web3.eth.Contract(
+  //       nftContractAbi,
+  //       collectionAddress
+  //     );
+
+  //     try {
+  //       handleOwner(nftContractInstance, tokenId);
+  //       console.log(currentNftOwnerFromBlockchain);
+  //       if (accounts[0] === currentNftOwnerFromBlockchain) {
+  //         setIsNFTOwner(true);
+  //         const artifacts = require("../../contracts/Sofan.json");
+  //         const { abi } = artifacts;
+  //         const web3MarketplaceInstance = new web3.eth.Contract(
+  //           abi,
+  //           marketplaceAddress
+  //         );
+  //         try {
+  //           handleListings(web3MarketplaceInstance, collectionAddress, tokenId);
+  //           setContractAddress(collectionAddress);
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       } else {
+  //         setIsNFTOwner(false);
+  //         console.log("je suis ici");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }, [accounts]);
   return (
     <>
       <section className="nft-single-collection-page-container">
