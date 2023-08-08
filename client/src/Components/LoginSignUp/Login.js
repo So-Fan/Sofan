@@ -2,84 +2,95 @@ import React, { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, db } from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../../UserContext";
-
+import UserContext from "../../contexts/UserContext/UserContext";
 
 // mathéo
-import { WALLET_ADAPTERS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import {
+  WALLET_ADAPTERS,
+  CHAIN_NAMESPACES,
+  SafeEventEmitterProvider,
+} from "@web3auth/base";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
 // fin mathéo
-import { getFirestore, getDocs, query, where, collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  getFirestore,
+  getDocs,
+  query,
+  where,
+  collection,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
 
-function Login({web3auth, setWeb3auth}) {
+function Login({ web3auth, setWeb3auth }) {
   const { setLoggedInUser } = useContext(UserContext);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-// debut matheo 
+  // debut matheo
 
   // debut matheo
   const {
     state: { accounts },
     setWeb3authProvider,
   } = useEth();
-// fin matheo
+  // fin matheo
 
-useEffect(() => {
-  const init = async () => {
-    try {
-      let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
-      const chainConfig = {
-        chainNamespace: CHAIN_NAMESPACES.EIP155,
-        chainId: "0x5", // Please use 0x1 for Mainnet
-        rpcTarget: "https://rpc.ankr.com/eth_goerli",
-        displayName: "Goerli Testnet",
-        blockExplorer: "https://goerli.etherscan.io/",
-        ticker: "ETH",
-        tickerName: "Ethereum",
-      };
-      const web3auth = new Web3AuthNoModal({
-        clientId,
-        chainConfig,
-        web3AuthNetwork: "cyan",
-        useCoreKitKey: false,
-      });
+  useEffect(() => {
+    const init = async () => {
+      try {
+        let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
+        const chainConfig = {
+          chainNamespace: CHAIN_NAMESPACES.EIP155,
+          chainId: "0x5", // Please use 0x1 for Mainnet
+          rpcTarget: "https://rpc.ankr.com/eth_goerli",
+          displayName: "Goerli Testnet",
+          blockExplorer: "https://goerli.etherscan.io/",
+          ticker: "ETH",
+          tickerName: "Ethereum",
+        };
+        const web3auth = new Web3AuthNoModal({
+          clientId,
+          chainConfig,
+          web3AuthNetwork: "cyan",
+          useCoreKitKey: false,
+        });
 
-      const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfig } });
+        const privateKeyProvider = new EthereumPrivateKeyProvider({
+          config: { chainConfig },
+        });
 
-      const openloginAdapter = new OpenloginAdapter({
-        privateKeyProvider,
-        adapterSettings: {
-          uxMode: "popup",
-          loginConfig: {
-            jwt: {
-              verifier: "sofantest2",
-              typeOfLogin: "jwt",
-              clientId,
+        const openloginAdapter = new OpenloginAdapter({
+          privateKeyProvider,
+          adapterSettings: {
+            uxMode: "popup",
+            loginConfig: {
+              jwt: {
+                verifier: "sofantest2",
+                typeOfLogin: "jwt",
+                clientId,
+              },
             },
           },
-        },
-      });
-      web3auth.configureAdapter(openloginAdapter);
-      setWeb3auth(web3auth);
+        });
+        web3auth.configureAdapter(openloginAdapter);
+        setWeb3auth(web3auth);
 
-      await web3auth.init();
-      setWeb3authProvider(web3auth.provider);
+        await web3auth.init();
+        setWeb3authProvider(web3auth.provider);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-      
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  init();
-}, []);
-// fin matheo
+    init();
+  }, []);
+  // fin matheo
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -87,27 +98,27 @@ useEffect(() => {
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-        
-        const q = query(collection(db, 'users'), where('id', '==', user.uid));
+
+        const q = query(collection(db, "users"), where("id", "==", user.uid));
         const querySnapshot = await getDocs(q);
-    
+
         if (!querySnapshot.empty) {
           querySnapshot.forEach((doc) => {
             const userInfo = doc.data();
 
             const AllUserInfo = {
               ...user,
-              ...userInfo
-            }
+              ...userInfo,
+            };
             setLoggedInUser(AllUserInfo);
             // Do something with the user info
           });
         } else {
           // Handle case when no user is found with the given ID
-          console.log('No user found');
+          console.log("No user found");
         }
         setError(false);
-        
+
         navigate("/");
       })
       .catch((error) => {
@@ -125,21 +136,20 @@ useEffect(() => {
     console.log("Google Logged");
     try {
       const res = await signInWithPopup(auth, googleProvider);
-      
 
-      const q = query(collection(db, 'users'), where('id', '==', res.user.uid));
+      const q = query(collection(db, "users"), where("id", "==", res.user.uid));
       const querySnapshot = await getDocs(q);
-  
+
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           const userInfo = doc.data();
           const AllUserInfo = {
             ...res.user,
-            ...userInfo
-          }
+            ...userInfo,
+          };
           setLoggedInUser(AllUserInfo);
         });
-        return res
+        return res;
       } else {
         // Handle case when no user is found with the given ID
         const createdAt = new Date();
@@ -164,17 +174,17 @@ useEffect(() => {
 
         await addDoc(usersRef, newUser);
 
-        console.log('No user found');
-        return res
+        console.log("No user found");
+        return res;
       }
       // navigate("/");
       // console.log(res);
       // console.log(res.user.getIdToken(true));
       // idToken = res.user.getIdToken(true);
-      } catch (err) {
-        console.error(err);
-        throw err;
-      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   };
 
   const googleLogin = async (e) => {
@@ -207,7 +217,7 @@ useEffect(() => {
   };
 
   const handleAppleSignIn = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log("Apple Logged");
   };
 

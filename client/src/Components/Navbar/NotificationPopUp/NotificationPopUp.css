@@ -62,7 +62,7 @@
 }
 .notificationpopup-container-notification-wrap {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
   border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
   text-decoration: none;
