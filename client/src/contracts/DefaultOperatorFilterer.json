@@ -40,7 +40,7 @@
     "absolutePath": "project:/contracts/DefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        6980
+        6708
       ],
       "DefaultOperatorFilterer": [
         3988
@@ -96,7 +96,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 3989,
-        "sourceUnit": 6981,
+        "sourceUnit": 6709,
         "src": "119:64:16",
         "symbolAliases": [
           {
@@ -105,7 +105,7 @@
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6980,
+              "referencedDeclaration": 6708,
               "src": "127:27:16",
               "typeDescriptions": {}
             },
@@ -176,7 +176,7 @@
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6980,
+                    "referencedDeclaration": 6708,
                     "src": "814:27:16",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -251,7 +251,7 @@
     "absolutePath": "project:/contracts/DefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        6980
+        6708
       ],
       "DefaultOperatorFilterer": [
         3988
@@ -307,7 +307,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 3989,
-        "sourceUnit": 6981,
+        "sourceUnit": 6709,
         "src": "119:64:16",
         "symbolAliases": [
           {
@@ -316,7 +316,7 @@
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6980,
+              "referencedDeclaration": 6708,
               "src": "127:27:16",
               "typeDescriptions": {}
             },
@@ -387,7 +387,7 @@
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 6980,
+                    "referencedDeclaration": 6708,
                     "src": "814:27:16",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -464,7 +464,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-08-01T01:00:11.172Z",
+  "updatedAt": "2023-08-06T01:58:35.430Z",
   "devdoc": {
     "details": "Please note that if your token contract does not provide an owner with EIP-173, it must provide         administration methods on the contract itself to interact with the registry otherwise the subscription         will be locked to the options set during construction.",
     "errors": {
