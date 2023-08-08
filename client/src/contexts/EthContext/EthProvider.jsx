@@ -2,7 +2,7 @@ import React, { useReducer, useCallback, useEffect, useContext } from "react";
 import { useState } from "react";
 import Web3 from "web3";
 import EthContext from "./EthContext";
-import UserContext from "../../UserContext";
+import UserContext from "../UserContext/UserContext";
 import { reducer, actions, initialState } from "./state";
 import {
   WALLET_ADAPTERS,
