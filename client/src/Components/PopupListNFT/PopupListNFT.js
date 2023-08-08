@@ -3,8 +3,9 @@ import Button from "../Button/Button";
 import "./PopupListNFT.css";
 import MintPopUpProcessing from "../MintPopUp/MintPopUpProcessing/MintPopUpProcessing";
 import MintPopUpStatus from "../MintPopUp/MintPopUpStatus/MintPopUpStatus";
+import PopUpBlockchainError from "../PopUpBlockchainError/PopUpBlockchainError";
 
-const PopupListNFT = ({ handlePopupListNFT, mintPopUpProccesing }) => {
+const PopupListNFT = ({ handlePopupListNFT, mintPopUpProccesing, blockchainError, listingBlockchainError, handleBlockchainListingErrorPreviousStepButtonClicked }) => {
   const arrowBottom =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/arrow_bottom.svg?alt=media&token=f2e7b3b5-65da-4edc-9758-9aeda489d2dc";
   const nftImage =
@@ -14,11 +15,17 @@ const PopupListNFT = ({ handlePopupListNFT, mintPopUpProccesing }) => {
     
   return (
     <>
-      <div className="popuplistnft-component">
     {
       mintPopUpProccesing ? 
-      <MintPopUpStatus statusProcessing={mintPopUpProccesing} statusMint={false} />
+      <div className="popuplistnft-mintpopupprocessing-wrap">
+      <MintPopUpProcessing styleImage={{right: "119.5px"}} styleP={{right: "63px"}} styleDiv={{bottom: "21px", right:"185px"}} styleP2={{right: "118.5px"}} />
+      </div>
       :
+      blockchainError ?
+      <PopUpBlockchainError buttonText={"Back to Listing"} contractError={listingBlockchainError} handleButtonClick={handleBlockchainListingErrorPreviousStepButtonClicked} />
+      :
+
+      <div className="popuplistnft-component">
       <div className="popuplistnft-container">
         <span>Mettre en vente</span>
         <div className="popuplistnft-container-nft-wrap">
@@ -69,8 +76,8 @@ const PopupListNFT = ({ handlePopupListNFT, mintPopUpProccesing }) => {
           customMediaQueries={".button-component:active{transform: scale(0.92)}"}
         />
       </div>
-    }
     </div>
+    }
     </>
   );
 };

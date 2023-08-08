@@ -17,6 +17,15 @@ const Modal = (props) => {
         if(props.setState){
       props.setState(false);
         }
+        if(props.setState2){
+          props.setState2(false)
+        }
+        if(props.setState3){
+          props.setState3(false)
+        }
+        if(props.setState4){
+          props.setState4(false)
+        }
         // retirer le scroll lock lorsque le modal n'est plus la
         document.querySelector("body").classList.remove("scroll-lock");
     } 

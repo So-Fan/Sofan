@@ -130,7 +130,7 @@ function EthProvider({ children, setWeb3auth }) {
     // si déja co
     // ajouter condition si déja sign in
     window.ethereum.request({ method: "eth_accounts" }).then((res) => {
-      console.log(res.length);
+      // console.log(res.length);
       if (res.length != 0) {
         const tryInit = async () => {
           const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");

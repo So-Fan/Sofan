@@ -37,6 +37,7 @@ const NftSingle = () => {
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
   const [nftIdApi, setNftIdApi] = useState();
   const [mintPopUpProccesing, setMintPopUpProccesing] = useState(false)
+  const [blockchainError, setBlockchainError] = useState()
   const {
     setContractAddress,
     state: { contract, accounts, web3 },
@@ -391,7 +392,7 @@ const NftSingle = () => {
   // }
 
   const [isListed, setIsListed] = useState();
-  const [isListBlockchainError, setIsListBlockchainError] = useState(false)
+  const [listingBlockchainError, setListingBlockchainError] = useState()
 
   const handleListingPopup = async () => {
     console.log("Bouton Vendre cliqué");
@@ -411,14 +412,18 @@ const NftSingle = () => {
         console.log("Successfully list token");
         setMintPopUpProccesing(false)
         setIsListed(true);
+        setIsNFTListed(true)
       } else {
         console.log("An error has occured. Please try again. ", result);
-        // setMintPopUpProccesing(false)
+        setMintPopUpProccesing(false)
         // setIsListed(false);
+        setBlockchainError(true)
       }
     } catch (error) {
       console.log(error);
-      // setMintPopUpProccesing(false)
+      setListingBlockchainError(error.message)
+      setMintPopUpProccesing(false)
+      setBlockchainError(true)
         // setIsListed(false);
     }
 
@@ -427,6 +432,12 @@ const NftSingle = () => {
   const handleListClosed = () => {
     setIsListed(false);
     setIsListClicked(false);
+  };
+
+  const handleListingErrorPreviousStepClick = () => {
+    setBlockchainError(false)
+    // setIsListed(false);
+    // setIsListClicked(false);
   };
 
   const [isUnlistClicked, setIsUnlistClicked] = useState();
@@ -444,6 +455,8 @@ const NftSingle = () => {
     setisUnlist(false);
     setIsUnlistClicked(false);
   };
+const [isNFTListed, setIsNFTListed] = useState(false)
+const [isNFTOwner, setIsNFTOwner] = useState(false)
   return (
     <>
       <section className="nft-single-collection-page-container">
@@ -476,8 +489,8 @@ const NftSingle = () => {
           handleBuyNftButtonClick={handleBuyNftButtonClick} // Buy Now
           handleBidNftButtonClick={handleBidNftButtonClick} // place a bid
           handleListNftButton={handleListNftButton} // list
-          isNFTOwner={true} // comparer wallet de la session utilisateur et propriétaire du nft
-          isNFTListed={false} // check listing status on contract
+          isNFTOwner={isNFTOwner} // comparer wallet de la session utilisateur et propriétaire du nft
+          isNFTListed={isNFTListed} // check listing status on contract
           handleUnlistButton={handleUnlistButton} // unlist
         />
         <div className="nft-single-collection-page-left-container">
@@ -585,7 +598,10 @@ const NftSingle = () => {
         <>
           <Modal
             style={{ top: "20px", right: "20px" }}
-            setState={() => setIsListClicked(false)}
+            setState={setIsListClicked}
+            setState2={setBlockchainError}
+            setState3={setIsListed}
+            setState4={setMintPopUpProccesing}
           >
             {isListed ? (
               <PopUpValidate
@@ -594,7 +610,7 @@ const NftSingle = () => {
                 onClick={handleListClosed}
               />
             ) : (
-              <PopupListNFT handlePopupListNFT={handleListingPopup} mintPopUpProccesing={mintPopUpProccesing} />
+              <PopupListNFT handlePopupListNFT={handleListingPopup} mintPopUpProccesing={mintPopUpProccesing} blockchainError={blockchainError} listingBlockchainError={listingBlockchainError} handleBlockchainListingErrorPreviousStepButtonClicked={handleListingErrorPreviousStepClick} />
             )}
           </Modal>
         </>
