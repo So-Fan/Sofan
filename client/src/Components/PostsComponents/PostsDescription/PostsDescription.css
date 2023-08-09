@@ -12,6 +12,7 @@ flex-wrap: wrap;
   word-break: break-all;
   flex-wrap: wrap;
   padding-top: 20px;
+  padding-bottom: 10px;
   }
 
   @media (max-width: 1350px) {
