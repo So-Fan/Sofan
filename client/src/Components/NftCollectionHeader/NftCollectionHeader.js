@@ -41,7 +41,8 @@ function NftCollectionHeader({
   isNFTOwner,
   isNFTListed,
   handleListNftButton,
-  handleUnlistButton
+  handleUnlistButton,
+  isBuyListingButtonDisabled
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
 
@@ -247,10 +248,10 @@ function NftCollectionHeader({
                   :
                   <>
                   <div
-                    className="nft-collection-header-buy-button"
+                    className={isBuyListingButtonDisabled ? "nft-collection-header-buy-button-disabled" : "nft-collection-header-buy-button"}
                     onClick={handleBuyNftButtonClick}
                     >
-                    Acheter le NFT
+                    {isBuyListingButtonDisabled ? "Not listed" : "Acheter le NFT"}
                   </div>
                   <div
                     className="nft-collection-header-bid-button"
