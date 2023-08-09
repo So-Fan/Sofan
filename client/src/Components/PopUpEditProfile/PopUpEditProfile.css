@@ -215,6 +215,7 @@
 .popup-edit-profile-next-button:hover {
   background-color: #f7c520 !important;
   transition-duration: 300ms;
+  /* past */
 }
 .popup-edit-profile-next-button:active {
   transform: scale(0.85);
