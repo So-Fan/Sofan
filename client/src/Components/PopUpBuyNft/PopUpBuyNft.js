@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "./PopUpBuyNft.css";
 import Cross from "../../Assets/Image/cross.svg";
 import Button from "../Button/Button";
-import useEth from "../../contexts/EthContext/useEth";
-import Web3 from "web3";
 const PopUpBuyNft = () => {
   // API CoinGecko
   const [ethPrice, setEthPrice] = useState("");
@@ -24,45 +22,9 @@ const PopUpBuyNft = () => {
       priceinEth: "1.0582",
     },
   };
-  let ethFeesPriceConverted = (0.01123 * ethPrice).toLocaleString("fr-FR", {
-    maximumFractionDigits: 1,
-  });
-  let ethPayPriceConverted = (1.06713 * ethPrice).toLocaleString("fr-FR", {
-    maximumFractionDigits: 1,
-  });
-  let ethPriceConvertedBeforeTax = (
-    data.nft.priceinEth * ethPrice
-  ).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
-
-  const {
-    state: { web3, accounts, contract },
-    marketplaceAddress,
-  } = useEth();
-
-  const handleBuyListingClick = async () => {
-    console.log("proceed to payment clicked");
-    const artifacts = require("../../contracts/Sofan.json");
-    const { abi } = artifacts;
-    const web3MarketplaceInstance = new web3.eth.Contract(
-      abi,
-      marketplaceAddress
-    );
-    try {
-      // param 1: address of nft seller 2: index of listing
-      // load seller when pop up loading
-      const result = await web3MarketplaceInstance.methods
-        .buyListing("0xd423DCBd697164e282717009044312fDBC6C04f0", 0)
-        .send({ from: accounts[0] });
-      if (result.status) {
-        console.log("buy listing success");
-      } else {
-        console.log("buy listing error", result);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  let ethFeesPriceConverted = (0.01123 * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+  let ethPayPriceConverted = (1.06713 * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+  let ethPriceConvertedBeforeTax = (data.nft.priceinEth * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
   return (
     <div className="popupbuynft-component">
       <div className="popubuynft-title-container">
@@ -98,12 +60,9 @@ const PopUpBuyNft = () => {
           </div>
         </div>
       </div>
-      <Button
-        onClick={handleBuyListingClick}
-        hover="button-hover-props"
-        text="Procéder au paiement"
-        style={popUpBuyNftPaymentButton}
-      />
+      <Button 
+      hover="button-hover-props"
+      text="Procéder au paiement" style={popUpBuyNftPaymentButton} />
     </div>
   );
 };
@@ -121,5 +80,5 @@ const popUpBuyNftPaymentButton = {
   fontWeight: "700",
   fontFamily: "Lufga",
   marginTop: "30px",
-  marginBottom: "30px",
+  marginBottom: "30px"
 };

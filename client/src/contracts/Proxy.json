@@ -5420,7 +5420,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-08-04T13:01:14.019Z",
+  "updatedAt": "2023-07-31T23:51:33.588Z",
   "devdoc": {
     "details": "Forked from https://github.com/zeppelinos/zos-lib/blob/8a16ef3ad17ec7430e3a9d2b5e3f39b8204f8c8d/contracts/upgradeability/Proxy.sol Modifications: 1. Reformat and conform to Solidity 0.6 syntax (5/13/20)",
     "kind": "dev",
