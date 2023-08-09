@@ -225,8 +225,8 @@
 }
 
 .popup-edit-profile-cropeasy-container {
-  width: 480px;
-  height: 590px;
+  width: 460px;
+  height: 610px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -235,10 +235,16 @@
   border-radius: 20px;
   background-color: white;
 }
+.popup-edit-profile-cropeasy-cursor-container {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+
 .popup-edit-profile-cropeasy-previous-step {
   position: absolute;
-  top: 20px;
-  left: 15px;
+  top: 25px;
+  left: 7px;
   padding: 5px;
   cursor: pointer;
 }
@@ -270,17 +276,25 @@
 }
 .popup-edit-profile-cropeasy-input-and-button-container {
   width: 90%;
-  /* background-color: #f7c520; */
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   margin-top: 20px;
+}
+.popup-edit-profile-cropeasy-container input[type="range"] {
+  accent-color: #f7c520;
+  cursor: ew-resize;
+  width: 50%;
+  margin-bottom: 15px ;
 }
 .popup-edit-profile-cropeasy-input-and-button-container button {
   background-color: #f6d463;
   outline: none;
   border: none;
   border-radius: 10px;
-  width: 100%;
+  width: 90%;
   height: 46px;
   font-size: 20px;
   font-family: "britanica-heavy";

@@ -56,7 +56,10 @@ const PopUpEditProfile = ({
   const [loadingEditProfile, setLoadingEditProfile] = useState();
   const [validationEditProfile, setValidationEditProfile] = useState();
   const [errorEditProfile, setErrorEditProfile] = useState(false);
-
+  const [
+    isProfileEditPopupHasModifications,
+    setIsProfileEditPopupHasModifications,
+  ] = useState(false);
   useEffect(() => {
     if (!banner) return;
     // setCurrentlyCropping(true);
@@ -164,7 +167,7 @@ const PopUpEditProfile = ({
       console.log("File is not an image.");
     }
   };
-  console.log(allUserInfo);
+  // console.log(allUserInfo);
   const handleProfileImageInputChange = () => {
     // Access the selected file(s) using fileInputRef.current.files
     const file = profileInputPicRef.current.files[0];
@@ -271,6 +274,23 @@ const PopUpEditProfile = ({
   }, [loadingEditProfile]);
 
   // profilePicture={allUserInfo?.profile_avatar}
+  console.log(allUserInfo?.profile_avatar);
+  console.log(croppedAvatar);
+  useEffect(() => {
+    if (
+      // (bioText.length < 50 || bioText.length > 250) &&
+      croppedAvatar !== undefined ||
+      croppedBanner !== undefined
+    ) {
+      setIsProfileEditPopupHasModifications(true);
+    } else {
+      setIsProfileEditPopupHasModifications(false);
+    }
+    if (bioTextLength > 50 && bioTextLength < 251) {
+      setIsProfileEditPopupHasModifications(true);
+    }
+  }, [bioText, croppedAvatar, croppedBanner]);
+
   return (
     <>
       {currentlyCroppingBanner ? (
@@ -287,7 +307,7 @@ const PopUpEditProfile = ({
                 onCropComplete={onCropComplete}
               />
             </div>
-            <div className="controls">
+            <div className="popup-edit-profile-cropeasy-input-and-button-container">
               <input
                 type="range"
                 value={zoom}
@@ -300,7 +320,7 @@ const PopUpEditProfile = ({
                 }}
                 className="zoom-range"
               />
-              <button onClick={showCroppedBanner}>Show results</button>
+              <button onClick={showCroppedBanner}>Valider</button>
             </div>
             {/* <div className="result"><img src={croppedBanner} alt="" /></div> */}
           </div>
@@ -309,7 +329,7 @@ const PopUpEditProfile = ({
         <>
           <div className="popup-edit-profile-cropeasy-container">
             <img
-            onClick={handlePreviousStepCroppClick}
+              onClick={handlePreviousStepCroppClick}
               className="popup-edit-profile-cropeasy-previous-step"
               src={previousArrow}
               alt="ETAP PRECEDENTE BOUTON"
@@ -351,7 +371,7 @@ const PopUpEditProfile = ({
                 }}
                 className="zoom-range"
               />
-              <button onClick={showCroppedAvatar}>Show results</button>
+              <button onClick={showCroppedAvatar}>Valider</button>
             </div>
             {/* <div className="result"><img src={croppedAvatar} alt="" /></div> */}
           </div>
@@ -482,7 +502,7 @@ const PopUpEditProfile = ({
           <button
             onClick={handleSaveProfile}
             className="popup-edit-profile-next-button"
-            disabled={bioText.length < 50 || bioText.length > 250}
+            disabled={isProfileEditPopupHasModifications === false}
           >
             Sauvegarder les changements
           </button>
