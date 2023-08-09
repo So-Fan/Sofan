@@ -3,7 +3,7 @@ import "./NavProfile.css";
 import { Link } from "react-router-dom";
 import { auth } from "../../../Configs/firebase";
 import { signOut } from "firebase/auth";
-import UserContext from "../../../UserContext";
+import UserContext from "../../../contexts/UserContext/UserContext";
 import useEth from "../../../contexts/EthContext/useEth";
 import { useNavigate } from "react-router-dom";
 

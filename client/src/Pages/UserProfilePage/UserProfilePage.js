@@ -19,6 +19,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
@@ -54,6 +55,7 @@ function UserProfilePage({
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
   const [allUserInfo, setAllUserInfo] = useState(null);
   const { id } = useParams();
+  const { loggedInUser } = useUserCollection();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -446,16 +448,16 @@ function UserProfilePage({
   }, []);
 
   //----------------------------
-  const handlePixelScrolledUserProfilePage = () => {
-    setPixelScrolledUserProfilePage(window.scrollY);
-  };
-  useEffect(() => {
-    window.addEventListener(
-      "scroll",
-      handlePixelScrolledUserProfilePage,
-      false
-    );
-  }, []);
+  // const handlePixelScrolledUserProfilePage = () => {
+  //   setPixelScrolledUserProfilePage(window.scrollY);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener(
+  //     "scroll",
+  //     handlePixelScrolledUserProfilePage,
+  //     false
+  //   );
+  // }, []);
   //----------------------------
   useEffect(() => {
     const hash = window.location.hash;
@@ -622,12 +624,12 @@ function UserProfilePage({
                   allUserInfo={allUserInfo}
                 />
               </div>
-              <div
+              {loggedInUser?.id == id && <div
                 onClick={handleSettingsUserPageClick}
                 className="user-content-settings-button"
               >
                 <img src={settingsLogo} alt="" />
-              </div>
+              </div>}
             </div>
             <div className="userprofile-description-component">
               <UserProfileDescription userDescription={allUserInfo?.bio} />

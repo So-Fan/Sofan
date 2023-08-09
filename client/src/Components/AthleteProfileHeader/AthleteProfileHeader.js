@@ -6,6 +6,8 @@ import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
 import Button from "../Button/Button";
+import { useParams } from "react-router-dom";
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
 function AthleteProfileHeader({
   userInfo,
   fansCounterApi,
@@ -19,6 +21,8 @@ function AthleteProfileHeader({
   handleSettingsAthletePageClick
 }) {
   const [isStoredUser, setIsStoredUser] = useState(false);
+  const { id } = useParams();
+  const { loggedInUser } = useUserCollection();
   // userInfo.followers = 300000; // fake data
   // Faire afficher le nombre dans un format K
   function convertNumberToDisplayFormat(number) {
@@ -119,9 +123,9 @@ function AthleteProfileHeader({
                 hover="button-hover-props"
                 active="button-active-props"
               />
-              <div onClick={handleSettingsAthletePageClick} className="athleteprofileheader-content-settings-button">
+              {id == loggedInUser?.id && <div onClick={handleSettingsAthletePageClick} className="athleteprofileheader-content-settings-button">
                 <img src={settingsLogo} alt="" />
-              </div>
+              </div>}
             </div>
           </div>
           <div className="athleteprofileheader-content-container-description">
