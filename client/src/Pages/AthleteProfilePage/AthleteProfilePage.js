@@ -22,6 +22,7 @@ import { useParams } from "react-router-dom";
 import { getStorage, ref, getMetadata } from "firebase/storage";
 import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
 
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -56,6 +57,7 @@ const AthleteProfilePage = ({
   const [ethPrice, setEthPrice] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const { id } = useParams();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -103,12 +105,18 @@ const AthleteProfilePage = ({
 
   // getFloorprice for Bored Ape Yacht Club:
   async function getCollectionFloorPrice() {
-    const alchemy = new Alchemy(settings);
-    const collectionFloorPriceOne = await alchemy.nft.getFloorPrice(
-      ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"]
-      // BAYC collection
-    );
-    setCollectionFloorPriceApiData(collectionFloorPriceOne.openSea.floorPrice);
+
+    try {
+      const alchemy = new Alchemy(settings);
+      const collectionFloorPriceOne = await alchemy.nft.getFloorPrice(
+        ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"]
+        // BAYC collection
+      );
+      setCollectionFloorPriceApiData(collectionFloorPriceOne.openSea.floorPrice);
+      
+    } catch (err) {
+      console.error(err);
+    }
   }
   // console.log(collectionFloorPriceApiData);
   // get Nfts from Owner and Contracts
@@ -154,11 +162,15 @@ const AthleteProfilePage = ({
     setFansCounterApi(owners?.owners?.length);
   }
   useEffect(() => {
-    getNft();
-    getCollectionFloorPrice();
-    getNftsForOwner();
-    getTransferData();
-    getOwnersForContract();
+    try {
+      getNft();
+      getCollectionFloorPrice();
+      getNftsForOwner();
+      getTransferData();
+      getOwnersForContract();
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
   // API Coingecko --> Get ETH price
@@ -701,16 +713,16 @@ const AthleteProfilePage = ({
   // Récupérer la valeur de pixel scrollé pour ensuite faire afficher le modal au bon endroit
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-  const handlePixelScrolledAthleteProfilePage = () => {
-    setPixelScrolledAthleteProfilePage(window.scrollY);
-  };
-  useEffect(() => {
-    window.addEventListener(
-      "scroll",
-      handlePixelScrolledAthleteProfilePage,
-      false
-    );
-  }, []);
+  // const handlePixelScrolledAthleteProfilePage = () => {
+  //   setPixelScrolledAthleteProfilePage(window.scrollY);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener(
+  //     "scroll",
+  //     handlePixelScrolledAthleteProfilePage,
+  //     false
+  //   );
+  // }, []);
   // ============================================================
   // smooth redirection fonction
   const athletesNftsAvailable = useRef(null);
@@ -739,7 +751,10 @@ const AthleteProfilePage = ({
       return (
         <AthleteProfileFeed
           athleteProfilePageStyling={true}
-          dataPosts={dataConcat?.athletes}
+          //dataPosts={dataConcat?.athletes}
+          athleteUserId={id}
+          athleteName={userInfo?.display_name}
+          athleteAvatar={userInfo?.profile_avatar}
         />
       );
     } else if (isAthleteProfileSubMenuClicked[5] === true) {

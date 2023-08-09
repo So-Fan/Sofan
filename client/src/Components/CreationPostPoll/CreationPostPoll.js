@@ -93,7 +93,6 @@ const CreationPostPoll = ({ userId }) => {
           postType,
           pollData,
           likes: [],
-          comments: [],
         };
       } else {
         const postType = "post";
@@ -106,7 +105,6 @@ const CreationPostPoll = ({ userId }) => {
           imagePath: "",
           postType,
           likes: [],
-          comments: [],
         };
       }
 

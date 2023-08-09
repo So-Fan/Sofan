@@ -7882,7 +7882,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-07-31T23:51:33.584Z",
+  "updatedAt": "2023-08-04T13:01:14.005Z",
   "devdoc": {
     "details": "This contract proxies FiatToken calls and enables FiatToken upgrades",
     "events": {
