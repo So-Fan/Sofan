@@ -2,7 +2,7 @@ import React, { useReducer, useCallback, useEffect, useContext } from "react";
 import { useState } from "react";
 import Web3 from "web3";
 import EthContext from "./EthContext";
-import UserContext from "../UserContext/UserContext";
+import UserContext from "../../UserContext";
 import { reducer, actions, initialState } from "./state";
 import {
   WALLET_ADAPTERS,
@@ -25,7 +25,6 @@ function EthProvider({ children, setWeb3auth }) {
   const [isWeb3authConnectClicked, setIsWeb3authConnectClicked] =
     useState(false);
   const [contractAddress, setContractAddress] = useState(null); // declencher useEffect quand contractAddress change
-  const marketplaceAddress = "0x7082cc65E582DE32A7caD11fDC396b02490b97DD";
 
   useEffect(() => {
     if (localStorage.getItem("Web3Auth-cachedAdapter")) {
@@ -129,40 +128,35 @@ function EthProvider({ children, setWeb3auth }) {
   useEffect(() => {
     // si déja co
     // ajouter condition si déja sign in
-    window.ethereum
-      .request({ method: "eth_accounts" })
-      .then((res) => {
-        // console.log(res.length);
-        if (res.length != 0) {
-          const tryInit = async () => {
-            const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
-            let address, contract, accounts, networkID;
-            const artifact = require("../../contracts/SofanNftTemplate.json");
-            const { abi } = artifact;
+    window.ethereum.request({ method: "eth_accounts" }).then((res) => {
+      console.log(res.length);
+      if (res.length != 0) {
+        const tryInit = async () => {
+          const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+          let address, contract, accounts, networkID;
+          const artifact = require("../../contracts/SofanNftTemplate.json");
+          const { abi } = artifact;
 
-            try {
-              accounts = await web3.eth.getAccounts();
-              networkID = await web3.eth.net.getId();
+          try {
+            accounts = await web3.eth.getAccounts();
+            networkID = await web3.eth.net.getId();
 
-              setIsInit(true);
-              address = "0x000000000000000000000000000000000000dEaD";
-              contract = new web3.eth.Contract(abi, address);
-              setContractAddress(address);
-              console.log("je suis déjà connecté", accounts);
-            } catch (err) {
-              console.error(err);
-            }
-            dispatch({
-              type: actions.init,
-              data: { artifact, web3, accounts, networkID, contract },
-            });
-          };
-          tryInit();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+            setIsInit(true);
+            address = "0x000000000000000000000000000000000000dEaD";
+            contract = new web3.eth.Contract(abi, address);
+            setContractAddress(address);
+            console.log("je suis déjà connecté", accounts);
+          } catch (err) {
+            console.error(err);
+          }
+          dispatch({
+            type: actions.init,
+            data: { artifact, web3, accounts, networkID, contract },
+          });
+        };
+        tryInit();
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -242,7 +236,6 @@ function EthProvider({ children, setWeb3auth }) {
         isInit,
         setContractAddress,
         contractAddress,
-        marketplaceAddress,
       }}
     >
       {children}

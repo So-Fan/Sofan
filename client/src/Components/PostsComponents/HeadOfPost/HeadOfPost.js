@@ -92,6 +92,7 @@ function HeadOfPost({
           </div>
           <div className={`age-publication ${agePublicationPollPost}`}>
             {postDate}
+            {/* {postDateType} */}
           </div>
         </div>
       </div>

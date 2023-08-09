@@ -4,7 +4,7 @@ import "./SofanFactory.sol";
 import "./SofanNftTemplate.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-// import "./Proxy.sol";
+import "./Proxy.sol";
 contract Sofan is Ownable, ReentrancyGuard {
     address sofanMultiSig = 0xd423DCBd697164e282717009044312fDBC6C04f0;
     address sofanFactory = 0x752B58Fc75A746470AE398beD781A4A7825dd3b0;
@@ -36,13 +36,6 @@ contract Sofan is Ownable, ReentrancyGuard {
     mapping(address => Listing[]) public ListingMapping;
     mapping(address => bool) public isAthlete;
     
-    //    // delete after test
-    // constructor() payable {
-    //     string memory _t = "a"; string memory _r = "a"; string memory _e = "a"; address[] memory _p = new address[](1); uint256[] memory _s = new uint256[](1);
-    //     _p[0] = 0xd423DCBd697164e282717009044312fDBC6C04f0; _s[0] = 1;
-    //     deployCollection(_t, _r, _e, 0, 10, 0, true, 1000000, _p, _s, 250);
-    // }
-
     
     function getCollectionCreatedByWallet(address _walletAddress) external view returns(address[] memory){
         address[] memory temp = new address[](CollectionCreatedByWallet[_walletAddress].length);
@@ -217,6 +210,11 @@ contract Sofan is Ownable, ReentrancyGuard {
         sofanCollection.push(collectionAddress);
     }
 
-  
+     // delete after test
+    constructor() payable {
+        string memory _t = "a"; string memory _r = "a"; string memory _e = "a"; address[] memory _p = new address[](1); uint256[] memory _s = new uint256[](1);
+        _p[0] = 0xd423DCBd697164e282717009044312fDBC6C04f0; _s[0] = 1;
+        deployCollection(_t, _r, _e, 0, 10, 0, true, 1000000, _p, _s, 250);
+    }
     
 }
