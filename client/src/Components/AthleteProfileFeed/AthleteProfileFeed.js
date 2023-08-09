@@ -84,7 +84,15 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId }) {
   // Tri des posts par ordre croissant de postDate
   // A trier par type de date (month, hours ...)
   //dataPosts?.sort((a, b) => a.postDate - b.postDate);
-
+  function handleDisplayPremiumContent(i) {
+    if (isUserFan === false && premiumPosts[i]?.visibility === false) {
+      return true;
+    } else if (isUserFan === true && premiumPosts[i]?.visibility === false) {
+      return false;
+    } else if (premiumPosts[i]?.visibility === true) {
+      return false;
+    }
+  }
   return (
     <section className="athlete-profile-feed-container">
       <div className="athlete-profie-feed-free-container">
@@ -114,6 +122,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId }) {
               postPicture={post.imagePath}
               postCreatorId={post.userId}
               loggedInUser={loggedInUser}
+              polldata={post.pollData}
               //setIsPostClicked={setIsPostClicked}
               //lockPremiumContent={handleDisplayPremiumContent(index)}
               //handleDropdownPostFeedClick={handleDropdownPostFeedClick}
@@ -149,6 +158,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId }) {
               postPicture={post.imagePath}
               postCreatorId={post.userId}
               loggedInUser={loggedInUser}
+              lockPremiumContent={handleDisplayPremiumContent(index)}
               //setIsPostClicked={setIsPostClicked}
               //lockPremiumContent={handleDisplayPremiumContent(index)}
               //handleDropdownPostFeedClick={handleDropdownPostFeedClick}
