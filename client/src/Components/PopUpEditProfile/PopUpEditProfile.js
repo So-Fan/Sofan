@@ -365,7 +365,6 @@ const PopUpEditProfile = ({
                 max={3}
                 step={0.1}
                 aria-labelledby="Zoom"
-                ù
                 onChange={(e) => {
                   setZoom(e.target.value);
                 }}
