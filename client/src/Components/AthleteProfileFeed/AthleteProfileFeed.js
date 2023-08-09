@@ -114,6 +114,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId }) {
               postPicture={post.imagePath}
               postCreatorId={post.userId}
               loggedInUser={loggedInUser}
+              polldata={post.pollData}
               //setIsPostClicked={setIsPostClicked}
               //lockPremiumContent={handleDisplayPremiumContent(index)}
               //handleDropdownPostFeedClick={handleDropdownPostFeedClick}
