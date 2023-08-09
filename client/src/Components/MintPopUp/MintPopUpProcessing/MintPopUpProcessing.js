@@ -3,6 +3,7 @@ import "./MintPopUpProcessing.css";
 import explorePicture from "../../../Assets/Image/explorepicture.svg";
 function MintPopUpProcessing({
   isListing,
+  isBuying,
   styleImage,
   styleP,
   styleDiv,
@@ -22,6 +23,8 @@ function MintPopUpProcessing({
         <p className="mint-pop-up-processing-text-title" style={styleP}>
           {isListing
             ? "Annulation en cours..."
+            : isBuying
+            ? "Votre achat est en cours..."
             : "Your purchase is processing..."}
         </p>
         <div

@@ -345,6 +345,19 @@
 .nft-collection-header-buy-button:active {
   transform: scale(0.75) !important;
 }
+.nft-collection-header-buy-button-disabled{
+  width: 100%;
+  height: 100%;
+  max-width: 519px;
+  max-height: 65px;
+  background: #EDEDED;
+  font-family: "Britanica-Heavy";
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
 .nft-collection-header-bid-button {
   width: 100%;
   height: 100%;

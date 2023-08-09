@@ -4,7 +4,15 @@ import Cross from "../../Assets/Image/cross.svg";
 import Button from "../Button/Button";
 import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
-const PopUpBuyNft = () => {
+import PopUpBlockchainError from "../PopUpBlockchainError/PopUpBlockchainError";
+import MintPopUpProcessing from "../MintPopUp/MintPopUpProcessing/MintPopUpProcessing";
+const PopUpBuyNft = ({
+  handleBuyListingPopup,
+  mintPopUpProccesing,
+  blockchainError,
+  listingBlockchainError,
+  handleBlockchainListingErrorPreviousStepButtonClicked,
+}) => {
   // API CoinGecko
   const [ethPrice, setEthPrice] = useState("");
   // API Coingecko --> Get ETH price
@@ -34,77 +42,70 @@ const PopUpBuyNft = () => {
     data.nft.priceinEth * ethPrice
   ).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
 
-  const {
-    state: { web3, accounts, contract },
-    marketplaceAddress,
-  } = useEth();
-
-  const handleBuyListingClick = async () => {
-    console.log("proceed to payment clicked");
-    const artifacts = require("../../contracts/Sofan.json");
-    const { abi } = artifacts;
-    const web3MarketplaceInstance = new web3.eth.Contract(
-      abi,
-      marketplaceAddress
-    );
-    try {
-      // param 1: address of nft seller 2: index of listing
-      // load seller when pop up loading
-      const result = await web3MarketplaceInstance.methods
-        .buyListing("0xd423DCBd697164e282717009044312fDBC6C04f0", 0)
-        .send({ from: accounts[0] });
-      if (result.status) {
-        console.log("buy listing success");
-      } else {
-        console.log("buy listing error", result);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <div className="popupbuynft-component">
-      <div className="popubuynft-title-container">
-        <span>Buy NFT</span>
-        {/* <img src={Cross} alt="cross" /> */}
-      </div>
-      <div className="popubuynft-nftinfo-container">
-        <div className="popubuynft-nftinfo-container-left">
-          <img src={data.nft.img} alt="nft displayed" />
-          <div className="popubuynft-nftinfo-container-left-info">
-            <span>{data.nft.title}</span>
-            <span>{data.nft.athlete}</span>
+    <>
+      {mintPopUpProccesing ? (
+        <div className="popuplistnft-mintpopupprocessing-wrap">
+          <MintPopUpProcessing
+            isBuying={true}
+            styleImage={{ right: "119.5px" }}
+            styleP={{ right: "63px" }}
+            styleDiv={{ bottom: "21px", right: "185px" }}
+            styleP2={{ right: "118.5px" }}
+          />
+        </div>
+      ) : blockchainError ? (
+        <PopUpBlockchainError
+          buttonText={"Back to Buy"}
+          contractError={listingBlockchainError}
+          handleButtonClick={
+            handleBlockchainListingErrorPreviousStepButtonClicked
+          }
+        />
+      ) : (
+        <div className="popupbuynft-component">
+          <div className="popubuynft-title-container">
+            <span>Buy NFT</span>
+            {/* <img src={Cross} alt="cross" /> */}
           </div>
-        </div>
-        <div className="popubuynft-nftinfo-container-right">
-          <span> {ethPriceConvertedBeforeTax} €</span>
-          <span>{data.nft.priceinEth} ETH</span>
-        </div>
-      </div>
-      <div className="popupbuynft-fees-container">
-        <div className="popupbuynft-fees-container-servicefee-wrap">
-          <span>Service fee 5%</span>
-          <div>
-            <span>0.01123 ETH</span>
-            <span> {ethFeesPriceConverted} €</span>
+          <div className="popubuynft-nftinfo-container">
+            <div className="popubuynft-nftinfo-container-left">
+              <img src={data.nft.img} alt="nft displayed" />
+              <div className="popubuynft-nftinfo-container-left-info">
+                <span>{data.nft.title}</span>
+                <span>{data.nft.athlete}</span>
+              </div>
+            </div>
+            <div className="popubuynft-nftinfo-container-right">
+              <span> {ethPriceConvertedBeforeTax} €</span>
+              <span>{data.nft.priceinEth} ETH</span>
+            </div>
           </div>
-        </div>
-        <div className="popupbuynft-fees-container-servicefee-wrap">
-          <span>You will pay</span>
-          <div>
-            <span>1.06713 ETH</span>
-            <span> {ethPayPriceConverted} €</span>
+          <div className="popupbuynft-fees-container">
+            <div className="popupbuynft-fees-container-servicefee-wrap">
+              <span>Service fee 5%</span>
+              <div>
+                <span>0.01123 ETH</span>
+                <span> {ethFeesPriceConverted} €</span>
+              </div>
+            </div>
+            <div className="popupbuynft-fees-container-servicefee-wrap">
+              <span>You will pay</span>
+              <div>
+                <span>1.06713 ETH</span>
+                <span> {ethPayPriceConverted} €</span>
+              </div>
+            </div>
           </div>
+          <Button
+            onClick={handleBuyListingPopup}
+            hover="button-hover-props"
+            text="Procéder au paiement"
+            style={popUpBuyNftPaymentButton}
+          />
         </div>
-      </div>
-      <Button
-        onClick={handleBuyListingClick}
-        hover="button-hover-props"
-        text="Procéder au paiement"
-        style={popUpBuyNftPaymentButton}
-      />
-    </div>
+      )}
+    </>
   );
 };
 

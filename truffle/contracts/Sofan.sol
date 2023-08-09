@@ -146,6 +146,7 @@ contract Sofan is Ownable, ReentrancyGuard {
         uint256 _tokenId,
         uint256 _price
     ) external  nonReentrant {
+        // Require pour empecher de list 2 fois le meme token si le ListingStatus d'un listing du meme token est 'Listed' 
         require(msg.sender == SofanNftTemplate(_contract).ownerOf(_tokenId), "You're not the owner !");
         require(_price > 0, "Cannot list for 0 !");
         Listing memory listing = Listing(_contract, _tokenId, _price, msg.sender, ListingStatus.Listed);
