@@ -58,6 +58,15 @@
   margin-bottom: 20px;
   width: 460px;
   height: 71px;
+  position: relative;
+}
+.popupsignin-input-display-button {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  right: 20px;
+  bottom: 13px;
+  cursor: pointer;
 }
 .popupsignin-input-mail-error {
   color: red;
@@ -133,6 +142,7 @@
   background-color: transparent;
   margin-bottom: 40px;
   cursor: pointer;
+  user-select: none;
   font-size: 16px;
 }
 .popupsignin-loading-mail-signin-animation {
@@ -173,6 +183,7 @@
   height: 56px;
   padding-left: 35px;
   cursor: pointer;
+  user-select: none;
 }
 .popupsignin-google-error {
   color: red;
