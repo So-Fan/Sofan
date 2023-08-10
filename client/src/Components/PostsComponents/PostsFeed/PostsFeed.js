@@ -82,7 +82,7 @@ function PostsFeed({
     } 
   }
   // console.log(lockPremiumContent)
-
+console.log(postDate)
   return (
     <>
       <div
@@ -177,7 +177,17 @@ function PostsFeed({
           color="white"
         >
           {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
-          <FullPagePost postType={singlePostData.postType === "normal"} />
+          <FullPagePost 
+          id={id}
+          postType={postType}
+          postDate={postDate}
+          postDateType={postDateType}
+          setPostStates={setPostStates}
+          postName={postName}
+          
+              postCreatorId={postCreatorId}
+          // postType={singlePostData.postType === "normal"} 
+          />
         </Modal>
       )}
     </>

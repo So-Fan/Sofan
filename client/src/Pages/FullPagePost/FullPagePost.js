@@ -8,7 +8,7 @@ import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/Ad
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 import { Link } from "react-router-dom";
 
-function FullPagePost({ postType }) {
+function FullPagePost({ id, postType, postDate, setPostStates, postName, postCreatorId, postDateType}) {
   const image = [
     {
       img: "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
@@ -39,7 +39,12 @@ function FullPagePost({ postType }) {
               >
                 <HeadOfPost
                   dropDownMenuSize="dropdown-button-point-size-M"
-                  postType={postType}
+                  // postType={postType}
+                  // postDate={postDate}
+                  // setPostStates={setPostStates}
+                  // postName={postName}
+                  // postCreatorId={postCreatorId}
+                  // postDateType={postDateType}
                 />
               </div>
               <div
