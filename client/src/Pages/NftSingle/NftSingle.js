@@ -38,7 +38,8 @@ const NftSingle = () => {
   const [nftIdApi, setNftIdApi] = useState();
   const [mintPopUpProccesing, setMintPopUpProccesing] = useState(false);
   const [blockchainError, setBlockchainError] = useState();
-  const [listingPrice, setListingPrice] = useState()
+  const [listingPrice, setListingPrice] = useState();
+  const [bidPrice, setBidPrice] = useState("");
   const {
     setContractAddress,
     state: { contract, accounts, web3 },
@@ -390,12 +391,13 @@ const NftSingle = () => {
     let contractUSDCInstance = new web3.eth.Contract(usdcAbi, addressUSDC);
     try {
       setMintPopUpProccesing(true);
-      const result = await contractUSDCInstance.methods.approve(marketplaceAddress, parseInt(listingPrice))
-      .send({ from: accounts[0] });
+      const result = await contractUSDCInstance.methods
+        .approve(marketplaceAddress, parseInt(listingPrice))
+        .send({ from: accounts[0] });
 
-      if(result.status){
+      if (result.status) {
         console.log("Approve successfuly");
-      }else{
+      } else {
         console.log("failed to approve", result);
         setMintPopUpProccesing(false);
         // setIsListed(false);
@@ -411,7 +413,7 @@ const NftSingle = () => {
       return;
     }
 
-    console.log('after approve');
+    console.log("after approve");
 
     const artifacts = require("../../contracts/Sofan.json");
     const { abi } = artifacts;
@@ -420,7 +422,6 @@ const NftSingle = () => {
       marketplaceAddress
     );
     try {
-
       // param 1: address of nft seller 2: index of listing
       // load seller when pop up loading
       const result = await web3MarketplaceInstance.methods
@@ -431,7 +432,7 @@ const NftSingle = () => {
         setMintPopUpProccesing(false);
         setIsListingBuyed(true);
         setIsNFTListed(false);
-        setIsNFTOwner(true)
+        setIsNFTOwner(true);
       } else {
         console.log("buy listing error", result);
         setMintPopUpProccesing(false);
@@ -452,9 +453,100 @@ const NftSingle = () => {
     setIsListingBuyed(false);
   };
 
+  // START BID ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  const [isBidPlaced, setIsBidPlaced] = useState();
+
   function handleBidNftButtonClick() {
     setIsBidNftButtonClicked(true);
   }
+
+  // permet de n'accepter que les chiffres, les virgules et les points et le limiter à 18 décimales
+  const handleBidPriceChange = (event) => {
+    const inputValue = event.target.value;
+    const regex = /^[0-9]*(,|\.?[0-9]{0,6})?$/;
+
+    var tempBidPrice;
+    if (regex.test(inputValue)) {
+      tempBidPrice = inputValue.replace(",", ".");
+      // console.log("replace , by .", tempBidPrice);
+      setBidPrice(tempBidPrice); // remplace la virgule par un point
+    } else if (
+      inputValue.slice(-1) === "." &&
+      inputValue.indexOf(".") === inputValue.length - 1
+    ) {
+      tempBidPrice = inputValue;
+      // console.log("replace by exact inputValue", tempBidPrice);
+      setBidPrice(tempBidPrice); // permet l'ajout d'un seul point
+    }
+    console.log(
+      "tempBidPrice",
+      tempBidPrice?.indexOf("."),
+      " tempBidPrice",
+      tempBidPrice,
+      " slice ",
+      tempBidPrice.slice(1, tempBidPrice.length).concat("0")
+    );
+  };
+
+  const handlePlaceBidPopup = async () => {
+    console.log("proceed to place a BID clicked");
+
+    // Quand USDC
+    var tempBidPrice;
+    let tempDecimal = "000000000000000000";
+    if (!bidPrice) {
+      return; // afficher message veuillez mettre un prix > 0
+    } else if (bidPrice.indexOf(".") === -1) {
+      tempBidPrice = `${bidPrice}${tempDecimal}`;
+    } else if (bidPrice.indexOf(".") === 0) {
+      tempBidPrice = bidPrice.slice(1, bidPrice.length); // ajouter le bon nombre de 0
+      // tempBidPrice = tempBidPrice.le
+    }
+    // if (tempBidPrice?.indexOf(".") == -1) {
+    //   setBidPrice(tempBidPrice);
+    // } else if (tempBidPrice?.indexOf(".") == 0) {
+    //   setBidPrice("0.");
+    // }
+
+    const artifact = require("../../Pages/Test/USDC.json");
+    const { abi: usdcAbi } = artifact;
+    // TODO: Call Sofan marketplace to get the addressUSDC
+    let addressUSDC = "0x07865c6E87B9F70255377e024ace6630C1Eaa37F";
+    let contractUSDCInstance = new web3.eth.Contract(usdcAbi, addressUSDC);
+    // let tempBidPrice;
+
+    try {
+      setMintPopUpProccesing(true);
+      const result = await contractUSDCInstance.methods
+        .approve(marketplaceAddress, parseInt(bidPrice))
+        .send({ from: accounts[0] });
+
+      if (result.status) {
+        console.log("Approve successfuly");
+      } else {
+        console.log("failed to approve", result);
+        setMintPopUpProccesing(false);
+        // setIsListed(false);
+        setBlockchainError(true);
+        setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      setListingBlockchainError(error.message);
+      setMintPopUpProccesing(false);
+      setBlockchainError(true);
+      return;
+    }
+  };
+
+  const handlePlaceBidClosed = () => {
+    setIsBidNftButtonClicked(false);
+    setIsBidPlaced(false);
+  };
+
+  // END BID ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   const [isListClicked, setIsListClicked] = useState();
   const handleListNftButton = () => {
@@ -651,7 +743,7 @@ const NftSingle = () => {
                   element.contractAddress === collectionAddress &&
                   element.tokenId === tokenId
                 ) {
-                  setListingPrice(element.price)
+                  setListingPrice(element.price);
                   setIsBuyListingButtonDisabled(false);
                   console.log("change state");
                   break;
@@ -824,10 +916,30 @@ const NftSingle = () => {
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsBidNftButtonClicked}
+          setState2={setBlockchainError}
+          setState3={setIsBidPlaced}
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "30px", right: "26px" }}
         >
-          <PopUpPlaceBid />
+          {isBidPlaced ? (
+            <PopUpValidate
+              text={"Félicitations ! Votre offre a bien été prise en compte"}
+              customWidth={"251px"}
+              onClick={handlePlaceBidClosed}
+            />
+          ) : (
+            <PopUpPlaceBid
+              handlePlaceBidPopup={handlePlaceBidPopup}
+              mintPopUpProccesing={mintPopUpProccesing}
+              blockchainError={blockchainError}
+              listingBlockchainError={listingBlockchainError}
+              handleBlockchainListingErrorPreviousStepButtonClicked={
+                handleListingErrorPreviousStepClick
+              }
+              bidPrice={bidPrice}
+              handleBidPriceChange={handleBidPriceChange}
+            />
+          )}
         </Modal>
       )}
       {isListClicked && (
