@@ -2,21 +2,21 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import Modal from "../Modal/Modal";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "../LoginSignupPopUp/SetupProfile/CanvasUtils";
-import {
-  db,
-  storage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "../../Configs/firebase";
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+// import {
+//   db,
+//   storage,
+//   ref,
+//   uploadBytes,
+//   getDownloadURL,
+// } from "../../Configs/firebase";
+// import {
+//   collection,
+//   addDoc,
+//   updateDoc,
+//   query,
+//   where,
+//   getDocs,
+// } from "firebase/firestore";
 import previousArrow from "../../Assets/Image/arrow-previous.svg";
 import Img from "../../Assets/Image/img.svg";
 import "./PopUpEditProfile.css";
@@ -417,7 +417,7 @@ const PopUpEditProfile = ({
                   <img
                     src={allUserInfo?.profile_banner}
                     className="popup-edit-profile-profile-pic"
-                    alt=""
+                    alt="Profile banner"
                   />
                 </>
               )}
