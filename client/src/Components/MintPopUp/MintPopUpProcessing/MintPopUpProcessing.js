@@ -4,6 +4,7 @@ import explorePicture from "../../../Assets/Image/explorepicture.svg";
 function MintPopUpProcessing({
   isListing,
   isBuying,
+  isBid,
   styleImage,
   styleP,
   styleDiv,
@@ -25,6 +26,8 @@ function MintPopUpProcessing({
             ? "Annulation en cours..."
             : isBuying
             ? "Votre achat est en cours..."
+            : isBid
+            ? "Placement de l'offre en cours..."
             : "Your purchase is processing..."}
         </p>
         <div

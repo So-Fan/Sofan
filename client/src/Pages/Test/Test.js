@@ -3,13 +3,14 @@ import "./Test.css";
 import PopUpBlockchainError from "../../Components/PopUpBlockchainError/PopUpBlockchainError";
 import Modal from "../../Components/Modal/Modal";
 const Test = () => {
- 
-
   return (
     <>
-    <Modal style={{ top: "20px", right: "20px" }}>
-      <PopUpBlockchainError contractError={"You're not the owner"} buttonText={"Back to listing"} />
-    </Modal>
+      <input
+        type="number"
+        name=""
+        id=""
+        style={{ position: "absolute", top: "250px" }}
+      />
     </>
   );
 };

@@ -3,9 +3,17 @@ import "./PopUpPlaceBid.css";
 import Cross from "../../Assets/Image/cross.svg";
 import Button from "../Button/Button";
 import Arrow from "../../Assets/Image/arrow_bottom.svg";
-const PopUpPlaceBid = () => {
-  const [price, setPrice] = useState("");
-
+import MintPopUpProcessing from "../MintPopUp/MintPopUpProcessing/MintPopUpProcessing";
+import PopUpBlockchainError from "../PopUpBlockchainError/PopUpBlockchainError";
+const PopUpPlaceBid = ({
+  handlePlaceBidPopup,
+  mintPopUpProccesing,
+  blockchainError,
+  listingBlockchainError,
+  handleBlockchainListingErrorPreviousStepButtonClicked,
+  bidPrice,
+  handleBidPriceChange,
+}) => {
   // API CoinGecko
   const [ethPrice, setEthPrice] = useState("");
   // API Coingecko --> Get ETH price
@@ -17,19 +25,7 @@ const PopUpPlaceBid = () => {
       .then((data) => setEthPrice(data.ethereum.eur))
       .catch((error) => console.log(error));
   }, []);
-  // permet de n'accepter que les chiffres, les virgules et les points et le limiter à 18 décimales
-  const handlePriceChange = (event) => {
-    const inputValue = event.target.value;
-    const regex = /^[0-9]*(,|\.?[0-9]{0,18})?$/;
-  
-    if (regex.test(inputValue)) {
-      setPrice(inputValue.replace(",", ".")); // remplace la virgule par un point
-    } else if (inputValue === "") {
-      setPrice(""); // permet la suppression complète de la valeur
-    } else if (inputValue.slice(-1) === "." && inputValue.indexOf(".") === inputValue.length - 1) {
-      setPrice(inputValue); // permet l'ajout d'un seul point
-    }
-  };
+
   const data = {
     nft: {
       img: "https://i.imgur.com/e1wX6tG.png",
@@ -47,58 +43,90 @@ const PopUpPlaceBid = () => {
   };
 
   return (
-    <div className="popupplacebid-component">
-      <div className="popupplacebid-title-container">
-        <span>Placer une enchère</span>
-        {/* <img src={Cross} alt="cross" /> */}
-      </div>
-      <div className="popupplacebid-nftinfo-container">
-        <div className="popupplacebid-nftinfo-container-left">
-          <img src={data.nft.img} alt="nft displayed" />
-          <div className="popupplacebid-nftinfo-container-left-info">
-            <span>{data.nft.title}</span>
-            <span>{data.nft.athlete}</span>
-          </div>
+    <>
+      {mintPopUpProccesing ? (
+        <div className="popuplistnft-mintpopupprocessing-wrap">
+          <MintPopUpProcessing
+            isBid={true}
+            styleImage={{ right: "119.5px" }}
+            styleP={{ right: "25px" }}
+            styleDiv={{ bottom: "21px", right: "185px" }}
+            styleP2={{ right: "118.5px" }}
+          />
         </div>
-        <div className="popupplacebid-nftinfo-container-right">
-          <span>€ 1267.53</span>
-          <span> {data.nft.priceinEth} ETH</span>
-        </div>
-      </div>
-      <div className="popupplacebid-globalinfo">
-        <div className="popupplacebid-globalinfo-container">
-          <div className="popupplacebid-globalinfo-wrap">
-            <span>Your sold</span>
-            <span>€ 10.151</span>
-            <span>{dataFromWallet.sold} ETH</span>
-          </div>
-          <div className="popupplacebid-globalinfo-wrap">
-            <span>Floor Price</span>
-            <span>€921.23</span>
-            <span>{dataFromOpensea.floorPrice} ETH</span>
-          </div>
-          <div className="popupplacebid-globalinfo-wrap">
-            <span>Best Offer</span>
-            <span>€715.11</span>
-            <span>{dataFromOpensea.bestOffer} ETH</span>
-          </div>
-        </div>
-      </div>
-      <div className="popupplacebid-line"></div>
-      <div className="popupplacebid-priceinput-wrap">
-        <input
-          type="text"
-          placeholder="Prix"
-          onChange={handlePriceChange}
-          value={price}
-          inputMode="decimal"
+      ) : blockchainError ? (
+        <PopUpBlockchainError
+          buttonText={"Back to NFT"}
+          contractError={listingBlockchainError}
+          handleButtonClick={
+            handleBlockchainListingErrorPreviousStepButtonClicked
+          }
         />
-        <div>
-          ETH <img src={Arrow} alt="arrow bottom" />
+      ) : (
+        <div className="popupplacebid-component">
+          <div className="popupplacebid-title-container">
+            <span>Placer une enchère</span>
+            {/* <img src={Cross} alt="cross" /> */}
+          </div>
+          <div className="popupplacebid-nftinfo-container">
+            <div className="popupplacebid-nftinfo-container-left">
+              <img src={data.nft.img} alt="nft displayed" />
+              <div className="popupplacebid-nftinfo-container-left-info">
+                <span>{data.nft.title}</span>
+                <span>{data.nft.athlete}</span>
+              </div>
+            </div>
+            <div className="popupplacebid-nftinfo-container-right">
+              <span>€ 1267.53</span>
+              <span> {data.nft.priceinEth} ETH</span>
+            </div>
+          </div>
+          <div className="popupplacebid-globalinfo">
+            <div className="popupplacebid-globalinfo-container">
+              <div className="popupplacebid-globalinfo-wrap">
+                <span>Your sold</span>
+                <span>€ 10.151</span>
+                <span>{dataFromWallet.sold} ETH</span>
+              </div>
+              <div className="popupplacebid-globalinfo-wrap">
+                <span>Floor Price</span>
+                <span>€921.23</span>
+                <span>{dataFromOpensea.floorPrice} ETH</span>
+              </div>
+              <div className="popupplacebid-globalinfo-wrap">
+                <span>Best Offer</span>
+                <span>€715.11</span>
+                <span>{dataFromOpensea.bestOffer} ETH</span>
+              </div>
+            </div>
+          </div>
+          <div className="popupplacebid-line"></div>
+          <div className="popupplacebid-priceinput-wrap">
+            <input
+              type="number"
+              placeholder="Prix"
+              onChange={handleBidPriceChange}
+              value={bidPrice}
+              inputMode="decimal"
+            />
+            <div>
+              ETH <img src={Arrow} alt="arrow bottom" />
+            </div>
+          </div>
+          {bidPrice ? (
+            <Button
+              onClick={handlePlaceBidPopup}
+              text="Faire mon offre"
+              style={popUpBuyNftPlaceBidButton}
+            />
+          ) : (
+            <div className="popupplacebid-button-disabled">
+              <span>Faire mon offre</span>
+            </div>
+          )}
         </div>
-      </div>
-      <Button text="Faire mon offre" style={popUpBuyNftPlaceBidButton} />
-    </div>
+      )}
+    </>
   );
 };
 
