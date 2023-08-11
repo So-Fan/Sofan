@@ -47,9 +47,9 @@ const PopUpPlaceBid = ({
       {mintPopUpProccesing ? (
         <div className="popuplistnft-mintpopupprocessing-wrap">
           <MintPopUpProcessing
-            isListing={true}
+            isBid={true}
             styleImage={{ right: "119.5px" }}
-            styleP={{ right: "63px" }}
+            styleP={{ right: "25px" }}
             styleDiv={{ bottom: "21px", right: "185px" }}
             styleP2={{ right: "118.5px" }}
           />
@@ -113,11 +113,17 @@ const PopUpPlaceBid = ({
               ETH <img src={Arrow} alt="arrow bottom" />
             </div>
           </div>
-          <Button
-            onClick={handlePlaceBidPopup}
-            text="Faire mon offre"
-            style={popUpBuyNftPlaceBidButton}
-          />
+          {bidPrice ? (
+            <Button
+              onClick={handlePlaceBidPopup}
+              text="Faire mon offre"
+              style={popUpBuyNftPlaceBidButton}
+            />
+          ) : (
+            <div className="popupplacebid-button-disabled">
+              <span>Faire mon offre</span>
+            </div>
+          )}
         </div>
       )}
     </>

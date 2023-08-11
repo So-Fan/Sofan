@@ -215,6 +215,7 @@ function NftCollectionHeader({
                         Prix
                       </span>
                       <span className="nft-collection-header-eth-price">
+                        {/* Handle ListingPrice correct display later */}
                         {listingPrice ? `${listingPrice} ` : "-- "} €
                       </span>
                       <span className="nft-collection-header-eur-price">

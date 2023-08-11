@@ -49,7 +49,7 @@ const PopUpBuyNft = ({
           <MintPopUpProcessing
             isBuying={true}
             styleImage={{ right: "119.5px" }}
-            styleP={{ right: "63px" }}
+            styleP={{ right: "25px" }}
             styleDiv={{ bottom: "21px", right: "185px" }}
             styleP2={{ right: "118.5px" }}
           />
