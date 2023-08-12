@@ -60,15 +60,14 @@ function HeadOfPost({
 
     fetchCreatorData();
   }, [postCreatorId]);
-
   const redirectToAthleteProfile = (postCreatorId) => {
     navigate(`/athleteprofile/${postCreatorData.id}`);
   };
-  postDate = formatDistanceToNow(postDate * 1000, {
-    locale: fr,
-    addSuffix: true,
-  });
-  postDate = postDate.replace("environ ", "");
+  // postDate = formatDistanceToNow(postDate * 1000, {
+  //   locale: fr,
+  //   addSuffix: true,
+  // });
+  // postDate = postDate.replace("environ ", "");
 
   return (
     <div className="publication-head-container">
@@ -91,7 +90,7 @@ function HeadOfPost({
             {postCreatorData ? postCreatorData.display_name : "Chargement..."}
           </div>
           <div className={`age-publication ${agePublicationPollPost}`}>
-            {postDate}
+            {/* {postDate} */}
           </div>
         </div>
       </div>

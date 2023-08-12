@@ -8,7 +8,7 @@ import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/Ad
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 import { Link } from "react-router-dom";
 
-function FullPagePost({ id, postType, postDate, setPostStates, postName, postCreatorId, postDateType}) {
+function FullPagePost({ id, postType, postDate, postPicture,setPostStates, postName, postCreatorId, postDateType}) {
   const image = [
     {
       img: "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
@@ -20,12 +20,12 @@ function FullPagePost({ id, postType, postDate, setPostStates, postName, postCre
     <>
       <div className="fullpagepost-container">
         <div className="post-container-fullpagepost">
-          {image[0]?.img && (
+          {postPicture && (
             <>
               <div className="media-fullpagepost">
                 <img
                   className="img-fullpagepost"
-                  src={image[0]?.img}
+                  src={postPicture}
                   alt="Post"
                 />
               </div>
@@ -38,24 +38,33 @@ function FullPagePost({ id, postType, postDate, setPostStates, postName, postCre
                 id="dropdown-medium"
               >
                 <HeadOfPost
+                  setPostStates={setPostStates}
+                  postName={postName}
+                  //
                   dropDownMenuSize="dropdown-button-point-size-M"
-                  // postType={postType}
-                  // postDate={postDate}
-                  // setPostStates={setPostStates}
-                  // postName={postName}
-                  // postCreatorId={postCreatorId}
-                  // postDateType={postDateType}
+                  headOfPostSizeLeft="publication-head-left-container-size-pollpost"
+                  headOfPostSizeRight="publication-head-right-container-pollpost"
+                  publicationTypeHeadOfPostPollPost="publication-type-pollpost"
+                  athleteNamePollPost="athlete-name-publication-pollpost"
+                  agePublicationPollPost="age-publication-pollpost"
+                  // handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+                  id={id}
+                  postCreatorId={postCreatorId}
+                  //
+                  postDate={postDate}
+                  postDateType={postDateType}
+                  postType={postType}
                 />
               </div>
               <div
                 className="headofpost-container-fullpagepost"
                 id="dropdown-small"
               >
-                <HeadOfPost dropDownMenuSize="dropdown-button-point-size-S" />
+                {/* <HeadOfPost dropDownMenuSize="dropdown-button-point-size-S" /> */}
               </div>
-              <PostsDescription postFeedDescription="post-feed-description-resize-fullpage" />
+              {/* <PostsDescription postFeedDescription="post-feed-description-resize-fullpage" /> */}
               <div className="likes-comments-counter-container-fullpagepost">
-                <LikesCommentsCounter likeButtonSize={"likeButton-S-size"} />
+                {/* <LikesCommentsCounter likeButtonSize={"likeButton-S-size"} /> */}
               </div>
               <div className="separation-line-fullpagepost"></div>
               <div className="comments-container-fullpagepost">

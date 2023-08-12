@@ -30,7 +30,7 @@ function PostsComments() {
             </div>
           </div>
           <div className="like-posts-comments">
-            <LikeButton likeButtonSize="likeButton-S-size" />
+            {/* <LikeButton likeButtonSize="likeButton-S-size" /> */}
           </div>
         </div>
       </>

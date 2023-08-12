@@ -33,7 +33,7 @@ const Modal = (props) => {
   useEffect(() => {
     document.querySelector('body').classList.add('scroll-lock');
   }, [])
-  
+  console.log(props.isPostClicked)
   return (
     <div id="modal-component" 
     style={{marginTop: props.dynamicPositionPopUpMargin}}
