@@ -8,7 +8,22 @@ import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/Ad
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 import { Link } from "react-router-dom";
 
-function FullPagePost({ id, postType, postDate, postPicture,setPostStates, postName, postCreatorId, postDateType}) {
+function FullPagePost({
+  id,
+  postType,
+  postDate,
+  postPicture,
+  setPostStates,
+  postName,
+  postCreatorId,
+  postDateType,
+  postDescription,
+  loggedInUserId,
+  postLikes,
+  postCommentNumber,
+  isPostClicked,
+  setIsPostClicked
+}) {
   const image = [
     {
       img: "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
@@ -62,16 +77,30 @@ function FullPagePost({ id, postType, postDate, postPicture,setPostStates, postN
               >
                 {/* <HeadOfPost dropDownMenuSize="dropdown-button-point-size-S" /> */}
               </div>
-              {/* <PostsDescription postFeedDescription="post-feed-description-resize-fullpage" /> */}
+              <PostsDescription
+                postDescription={postDescription}
+                postFeedDescription="post-feed-description-resize-fullpage"
+              />
               <div className="likes-comments-counter-container-fullpagepost">
-                {/* <LikesCommentsCounter likeButtonSize={"likeButton-S-size"} /> */}
+                <LikesCommentsCounter
+                  postId={id}
+                  postLikes={postLikes}
+                  postCommentNumber={postCommentNumber}
+                  loggedInUserId={loggedInUserId}
+                  likeButtonSize={"likeButton-S-size"}
+                  isPostClicked={isPostClicked}
+                  setIsPostClicked={setIsPostClicked}
+                />
               </div>
               <div className="separation-line-fullpagepost"></div>
               <div className="comments-container-fullpagepost">
                 <PostsComments />
                 <PostsComments />
                 <PostsComments />
-                <div id="responsive-display-toggle-comments-fullpagepost3">
+                <PostsComments />
+                <PostsComments />
+                <PostsComments />
+                {/* <div id="responsive-display-toggle-comments-fullpagepost3">
                   <PostsComments />
                 </div>
                 <div id="responsive-display-toggle-comments-fullpagepost2">
@@ -79,7 +108,7 @@ function FullPagePost({ id, postType, postDate, postPicture,setPostStates, postN
                 </div>
                 <div id="responsive-display-toggle-comments-fullpagepost1">
                   <PostsComments />
-                </div>
+                </div> */}
               </div>
               <div className="separation-line-fullpagepost"></div>
               <div className="add-comment-input-container-fullpagepost">

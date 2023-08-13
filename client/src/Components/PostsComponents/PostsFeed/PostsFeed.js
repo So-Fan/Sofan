@@ -185,6 +185,12 @@ function PostsFeed({
             postName={postName}
             postCreatorId={postCreatorId}
             postPicture={postPicture}
+            postDescription={postDescription}
+            loggedInUserId={loggedInUser?.id}
+            postLikes={postLikes}
+            postCommentNumber={postCommentNumber}
+            isPostClicked={isPostClicked}
+            setIsPostClicked={setIsPostClicked}
             // postType={singlePostData.postType === "normal"}
           />
         </Modal>
