@@ -33,8 +33,8 @@ function LikesCommentsCounter({
     >
       <div className={`like-button-container ${likeButtonContainerPollPost}`}>
         <LikeButton
-        setIsPostClicked={setIsPostClicked}
-        isPostClicked={isPostClicked}
+          setIsPostClicked={setIsPostClicked}
+          isPostClicked={isPostClicked}
           likeButtonSizePollPost={likeButtonSizePollPost}
           likeButtonSize={"likeButton-M-size"}
           postId={postId}
@@ -44,9 +44,7 @@ function LikesCommentsCounter({
         <div
           className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
         >
-          <Link
-            onClick={setIsPostClicked}
-          >
+          <Link onClick={setIsPostClicked}>
             {postLikes} like{pluralLikes && "s"}
           </Link>
         </div>

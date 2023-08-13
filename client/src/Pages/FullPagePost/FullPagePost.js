@@ -22,7 +22,7 @@ function FullPagePost({
   postLikes,
   postCommentNumber,
   isPostClicked,
-  setIsPostClicked
+  setIsPostClicked,
 }) {
   const image = [
     {
@@ -94,12 +94,27 @@ function FullPagePost({
               </div>
               <div className="separation-line-fullpagepost"></div>
               <div className="comments-container-fullpagepost">
-                <PostsComments />
-                <PostsComments />
-                <PostsComments />
-                <PostsComments />
-                <PostsComments />
-                <PostsComments />
+                <PostsComments loggedInUserId={loggedInUserId} />
+                <PostsComments
+                  loggedInUserId={loggedInUserId}
+                  postId={id}
+                />
+                <PostsComments
+                  loggedInUserId={loggedInUserId}
+                  postId={id}
+                />
+                <PostsComments
+                  loggedInUserId={loggedInUserId}
+                  postId={id}
+                />
+                <PostsComments
+                  loggedInUserId={loggedInUserId}
+                  postId={id}
+                />
+                <PostsComments
+                  loggedInUserId={loggedInUserId}
+                  postId={id}
+                />
                 {/* <div id="responsive-display-toggle-comments-fullpagepost3">
                   <PostsComments />
                 </div>

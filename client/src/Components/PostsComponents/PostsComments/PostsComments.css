@@ -13,6 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* position: relative; */
 }
 .profilepic-fan-posts-comments {
   height: 50px;
@@ -49,8 +50,9 @@
 .like-posts-comments {
   height: 40px;
   width: 40px;
-  display: flex;
-  align-items: flex-end;
+  /* display: flex; */
+  /* align-items: flex-end; */
+  /* background-color: green; */
 }
 .likes-comments-times-of-comments-container {
   width: 100%;
@@ -58,6 +60,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  /* background-color: #555555; */
 }
 .likes-counter-and-answer-comments {
 }
@@ -118,15 +121,25 @@
     
     height: 80%;
   }
+  .fan-username-posts-comments{
+    font-size: 14px;
+  }
   .posts-comments-container {
     width: 400px;
   }
   .likes-comments-times-of-comments-container {
-    height: 50px;
+    height: 25px;
     /* background-color: red; */
+  }
+  .fan-username-and-comments{
+    /* height: 40px !important; */
+    max-height: 40px;
+    background-color: aquamarine;
   }
   .fan-comments-posts > div {
     height: 45px;
+    font-size: 12px;
+    line-height: 12px;
     /* background-color: red; */
   }
   .profilepic-fan-posts-comments {
