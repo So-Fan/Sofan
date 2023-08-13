@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Button from "../Button/Button";
 import "./ProfileSubMenu.css";
 import Arrow from "../../Assets/Image/arrow_bottom.svg";
@@ -6,20 +6,40 @@ const ProfileSubMenu = ({
   isProfileSubMenuButtonClicked,
   setIsProfileSubMenuButtonClicked,
   isPageAthlete,
-  profileSubMenuOffresClicked,
-  setProfileSubMenuOffresClicked,
+  // profileSubMenuOffresClicked,
+  // setProfileSubMenuOffresClicked,
   isNftCollectionPage,
 }) => {
+  const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
+    useState(false);
+    
+  const handleOutsideProfileSubMenuClick = (e) => {
+    if (
+      e.target.id !== "profilesubmenu-offres" &&
+      e.target.id !== "profilesubmenu-offres-formulées" &&
+      e.target.id !== "profilesubmenu-offres-reçues" && profileSubMenuOffresClicked
+    ) {
+      setProfileSubMenuOffresClicked(false);
+    }
+  };
+
+ useEffect(() => {
+  if (profileSubMenuOffresClicked) {
+    window.addEventListener("click", handleOutsideProfileSubMenuClick);
+  }
+  if (!profileSubMenuOffresClicked) {
+    console.log("remove Listener");
+    window.removeEventListener("click", handleOutsideProfileSubMenuClick);
+  }
+
+  return () => {
+    window.removeEventListener("click", handleOutsideProfileSubMenuClick)
+  }
+ }, [profileSubMenuOffresClicked])
+
   const handleProfileSubMenuOffresButtonClicked = (e) => {
-    // setProfileSubMenuOffresClicked(!profileSubMenuOffresClicked);
-    // if (profileSubMenuOffresClicked === true) {
-    //   setProfileSubMenuOffresClicked(false)
-    //   console.log(profileSubMenuOffresClicked)
-    // } else if (profileSubMenuOffresClicked === false){
-    //   setProfileSubMenuOffresClicked(true)
-    //   console.log(profileSubMenuOffresClicked)
+    e.preventDefault();
     setProfileSubMenuOffresClicked(!profileSubMenuOffresClicked);
-    console.log(profileSubMenuOffresClicked);
   };
   const [profileSubMenuOffersChoice, setprofileSubMenuOffersChoice] =
     useState("");

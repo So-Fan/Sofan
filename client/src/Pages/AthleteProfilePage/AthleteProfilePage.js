@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo } from "react";
 import AthleteProfileEvent from "../../Components/AthleteProfileEvent/AthleteProfileEvent";
 import AthleteProfileHeader from "../../Components/AthleteProfileHeader/AthleteProfileHeader";
 import AthleteProfileNFTCollection from "../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection";
@@ -24,11 +24,13 @@ import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp
 import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 
+const MemoProfileSubMenu = memo(ProfileSubMenu);
+
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
-  profileSubMenuOffresClicked,
-  setProfileSubMenuOffresClicked,
+  // profileSubMenuOffresClicked,
+  // setProfileSubMenuOffresClicked,
 }) => {
   // functionnal states
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
@@ -58,6 +60,10 @@ const AthleteProfilePage = ({
   const [userInfo, setUserInfo] = useState(null);
   const { id } = useParams();
 
+  // const setProfileSubMenuOffresClicked = () => {
+  //   console.log("amagnacouuuuunia");
+  // }
+  // const profileSubMenuOffresClicked= true
 
   useEffect(() => {
     const fetchData = async () => {
@@ -640,9 +646,11 @@ const AthleteProfilePage = ({
     setDataConcat(data);
   }, []);
   function handleAthleteFollowersClick(e) {
+    e.preventDefault()
     setIsAthleteFollowersClicked(true);
   }
   function handleAthleteSupportersClick(e) {
+    e.preventDefault()
     setIsAthleteSupportersClicked(true);
   }
   function handlePalmaresButtonClick() {
@@ -833,7 +841,7 @@ const AthleteProfilePage = ({
     <>
       <div className="athleteprofilepage-component">
         {/* <div className="athleteprofilepage-wrap"> */}
-        <AthleteProfileHeader
+        {/* <AthleteProfileHeader
           userInfo={userInfo}
           fansCounterApi={fansCounterApi}
           setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
@@ -844,14 +852,14 @@ const AthleteProfilePage = ({
           handlePalmaresButtonClick={handlePalmaresButtonClick}
           setSettingsAthletePageClicked={setSettingsAthletePageClicked}
           handleSettingsAthletePageClick={handleSettingsAthletePageClick}
-        />
+        /> */}
         <div className="athleteprofilepage-profilesubmenu-wrap">
-          <ProfileSubMenu
+          <MemoProfileSubMenu
             isPageAthlete={true}
             isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
             setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
-            profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-            setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+            // profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+            // setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
           />
         </div>
         {displayAthleteProfileSubMenu()}

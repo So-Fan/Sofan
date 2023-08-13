@@ -60,8 +60,8 @@ function App() {
   ] = useState(false);
   const [dataPost, setPostData] = useState([]);
   const [isDropdownClicked, setIsDropdownClicked] = useState();
-  const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
-    useState(false);
+  // const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
+  //   useState(false);
   function handleClickOutside(e) {
     // Navbar
     if (e.target.id === "navbar-user-profile-img") {
@@ -93,7 +93,7 @@ function App() {
       e.target.id !== "profilesubmenu-offres-reçues"
     ) {
       // console.log(e.target.id);
-      setProfileSubMenuOffresClicked(false);
+      // setProfileSubMenuOffresClicked(false);
     }
     // click outside for launchpad all page - live launch part
     if (
@@ -157,6 +157,7 @@ function App() {
   function handleNotificationPopup(e) {
     setIsNotificationButtonClicked(true);
   }
+  console.log("prrrrrrrrut");
   return (
     <UserContext.Provider
       value={{
@@ -182,42 +183,42 @@ function App() {
 
             <Routes>
               <Route
-                index
-                element={
-                  <Home
-                    loggedInUser={loggedInUser}
-                    isDropDownButtonClicked={isDropDownButtonClicked}
-                    setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-                    dataPost={dataPost}
-                    setPostData={setPostData}
-                    setIsDropdownClicked={setIsDropdownClicked}
-                    isLogged={loggedInUser}
-                    handleNotificationPopup={handleNotificationPopup}
-                    isNotificationButtonClicked={isNotificationButtonClicked}
-                    setIsNotificationButtonClicked={
-                      setIsNotificationButtonClicked
-                    }
-                  />
-                }
-              />
-              <Route
                 path="/userprofile/:id"
                 element={
                   <UserProfilePage
-                    setIsUSerProfileSeortBySelectorClicked={
-                      setIsUSerProfileSeortBySelectorClicked
+                  setIsUSerProfileSeortBySelectorClicked={
+                    setIsUSerProfileSeortBySelectorClicked
                     }
                     isUSerProfileSeortBySelectorClicked={
                       isUSerProfileSeortBySelectorClicked
                     }
-                    profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-                    setProfileSubMenuOffresClicked={
-                      setProfileSubMenuOffresClicked
-                    }
+                    // profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+                    // setProfileSubMenuOffresClicked={
+                    //   setProfileSubMenuOffresClicked
+                    // }
                     userProfileLogged={loggedInUser}
-                  />
-                }
+                    />
+                  }
               />
+                  <Route
+                    index
+                    element={
+                      <Home
+                        loggedInUser={loggedInUser}
+                        isDropDownButtonClicked={isDropDownButtonClicked}
+                        setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+                        dataPost={dataPost}
+                        setPostData={setPostData}
+                        setIsDropdownClicked={setIsDropdownClicked}
+                        isLogged={loggedInUser}
+                        handleNotificationPopup={handleNotificationPopup}
+                        isNotificationButtonClicked={isNotificationButtonClicked}
+                        setIsNotificationButtonClicked={
+                          setIsNotificationButtonClicked
+                        }
+                      />
+                    }
+                  />
               <Route
                 path="/athleteprofile/:id"
                 element={
@@ -228,10 +229,10 @@ function App() {
                     isUSerProfileSeortBySelectorClicked={
                       isUSerProfileSeortBySelectorClicked
                     }
-                    profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-                    setProfileSubMenuOffresClicked={
-                      setProfileSubMenuOffresClicked
-                    }
+                    // profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+                    // setProfileSubMenuOffresClicked={
+                    //   setProfileSubMenuOffresClicked
+                    // }
                   />
                 }
               />
