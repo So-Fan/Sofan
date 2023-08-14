@@ -116,8 +116,31 @@
   max-height: 474px !important;
   overflow-y: scroll;
 }
+/* Hide scrollbar for IE, Edge, and Firefox */
+.comments-container-fullpagepost::-webkit-scrollbar,
+.comments-container-fullpagepost {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  width: 100.5%;
+}
+
+/* Customize the scrollbar for WebKit-based browsers (e.g., Chrome, Safari) */
 .comments-container-fullpagepost::-webkit-scrollbar {
-  display: none;
+  width: 6px; /* Set the width of the scrollbar */
+  border-radius: 10px;
+}
+
+.comments-container-fullpagepost::-webkit-scrollbar-track {
+  background: transparent; /* Set the track background */
+}
+
+.comments-container-fullpagepost::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar */
+  border-radius: 10px; /* Set the border-radius */
+}
+
+.comments-container-fullpagepost::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color when hovered */
 }
 #dropdown-small {
   display: none;
@@ -154,17 +177,16 @@
   }
   .desc-likes-comments-container-fullpagepost {
     width: 417px !important;
-    height: 600px !important;
-    min-height: 600px !important;
-    max-height: 600px !important;
+    height: 600px ;
+    min-height: 600px ;
+    max-height: 600px ;
     min-width: auto;
-    /* background-color: red; */
   }
   .headofpost-container-fullpagepost {
     width: 400px;
   }
   .bloc-content-fullpagepost {
-    max-width: 400px;
+    max-width: 370px;
     max-height: 580px;
     /* background-color: yellow; */
     padding-left: 15px;
@@ -209,11 +231,16 @@
 
   .desc-likes-comments-container-fullpagepost {
     width: 347px !important;
-    height: 500px;
+      height: 500px ;
+      max-height: 500px;
+      min-height: 500px;
+    /* background-color: wheat; */
   }
 
   .headofpost-container-fullpagepost {
     width: 320px;
+    height: 100px;
+    /* background-color: blueviolet; */
   }
 
   #dropdown-medium {
@@ -225,11 +252,12 @@
   }
   .bloc-content-fullpagepost {
     max-width: 300px;
-    max-height: 580px;
-    height: 500px;
-    display: flex;
+    /* max-height: 580px; */
+    height: 450px;
+    /* display: flex;
     justify-content: space-around;
-    flex-direction: column;
+    flex-direction: column; */
+    /* background-color: red; */
   }
   .separation-line-fullpagepost {
     height: 10px;

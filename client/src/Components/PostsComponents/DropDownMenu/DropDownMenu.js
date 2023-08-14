@@ -1,14 +1,32 @@
 import React from "react";
 import "./DropDownMenu.css";
 
-function DropDownMenu({ isDropDownMenuCommentClicked }) {
+function DropDownMenu({
+  isDropDownMenuCommentClicked,
+  dropdownStates,
+  commentId,
+  isAdminLogged,
+  isAthleteLogged,
+  isCommentsOwnerLogged,
+}) {
   // Backend here
   const isOwner = true;
 
   return (
     <>
       <section
-        style={isDropDownMenuCommentClicked ? { top: "95%" } : { top: "7%" }}
+      id={commentId}
+        style={
+          dropdownStates[commentId]
+            ? {
+                top: "95%",
+                right: "-15%",
+                width: "90px",
+                fontSize: "12px",
+                height: "80px",
+              }
+            : { top: "7%", right: "5%" }
+        }
         className="dropdown-menu-container"
       >
         <ul>
@@ -17,10 +35,10 @@ function DropDownMenu({ isDropDownMenuCommentClicked }) {
               <a href="/" id="link-dropdown-menu">
                 <li>Supprimer</li>
               </a>
-              <div className="separation-line-dropdown-menu"></div>
+              {/* <div className="separation-line-dropdown-menu"></div>
               <a href="/" id="link-dropdown-menu">
                 <li>Modifier la publication</li>
-              </a>
+              </a> */}
               <div className="separation-line-dropdown-menu"></div>
             </>
           )}

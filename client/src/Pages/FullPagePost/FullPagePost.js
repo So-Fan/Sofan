@@ -31,32 +31,49 @@ function FullPagePost({
   ];
   const [isDropDownMenuCommentClicked, setIsDropDownMenuCommentClicked] =
     useState();
-  image[0]?.img && console.log("oui");
+  const [dropdownStates, setDropdownStates] = useState({});
+
   function handleClickOutsideDropDownMenuComments(e) {
     if (
       e.target.id !==
       "id-posts-comments-component-comments-like-button-and-dropdown"
     ) {
+      setDropdownStates({});
     }
   }
   const dataComments = [
     {
-      id: 1,
+      id: 1590395,
       comments:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
     },
     {
-      id: 2,
+      id: 2593509509,
       comments:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
     },
     {
-      id: 3,
+      id: 353095309,
       comments:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
     },
     {
-      id: 4,
+      id: 3539873095309,
+      comments:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
+    },
+    {
+      id: 4539873098765309,
+      comments:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
+    },
+    {
+      id: 473098765309,
+      comments:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
+    },
+    {
+      id: 44093904090,
       comments:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
     },
@@ -64,7 +81,10 @@ function FullPagePost({
   // console.log(dataComments[0]?.comments)
   return (
     <>
-      <div className="fullpagepost-container">
+      <div
+        onClick={handleClickOutsideDropDownMenuComments}
+        className="fullpagepost-container"
+      >
         <div className="post-container-fullpagepost">
           {postPicture && (
             <>
@@ -129,7 +149,8 @@ function FullPagePost({
                   return (
                     <>
                       <PostsComments
-                        comments={comments[i]?.comments}
+                        comments={comments.comments}
+                        commentId={comments.id}
                         setIsDropDownMenuCommentClicked={
                           setIsDropDownMenuCommentClicked
                         }
@@ -137,6 +158,8 @@ function FullPagePost({
                           isDropDownMenuCommentClicked
                         }
                         loggedInUserId={loggedInUserId}
+                        dropdownStates={dropdownStates}
+                        setDropdownStates={setDropdownStates}
                       />
                     </>
                   );
