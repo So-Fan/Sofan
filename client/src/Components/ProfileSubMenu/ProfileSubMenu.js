@@ -12,30 +12,31 @@ const ProfileSubMenu = ({
 }) => {
   const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
     useState(false);
-    
+
   const handleOutsideProfileSubMenuClick = (e) => {
     if (
       e.target.id !== "profilesubmenu-offres" &&
       e.target.id !== "profilesubmenu-offres-formulées" &&
-      e.target.id !== "profilesubmenu-offres-reçues" && profileSubMenuOffresClicked
+      e.target.id !== "profilesubmenu-offres-reçues" &&
+      profileSubMenuOffresClicked
     ) {
       setProfileSubMenuOffresClicked(false);
     }
   };
 
- useEffect(() => {
-  if (profileSubMenuOffresClicked) {
-    window.addEventListener("click", handleOutsideProfileSubMenuClick);
-  }
-  if (!profileSubMenuOffresClicked) {
-    console.log("remove Listener");
-    window.removeEventListener("click", handleOutsideProfileSubMenuClick);
-  }
+  useEffect(() => {
+    if (profileSubMenuOffresClicked) {
+      window.addEventListener("click", handleOutsideProfileSubMenuClick);
+    }
+    if (!profileSubMenuOffresClicked) {
+      console.log("remove Listener");
+      window.removeEventListener("click", handleOutsideProfileSubMenuClick);
+    }
 
-  return () => {
-    window.removeEventListener("click", handleOutsideProfileSubMenuClick)
-  }
- }, [profileSubMenuOffresClicked])
+    return () => {
+      window.removeEventListener("click", handleOutsideProfileSubMenuClick);
+    };
+  }, [profileSubMenuOffresClicked]);
 
   const handleProfileSubMenuOffresButtonClicked = (e) => {
     e.preventDefault();
@@ -84,8 +85,9 @@ const ProfileSubMenu = ({
       }
     } else {
       if (
-        e.target.innerHTML === "Collected NFT" ||
-        e.target.innerHTML === "Items"
+        (e.target.innerHTML === "Collected NFT" ||
+          e.target.innerHTML === "Items") &&
+        isProfileSubMenuButtonClicked[0] !== true
       ) {
         setIsProfileSubMenuButtonClicked([
           true,
@@ -96,7 +98,10 @@ const ProfileSubMenu = ({
           false,
           false,
         ]);
-      } else if (e.target.innerHTML === "Activity") {
+      } else if (
+        e.target.innerHTML === "Activity" &&
+        isProfileSubMenuButtonClicked[1] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           true,
@@ -106,29 +111,38 @@ const ProfileSubMenu = ({
           false,
           false,
         ]);
-      } else if (e.target.innerHTML === "Offres formulées") {
+      } else if (
+        e.target.innerHTML === "Offres formulées" &&
+        isProfileSubMenuButtonClicked[2] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,
           true,
           false,
-          false,
-          false,
-          false,
-        ]);
-        setProfileSubMenuOffresClicked(true);
-      } else if (e.target.innerHTML === "Offres reçues") {
-        setIsProfileSubMenuButtonClicked([
-          false,
-          false,
-          false,
-          true,
           false,
           false,
           false,
         ]);
         setProfileSubMenuOffresClicked(true);
-      } else if (e.target.innerHTML === "Feed") {
+      } else if (
+        e.target.innerHTML === "Offres reçues" &&
+        isProfileSubMenuButtonClicked[3] !== true
+      ) {
+        setIsProfileSubMenuButtonClicked([
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+        ]);
+        setProfileSubMenuOffresClicked(true);
+      } else if (
+        e.target.innerHTML === "Feed" &&
+        isProfileSubMenuButtonClicked[4] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,
@@ -138,7 +152,10 @@ const ProfileSubMenu = ({
           false,
           false,
         ]);
-      } else if (e.target.innerHTML === "NFT Collections") {
+      } else if (
+        e.target.innerHTML === "NFT Collections" &&
+        isProfileSubMenuButtonClicked[5] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,
@@ -148,7 +165,10 @@ const ProfileSubMenu = ({
           true,
           false,
         ]);
-      } else if (e.target.innerHTML === "Events") {
+      } else if (
+        e.target.innerHTML === "Events" &&
+        isProfileSubMenuButtonClicked[6] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,

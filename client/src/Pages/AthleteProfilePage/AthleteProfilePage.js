@@ -25,7 +25,16 @@ import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 
 const MemoProfileSubMenu = memo(ProfileSubMenu);
-
+const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
+const MemoAthleteProfileFeed = memo(
+  AthleteProfileFeed,
+  (prevProps, nextProps) => {
+    if (prevProps === nextProps) {
+      return true;
+    }
+    return false;
+  }
+);
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -35,15 +44,15 @@ const AthleteProfilePage = ({
   // functionnal states
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
-  const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] =
-    useState(false);
-  const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
-    useState(false);
-  const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
+  // const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] =
+  //   useState(false);
+  // const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
+  //   useState(false);
+  // const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
   const [isAcceptedOffersClicked, setIsAcceptedOffersClicked] = useState(false);
   const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
-  const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
-    useState(false);
+  // const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
+  //   useState(false);
   // popup states info
   const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // Backend
@@ -111,15 +120,15 @@ const AthleteProfilePage = ({
 
   // getFloorprice for Bored Ape Yacht Club:
   async function getCollectionFloorPrice() {
-
     try {
       const alchemy = new Alchemy(settings);
       const collectionFloorPriceOne = await alchemy.nft.getFloorPrice(
         ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"]
         // BAYC collection
       );
-      setCollectionFloorPriceApiData(collectionFloorPriceOne.openSea.floorPrice);
-      
+      setCollectionFloorPriceApiData(
+        collectionFloorPriceOne.openSea.floorPrice
+      );
     } catch (err) {
       console.error(err);
     }
@@ -645,20 +654,21 @@ const AthleteProfilePage = ({
     }
     setDataConcat(data);
   }, []);
-  function handleAthleteFollowersClick(e) {
-    e.preventDefault()
-    setIsAthleteFollowersClicked(true);
-  }
-  function handleAthleteSupportersClick(e) {
-    e.preventDefault()
-    setIsAthleteSupportersClicked(true);
-  }
-  function handlePalmaresButtonClick() {
-    setIsPalmaresButtonClicked(true);
-  }
-  function handleSettingsAthletePageClick() {
-    setSettingsAthletePageClicked(true);
-  }
+  // function handleAthleteFollowersClick(e) {
+  //   e.preventDefault()
+  //   setIsAthleteFollowersClicked(true);
+  // }
+  // function handleAthleteSupportersClick(e) {
+  //   e.preventDefault()
+  //   setIsAthleteSupportersClicked(true);
+  // }
+  // function handlePalmaresButtonClick(e) {
+  //   e.preventDefault()
+  //   setIsPalmaresButtonClicked(true);
+  // }
+  // function handleSettingsAthletePageClick() {
+  //   setSettingsAthletePageClicked(true);
+  // }
   function handleAcceptOffersClick(
     nftsFromOwnerImage,
     nftsFromOwnerNameCollection,
@@ -727,20 +737,31 @@ const AthleteProfilePage = ({
   // useEffect(() => {
   //   window.addEventListener(
   //     "scroll",
-  //     handlePixelScrolledAthleteProfilePage,
+  //     () => {
+  //       console.log(window.scrollY);
+  //     },
   //     false
   //   );
+  //   return () => {
+  //     window.removeEventListener(
+  //       "scroll",
+  //       () => {
+  //         console.log(window.scrollY);
+  //       },
+  //       false
+  //     );
+  //   };
   // }, []);
-  // ============================================================
+  // // ============================================================
   // smooth redirection fonction
   const athletesNftsAvailable = useRef(null);
-  function handleClickNftReceived(event) {
-    event.preventDefault();
-    athletesNftsAvailable.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
+  // function handleClickNftReceived(event) {
+  //   event.preventDefault();
+  //   athletesNftsAvailable.current.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   });
+  // }
   function handleClicNftsAvailable() {
     setIsAthleteProfileSubMenuClicked([
       false,
@@ -757,7 +778,7 @@ const AthleteProfilePage = ({
   const displayAthleteProfileSubMenu = () => {
     if (isAthleteProfileSubMenuClicked[4] === true) {
       return (
-        <AthleteProfileFeed
+        <MemoAthleteProfileFeed
           athleteProfilePageStyling={true}
           //dataPosts={dataConcat?.athletes}
           athleteUserId={id}
@@ -836,23 +857,24 @@ const AthleteProfilePage = ({
       );
     }
   };
-  // console.log(collectionFloorPriceApiData);
+  console.log("Triggered from athletePage");
   return (
     <>
       <div className="athleteprofilepage-component">
         {/* <div className="athleteprofilepage-wrap"> */}
-        {/* <AthleteProfileHeader
+        <MemoAthleteProfileHeader
           userInfo={userInfo}
           fansCounterApi={fansCounterApi}
-          setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
-          handleAthleteFollowersClick={handleAthleteFollowersClick}
-          handleAthleteSupportersClick={handleAthleteSupportersClick}
-          handleClickNftReceived={handleClickNftReceived}
+          // setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
+          // handleAthleteFollowersClick={handleAthleteFollowersClick}
+          // handleAthleteSupportersClick={handleAthleteSupportersClick}
+          // handleClickNftReceived={handleClickNftReceived}
           handleClicNftsAvailable={handleClicNftsAvailable}
-          handlePalmaresButtonClick={handlePalmaresButtonClick}
-          setSettingsAthletePageClicked={setSettingsAthletePageClicked}
-          handleSettingsAthletePageClick={handleSettingsAthletePageClick}
-        /> */}
+          // handlePalmaresButtonClick={handlePalmaresButtonClick}
+          // setSettingsAthletePageClicked={setSettingsAthletePageClicked}
+          // handleSettingsAthletePageClick={handleSettingsAthletePageClick}
+          // pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
+        />
         <div className="athleteprofilepage-profilesubmenu-wrap">
           <MemoProfileSubMenu
             isPageAthlete={true}
@@ -862,10 +884,80 @@ const AthleteProfilePage = ({
             // setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
           />
         </div>
-        {displayAthleteProfileSubMenu()}
+        {/* {displayAthleteProfileSubMenu()} */}
+        {isAthleteProfileSubMenuClicked[4] === true ? (
+          <MemoAthleteProfileFeed
+            athleteProfilePageStyling={true}
+            //dataPosts={dataConcat?.athletes}
+            athleteUserId={id}
+            athleteName={userInfo?.display_name}
+            athleteAvatar={userInfo?.profile_avatar}
+          />
+        ) : isAthleteProfileSubMenuClicked[5] === true ? (
+          <AthleteProfileNFTCollection
+            nftsFromOwner={nftsFromOwner}
+            nftDataApi={nftDataApi} // pas utilisé pour l'instant
+            collectionFloorPriceApiData={collectionFloorPriceApiData}
+            dataCollections={dataConcat?.collections}
+            hidePrice={true}
+          />
+        ) : isAthleteProfileSubMenuClicked[6] === true ? (
+          <AthleteProfileEvent dataEvents={dataConcat?.events} />
+        ) : isAthleteProfileSubMenuClicked[0] === true ? (
+          <div>
+            {/* <SortBySelector
+                  setIsUSerProfileSeortBySelectorClicked={
+                    setIsUSerProfileSeortBySelectorClicked
+                  }
+                  isUSerProfileSeortBySelectorClicked={
+                    isUSerProfileSeortBySelectorClicked
+                  }
+                /> */}
+            <NftCard
+              hidePrice={true}
+              nftsFromOwner={nftsFromOwner}
+              userFrom={dataConcat?.collected}
+              isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+              athletesNftsAvailable={athletesNftsAvailable}
+            />
+          </div>
+        ) : isAthleteProfileSubMenuClicked[1] === true ? (
+          <UserActivity
+            isUserActivitySectionActive={true}
+            userFrom={dataConcat?.activities}
+            nftsFromOwner={nftsFromOwner}
+            transferNftDataApi={transferNftDataApi}
+            setTransferNftDataApi={setTransferNftDataApi}
+            ethPrice={ethPrice}
+          />
+        ) : isAthleteProfileSubMenuClicked[2] === true ? (
+          <div className="athleteprofilepage-formulatedoffers-wrap">
+            <FormulatedOffers
+              userFrom={dataConcat?.made}
+              nftsFromOwner={nftsFromOwner}
+              transferNftDataApi={transferNftDataApi}
+              ethPrice={ethPrice}
+            />
+          </div>
+        ) : (
+          isAthleteProfileSubMenuClicked[3] === true && (
+            <div className="athleteprofilepage-formulatedoffers-wrap">
+              <ReceivedOffers
+                userFrom={dataConcat?.received}
+                nftsFromOwner={nftsFromOwner}
+                transferNftDataApi={transferNftDataApi}
+                ethPrice={ethPrice}
+                handleAcceptOffersClick={handleAcceptOffersClick}
+                handleRejectedOffersClick={handleRejectedOffersClick}
+                // handleOffersChoice={handleOffersChoice}
+                // setDataPopupConfirmation={setDataPopupConfirmation}
+              />
+            </div>
+          )
+        )}
         {/* </div> */}
       </div>
-      {isAthleteFollowersClicked && (
+      {/* {isAthleteFollowersClicked && (
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsAthleteFollowersClicked}
@@ -904,7 +996,7 @@ const AthleteProfilePage = ({
             isPalmaresButtonClicked={isPalmaresButtonClicked}
           />
         </Modal>
-      )}
+      )} */}
       {isAcceptedOffersClicked && (
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
@@ -930,16 +1022,16 @@ const AthleteProfilePage = ({
           />
         </Modal>
       )}
-      {isSettingsAthletePageClicked && (
+      {/* {isSettingsAthletePageClicked && (
         <Modal
         setState={setSettingsAthletePageClicked}
         style={{ right: "5%", top: "18px" }}
         >
-          <PopUpEditProfile 
+          <MemoPopUpEditProfile 
           allUserInfo={userInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
           />
         </Modal>
-      )}
+      )} */}
     </>
   );
 };
