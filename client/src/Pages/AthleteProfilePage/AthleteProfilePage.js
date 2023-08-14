@@ -785,12 +785,15 @@ const AthleteProfilePage = ({
       setIsBlockchainError(true);
       // setIsListed(false);
     }
-
-    // Call blockchain si c'est bon alors setIsListed(true) sinon false
   };
   const handleAcceptedOffersClosed = () => {
     setIsAcceptedOffers(false);
     setIsAcceptedOffersClicked(false);
+  };
+
+  // TODO: créer useEffect comme dans NftSingle
+  const handleRejectedConfirmationOffer = async () => {
+    // TODO: Ajouter les données de l'offre refusé au backend lié à l'utilisateur qui a rejeté l'offre.
   };
   return (
     <>
@@ -927,6 +930,7 @@ const AthleteProfilePage = ({
           style={{ display: "none" }}
         >
           <PopUpConfirmationOffer
+            handleClick={handleRejectedConfirmationOffer}
             // dataPopupConfirmation={dataPopupConfirmation}
             isRejectedOffersClicked={isRejectedOffersClicked}
           />
@@ -934,6 +938,9 @@ const AthleteProfilePage = ({
       )}
       <button onClick={() => setIsAcceptedOffersClicked(true)}>
         Accept Offer
+      </button>
+      <button onClick={() => setIsRejectedOffersClicked(true)}>
+        Refuse Offer
       </button>
     </>
   );
