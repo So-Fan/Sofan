@@ -1,14 +1,16 @@
 import React from "react";
 import "./DropDownMenu.css";
 
-function DropDownMenu() {
-
+function DropDownMenu({ isDropDownMenuCommentClicked }) {
   // Backend here
   const isOwner = true;
 
   return (
     <>
-      <section className="dropdown-menu-container">
+      <section
+        style={isDropDownMenuCommentClicked ? { top: "95%" } : { top: "7%" }}
+        className="dropdown-menu-container"
+      >
         <ul>
           {isOwner && (
             <>

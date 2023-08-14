@@ -109,11 +109,15 @@
 .comments-container-fullpagepost {
   /* overflow-y: scroll; */
   min-height: 474px !important;
+  height: 100%;
+  width: 100%;
+  margin-top: 15px;
+  /* background-color: aqua; */
   max-height: 474px !important;
   overflow-y: scroll;
 }
 .comments-container-fullpagepost::-webkit-scrollbar {
-  /* display: none; */
+  display: none;
 }
 #dropdown-small {
   display: none;

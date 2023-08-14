@@ -57,7 +57,7 @@ function Home({
       return false;
     }
   }
- 
+ console.log(dataPost)
   useEffect(() => {
     setIsLoading(true);
 

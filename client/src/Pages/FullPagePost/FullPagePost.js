@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FullPagePost.css";
 import HeadOfPost from "../../Components/PostsComponents/HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../../Components/PostsComponents/LikesCommentsCounter/LikesCommentsCounter";
@@ -29,8 +29,39 @@ function FullPagePost({
       img: "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
     },
   ];
-
+  const [isDropDownMenuCommentClicked, setIsDropDownMenuCommentClicked] =
+    useState();
   image[0]?.img && console.log("oui");
+  function handleClickOutsideDropDownMenuComments(e) {
+    if (
+      e.target.id !==
+      "id-posts-comments-component-comments-like-button-and-dropdown"
+    ) {
+    }
+  }
+  const dataComments = [
+    {
+      id: 1,
+      comments:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
+    },
+    {
+      id: 2,
+      comments:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
+    },
+    {
+      id: 3,
+      comments:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
+    },
+    {
+      id: 4,
+      comments:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
+    },
+  ];
+  // console.log(dataComments[0]?.comments)
   return (
     <>
       <div className="fullpagepost-container">
@@ -94,36 +125,22 @@ function FullPagePost({
               </div>
               <div className="separation-line-fullpagepost"></div>
               <div className="comments-container-fullpagepost">
-                <PostsComments loggedInUserId={loggedInUserId} />
-                <PostsComments
-                  loggedInUserId={loggedInUserId}
-                  postId={id}
-                />
-                <PostsComments
-                  loggedInUserId={loggedInUserId}
-                  postId={id}
-                />
-                <PostsComments
-                  loggedInUserId={loggedInUserId}
-                  postId={id}
-                />
-                <PostsComments
-                  loggedInUserId={loggedInUserId}
-                  postId={id}
-                />
-                <PostsComments
-                  loggedInUserId={loggedInUserId}
-                  postId={id}
-                />
-                {/* <div id="responsive-display-toggle-comments-fullpagepost3">
-                  <PostsComments />
-                </div>
-                <div id="responsive-display-toggle-comments-fullpagepost2">
-                  <PostsComments />
-                </div>
-                <div id="responsive-display-toggle-comments-fullpagepost1">
-                  <PostsComments />
-                </div> */}
+                {dataComments.map((comments, i) => {
+                  return (
+                    <>
+                      <PostsComments
+                        comments={comments[i]?.comments}
+                        setIsDropDownMenuCommentClicked={
+                          setIsDropDownMenuCommentClicked
+                        }
+                        isDropDownMenuCommentClicked={
+                          isDropDownMenuCommentClicked
+                        }
+                        loggedInUserId={loggedInUserId}
+                      />
+                    </>
+                  );
+                })}
               </div>
               <div className="separation-line-fullpagepost"></div>
               <div className="add-comment-input-container-fullpagepost">
