@@ -100,6 +100,11 @@
     width: 84px;
     height: 25px;
   }
+  .publication-head-container-fullpagepost{
+    width: 370px;
+    padding-left: 15px;
+    /* background-color: red; */
+  }
 }
 @media (max-width: 1050px) {
   .publication-head-container {
@@ -138,6 +143,11 @@
   }
   .publication-head-right-container-pollpost {
     max-width: 150px;
+  }
+  .publication-head-container-fullpagepost{
+    /* width: 370px; */
+    padding-left: 0px;
+    /* background-color: red; */
   }
 }
 @media (max-width: 900px) {

@@ -323,7 +323,8 @@
     /* background-color: yellow; */
   }
   .separation-line-fullpagepost {
-    height: 10px;
+    height: 0px;
+    margin-top: 5px;
   }
   #responsive-display-toggle-comments-fullpagepost1 {
     display: none;
