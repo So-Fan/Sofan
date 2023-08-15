@@ -104,7 +104,15 @@ function EthProvider({ children, setWeb3auth }) {
         console.log("je suis passé par là");
       } else {
         web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
-        accounts = await web3.eth.requestAccounts();
+
+        try {
+          accounts = await web3.eth.requestAccounts();
+        } catch (error) {
+          console.error(error);
+          setIsWalletConnectClicked(false);
+          return;
+        }
+
         console.log("je suis passé par ici");
       }
 
