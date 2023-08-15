@@ -142,8 +142,8 @@ function App() {
   const checkWalletProvider = (userData) => {
     if (userData.web3AuthWallet) {
       return "web3auth";
-    } else if (userData.metaMask) {
-      return "metaMask";
+    } else if (userData.metamask) {
+      return "metamask";
     } else if (userData.coinbase) {
       return "coinbase";
     } else if (userData.walletConnet) {
@@ -186,8 +186,8 @@ function App() {
                 path="/userprofile/:id"
                 element={
                   <UserProfilePage
-                  setIsUSerProfileSeortBySelectorClicked={
-                    setIsUSerProfileSeortBySelectorClicked
+                    setIsUSerProfileSeortBySelectorClicked={
+                      setIsUSerProfileSeortBySelectorClicked
                     }
                     isUSerProfileSeortBySelectorClicked={
                       isUSerProfileSeortBySelectorClicked
@@ -197,28 +197,28 @@ function App() {
                     //   setProfileSubMenuOffresClicked
                     // }
                     userProfileLogged={loggedInUser}
-                    />
-                  }
+                  />
+                }
               />
-                  <Route
-                    index
-                    element={
-                      <Home
-                        loggedInUser={loggedInUser}
-                        isDropDownButtonClicked={isDropDownButtonClicked}
-                        setIsDropDownButtonClicked={setIsDropDownButtonClicked}
-                        dataPost={dataPost}
-                        setPostData={setPostData}
-                        setIsDropdownClicked={setIsDropdownClicked}
-                        isLogged={loggedInUser}
-                        handleNotificationPopup={handleNotificationPopup}
-                        isNotificationButtonClicked={isNotificationButtonClicked}
-                        setIsNotificationButtonClicked={
-                          setIsNotificationButtonClicked
-                        }
-                      />
+              <Route
+                index
+                element={
+                  <Home
+                    loggedInUser={loggedInUser}
+                    isDropDownButtonClicked={isDropDownButtonClicked}
+                    setIsDropDownButtonClicked={setIsDropDownButtonClicked}
+                    dataPost={dataPost}
+                    setPostData={setPostData}
+                    setIsDropdownClicked={setIsDropdownClicked}
+                    isLogged={loggedInUser}
+                    handleNotificationPopup={handleNotificationPopup}
+                    isNotificationButtonClicked={isNotificationButtonClicked}
+                    setIsNotificationButtonClicked={
+                      setIsNotificationButtonClicked
                     }
                   />
+                }
+              />
               <Route
                 path="/athleteprofile/:id"
                 element={

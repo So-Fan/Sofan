@@ -305,7 +305,9 @@ const PopUpSignIn = ({
       setIsWeb3authConnectClicked([true, web3authProvider]);
       // console.log("endGoogleLogin : ", endGoogleLogin);
       console.log("sign in web3auth");
-    } else {
+    }
+    // transform else to else if (checkWalletProvider(loginRes[1]) === "metamask") + add else load pop up ConnectWallet
+    else {
       setIsWalletConnectClicked(true);
       console.log("sigin metamsk");
     }
@@ -412,9 +414,7 @@ const PopUpSignIn = ({
                     handleLogin(e);
                   }
                 }}
-                type={
-                  isDisplayNewPasswordButtonClicked ? "text" : "password"
-                }
+                type={isDisplayNewPasswordButtonClicked ? "text" : "password"}
                 placeholder={"Entrez votre mot de passe"}
                 onChange={(e) => setPassword(e.target.value)}
               />
