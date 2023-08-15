@@ -38,7 +38,27 @@ const NftSingle = () => {
   const [nftIdApi, setNftIdApi] = useState();
   const [mintPopUpProccesing, setMintPopUpProccesing] = useState(false);
   const [blockchainError, setBlockchainError] = useState();
-  const [listingPrice, setListingPrice] = useState()
+  const [listingPrice, setListingPrice] = useState("");
+  const [bidPrice, setBidPrice] = useState("");
+  const [isNFTListed, setIsNFTListed] = useState(false);
+  const [isNFTOwner, setIsNFTOwner] = useState(false);
+  const [isBuyListingButtonDisabled, setIsBuyListingButtonDisabled] =
+    useState(true);
+  const [currentNftTokenId, setCurrentNftTokenId] = useState();
+  const [
+    currentNftListingFromMarketplace,
+    setCurrentNftListingFromMarketplace,
+  ] = useState();
+  const [currentNftOwnerFromBlockchain, setcurrentNftOwnerFromBlockchain] =
+    useState();
+  const [isUnlist, setisUnlist] = useState();
+  const [isUnlistClicked, setIsUnlistClicked] = useState();
+  const [isListed, setIsListed] = useState();
+  const [isListClicked, setIsListClicked] = useState();
+  const [isListingBuyed, setIsListingBuyed] = useState();
+  const [isBidPlaced, setIsBidPlaced] = useState();
+  const [listingBlockchainError, setListingBlockchainError] = useState();
+  const [listingPriceOnChange, setIsListingPriceOnChange] = useState();
   const {
     setContractAddress,
     state: { contract, accounts, web3 },
@@ -372,13 +392,12 @@ const NftSingle = () => {
 
   //
   function handleBuyNftButtonClick() {
-    // Autoriser le click uniquement quand nft listé
+    // Autoriser le click uniquement listingPricequand nft listé
     if (!isBuyListingButtonDisabled) {
       // handleBidNftButtonClick = { handleBidNftButtonClick };
       setIsBuyNftButtonClicked(true);
     }
   }
-  const [isListingBuyed, setIsListingBuyed] = useState();
 
   const handleBuyListingPopup = async () => {
     console.log("proceed to payment clicked");
@@ -390,12 +409,13 @@ const NftSingle = () => {
     let contractUSDCInstance = new web3.eth.Contract(usdcAbi, addressUSDC);
     try {
       setMintPopUpProccesing(true);
-      const result = await contractUSDCInstance.methods.approve(marketplaceAddress, parseInt(listingPrice))
-      .send({ from: accounts[0] });
+      const result = await contractUSDCInstance.methods
+        .approve(marketplaceAddress, parseInt(listingPrice))
+        .send({ from: accounts[0] });
 
-      if(result.status){
+      if (result.status) {
         console.log("Approve successfuly");
-      }else{
+      } else {
         console.log("failed to approve", result);
         setMintPopUpProccesing(false);
         // setIsListed(false);
@@ -411,7 +431,7 @@ const NftSingle = () => {
       return;
     }
 
-    console.log('after approve');
+    console.log("after approve");
 
     const artifacts = require("../../contracts/Sofan.json");
     const { abi } = artifacts;
@@ -420,18 +440,20 @@ const NftSingle = () => {
       marketplaceAddress
     );
     try {
-
       // param 1: address of nft seller 2: index of listing
       // load seller when pop up loading
       const result = await web3MarketplaceInstance.methods
-        .buyListing("0xd423DCBd697164e282717009044312fDBC6C04f0", 0)
+        .buyListing(
+          currentNftOwnerFromBlockchain,
+          currentNftListingFromMarketplace
+        )
         .send({ from: accounts[0] });
       if (result.status) {
         console.log("buy listing success");
         setMintPopUpProccesing(false);
         setIsListingBuyed(true);
         setIsNFTListed(false);
-        setIsNFTOwner(true)
+        setIsNFTOwner(true);
       } else {
         console.log("buy listing error", result);
         setMintPopUpProccesing(false);
@@ -452,21 +474,192 @@ const NftSingle = () => {
     setIsListingBuyed(false);
   };
 
+  // START BID ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   function handleBidNftButtonClick() {
     setIsBidNftButtonClicked(true);
   }
 
-  const [isListClicked, setIsListClicked] = useState();
+  // permet de n'accepter que les chiffres, les virgules et les points et le limiter à 6 décimales
+  const handleBidPriceChange = (event) => {
+    const inputValue = event.target.value;
+    const regex = /^[0-9]*(,|\.?[0-9]{0,6})?$/;
+
+    var tempBidPrice;
+    if (regex.test(inputValue)) {
+      tempBidPrice = inputValue.replace(",", ".");
+      // console.log("replace , by .", tempBidPrice);
+      setBidPrice(tempBidPrice); // remplace la virgule par un point
+    } else if (
+      inputValue.slice(-1) === "." &&
+      inputValue.indexOf(".") === inputValue.length - 1
+    ) {
+      tempBidPrice = inputValue;
+      // console.log("replace by exact inputValue", tempBidPrice);
+      setBidPrice(tempBidPrice); // permet l'ajout d'un seul point
+    }
+  };
+
+  // Possibilité de factoriser avec handleBidPriceChange
+  const handleListingPriceChange = (event) => {
+    const inputValue = event.target.value;
+    const regex = /^[0-9]*(,|\.?[0-9]{0,6})?$/;
+
+    var tempListingPrice;
+    if (regex.test(inputValue)) {
+      tempListingPrice = inputValue.replace(",", ".");
+      // console.log("replace , by .", tempListingPrice);
+      setIsListingPriceOnChange(tempListingPrice); // remplace la virgule par un point
+    } else if (
+      inputValue.slice(-1) === "." &&
+      inputValue.indexOf(".") === inputValue.length - 1
+    ) {
+      tempListingPrice = inputValue;
+      // console.log("replace by exact inputValue", tempListingPrice);
+      setIsListingPriceOnChange(tempListingPrice); // permet l'ajout d'un seul point
+    }
+  };
+
+  const handlePlaceBidPopup = async () => {
+    console.log("proceed to place a BID clicked");
+
+    var tempBidPrice;
+    let tempDecimalUDC = "000000";
+    if (!bidPrice) {
+      console.log("Invalid price.");
+      return;
+    } else if (bidPrice.indexOf(".") === -1) {
+      tempBidPrice = `${bidPrice}${tempDecimalUDC}`;
+      console.log(tempBidPrice);
+    } else if (bidPrice.indexOf(".") === 0) {
+      tempBidPrice = `${bidPrice.slice(
+        1,
+        bidPrice.length
+      )}${tempDecimalUDC.slice(bidPrice.length - 1, tempDecimalUDC.length)}`;
+      console.log(tempBidPrice);
+    } else if (bidPrice.indexOf(".") > 0) {
+      let temp1 = bidPrice.split(".");
+      tempBidPrice = temp1[0]
+        .concat(temp1[1])
+        .concat(tempDecimalUDC.slice(temp1[1].length, tempDecimalUDC.length));
+      console.log(tempBidPrice);
+    }
+    console.log(contract._address, " ", parseInt(tempBidPrice));
+    const artifact = require("../../Pages/Test/USDC.json");
+    const { abi: usdcAbi } = artifact;
+    // TODO: Call Sofan marketplace to get the addressUSDC
+    let addressUSDC = "0x07865c6E87B9F70255377e024ace6630C1Eaa37F";
+    let contractUSDCInstance;
+    try {
+      contractUSDCInstance = new web3.eth.Contract(usdcAbi, addressUSDC);
+    } catch (error) {
+      console.error(error);
+      setListingBlockchainError(error.message);
+      setBlockchainError(true);
+      return;
+    }
+
+    try {
+      setMintPopUpProccesing(true);
+      const result = await contractUSDCInstance.methods
+        .approve(marketplaceAddress, parseInt(tempBidPrice))
+        .send({ from: accounts[0] });
+
+      if (result.status) {
+        console.log("Approve successfuly");
+      } else {
+        console.log("failed to approve", result);
+        setMintPopUpProccesing(false);
+        // setIsListed(false);
+        setBlockchainError(true);
+        setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
+        // return;
+      }
+    } catch (error) {
+      console.error(error);
+      setListingBlockchainError(error.message);
+      setMintPopUpProccesing(false);
+      setBlockchainError(true);
+      // return;
+    }
+    console.log("after approve");
+
+    const artifacts = require("../../contracts/Sofan.json");
+    const { abi } = artifacts;
+    const web3MarketplaceInstance = new web3.eth.Contract(
+      abi,
+      marketplaceAddress
+    );
+    try {
+      // load seller when pop up loading
+      const result = await web3MarketplaceInstance.methods
+        .placeBid(
+          contract._address,
+          currentNftTokenId,
+          parseInt(tempBidPrice),
+          currentNftOwnerFromBlockchain
+        )
+        .send({ from: accounts[0] });
+      if (result.status) {
+        console.log("Bid placed successfully");
+        setMintPopUpProccesing(false);
+        setIsBidPlaced(true);
+        setIsSubMenuClicked([false, false, true, false]); // Open Offers
+      } else {
+        console.log("Place bid error", result);
+        setMintPopUpProccesing(false);
+        // setIsListed(false);
+        setBlockchainError(true);
+        setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
+      }
+    } catch (error) {
+      console.log(error);
+      setListingBlockchainError(error.message);
+      setMintPopUpProccesing(false);
+      setBlockchainError(true);
+    }
+  };
+
+  const handlePlaceBidClosed = () => {
+    setIsBidNftButtonClicked(false);
+    setIsBidPlaced(false);
+  };
+
+  // END BID ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   const handleListNftButton = () => {
     setIsListClicked(true);
   };
 
-  const [isListed, setIsListed] = useState();
-  const [listingBlockchainError, setListingBlockchainError] = useState();
-
   const handleListingPopup = async () => {
     // TODO: Si pas connecté alors le bouton affiche un popup pour demander de sign up ou sign in
     console.log("Bouton Vendre cliqué");
+    console.log(listingPriceOnChange);
+    var tempListingPrice;
+    let tempDecimalUDC = "000000";
+    if (!listingPriceOnChange) {
+      console.log("Invalid price.");
+      return;
+    } else if (listingPriceOnChange.indexOf(".") === -1) {
+      tempListingPrice = `${listingPriceOnChange}${tempDecimalUDC}`;
+      console.log(tempListingPrice);
+    } else if (listingPriceOnChange.indexOf(".") === 0) {
+      tempListingPrice = `${listingPriceOnChange.slice(
+        1,
+        listingPriceOnChange.length
+      )}${tempDecimalUDC.slice(
+        listingPriceOnChange.length - 1,
+        tempDecimalUDC.length
+      )}`;
+      console.log(tempListingPrice);
+    } else if (listingPriceOnChange.indexOf(".") > 0) {
+      let temp1 = listingPriceOnChange.split(".");
+      tempListingPrice = temp1[0]
+        .concat(temp1[1])
+        .concat(tempDecimalUDC.slice(temp1[1].length, tempDecimalUDC.length));
+      console.log(tempListingPrice);
+    }
+
     const artifacts = require("../../contracts/Sofan.json");
     const { abi } = artifacts;
     const web3MarketplaceInstance = new web3.eth.Contract(
@@ -479,7 +672,7 @@ const NftSingle = () => {
       setMintPopUpProccesing(true);
       // param 1: address of nft contract 2: nft tokenId 3: price
       const result = await web3MarketplaceInstance.methods
-        .listToSell(contract._address, 1, 1000000)
+        .listToSell(contract._address, currentNftTokenId, tempListingPrice)
         .send({ from: accounts[0] });
       if (result.status) {
         console.log("Successfully list token");
@@ -514,13 +707,9 @@ const NftSingle = () => {
     // setIsListClicked(false);
   };
 
-  const [isUnlistClicked, setIsUnlistClicked] = useState();
-
   const handleUnlistButton = () => {
     setIsUnlistClicked(true);
   };
-
-  const [isUnlist, setisUnlist] = useState();
 
   const handleUnlistPopup = async () => {
     console.log("Bouton Annuler cliqué");
@@ -535,11 +724,12 @@ const NftSingle = () => {
     try {
       setMintPopUpProccesing(true);
       // param 1: index
+      console.log(currentNftListingFromMarketplace);
       const result = await web3MarketplaceInstance.methods
-        .cancelListing(0)
+        .cancelListing(parseInt(currentNftListingFromMarketplace))
         .send({ from: accounts[0] });
       if (result.status) {
-        console.log("Successfully list token");
+        console.log("Successfully unlist token");
         setMintPopUpProccesing(false);
         setisUnlist(true);
         setIsNFTListed(false);
@@ -563,18 +753,18 @@ const NftSingle = () => {
     setisUnlist(false);
     setIsUnlistClicked(false);
   };
-  const [isNFTListed, setIsNFTListed] = useState(false);
-  const [isNFTOwner, setIsNFTOwner] = useState(false);
-  const [isBuyListingButtonDisabled, setIsBuyListingButtonDisabled] =
-    useState(true);
 
   useEffect(() => {
+    console.log(
+      "USEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECT"
+    );
     const init = async () => {
-      // TODO: Ce useEffect est trigger quand la personne recharge la page car accounts se reset mais sera-t il trigger ?
+      // TODO: Ce useEffect est trigger quand la personne recharge la page car accounts se reset mais sera-t il trigger sans arrivé depuis un bouton?
       // TODO: Remplacer 0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a par la string de l'adresse du contrat depuis le backend
       // TODO: Remplacer "0" par la string du tokenId du contrat depuis le backend
       const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
       const tokenId = "0";
+      setCurrentNftTokenId(parseInt(tokenId));
       if (accounts) {
         let nftContractArtifact = require("../../contracts/SofanNftTemplate.json");
         // const nftContractAbi = nftContractArtifact.abi;
@@ -583,18 +773,19 @@ const NftSingle = () => {
           nftContractAbi,
           collectionAddress
         );
-        let currentNftOwnerFromBlockchain;
+        let tempCurrentNftOwnerFromBlockchain;
         try {
           const result = await nftContractInstance.methods
             .ownerOf(parseInt(tokenId))
             .call({ from: accounts[0] });
-          currentNftOwnerFromBlockchain = result;
+          tempCurrentNftOwnerFromBlockchain = result;
+          setcurrentNftOwnerFromBlockchain(tempCurrentNftOwnerFromBlockchain);
           console.log("je suis le resultat", result);
-          console.log(currentNftOwnerFromBlockchain);
+          console.log(tempCurrentNftOwnerFromBlockchain);
         } catch (error) {
           console.log(error);
         }
-        if (accounts[0] === currentNftOwnerFromBlockchain) {
+        if (accounts[0] === tempCurrentNftOwnerFromBlockchain) {
           console.log("je suis rentré");
           setIsNFTOwner(true);
           const artifacts = require("../../contracts/Sofan.json");
@@ -612,22 +803,26 @@ const NftSingle = () => {
             for (let i = 0; i < result.length; i++) {
               const element = result[i];
               console.log("Je suis element", element);
-
               if (
                 element.listingStauts === "1" &&
                 element.contractAddress === collectionAddress &&
                 element.tokenId === tokenId
               ) {
                 setIsNFTListed(true);
+                setListingPrice(element.price);
+                setCurrentNftListingFromMarketplace(i);
                 console.log("change state");
                 break;
+              }
+              if (i === result.length - 1) {
+                setListingPrice();
               }
             }
           } catch (error) {
             console.log(error);
           }
         } else {
-          setIsNFTOwner(false);
+          // setIsNFTOwner(false);
           const artifacts = require("../../contracts/Sofan.json");
           const { abi } = artifacts;
           const web3MarketplaceInstance = new web3.eth.Contract(
@@ -636,7 +831,7 @@ const NftSingle = () => {
           );
           try {
             const result = await web3MarketplaceInstance.methods
-              .getListing(currentNftOwnerFromBlockchain)
+              .getListing(tempCurrentNftOwnerFromBlockchain)
               .call({ from: accounts[0] });
             console.log("je suis getListing Result", result);
             if (result.length === 0) {
@@ -651,8 +846,9 @@ const NftSingle = () => {
                   element.contractAddress === collectionAddress &&
                   element.tokenId === tokenId
                 ) {
-                  setListingPrice(element.price)
+                  setListingPrice(element.price);
                   setIsBuyListingButtonDisabled(false);
+                  setCurrentNftListingFromMarketplace(i);
                   console.log("change state");
                   break;
                 }
@@ -669,7 +865,7 @@ const NftSingle = () => {
     };
 
     init();
-  }, [accounts]);
+  }, [accounts, isNFTOwner, isNFTListed]);
 
   return (
     <>
@@ -804,7 +1000,7 @@ const NftSingle = () => {
           {isListingBuyed ? (
             <PopUpValidate
               text={"Félicitations ! Votre NFT a été acheté"}
-              customWidth={"251px"}
+              customWidth={"260px"}
               onClick={handleBuyListingClosed}
             />
           ) : (
@@ -824,10 +1020,30 @@ const NftSingle = () => {
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsBidNftButtonClicked}
+          setState2={setBlockchainError}
+          setState3={setIsBidPlaced}
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "30px", right: "26px" }}
         >
-          <PopUpPlaceBid />
+          {isBidPlaced ? (
+            <PopUpValidate
+              text={"Félicitations ! Votre offre a bien été prise en compte"}
+              customWidth={"340px"}
+              onClick={handlePlaceBidClosed}
+            />
+          ) : (
+            <PopUpPlaceBid
+              handlePlaceBidPopup={handlePlaceBidPopup}
+              mintPopUpProccesing={mintPopUpProccesing}
+              blockchainError={blockchainError}
+              listingBlockchainError={listingBlockchainError}
+              handleBlockchainListingErrorPreviousStepButtonClicked={
+                handleListingErrorPreviousStepClick
+              }
+              bidPrice={bidPrice}
+              handleBidPriceChange={handleBidPriceChange}
+            />
+          )}
         </Modal>
       )}
       {isListClicked && (
@@ -842,7 +1058,7 @@ const NftSingle = () => {
             {isListed ? (
               <PopUpValidate
                 text={"Félicitations ! Votre NFT a été mis en vente"}
-                customWidth={"251px"}
+                customWidth={"260px"}
                 onClick={handleListClosed}
               />
             ) : (
@@ -854,6 +1070,8 @@ const NftSingle = () => {
                 handleBlockchainListingErrorPreviousStepButtonClicked={
                   handleListingErrorPreviousStepClick
                 }
+                listingPrice={listingPrice}
+                handleListingPriceChange={handleListingPriceChange}
               />
             )}
           </Modal>

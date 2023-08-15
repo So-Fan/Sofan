@@ -13,7 +13,7 @@ contract Sofan is Ownable, ReentrancyGuard {
     IERC20 public usdc = IERC20(usdcAddress);
     address[] public sofanCollection;
     // address[] atheleteAddress;
-    enum BidStatus {waiting, accepted, refused}
+    enum BidStatus {waiting, accepted, refused, canceled}
     enum ListingStatus {selled, Listed, canceled}
     struct Bid {
         uint256 price;
@@ -131,7 +131,7 @@ contract Sofan is Ownable, ReentrancyGuard {
         require(success2, "Transaction was not successful");
     }
 
-    function cancelBid(
+    function refuseBid(
         address _contract,
         uint256 _tokenId,
         address _receiver,
@@ -139,6 +139,16 @@ contract Sofan is Ownable, ReentrancyGuard {
         ) public {
         require(BidMapping[_receiver][_contract][_tokenId][_index].bidStatus == BidStatus.waiting, "Bid is already accepted or refused");
         BidMapping[_receiver][_contract][_tokenId][_index].bidStatus = BidStatus.refused;
+    }
+
+    function cancelBid(
+        address _contract,
+        uint256 _tokenId,
+        address _receiver,
+        uint _index
+        ) public {
+        require(BidMapping[_receiver][_contract][_tokenId][_index].bidStatus == BidStatus.waiting, "Bid is already accepted or refused");
+        BidMapping[_receiver][_contract][_tokenId][_index].bidStatus = BidStatus.canceled;
     }
 
     function listToSell(

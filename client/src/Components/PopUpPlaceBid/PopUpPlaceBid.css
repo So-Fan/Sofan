@@ -142,10 +142,10 @@
   font-family: "Britanica-Light";
   font-size: 17px;
 }
-.popupplacebid-priceinput-wrap > input:focus::placeholder{
+.popupplacebid-priceinput-wrap > input:focus::placeholder {
   color: transparent;
 }
-.popupplacebid-priceinput-wrap > div{
+.popupplacebid-priceinput-wrap > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,10 +154,28 @@
   width: 103px;
   cursor: pointer;
 }
-.popupplacebid-priceinput-wrap > div > img{
+.popupplacebid-priceinput-wrap > div > img {
   margin-left: 17.64px;
 }
 @font-face {
   font-family: "Lufga";
   src: url("../../Assets/Fonts/Lufga-Black.otf");
+}
+.popupplacebid-button-disabled {
+  color: #0000006c;
+  background-color: #f6d46373;
+  border-radius: 9.05759px;
+  width: 468px;
+  height: 56px;
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 700;
+  font-family: "Lufga";
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popupplacebid-button-disabled > span {
+  user-select: none;
 }

@@ -189,7 +189,7 @@
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
   border-radius: 13.5142px;
 }
-.nft-collection-header-buy-module-container-owner{
+.nft-collection-header-buy-module-container-owner {
   width: 100%;
   height: 100%;
   max-width: 576px;
@@ -337,6 +337,7 @@
   align-items: center;
   border-radius: 10px;
   cursor: pointer;
+  user-select: none;
 }
 .nft-collection-header-buy-button:hover {
   background-color: #f7c520 !important;
@@ -345,18 +346,19 @@
 .nft-collection-header-buy-button:active {
   transform: scale(0.75) !important;
 }
-.nft-collection-header-buy-button-disabled{
+.nft-collection-header-buy-button-disabled {
   width: 100%;
   height: 100%;
   max-width: 519px;
   max-height: 65px;
-  background: #EDEDED;
+  background: #ededed;
   font-family: "Britanica-Heavy";
   font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  user-select: none;
 }
 .nft-collection-header-bid-button {
   width: 100%;
@@ -371,6 +373,7 @@
   border: 1px solid #000000;
   border-radius: 10px;
   cursor: pointer;
+  user-select: none;
   /* background-color: white; */
 }
 .nft-collection-header-bid-button:hover {
@@ -397,8 +400,9 @@
   justify-content: center;
   font-family: "britanica-heavy";
   cursor: pointer;
+  user-select: none;
 }
-.launchpad-collection-live-button-container:active{
+.launchpad-collection-live-button-container:active {
   transform: scale(0.65);
 }
 .launchpad-collection-live-button-container:hover {
@@ -537,6 +541,7 @@
   font-family: "britanica-heavy";
   cursor: pointer;
   margin-top: 21px;
+  user-select: none;
 }
 .launchpad-collection-live-header-right-mint-module-mint-button:hover {
   background-color: #f7c520 !important;
