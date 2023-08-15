@@ -130,6 +130,12 @@ function ConnectWallet({
       // Si Metamask est connecté alors on passe à l'étape suivante
       setIsMetamaskConnectWalletLoading(false);
       handleConnectWalletClick();
+
+      // TODO: BACKEND add metamask wallet to user table
+      // accounts[0] correspond au wallet
+      // const newWallet = {
+      //   metamask: accounts[0],
+      // };
     }
     setIsMetamaskConnectWalletLoading(false);
   }, [accounts, isWalletConnectClicked]);
