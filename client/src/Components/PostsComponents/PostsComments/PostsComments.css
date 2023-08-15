@@ -85,7 +85,11 @@
   height: 20px;
   /* background-color: burlywood; */
 }
-
+@media (max-height:900px) {
+  .posts-comments-component-comments-like-and-timestamp{
+    padding-top: 5px;
+  }
+}
 @media (max-width: 1450px) {
   .posts-comments-component-container {
     /* background-color: RED; */

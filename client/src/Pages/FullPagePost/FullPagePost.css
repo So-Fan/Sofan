@@ -163,7 +163,58 @@
   align-items: center;
   justify-content: center;
 }
-
+@media (max-height: 900px) {
+  .post-container-fullpagepost {
+    max-width: 1017px;
+    max-height: 600px;
+  }
+  .media-fullpagepost {
+    width: 600px;
+    height: 600px;
+  }
+  .img-fullpagepost {
+    width: 600px;
+    height: 600px;
+  }
+  .desc-likes-comments-container-fullpagepost {
+    width: 417px !important;
+    height: 600px;
+    min-height: 600px;
+    max-height: 600px;
+    min-width: auto;
+  }
+  .headofpost-container-fullpagepost {
+    width: 400px;
+  }
+  .bloc-content-fullpagepost {
+    max-width: 370px;
+    max-height: 580px;
+    /* background-color: yellow; */
+    padding-left: 15px;
+  }
+  .separation-line-fullpagepost {
+    height: 10px;
+  }
+  .comments-container-fullpagepost {
+    min-height: 354px !important;
+    max-height: 354px !important;
+    max-width: 390px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .comments-container-fullpagepost::-webkit-scrollbar {
+  }
+  #responsive-display-toggle-comments-fullpagepost1 {
+    display: none;
+  }
+  #responsive-display-toggle-comments-fullpagepost2 {
+    display: none;
+  }
+  .add-comment-input-container-fullpagepost {
+    width: 100%;
+    height: 70px;
+  }
+}
 @media (max-width: 1450px) {
   .post-container-fullpagepost {
     max-width: 1017px;
@@ -421,8 +472,8 @@
     height: 40px !important;
     /* background-color: green; */
   }
-  .add-comment-input-container-fullpagepost > div > div input{
-  font-size: 12px !important;
+  .add-comment-input-container-fullpagepost > div > div input {
+    font-size: 12px !important;
     /* background-color: green; */
   }
   .add-comment-input-container-fullpagepost > div > div input::placeholder {
@@ -430,47 +481,5 @@
   }
   .add-comment-input-container-fullpagepost > div > div button {
     font-size: 12px !important;
-  }
-}
-@media (min-width: 1451px) and (max-height: 900px) {
-  .post-container-fullpagepost {
-    max-width: 1017px;
-    max-height: 600px;
-  }
-  .media-fullpagepost {
-    width: 600px;
-    height: 600px;
-  }
-  .img-fullpagepost {
-    width: 600px;
-    height: 600px;
-  }
-  .desc-likes-comments-container-fullpagepost {
-    width: 417px !important;
-    height: 600px;
-    min-width: auto;
-  }
-  .headofpost-container-fullpagepost {
-    width: 400px;
-  }
-  .bloc-content-fullpagepost {
-    max-width: 400px;
-    max-height: 580px;
-  }
-  .separation-line-fullpagepost {
-    height: 10px;
-  }
-  #responsive-display-toggle-comments-fullpagepost1 {
-    display: none;
-  }
-  #responsive-display-toggle-comments-fullpagepost2 {
-    display: none;
-  }
-  .add-comment-input-container-fullpagepost {
-    width: 100%;
-    height: 70px;
-  }
-  .comments-container-fullpagepost {
-    max-width: 100% !important;
   }
 }
