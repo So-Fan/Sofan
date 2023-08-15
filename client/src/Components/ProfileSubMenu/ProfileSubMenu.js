@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Button from "../Button/Button";
 import "./ProfileSubMenu.css";
 import Arrow from "../../Assets/Image/arrow_bottom.svg";
@@ -6,20 +6,41 @@ const ProfileSubMenu = ({
   isProfileSubMenuButtonClicked,
   setIsProfileSubMenuButtonClicked,
   isPageAthlete,
-  profileSubMenuOffresClicked,
-  setProfileSubMenuOffresClicked,
+  // profileSubMenuOffresClicked,
+  // setProfileSubMenuOffresClicked,
   isNftCollectionPage,
 }) => {
+  const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
+    useState(false);
+
+  const handleOutsideProfileSubMenuClick = (e) => {
+    if (
+      e.target.id !== "profilesubmenu-offres" &&
+      e.target.id !== "profilesubmenu-offres-formulées" &&
+      e.target.id !== "profilesubmenu-offres-reçues" &&
+      profileSubMenuOffresClicked
+    ) {
+      setProfileSubMenuOffresClicked(false);
+    }
+  };
+
+  useEffect(() => {
+    if (profileSubMenuOffresClicked) {
+      window.addEventListener("click", handleOutsideProfileSubMenuClick);
+    }
+    if (!profileSubMenuOffresClicked) {
+      console.log("remove Listener");
+      window.removeEventListener("click", handleOutsideProfileSubMenuClick);
+    }
+
+    return () => {
+      window.removeEventListener("click", handleOutsideProfileSubMenuClick);
+    };
+  }, [profileSubMenuOffresClicked]);
+
   const handleProfileSubMenuOffresButtonClicked = (e) => {
-    // setProfileSubMenuOffresClicked(!profileSubMenuOffresClicked);
-    // if (profileSubMenuOffresClicked === true) {
-    //   setProfileSubMenuOffresClicked(false)
-    //   console.log(profileSubMenuOffresClicked)
-    // } else if (profileSubMenuOffresClicked === false){
-    //   setProfileSubMenuOffresClicked(true)
-    //   console.log(profileSubMenuOffresClicked)
+    e.preventDefault();
     setProfileSubMenuOffresClicked(!profileSubMenuOffresClicked);
-    console.log(profileSubMenuOffresClicked);
   };
   const [profileSubMenuOffersChoice, setprofileSubMenuOffersChoice] =
     useState("");
@@ -64,8 +85,9 @@ const ProfileSubMenu = ({
       }
     } else {
       if (
-        e.target.innerHTML === "Collected NFT" ||
-        e.target.innerHTML === "Items"
+        (e.target.innerHTML === "Collected NFT" ||
+          e.target.innerHTML === "Items") &&
+        isProfileSubMenuButtonClicked[0] !== true
       ) {
         setIsProfileSubMenuButtonClicked([
           true,
@@ -76,7 +98,10 @@ const ProfileSubMenu = ({
           false,
           false,
         ]);
-      } else if (e.target.innerHTML === "Activity") {
+      } else if (
+        e.target.innerHTML === "Activity" &&
+        isProfileSubMenuButtonClicked[1] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           true,
@@ -86,29 +111,38 @@ const ProfileSubMenu = ({
           false,
           false,
         ]);
-      } else if (e.target.innerHTML === "Offres formulées") {
+      } else if (
+        e.target.innerHTML === "Offres formulées" &&
+        isProfileSubMenuButtonClicked[2] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,
           true,
           false,
-          false,
-          false,
-          false,
-        ]);
-        setProfileSubMenuOffresClicked(true);
-      } else if (e.target.innerHTML === "Offres reçues") {
-        setIsProfileSubMenuButtonClicked([
-          false,
-          false,
-          false,
-          true,
           false,
           false,
           false,
         ]);
         setProfileSubMenuOffresClicked(true);
-      } else if (e.target.innerHTML === "Feed") {
+      } else if (
+        e.target.innerHTML === "Offres reçues" &&
+        isProfileSubMenuButtonClicked[3] !== true
+      ) {
+        setIsProfileSubMenuButtonClicked([
+          false,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+        ]);
+        setProfileSubMenuOffresClicked(true);
+      } else if (
+        e.target.innerHTML === "Feed" &&
+        isProfileSubMenuButtonClicked[4] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,
@@ -118,7 +152,10 @@ const ProfileSubMenu = ({
           false,
           false,
         ]);
-      } else if (e.target.innerHTML === "NFT Collections") {
+      } else if (
+        e.target.innerHTML === "NFT Collections" &&
+        isProfileSubMenuButtonClicked[5] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,
@@ -128,7 +165,10 @@ const ProfileSubMenu = ({
           true,
           false,
         ]);
-      } else if (e.target.innerHTML === "Events") {
+      } else if (
+        e.target.innerHTML === "Events" &&
+        isProfileSubMenuButtonClicked[6] !== true
+      ) {
         setIsProfileSubMenuButtonClicked([
           false,
           false,

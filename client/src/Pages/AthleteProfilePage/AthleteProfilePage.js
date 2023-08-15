@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo } from "react";
 import AthleteProfileEvent from "../../Components/AthleteProfileEvent/AthleteProfileEvent";
 import AthleteProfileHeader from "../../Components/AthleteProfileHeader/AthleteProfileHeader";
 import AthleteProfileNFTCollection from "../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection";
@@ -23,25 +23,39 @@ import { getStorage, ref, getMetadata } from "firebase/storage";
 import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
+import useEth from "../../contexts/EthContext/useEth";
+import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 
+const MemoProfileSubMenu = memo(ProfileSubMenu);
+const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
+const MemoAthleteProfileFeed = memo(
+  AthleteProfileFeed,
+  (prevProps, nextProps) => {
+    if (prevProps === nextProps) {
+      return true;
+    }
+    return false;
+  }
+);
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
-  profileSubMenuOffresClicked,
-  setProfileSubMenuOffresClicked,
+  // profileSubMenuOffresClicked,
+  // setProfileSubMenuOffresClicked,
 }) => {
   // functionnal states
   const [isAthleteProfileSubMenuClicked, setIsAthleteProfileSubMenuClicked] =
     useState([false, false, false, false, true, false, false]);
-  const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] =
-    useState(false);
-  const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
-    useState(false);
-  const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
+  // const [isAthleteFollowersClicked, setIsAthleteFollowersClicked] =
+  //   useState(false);
+  // const [isAthleteSupportersClicked, setIsAthleteSupportersClicked] =
+  //   useState(false);
+  // const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
   const [isAcceptedOffersClicked, setIsAcceptedOffersClicked] = useState(false);
   const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
-  const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
-    useState(false);
+  const [isCanceledOffersClicked, setIsCanceledOffersClicked] = useState(false);
+  // const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
+  //   useState(false);
   // popup states info
   const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // Backend
@@ -58,6 +72,10 @@ const AthleteProfilePage = ({
   const [userInfo, setUserInfo] = useState(null);
   const { id } = useParams();
 
+  // const setProfileSubMenuOffresClicked = () => {
+  //   console.log("amagnacouuuuunia");
+  // }
+  // const profileSubMenuOffresClicked= true
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,15 +123,15 @@ const AthleteProfilePage = ({
 
   // getFloorprice for Bored Ape Yacht Club:
   async function getCollectionFloorPrice() {
-
     try {
       const alchemy = new Alchemy(settings);
       const collectionFloorPriceOne = await alchemy.nft.getFloorPrice(
         ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"]
         // BAYC collection
       );
-      setCollectionFloorPriceApiData(collectionFloorPriceOne.openSea.floorPrice);
-      
+      setCollectionFloorPriceApiData(
+        collectionFloorPriceOne.openSea.floorPrice
+      );
     } catch (err) {
       console.error(err);
     }
@@ -639,18 +657,7 @@ const AthleteProfilePage = ({
     }
     setDataConcat(data);
   }, []);
-  function handleAthleteFollowersClick(e) {
-    setIsAthleteFollowersClicked(true);
-  }
-  function handleAthleteSupportersClick(e) {
-    setIsAthleteSupportersClicked(true);
-  }
-  function handlePalmaresButtonClick() {
-    setIsPalmaresButtonClicked(true);
-  }
-  function handleSettingsAthletePageClick() {
-    setSettingsAthletePageClicked(true);
-  }
+
   function handleAcceptOffersClick(
     nftsFromOwnerImage,
     nftsFromOwnerNameCollection,
@@ -713,26 +720,8 @@ const AthleteProfilePage = ({
   // Récupérer la valeur de pixel scrollé pour ensuite faire afficher le modal au bon endroit
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-  // const handlePixelScrolledAthleteProfilePage = () => {
-  //   setPixelScrolledAthleteProfilePage(window.scrollY);
-  // };
-  // useEffect(() => {
-  //   window.addEventListener(
-  //     "scroll",
-  //     handlePixelScrolledAthleteProfilePage,
-  //     false
-  //   );
-  // }, []);
-  // ============================================================
-  // smooth redirection fonction
+
   const athletesNftsAvailable = useRef(null);
-  function handleClickNftReceived(event) {
-    event.preventDefault();
-    athletesNftsAvailable.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
   function handleClicNftsAvailable() {
     setIsAthleteProfileSubMenuClicked([
       false,
@@ -746,192 +735,293 @@ const AthleteProfilePage = ({
   }
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
-  const displayAthleteProfileSubMenu = () => {
-    if (isAthleteProfileSubMenuClicked[4] === true) {
-      return (
-        <AthleteProfileFeed
-          athleteProfilePageStyling={true}
-          //dataPosts={dataConcat?.athletes}
-          athleteUserId={id}
-          athleteName={userInfo?.display_name}
-          athleteAvatar={userInfo?.profile_avatar}
-        />
-      );
-    } else if (isAthleteProfileSubMenuClicked[5] === true) {
-      return (
-        <AthleteProfileNFTCollection
-          nftsFromOwner={nftsFromOwner}
-          nftDataApi={nftDataApi} // pas utilisé pour l'instant
-          collectionFloorPriceApiData={collectionFloorPriceApiData}
-          dataCollections={dataConcat?.collections}
-          hidePrice={true}
-        />
-      );
-    } else if (isAthleteProfileSubMenuClicked[6] === true) {
-      return <AthleteProfileEvent dataEvents={dataConcat?.events} />;
-    } else if (isAthleteProfileSubMenuClicked[0] === true) {
-      return (
-        <div>
-          {/* <SortBySelector
-            setIsUSerProfileSeortBySelectorClicked={
-              setIsUSerProfileSeortBySelectorClicked
-            }
-            isUSerProfileSeortBySelectorClicked={
-              isUSerProfileSeortBySelectorClicked
-            }
-          /> */}
-          <NftCard
-            hidePrice={true}
-            nftsFromOwner={nftsFromOwner}
-            userFrom={dataConcat?.collected}
-            isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
-            athletesNftsAvailable={athletesNftsAvailable}
-          />
-        </div>
-      );
-    } else if (isAthleteProfileSubMenuClicked[1] === true) {
-      return (
-        <UserActivity
-          isUserActivitySectionActive={true}
-          userFrom={dataConcat?.activities}
-          nftsFromOwner={nftsFromOwner}
-          transferNftDataApi={transferNftDataApi}
-          setTransferNftDataApi={setTransferNftDataApi}
-          ethPrice={ethPrice}
-        />
-      );
-    } else if (isAthleteProfileSubMenuClicked[2] === true) {
-      return (
-        <div className="athleteprofilepage-formulatedoffers-wrap">
-          <FormulatedOffers
-            userFrom={dataConcat?.made}
-            nftsFromOwner={nftsFromOwner}
-            transferNftDataApi={transferNftDataApi}
-            ethPrice={ethPrice}
-          />
-        </div>
-      );
-    } else if (isAthleteProfileSubMenuClicked[3] === true) {
-      return (
-        <div className="athleteprofilepage-formulatedoffers-wrap">
-          <ReceivedOffers
-            userFrom={dataConcat?.received}
-            nftsFromOwner={nftsFromOwner}
-            transferNftDataApi={transferNftDataApi}
-            ethPrice={ethPrice}
-            handleAcceptOffersClick={handleAcceptOffersClick}
-            handleRejectedOffersClick={handleRejectedOffersClick}
-            // handleOffersChoice={handleOffersChoice}
-            // setDataPopupConfirmation={setDataPopupConfirmation}
-          />
-        </div>
-      );
+
+  console.log("Triggered from athletePage");
+
+  const {
+    state: { web3, accounts },
+    marketplaceAddress,
+  } = useEth();
+  const [mintPopUpProccesing, setMintPopUpProccesing] = useState(false);
+  const [isBlockchainError, setIsBlockchainError] = useState(false);
+  const [blockchainError, setBlockchainError] = useState(false);
+  const [isAcceptedOffers, setIsAcceptedOffers] = useState(false);
+
+  const handleAcceptedConfirmationOffer = async () => {
+    // TODO: Si pas connecté alors le bouton affiche un popup pour demander de sign up ou sign in
+    console.log("Bouton Accepté cliqué");
+
+    const artifacts = require("../../contracts/Sofan.json");
+    const { abi } = artifacts;
+    const web3MarketplaceInstance = new web3.eth.Contract(
+      abi,
+      marketplaceAddress
+    );
+    console.log(web3MarketplaceInstance);
+    // console.log(typeof contract._address);
+    let contractAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+    let currentNftTokenId = 0;
+    let bidListing = 0;
+    try {
+      setMintPopUpProccesing(true);
+      // param 1: address of nft contract 2: nft tokenId 3: bidListing
+      const result = await web3MarketplaceInstance.methods
+        .acceptBid(contractAddress, currentNftTokenId, bidListing)
+        .send({ from: accounts[0] });
+      if (result.status) {
+        console.log("Successfully accepted offer");
+        setMintPopUpProccesing(false);
+        setIsAcceptedOffers(true); // c'est qui
+      } else {
+        console.log("An error has occured. Please try again. ", result);
+        setMintPopUpProccesing(false);
+        // setIsListed(false);
+        setIsBlockchainError(true);
+        setBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
+      }
+    } catch (error) {
+      console.log(error);
+      setBlockchainError(error.message);
+      setMintPopUpProccesing(false);
+      setIsBlockchainError(true);
+      // setIsListed(false);
     }
   };
-  // console.log(collectionFloorPriceApiData);
+  const handleAcceptedOffersClosed = () => {
+    setIsAcceptedOffers(false);
+    setIsAcceptedOffersClicked(false);
+  };
+
+  // Debut Cancel --------------------------------------------------------------------------------------------------------------------------------
+
+  const [isCanceledOffers, setIsCanceledOffers] = useState(false);
+
+  const handleCanceledOffer = async () => {
+    // TODO: Si pas connecté alors le bouton affiche un popup pour demander de sign up ou sign in
+    console.log("Bouton cancel cliqué");
+
+    const artifacts = require("../../contracts/Sofan.json");
+    const { abi } = artifacts;
+    const web3MarketplaceInstance = new web3.eth.Contract(
+      abi,
+      marketplaceAddress
+    );
+    console.log(web3MarketplaceInstance);
+    // console.log(typeof contract._address);
+    let contractAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+    let currentNftTokenId = 0;
+    let receiver = "0x6a60b9D963623AFf1E947D1f6c8a5eC6CF7EdC7B";
+    let bidListing = 0;
+    try {
+      setMintPopUpProccesing(true);
+      // param 1: address of nft contract 2: nft tokenId 3: bidListing
+      const result = await web3MarketplaceInstance.methods
+        .cancelBid(contractAddress, currentNftTokenId, receiver, bidListing)
+        .send({ from: accounts[0] });
+      if (result.status) {
+        console.log("Successfully cancel offer");
+        setMintPopUpProccesing(false);
+        setIsCanceledOffers(true);
+      } else {
+        console.log("An error has occured. Please try again. ", result);
+        setMintPopUpProccesing(false);
+        setIsBlockchainError(true);
+        setBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
+      }
+    } catch (error) {
+      console.log(error);
+      setBlockchainError(error.message);
+      setMintPopUpProccesing(false);
+      setIsBlockchainError(true);
+    }
+  };
+  const handleCanceledOffersClosed = () => {
+    setIsCanceledOffers(false);
+    setIsCanceledOffersClicked(false);
+  };
+  // Fin Cancel --------------------------------------------------------------------------------------------------------------------------------
+  // TODO: créer useEffect comme dans NftSingle
+  const handleRejectedConfirmationOffer = async () => {
+    // TODO: Ajouter les données de l'offre refusé au backend lié à l'utilisateur qui a rejeté l'offre.
+  };
   return (
     <>
       <div className="athleteprofilepage-component">
         {/* <div className="athleteprofilepage-wrap"> */}
-        <AthleteProfileHeader
+        <MemoAthleteProfileHeader
           userInfo={userInfo}
           fansCounterApi={fansCounterApi}
-          setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
-          handleAthleteFollowersClick={handleAthleteFollowersClick}
-          handleAthleteSupportersClick={handleAthleteSupportersClick}
-          handleClickNftReceived={handleClickNftReceived}
+          // setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
+          // handleAthleteFollowersClick={handleAthleteFollowersClick}
+          // handleAthleteSupportersClick={handleAthleteSupportersClick}
+          // handleClickNftReceived={handleClickNftReceived}
           handleClicNftsAvailable={handleClicNftsAvailable}
-          handlePalmaresButtonClick={handlePalmaresButtonClick}
-          setSettingsAthletePageClicked={setSettingsAthletePageClicked}
-          handleSettingsAthletePageClick={handleSettingsAthletePageClick}
+          // handlePalmaresButtonClick={handlePalmaresButtonClick}
+          // setSettingsAthletePageClicked={setSettingsAthletePageClicked}
+          // handleSettingsAthletePageClick={handleSettingsAthletePageClick}
+          // pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
         />
         <div className="athleteprofilepage-profilesubmenu-wrap">
-          <ProfileSubMenu
+          <MemoProfileSubMenu
             isPageAthlete={true}
             isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
             setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
-            profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-            setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
+            // profileSubMenuOffresClicked={profileSubMenuOffresClicked}
+            // setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
           />
         </div>
-        {displayAthleteProfileSubMenu()}
+        {/* {displayAthleteProfileSubMenu()} */}
+        {isAthleteProfileSubMenuClicked[4] === true ? (
+          <MemoAthleteProfileFeed
+            athleteProfilePageStyling={true}
+            //dataPosts={dataConcat?.athletes}
+            athleteUserId={id}
+            athleteName={userInfo?.display_name}
+            athleteAvatar={userInfo?.profile_avatar}
+          />
+        ) : isAthleteProfileSubMenuClicked[5] === true ? (
+          <AthleteProfileNFTCollection
+            nftsFromOwner={nftsFromOwner}
+            nftDataApi={nftDataApi} // pas utilisé pour l'instant
+            collectionFloorPriceApiData={collectionFloorPriceApiData}
+            dataCollections={dataConcat?.collections}
+            hidePrice={true}
+          />
+        ) : isAthleteProfileSubMenuClicked[6] === true ? (
+          <AthleteProfileEvent dataEvents={dataConcat?.events} />
+        ) : isAthleteProfileSubMenuClicked[0] === true ? (
+          <div>
+            {/* <SortBySelector
+                  setIsUSerProfileSeortBySelectorClicked={
+                    setIsUSerProfileSeortBySelectorClicked
+                  }
+                  isUSerProfileSeortBySelectorClicked={
+                    isUSerProfileSeortBySelectorClicked
+                  }
+                /> */}
+            <NftCard
+              hidePrice={true}
+              nftsFromOwner={nftsFromOwner}
+              userFrom={dataConcat?.collected}
+              isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+              athletesNftsAvailable={athletesNftsAvailable}
+            />
+          </div>
+        ) : isAthleteProfileSubMenuClicked[1] === true ? (
+          <UserActivity
+            isUserActivitySectionActive={true}
+            userFrom={dataConcat?.activities}
+            nftsFromOwner={nftsFromOwner}
+            transferNftDataApi={transferNftDataApi}
+            setTransferNftDataApi={setTransferNftDataApi}
+            ethPrice={ethPrice}
+          />
+        ) : isAthleteProfileSubMenuClicked[2] === true ? (
+          <div className="athleteprofilepage-formulatedoffers-wrap">
+            <FormulatedOffers
+              userFrom={dataConcat?.made}
+              nftsFromOwner={nftsFromOwner}
+              transferNftDataApi={transferNftDataApi}
+              ethPrice={ethPrice}
+            />
+          </div>
+        ) : (
+          isAthleteProfileSubMenuClicked[3] === true && (
+            <div className="athleteprofilepage-formulatedoffers-wrap">
+              <ReceivedOffers
+                userFrom={dataConcat?.received}
+                nftsFromOwner={nftsFromOwner}
+                transferNftDataApi={transferNftDataApi}
+                ethPrice={ethPrice}
+                handleAcceptOffersClick={handleAcceptOffersClick}
+                handleRejectedOffersClick={handleRejectedOffersClick}
+                // handleOffersChoice={handleOffersChoice}
+                // setDataPopupConfirmation={setDataPopupConfirmation}
+              />
+            </div>
+          )
+        )}
         {/* </div> */}
       </div>
-      {isAthleteFollowersClicked && (
-        <Modal
-          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
-          setState={setIsAthleteFollowersClicked}
-          style={{
-            marginTop: pixelScrolledAthleteProfilePage,
-            display: "none",
-          }}
-        >
-          <AthleteFollowersFansPopUp
-            isAthleteFollowersClicked={isAthleteFollowersClicked}
-          />
-        </Modal>
-      )}
-      {isAthleteSupportersClicked && (
-        <Modal
-          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
-          setState={setIsAthleteSupportersClicked}
-          style={{
-            marginTop: pixelScrolledAthleteProfilePage,
-            display: "none",
-          }}
-        >
-          <AthleteFollowersFansPopUp
-            isAthleteSupportersClicked={isAthleteSupportersClicked}
-          />
-        </Modal>
-      )}
-      {isPalmaresButtonClicked && (
-        <Modal
-          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
-          setState={setIsPalmaresButtonClicked}
-          // style={{marginTop: pixelScrolledAthleteProfilePage}}
-          style={{ display: "none" }}
-        >
-          <AthleteProfileRanking
-            isPalmaresButtonClicked={isPalmaresButtonClicked}
-          />
-        </Modal>
-      )}
       {isAcceptedOffersClicked && (
         <Modal
-          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
           setState={setIsAcceptedOffersClicked}
+          setState2={setIsBlockchainError}
+          setState3={setIsAcceptedOffers}
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ display: "none" }}
         >
-          <PopUpConfirmationOffer
-            isAcceptedOffersClicked={isAcceptedOffersClicked}
-          />
+          {isAcceptedOffers ? (
+            <PopUpValidate
+              text={"Félicitations ! L'offre a bien été accepté"}
+              customWidth={"260px"}
+              onClick={handleAcceptedOffersClosed}
+            />
+          ) : (
+            <PopUpConfirmationOffer
+              isAcceptedOffersClicked={isAcceptedOffersClicked}
+              handleClick={handleAcceptedConfirmationOffer}
+              mintPopUpProccesing={mintPopUpProccesing}
+              isBlockchainError={isBlockchainError} // change l'affichage
+              blockchainError={blockchainError} // message.error
+              setIsBlockchainError={setIsBlockchainError}
+              setIsStatusClicked={setIsAcceptedOffersClicked}
+            />
+          )}
+        </Modal>
+      )}
+      {isCanceledOffersClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
+          setState={setIsCanceledOffersClicked}
+          setState2={setIsBlockchainError}
+          setState3={setIsCanceledOffers}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ display: "none" }}
+        >
+          {isCanceledOffers ? (
+            <PopUpValidate
+              text={"Félicitations ! L'offre a bien été annulé"}
+              customWidth={"260px"}
+              onClick={handleCanceledOffersClosed}
+            />
+          ) : (
+            <PopUpConfirmationOffer
+              isCanceledOffersClicked={isCanceledOffersClicked}
+              handleClick={handleCanceledOffer}
+              mintPopUpProccesing={mintPopUpProccesing}
+              isBlockchainError={isBlockchainError} // change l'affichage
+              blockchainError={blockchainError} // message.error
+              setIsBlockchainError={setIsBlockchainError}
+              setIsStatusClicked={setIsCanceledOffersClicked}
+            />
+          )}
         </Modal>
       )}
       {isRejectedOffersClicked && (
         <Modal
-          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
           setState={setIsRejectedOffersClicked}
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ display: "none" }}
         >
           <PopUpConfirmationOffer
+            handleClick={handleRejectedConfirmationOffer}
             // dataPopupConfirmation={dataPopupConfirmation}
             isRejectedOffersClicked={isRejectedOffersClicked}
           />
         </Modal>
       )}
-      {isSettingsAthletePageClicked && (
-        <Modal
-        setState={setSettingsAthletePageClicked}
-        style={{ right: "5%", top: "18px" }}
-        >
-          <PopUpEditProfile 
-          allUserInfo={userInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
-          />
-        </Modal>
-      )}
+      <button onClick={() => setIsAcceptedOffersClicked(true)}>
+        Accept Offer
+      </button>
+      <button onClick={() => setIsCanceledOffersClicked(true)}>
+        Cancel Offer
+      </button>
+      <button onClick={() => setIsRejectedOffersClicked(true)}>
+        Refuse Offer
+      </button>
     </>
   );
 };

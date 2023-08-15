@@ -274,9 +274,10 @@ const PopUpEditProfile = ({
   }, [loadingEditProfile]);
 
   // profilePicture={allUserInfo?.profile_avatar}
-  console.log(allUserInfo?.profile_avatar);
-  console.log(croppedAvatar);
+  // console.log(allUserInfo?.profile_avatar);
+  // console.log(croppedAvatar);
   useEffect(() => {
+    console.log("trigered");
     if (
       // (bioText.length < 50 || bioText.length > 250) &&
       croppedAvatar !== undefined ||
