@@ -1,8 +1,10 @@
-/* Move to PostFeed.js */
-.publication-container {
-  /* max-height: 900px; */
-  /* background-color: blue; */
-  
+.publication-head-container-fullpagepost{
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: chocolate; */
 }
 .publication-head-left-container {
   max-height: 40px;
@@ -100,17 +102,21 @@
   }
 }
 @media (max-width: 1050px) {
+  .publication-head-container {
+    background-color: aquamarine;
+    /* max-width: 300px; */
+  }
   .publication-head-left-container {
     width: 55%;
   }
-  .publication-head-left-container-size-pollpost{
+  .publication-head-left-container-size-pollpost {
     width: 40%;
   }
   .age-publication {
     font-size: 12px;
   }
-  .age-publication-pollpost{
-    font-size: 14px ;
+  .age-publication-pollpost {
+    font-size: 14px;
   }
   .athlete-name-publication {
     font-size: 14px;
@@ -130,7 +136,7 @@
   .publication-head-right-container {
     max-width: 100px;
   }
-  .publication-head-right-container-pollpost{
+  .publication-head-right-container-pollpost {
     max-width: 150px;
   }
 }
@@ -138,7 +144,7 @@
   .publication-head-left-container {
     width: 55%;
   }
-  .publication-head-left-container-size-pollpost{
+  .publication-head-left-container-size-pollpost {
     width: 40%;
   }
   .profilepic-athlete-publication {
@@ -158,8 +164,8 @@
   .age-publication {
     font-size: 10px;
   }
-  .age-publication-pollpost{
-    font-size: 14px ;
+  .age-publication-pollpost {
+    font-size: 14px;
   }
   .publication-type {
     font-size: 10px;
@@ -174,7 +180,7 @@
   .publication-head-right-container {
     max-width: 100px;
   }
-  .publication-head-right-container-pollpost{
+  .publication-head-right-container-pollpost {
     max-width: 150px;
   }
 }

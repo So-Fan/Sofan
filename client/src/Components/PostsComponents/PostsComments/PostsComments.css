@@ -105,3 +105,35 @@
     height: 12px;
   }
 }
+@media (max-width:900px) {
+  .posts-comments-component-container {
+    /* background-color: RED; */
+    min-height: 68px;
+    height: 68px !important;
+    max-height: 68px !important;
+  }
+  .posts-comments-component-profile-pic-container{
+    /* background-color: darkblue; */
+    height: 61px;
+  }
+  .posts-comments-component-profile-pic-container img{
+  
+    width: 25px;
+    height: 25px;
+    max-width: 25px;
+    max-height: 25px;
+  }
+  
+  .posts-comments-component-comments{
+    font-size: 10px;
+    margin-top: 2px;
+  }
+  .posts-comments-component-username{
+    font-size: 12px;
+  }
+  .posts-comments-component-comments-like-and-timestamp {
+    padding-top: 3px;
+    font-size: 9px;
+    height: 12px;
+  }
+}

@@ -108,8 +108,8 @@ function FullPagePost({
                   postName={postName}
                   //
                   dropDownMenuSize="dropdown-button-point-size-M"
-                  headOfPostSizeLeft="publication-head-left-container-size-pollpost"
-                  headOfPostSizeRight="publication-head-right-container-pollpost"
+                  // headOfPostSizeLeft="publication-head-left-container-size-pollpost"
+                  // headOfPostSizeRight="publication-head-right-container-pollpost"
                   publicationTypeHeadOfPostPollPost="publication-type-pollpost"
                   athleteNamePollPost="athlete-name-publication-pollpost"
                   agePublicationPollPost="age-publication-pollpost"
@@ -120,15 +120,11 @@ function FullPagePost({
                   postDate={postDate}
                   postDateType={postDateType}
                   postType={postType}
+                  fullPagePostHeadOfPostStyle={true}
                 />
               </div>
-              <div
-                className="headofpost-container-fullpagepost"
-                id="dropdown-small"
-              >
-                {/* <HeadOfPost dropDownMenuSize="dropdown-button-point-size-S" /> */}
-              </div>
               <PostsDescription
+                fullPagePostDescriptionStyle={true}
                 postDescription={postDescription}
                 postFeedDescription="post-feed-description-resize-fullpage"
               />
@@ -141,6 +137,7 @@ function FullPagePost({
                   likeButtonSize={"likeButton-S-size"}
                   isPostClicked={isPostClicked}
                   setIsPostClicked={setIsPostClicked}
+                  fullPagePostLikesCommentsCounterStyle={true}
                 />
               </div>
               <div className="separation-line-fullpagepost"></div>

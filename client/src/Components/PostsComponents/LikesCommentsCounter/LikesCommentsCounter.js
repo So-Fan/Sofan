@@ -17,6 +17,7 @@ function LikesCommentsCounter({
   postLikes,
   setIsPostClicked,
   isPostClicked,
+  fullPagePostLikesCommentsCounterStyle,
 }) {
   const [pluralLikes, setPluralLikes] = useState();
   useEffect(() => {
@@ -25,11 +26,24 @@ function LikesCommentsCounter({
     } else {
       setPluralLikes(false);
     }
+    // if (fullPagePostLikesCommentsCounterStyle) {
+    //   fullPagePostLikesCommentsCounterStyle = {
+    //     firstDiv: "likes-comments-container-publication-fullpagepost",
+    //     secondDiv: "likes-button-container-fullpagepost",
+    //   };
+    //   console.log(fullPagePostLikesCommentsCounterStyle?.firstDiv)
+    // } else {
+    //   fullPagePostLikesCommentsCounterStyle = {};
+    // }
   }, []);
 
   return (
     <div
-      className={`likes-comments-container-publication ${likesCommentsContainerPublicationPollPost} `}
+      className={
+        fullPagePostLikesCommentsCounterStyle
+          ? `likes-comments-container-publication-fullpagepost ${likesCommentsContainerPublicationPollPost}`
+          : `likes-comments-container-publication ${likesCommentsContainerPublicationPollPost}`
+      }
     >
       <div className={`like-button-container ${likeButtonContainerPollPost}`}>
         <LikeButton
