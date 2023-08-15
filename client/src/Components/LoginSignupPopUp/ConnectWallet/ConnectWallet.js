@@ -40,7 +40,7 @@ function ConnectWallet({
   const [isWeb3AuthConnectWalletLoading, setIsWeb3authConnectLoading] =
     useState(false);
   const [metamaskError, setMetamaskError] = useState(false);
-  const [web3AuthError, setWeb3AuthError] = useState(false)
+  const [web3AuthError, setWeb3AuthError] = useState(false);
 
   const handleCreateWallet = async (e) => {
     e.preventDefault();
@@ -131,7 +131,8 @@ function ConnectWallet({
       setIsMetamaskConnectWalletLoading(false);
       handleConnectWalletClick();
     }
-  }, [accounts]);
+    setIsMetamaskConnectWalletLoading(false);
+  }, [accounts, isWalletConnectClicked]);
 
   window.addEventListener("unhandledrejection", function (event) {
     // detecte quand le popup web3Auth a été fermé
@@ -248,12 +249,13 @@ function ConnectWallet({
                 Créer mon wallet avec mon mail
               </div>
               {web3AuthError && (
-              <>
-                <div className="signup-user-connect-wallet-error-web3auth">
-                  Oops il semblerait que quelque chose s'est mal passé avec Web3Auth
-                </div>
-              </>
-            )}
+                <>
+                  <div className="signup-user-connect-wallet-error-web3auth">
+                    Oops il semblerait que quelque chose s'est mal passé avec
+                    Web3Auth
+                  </div>
+                </>
+              )}
             </button>
             <div className="signup-user-connect-wallet-progress-bar-container">
               <div
