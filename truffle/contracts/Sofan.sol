@@ -244,6 +244,7 @@ contract Sofan is Ownable, ReentrancyGuard {
         address _receiver,
         uint _index
     ) public {
+        // add require to check that Bid.sender = msg.sender
         require(
             BidMapping[_receiver][_contract][_tokenId][_index].bidStatus ==
                 BidStatus.waiting,

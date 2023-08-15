@@ -53,6 +53,7 @@ const AthleteProfilePage = ({
   // const [isPalmaresButtonClicked, setIsPalmaresButtonClicked] = useState(false);
   const [isAcceptedOffersClicked, setIsAcceptedOffersClicked] = useState(false);
   const [isRejectedOffersClicked, setIsRejectedOffersClicked] = useState(false);
+  const [isCanceledOffersClicked, setIsCanceledOffersClicked] = useState(false);
   // const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
   //   useState(false);
   // popup states info
@@ -768,7 +769,7 @@ const AthleteProfilePage = ({
         .acceptBid(contractAddress, currentNftTokenId, bidListing)
         .send({ from: accounts[0] });
       if (result.status) {
-        console.log("Successfully list token");
+        console.log("Successfully accepted offer");
         setMintPopUpProccesing(false);
         setIsAcceptedOffers(true); // c'est qui
       } else {
@@ -791,6 +792,54 @@ const AthleteProfilePage = ({
     setIsAcceptedOffersClicked(false);
   };
 
+  // Debut Cancel --------------------------------------------------------------------------------------------------------------------------------
+
+  const [isCanceledOffers, setIsCanceledOffers] = useState(false);
+
+  const handleCanceledOffer = async () => {
+    // TODO: Si pas connecté alors le bouton affiche un popup pour demander de sign up ou sign in
+    console.log("Bouton cancel cliqué");
+
+    const artifacts = require("../../contracts/Sofan.json");
+    const { abi } = artifacts;
+    const web3MarketplaceInstance = new web3.eth.Contract(
+      abi,
+      marketplaceAddress
+    );
+    console.log(web3MarketplaceInstance);
+    // console.log(typeof contract._address);
+    let contractAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+    let currentNftTokenId = 0;
+    let receiver = "0x6a60b9D963623AFf1E947D1f6c8a5eC6CF7EdC7B";
+    let bidListing = 0;
+    try {
+      setMintPopUpProccesing(true);
+      // param 1: address of nft contract 2: nft tokenId 3: bidListing
+      const result = await web3MarketplaceInstance.methods
+        .cancelBid(contractAddress, currentNftTokenId, receiver, bidListing)
+        .send({ from: accounts[0] });
+      if (result.status) {
+        console.log("Successfully cancel offer");
+        setMintPopUpProccesing(false);
+        setIsCanceledOffers(true);
+      } else {
+        console.log("An error has occured. Please try again. ", result);
+        setMintPopUpProccesing(false);
+        setIsBlockchainError(true);
+        setBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
+      }
+    } catch (error) {
+      console.log(error);
+      setBlockchainError(error.message);
+      setMintPopUpProccesing(false);
+      setIsBlockchainError(true);
+    }
+  };
+  const handleCanceledOffersClosed = () => {
+    setIsCanceledOffers(false);
+    setIsCanceledOffersClicked(false);
+  };
+  // Fin Cancel --------------------------------------------------------------------------------------------------------------------------------
   // TODO: créer useEffect comme dans NftSingle
   const handleRejectedConfirmationOffer = async () => {
     // TODO: Ajouter les données de l'offre refusé au backend lié à l'utilisateur qui a rejeté l'offre.
@@ -896,7 +945,7 @@ const AthleteProfilePage = ({
       </div>
       {isAcceptedOffersClicked && (
         <Modal
-          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
           setState={setIsAcceptedOffersClicked}
           setState2={setIsBlockchainError}
           setState3={setIsAcceptedOffers}
@@ -917,14 +966,42 @@ const AthleteProfilePage = ({
               isBlockchainError={isBlockchainError} // change l'affichage
               blockchainError={blockchainError} // message.error
               setIsBlockchainError={setIsBlockchainError}
-              setIsAcceptedOffersClicked={setIsAcceptedOffersClicked}
+              setIsStatusClicked={setIsAcceptedOffersClicked}
+            />
+          )}
+        </Modal>
+      )}
+      {isCanceledOffersClicked && (
+        <Modal
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
+          setState={setIsCanceledOffersClicked}
+          setState2={setIsBlockchainError}
+          setState3={setIsCanceledOffers}
+          // style={{marginTop: pixelScrolledAthleteProfilePage}}
+          style={{ display: "none" }}
+        >
+          {isCanceledOffers ? (
+            <PopUpValidate
+              text={"Félicitations ! L'offre a bien été annulé"}
+              customWidth={"260px"}
+              onClick={handleCanceledOffersClosed}
+            />
+          ) : (
+            <PopUpConfirmationOffer
+              isCanceledOffersClicked={isCanceledOffersClicked}
+              handleClick={handleCanceledOffer}
+              mintPopUpProccesing={mintPopUpProccesing}
+              isBlockchainError={isBlockchainError} // change l'affichage
+              blockchainError={blockchainError} // message.error
+              setIsBlockchainError={setIsBlockchainError}
+              setIsStatusClicked={setIsCanceledOffersClicked}
             />
           )}
         </Modal>
       )}
       {isRejectedOffersClicked && (
         <Modal
-          dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
           setState={setIsRejectedOffersClicked}
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ display: "none" }}
@@ -938,6 +1015,9 @@ const AthleteProfilePage = ({
       )}
       <button onClick={() => setIsAcceptedOffersClicked(true)}>
         Accept Offer
+      </button>
+      <button onClick={() => setIsCanceledOffersClicked(true)}>
+        Cancel Offer
       </button>
       <button onClick={() => setIsRejectedOffersClicked(true)}>
         Refuse Offer

@@ -9,13 +9,14 @@ import PopUpBlockchainError from "../PopUpBlockchainError/PopUpBlockchainError";
 function PopUpConfirmationOffer({
   handleClick,
   isAcceptedOffersClicked,
+  isCanceledOffersClicked,
   isRejectedOffersClicked,
   dataPopupConfirmation,
   mintPopUpProccesing,
   isBlockchainError,
   blockchainError,
   setIsBlockchainError,
-  setIsAcceptedOffersClicked,
+  setIsStatusClicked,
 }) {
   console.log(dataPopupConfirmation);
   return (
@@ -41,6 +42,9 @@ function PopUpConfirmationOffer({
             <div className="popup-confirmation-offer-question">
               {isAcceptedOffersClicked && (
                 <>Voulez-vous vraiment accepter cette offre ?</>
+              )}
+              {isCanceledOffersClicked && (
+                <>Voulez-vous vraiment annuler cette offre ?</>
               )}
               {isRejectedOffersClicked && (
                 <>Voulez-vous vraiment refuser cette offre ?</>
@@ -86,6 +90,9 @@ function PopUpConfirmationOffer({
                 {isAcceptedOffersClicked && (
                   <> Oui je souhaite vraiment accepter cette offre.</>
                 )}
+                {isCanceledOffersClicked && (
+                  <> Oui je souhaite vraiment annuler cette offre.</>
+                )}
                 {isRejectedOffersClicked && (
                   <>Oui je souhaite vraiment refuser cette offre.</>
                 )}
@@ -93,7 +100,7 @@ function PopUpConfirmationOffer({
               <div
                 id="custom-close-button"
                 className="popup-confirmation-offer-cancel"
-                onClick={() => setIsAcceptedOffersClicked(false)}
+                onClick={() => setIsStatusClicked(false)}
               >
                 Annuler. Revenir sur la page.
               </div>
