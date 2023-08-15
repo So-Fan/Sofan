@@ -573,14 +573,14 @@ const NftSingle = () => {
         // setIsListed(false);
         setBlockchainError(true);
         setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
-        // return;
+        return;
       }
     } catch (error) {
       console.error(error);
       setListingBlockchainError(error.message);
       setMintPopUpProccesing(false);
       setBlockchainError(true);
-      // return;
+      return;
     }
     console.log("after approve");
 
