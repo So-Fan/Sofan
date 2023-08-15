@@ -44,7 +44,6 @@ function PostsFeed({
   polldata,
   singlePostData,
 }) {
-  
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
   function handleClickShowComment(e) {
@@ -65,7 +64,7 @@ function PostsFeed({
     ) {
       return (
         <PollPost
-          pollFirstChoice={ polldata?.choices[0].text}
+          pollFirstChoice={polldata?.choices[0].text}
           pollSecondChoice={polldata?.choices[1].text}
           pollThirdChoice={polldata?.choices[2].text}
           pollFourthChoice={polldata?.choices[3].text}
@@ -77,12 +76,11 @@ function PostsFeed({
           pollDateType={pollDateType}
           pollTotalVote={pollTotalVote}
         />
-       
       );
-    } 
+    }
   }
   // console.log(lockPremiumContent)
-
+  console.log(postDate);
   return (
     <>
       <div
@@ -172,12 +170,29 @@ function PostsFeed({
       </div>
       {isPostClicked && (
         <Modal
+          isPostClicked={isPostClicked}
           setState={setIsPostClicked}
           style={{ top: "-44px", right: "2px" }}
           color="white"
         >
           {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
-          <FullPagePost postType={singlePostData.postType === "normal"} />
+          <FullPagePost
+            id={id}
+            postType={postType}
+            postDate={postDate}
+            postDateType={postDateType}
+            setPostStates={setPostStates}
+            postName={postName}
+            postCreatorId={postCreatorId}
+            postPicture={postPicture}
+            postDescription={postDescription}
+            loggedInUserId={loggedInUser?.id}
+            postLikes={postLikes}
+            postCommentNumber={postCommentNumber}
+            isPostClicked={isPostClicked}
+            setIsPostClicked={setIsPostClicked}
+            // postType={singlePostData.postType === "normal"}
+          />
         </Modal>
       )}
     </>

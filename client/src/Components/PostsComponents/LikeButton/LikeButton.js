@@ -4,7 +4,7 @@ import { db } from "../../../Configs/firebase";
 import { doc, collection, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
 
 
-function LikeButton({ likeButtonSize, likeButtonSizePollPost, postId, loggedInUserId }) {
+function LikeButton({ likeButtonSize, likeButtonSizePollPost, postId, loggedInUserId, setIsPostClicked, isPostClicked }) {
   const [isPostLiked, setIsPostedLiked] = useState(false);
 
 

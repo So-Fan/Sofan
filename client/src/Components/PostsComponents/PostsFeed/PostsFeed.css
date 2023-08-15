@@ -28,6 +28,7 @@
 .publication-content::-webkit-scrollbar{
   display: none;
 }
+/* check HeadOfPost.css for the fullpagepost version */
 .publication-head-container {
   width: 100%;
   min-height: 40px;

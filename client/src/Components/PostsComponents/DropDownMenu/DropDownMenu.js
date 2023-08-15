@@ -1,24 +1,44 @@
 import React from "react";
 import "./DropDownMenu.css";
 
-function DropDownMenu() {
-
+function DropDownMenu({
+  isDropDownMenuCommentClicked,
+  dropdownStates,
+  commentId,
+  isAdminLogged,
+  isAthleteLogged,
+  isCommentsOwnerLogged,
+}) {
   // Backend here
   const isOwner = true;
 
   return (
     <>
-      <section className="dropdown-menu-container">
+      <section
+      id={commentId}
+        style={
+          dropdownStates[commentId]
+            ? {
+                top: "95%",
+                right: "-15%",
+                width: "90px",
+                fontSize: "12px",
+                height: "80px",
+              }
+            : { top: "7%", right: "5%" }
+        }
+        className="dropdown-menu-container"
+      >
         <ul>
           {isOwner && (
             <>
               <a href="/" id="link-dropdown-menu">
                 <li>Supprimer</li>
               </a>
-              <div className="separation-line-dropdown-menu"></div>
+              {/* <div className="separation-line-dropdown-menu"></div>
               <a href="/" id="link-dropdown-menu">
                 <li>Modifier la publication</li>
-              </a>
+              </a> */}
               <div className="separation-line-dropdown-menu"></div>
             </>
           )}

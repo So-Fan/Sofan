@@ -57,7 +57,7 @@ function Home({
       return false;
     }
   }
- 
+ console.log(dataPost)
   useEffect(() => {
     setIsLoading(true);
 
@@ -96,14 +96,14 @@ function Home({
     setIsCreatePostButtonClicked(true);
   };
 
-  console.log(dataPost)
+  console.log(isLogged?.account_type)
   return (
     <>
       <section className="home-component">
         <div
           className="home-left-container"
           style={
-            isLogged && isLogged.account_type !== "free"
+            isLogged?.account_type === "athlete" 
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
@@ -111,7 +111,7 @@ function Home({
           <div
             className="home-navlink-create-post-wrap"
             style={
-              isLogged && isLogged.account_type !== "free"
+              isLogged?.account_type === "athlete"
                 ? { height: "138px" }
                 : { height: "64px" }
             }
@@ -134,7 +134,7 @@ function Home({
                 gap="8.59px"
               />
             </div>
-            {isLogged && isLogged.account_type !== "free" && (
+            {isLogged === true && isLogged !== undefined  && isLogged?.account_type !== "free" && (
               <Button
                 createPostButtonclassName="button-component-create-post"
                 style={CreatePostButtonStyle.inlineStyle}

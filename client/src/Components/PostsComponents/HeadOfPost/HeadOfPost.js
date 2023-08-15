@@ -24,6 +24,7 @@ function HeadOfPost({
   postDate,
   postDateType,
   postType,
+  fullPagePostHeadOfPostStyle
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
@@ -60,7 +61,6 @@ function HeadOfPost({
 
     fetchCreatorData();
   }, [postCreatorId]);
-
   const redirectToAthleteProfile = (postCreatorId) => {
     navigate(`/athleteprofile/${postCreatorData.id}`);
   };
@@ -71,7 +71,7 @@ function HeadOfPost({
   postDate = postDate.replace("environ ", "");
 
   return (
-    <div className="publication-head-container">
+    <div className={fullPagePostHeadOfPostStyle ?"publication-head-container-fullpagepost" : "publication-head-container"}>
       <div
         className={`publication-head-left-container ${headOfPostSizeLeft}`}
         onClick={redirectToAthleteProfile}
