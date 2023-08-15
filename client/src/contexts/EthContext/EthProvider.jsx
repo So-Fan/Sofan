@@ -129,40 +129,46 @@ function EthProvider({ children, setWeb3auth }) {
   useEffect(() => {
     // si déja co
     // ajouter condition si déja sign in
-    window.ethereum
-      .request({ method: "eth_accounts" })
-      .then((res) => {
-        // console.log(res.length);
-        if (res.length != 0) {
-          const tryInit = async () => {
-            const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
-            let address, contract, accounts, networkID;
-            const artifact = require("../../contracts/SofanNftTemplate.json");
-            const { abi } = artifact;
+    try {
+      window.ethereum
+        .request({ method: "eth_accounts" })
+        .then((res) => {
+          // console.log(res.length);
+          if (res.length != 0) {
+            const tryInit = async () => {
+              const web3 = new Web3(
+                Web3.givenProvider || "ws://localhost:8545"
+              );
+              let address, contract, accounts, networkID;
+              const artifact = require("../../contracts/SofanNftTemplate.json");
+              const { abi } = artifact;
 
-            try {
-              accounts = await web3.eth.getAccounts();
-              networkID = await web3.eth.net.getId();
+              try {
+                accounts = await web3.eth.getAccounts();
+                networkID = await web3.eth.net.getId();
 
-              setIsInit(true);
-              address = "0x000000000000000000000000000000000000dEaD";
-              contract = new web3.eth.Contract(abi, address);
-              setContractAddress(address);
-              console.log("je suis déjà connecté", accounts);
-            } catch (err) {
-              console.error(err);
-            }
-            dispatch({
-              type: actions.init,
-              data: { artifact, web3, accounts, networkID, contract },
-            });
-          };
-          tryInit();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+                setIsInit(true);
+                address = "0x000000000000000000000000000000000000dEaD";
+                contract = new web3.eth.Contract(abi, address);
+                setContractAddress(address);
+                console.log("je suis déjà connecté", accounts);
+              } catch (err) {
+                console.error(err);
+              }
+              dispatch({
+                type: actions.init,
+                data: { artifact, web3, accounts, networkID, contract },
+              });
+            };
+            tryInit();
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {
