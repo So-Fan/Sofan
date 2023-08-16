@@ -15,7 +15,6 @@
 }
 .like-button-container-pollpost {
   width: 105px;
-  /* background-color: red; */
 }
 
 .likes-counter-publication {
@@ -102,7 +101,7 @@
   }
   .likes-comments-container-publication-fullpagepost{
     min-height: 40px;
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
   }
   .likes-comments-container-publication-fullpagepost > div > div:nth-child(2){
     /* background-color: cornsilk; */

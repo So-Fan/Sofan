@@ -5,7 +5,7 @@
   height: 100% !important;
   max-width: 496px;
   min-height: 81px;
-  max-height: 81px;
+  /* max-height: 81px; */
   display: flex;
 }
 .posts-comments-component-profile-pic-container-no-media-queries {
