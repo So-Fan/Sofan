@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, db, ref } from "../../Configs/firebase";
+import {
+  auth,
+  googleProvider,
+  db,
+  ref,
+  storage,
+  uploadBytes,
+  getDownloadURL,
+} from "../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext/UserContext";
 
@@ -25,10 +33,18 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
+  addDoc,
 } from "firebase/firestore";
 import "./PopUpSignIn.css";
 import Button from "../Button/Button";
 import ForgotPassword from "../LoginSignupPopUp/ForgotPassword/ForgotPassword";
+import ConfirmationCode from "../LoginSignupPopUp/ConfirmationCode/ConfirmationCode";
+import SetupProfile from "../LoginSignupPopUp/SetupProfile/SetupProfile";
+import ConnectWallet from "../LoginSignupPopUp/ConnectWallet/ConnectWallet";
+import ConfirmWallet from "../LoginSignupPopUp/ConfirmWallet/ConfirmWallet";
+import ValidationSignup from "../LoginSignupPopUp/ValidationSignup/ValidationSignup";
+import { ImageUrlToFile } from "../../Utils/fileFunctions";
 
 const PopUpSignIn = ({
   web3auth,
@@ -67,6 +83,66 @@ const PopUpSignIn = ({
     setIsWalletConnectClicked,
     setIsWeb3authConnectClicked,
   } = useEth();
+
+  // START SIGNUP
+  const [isFormValid, setIsFormValid] = useState(true); // à changer
+  const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
+  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
+  const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
+  const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
+  const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
+  const [isConnectWalletValid, setConnectWalletValid] = useState(false);
+  const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
+  const [displayValidationSignup, setDisplayValidationSignup] = useState(false);
+  const [isAllFieldsComplete, setIsAllFieldsComplete] = useState();
+  //
+  const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
+    useState(false);
+  const [
+    isDisplayConfirmationPasswordButtonClicked,
+    setIsDisplayConfirmationPasswordButtonClicked,
+  ] = useState(false);
+  const [username, setUsername] = useState("");
+  const [profileBio, setProfileBio] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [emailRegexError, setEmailRegexError] = useState(false);
+  const [usernameRegexError, setUsernameRegexError] = useState(false);
+  const [passwordRegexError, setPasswordRegexError] = useState(false);
+  const [passwordConfirmRegexError, setPasswordConfirmRegexError] =
+    useState(false);
+  const [phoneRegexError, setPhoneRegexError] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState(false);
+  const [opacityInputPhone, setOpacityInputPhone] = useState(false);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
+  const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
+  const [isGoogleSignupLoading, setIsGoogleSignupLoading] = useState(false);
+  const [googleErrorGeneral, setgoogleErrorGeneral] = useState(false);
+  const [googleErrorAlreadyRegister, setgoogleErrorAlreadyRegister] =
+    useState(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+  const [isConfirmCodeResendInterval, setIsConfirmCodeResendInterval] =
+    useState(false);
+  const [confirmCodeResendLastClick, setConfirmCodeResendLastClick] =
+    useState(null);
+  const [isResendCodeMailLoading, setIsResendCodeMailLoading] = useState();
+  const [confirmCodeResend, setConfirmCodeResend] = useState();
+  const [isConfirmCodeErrorMessage, setIsConfirmCodeErrorMessage] = useState();
+  const [timeRemainingResendMail, setTimeRemainingResendMail] = useState(0);
+  const [errorBackendRegister, setErrorBackendRegister] = useState(false);
+  const [banner, setBanner] = useState();
+  const [profile, setProfile] = useState();
+  const [retrievedBanner, setRetrievedBanner] = useState();
+  const [retrievedAvatar, setRetrievedAvatar] = useState();
+  const [croppedBanner, setCroppedBanner] = useState();
+  const [croppedAvatar, setCroppedAvatar] = useState();
+  // Backend
+  const [codeMatched, setCodeMatched] = useState(false);
+  const [googleIdToken, setGoogleIdToken] = useState();
+  // END SIGNUP
 
   useEffect(() => {
     const init = async () => {
@@ -239,14 +315,14 @@ const PopUpSignIn = ({
           status: true,
           sport: "",
         };
-
+        tempUserInfo = newUser;
         setLoggedInUser(newUser);
-
         await setDoc(userDocRef, newUser);
         setIsSigninGoogleLoading(false);
       }
+      setIsSigninGoogleLoading(false);
       console.log(res);
-      setIsSignInButtonClicked(false);
+      // setIsSignInButtonClicked(false);
       return [res, tempUserInfo];
     } catch (error) {
       setIsSigninGoogleLoading(false);
@@ -288,6 +364,7 @@ const PopUpSignIn = ({
     if (checkWalletProvider(loginRes[1]) === "web3auth") {
       // console.log("login details", loginRes);
       const idToken = await loginRes[0].user.getIdToken(true);
+      setGoogleIdToken(idToken);
       // console.log("idToken", idToken);
 
       const web3authProvider = await web3auth.connectTo(
@@ -307,9 +384,60 @@ const PopUpSignIn = ({
       console.log("sign in web3auth");
     }
     // transform else to else if (checkWalletProvider(loginRes[1]) === "metamask") + add else load pop up ConnectWallet
-    else {
+    else if (checkWalletProvider(loginRes[1]) === "metamask") {
       setIsWalletConnectClicked(true);
       console.log("sigin metamsk");
+    } else {
+      console.log("ni web3auth ni metamask");
+      // si user existe alors ne rien faire (lorsqu'il voudra faire une intéraction web3 on demandera la connexion à un wallet à ce moment là).
+      // Si user n'existe pas alors lancer le parcours sign up
+      // set state to trigger sign up
+      const createdAt = new Date();
+      const emailValidRef = collection(db, "email_validations");
+      let verificationCode = generateVerificationCode();
+      const validationData = {
+        userId: loginRes[1].uid,
+        email,
+        code: verificationCode,
+        created_At: Timestamp.fromMillis(createdAt.getTime()),
+      };
+
+      await addDoc(emailValidRef, validationData);
+
+      // ...
+
+      // Make a POST request to the Cloud Function to send the verification email
+      fetch(
+        "https://us-central1-sofan-app.cloudfunctions.net/sendVerificationEmail",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, verificationCode }),
+        }
+      )
+        .then((response) => response.json()) // Extract the JSON body of the response
+        .then((data) => {
+          if (data.success) {
+            setErrorBackendRegister(false);
+            console.log(data.success);
+            // Handle success, e.g., show a success message to the user
+          } else if (data.error) {
+            console.error(
+              "Error sending verification email:",
+              data.error,
+              data.details
+            );
+            // Handle error, e.g., show an error message to the user
+          }
+        })
+        .catch((error) => {
+          console.error("Error processing response:", error);
+        });
+
+      setDisplayConfirmationCode(true);
+      return;
     }
 
     setIsSignInButtonClicked(false);
@@ -350,6 +478,427 @@ const PopUpSignIn = ({
       setIsSignInFormValid(false);
     }
   }, [email, emailError, password]);
+
+  function handleConfirmationCodePreviousStep() {
+    setDisplayConfirmationCode(false);
+    setIsSubmitClicked(false);
+    setIsFormValid(false);
+    setUsername("");
+    setPhone("");
+    setPassword("");
+    setEmail("");
+    setUsernameRegexError(false);
+    setPhoneRegexError(false);
+    setShowError(false);
+    setEmailError(false);
+  }
+
+  // Check if the Email Verification Code match
+  async function handleSubmitConfirmationCodeClick(e, code) {
+    if (e) {
+      e.preventDefault();
+    }
+    const uid = allUserInfo.id;
+    if (!uid) {
+      // setErrorBackendRegister(true);
+      console.error("UID is undefined");
+      return;
+    }
+
+    const emailValidRef = collection(db, "email_validations");
+    const q = query(emailValidRef, where("userId", "==", uid));
+    const querySnapshot = await getDocs(q);
+
+    let isCodeVerified = false;
+
+    querySnapshot.forEach((doc) => {
+      if (doc.data().code === code) {
+        isCodeVerified = true;
+      }
+    });
+
+    if (isCodeVerified) {
+      setCodeMatched(true);
+      setDisplayConfirmationCode(false);
+
+      setTimeout(() => {
+        setDisplaySetupProfile(true);
+      }, 2500);
+
+      // Update the emailVerified field for the user
+      const userRef = doc(db, "users", uid);
+      await updateDoc(userRef, {
+        emailVerified: true,
+      });
+    } else {
+      setCodeMatched(false);
+    }
+  }
+
+  async function handleConfirmMailResendCode() {
+    setIsResendCodeMailLoading(true);
+    try {
+      // SEND EMAIL VERIFICATION CODE
+      const createdAt = new Date();
+      const emailValidRef = collection(db, "email_validations");
+      let verificationCode = generateVerificationCode();
+      const validationData = {
+        userId: allUserInfo.id,
+        email: email,
+        code: verificationCode,
+        created_At: Timestamp.fromMillis(createdAt.getTime()),
+      };
+
+      await addDoc(emailValidRef, validationData);
+
+      // ...
+      console.log(email, "  ", verificationCode);
+      // Make a POST request to the Cloud Function to send the verification email
+      fetch(
+        "https://us-central1-sofan-app.cloudfunctions.net/sendVerificationEmail",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, verificationCode }),
+        }
+      )
+        .then((response) => response.json()) // Extract the JSON body of the response
+        .then((data) => {
+          if (data.success) {
+            // Handle success, e.g., show a success message to the user
+            setIsConfirmCodeErrorMessage(false);
+          } else if (data.error) {
+            setTimeout(() => {
+              setIsResendCodeMailLoading(false);
+              setIsConfirmCodeErrorMessage(true);
+            }, 1000);
+            console.error(
+              "Error sending verification email:",
+              data.error,
+              data.details
+            );
+            // Handle error, e.g., show an error message to the user
+          }
+        })
+        .catch((error) => {
+          setTimeout(() => {
+            setIsResendCodeMailLoading(false);
+            setIsConfirmCodeErrorMessage(true);
+          }, 1000);
+          console.error("Error processing response:", error);
+        });
+
+      setTimeout(() => {
+        setIsResendCodeMailLoading(false);
+        setConfirmCodeResend(true);
+      }, 2000);
+    } catch (err) {
+      setTimeout(() => {
+        setIsResendCodeMailLoading(false);
+        setIsConfirmCodeErrorMessage(true);
+      }, 1000);
+      console.error(err);
+      throw err;
+    }
+  }
+  const generateVerificationCode = () => {
+    // Generate a random 6-digit number
+    const code = Math.floor(100000 + Math.random() * 900000);
+    return code.toString();
+  };
+
+  function handleConfirmMailResendCodeInterval() {
+    if (isConfirmCodeResendInterval) {
+      return;
+    }
+    if (isConfirmCodeResendInterval === false) {
+      handleConfirmMailResendCode();
+    }
+    const currentTime = new Date().getTime();
+    const diff = currentTime - confirmCodeResendLastClick;
+
+    // Clear previous interval if one exists
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+    if (diff < 10000 && confirmCodeResendLastClick !== null) {
+      setIsResendCodeMailLoading(true);
+      setIsConfirmCodeResendInterval(false);
+      setTimeout(() => {
+        let remainingTime = 10 - Math.floor(diff / 1000);
+        setTimeRemainingResendMail(remainingTime);
+
+        // Start countdown
+        intervalId = setInterval(() => {
+          remainingTime -= 1;
+          setTimeRemainingResendMail(remainingTime);
+
+          if (remainingTime <= 0) {
+            clearInterval(intervalId); // Stop countdown when time reaches 0
+            intervalId = null;
+          }
+        }, 1000); // Update every second
+        setIsResendCodeMailLoading(false);
+        setIsConfirmCodeResendInterval(true);
+      }, 2000);
+      console.log("ça fait moins de 10 secondes");
+    } else if (diff > 10000) {
+      setIsConfirmCodeResendInterval(false);
+      console.log("ça fait + de 10 secondes");
+      handleConfirmMailResendCode();
+    } else {
+      setIsConfirmCodeResendInterval(false);
+      setIsResendCodeMailLoading(false);
+      console.log("ça fait + de 10 secondes");
+    }
+    setConfirmCodeResendLastClick(currentTime);
+  }
+  let intervalId = null; // Store the interval ID at a higher scope
+
+  // Setup Profile step
+  async function handleSetupProfileNextButtonClick() {
+    //save the profile bio, by shajeed
+
+    // Update all the images
+    try {
+      handleBannerUpload(retrievedBanner, croppedBanner);
+      handleAvatarUpload(retrievedAvatar, croppedAvatar);
+    } catch (err) {
+      console.error("Upload Image error Line 790: ", err);
+    }
+
+    try {
+      const q = query(
+        collection(db, "users"),
+        where("id", "==", allUserInfo.id)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { bio: profileBio ? profileBio : "" };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Bio updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Bio:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+    // passer à l'étape suivante
+    setDisplaySetupProfile(false);
+    setTimeout(() => {
+      setDisplayConnectWallet(true);
+    }, 2000);
+    // console.log("oui");
+  }
+
+  // Upload Image Functions
+
+  const handleBannerUpload = async (file, croppedImage) => {
+    //const file = event.target.files[0];
+    console.log(file);
+    if (file && file.type.substr(0, 5) === "image") {
+      //const imagePath = file.name ? `user_profile/banners/`
+      try {
+        let newFile = ImageUrlToFile(croppedImage, file.name);
+        // Upload the file to Firebase Storage
+        const createdAt = new Date();
+        const imagePath = `user_profile/banners/sofan_user_#${
+          allUserInfo.id
+        }#_banner_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, newFile).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+            updateBannerPath(allUserInfo.id, url);
+          });
+          console.log("Uploaded a blob or file!");
+        });
+
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+      setBanner(file);
+    } else {
+      console.log("File is not an image.");
+    }
+  };
+
+  const handleAvatarUpload = (file, croppedImage) => {
+    // Access the selected file(s) using fileInputRef.current.files
+    // const file = profileInputPicRef.current.files[0];
+    // Process the files as needed
+    if (file && file.type.substr(0, 5) === "image") {
+      try {
+        let newFile = ImageUrlToFile(croppedImage, file.name);
+        const createdAt = new Date();
+        const imagePath = `user_profile/avatars/sofan_user_#${
+          allUserInfo.id
+        }#_avatar_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, newFile).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+            updateAvatarPath(allUserInfo.id, url);
+          });
+          console.log("Uploaded a blob or file!");
+        });
+
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+      setProfile(file);
+    } else {
+      console.log("profile is not an image.");
+    }
+  };
+
+  // Update Image path in the user Collection
+  const updateBannerPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_banner: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Banner path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating banner path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+  const updateAvatarPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_avatar: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Avatar path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Avatar path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+  // Update the profile with a default Image and an empty bio
+  function handleSetupProfileAddLaterClick() {
+    // add the default avatar and banner
+
+    updateImagePaths(
+      allUserInfo.id,
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+      "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a"
+    );
+
+    // passer à l'étape suivante
+    setIsSetupProfileValid(true);
+    setDisplaySetupProfile(false);
+    setTimeout(() => {
+      setDisplayConnectWallet(true);
+    }, 2000);
+  }
+
+  const updateImagePaths = async (uid, avatarPath, bannerPath) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = {};
+
+          if (avatarPath) {
+            updatedData.profile_avatar = avatarPath;
+          }
+
+          if (bannerPath) {
+            updatedData.profile_banner = bannerPath;
+          }
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Image paths updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating image paths:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+  function handleSetupProfilePreviousStep(e) {
+    setDisplaySetupProfile(false);
+    setDisplayConfirmationCode(true);
+  }
+  function handleConnectWalletClick() {
+    setDisplayConnectWallet(false);
+    setTimeout(() => {
+      setDisplayConfirmWallet(true);
+    }, 2000);
+  }
+  function handlePreviousStepConnectWallet(e) {
+    setDisplayConnectWallet(false);
+    setDisplaySetupProfile(true);
+  }
+  function handleConfirmWalletClick() {
+    setDisplayConfirmWallet(false);
+    setTimeout(() => {
+      setDisplayValidationSignup(true);
+    }, 2000);
+  }
+  function handlePreviousStepConfirmWallet(e) {
+    setDisplayConfirmWallet(false);
+    setDisplayConnectWallet(true);
+  }
+  const handleCloseClick = () => {
+    console.log("sign innnnnnnnnn");
+  };
   return (
     <>
       {isForgotPasswordClicked ? (
@@ -366,6 +915,74 @@ const PopUpSignIn = ({
               <div></div>
             </div>
           </div>
+        </>
+      ) : displayConfirmationCode ? (
+        <>
+          <ConfirmationCode
+            setIsConfirmCodeValid={setIsConfirmCodeValid}
+            isConfirmCodeValid={isConfirmCodeValid}
+            handleSubmitConfirmationCodeClick={
+              handleSubmitConfirmationCodeClick
+            }
+            handleConfirmationCodePreviousStep={
+              handleConfirmationCodePreviousStep
+            }
+            UserEmail={email}
+            isResendCodeMailLoading={isResendCodeMailLoading}
+            confirmCodeResend={confirmCodeResend}
+            handleConfirmMailResendCode={handleConfirmMailResendCode}
+            handleConfirmMailResendCodeInterval={
+              handleConfirmMailResendCodeInterval
+            }
+            isConfirmCodeResendInterval={isConfirmCodeResendInterval}
+            timeRemainingResendMail={timeRemainingResendMail}
+            isConfirmCodeErrorMessage={isConfirmCodeErrorMessage}
+          />
+        </>
+      ) : displaySetupProfile ? (
+        <>
+          <SetupProfile
+            handleSetupProfileNextButtonClick={
+              handleSetupProfileNextButtonClick
+            }
+            handleSetupProfileAddLaterClick={handleSetupProfileAddLaterClick}
+            handleSetupProfilePreviousStep={handleSetupProfilePreviousStep}
+            allUserInfo={allUserInfo}
+            setProfileBio={setProfileBio}
+            retrievedBanner={retrievedBanner}
+            setRetrievedBanner={setRetrievedBanner}
+            retrievedAvatar={retrievedAvatar}
+            setRetrievedAvatar={setRetrievedAvatar}
+            croppedBanner={croppedBanner}
+            setCroppedBanner={setCroppedBanner}
+            croppedAvatar={croppedAvatar}
+            setCroppedAvatar={setCroppedAvatar}
+            banner={banner}
+            setBanner={setBanner}
+            profile={profile}
+            setProfile={setProfile}
+          />
+        </>
+      ) : displayConnectWallet ? (
+        <>
+          <ConnectWallet
+            handleConnectWalletClick={handleConnectWalletClick}
+            handlePreviousStepConnectWallet={handlePreviousStepConnectWallet}
+            web3auth={web3auth}
+            collectedIdToken={googleIdToken ? googleIdToken : firebaseIdToken}
+            userData={allUserInfo}
+          />
+        </>
+      ) : displayConfirmWallet ? (
+        <>
+          <ConfirmWallet
+            handleConfirmWalletClick={handleConfirmWalletClick}
+            handlePreviousStepConfirmWallet={handlePreviousStepConfirmWallet}
+          />
+        </>
+      ) : displayValidationSignup ? (
+        <>
+          <ValidationSignup handleCloseClick={handleCloseClick} />
         </>
       ) : (
         <>
