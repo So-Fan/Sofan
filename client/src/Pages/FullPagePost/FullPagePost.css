@@ -81,13 +81,18 @@
   height: 100%;
   max-width: 496px;
   max-height: 795px;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   margin-top: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* background-color: RED; */
 }
-
+.bloc-content-fullpagepost::-webkit-scrollbar {
+  display: none;
+}
 .cancel-fullpagepost {
   position: sticky;
   bottom: 95%;

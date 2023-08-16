@@ -8,6 +8,7 @@ import PostsComments from "../../Components/PostsComponents/PostsComments/PostsC
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
 import { Link } from "react-router-dom";
+import PollPost from "../../Components/PostsComponents/PollPost/PollPost";
 
 function FullPagePost({
   id,
@@ -22,6 +23,10 @@ function FullPagePost({
   loggedInUserId,
   postLikes,
   postCommentNumber,
+  polldata,
+  pollDate,
+  pollDateType,
+  pollTotalVote,
   isPostClicked,
   setIsPostClicked,
 }) {
@@ -86,19 +91,41 @@ function FullPagePost({
   useEffect(() => {
     if (postPicture) {
       setIstMediaQueriesFullPagePostDisabled(false);
-      // require("./FullPagePost.css");
       console.log("media querie doit devenir false");
     } else {
       setIstMediaQueriesFullPagePostDisabled(true);
-      // require("./FullPagePostNoMediaQueries.css");
       console.log("media querie doit devenir true");
     }
-    // if (isMediaQueriesFullPagePostDisabled) {
-    // console.log("changement de fichier css")
-    // }
   }, []);
-  // console.log(postPicture);
-  // console.log(dataComments[0]?.comments)
+  function displayVote() {
+    if (
+      polldata?.choices[0].text === "" &&
+      polldata?.choices[1].text === "" &&
+      polldata?.choices[2].text === "" &&
+      polldata?.choices[3].text === ""
+    ) {
+      return;
+    } else if (
+      polldata?.choices[0].text !== "" &&
+      polldata?.choices[1].text !== ""
+    ) {
+      return (
+        <PollPost
+          pollFirstChoice={polldata?.choices[0].text}
+          pollSecondChoice={polldata?.choices[1].text}
+          pollThirdChoice={polldata?.choices[2].text}
+          pollFourthChoice={polldata?.choices[3].text}
+          // pollFirstChoiceNumber={pollFirstChoiceNumber}
+          // pollSecondChoiceNumber={pollSecondChoiceNumber}
+          // pollThirdChoiceNumber={pollThirdChoiceNumber}
+          // pollFourthChoiceNumber={pollFourthChoiceNumber}
+          pollDate={pollDate}
+          pollDateType={pollDateType}
+          pollTotalVote={pollTotalVote}
+        />
+      );
+    }
+  }
   return (
     <>
       <div
@@ -132,6 +159,12 @@ function FullPagePost({
               isMediaQueriesFullPagePostDisabled
                 ? "desc-likes-comments-container-fullpagepost-no-media-queries"
                 : "desc-likes-comments-container-fullpagepost"
+            }
+            style={
+              polldata?.choices[0].text !== "" &&
+              polldata?.choices[1].text !== ""
+                ? { paddingBottom: "20px"}
+                : {}
             }
           >
             <div
@@ -180,6 +213,7 @@ function FullPagePost({
                   isMediaQueriesFullPagePostDisabled
                 }
               />
+              {displayVote()}
               <div
                 className={
                   isMediaQueriesFullPagePostDisabled

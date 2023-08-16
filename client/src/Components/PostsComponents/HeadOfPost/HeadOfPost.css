@@ -108,7 +108,7 @@
 }
 @media (max-width: 1050px) {
   .publication-head-container {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     /* max-width: 300px; */
   }
   .publication-head-left-container {

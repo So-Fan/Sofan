@@ -79,14 +79,45 @@
   width: 100%;
   height: 100%;
   max-width: 496px;
-  max-height: 795px;
-  display: flex;
+  max-height: 795px !important;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   margin-top: 15px;
+  /* background-color: red; */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* padding-right: 20px !important; */
+}
+/* Hide scrollbar for IE, Edge, and Firefox */
+.bloc-content-fullpagepost-no-media-queries::-webkit-scrollbar,
+.bloc-content-fullpagepost-no-media-queries {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  width: 100.5%;
 }
 
+/* Customize the scrollbar for WebKit-based browsers (e.g., Chrome, Safari) */
+.bloc-content-fullpagepost-no-media-queries::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+  border-radius: 10px;
+}
+
+.bloc-content-fullpagepost-no-media-queries::-webkit-scrollbar-track {
+  background: transparent; /* Set the track background */
+  display: none;
+}
+
+.bloc-content-fullpagepost-no-media-queries::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar */
+  border-radius: 10px; /* Set the border-radius */
+  visibility: hidden;
+}
+
+.bloc-content-fullpagepost-no-media-queries::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color when hovered */
+}
 .cancel-fullpagepost-no-media-queries {
   position: sticky;
   bottom: 95%;
@@ -108,7 +139,6 @@
   border-top: 0.3px solid rgba(0, 0, 0, 0.2);
 }
 .comments-container-fullpagepost-no-media-queries {
-  /* overflow-y: scroll; */
   min-height: 474px !important;
   height: 100%;
   width: 100%;
