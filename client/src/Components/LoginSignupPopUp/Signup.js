@@ -21,7 +21,15 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { auth, db, googleProvider } from "../../Configs/firebase";
+import {
+  auth,
+  db,
+  googleProvider,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "../../Configs/firebase";
 
 import { signInWithPopup } from "firebase/auth";
 import { getDoc, doc, setDoc } from "firebase/firestore";
@@ -40,6 +48,7 @@ import useEth from "../../contexts/EthContext/useEth";
 // import Web3 from "web3";
 import Button from "../Button/Button";
 import LoadingAnimation from "../LoadingEllipsisAnimation/LoadingEllipsisAnimation";
+import { ImageUrlToFile } from "../../Utils/fileFunctions";
 // fin mathéo
 
 function Signup({
@@ -103,6 +112,13 @@ function Signup({
   const [isConfirmCodeErrorMessage, setIsConfirmCodeErrorMessage] = useState();
   const [timeRemainingResendMail, setTimeRemainingResendMail] = useState(0);
   const [errorBackendRegister, setErrorBackendRegister] = useState(false);
+  const [banner, setBanner] = useState();
+  const [profile, setProfile] = useState();
+  const [retrievedBanner, setRetrievedBanner] = useState();
+  const [retrievedAvatar, setRetrievedAvatar] = useState();
+  const [croppedBanner, setCroppedBanner] = useState();
+  const [croppedAvatar, setCroppedAvatar] = useState();
+
   // Backend
   const [codeMatched, setCodeMatched] = useState(false);
 
@@ -218,7 +234,6 @@ function Signup({
     );
   }
   function handleConfirmPasswordChange(event) {
-    console.log(event.target.value);
     const passwordConfirmValue = event.target.value;
     setPasswordConfirmation(passwordConfirmValue);
     setPasswordConfirmRegexError(
@@ -614,6 +629,7 @@ function Signup({
     }
     setConfirmCodeResendLastClick(currentTime);
   }
+
   async function handleConfirmMailResendCode() {
     setIsResendCodeMailLoading(true);
     try {
@@ -683,6 +699,7 @@ function Signup({
     }
   }
 
+  // Check if the Email Verification Code match
   async function handleSubmitConfirmationCodeClick(e, code) {
     if (e) {
       e.preventDefault();
@@ -698,19 +715,30 @@ function Signup({
     const q = query(emailValidRef, where("userId", "==", uid));
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc) => {
-      if (isConfirmCodeValid && doc.data().code === code) {
-        setCodeMatched(true);
-        setDisplayConfirmationCode(false);
+    let isCodeVerified = false;
 
-        setTimeout(() => {
-          setDisplaySetupProfile(true);
-        }, 2500);
-        return;
-      } else {
-        setCodeMatched = false;
+    querySnapshot.forEach((doc) => {
+      if (doc.data().code === code) {
+        isCodeVerified = true;
       }
     });
+
+    if (isCodeVerified) {
+      setCodeMatched(true);
+      setDisplayConfirmationCode(false);
+
+      setTimeout(() => {
+        setDisplaySetupProfile(true);
+      }, 2500);
+
+      // Update the emailVerified field for the user
+      const userRef = doc(db, "users", uid);
+      await updateDoc(userRef, {
+        emailVerified: true,
+      });
+    } else {
+      setCodeMatched(false);
+    }
   }
 
   const updateImagePaths = async (uid, avatarPath, bannerPath) => {
@@ -752,6 +780,15 @@ function Signup({
   async function handleSetupProfileNextButtonClick() {
     //save the profile bio, by shajeed
 
+    // Update all the images
+    try {
+      handleBannerUpload(retrievedBanner, croppedBanner);
+      handleAvatarUpload(retrievedAvatar, croppedAvatar);
+  
+    } catch (err) {
+      console.error("Upload Image error Line 790: ", err);
+    }
+
     try {
       const q = query(
         collection(db, "users"),
@@ -787,6 +824,123 @@ function Signup({
     // console.log("oui");
   }
 
+  // Upload Image Functions
+
+  const handleBannerUpload = async (file, croppedImage) => {
+    //const file = event.target.files[0];
+    console.log(file);
+    if (file && file.type.substr(0, 5) === "image") {
+      //const imagePath = file.name ? `user_profile/banners/`
+      try {
+        let newFile = ImageUrlToFile(croppedImage, file.name);
+        // Upload the file to Firebase Storage
+        const createdAt = new Date();
+        const imagePath = `user_profile/banners/sofan_user_#${
+          allUserInfo.id
+        }#_banner_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, newFile).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+            updateBannerPath(allUserInfo.id, url);
+          });
+          console.log("Uploaded a blob or file!");
+        });
+
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+      setBanner(file);
+    } else {
+      console.log("File is not an image.");
+    }
+  };
+
+  const handleAvatarUpload = (file, croppedImage) => {
+    // Access the selected file(s) using fileInputRef.current.files
+    // const file = profileInputPicRef.current.files[0];
+    // Process the files as needed
+    if (file && file.type.substr(0, 5) === "image") {
+      try {
+        let newFile = ImageUrlToFile(croppedImage, file.name);
+        const createdAt = new Date();
+        const imagePath = `user_profile/avatars/sofan_user_#${
+          allUserInfo.id
+        }#_avatar_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, newFile).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+            updateAvatarPath(allUserInfo.id, url);
+          });
+          console.log("Uploaded a blob or file!");
+        });
+
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+      setProfile(file);
+    } else {
+      console.log("profile is not an image.");
+    }
+  };
+
+  // Update Image path in the user Collection
+  const updateBannerPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_banner: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Banner path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating banner path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+  const updateAvatarPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_avatar: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Avatar path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Avatar path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+  // Update the profile with a default Image and an empty bio
   function handleSetupProfileAddLaterClick() {
     // add the default avatar and banner
 
@@ -803,6 +957,7 @@ function Signup({
       setDisplayConnectWallet(true);
     }, 2000);
   }
+
   function handleConnectWalletClick() {
     setDisplayConnectWallet(false);
     setTimeout(() => {
@@ -974,6 +1129,18 @@ function Signup({
                           }
                           allUserInfo={allUserInfo}
                           setProfileBio={setProfileBio}
+                          retrievedBanner={retrievedBanner}
+                          setRetrievedBanner={setRetrievedBanner}
+                          retrievedAvatar={retrievedAvatar}
+                          setRetrievedAvatar={setRetrievedAvatar}
+                          croppedBanner={croppedBanner}
+                          setCroppedBanner={setCroppedBanner}
+                          croppedAvatar={croppedAvatar}
+                          setCroppedAvatar={setCroppedAvatar}
+                          banner={banner}
+                          setBanner={setBanner}
+                          profile={profile}
+                          setProfile={setProfile}      
                         />
                       </>
                     ) : displayConnectWallet ? (

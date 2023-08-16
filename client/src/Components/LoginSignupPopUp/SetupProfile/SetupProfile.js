@@ -3,21 +3,6 @@ import "./SetupProfile.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import Img from "../../../Assets/Image/img.svg";
 import handleKeyDown from "../../../Utils/enterKeyboardValidForm";
-import {
-  db,
-  storage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "../../../Configs/firebase";
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
 import CropEasy from "../../CropEasy/CropEasy";
 import Web3 from "web3";
 import useEth from "../../../contexts/EthContext/useEth";
@@ -31,6 +16,18 @@ function SetupProfile({
   handleSetupProfilePreviousStep,
   allUserInfo,
   setProfileBio,
+  croppedBanner,
+  setCroppedBanner,
+  croppedAvatar,
+  setCroppedAvatar,
+  retrievedBanner,
+  setRetrievedBanner,
+  retrievedAvatar,
+  setRetrievedAvatar,
+  banner,
+  setBanner,
+  profile,
+  setProfile,
 }) {
   const [bioText, setBioText] = useState("");
   const [bioTextLength, setBioTextLength] = useState(0);
@@ -39,10 +36,10 @@ function SetupProfile({
     useState(false);
   const profileInputPicRef = useRef(null);
 
-  const [banner, setBanner] = useState();
+
   const [previewBanner, setPreviewBanner] = useState();
 
-  const [profile, setProfile] = useState();
+
   const [previewProfile, setPreviewProfile] = useState();
 
   const [currentlyCroppingBanner, setCurrentlyCroppingBanner] = useState(false);
@@ -50,142 +47,24 @@ function SetupProfile({
   const [zoom, setZoom] = useState(1);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState();
-  const [croppedBanner, setCroppedBanner] = useState();
-  const [croppedAvatar, setCroppedAvatar] = useState();
-
-  const updateBannerPath = async (uid, path) => {
-    try {
-      const q = query(collection(db, "users"), where("id", "==", uid));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const userRef = doc.ref;
-          const updatedData = { profile_banner: path };
-
-          updateDoc(userRef, updatedData)
-            .then(() => {
-              console.log("Banner path updated successfully!");
-            })
-            .catch((error) => {
-              console.error("Error updating banner path:", error);
-            });
-        });
-      } else {
-        console.log("No user found");
-      }
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
-
-  const updateAvatarPath = async (uid, path) => {
-    try {
-      const q = query(collection(db, "users"), where("id", "==", uid));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const userRef = doc.ref;
-          const updatedData = { profile_avatar: path };
-
-          updateDoc(userRef, updatedData)
-            .then(() => {
-              console.log("Avatar path updated successfully!");
-            })
-            .catch((error) => {
-              console.error("Error updating Avatar path:", error);
-            });
-        });
-      } else {
-        console.log("No user found");
-      }
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
 
   useEffect(() => {
-    if (!banner) return;
+    if (!retrievedBanner) return;
     // setCurrentlyCropping(true);
-    let tmp = URL.createObjectURL(banner);
+    let tmp = URL.createObjectURL(retrievedBanner);
     setPreviewBanner(tmp);
     setCurrentlyCroppingBanner(true);
-    URL.revokeObjectURL(banner);
-    setBanner();
-  }, [banner]);
+    URL.revokeObjectURL(retrievedBanner);
+  }, [retrievedBanner]);
   // tambouriner le crop easy
   useEffect(() => {
-    if (!profile) return;
-    let tmp = URL.createObjectURL(profile);
+    if (!retrievedAvatar) return;
+    let tmp = URL.createObjectURL(retrievedAvatar);
     setPreviewProfile(tmp);
     setCurrentlyCroppingAvatar(true);
-    URL.revokeObjectURL(profile);
-    setProfile();
-  }, [profile]);
+    URL.revokeObjectURL(retrievedAvatar);
+  }, [retrievedAvatar]);
 
-  const handleBannerUpload = async (event) => {
-    const file = event.target.files[0];
-    console.log(file);
-    if (file && file.type.substr(0, 5) === "image") {
-      //const imagePath = file.name ? `user_profile/banners/`
-      try {
-        // Upload the file to Firebase Storage
-        //shajeed
-        const createdAt = new Date();
-        const imagePath = `user_profile/banners/sofan_user_#${
-          allUserInfo.id
-        }#_banner_${createdAt.getTime()}_${file.name}`;
-        const imageRef = ref(storage, imagePath);
-        uploadBytes(imageRef, file).then(() => {
-          getDownloadURL(ref(storage, imagePath)).then((url) => {
-            updateBannerPath(allUserInfo.id, url);
-          });
-          console.log("Uploaded a blob or file!");
-        });
-
-        // TODO: Save the image URL to Firestore or perform any additional actions
-
-        console.log("Image uploaded successfully!");
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-      setBanner(file);
-    } else {
-      console.log("File is not an image.");
-    }
-  };
-
-  const handleProfileImageInputChange = () => {
-    // Access the selected file(s) using fileInputRef.current.files
-    const file = profileInputPicRef.current.files[0];
-    // Process the files as needed
-    if (file && file.type.substr(0, 5) === "image") {
-      try {
-        //shajeed
-        const createdAt = new Date();
-        const imagePath = `user_profile/avatars/sofan_user_#${
-          allUserInfo.id
-        }#_avatar_${createdAt.getTime()}_${file.name}`;
-        const imageRef = ref(storage, imagePath);
-        uploadBytes(imageRef, file).then(() => {
-          getDownloadURL(ref(storage, imagePath)).then((url) => {
-            updateAvatarPath(allUserInfo.id, url);
-          });
-          console.log("Uploaded a blob or file!");
-        });
-
-        console.log("Image uploaded successfully!");
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-      setProfile(file);
-    } else {
-      console.log("profile is not an image.");
-    }
-  };
   function handleDisplayPreview() {
     profileInputPicRef.current.click();
     console.log("click detecté");
@@ -210,6 +89,7 @@ function SetupProfile({
     const hasValidBio = bioText.length >= 50 && bioText.length <= 250; // Vérifie si la bio a entre 50 et 250 caractères
     return hasBanner && hasProfilePic && hasValidBio;
   }
+  
   const isProfileComplete = true; // Faire une fonction qui trigger l'upload et qui return true
   //  checkProfileCompletion(preview, bioText);
 
@@ -224,6 +104,7 @@ function SetupProfile({
         croppedAreaPixels
       );
       console.log("donee", { croppedImage });
+      let newCroppedBanner = new File([croppedImage], "Bonjour");
       setCroppedBanner(croppedImage);
       setCurrentlyCroppingBanner(false);
     } catch (e) {
@@ -330,7 +211,7 @@ function SetupProfile({
               <input
                 type="file"
                 accept="image/*"
-                onChange={handleBannerUpload}
+                onChange={(e) => setRetrievedBanner(e.target.files[0])}
                 style={{ display: "none" }}
                 id="image-upload"
               />
@@ -364,7 +245,7 @@ function SetupProfile({
                   accept="image/*"
                   style={{ display: "none" }}
                   multiple={false}
-                  onChange={handleProfileImageInputChange}
+                  onChange={(e) => setRetrievedAvatar(e.target.files[0])}
                 />
               </label>
             </div>
