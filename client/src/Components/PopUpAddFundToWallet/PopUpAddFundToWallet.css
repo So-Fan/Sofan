@@ -25,4 +25,5 @@
 }
 .popupaddfundtowallet-component > button {
   margin-top: 53px;
+  border-radius: 15px !important;
 }
