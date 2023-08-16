@@ -1,0 +1,29 @@
+.popupaddfundtowallet-component {
+  width: 450px;
+  height: 370px;
+  border-radius: 25px;
+  background: #fff;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.popupaddfundtowallet-component > img {
+  width: 60px;
+  height: 60px;
+  margin-top: 79px;
+}
+.popupaddfundtowallet-component > span {
+  line-height: normal;
+  text-align: center;
+  margin-top: 17px;
+}
+.popupaddfundtowallet-component > span:nth-child(2) {
+  font-family: "britanica-heavy";
+  font-size: 25px;
+  margin-top: 30px !important;
+}
+.popupaddfundtowallet-component > button {
+  margin-top: 53px;
+  border-radius: 15px !important;
+}
