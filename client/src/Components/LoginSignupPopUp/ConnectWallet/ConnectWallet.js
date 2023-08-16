@@ -124,46 +124,48 @@ function ConnectWallet({
     setIsWalletConnectClicked(true);
     setIsMetamaskConnectWalletLoading(true);
   };
-  useEffect( async () => {
+  useEffect(() => {
     console.log(accounts);
     if (!localStorage.getItem("Web3Auth-cachedAdapter") && accounts) {
       // Si Metamask est connecté alors on passe à l'étape suivante
-      setIsMetamaskConnectWalletLoading(false);
+      // setIsMetamaskConnectWalletLoading(false);
       //handleConnectWalletClick();
 
       // TODO: BACKEND add metamask wallet to user table
       // accounts[0] correspond au wallet
-      const newWallet = {
-        metamask: accounts[0],
-      };
+      const handleMetamaskWalletUpload = async () => {
+        const newWallet = {
+          metamask: accounts[0],
+        };
 
-      if (userData.id) {
-        try {
-          const usersRef = collection(db, "users");
-          const userDocRef = doc(usersRef, userData.id);
-          const userDoc = await getDoc(userDocRef);
-  
-          if (userDoc.exists()) {
-            const existingUserData = userDoc.data();
-            const updatedUserData = { ...existingUserData, ...newWallet };
-            await setDoc(userDocRef, updatedUserData);
-            console.log("Update successful");
+        if (userData.id) {
+          try {
+            const usersRef = collection(db, "users");
+            const userDocRef = doc(usersRef, userData.id);
+            const userDoc = await getDoc(userDocRef);
+
+            if (userDoc.exists()) {
+              const existingUserData = userDoc.data();
+              const updatedUserData = { ...existingUserData, ...newWallet };
+              await setDoc(userDocRef, updatedUserData);
+              console.log("Update successful");
+              setIsMetamaskConnectWalletLoading(false);
+              handleConnectWalletClick();
+              return;
+            } else {
+              setIsMetamaskConnectWalletLoading(false);
+              console.log(`No user found with ID: ${userData.id}`);
+            }
+          } catch (err) {
             setIsMetamaskConnectWalletLoading(false);
-            handleConnectWalletClick();
-          } else {
-            setIsMetamaskConnectWalletLoading(false);
-            console.log(`No user found with ID: ${userData.id}`);
+            console.log("Error updating document:", err);
           }
-        } catch (err) {
+        } else {
           setIsMetamaskConnectWalletLoading(false);
-          console.log("Error updating document:", err);
+          console.log("userData.id is not defined");
         }
-      } else {
-        setIsMetamaskConnectWalletLoading(false);
-        console.log("userData.id is not defined");
-      }
-
-
+      };
+      handleMetamaskWalletUpload();
     }
     setIsMetamaskConnectWalletLoading(false);
   }, [accounts, isWalletConnectClicked]);
