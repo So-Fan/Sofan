@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./PostsComments.css";
+import "./PostsCommentsNoMediaQueries.css"
 import profilePicFan from "../../../Assets/Image/profilepicmbappecomments.svg";
 import LikeButton from "../LikeButton/LikeButton";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
@@ -18,6 +19,7 @@ function PostsComments({
   commentId,
   setDropdownStates,
   dropdownStates,
+  isMediaQueriesFullPagePostDisabled,
 }) {
   // Si l'athlete ou un admin ou le proprietaire du compte est connecté il peut voir le menu dropdown
   const [isAdminLogged, setIsAdminLogged] = useState();
@@ -51,36 +53,100 @@ function PostsComments({
 
   return (
     <>
-      <div className="posts-comments-component-container">
-        <div className="posts-comments-component-profile-pic-container">
+      <div
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? "posts-comments-component-container-no-media-queries"
+            : "posts-comments-component-container"
+        }
+      >
+        <div
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? "posts-comments-component-profile-pic-container-no-media-queries"
+              : "posts-comments-component-profile-pic-container"
+          }
+        >
           <img src={profilePicFan} alt="" />
         </div>
-        <div className="posts-comments-component-right-container">
-          <div className="posts-comments-component-username-and-comments-container">
-            <div className="posts-comments-component-username">
+        <div
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? "posts-comments-component-right-container-no-media-queries"
+              : "posts-comments-component-right-container"
+          }
+        >
+          <div
+            className={
+              isMediaQueriesFullPagePostDisabled
+                ? "posts-comments-component-username-and-comments-container-no-media-queries"
+                : "posts-comments-component-username-and-comments-container"
+            }
+          >
+            <div
+              className={
+                isMediaQueriesFullPagePostDisabled
+                  ? "posts-comments-component-username-no-media-queries"
+                  : "posts-comments-component-username"
+              }
+            >
               DonOfSomething
             </div>
-            <div className="posts-comments-component-comments">
+            <div
+              className={
+                isMediaQueriesFullPagePostDisabled
+                  ? "posts-comments-component-comments-no-media-queries"
+                  : "posts-comments-component-comments"
+              }
+            >
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dumm…
             </div>
           </div>
-          <div className="posts-comments-component-comments-like-and-timestamp">
-            <div className="posts-comments-component-comments-like-counter">
+          <div
+            className={
+              isMediaQueriesFullPagePostDisabled
+                ? "posts-comments-component-comments-like-and-timestamp-no-media-queries"
+                : "posts-comments-component-comments-like-and-timestamp"
+            }
+          >
+            <div
+              className={
+                isMediaQueriesFullPagePostDisabled
+                  ? "posts-comments-component-comments-like-counter-no-media-queries"
+                  : "posts-comments-component-comments-like-counter"
+              }
+            >
               12 likes
             </div>
-            <div className="posts-comments-component-comments-timestamp">
+            <div
+              className={
+                isMediaQueriesFullPagePostDisabled
+                  ? "posts-comments-component-comments-timestamp-no-media-queries"
+                  : "posts-comments-component-comments-timestamp"
+              }
+            >
               28min
             </div>
           </div>
         </div>
-        <div className="posts-comments-component-comments-like-button-and-dropdown">
+        <div
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? "posts-comments-component-comments-like-button-and-dropdown-no-media-queries"
+              : "posts-comments-component-comments-like-button-and-dropdown"
+          }
+        >
           {isAdminLogged || isAthleteLogged || isCommentsOwnerLogged ? (
             <>
               <div
                 id="id-posts-comments-component-comments-like-button-and-dropdown"
                 onClick={() => handleDropDownMenuClick(commentId)}
-                className="posts-comments-component-comments-dropdown"
+                className={
+                  isMediaQueriesFullPagePostDisabled
+                    ? "posts-comments-component-comments-dropdown-no-media-queries"
+                    : "posts-comments-component-comments-dropdown"
+                }
               >
                 <img
                   id="id-posts-comments-component-comments-like-button-and-dropdown"
@@ -106,7 +172,13 @@ function PostsComments({
           ) : (
             <></>
           )}
-          <div className="posts-comments-component-comments-like-button">
+          <div
+            className={
+              isMediaQueriesFullPagePostDisabled
+                ? "posts-comments-component-comments-like-button-no-media-queries"
+                : "posts-comments-component-comments-like-button"
+            }
+          >
             LIKE
           </div>
         </div>

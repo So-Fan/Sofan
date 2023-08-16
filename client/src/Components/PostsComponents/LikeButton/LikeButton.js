@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "./LikeButton.css";
 import { db } from "../../../Configs/firebase";
-import { doc, collection, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  getDoc,
+  updateDoc,
+  onSnapshot,
+} from "firebase/firestore";
 
-
-function LikeButton({ likeButtonSize, likeButtonSizePollPost, postId, loggedInUserId, setIsPostClicked, isPostClicked }) {
+function LikeButton({
+  likeButtonSize,
+  likeButtonSizePollPost,
+  postId,
+  loggedInUserId,
+  setIsPostClicked,
+  isPostClicked,
+  isMediaQueriesFullPagePostDisabled,
+}) {
   const [isPostLiked, setIsPostedLiked] = useState(false);
-
 
   useEffect(() => {
     // Adding the real-time listener on the specific post
-    const postRef = doc(collection(db, 'feed_post'), postId);
+    const postRef = doc(collection(db, "feed_post"), postId);
     const unsubscribe = onSnapshot(postRef, (docSnap) => {
       if (docSnap.exists()) {
         const likes = docSnap.data().likes || [];
@@ -23,45 +35,44 @@ function LikeButton({ likeButtonSize, likeButtonSizePollPost, postId, loggedInUs
     return () => unsubscribe();
   }, [postId, loggedInUserId]);
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    console.log(postId, " ", loggedInUserId);
+    if (loggedInUserId) {
+      //setIsPostedLiked(!isPostLiked);
+      try {
+        const postRef = doc(collection(db, "feed_post"), postId);
+        console.log(postRef);
 
-const handleClick = async (e) => {
-  e.preventDefault();
-  console.log(postId, " ", loggedInUserId);
-  if (loggedInUserId) {
-   //setIsPostedLiked(!isPostLiked);
-    try {
-      const postRef = doc(collection(db, 'feed_post'), postId);
-      console.log(postRef);
+        // Get the current post
+        const postSnap = await getDoc(postRef);
 
-      // Get the current post
-      const postSnap = await getDoc(postRef);
+        if (!postSnap.exists()) {
+          console.log("No such post!");
+          return;
+        }
 
-      if (!postSnap.exists()) {
-        console.log("No such post!");
-        return;
+        // Get the current likes array
+        const likes = postSnap.data().likes || [];
+
+        // Add or remove the user's ID from the likes array
+        if (likes.includes(loggedInUserId)) {
+          likes.splice(likes.indexOf(loggedInUserId), 1);
+        } else {
+          likes.push(loggedInUserId);
+        }
+
+        // Update the likes array in Firestore
+        await updateDoc(postRef, { likes });
+
+        // Optionally update the local state if you are managing likes locally
+      } catch (err) {
+        console.error(err);
       }
-
-      // Get the current likes array
-      const likes = postSnap.data().likes || [];
-
-      // Add or remove the user's ID from the likes array
-      if (likes.includes(loggedInUserId)) {
-        likes.splice(likes.indexOf(loggedInUserId), 1);
-      } else {
-        likes.push(loggedInUserId);
-      }
-
-      // Update the likes array in Firestore
-      await updateDoc(postRef, { likes });
-
-      // Optionally update the local state if you are managing likes locally
-    } catch (err) {
-      console.error(err);
+    } else {
+      console.log("please log in first");
     }
-  } else {
-    console.log("please log in first");
-  }
-};
+  };
 
   const handleSizeWidth = () => {
     if (likeButtonSize === "likeButton-M-size") {
@@ -80,7 +91,13 @@ const handleClick = async (e) => {
 
   return (
     <>
-      <div className={`logo-likes ${likeButtonSizePollPost}`}>
+      <div
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? `logo-likes-no-media-queries ${likeButtonSizePollPost}`
+            : `logo-likes ${likeButtonSizePollPost}`
+        }
+      >
         {isPostLiked ? (
           <>
             <>

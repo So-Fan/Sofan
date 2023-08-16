@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FullPagePost.css";
+import "./FullPagePostNoMediaQueries.css";
 import HeadOfPost from "../../Components/PostsComponents/HeadOfPost/HeadOfPost";
 import LikesCommentsCounter from "../../Components/PostsComponents/LikesCommentsCounter/LikesCommentsCounter";
 import PostsDescription from "../../Components/PostsComponents/PostsDescription/PostsDescription";
@@ -24,6 +25,10 @@ function FullPagePost({
   isPostClicked,
   setIsPostClicked,
 }) {
+  const [
+    isMediaQueriesFullPagePostDisabled,
+    setIstMediaQueriesFullPagePostDisabled,
+  ] = useState();
   const image = [
     {
       img: "https://cdn-s-www.ledauphine.com/images/84EBA6B9-E83A-4FAA-8FC7-0768BD511F98/NW_raw/romain-attanasio-au-moment-de-boucler-le-vendee-globe-au-debut-de-l-annee-2017-1585955674.jpg",
@@ -78,14 +83,39 @@ function FullPagePost({
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
     },
   ];
+  useEffect(() => {
+    if (postPicture) {
+      setIstMediaQueriesFullPagePostDisabled(false);
+      // require("./FullPagePost.css");
+      console.log("media querie doit devenir false");
+    } else {
+      setIstMediaQueriesFullPagePostDisabled(true);
+      // require("./FullPagePostNoMediaQueries.css");
+      console.log("media querie doit devenir true");
+    }
+    // if (isMediaQueriesFullPagePostDisabled) {
+    // console.log("changement de fichier css")
+    // }
+  }, []);
+  // console.log(postPicture);
   // console.log(dataComments[0]?.comments)
   return (
     <>
       <div
         onClick={handleClickOutsideDropDownMenuComments}
-        className="fullpagepost-container"
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? "fullpagepost-container-no-media-queries"
+            : "fullpagepost-container"
+        }
       >
-        <div className="post-container-fullpagepost">
+        <div
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? "post-container-fullpagepost-no-media-queries"
+              : "post-container-fullpagepost"
+          }
+        >
           {postPicture && (
             <>
               <div className="media-fullpagepost">
@@ -97,10 +127,26 @@ function FullPagePost({
               </div>
             </>
           )}
-          <div className="desc-likes-comments-container-fullpagepost">
-            <div className="bloc-content-fullpagepost">
+          <div
+            className={
+              isMediaQueriesFullPagePostDisabled
+                ? "desc-likes-comments-container-fullpagepost-no-media-queries"
+                : "desc-likes-comments-container-fullpagepost"
+            }
+          >
+            <div
+              className={
+                isMediaQueriesFullPagePostDisabled
+                  ? "bloc-content-fullpagepost-no-media-queries"
+                  : "bloc-content-fullpagepost"
+              }
+            >
               <div
-                className="headofpost-container-fullpagepost"
+                className={
+                  isMediaQueriesFullPagePostDisabled
+                    ? "headofpost-container-fullpagepost-no-media-queries"
+                    : "headofpost-container-fullpagepost"
+                }
                 id="dropdown-medium"
               >
                 <HeadOfPost
@@ -121,14 +167,26 @@ function FullPagePost({
                   postDateType={postDateType}
                   postType={postType}
                   fullPagePostHeadOfPostStyle={true}
+                  isMediaQueriesFullPagePostDisabled={
+                    isMediaQueriesFullPagePostDisabled
+                  }
                 />
               </div>
               <PostsDescription
                 fullPagePostDescriptionStyle={true}
                 postDescription={postDescription}
                 postFeedDescription="post-feed-description-resize-fullpage"
+                isMediaQueriesFullPagePostDisabled={
+                  isMediaQueriesFullPagePostDisabled
+                }
               />
-              <div className="likes-comments-counter-container-fullpagepost">
+              <div
+                className={
+                  isMediaQueriesFullPagePostDisabled
+                    ? "likes-comments-counter-container-fullpagepost-no-media-queries"
+                    : "likes-comments-counter-container-fullpagepost"
+                }
+              >
                 <LikesCommentsCounter
                   postId={id}
                   postLikes={postLikes}
@@ -138,10 +196,25 @@ function FullPagePost({
                   isPostClicked={isPostClicked}
                   setIsPostClicked={setIsPostClicked}
                   fullPagePostLikesCommentsCounterStyle={true}
+                  isMediaQueriesFullPagePostDisabled={
+                    isMediaQueriesFullPagePostDisabled
+                  }
                 />
               </div>
-              <div className="separation-line-fullpagepost"></div>
-              <div className="comments-container-fullpagepost">
+              <div
+                className={
+                  isMediaQueriesFullPagePostDisabled
+                    ? "separation-line-fullpagepost-no-media-queries"
+                    : "separation-line-fullpagepost"
+                }
+              ></div>
+              <div
+                className={
+                  isMediaQueriesFullPagePostDisabled
+                    ? "comments-container-fullpagepost-no-media-queries"
+                    : "comments-container-fullpagepost"
+                }
+              >
                 {dataComments.map((comments, i) => {
                   return (
                     <>
@@ -157,14 +230,33 @@ function FullPagePost({
                         loggedInUserId={loggedInUserId}
                         dropdownStates={dropdownStates}
                         setDropdownStates={setDropdownStates}
+                        isMediaQueriesFullPagePostDisabled={
+                          isMediaQueriesFullPagePostDisabled
+                        }
                       />
                     </>
                   );
                 })}
               </div>
-              <div className="separation-line-fullpagepost"></div>
-              <div className="add-comment-input-container-fullpagepost">
-                <AddCommentInput />
+              <div
+                className={
+                  isMediaQueriesFullPagePostDisabled
+                    ? "separation-line-fullpagepost-no-media-queries"
+                    : "separation-line-fullpagepost"
+                }
+              ></div>
+              <div
+                className={
+                  isMediaQueriesFullPagePostDisabled
+                    ? "add-comment-input-container-fullpagepost-no-media-queries"
+                    : "add-comment-input-container-fullpagepost"
+                }
+              >
+                <AddCommentInput
+                  isMediaQueriesFullPagePostDisabled={
+                    isMediaQueriesFullPagePostDisabled
+                  }
+                />
               </div>
             </div>
           </div>
