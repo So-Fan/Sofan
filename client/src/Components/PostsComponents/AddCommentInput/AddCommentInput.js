@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import autosize from "autosize";
 import "./AddCommentInput.css";
 import "./AddCommentInputNoMediaQueries.css";
+import TextareaAutosize from "react-textarea-autosize";
 
 function AddCommentInput({
   inputAddCommentContainer,
@@ -13,13 +14,9 @@ function AddCommentInput({
 }) {
   const [focusInputComment, setFocusInputComment] = useState();
   const [blurInputComment, setBlurInputComment] = useState();
-  const handleChangeInputComment = (e) => {};
+  const [textareaheight, setTextareaheight] = useState(1);
+  function handleChangeInputComment(event) {}
   const textareaRef = useRef(null);
-  useEffect(() => {
-    if (textareaRef.current) {
-      autosize(textareaRef.current);
-    }
-  }, []);
   function handleFocusInputComment(e) {
     setBlurInputComment(false);
     setFocusInputComment(true);
@@ -68,7 +65,8 @@ function AddCommentInput({
             </svg>
           </a> */}
         </div>
-        <input
+
+        {/* <TextareaAutosize
           ref={textareaRef}
           placeholder="Publiez un commentaire..."
           className={
@@ -80,7 +78,20 @@ function AddCommentInput({
           onChange={handleChangeInputComment}
           onFocus={handleFocusInputComment}
           onBlur={handleBlurInputComment}
-        />
+        /> */}
+        <textarea
+          ref={textareaRef}
+          placeholder="Publiez un commentaire..."
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `input-comment-publication-no-media-queries ${inputCommentPublicationPollPost}-no-media-queries`
+              : `input-comment-publication ${inputCommentPublicationPollPost}`
+          }
+          type="text"
+          onChange={handleChangeInputComment}
+          onFocus={handleFocusInputComment}
+          onBlur={handleBlurInputComment}
+        ></textarea>
         <div
           className={
             isMediaQueriesFullPagePostDisabled

@@ -102,7 +102,7 @@
   }
   .publication-head-container-fullpagepost {
     width: 370px;
-    padding-left: 15px;
+    /* padding-left: 15px; */
     /* background-color: red; */
   }
 }

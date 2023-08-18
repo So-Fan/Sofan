@@ -28,6 +28,7 @@
     "react-phone-number-input": "^3.2.20",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
+    "react-textarea-autosize": "^8.5.2",
     "scroll-lock": "^2.1.5",
     "web-vitals": "^2.1.4",
     "web3": "^1.8.2"
