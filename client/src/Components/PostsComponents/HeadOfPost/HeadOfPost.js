@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./HeadOfPost.css";
+import "./HeadOfPostNoMediaQueries.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import profilePicAttanasio from "../../../Assets/Image/profilepicattanasio.svg";
 import { formatDistanceToNow } from "date-fns";
@@ -7,7 +8,7 @@ import { fr } from "date-fns/locale";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
-import spinnerAnimation from "../../../Assets/Image/spinner-animation-small.svg"
+import spinnerAnimation from "../../../Assets/Image/spinner-animation-small.svg";
 
 function HeadOfPost({
   dropDownMenuSize,
@@ -24,7 +25,8 @@ function HeadOfPost({
   postDate,
   postDateType,
   postType,
-  fullPagePostHeadOfPostStyle
+  fullPagePostHeadOfPostStyle,
+  isMediaQueriesFullPagePostDisabled,
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
@@ -69,14 +71,32 @@ function HeadOfPost({
     addSuffix: true,
   });
   postDate = postDate.replace("environ ", "");
-
+  console.log(agePublicationPollPost);
   return (
-    <div className={fullPagePostHeadOfPostStyle ?"publication-head-container-fullpagepost" : "publication-head-container"}>
+    <div
+      className={
+        isMediaQueriesFullPagePostDisabled
+          ? "publication-head-container-fullpagepost-no-media-queries"
+          : fullPagePostHeadOfPostStyle
+          ? "publication-head-container-fullpagepost"
+          : "publication-head-container"
+      }
+    >
       <div
-        className={`publication-head-left-container ${headOfPostSizeLeft}`}
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? `publication-head-left-container-no-media-queries ${headOfPostSizeLeft}-no-media-queries`
+            : `publication-head-left-container ${headOfPostSizeLeft}`
+        }
         onClick={redirectToAthleteProfile}
       >
-        <div className="profilepic-athlete-publication">
+        <div
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? "profilepic-athlete-publication-no-media-queries"
+              : "profilepic-athlete-publication"
+          }
+        >
           <img
             src={
               postCreatorData
@@ -86,17 +106,39 @@ function HeadOfPost({
             alt="profil utilisateur"
           />
         </div>
-        <div className="profile-side-info-container">
-          <div className={`athlete-name-publication ${athleteNamePollPost}`}>
+        <div
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? "profile-side-info-container-no-media-queries"
+              : "profile-side-info-container"
+          }
+        >
+          <div
+            className={
+              isMediaQueriesFullPagePostDisabled
+                ? `athlete-name-publication-no-media-queries ${athleteNamePollPost}-no-media-queries`
+                : `athlete-name-publication ${athleteNamePollPost}`
+            }
+          >
             {postCreatorData ? postCreatorData.display_name : "Chargement..."}
           </div>
-          <div className={`age-publication ${agePublicationPollPost}`}>
+          <div
+            className={
+              isMediaQueriesFullPagePostDisabled
+                ? `age-publication-no-media-queries ${agePublicationPollPost}-no-media-queries`
+                : `age-publication ${agePublicationPollPost}`
+            }
+          >
             {postDate}
           </div>
         </div>
       </div>
       <div
-        className={`publication-head-right-container ${headOfPostSizeRight}`}
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? `publication-head-right-container-no-media-queries ${headOfPostSizeRight}-no-media-queries`
+            : `publication-head-right-container ${headOfPostSizeRight}`
+        }
       >
         {/* Backend here si contenu PREMIUM ou FREE */}
         <div

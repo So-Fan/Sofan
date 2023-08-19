@@ -189,6 +189,10 @@ function PostsFeed({
             loggedInUserId={loggedInUser?.id}
             postLikes={postLikes}
             postCommentNumber={postCommentNumber}
+            polldata={polldata}
+            pollDate={pollDate}
+            pollDateType={pollDateType}
+            pollTotalVote={pollTotalVote}
             isPostClicked={isPostClicked}
             setIsPostClicked={setIsPostClicked}
             // postType={singlePostData.postType === "normal"}

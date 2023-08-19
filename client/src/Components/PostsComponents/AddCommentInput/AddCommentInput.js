@@ -1,6 +1,8 @@
-import React, {useRef, useEffect, useState} from "react";
-import autosize from "autosize"
+import React, { useRef, useEffect, useState } from "react";
+import autosize from "autosize";
 import "./AddCommentInput.css";
+import "./AddCommentInputNoMediaQueries.css";
+import TextareaAutosize from "react-textarea-autosize";
 
 function AddCommentInput({
   inputAddCommentContainer,
@@ -8,33 +10,45 @@ function AddCommentInput({
   emojiCommentPublicationPollPost,
   inputCommentPublicationPollPost,
   publishButtonAddCommentPollPost,
+  isMediaQueriesFullPagePostDisabled,
 }) {
-  const [focusInputComment, setFocusInputComment] = useState()
-  const [blurInputComment, setBlurInputComment] = useState()
-  const handleChangeInputComment = (e) => {};
+  const [focusInputComment, setFocusInputComment] = useState();
+  const [blurInputComment, setBlurInputComment] = useState();
+  const [textareaheight, setTextareaheight] = useState(1);
+  function handleChangeInputComment(event) {}
   const textareaRef = useRef(null);
-  useEffect(() => {
-    if (textareaRef.current) {
-      autosize(textareaRef.current);
-    }
-  }, []);
   function handleFocusInputComment(e) {
-    setBlurInputComment(false)
-    setFocusInputComment(true)    
-  };
+    setBlurInputComment(false);
+    setFocusInputComment(true);
+  }
   function handleBlurInputComment(e) {
-    setFocusInputComment(false)
-    setBlurInputComment(true)
+    setFocusInputComment(false);
+    setBlurInputComment(true);
   }
   return (
     <div
-      className={`input-comment-container-publication ${inputAddCommentContainer}`}
+      className={
+        isMediaQueriesFullPagePostDisabled
+          ? `input-comment-container-publication-no-media-queries ${inputAddCommentContainer}-no-media-queries`
+          : `input-comment-container-publication ${inputAddCommentContainer}`
+      }
     >
-      <div className={`input-comment-elements ${inputCommentElementsPollPost}`}
-      style={focusInputComment ? {border:"3px rgba(0, 0, 0, 0.486) solid"}: {}}
+      <div
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? `input-comment-elements-no-media-queries ${inputCommentElementsPollPost}-no-media-queries`
+            : `input-comment-elements ${inputCommentElementsPollPost}`
+        }
+        style={
+          focusInputComment ? { border: "3px rgba(0, 0, 0, 0.486) solid" } : {}
+        }
       >
         <div
-          className={`emoji-comment-publication ${emojiCommentPublicationPollPost}`}
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `emoji-comment-publication-no-media-queries ${emojiCommentPublicationPollPost}-no-media-queries`
+              : `emoji-comment-publication ${emojiCommentPublicationPollPost}`
+          }
         >
           {/* <a href="/">
             <svg
@@ -51,22 +65,42 @@ function AddCommentInput({
             </svg>
           </a> */}
         </div>
-        <input
+
+        {/* <TextareaAutosize
           ref={textareaRef}
           placeholder="Publiez un commentaire..."
-          className={`input-comment-publication ${inputCommentPublicationPollPost}`}
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `input-comment-publication-no-media-queries ${inputCommentPublicationPollPost}-no-media-queries`
+              : `input-comment-publication ${inputCommentPublicationPollPost}`
+          }
           type="text"
           onChange={handleChangeInputComment}
           onFocus={handleFocusInputComment}
           onBlur={handleBlurInputComment}
-        />
+        /> */}
+        <textarea
+          ref={textareaRef}
+          placeholder="Publiez un commentaire..."
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `input-comment-publication-no-media-queries ${inputCommentPublicationPollPost}-no-media-queries`
+              : `input-comment-publication ${inputCommentPublicationPollPost}`
+          }
+          type="text"
+          onChange={handleChangeInputComment}
+          onFocus={handleFocusInputComment}
+          onBlur={handleBlurInputComment}
+        ></textarea>
         <div
-          className={`publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`}
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `publish-comments-button-container-publication-no-media-queries ${publishButtonAddCommentPollPost}-no-media-queries`
+              : `publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`
+          }
         >
-          
-            {/* Backend here */}
-            <button>Publier</button>
-          
+          {/* Backend here */}
+          <button>Publier</button>
         </div>
       </div>
     </div>

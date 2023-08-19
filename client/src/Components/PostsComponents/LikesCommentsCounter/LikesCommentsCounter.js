@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import LikeButton from "../LikeButton/LikeButton";
 import "./LikesCommentsCounter.css";
+import "./LikesCommentsCounterNoMediaQueries.css";
 function LikesCommentsCounter({
   likesCommentsContainerPublicationPollPost,
   likesCounterPublicationPollPost,
@@ -18,6 +19,7 @@ function LikesCommentsCounter({
   setIsPostClicked,
   isPostClicked,
   fullPagePostLikesCommentsCounterStyle,
+  isMediaQueriesFullPagePostDisabled,
 }) {
   const [pluralLikes, setPluralLikes] = useState();
   useEffect(() => {
@@ -40,12 +42,20 @@ function LikesCommentsCounter({
   return (
     <div
       className={
-        fullPagePostLikesCommentsCounterStyle
+        isMediaQueriesFullPagePostDisabled
+          ? `likes-comments-container-publication-fullpagepost-no-media-queries ${likesCommentsContainerPublicationPollPost}-no-media-queries`
+          : fullPagePostLikesCommentsCounterStyle
           ? `likes-comments-container-publication-fullpagepost ${likesCommentsContainerPublicationPollPost}`
           : `likes-comments-container-publication ${likesCommentsContainerPublicationPollPost}`
       }
     >
-      <div className={`like-button-container ${likeButtonContainerPollPost}`}>
+      <div
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? `like-button-container-no-media-queries ${likeButtonContainerPollPost}-no-media-queries`
+            : `like-button-container ${likeButtonContainerPollPost}`
+        }
+      >
         <LikeButton
           setIsPostClicked={setIsPostClicked}
           isPostClicked={isPostClicked}
@@ -53,19 +63,34 @@ function LikesCommentsCounter({
           likeButtonSize={"likeButton-M-size"}
           postId={postId}
           loggedInUserId={loggedInUserId}
+          isMediaQueriesFullPagePostDisabled={isMediaQueriesFullPagePostDisabled}
           // likeButtonContainerPollPost={likeButtonContainerPollPost}
         />
         <div
-          className={`likes-counter-publication ${likesCounterPublicationPollPost}`}
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `likes-counter-publication-no-media-queries ${likesCounterPublicationPollPost}-no-media-queries`
+              : `likes-counter-publication ${likesCounterPublicationPollPost}`
+          }
         >
           <Link onClick={setIsPostClicked}>
             {postLikes} like{pluralLikes && "s"}
           </Link>
         </div>
       </div>
-      <div className={`comments-publication ${commentPublicationPollPost} `}>
+      <div
+        className={
+          isMediaQueriesFullPagePostDisabled
+            ? `comments-publication-no-media-queries ${commentPublicationPollPost}-no-media-queries`
+            : `comments-publication ${commentPublicationPollPost}`
+        }
+      >
         <div
-          className={`logo-comments-publication ${logoCommentsPublicationPollPost}`}
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `logo-comments-publication-no-media-queries ${logoCommentsPublicationPollPost}-no-media-queries`
+              : `logo-comments-publication ${logoCommentsPublicationPollPost}`
+          }
         >
           <svg
             width="21"
@@ -82,7 +107,11 @@ function LikesCommentsCounter({
         </div>
         {/* Backend here */}
         <div
-          className={`comments-counter-publication ${commentsCounterPublicationPollPost}`}
+          className={
+            isMediaQueriesFullPagePostDisabled
+              ? `comments-counter-publication-no-media-queries ${commentsCounterPublicationPollPost}-no-media-queries`
+              : `comments-counter-publication ${commentsCounterPublicationPollPost}`
+          }
         >
           <Link onClick={setIsPostClicked}>{postCommentNumber} comments</Link>
         </div>

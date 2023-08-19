@@ -1,16 +1,12 @@
 /* NEW CSS */
 .posts-comments-component-container {
-  /* background-color: red; */
   width: 100%;
-  height: 100% !important;
   max-width: 496px;
   min-height: 81px;
-  max-height: 81px;
   display: flex;
 }
 .posts-comments-component-profile-pic-container {
   height: 81px;
-  /* width: 40px; */
   margin-right: 10px;
   /* background-color: aquamarine; */
 }
@@ -73,7 +69,6 @@
   cursor: pointer;
   padding: 5px;
   width: 10px;
-  /* height: 15px; */
 }
 .posts-comments-component-comments-like-button-and-dropdown img:hover {
   background-color: #00000015;
@@ -91,11 +86,6 @@
   }
 }
 @media (max-width: 1450px) {
-  .posts-comments-component-container {
-    /* background-color: RED; */
-    height: 71px;
-    max-height: 71px;
-  }
   .posts-comments-component-comments{
     font-size: 12px;
     margin-top: 2px;
@@ -112,9 +102,9 @@
 @media (max-width:900px) {
   .posts-comments-component-container {
     /* background-color: RED; */
-    min-height: 68px;
-    height: 68px !important;
-    max-height: 68px !important;
+    /* min-height: 68px; */
+    /* height: 68px !important; */
+    /* max-height: 68px !important; */
   }
   .posts-comments-component-profile-pic-container{
     /* background-color: darkblue; */
