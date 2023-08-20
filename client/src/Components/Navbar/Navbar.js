@@ -52,19 +52,14 @@ const Navbar = ({
       handlePixelScrolledAthleteProfilePage,
       false
     );
-
-
-  }, [])
+  }, []);
   useEffect(() => {
-    
-  if (isSignInButtonClicked || isSignUpButtonClicked) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = 'auto';
-  }
-    
-  }, [isSignInButtonClicked, isSignUpButtonClicked])
-  
+    if (isSignInButtonClicked || isSignUpButtonClicked) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isSignInButtonClicked, isSignUpButtonClicked]);
 
   const handlePopoUpSignInSignUpClick = () => {
     setIsSignInButtonClicked(false);
@@ -80,6 +75,14 @@ const Navbar = ({
       e.target.id === "custom-close-button"
     ) {
       setIsSignUpButtonClicked(false);
+    }
+  }
+  function handleSignInPopupDisplay(e) {
+    if (
+      e.target.id === "modal-component-cross" ||
+      e.target.id === "custom-close-button"
+    ) {
+      setIsSignInButtonClicked(false);
     }
   }
   return (
@@ -160,7 +163,7 @@ const Navbar = ({
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           // setState={setIsSignUpButtonClicked}
           handleSignupPopupDisplay={handleSignupPopupDisplay}
-          quitModalWithCrossOnly={true}
+          // quitModalWithCrossOnly={true}
           style={{ top: "20px", right: "20px", zIndex: "9999" }}
         >
           <Signup
@@ -174,7 +177,8 @@ const Navbar = ({
       {isSignInButtonClicked && (
         <Modal
           style={{ visibility: "hidden" }}
-          setState={() => setIsSignInButtonClicked()}
+          handleSignupPopupDisplay={handleSignInPopupDisplay}
+          // quitModalWithCrossOnly={true}
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
         >
           <PopUpSignIn

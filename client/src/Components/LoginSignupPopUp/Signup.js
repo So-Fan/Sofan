@@ -516,7 +516,8 @@ function Signup({
             await addDoc(emailValidRef, validationData);
 
             // ...
-
+            console.log("email", email);
+            console.log(verificationCode);
             // Make a POST request to the Cloud Function to send the verification email
             fetch(
               "https://us-central1-sofan-app.cloudfunctions.net/sendVerificationEmail",
@@ -784,7 +785,6 @@ function Signup({
     try {
       handleBannerUpload(retrievedBanner, croppedBanner);
       handleAvatarUpload(retrievedAvatar, croppedAvatar);
-  
     } catch (err) {
       console.error("Upload Image error Line 790: ", err);
     }
@@ -1140,7 +1140,7 @@ function Signup({
                           banner={banner}
                           setBanner={setBanner}
                           profile={profile}
-                          setProfile={setProfile}      
+                          setProfile={setProfile}
                         />
                       </>
                     ) : displayConnectWallet ? (
