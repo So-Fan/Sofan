@@ -413,6 +413,24 @@ const NftSingle = () => {
     // TODO: Call Sofan marketplace to get the addressUSDC
     let addressUSDC = "0x07865c6E87B9F70255377e024ace6630C1Eaa37F";
     let contractUSDCInstance = new web3.eth.Contract(usdcAbi, addressUSDC);
+
+    try {
+      const result = await contractUSDCInstance.methods
+        .balanceOf(accounts[0])
+        .call({ from: accounts[0] });
+      console.log("Je suis result", result);
+      formatCurrentBalance(result, setCurrentBalance);
+      if (result > 0 && result < parseInt(currentNftListingFromMarketplace)) {
+        // setIsBidNftButtonClicked(false);
+        setDisplayPopUpAddFundToWallet(true);
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      setListingBlockchainError(error.message);
+      setBlockchainError(true);
+    }
+
     try {
       setMintPopUpProccesing(true);
       const result = await contractUSDCInstance.methods

@@ -5,6 +5,7 @@ function MintPopUpProcessing({
   isListing,
   isBuying,
   isBid,
+  isMint,
   styleImage,
   styleP,
   styleDiv,
