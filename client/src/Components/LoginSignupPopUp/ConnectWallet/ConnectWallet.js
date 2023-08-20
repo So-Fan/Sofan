@@ -261,6 +261,7 @@ function ConnectWallet({
             )}
             <button
               onClick={handleConnectWalletClick}
+              disabled={!accounts}
               className="signup-user-connect-wallet-next-button"
             >
               Suivant
