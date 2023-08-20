@@ -176,7 +176,7 @@ const Navbar = ({
       )}
       {isSignInButtonClicked && (
         <Modal
-          style={{ visibility: "hidden" }}
+          style={{ top: "20px", right: "20px", zIndex: "9999" }}
           handleSignupPopupDisplay={handleSignInPopupDisplay}
           // quitModalWithCrossOnly={true}
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
