@@ -3,7 +3,7 @@ import "./FeedSuggestionTemplate.css";
 import { Link } from "react-router-dom";
 const FeedSuggestionTemplate = ({ name, type, athleteProfilePicture, id }) => {
   return (
-    <Link to={id} className="feedsuggestions-content-container">
+    <Link to={`/userprofile/${id}`} className="feedsuggestions-content-container">
       <img className="feedsuggestions-content-avatar" src={athleteProfilePicture} alt="athlete profile" />
       <div>
         <span className="feedsuggestions-content-name">{name}</span>

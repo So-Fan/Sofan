@@ -23,6 +23,8 @@ import {
   orderBy,
   onSnapshot,
   getDocs,
+  where,
+  limit,
 } from "firebase/firestore";
 
 function Home({
@@ -47,7 +49,9 @@ function Home({
   function handleAthleteSuggestionClick(e) {
     setIsSuggestSeeMoreButtonClicked(true);
   }
-  const [displayPollPost,setDisplayPollPost ] = useState(false)
+  const [displayPollPost, setDisplayPollPost] = useState(false);
+  const [suggestionsAthletes, setSuggestionsAthletes] = useState([]);
+  const suggestionCollectionAthlete = collection(db, "users");
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
@@ -57,7 +61,7 @@ function Home({
       return false;
     }
   }
- console.log(dataPost)
+  console.log(dataPost);
   useEffect(() => {
     setIsLoading(true);
 
@@ -96,14 +100,39 @@ function Home({
     setIsCreatePostButtonClicked(true);
   };
 
-  console.log(isLogged?.account_type)
+  // console.log(isLogged?.account_type);
+  useEffect(() => {
+    async function getSuggestionsAthletes() {
+      // Create a query against the collection
+      const q = query(
+        suggestionCollectionAthlete,
+        where("account_type", "==", "athlete"),
+        limit(4)
+      );
+
+      const data = await getDocs(q);
+      setSuggestionsAthletes(
+        data.docs.map((doc) => {
+          const docData = doc.data();
+          return {
+            display_name: docData.display_name,
+            profile_avatar: docData.profile_avatar,
+            sport: docData.sport,
+            id: doc.id, // Include the document ID if needed
+          };
+        })
+      );
+    }
+    getSuggestionsAthletes();
+  }, []);
+  console.log(suggestionsAthletes);
   return (
     <>
       <section className="home-component">
         <div
           className="home-left-container"
           style={
-            isLogged?.account_type === "athlete" 
+            isLogged?.account_type === "athlete"
               ? { height: "686px", maxHeight: "686px" }
               : { maxHeight: "646px" }
           }
@@ -134,21 +163,24 @@ function Home({
                 gap="8.59px"
               />
             </div>
-            {isLogged === true && isLogged !== undefined  && isLogged?.account_type !== "free" && (
-              <Button
-                createPostButtonclassName="button-component-create-post"
-                style={CreatePostButtonStyle.inlineStyle}
-                customMediaQueries={CreatePostButtonStyle.customMediaQueries}
-                text="Create a post"
-                onClick={handleCreatePostClick}
-                hover="button-hover-props"
-                active="button-active-props"
-              />
-            )}
+            {isLogged === true &&
+              isLogged !== undefined &&
+              isLogged?.account_type !== "free" && (
+                <Button
+                  createPostButtonclassName="button-component-create-post"
+                  style={CreatePostButtonStyle.inlineStyle}
+                  customMediaQueries={CreatePostButtonStyle.customMediaQueries}
+                  text="Create a post"
+                  onClick={handleCreatePostClick}
+                  hover="button-hover-props"
+                  active="button-active-props"
+                />
+              )}
           </div>
           <FavAthlete />
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
+            suggestionsAthletes={suggestionsAthletes}
           />
         </div>
         <div className="home-center-container">
@@ -210,7 +242,9 @@ function Home({
           setState={setIsSuggestSeeMoreButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <AthleteSuggestPopUp />
+          <AthleteSuggestPopUp 
+          suggestionsAthletes={suggestionsAthletes}
+          />
         </Modal>
       )}
       {isNotificationButtonClicked && (
