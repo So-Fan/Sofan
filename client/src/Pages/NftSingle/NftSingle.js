@@ -16,6 +16,7 @@ import PopupListNFT from "../../Components/PopupListNFT/PopupListNFT";
 import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 import PopUpUnlistNFT from "../../Components/PopUpUnlistNFT/PopUpUnlistNFT";
 import useEth from "../../contexts/EthContext/useEth";
+import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -59,6 +60,9 @@ const NftSingle = () => {
   const [isBidPlaced, setIsBidPlaced] = useState();
   const [listingBlockchainError, setListingBlockchainError] = useState();
   const [listingPriceOnChange, setIsListingPriceOnChange] = useState();
+  const [displayPopUpAddFundToWallet, setDisplayPopUpAddFundToWallet] =
+    useState();
+  const [currentBalance, setCurrentBalance] = useState(null);
   const {
     setContractAddress,
     state: { contract, accounts, web3 },
@@ -520,6 +524,31 @@ const NftSingle = () => {
     }
   };
 
+  const formatCurrentBalance = (balance) => {
+    const balanceString = balance.toString();
+    const balanceStringLength = balanceString.length;
+
+    if (balanceStringLength > 6) {
+      const balanceStringFirstPart = balanceString.slice(
+        0,
+        balanceStringLength - 6
+      );
+      const balanceStringSecondPart = balanceString.slice(
+        balanceStringLength - 6,
+        balanceStringLength
+      );
+      const concat = balanceStringFirstPart + "." + balanceStringSecondPart;
+      setCurrentBalance(concat);
+    } else if (6 >= balanceStringLength && balanceStringLength > 0) {
+      const balanceStringAddPart = "0.00000";
+      const concat =
+        balanceStringAddPart.slice(0, 8 - balanceStringLength) + balanceString;
+      setCurrentBalance(concat);
+    } else {
+      return;
+    }
+  };
+
   const handlePlaceBidPopup = async () => {
     console.log("proceed to place a BID clicked");
 
@@ -557,6 +586,23 @@ const NftSingle = () => {
       setListingBlockchainError(error.message);
       setBlockchainError(true);
       return;
+    }
+
+    try {
+      const result = await contractUSDCInstance.methods
+        .balanceOf(accounts[0])
+        .call({ from: accounts[0] });
+      console.log("Je suis result", result);
+      formatCurrentBalance(result);
+      if (result > 0 && result < parseInt(tempBidPrice)) {
+        // setIsBidNftButtonClicked(false);
+        setDisplayPopUpAddFundToWallet(true);
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      setListingBlockchainError(error.message);
+      setBlockchainError(true);
     }
 
     try {
@@ -1103,6 +1149,16 @@ const NftSingle = () => {
                 }
               />
             )}
+          </Modal>
+        </>
+      )}
+      {displayPopUpAddFundToWallet && (
+        <>
+          <Modal
+            style={{ top: "20px", right: "20px" }}
+            setState={() => setDisplayPopUpAddFundToWallet(false)}
+          >
+            <PopUpAddFundToWallet currentBalance={currentBalance} />
           </Modal>
         </>
       )}
