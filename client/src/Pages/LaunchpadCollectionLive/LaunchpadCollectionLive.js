@@ -10,6 +10,9 @@ import MintPopUpBuy from "../../Components/MintPopUp/MintPopUpBuy/MintPopUpBuy";
 import Modal from "../../Components/Modal/Modal";
 import MintPopUp from "../../Components/MintPopUp/MintPopUp";
 import useEth from "../../contexts/EthContext/useEth";
+import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
+import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
+import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpStatus/MintPopUpStatus";
 function LaunchpadCollectionLive() {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
@@ -21,7 +24,10 @@ function LaunchpadCollectionLive() {
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
 
-  const { setContractAddress, state: {contract} } = useEth();
+  const {
+    state: { web3, contract, accounts },
+    setContractAddress,
+  } = useEth();
   // // Start Backend
   // useEffect(() => {
   //   // retrieve collection address from firestore below
@@ -171,13 +177,93 @@ function LaunchpadCollectionLive() {
   // display mint pop up
   function handleMintButtonClick(e) {
     // TODO : load contract address from backend
-    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
-        // End temporary code
+    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+    // End temporary code
     // then pass it to the state below
     setContractAddress(collectionAddress);
     setIsMintButtonClicked(true);
     // console.log("test");
   }
+
+  // start import
+
+  const [isMintingProcessBegan, setIsMintingProcessBegan] = useState(false);
+  const [mintingProcessStatus, setMintingProcessStatus] = useState(true);
+  const [
+    isMintingProcessEndedSuccessfully,
+    setIsMintingProcessEndedSuccessfully,
+  ] = useState(false);
+  const [mintPrice, setMintPrice] = useState(1000000); // TODO: set price dynamically
+  const [currentBalance, setCurrentBalance] = useState();
+  const [
+    displayPopUpAddFundToWalletFromMint,
+    setDisplayPopUpAddFundToWalletFromMint,
+  ] = useState();
+
+  const approve = async () => {
+    // const web3Instance = new Web3(Web3.givenProvider)
+    // await web3.eth.requestAccounts();
+
+    console.log("create Instance");
+    const artifact = require("../../Pages/Test/USDC.json");
+    const { abi } = artifact;
+    let addressUSDC = "0x07865c6E87B9F70255377e024ace6630C1Eaa37F";
+    let contractUSDCInstance = new web3.eth.Contract(abi, addressUSDC);
+
+    try {
+      const result = await contractUSDCInstance.methods
+        .balanceOf(accounts[0])
+        .call({ from: accounts[0] });
+      console.log("Je suis result", result);
+      formatCurrentBalance(result, setCurrentBalance);
+      if (result > 0 && result < parseInt(mintPrice)) {
+        // setIsBidNftButtonClicked(false);
+        // setIsMintButtonClicked(false);
+        setDisplayPopUpAddFundToWalletFromMint(true);
+
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      setIsMintingProcessEndedSuccessfully(false);
+      return;
+    }
+
+    try {
+      setIsMintingProcessBegan(true);
+      const price = 1000000;
+      const result = await contractUSDCInstance.methods
+        .approve(contract._address, price)
+        .send({ from: accounts[0] });
+      console.log(result);
+      if (result.status) {
+        await mint();
+        // setIsMintingProcessBegan(false)
+        setMintingProcessStatus(false);
+      } else {
+        setIsMintingProcessEndedSuccessfully(false);
+        setMintingProcessStatus(false);
+      }
+    } catch (error) {
+      console.log(error);
+      // setIsMintingProcessBegan(false)
+      setMintingProcessStatus(false);
+      setIsMintingProcessEndedSuccessfully(false);
+    }
+  };
+
+  const mint = async () => {
+    console.log(accounts, contract);
+    const result2 = await contract.methods
+      .mint("0x266a8e449A62878A6d63BB14c90a95F425a3d30f", 1, 1000000)
+      .send({ from: accounts[0] });
+    if (result2.status) {
+      setIsMintingProcessEndedSuccessfully(true);
+    } else {
+      setIsMintingProcessEndedSuccessfully(false);
+    }
+    console.log(result2);
+  };
 
   return (
     <>
@@ -229,9 +315,45 @@ function LaunchpadCollectionLive() {
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "25px", right: "26px" }}
         >
-          <MintPopUp />
-          {/* <MintPopUpBuy/> */}
+          {isMintingProcessBegan ? (
+            <>
+              <div className="launchpad-collection-live-mintPopUpStatus-container">
+                <MintPopUpStatus
+                  statusProcessing={mintingProcessStatus}
+                  statusMint={isMintingProcessEndedSuccessfully}
+                  setIsMintingProcessBegan={setIsMintingProcessBegan}
+                  setMintingProcessStatus={setMintingProcessStatus}
+                  setIsMintingProcessEndedSuccessfully={
+                    setIsMintingProcessEndedSuccessfully
+                  }
+                  styleImage={{ right: "119.5px" }}
+                  styleP={{ right: "25px" }}
+                  styleDiv={{ bottom: "21px", right: "185px" }}
+                  styleP2={{ right: "118.5px" }}
+                />
+              </div>
+            </>
+          ) : (
+            <MintPopUp
+              setIsMintButtonClicked={setIsMintButtonClicked}
+              approve={approve}
+              isMintingProcessBegan={isMintingProcessBegan}
+            />
+          )}
         </Modal>
+      )}
+      {displayPopUpAddFundToWalletFromMint && (
+        <>
+          <Modal
+            style={{ top: "20px", right: "20px" }}
+            setState={setDisplayPopUpAddFundToWalletFromMint}
+          >
+            <PopUpAddFundToWallet
+              currentBalance={currentBalance}
+              setIsMintButtonClicked={setIsMintButtonClicked}
+            />
+          </Modal>
+        </>
       )}
     </>
   );
