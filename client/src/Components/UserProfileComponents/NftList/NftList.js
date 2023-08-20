@@ -38,6 +38,7 @@ function NftList({
   nftTransferDate,
   // formulated offers
   isFormulatedOffersSectionActive,
+  isReceivedOffersSessionActive,
   isUserActivitySectionActive,
   ethPrice,
   //
@@ -52,6 +53,9 @@ function NftList({
   ).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
   // console.log(nftsFromOwnerFloorPrice);
   // console.log(handleAcceptOffersClick);
+  receivedFrom = "DonOfSomething";
+  // receivedTo = "DonOfSomething";
+  // console.log(transferNftDataApi.to)
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -81,12 +85,12 @@ function NftList({
       </div>
       <div className={`nft-from-user-activity ${offersToClass}`}>
         {isUserActivitySectionActive && <>{transferNftDataApi.from}</>}
-        {isFormulatedOffersSectionActive && (
-          <>
-            {transferNftDataApi.to}
-            {/* {offersTo} */}
-          </>
-        )}
+        {/* {isFormulatedOffersSectionActive && ( <> */}
+        {/* {transferNftDataApi.to} */}
+        {/* {offersTo} */}
+        {/* </> )} */}
+
+        {isReceivedOffersSessionActive && <>{transferNftDataApi.to}</>}
       </div>
       <div className={`nft-to-user-activity ${offersStatusClass}`}>
         {isUserActivitySectionActive && <> {transferNftDataApi.to}</>}
@@ -97,7 +101,7 @@ function NftList({
       </div>
       <div className={`nft-decline-received-offers ${offersDeclineClass}`}>
         <img
-        // récupérer les données de l'élément cliqué
+          // récupérer les données de l'élément cliqué
           onClick={() =>
             handleRejectedOffersClick(
               nftsFromOwnerImage,
@@ -113,7 +117,7 @@ function NftList({
       </div>
       <div className={`nft-accept-received-offers ${offersAcceptClass}`}>
         <img
-        // récupérer les données de l'élément cliqué
+          // récupérer les données de l'élément cliqué
           onClick={() =>
             handleAcceptOffersClick(
               nftsFromOwnerImage,

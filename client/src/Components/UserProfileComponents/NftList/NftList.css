@@ -138,28 +138,28 @@
   left: 0px;
 }
 .received-offers-offers-price {
-  left: 100px;
+  left: 60px;
 }
 .received-offers-from {
-  left: 263px;
+  left: 203px;
 }
 .received-offers-to {
-  left: 405px;
+  left: 345px;
 }
 .received-offers-date {
-  left: 387px;
+  left: 287px;
 }
 .received-offers-decline {
   cursor: pointer;
   display: flex;
   position: relative;
-  left: 450px;
+  left: 360px;
 }
 .received-offers-accept {
   cursor: pointer;
   display: flex;
   position: relative;
-  left: 460px;
+  left: 380px;
 }
 @media (max-width: 1300px) {
   .nft-date-transfer-user-activity {
