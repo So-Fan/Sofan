@@ -16,6 +16,12 @@
   max-width: 30px;
   max-height: 30px;
   border-radius: 30px;
+  border: solid 2px white;
+}
+.posts-comments-component-profile-pic-container img:hover {
+  border: solid 2px rgba(0, 0, 0, 0.466);
+  cursor: pointer;
+  transition-duration: 500ms;
 }
 .posts-comments-component-right-container {
   width: 100%;
@@ -25,6 +31,10 @@
 .posts-comments-component-username {
   font-size: 16px;
   font-family: "britanica-heavy";
+}
+.posts-comments-component-username:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 .posts-comments-component-comments {
   font-size: 14px;
@@ -80,17 +90,17 @@
   height: 20px;
   /* background-color: burlywood; */
 }
-@media (max-height:900px) {
-  .posts-comments-component-comments-like-and-timestamp{
+@media (max-height: 900px) {
+  .posts-comments-component-comments-like-and-timestamp {
     padding-top: 5px;
   }
 }
 @media (max-width: 1450px) {
-  .posts-comments-component-comments{
+  .posts-comments-component-comments {
     font-size: 12px;
     margin-top: 2px;
   }
-  .posts-comments-component-username{
+  .posts-comments-component-username {
     font-size: 14px;
   }
   .posts-comments-component-comments-like-and-timestamp {
@@ -99,30 +109,29 @@
     height: 12px;
   }
 }
-@media (max-width:900px) {
+@media (max-width: 900px) {
   .posts-comments-component-container {
     /* background-color: RED; */
     /* min-height: 68px; */
     /* height: 68px !important; */
     /* max-height: 68px !important; */
   }
-  .posts-comments-component-profile-pic-container{
+  .posts-comments-component-profile-pic-container {
     /* background-color: darkblue; */
     height: 61px;
   }
-  .posts-comments-component-profile-pic-container img{
-  
+  .posts-comments-component-profile-pic-container img {
     width: 25px;
     height: 25px;
     max-width: 25px;
     max-height: 25px;
   }
-  
-  .posts-comments-component-comments{
+
+  .posts-comments-component-comments {
     font-size: 10px;
     margin-top: 2px;
   }
-  .posts-comments-component-username{
+  .posts-comments-component-username {
     font-size: 12px;
   }
   .posts-comments-component-comments-like-and-timestamp {

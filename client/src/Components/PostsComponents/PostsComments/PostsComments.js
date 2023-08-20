@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./PostsComments.css";
-import "./PostsCommentsNoMediaQueries.css"
+import "./PostsCommentsNoMediaQueries.css";
 import profilePicFan from "../../../Assets/Image/profilepicmbappecomments.svg";
 import LikeButton from "../LikeButton/LikeButton";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import dropDownImage from "../../../Assets/Image/dropdown.svg";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import { useNavigate } from "react-router-dom";
 function PostsComments({
   likeButtonSizePollPost,
   postId,
@@ -26,6 +27,7 @@ function PostsComments({
   const [isAthleteLogged, setIsAthleteLogged] = useState();
   const [isCommentsOwnerLogged, setisCommentsOwnerLogged] = useState(true);
   const [isCommentLiked, setIsCommentLiked] = useState(false);
+  const navigate = useNavigate();
   function handleCommentLike() {
     setIsCommentLiked(!isCommentLiked);
   }
@@ -50,7 +52,10 @@ function PostsComments({
     }));
     console.log(dropdownStates);
   }
-
+  function redirectToProfileFromComment(e) {
+    // mettre une condition si le commentaire viens d'un utilisateur ou d'un athlete il faut changer le path
+    navigate(`/userprofile/`);
+  }
   return (
     <>
       <div
@@ -66,6 +71,7 @@ function PostsComments({
               ? "posts-comments-component-profile-pic-container-no-media-queries"
               : "posts-comments-component-profile-pic-container"
           }
+          onClick={redirectToProfileFromComment}
         >
           <img src={profilePicFan} alt="" />
         </div>
@@ -89,6 +95,7 @@ function PostsComments({
                   ? "posts-comments-component-username-no-media-queries"
                   : "posts-comments-component-username"
               }
+              onClick={redirectToProfileFromComment}
             >
               DonOfSomething
             </div>

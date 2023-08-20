@@ -65,7 +65,7 @@ function App() {
   function handleClickOutside(e) {
     // Navbar
     if (e.target.id === "navbar-user-profile-img") {
-      setIsProfileClicked(true);
+      setIsProfileClicked(!isProfileClicked);
     } else {
       setIsProfileClicked(false);
     }
