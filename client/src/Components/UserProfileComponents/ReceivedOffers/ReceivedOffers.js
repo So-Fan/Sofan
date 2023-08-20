@@ -50,11 +50,11 @@ function ReceivedOffers({
         offersFromTitle="From"
         offersToTitle="To"
         //
-        offersNftTitleclassName="formulated-offers-nft-title"
-        yourOffersTitleclassName="received-offers-offers-title"
-        offersFromTitleclassName="received-offers-from-title"
-        offersToTitleclassName="received-offers-to-title"
-        offersDateTitleclassName="received-offers-date-title"
+        offersNftTitleClass="formulated-offers-nft-title"
+        yourOffersTitleClass="received-offers-offers-title"
+        offersFromTitleClass="received-offers-from-title"
+        offersToTitleClass="received-offers-to-title"
+        offersDateTitleClass="received-offers-date-title"
         // Nft data list
       />
       <div className="received-offers-nft-list-container">
@@ -77,7 +77,7 @@ function ReceivedOffers({
               apiNftData[i]?.contract?.openSea?.floorPrice
             }
             ethPrice={ethPrice}
-            nftsFromOwnerQuantity={apiNftData[i]?.balance}
+            // nftsFromOwnerQuantity={apiNftData[i]?.balance}
             //
             transferNftDataApi={transferNftDataApi.transfers[i]}
             nftTransferDate={nftTransferDate[i]}
@@ -85,16 +85,17 @@ function ReceivedOffers({
             handleAcceptOffersClick={handleAcceptOffersClick}
             handleRejectedOffersClick={handleRejectedOffersClick}
             handleOffersChoice={handleOffersChoice}
+            isReceivedOffersSessionActive={true}
             //
             // setDataPopupConfirmation={setDataPopupConfirmation}
             //
-            offersNftContentclassName="received-offers-nft-picture-and-title"
-            offersYourOffersPriceclassName="received-offers-offers-price"
-            offersFromclassName="received-offers-from"
-            offersToclassName="received-offers-to"
-            offersDateclassName="received-offers-date"
-            offersDeclineclassName="received-offers-decline"
-            offersAcceptclassName="received-offers-accept"
+            offersNftContentClass="received-offers-nft-picture-and-title"
+            offersYourOffersPriceClass="received-offers-offers-price"
+            offersFromClass="received-offers-from"
+            offersToClass="received-offers-to"
+            offersDateClass="received-offers-date"
+            offersDeclineClass="received-offers-decline"
+            offersAcceptClass="received-offers-accept"
           />
         ))}
       </div>
