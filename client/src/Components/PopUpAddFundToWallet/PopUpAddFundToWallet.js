@@ -6,7 +6,7 @@ const PopUpAddFundToWallet = ({ currentBalance }) => {
   return (
     <div className="popupaddfundtowallet-component">
       <img src={Warning} alt="warning" />
-      <span>Not enought fund !</span>
+      <span>Not enough fund !</span>
       <span>Current balance : {currentBalance}</span>
       <Button text={"+ Add fund to wallet"} style={DefaultYellowButtonPopUp} />
     </div>

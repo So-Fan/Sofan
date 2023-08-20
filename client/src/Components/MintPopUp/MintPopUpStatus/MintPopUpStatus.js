@@ -3,19 +3,33 @@ import "./MintPopUpStatus.css";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
 import redCross from "../../../Assets/Image/redcross-offers.svg";
 import MintPopUpProcessing from "../MintPopUpProcessing/MintPopUpProcessing";
-function MintPopUpStatus({ statusMint, statusProcessing, setIsMintingProcessBegan, setMintingProcessStatus, setIsMintingProcessEndedSuccessfully }) {
-
+function MintPopUpStatus({
+  statusMint,
+  statusProcessing,
+  setIsMintingProcessBegan,
+  setMintingProcessStatus,
+  setIsMintingProcessEndedSuccessfully,
+  styleP,
+  styleImage,
+  styleDiv,
+  styleP2,
+}) {
   const handleBackToMintClicked = () => {
-    setMintingProcessStatus(true)
-    setIsMintingProcessEndedSuccessfully(false)
-    setIsMintingProcessBegan(false)
-  }
+    setMintingProcessStatus(true);
+    setIsMintingProcessEndedSuccessfully(false);
+    setIsMintingProcessBegan(false);
+  };
   return (
     <>
       {/* {statusMint} */}
       {statusProcessing ? (
         <>
-        <MintPopUpProcessing/>
+          <MintPopUpProcessing
+            styleP={styleP}
+            styleImage={styleImage}
+            styleDiv={styleDiv}
+            styleP2={styleP2}
+          />
         </>
       ) : (
         <>
@@ -56,7 +70,10 @@ function MintPopUpStatus({ statusMint, statusProcessing, setIsMintingProcessBega
               </>
             ) : (
               <>
-                <button className="mint-pop-up-status-button" onClick={handleBackToMintClicked}>
+                <button
+                  className="mint-pop-up-status-button"
+                  onClick={handleBackToMintClicked}
+                >
                   Back to mint
                 </button>
               </>

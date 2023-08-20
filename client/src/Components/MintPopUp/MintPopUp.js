@@ -2,18 +2,20 @@ import React, { useState, useEffect } from "react";
 import "./MintPopUp.css";
 import MintPopUpBuy from "./MintPopUpBuy/MintPopUpBuy";
 import MintPopUpStatus from "./MintPopUpStatus/MintPopUpStatus";
-function MintPopUpTemplate() {
+function MintPopUpTemplate({ setIsMintButtonClicked, approve, isMintingProcessBegan }) {
   // change those state for passing to buy module to processing
- 
+
   const [mintCounter, setMintCounter] = useState(1);
-const [ethPriceApi, setEthPriceApi] = useState();
-// API Coingecko price ETH
-useEffect(() => {
-  fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur')
-    .then((response) => response.json())
-    .then((data) => setEthPriceApi(data.ethereum.eur))
-    .catch((error) => console.log(error));
-}, []);
+  const [ethPriceApi, setEthPriceApi] = useState();
+  // API Coingecko price ETH
+  useEffect(() => {
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
+    )
+      .then((response) => response.json())
+      .then((data) => setEthPriceApi(data.ethereum.eur))
+      .catch((error) => console.log(error));
+  }, []);
 
   // change thos bolean for passing to processing to validated or error
   const dataBlockchain = {
@@ -56,26 +58,26 @@ useEffect(() => {
   //   handleStateMint();
   // }, []);
 
-  
-
   return (
     <section className="mint-pop-up-container">
-
-        <MintPopUpBuy
-          maxMint={dataBackend.mint[0].maximum}
-          mintCounter={mintCounter}
-          setMintCounter={setMintCounter}
-          //
-          ethPrice={dataApi.popup[0].ethPrice}
-          eurPrice={dataApi.popup[0].eurPrice}
-          //
-          counterNftMinted={dataApi.popup[0].counterNftMinted}
-          totalNftMintable={dataApi.popup[0].totalNftMintable}
-          //
-          ethPriceApi={ethPriceApi}
-          dataBlockchain={dataBlockchain}
-        />
- 
+      <MintPopUpBuy
+        maxMint={dataBackend.mint[0].maximum}
+        mintCounter={mintCounter}
+        setMintCounter={setMintCounter}
+        //
+        ethPrice={dataApi.popup[0].ethPrice}
+        eurPrice={dataApi.popup[0].eurPrice}
+        //
+        counterNftMinted={dataApi.popup[0].counterNftMinted}
+        totalNftMintable={dataApi.popup[0].totalNftMintable}
+        //
+        ethPriceApi={ethPriceApi}
+        dataBlockchain={dataBlockchain}
+        setIsMintButtonClicked={setIsMintButtonClicked}
+        //
+        approve={approve}
+        isMintingProcessBegan={isMintingProcessBegan}
+      />
     </section>
   );
 }
