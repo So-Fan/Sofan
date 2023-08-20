@@ -85,16 +85,38 @@ const PopUpSignIn = ({
   } = useEth();
 
   // START SIGNUP
+  const [isFormValid, setIsFormValid] = useState(true); // à changer
   const [displayConfirmationCode, setDisplayConfirmationCode] = useState(false);
+  const [isConfirmCodeValid, setIsConfirmCodeValid] = useState(false);
   const [displaySetupProfile, setDisplaySetupProfile] = useState(false);
+  const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
   const [displayConnectWallet, setDisplayConnectWallet] = useState(false);
+  const [isConnectWalletValid, setConnectWalletValid] = useState(false);
   const [displayConfirmWallet, setDisplayConfirmWallet] = useState(false);
   const [displayValidationSignup, setDisplayValidationSignup] = useState(false);
-  const [isSetupProfileValid, setIsSetupProfileValid] = useState(false);
+  const [isAllFieldsComplete, setIsAllFieldsComplete] = useState();
+  //
+  const [isDisplayPasswordButtonClicked, setIsDisplayPasswordButtonClicked] =
+    useState(false);
+  const [
+    isDisplayConfirmationPasswordButtonClicked,
+    setIsDisplayConfirmationPasswordButtonClicked,
+  ] = useState(false);
+  const [username, setUsername] = useState("");
   const [profileBio, setProfileBio] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [showError, setShowError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [emailRegexError, setEmailRegexError] = useState(false);
+  const [usernameRegexError, setUsernameRegexError] = useState(false);
+  const [passwordRegexError, setPasswordRegexError] = useState(false);
+  const [passwordConfirmRegexError, setPasswordConfirmRegexError] =
+    useState(false);
   const [phoneRegexError, setPhoneRegexError] = useState(false);
   const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState(false);
+  const [opacityInputPhone, setOpacityInputPhone] = useState(false);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false); // a changer
   const [isGoogleSignUpClicked, setIsGoogleSignUpClicked] = useState(false);
   const [isGoogleSignupLoading, setIsGoogleSignupLoading] = useState(false);
@@ -117,6 +139,8 @@ const PopUpSignIn = ({
   const [retrievedAvatar, setRetrievedAvatar] = useState();
   const [croppedBanner, setCroppedBanner] = useState();
   const [croppedAvatar, setCroppedAvatar] = useState();
+  // Backend
+  const [codeMatched, setCodeMatched] = useState(false);
   const [googleIdToken, setGoogleIdToken] = useState();
   // END SIGNUP
 
@@ -643,7 +667,6 @@ const PopUpSignIn = ({
       throw err;
     }
   };
-
   // Update the profile with a default Image and an empty bio
   function handleSetupProfileAddLaterClick() {
     // add the default avatar and banner
