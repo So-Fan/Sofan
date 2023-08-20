@@ -35,6 +35,7 @@ const Navbar = ({
   const handlePixelScrolledAthleteProfilePage = () => {
     setPixelScrolledAthleteProfilePage(window.scrollY);
   };
+  const [isNotificationsRead, setIsNotificationsRead] = useState(false);
   const navigate = useNavigate();
 
   function handleSignInButtonClick() {
@@ -116,6 +117,7 @@ const Navbar = ({
                 <div className="navbar-wrap-2-navicon-wrap">
                   <div className="navbar-vertical"></div>
                   <NavIcon
+                  isNotificationsRead={isNotificationsRead}
                     handleNotificationPopup={handleNotificationPopup}
                     src={notification}
                   />

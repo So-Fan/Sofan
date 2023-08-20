@@ -4,6 +4,7 @@
   padding-left: 10px;
   padding-right: 10px;
   /* padding: 8px; */
+  position: relative;
 }
 .navbar-icon-container:hover {
   background-color: #00000015;
@@ -13,4 +14,13 @@
 .navbar-icon {
   width: 20px;
   cursor: pointer;
+}
+.navbar-icon-notifications-red-round{
+  background-color: red;
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: 20%;
+  right: 25%;
 }
