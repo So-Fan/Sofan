@@ -20,6 +20,7 @@ import { db } from "../../Configs/firebase";
 import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
+import UserActivityTab from "../../Components/UserActivityTab/UserActivityTab";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
@@ -568,14 +569,15 @@ function UserProfilePage({
       );
     } else if (isProfileSubMenuButtonClicked[1] === true) {
       return (
-        <UserActivity
-          isUserActivitySectionActive={true}
-          userFrom={dataConcat?.activities}
-          nftsFromOwner={nftsFromOwner}
-          transferNftDataApi={transferNftDataApi}
-          setTransferNftDataApi={setTransferNftDataApi}
-          ethPrice={ethPrice}
-        />
+        // <UserActivity
+        //   isUserActivitySectionActive={true}
+        //   userFrom={dataConcat?.activities}
+        //   nftsFromOwner={nftsFromOwner}
+        //   transferNftDataApi={transferNftDataApi}
+        //   setTransferNftDataApi={setTransferNftDataApi}
+        //   ethPrice={ethPrice}
+        // />
+        <UserActivityTab />
       );
     } else if (isProfileSubMenuButtonClicked[2] === true) {
       return (
