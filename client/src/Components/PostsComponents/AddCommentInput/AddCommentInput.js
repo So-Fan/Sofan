@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import autosize from "autosize";
 import "./AddCommentInput.css";
 import "./AddCommentInputNoMediaQueries.css";
-import TextareaAutosize from "react-textarea-autosize";
 
 function AddCommentInput({
   inputAddCommentContainer,
