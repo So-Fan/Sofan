@@ -22,6 +22,7 @@ import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import UserActivityTab from "../../Components/UserActivityTab/UserActivityTab";
 import UserOffersReceived from "../../Components/UserOffersReceived/UserOffersReceived";
+import UserOffersMade from "../../Components/UserOffersMade/UserOffersMade";
 
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
@@ -582,12 +583,13 @@ function UserProfilePage({
       );
     } else if (isProfileSubMenuButtonClicked[2] === true) {
       return (
-        <FormulatedOffers
-          userFrom={dataConcat?.made}
-          nftsFromOwner={nftsFromOwner}
-          transferNftDataApi={transferNftDataApi}
-          ethPrice={ethPrice}
-        />
+        // <FormulatedOffers
+        //   userFrom={dataConcat?.made}
+        //   nftsFromOwner={nftsFromOwner}
+        //   transferNftDataApi={transferNftDataApi}
+        //   ethPrice={ethPrice}
+        // />
+        <UserOffersMade />
       );
     } else if (isProfileSubMenuButtonClicked[3] === true) {
       return (
