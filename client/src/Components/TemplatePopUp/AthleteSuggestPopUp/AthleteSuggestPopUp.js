@@ -84,20 +84,20 @@ function AthleteSuggestPopUp({ suggestionsAthletes, handleClick }) {
     //   suggestionsAthletes={suggestionsAthletes}
     //   />
     <>
-      <div className="notificationpopup-component">
+      <div className="athlete-suggest-component">
         <span>Suggestion d'athlètes</span>
-        <div className="notificationpopup-container">
+        <div className="athlete-suggest-container">
           {suggestionsAthletes.map((notification) => (
             <Link
               to={`/userprofile/${notification.id}`}
-              className="notificationpopup-container-notification-wrap"
+              className="athlete-suggest-container-athlete-suggest-wrap"
             >
               <img
                 src={notification.profile_avatar}
                 alt="Sender notification profile"
               />
-              <div className="notificationpopup-container-notification-wrap-content-wrap">
-                <div className="notificationpopup-container-notification-wrap-content-subwrap">
+              <div className="athlete-suggest-container-athlete-suggest-wrap-content-wrap">
+                <div className="athlete-suggest-container-athlete-suggest-wrap-content-subwrap">
                   <span>
                     <>{notification.display_name}</>
                   </span>
@@ -110,7 +110,7 @@ function AthleteSuggestPopUp({ suggestionsAthletes, handleClick }) {
             </Link>
           ))}
         </div>
-        <div className="template-pop-up-line-separation"></div>
+        <div className="athlete-suggest-template-pop-up-line-separation"></div>
         <Button
           text="Fermer"
           id="custom-close-button"
