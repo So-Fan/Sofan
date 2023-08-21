@@ -16,6 +16,7 @@ function TemplatePopUp({
   isAthleteSupportersClicked,
   athleteFollowersFansPopUpStyle,
   dataFollowersFansConcat,
+  suggestionsAthletes,
 }) {
   const [
     isNotificationPopUpSubMenuReadClicked,
@@ -53,7 +54,7 @@ function TemplatePopUp({
     isAthleteSupportersClicked &&
       setIsNotificationPopUpSubMenuReadClicked(true);
   }, []);
-
+  // dataAthleteProfilePageConcat?.notifications?.unread && console.log(dataAthleteProfilePageConcat?.notifications?.unread)
   return (
     <>
       <div className="notificationpopup-component">
@@ -135,7 +136,9 @@ function TemplatePopUp({
                         <span>{notification.nftTitle}</span>
                       </div>
                       <span>{notification.sport} </span>
-                      {athleteFollowersFansPopUp && <span>il y a {notification.time}</span>}
+                      {athleteFollowersFansPopUp && (
+                        <span>il y a {notification.time}</span>
+                      )}
                     </div>
                   </Link>
                 )
@@ -145,24 +148,41 @@ function TemplatePopUp({
             <div
               className={`notificationpopup-container-mapping-wrap ${athleteFollowingSupportingPopUpStyle} ${athleteFollowersFansPopUpStyle}`}
             >
-              {dataAthleteProfilePageConcat?.notifications.unread.map(
+              {/* Faire un mapping de nouveau de suggestionsAthletes */}
+              {dataAthleteProfilePageConcat?.notifications?.unread.map(
                 (notification) => (
                   <Link
-                    to={`/user/${notification.userId}`}
+                    to={
+                      athleteSuggestPopUp
+                        ? `/user/${notification.id} `
+                        : `/user/${notification.userId} `
+                    }
                     className="notificationpopup-container-notification-wrap"
                   >
                     <img
-                      src={notification.profilePicture}
+                      src={
+                        athleteSuggestPopUp
+                          ? notification.profilePicture
+                          : notification.profile_avatar
+                      }
                       alt="Sender notification profile"
                     />
                     <div className="notificationpopup-container-notification-wrap-content-wrap">
                       <div className="notificationpopup-container-notification-wrap-content-subwrap">
-                        <span>{notification.username} </span>
+                        <span>
+                          {athleteSuggestPopUp ? (
+                            <>{notification.display_name}</>
+                          ) : (
+                            <>{notification.username}</>
+                          )}
+                        </span>
                         {/* <span>{notification.sport} </span> */}
                         <span>{notification.nftTitle}</span>
                       </div>
-                      <span>{notification.sport} </span>
-                      {athleteFollowersFansPopUp && <span>il y a {notification.time}</span>}
+                      <span> {notification.sport} </span>
+                      {athleteFollowersFansPopUp && (
+                        <span>il y a {notification.time}</span>
+                      )}
                     </div>
                   </Link>
                 )
