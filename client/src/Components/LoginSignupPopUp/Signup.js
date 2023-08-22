@@ -827,14 +827,9 @@ function Signup({
   // Upload Image Functions
 
   const handleBannerUpload = async (file, croppedImage) => {
-    //const file = event.target.files[0];
-    console.log(file, " the BLOG IMAGEEEEEEE " , croppedImage);
     if (file && file.type.substr(0, 5) === "image") {
-      //const imagePath = file.name ? `user_profile/banners/`
       try {
         let newFile = await ImageUrlToFile(croppedImage, file.name);
-
-        console.warn(newFile);
         // Upload the file to Firebase Storage
         const createdAt = new Date();
         const imagePath = `user_profile/banners/sofan_user_#${
@@ -860,7 +855,6 @@ function Signup({
 
   const handleAvatarUpload = async (file, croppedImage) => {
     // Access the selected file(s) using fileInputRef.current.files
-    // const file = profileInputPicRef.current.files[0];
     // Process the files as needed
     if (file && file.type.substr(0, 5) === "image") {
       try {
