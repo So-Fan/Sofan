@@ -31,7 +31,7 @@ const FeedLaunchpad = () => {
         <FeedLaunchpadTemplate
           key={uuidv4()}
           title={launchpad.title}
-          athlete={launchpad.athlete}
+          athlete={launchpad.display_name}
           img={launchpad.img}
           athleteProfilePicture={launchpad.avatar}
           id={launchpad.id}

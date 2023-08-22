@@ -12,7 +12,12 @@ const FeedLaunchpadTemplate = ({
     <Link
       to={id}
       className="feedlaunchpad-content-container"
-      style={{ backgroundImage: `url(${img})` }}
+      style={{
+        backgroundImage: `url(${img})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
     >
       <div className="feedlaunchpad-content-wrap">
         <div className="feedlaunchpad-content-subwrap">

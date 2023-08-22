@@ -9,7 +9,7 @@ const LaunchpadAllLiveLaunches = ({
   setIsLiveLaunchSportDropdownClicked,
   isLiveLaunchSportDropdownClicked,
   data,
-  setDimMain,
+  // setDimMain,
   hidePrice,
   handleLiveLaunchesSportDropdownClicked,
 }) => {
@@ -21,7 +21,7 @@ const LaunchpadAllLiveLaunches = ({
   ] = useState("All sports");
   const handleDim = () => {
     setDim(window.innerWidth);
-    setDimMain(window.innerWidth);
+    // setDimMain(window.innerWidth);
   };
   function handleLiveLaunchesSportDropdownClicked(e) {
     console.log(e.target.id);
@@ -133,7 +133,7 @@ const LaunchpadAllLiveLaunches = ({
     window.addEventListener("resize", handleDim, false);
   }, []);
   document.documentElement.style.setProperty('--dim', window.innerWidth + 'px');
-
+console.log(data[1]?.img)
   return (
     <div className="launchpadalllivelaunches-component">
       <div
@@ -218,17 +218,17 @@ const LaunchpadAllLiveLaunches = ({
           className="launchpadalllivelaunches-bottom-subwrap"
           style={launchpadAllLiveLaunchesDynamicWidth}
         >
-          {data?.map((launchpadlive) => (
+          {data?.map((launchpadlive, i) => (
             <div style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
                 key={uuidv4()}
                 hidePrice={hidePrice}
-                background={launchpadlive.background}
-                profilePicture={launchpadlive.profilePicture}
-                athleteName={launchpadlive.athleName}
-                title={launchpadlive.title}
-                nftLength={launchpadlive.nftLength}
-                nftPrice={launchpadlive.nftPrice}
+                background={launchpadlive[i]?.img}
+                profilePicture={launchpadlive[i]?.profile_avatar}
+                athleteName={launchpadlive[i]?.display_name}
+                title={launchpadlive[i]?.title}
+                nftLength={launchpadlive[i]?.item_number}
+                // nftPrice={launchpadlive[i].nftPrice}
                 dim={dim}
               />
             </div>

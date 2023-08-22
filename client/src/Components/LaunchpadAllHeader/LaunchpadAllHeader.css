@@ -4,10 +4,14 @@
   position: relative;
 }
 .launchpadallheader-component > img {
+  min-width: 1243px !important;
   width: 100%;
   max-width: 1243px;
   height: 100%;
+  max-height: 500px;
   border-radius: 20px;
+  object-fit: cover !important;
+  /* background-color: red; */
 }
 .launchpadallheader-data-container {
   display: flex;
