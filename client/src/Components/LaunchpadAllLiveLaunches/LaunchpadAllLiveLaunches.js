@@ -133,7 +133,8 @@ const LaunchpadAllLiveLaunches = ({
     window.addEventListener("resize", handleDim, false);
   }, []);
   document.documentElement.style.setProperty('--dim', window.innerWidth + 'px');
-console.log(data[1]?.img)
+// console.log(data[1]?.img)
+// console.log(data)
   return (
     <div className="launchpadalllivelaunches-component">
       <div
@@ -220,15 +221,17 @@ console.log(data[1]?.img)
         >
           {data?.map((launchpadlive, i) => (
             <div style={responsiveWidth}>
+              {console.log("voici ce que contient le mapping --> ",launchpadlive)}
               <LaunchpadAllLiveLaunchesTemplate
                 key={uuidv4()}
                 hidePrice={hidePrice}
-                background={launchpadlive[i]?.img}
-                profilePicture={launchpadlive[i]?.profile_avatar}
-                athleteName={launchpadlive[i]?.display_name}
-                title={launchpadlive[i]?.title}
-                nftLength={launchpadlive[i]?.item_number}
+                background={launchpadlive?.img}
+                profilePicture={launchpadlive?.profile_avatar}
+                athleteName={launchpadlive?.display_name}
+                title={launchpadlive?.title}
+                nftLength={launchpadlive?.item_number}
                 // nftPrice={launchpadlive[i].nftPrice}
+                test="oui"
                 dim={dim}
               />
             </div>

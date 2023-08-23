@@ -161,7 +161,8 @@ function LaunchpadAll({
     }
     getLaunchpadAllData();
   }, []);
-  // console.log(launchpadAllDatBackend[0]);
+  // console.log(launchpadAllDatBackend);
+
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-wrap">
