@@ -10,14 +10,14 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   // nftPrice,
   dim,
   hidePrice,
-  test
+  launchDate
 }) => {
   const [isComponentActive, setIsComponentActive] = useState(true);
 
   const handleMouseDown = () => {
     setIsComponentActive(false);
   };
-  
+
   const handleMouseUp = () => {
     setIsComponentActive(true);
   };
@@ -45,101 +45,102 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   };
   if (dim < 1337) {
     launchpadalllivelaunchestemplateComponentImg =
-    LaunchpadAllLiveLaunchesTemplateCalcProportional(
-      { borderRadius: 20 },
-      1337
-      );
-      launchpadalllivelaunchestemplateDataContainer =
       LaunchpadAllLiveLaunchesTemplateCalcProportional(
         { borderRadius: 20 },
         1337
-        );
-        launchpadalllivelaunchestemplateDataContainerLiveWrap =
-        LaunchpadAllLiveLaunchesTemplateCalcProportional(
-          {
-            top: 20,
-            left: 20,
-            width: 86.05,
-            height: 34.68,
-            borderRadius: 7.36842,
-          },
-          1337
-          );
-          launchpadalllivelaunchestemplateDataContainerLiveWrapDiv =
-          LaunchpadAllLiveLaunchesTemplateCalcProportional(
-            { width: 9.21, height: 9.21, marginRight: 9.21 },
-            1337
-            );
-            launchpadalllivelaunchestemplateDataContainerLiveWrapSpan =
-            LaunchpadAllLiveLaunchesTemplateCalcProportional(
-              { fontSize: 25.7895, lineHeight: 17 },
-              1337
-              );
-              launchpadalllivelaunchestemplateDataWrap =
-              LaunchpadAllLiveLaunchesTemplateCalcProportional(
-                { marginLeft: 30 },
-                1337
-                );
-                launchpadalllivelaunchestemplateDataWrapImg =
-                LaunchpadAllLiveLaunchesTemplateCalcProportional(
-                  { borderRadius: 5, width: 50, height: 50, marginBottom: 10 },
-                  1337
-                  );
-                  launchpadalllivelaunchestemplateDataWrapImgImg =
-                  LaunchpadAllLiveLaunchesTemplateCalcProportional(
-                    { width: 46, height: 46, borderRadius: 5 },
-                    1337
-                    );
-                    launchpadalllivelaunchestemplateDataWrapAthletename =
-                    LaunchpadAllLiveLaunchesTemplateCalcProportional(
-                      { lineHeight: 19, fontSize: 16 },
+      );
+    launchpadalllivelaunchestemplateDataContainer =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { borderRadius: 20 },
+        1337
+      );
+    launchpadalllivelaunchestemplateDataContainerLiveWrap =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        {
+          top: 20,
+          left: 20,
+          width: 86.05,
+          height: 34.68,
+          borderRadius: 7.36842,
+        },
+        1337
+      );
+    launchpadalllivelaunchestemplateDataContainerLiveWrapDiv =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { width: 9.21, height: 9.21, marginRight: 9.21 },
+        1337
+      );
+    launchpadalllivelaunchestemplateDataContainerLiveWrapSpan =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { fontSize: 25.7895, lineHeight: 17 },
+        1337
+      );
+    launchpadalllivelaunchestemplateDataWrap =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { marginLeft: 30 },
+        1337
+      );
+    launchpadalllivelaunchestemplateDataWrapImg =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { borderRadius: 5, width: 50, height: 50, marginBottom: 10 },
+        1337
+      );
+    launchpadalllivelaunchestemplateDataWrapImgImg =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { width: 46, height: 46, borderRadius: 5 },
+        1337
+      );
+    launchpadalllivelaunchestemplateDataWrapAthletename =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { lineHeight: 19, fontSize: 16 },
         1337
       );
     launchpadalllivelaunchestemplateDataWrapTitle =
-    LaunchpadAllLiveLaunchesTemplateCalcProportional(
-      { fontSize: 35, lineHeight: 42, marginTop: 6 },
-      1337
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        { fontSize: 35, lineHeight: 42, marginTop: 6 },
+        1337
       );
-      launchpadalllivelaunchestemplateDataWrapNft =
+    launchpadalllivelaunchestemplateDataWrapNft =
       LaunchpadAllLiveLaunchesTemplateCalcProportional(
         { fontSize: 16, lineHeight: 19, marginTop: 15, marginBottom: 25 },
         1337
-        );
-        launchpadalllivelaunchestemplateDataWrapButton =
-        LaunchpadAllLiveLaunchesTemplateCalcProportional(
-          {
-            width: 117,
-            height: 44,
-            borderRadius: 5,
-            fontSize: 20,
-            marginBottom: 30,
-          },
-          1337
-          );
-        }
-        useEffect(() => {
-          console.log("ceci est le background ", background);
-        }, [background]);
-        console.log("le test --> ",test)
-        return (
-          <div
-          className={`launchpadalllivelaunchestemplate-component ${
-            isComponentActive ? "" : "no-active-effect"
-          }`}
-          >
+      );
+    launchpadalllivelaunchestemplateDataWrapButton =
+      LaunchpadAllLiveLaunchesTemplateCalcProportional(
+        {
+          width: 117,
+          height: 44,
+          borderRadius: 5,
+          fontSize: 20,
+          marginBottom: 30,
+        },
+        1337
+      );
+  }
+  useEffect(() => {
+    const currentTime = Date.now();
+    console.log(launchDate)
+    
+  }, [])
+  return (
+    <div
+      className={`launchpadalllivelaunchestemplate-component ${
+        isComponentActive ? "" : "no-active-effect"
+      }`}
+    >
       <a
         className="launchpadalllivelaunchestemplate-link"
         href="/nftcollection"
-        >
+      >
         <img
           src={background}
           alt="background"
           style={launchpadalllivelaunchestemplateComponentImg}
-          />
+        />
         <div
           className="launchpadalllivelaunchestemplate-data-container"
           style={launchpadalllivelaunchestemplateDataContainer}
-          >
+        >
           <div
             className="launchpadalllivelaunchestemplate-data-container-live-wrap"
             style={launchpadalllivelaunchestemplateDataContainerLiveWrap}

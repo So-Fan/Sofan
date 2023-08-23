@@ -154,6 +154,7 @@ function LaunchpadAll({
             description: docData.description,
             item_number: docData.item_number,
             img: docData.img,
+            launch_date: docData.launch_date,
             id: doc.id, // Include the document ID if needed
           };
         })
@@ -198,7 +199,7 @@ function LaunchpadAll({
             setIsUpcomingLaunchSportDropdownClicked={
               setIsUpcomingLaunchSportDropdownClicked
             }
-            data={launchpadAllData?.launchpadUpcomings}
+            data={launchpadAllDatBackend}
           />
         </div>
       </div>
