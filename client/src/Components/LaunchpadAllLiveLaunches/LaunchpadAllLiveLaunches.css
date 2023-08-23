@@ -73,6 +73,7 @@
   /* overflow-y: visible; */
   /* height: 100%; */
   max-height: 550px;
+  min-height: 550px;
   padding-top: 20px;
   z-index: 654;
 }

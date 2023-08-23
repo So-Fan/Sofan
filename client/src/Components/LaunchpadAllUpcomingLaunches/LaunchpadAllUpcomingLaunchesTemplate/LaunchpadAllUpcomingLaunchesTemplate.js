@@ -16,22 +16,26 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
   const [isMinutePlural, setIsMinutePlural] = useState(false);
   const [isHourPlural, setIsHourPlural] = useState(false);
   const [isDayPlural, setIsDayPlural] = useState(false);
-  function handlePlural() {
-    if (date?.seconds > 1) {
-      setIsSecondPlural(true);
-    }
-    if (date?.minutes > 1) {
-      setIsMinutePlural(true);
-    }
-    if (date?.hours > 1) {
-      setIsHourPlural(true);
-    }
-    if (date?.days > 1) {
-      setIsDayPlural(true);
-    }
-  }
+  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  // function handlePlural() {
+  //   if (date?.seconds > 1) {
+  //     setIsSecondPlural(true);
+  //   }
+  //   if (date?.minutes > 1) {
+  //     setIsMinutePlural(true);
+  //   }
+  //   if (date?.hours > 1) {
+  //     setIsHourPlural(true);
+  //   }
+  //   if (date?.days > 1) {
+  //     setIsDayPlural(true);
+  //   }
+  // }
   useEffect(() => {
-    handlePlural();
+    // handlePlural();
   }, []);
   const handleMouseDown = () => {
     setIsComponentActive(false);
@@ -123,14 +127,47 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
         lineHeight: 17,
       });
   }
+  useEffect(() => {
+    // Mettre à jour le compte à rebours toutes les secondes
+    const intervalId = setInterval(() => {
+      const now = Date.now();
+      const distance = date * 1000 - now;
+
+      const daysLeft = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hoursLeft = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutesLeft = Math.floor(
+        (distance % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setDays(daysLeft);
+      setHours(hoursLeft);
+      setMinutes(minutesLeft);
+      setSeconds(secondsLeft);
+
+      // Mettre à jour les états de pluriel
+      setIsDayPlural(daysLeft !== 1);
+      setIsHourPlural(hoursLeft !== 1);
+      setIsMinutePlural(minutesLeft !== 1);
+      setIsSecondPlural(secondsLeft !== 1);
+    }, 1000);
+
+    // Effacer l'intervalle lors du démontage du composant
+    return () => clearInterval(intervalId);
+  }, [date]); // Dépendance à 'date' pour recalculer si la date change
+  console.log(date);
   return (
     <div
       className={`launchpadallupcominglaunchesTemplate-component ${
         isComponentActive ? "" : "no-active-effect"
       }`}
     >
-
-      <a className="launchpadallupcominglaunchesTemplate-link" href="/nftcollection">
+      <a
+        className="launchpadallupcominglaunchesTemplate-link"
+        href="/nftcollection"
+      >
         <img
           src={background}
           alt="background"
@@ -192,7 +229,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  {date?.days}
+                  {days}
                 </span>
                 <span
                   style={
@@ -210,7 +247,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  {date?.hours}
+                  {hours}
                 </span>
                 <span
                   style={
@@ -228,7 +265,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  {date?.minutes}
+                  {minutes}
                 </span>
                 <span
                   style={
@@ -246,7 +283,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
                     launchpadallUpcominglaunchestemplateDataWrapHourWrapDivSpan
                   }
                 >
-                  {date?.seconds}
+                  {seconds}
                 </span>
                 <span
                   style={

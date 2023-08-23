@@ -87,7 +87,7 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
   return (
     <div className="launchpadallheader-component">
       <img
-        src={data?.background}
+        src={data?.img}
         alt="background"
         style={launchpadallheaderComponentImg}
       />
@@ -105,7 +105,7 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
               style={launchpadallheaderDataWrapImg}
             >
               <img
-                src={data?.profilePicture}
+                src={data?.profile_avatar}
                 alt="profile"
                 style={launchpadallheaderDataWrapImgImg}
               />
@@ -114,7 +114,7 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
               className="launchpadallheader-data-wrap-athletename"
               style={launchpadallheaderDataWrapthletename}
             >
-              by {data?.athlename}
+              by {data?.display_name}
             </span>
           </a>
           <span
@@ -133,8 +133,8 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
             className="launchpadallheader-data-wrap-nft"
             style={launchpadallheaderDataWrapNft}
           >
-            {data?.nftNumber} items{" "}
-            {hidePrice ? <></> : <>- {data?.nftPrice} ETH</>}
+            {data?.item_number} items{" "}
+            {hidePrice ? <></> : <>- {data?.item_number} ETH</>}
           </span>
           <Button onClick={redirectTo} active="button-active-props" hover="button-hover-props" text="Découvrir" style={launchpadallheaderDataWrapButton} />
         </div>

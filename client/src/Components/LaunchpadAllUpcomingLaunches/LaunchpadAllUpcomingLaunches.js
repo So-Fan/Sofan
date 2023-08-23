@@ -129,7 +129,10 @@ const LaunchpadAllUpcomingLaunches = ({
       false
     );
   }, []);
-  document.documentElement.style.setProperty('--dim', window.innerWidth + 'px');
+  document.documentElement.style.setProperty("--dim", window.innerWidth + "px");
+  const upcomingLaunches = data?.filter(
+    (launchpadUpcoming) => launchpadUpcoming?.launch_date * 1000 > Date.now()
+  );
   return (
     <div className="launchpadallupcominglaunches-component">
       <div
@@ -214,18 +217,18 @@ const LaunchpadAllUpcomingLaunches = ({
         ref={scrollRef}
       >
         <div style={launchpadAllUpcomingLaunchesDynamicWidth}>
-          {data?.map((launchpadUpcoming) => (
+          {upcomingLaunches?.map((launchpadUpcoming) => (
             <div style={responsiveWidthLanchpadAllUpcomingLaunches}>
               <LaunchpadAllUpcomingLaunchesTemplate
                 key={uuidv4()}
                 hidePrice={hidePrice}
-                background={launchpadUpcoming.background}
-                profilePicture={launchpadUpcoming.profilePicture}
-                athleteName={launchpadUpcoming.athleName}
+                background={launchpadUpcoming.img}
+                profilePicture={launchpadUpcoming.profile_avatar}
+                athleteName={launchpadUpcoming.display_name}
                 title={launchpadUpcoming.title}
-                nftLength={launchpadUpcoming.nftLength}
+                nftLength={launchpadUpcoming.item_number}
                 nftPrice={launchpadUpcoming.nftPrice}
-                date={launchpadUpcoming.date}
+                date={launchpadUpcoming.launch_date}
                 dim={dimLaunchpadAllUpcomingLaunches}
               />
             </div>

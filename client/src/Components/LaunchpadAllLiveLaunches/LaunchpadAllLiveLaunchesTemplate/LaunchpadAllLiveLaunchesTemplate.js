@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import "./LaunchpadAllLiveLaunchesTemplate.css";
 import Button from "../../Button/Button";
 const LaunchpadAllLiveLaunchesTemplate = ({
@@ -7,9 +7,10 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   athleteName,
   title,
   nftLength,
-  nftPrice,
+  // nftPrice,
   dim,
   hidePrice,
+  launchDate
 }) => {
   const [isComponentActive, setIsComponentActive] = useState(true);
 
@@ -116,13 +117,21 @@ const LaunchpadAllLiveLaunchesTemplate = ({
         1337
       );
   }
+  useEffect(() => {
+    const currentTime = Date.now();
+    console.log(launchDate)
+    
+  }, [])
   return (
-          <div
+    <div
       className={`launchpadalllivelaunchestemplate-component ${
         isComponentActive ? "" : "no-active-effect"
       }`}
     >
-      <a className="launchpadalllivelaunchestemplate-link" href="/nftcollection">
+      <a
+        className="launchpadalllivelaunchestemplate-link"
+        href="/nftcollection"
+      >
         <img
           src={background}
           alt="background"
@@ -150,8 +159,8 @@ const LaunchpadAllLiveLaunchesTemplate = ({
             style={launchpadalllivelaunchestemplateDataWrap}
           >
             <a
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
               href="/athleteprofile"
               className="launchpadalllivelaunchestemplate-data-image-and-name"
             >
@@ -183,7 +192,7 @@ const LaunchpadAllLiveLaunchesTemplate = ({
               style={launchpadalllivelaunchestemplateDataWrapNft}
             >
               {nftLength} items
-              {hidePrice ? <></> : <>- {nftPrice} ETH</>}
+              {/* {hidePrice ? <></> : <>- {nftPrice} ETH</>} */}
             </span>
             <Button
               text="Découvrir"

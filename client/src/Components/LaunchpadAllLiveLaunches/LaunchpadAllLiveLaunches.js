@@ -9,7 +9,7 @@ const LaunchpadAllLiveLaunches = ({
   setIsLiveLaunchSportDropdownClicked,
   isLiveLaunchSportDropdownClicked,
   data,
-  setDimMain,
+  // setDimMain,
   hidePrice,
   handleLiveLaunchesSportDropdownClicked,
 }) => {
@@ -21,10 +21,10 @@ const LaunchpadAllLiveLaunches = ({
   ] = useState("All sports");
   const handleDim = () => {
     setDim(window.innerWidth);
-    setDimMain(window.innerWidth);
+    // setDimMain(window.innerWidth);
   };
   function handleLiveLaunchesSportDropdownClicked(e) {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     if (
       e.target.className == "launchpadalllivelaunches-top-wrap-dropdown" ||
       e.target.className ===
@@ -39,7 +39,7 @@ const LaunchpadAllLiveLaunches = ({
     }
   }
   const handleLiveLaunchesSportChoiceClicked = (e) => {
-    console.log(e);
+    // console.log(e);
     setCurrentLiveLaunchesSportSelectorSelected(e.target.innerHTML);
   };
   let launchpadAllLiveLaunchesDynamicWidth;
@@ -132,8 +132,10 @@ const LaunchpadAllLiveLaunches = ({
   useEffect(() => {
     window.addEventListener("resize", handleDim, false);
   }, []);
-  document.documentElement.style.setProperty('--dim', window.innerWidth + 'px');
-
+  document.documentElement.style.setProperty("--dim", window.innerWidth + "px");
+  const liveLaunches = data?.filter(
+    (launchpadlive) => launchpadlive?.launch_date * 1000 < Date.now()
+  );
   return (
     <div className="launchpadalllivelaunches-component">
       <div
@@ -218,17 +220,19 @@ const LaunchpadAllLiveLaunches = ({
           className="launchpadalllivelaunches-bottom-subwrap"
           style={launchpadAllLiveLaunchesDynamicWidth}
         >
-          {data?.map((launchpadlive) => (
+          {liveLaunches?.map((launchpadlive, i) => (
             <div style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
                 key={uuidv4()}
                 hidePrice={hidePrice}
-                background={launchpadlive.background}
-                profilePicture={launchpadlive.profilePicture}
-                athleteName={launchpadlive.athleName}
-                title={launchpadlive.title}
-                nftLength={launchpadlive.nftLength}
-                nftPrice={launchpadlive.nftPrice}
+                background={launchpadlive?.img}
+                profilePicture={launchpadlive?.profile_avatar}
+                athleteName={launchpadlive?.display_name}
+                title={launchpadlive?.title}
+                nftLength={launchpadlive?.item_number}
+                launchDate={launchpadlive?.launch_date}
+                // nftPrice={launchpadlive[i].nftPrice}
+                test="oui"
                 dim={dim}
               />
             </div>

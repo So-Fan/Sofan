@@ -1,8 +1,18 @@
+import "./LaunchpadAll.css";
 import React, { useEffect, useState } from "react";
 import LaunchpadAllHeader from "../../Components/LaunchpadAllHeader/LaunchpadAllHeader";
 import LaunchpadAllLiveLaunches from "../../Components/LaunchpadAllLiveLaunches/LaunchpadAllLiveLaunches";
 import LaunchpadAllUpcomingLaunches from "../../Components/LaunchpadAllUpcomingLaunches/LaunchpadAllUpcomingLaunches";
-import "./LaunchpadAll.css";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  getDocs,
+  where,
+  limit,
+} from "firebase/firestore";
+import { db } from "../../Configs/firebase";
 function LaunchpadAll({
   isLiveLaunchSportDropdownClicked,
   setIsLiveLaunchSportDropdownClicked,
@@ -11,6 +21,8 @@ function LaunchpadAll({
   handleLiveLaunchesSportDropdownClicked,
 }) {
   const [launchpadAllData, setLaunchpadAllData] = useState();
+  const [launchpadAllDatBackend, setLaunchpadAllDataBackend] = useState([]);
+  const launchpadAllCollection = collection(db, "feed_launchpad");
   useEffect(() => {
     const data = {
       launchpad: {
@@ -25,7 +37,8 @@ function LaunchpadAll({
       },
       launchpadLive: [
         {
-          background: "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
+          background:
+            "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
           profilePicture: "https://i.imgur.com/StsunkC.png",
           athleName: "Romain Attanasio",
           title: "Vendée Globe Final Tour",
@@ -87,7 +100,8 @@ function LaunchpadAll({
           },
         },
         {
-          background: "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
+          background:
+            "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
           profilePicture: "https://i.imgur.com/StsunkC.png",
           athleName: "Romain Attanasio",
           title: "Vendée Globe Final Tour",
@@ -119,19 +133,47 @@ function LaunchpadAll({
 
     setLaunchpadAllData(data);
   }, []);
+  useEffect(() => {
+    async function getLaunchpadAllData() {
+      // Create a query against the collection
+      const q = query(
+        launchpadAllCollection,
+        orderBy("launch_date", "desc"), // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
+        // where("account_type", "==", "athlete"),
+        limit(10)
+      );
+
+      const data = await getDocs(q);
+      setLaunchpadAllDataBackend(
+        data.docs.map((doc) => {
+          const docData = doc.data();
+          return {
+            title: docData.title,
+            display_name: docData.display_name,
+            profile_avatar: docData.profile_avatar,
+            description: docData.description,
+            item_number: docData.item_number,
+            img: docData.img,
+            launch_date: docData.launch_date,
+            id: doc.id, // Include the document ID if needed
+          };
+        })
+      );
+    }
+    getLaunchpadAllData();
+  }, []);
+  // console.log(launchpadAllDatBackend);
 
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-wrap">
         <div className="launchpadall-header-wrap">
           <LaunchpadAllHeader
-            data={launchpadAllData?.launchpad}
+            data={launchpadAllDatBackend[0]}
             hidePrice={true}
           />
         </div>
-        <div
-          className="launchpad-livelaunches-wrap"
-        >
+        <div className="launchpad-livelaunches-wrap">
           <LaunchpadAllLiveLaunches
             isLiveLaunchSportDropdownClicked={isLiveLaunchSportDropdownClicked}
             setIsLiveLaunchSportDropdownClicked={
@@ -140,7 +182,7 @@ function LaunchpadAll({
             handleLiveLaunchesSportDropdownClicked={
               handleLiveLaunchesSportDropdownClicked
             }
-            data={launchpadAllData?.launchpadLive}
+            data={launchpadAllDatBackend}
             // setDimMain={setDimMain}
             hidePrice={true}
           />
@@ -157,7 +199,7 @@ function LaunchpadAll({
             setIsUpcomingLaunchSportDropdownClicked={
               setIsUpcomingLaunchSportDropdownClicked
             }
-            data={launchpadAllData?.launchpadUpcomings}
+            data={launchpadAllDatBackend}
           />
         </div>
       </div>

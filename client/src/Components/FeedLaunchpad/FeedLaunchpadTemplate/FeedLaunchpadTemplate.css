@@ -8,6 +8,9 @@
   text-decoration: none;
   transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
 }
+.feedlaunchpad-content-container img{
+  object-fit: contain !important;
+}
 .feedlaunchpad-content-container:hover{
   box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
   transform: translate(0px, -10px);
