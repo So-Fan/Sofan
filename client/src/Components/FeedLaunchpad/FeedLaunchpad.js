@@ -18,7 +18,7 @@ const FeedLaunchpad = () => {
 
     getEvents();
   }, []);
-
+  launchpad.splice(1);
   return (
     <div className="feedlaunchpad-component">
       <div className="feedlaunchpad-header-container">
@@ -33,7 +33,7 @@ const FeedLaunchpad = () => {
           title={launchpad.title}
           athlete={launchpad.display_name}
           img={launchpad.img}
-          athleteProfilePicture={launchpad.avatar}
+          athleteProfilePicture={launchpad.profile_avatar}
           id={launchpad.id}
         />
       ))}
