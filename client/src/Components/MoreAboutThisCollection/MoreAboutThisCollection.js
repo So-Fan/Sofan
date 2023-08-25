@@ -8,7 +8,8 @@ function MoreAboutThisCollection({moreAboutCollectionArray}) {
           En savoir + sur la collection
         </div>
         <div className="nft-collection-overview-more-about-collection-description">
-          {moreAboutCollectionArray.map((element) => element.description)}
+          {/* {moreAboutCollectionArray.map((element) => element.description)} */}
+          {/* {moreAboutCollectionArray} */}
         </div>
       </div>
   )

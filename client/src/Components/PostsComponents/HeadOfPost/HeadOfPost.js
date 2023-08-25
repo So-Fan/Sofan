@@ -71,7 +71,7 @@ function HeadOfPost({
     addSuffix: true,
   });
   postDate = postDate.replace("environ ", "");
-  console.log(agePublicationPollPost);
+  // console.log(agePublicationPollPost);
   return (
     <div
       className={

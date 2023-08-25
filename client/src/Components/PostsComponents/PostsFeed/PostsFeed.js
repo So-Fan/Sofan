@@ -80,7 +80,7 @@ function PostsFeed({
     }
   }
   // console.log(lockPremiumContent)
-  console.log(postDate);
+  // console.log(postDate);
   return (
     <>
       <div

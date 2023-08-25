@@ -309,7 +309,7 @@ function LaunchpadCollectionLive() {
     }
     console.log(result2);
   };
-  // 
+  //
   useEffect(() => {
     async function getCollectionLiveAthleteData() {
       // Create a query against the collection
@@ -333,42 +333,48 @@ function LaunchpadCollectionLive() {
             // item_number: docData.item_number,
             // img: docData.img,
             // launch_date: docData.launch_date,
-            
+
             id: doc.id, // Include the document ID if needed
           };
         })
       );
     }
-    // async function getCollectionLiveAthleteData() {
-    //   // Create a query against the collection
-    //   const q = query(
-    //     launchpadCollectionLive,
-    //     // orderBy("launch_date", "desc"),
-    //     // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
-    //     // where("account_type", "==", "athlete"),
-    //     limit(10)
-    //   );
-    //   const data = await getDocs(q);
-    //   setLaunchpadCollectionLiveAthleteDataBackend(
-    //     data.docs.map((doc) => {
-    //       const docData = doc.data();
-    //       return {
-    //         collection_address: docData.collection_address,
-    //         title: docData.title,
-    //         display_name: docData.display_name,
-    //         profile_avatar: docData.profile_avatar,
-    //         description: docData.description,
-    //         item_number: docData.item_number,
-    //         img: docData.img,
-    //         launch_date: docData.launch_date,
-    //         id: doc.id, // Include the document ID if needed
-    //       };
-    //     })
-    //   );
-    // }
+    async function getLaunchpadCollectionLiveKnowMore() {
+      // Create a query against the collection
+      const q = query(
+        launchpadCollectionLive,
+        // orderBy("launch_date", "desc"),
+        // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
+        // where("account_type", "==", "athlete"),
+        limit(10)
+      );
+      const data = await getDocs(q);
+      setLaunchpadCollectionLiveAthleteDataBackend(
+        data.docs.map((doc) => {
+          const docData = doc.data();
+          return {
+            // collection_address: docData.collection_address,
+            // title: docData.title,
+            // display_name: docData.display_name,
+            // profile_avatar: docData.profile_avatar,
+            // description: docData.description,
+            // item_number: docData.item_number,
+            // img: docData.img,
+            // launch_date: docData.launch_date,
+            know_more_collection: docData.know_more_collection,
+            know_more_athlete_description:
+              docData.know_more_athlete_description,
+            id: doc.id, // Include the document ID if needed
+          };
+        })
+      );
+    }
     getCollectionLiveAthleteData();
+    getLaunchpadCollectionLiveKnowMore();
   }, []);
-  console.log(launchpadCollectionLiveAthleteDataBackend);
+  console.log(
+    launchpadCollectionLiveAthleteDataBackend
+  );
   // Informations à récupérer
   // ID athlete, Nom athlete, Photo athlete, nft title, description, photo de la collection, nombre de nft mintable,
   return (

@@ -157,7 +157,7 @@ function App() {
   function handleNotificationPopup(e) {
     setIsNotificationButtonClicked(true);
   }
-  console.log("prrrrrrrrut");
+
   return (
     <UserContext.Provider
       value={{
