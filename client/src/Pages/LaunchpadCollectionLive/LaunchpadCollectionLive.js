@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./LaunchpadCollectionLive.css";
 import Web3 from "web3";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  getDocs,
+  where,
+  limit,
+} from "firebase/firestore";
+import { db } from "../../Configs/firebase";
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
 import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities";
 import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
@@ -26,6 +36,13 @@ function LaunchpadCollectionLive() {
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
   const [nftCollectionMaxItems, setNftCollectionMaxItems] = useState();
   const [nftCollectionItemMint, setNftCollectionItemMint] = useState();
+  const [nftMintPrice, setNftMintPrice] = useState();
+  const [
+    launchpadCollectionLiveAthleteDataBackend,
+    setLaunchpadCollectionLiveAthleteDataBackend,
+  ] = useState();
+  const launchpadCollectionLive = collection(db, "nft_collections");
+  const launchpadCollectionLiveAthlete = collection(db, "users");
   const {
     state: { web3, contract, accounts },
     setContractAddress,
@@ -74,7 +91,7 @@ function LaunchpadCollectionLive() {
       setCollectionNameApi(nftsData?.name);
       setCollectionDescriptionApi(nftsData?.openSea?.description);
       // console.log(nftsData?.totalSupply);
-      setNftCollectionItemMint(nftsData?.totalSupply)
+      setNftCollectionItemMint(nftsData?.totalSupply);
     } catch (error) {
       console.error(error);
     }
@@ -103,14 +120,18 @@ function LaunchpadCollectionLive() {
   );
   async function getCollectionLimit() {
     const tx = await contractInfura.methods.collectionLimit().call();
-    console.log("la limit max de nft est de :", tx);
     setNftCollectionMaxItems(tx);
+  }
+  async function getPrice() {
+    // const price = await contractInfura?.methods?.price().call(); TODO:
+    setNftMintPrice(3);
   }
   // -------------------------------
   useEffect(() => {
     getNftsData();
     getNftPicture();
     getCollectionLimit();
+    getPrice();
   }, []);
   const dataBackend = {
     header: [
@@ -288,7 +309,68 @@ function LaunchpadCollectionLive() {
     }
     console.log(result2);
   };
-
+  // 
+  useEffect(() => {
+    async function getCollectionLiveAthleteData() {
+      // Create a query against the collection
+      const q = query(
+        launchpadCollectionLiveAthlete,
+        // orderBy("launch_date", "desc"),
+        // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
+        // where("account_type", "==", "athlete"),
+        limit(1)
+      );
+      const data = await getDocs(q);
+      setLaunchpadCollectionLiveAthleteDataBackend(
+        data.docs.map((doc) => {
+          const docData = doc.data();
+          return {
+            // collection_address: docData.collection_address,
+            // title: docData.title,
+            // display_name: docData.display_name,
+            // profile_avatar: docData.profile_avatar,
+            // description: docData.description,
+            // item_number: docData.item_number,
+            // img: docData.img,
+            // launch_date: docData.launch_date,
+            
+            id: doc.id, // Include the document ID if needed
+          };
+        })
+      );
+    }
+    // async function getCollectionLiveAthleteData() {
+    //   // Create a query against the collection
+    //   const q = query(
+    //     launchpadCollectionLive,
+    //     // orderBy("launch_date", "desc"),
+    //     // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
+    //     // where("account_type", "==", "athlete"),
+    //     limit(10)
+    //   );
+    //   const data = await getDocs(q);
+    //   setLaunchpadCollectionLiveAthleteDataBackend(
+    //     data.docs.map((doc) => {
+    //       const docData = doc.data();
+    //       return {
+    //         collection_address: docData.collection_address,
+    //         title: docData.title,
+    //         display_name: docData.display_name,
+    //         profile_avatar: docData.profile_avatar,
+    //         description: docData.description,
+    //         item_number: docData.item_number,
+    //         img: docData.img,
+    //         launch_date: docData.launch_date,
+    //         id: doc.id, // Include the document ID if needed
+    //       };
+    //     })
+    //   );
+    // }
+    getCollectionLiveAthleteData();
+  }, []);
+  console.log(launchpadCollectionLiveAthleteDataBackend);
+  // Informations à récupérer
+  // ID athlete, Nom athlete, Photo athlete, nft title, description, photo de la collection, nombre de nft mintable,
   return (
     <>
       <section className="launchpad-collection-live-page-container">
@@ -305,7 +387,7 @@ function LaunchpadCollectionLive() {
           // dataBacken RealTimeDb
           timer={dataRealTimeDb.header[0].timer}
           // FAKE apiData
-          nftPriceEth={dataApi.header[0].ethPrice}
+          nftPriceEth={nftMintPrice}
           nftPriceEur={dataApi.header[0].eurPrice}
           counterNftMinted={nftCollectionItemMint}
           totalNftMintable={dataApi.header[0].totalNftMintable}

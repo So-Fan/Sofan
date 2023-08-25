@@ -49,11 +49,11 @@ function NftCollectionHeader({
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   function handleStyleButton() {
-    if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
-      return "#EDEDED";
-    } else if (nftMintedCalculated > 0) {
-      return "";
-    }
+    // if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
+    //   return "#EDEDED";
+    // } else if (nftMintedCalculated > 0) {
+    //   return "";
+    // }
   }
   // console.log(collectionDescriptionApi)
   let ethPricePriceConverted = (nftPriceEth * ethPrice).toLocaleString(
