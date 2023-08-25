@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./LaunchpadCollectionLive.css";
+import Web3 from "web3";
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
 import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities";
 import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
@@ -23,7 +24,8 @@ function LaunchpadCollectionLive() {
   const [nftPicture, setNftPicture] = useState();
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
-
+  const [nftCollectionMaxItems, setNftCollectionMaxItems] = useState();
+  const [nftCollectionItemMint, setNftCollectionItemMint] = useState();
   const {
     state: { web3, contract, accounts },
     setContractAddress,
@@ -58,22 +60,29 @@ function LaunchpadCollectionLive() {
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_MAINNET,
+    network: Network.ETH_GOERLI,
     maxRetries: 10,
   };
 
   const alchemy = new Alchemy(settings);
   async function getNftsData() {
-    const nftsData = await alchemy.nft.getContractMetadata(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    );
+    try {
+      const nftsData = await alchemy.nft.getContractMetadata(
+        // "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+        "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
+      );
+      setCollectionNameApi(nftsData?.name);
+      setCollectionDescriptionApi(nftsData?.openSea?.description);
+      // console.log(nftsData?.totalSupply);
+      setNftCollectionItemMint(nftsData?.totalSupply)
+    } catch (error) {
+      console.error(error);
+    }
     // const transferData = await alchemy.nft.getTransfersForContract(
     //   "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection contract
     //   { from: "0x0000000000000000000000000000000000000000" }
     // );
     // console.log(transferData);
-    setCollectionNameApi(nftsData?.openSea?.collectionName);
-    setCollectionDescriptionApi(nftsData?.openSea?.description);
   }
   async function getNftPicture() {
     const nftsFromContract = await alchemy.nft.getNftMetadata(
@@ -83,11 +92,26 @@ function LaunchpadCollectionLive() {
     // console.log(nftsFromContract?.media[0]?.gateway)
     setNftPicture(nftsFromContract?.media[0]?.gateway);
   }
+  // API Infura
+  const web3Instance = new Web3(
+    new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
+  );
+  const { abi } = require("../../contracts/SofanNftTemplate.json");
+  const contractInfura = new web3Instance.eth.Contract(
+    abi,
+    "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
+  );
+  async function getCollectionLimit() {
+    const tx = await contractInfura.methods.collectionLimit().call();
+    console.log("la limit max de nft est de :", tx);
+    setNftCollectionMaxItems(tx);
+  }
+  // -------------------------------
   useEffect(() => {
     getNftsData();
     getNftPicture();
+    getCollectionLimit();
   }, []);
-
   const dataBackend = {
     header: [
       {
@@ -283,7 +307,7 @@ function LaunchpadCollectionLive() {
           // FAKE apiData
           nftPriceEth={dataApi.header[0].ethPrice}
           nftPriceEur={dataApi.header[0].eurPrice}
-          counterNftMinted={dataApi.header[0].counterNftMinted}
+          counterNftMinted={nftCollectionItemMint}
           totalNftMintable={dataApi.header[0].totalNftMintable}
           // Api Alchemy
           collectionNameApi={collectionNameApi}
@@ -292,6 +316,7 @@ function LaunchpadCollectionLive() {
           // Api CoinGecko
           ethPrice={ethPrice}
           // display mint popup
+          nftCollectionMaxItems={nftCollectionMaxItems}
         />
         <div className="launchpad-collection-live-page-left-container">
           <LaunchpadCollectionLiveUtilities

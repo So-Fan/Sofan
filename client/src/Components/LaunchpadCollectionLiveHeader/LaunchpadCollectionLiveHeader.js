@@ -29,6 +29,8 @@ function LaunchpadCollectionLiveHeader({
   ethPrice,
   // function for display mint popup
   handleMintButtonClick,
+  // Infura API
+  nftCollectionMaxItems
 }) {
   return (
     <section className="launchpad-collection-live-header-container">
@@ -46,7 +48,7 @@ function LaunchpadCollectionLiveHeader({
         nftPriceEth={nftPriceEth}
         nftPriceEur={nftPriceEur}
         counterNftMinted={counterNftMinted}
-        totalNftMintable={totalNftMintable}
+        totalNftMintable={nftCollectionMaxItems}
         //
         collectionNameApi={collectionNameApi}
         collectionDescriptionApi={collectionDescriptionApi}
