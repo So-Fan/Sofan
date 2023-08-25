@@ -572,14 +572,18 @@ function UserProfilePage({
     } else if (isProfileSubMenuButtonClicked[1] === true) {
       return (
         // <UserActivity
-        //   isUserActivitySectionActive={true}
-        //   userFrom={dataConcat?.activities}
-        //   nftsFromOwner={nftsFromOwner}
-        //   transferNftDataApi={transferNftDataApi}
-        //   setTransferNftDataApi={setTransferNftDataApi}
-        //   ethPrice={ethPrice}
+        //   isUserActivitySectionActive={true} // not required
+        //   userFrom={dataConcat?.activities} // not required
+        //   nftsFromOwner={nftsFromOwner} // required
+        //   transferNftDataApi={transferNftDataApi} // required
+        //   setTransferNftDataApi={setTransferNftDataApi} // not required
+        //   ethPrice={ethPrice} // required
         // />
-        <UserActivityTab />
+        <UserActivityTab
+          nftsFromOwner={nftsFromOwner}
+          transferNftDataApi={transferNftDataApi}
+          ethPrice={ethPrice}
+        />
       );
     } else if (isProfileSubMenuButtonClicked[2] === true) {
       return (
@@ -630,12 +634,14 @@ function UserProfilePage({
                   allUserInfo={allUserInfo}
                 />
               </div>
-              {loggedInUser?.id == id && <div
-                onClick={handleSettingsUserPageClick}
-                className="user-content-settings-button"
-              >
-                <img src={settingsLogo} alt="" />
-              </div>}
+              {loggedInUser?.id == id && (
+                <div
+                  onClick={handleSettingsUserPageClick}
+                  className="user-content-settings-button"
+                >
+                  <img src={settingsLogo} alt="" />
+                </div>
+              )}
             </div>
             <div className="userprofile-description-component">
               <UserProfileDescription userDescription={allUserInfo?.bio} />
