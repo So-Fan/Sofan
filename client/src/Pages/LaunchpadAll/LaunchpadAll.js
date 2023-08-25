@@ -9,10 +9,12 @@ import {
   orderBy,
   onSnapshot,
   getDocs,
+  getDoc,
   where,
   limit,
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+
 function LaunchpadAll({
   isLiveLaunchSportDropdownClicked,
   setIsLiveLaunchSportDropdownClicked,
@@ -20,149 +22,39 @@ function LaunchpadAll({
   setIsUpcomingLaunchSportDropdownClicked,
   handleLiveLaunchesSportDropdownClicked,
 }) {
-  const [launchpadAllData, setLaunchpadAllData] = useState();
   const [launchpadAllDatBackend, setLaunchpadAllDataBackend] = useState([]);
+  const [launchpadItems, setLaunchpadItems] = useState();
   const launchpadAllCollection = collection(db, "feed_launchpad");
+
   useEffect(() => {
-    const data = {
-      launchpad: {
-        background: "https://i.imgur.com/se736B0.png",
-        profilePicture: "https://i.imgur.com/StsunkC.png",
-        athlename: "Romain Attanasio",
-        title: "Vendée Globe Final Tour",
-        description:
-          "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout",
-        nftNumber: "350",
-        nftPrice: "0.31",
-      },
-      launchpadLive: [
-        {
-          background:
-            "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-        },
-        {
-          background: "https://i.imgur.com/C46TVU6.png",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-        },
-        {
-          background: "https://i.imgur.com/C46TVU6.png",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-        },
-        {
-          background: "https://i.imgur.com/C46TVU6.png",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-        },
-      ],
-      launchpadUpcomings: [
-        {
-          background: "https://i.imgur.com/C46TVU6.png",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-          date: {
-            days: "1",
-            hours: "12",
-            minutes: "15",
-            seconds: "34",
-          },
-        },
-        {
-          background: "https://i.imgur.com/C46TVU6.png",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-          date: {
-            days: "1",
-            hours: "12",
-            minutes: "15",
-            seconds: "34",
-          },
-        },
-        {
-          background:
-            "https://yacht-express.net/wp-content/uploads/2020/12/vendee-globe-doubts-about-the-launch-date.jpg",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-          date: {
-            days: "1",
-            hours: "12",
-            minutes: "15",
-            seconds: "34",
-          },
-        },
-        {
-          background: "https://i.imgur.com/C46TVU6.png",
-          profilePicture: "https://i.imgur.com/StsunkC.png",
-          athleName: "Romain Attanasio",
-          title: "Vendée Globe Final Tour",
-          nftLength: "350",
-          nftPrice: "0.31",
-          date: {
-            days: "1",
-            hours: "12",
-            minutes: "15",
-            seconds: "34",
-          },
-        },
-      ],
+    const fetchData = async () => {
+      try {
+        const launchpadsSnapshot = await getDocs(launchpadAllCollection);
+        
+        const dataPromises = launchpadsSnapshot.docs.map(async doc => {
+          const launchpadData = doc.data();
+          
+          const nftCollectionDoc = await getDoc(launchpadData.nft_collection_ref);
+          const userDoc = await getDoc(launchpadData.athlete_ref);
+
+          return {
+            launchpad: launchpadData,
+            nftCollection: nftCollectionDoc.data(),
+            user: userDoc.data(),
+          };
+        });
+
+        const resolvedData = await Promise.all(dataPromises);
+        setLaunchpadItems(resolvedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
-    setLaunchpadAllData(data);
+    fetchData();
   }, []);
-  useEffect(() => {
-    async function getLaunchpadAllData() {
-      // Create a query against the collection
-      const q = query(
-        launchpadAllCollection,
-        orderBy("launch_date", "desc"), // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
-        // where("account_type", "==", "athlete"),
-        limit(10)
-      );
 
-      const data = await getDocs(q);
-      setLaunchpadAllDataBackend(
-        data.docs.map((doc) => {
-          const docData = doc.data();
-          return {
-            title: docData.title,
-            display_name: docData.display_name,
-            profile_avatar: docData.profile_avatar,
-            description: docData.description,
-            item_number: docData.item_number,
-            img: docData.img,
-            launch_date: docData.launch_date,
-            id: doc.id, // Include the document ID if needed
-          };
-        })
-      );
-    }
-    getLaunchpadAllData();
-  }, []);
-  // console.log(launchpadAllDatBackend);
+  console.log(launchpadItems);
 
   return (
     <div className="launchpadall-page">

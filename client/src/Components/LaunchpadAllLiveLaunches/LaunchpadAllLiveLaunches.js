@@ -221,7 +221,7 @@ const LaunchpadAllLiveLaunches = ({
           style={launchpadAllLiveLaunchesDynamicWidth}
         >
           {liveLaunches?.map((launchpadlive, i) => (
-            <div style={responsiveWidth}>
+            <div key={uuidv4()} style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
                 key={uuidv4()}
                 hidePrice={hidePrice}
