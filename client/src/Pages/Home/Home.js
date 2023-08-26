@@ -61,7 +61,6 @@ function Home({
       return false;
     }
   }
-  console.log(dataPost);
   useEffect(() => {
     setIsLoading(true);
 
@@ -125,7 +124,6 @@ function Home({
     }
     getSuggestionsAthletes();
   }, []);
-  console.log(suggestionsAthletes);
   return (
     <>
       <section className="home-component">
