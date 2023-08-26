@@ -85,15 +85,15 @@ function EthProvider({ children, setWeb3auth }) {
   const init = useCallback(async (artifact, tempIsWeb3authConnectClicked) => {
     if (artifact) {
       let web3;
-      console.log("Web3authProvider in callback", web3authProvider);
-      console.log(
-        "isWeb3atuhConnectClicked in callback",
-        isWeb3authConnectClicked
-      );
-      console.log(
-        "tempIsWeb3authConnectClicked in callback",
-        tempIsWeb3authConnectClicked
-      );
+      // console.log("Web3authProvider in callback", web3authProvider);
+      // console.log(
+      //   "isWeb3atuhConnectClicked in callback",
+      //   isWeb3authConnectClicked
+      // );
+      // console.log(
+      //   "tempIsWeb3authConnectClicked in callback",
+      //   tempIsWeb3authConnectClicked
+      // );
       let accounts;
       if (
         tempIsWeb3authConnectClicked[1] != null &&
@@ -201,14 +201,14 @@ function EthProvider({ children, setWeb3auth }) {
   }, [contractAddress]);
 
   useEffect(() => {
-    console.log(
-      "isWeb3authConnectClicked from useEffect",
-      isWeb3authConnectClicked
-    );
-    console.log(
-      "isWalletConnectClicked from useEffect",
-      isWalletConnectClicked
-    );
+    // console.log(
+    //   "isWeb3authConnectClicked from useEffect",
+    //   isWeb3authConnectClicked
+    // );
+    // console.log(
+    //   "isWalletConnectClicked from useEffect",
+    //   isWalletConnectClicked
+    // );
     let tempIsWeb3authConnectClicked = isWeb3authConnectClicked;
     if (
       isWalletConnectClicked === true ||
@@ -218,14 +218,14 @@ function EthProvider({ children, setWeb3auth }) {
         try {
           const artifact = require("../../contracts/SofanNftTemplate.json");
           init(artifact, tempIsWeb3authConnectClicked);
-          console.log("end init ethprovider");
+          // console.log("end init ethprovider");
         } catch (err) {
           console.error(err);
         }
       };
       tryInit();
     } else {
-      console.log("Not connected");
+      console.warn("Not connected");
     }
   }, [isWalletConnectClicked, isWeb3authConnectClicked]);
   // enlever le provider et ajouter isWeb3authConnectClicked + créer etat isWeb3authConnectClicked, setIsWeb3authConnectClicked + dans sign in pop up apres le if(=== 'web3auth') ajouter setIsWeb3authConnectClicked(true)
