@@ -12,6 +12,9 @@ import {
   getDoc,
   where,
   limit,
+  addDoc,
+  deleteDoc,
+  doc
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 
@@ -23,7 +26,7 @@ function LaunchpadAll({
   handleLiveLaunchesSportDropdownClicked,
 }) {
   const [launchpadAllDatBackend, setLaunchpadAllDataBackend] = useState([]);
-  const [launchpadItems, setLaunchpadItems] = useState();
+  const [launchpadItems, setLaunchpadItems] = useState([]);
   const launchpadAllCollection = collection(db, "feed_launchpad");
 
   useEffect(() => {
@@ -53,15 +56,47 @@ function LaunchpadAll({
 
     fetchData();
   }, []);
-
-  console.log(launchpadItems);
-
+  const multiplyDocuments = async () => {
+    const feedLaunchpadRef = collection(db, 'feed_launchpad');
+    const snapshot = await getDocs(feedLaunchpadRef);
+  
+    snapshot.forEach(async (doc) => {
+      // Clone le document 3 fois
+      for (let i = 0; i < 3; i++) {
+        await addDoc(feedLaunchpadRef, doc.data());
+      }
+    });
+    
+    console.log('Documents multipliés par 3.');
+  };
+  
+  // Pour exécuter la fonction, décommentez la ligne suivante
+  // multiplyDocuments();
+  const deleteDocuments = async () => {
+    const feedLaunchpadRef = collection(db, 'feed_launchpad');
+    const snapshot = await getDocs(feedLaunchpadRef);
+  
+    let count = 0;
+    for (const docSnap of snapshot.docs) {
+      if (count >= 500) break;
+  
+      await deleteDoc(doc(db, 'feed_launchpad', docSnap.id));
+      count++;
+    }
+    
+    console.log(`Supprimé ${count} documents.`);
+  };
+  
+  // Pour exécuter la fonction, décommentez la ligne suivante
+  // deleteDocuments();
+  console.log(launchpadItems);  
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-wrap">
         <div className="launchpadall-header-wrap">
           <LaunchpadAllHeader
-            data={launchpadAllDatBackend[0]}
+            data={launchpadItems[0]?.nftCollection}
+            dataAthlete={launchpadItems[0]?.user}
             hidePrice={true}
           />
         </div>
@@ -74,7 +109,7 @@ function LaunchpadAll({
             handleLiveLaunchesSportDropdownClicked={
               handleLiveLaunchesSportDropdownClicked
             }
-            data={launchpadAllDatBackend}
+            data={launchpadItems}
             // setDimMain={setDimMain}
             hidePrice={true}
           />
