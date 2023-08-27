@@ -133,21 +133,12 @@ const LaunchpadAllLiveLaunches = ({
     window.addEventListener("resize", handleDim, false);
   }, []);
   document.documentElement.style.setProperty("--dim", window.innerWidth + "px");
-  // const liveLaunches = data?.filter(
-  //   (launchpadlive) => launchpadlive?.launch_date * 1000 < Date.now()
-  // );
-  //   const liveLaunches = data?.map((subArray) =>
-  //   subArray?.filter(
-  //     (launch) => launch?.launchpad?.launch_date * 1000 < Date.now()
-  //   )
-  // );
-  // let liveLaunches = data;
-  const liveLaunches = data?.filter(
-    (launch) => launch?.launchpad?.launch_date * 1000 < Date.now()
-  );
-  
 
-  console.log("launchpadItems ---> ", data);
+  const liveLaunches = data?.filter((launch, index) => {
+    const launchDateSeconds = launch?.launchpad?.launch_date?.seconds;
+    return launchDateSeconds ? launchDateSeconds * 1000 < Date.now() : false;
+  });
+  
   return (
     <div className="launchpadalllivelaunches-component">
       <div

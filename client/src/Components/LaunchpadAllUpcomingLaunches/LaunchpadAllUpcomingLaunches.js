@@ -130,9 +130,14 @@ const LaunchpadAllUpcomingLaunches = ({
     );
   }, []);
   document.documentElement.style.setProperty("--dim", window.innerWidth + "px");
-  const upcomingLaunches = data?.filter(
-    (launchpadUpcoming) => launchpadUpcoming?.launch_date * 1000 > Date.now()
-  );
+  // const upcomingLaunches = data?.filter(
+  //   (launchpadUpcoming) => launchpadUpcoming?.launch_date * 1000 > Date.now()
+  // );
+  const upcomingLaunches = data?.filter((launch, index) => {
+    const launchDateSeconds = launch?.launchpad?.launch_date?.seconds;
+    return launchDateSeconds ? launchDateSeconds * 1000 > Date.now() : false;
+  });
+  // console.log(data[0]?.launchpad?.launch_date?.seconds)
   return (
     <div className="launchpadallupcominglaunches-component">
       <div
@@ -221,14 +226,16 @@ const LaunchpadAllUpcomingLaunches = ({
             <div style={responsiveWidthLanchpadAllUpcomingLaunches}>
               <LaunchpadAllUpcomingLaunchesTemplate
                 key={uuidv4()}
+                profilePicture={launchpadUpcoming?.user?.profile_avatar}
                 hidePrice={hidePrice}
-                background={launchpadUpcoming.img}
-                profilePicture={launchpadUpcoming.profile_avatar}
-                athleteName={launchpadUpcoming.display_name}
-                title={launchpadUpcoming.title}
-                nftLength={launchpadUpcoming.item_number}
+                background={launchpadUpcoming?.nftCollection?.collection_avatar}
+                athleteName={launchpadUpcoming?.user?.display_name}
+                title={launchpadUpcoming?.nftCollection?.collection_title}
+                nftLength={
+                  launchpadUpcoming?.nftCollection?.nft_collection_limit
+                }
                 nftPrice={launchpadUpcoming.nftPrice}
-                date={launchpadUpcoming.launch_date}
+                date={launchpadUpcoming?.launchpad?.launch_date?.seconds}
                 dim={dimLaunchpadAllUpcomingLaunches}
               />
             </div>
