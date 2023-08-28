@@ -6,9 +6,10 @@ import {
   query,
   orderBy,
   onSnapshot,
-  getDocs,
   where,
   limit,
+  getDocs,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
@@ -41,6 +42,8 @@ function LaunchpadCollectionLive() {
     launchpadCollectionLiveAthleteDataBackend,
     setLaunchpadCollectionLiveAthleteDataBackend,
   ] = useState();
+  const [launchpadCollectionLiveItems, setLaunchpadCollectionLiveItems] =
+    useState();
   const launchpadCollectionLive = collection(db, "nft_collections");
   const launchpadCollectionLiveAthlete = collection(db, "users");
   const {
@@ -372,11 +375,39 @@ function LaunchpadCollectionLive() {
     getCollectionLiveAthleteData();
     getLaunchpadCollectionLiveKnowMore();
   }, []);
-  console.log(
-    launchpadCollectionLiveAthleteDataBackend
-  );
+  console.log(launchpadCollectionLiveAthleteDataBackend);
   // Informations à récupérer
   // ID athlete, Nom athlete, Photo athlete, nft title, description, photo de la collection, nombre de nft mintable,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const launchpadsSnapshot = await getDocs(launchpadCollectionLive);
+
+        const dataPromises = launchpadsSnapshot.docs.map(async (doc) => {
+          const launchpadData = doc.data();
+
+          const nftCollectionDoc = await getDoc(
+            launchpadData.nft_collection_ref
+          );
+          const userDoc = await getDoc(launchpadData.athlete_ref);
+
+          return {
+            launchpad: launchpadData,
+            nftCollection: nftCollectionDoc.data(),
+            user: userDoc.data(),
+          };
+        });
+
+        const resolvedData = await Promise.all(dataPromises);
+        setLaunchpadCollectionLiveItems(resolvedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(launchpadCollectionLiveItems)
   return (
     <>
       <section className="launchpad-collection-live-page-container">
