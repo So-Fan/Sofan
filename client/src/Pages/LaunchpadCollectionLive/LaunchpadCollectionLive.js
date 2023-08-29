@@ -43,7 +43,7 @@ function LaunchpadCollectionLive() {
     setLaunchpadCollectionLiveAthleteDataBackend,
   ] = useState();
   const [launchpadCollectionLiveItems, setLaunchpadCollectionLiveItems] =
-    useState();
+    useState([]);
   const launchpadCollectionLive = collection(db, "nft_collections");
   const launchpadCollectionLiveAthlete = collection(db, "users");
   const {
@@ -375,14 +375,14 @@ function LaunchpadCollectionLive() {
     getCollectionLiveAthleteData();
     getLaunchpadCollectionLiveKnowMore();
   }, []);
-  console.log(launchpadCollectionLiveAthleteDataBackend);
+  // console.log(launchpadCollectionLiveAthleteDataBackend);
   // Informations à récupérer
   // ID athlete, Nom athlete, Photo athlete, nft title, description, photo de la collection, nombre de nft mintable,
   useEffect(() => {
     const fetchData = async () => {
       try {
         const launchpadsSnapshot = await getDocs(launchpadCollectionLive);
-
+        console.log("launchpadSnapchshots ---> ", launchpadsSnapshot);
         const dataPromises = launchpadsSnapshot.docs.map(async (doc) => {
           const launchpadData = doc.data();
 
@@ -400,6 +400,7 @@ function LaunchpadCollectionLive() {
 
         const resolvedData = await Promise.all(dataPromises);
         setLaunchpadCollectionLiveItems(resolvedData);
+        console.log("try réussis !");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -407,7 +408,7 @@ function LaunchpadCollectionLive() {
 
     fetchData();
   }, []);
-  console.log(launchpadCollectionLiveItems)
+  console.log(launchpadCollectionLiveItems);
   return (
     <>
       <section className="launchpad-collection-live-page-container">

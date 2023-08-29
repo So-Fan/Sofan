@@ -89,7 +89,7 @@ function LaunchpadAll({
   
   // Pour exécuter la fonction, décommentez la ligne suivante
   // deleteDocuments();
-  // console.log(launchpadItems);  
+  console.log(launchpadItems);  
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-wrap">
