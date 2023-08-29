@@ -124,6 +124,7 @@ function Home({
     }
     getSuggestionsAthletes();
   }, []);
+  console.log(isLogged)
   return (
     <>
       <section className="home-component">
@@ -161,14 +162,15 @@ function Home({
                 gap="8.59px"
               />
             </div>
-            {isLogged === true &&
-              isLogged !== undefined &&
+            {
+            // isLogged === true &&
+              // isLogged !== undefined &&
               isLogged?.account_type !== "free" && (
                 <Button
                   createPostButtonclassName="button-component-create-post"
                   style={CreatePostButtonStyle.inlineStyle}
                   customMediaQueries={CreatePostButtonStyle.customMediaQueries}
-                  text="Create a post"
+                  text="Créer une publication"
                   onClick={handleCreatePostClick}
                   hover="button-hover-props"
                   active="button-active-props"

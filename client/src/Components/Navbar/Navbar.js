@@ -53,6 +53,9 @@ const Navbar = ({
       handlePixelScrolledAthleteProfilePage,
       false
     );
+    if (isLogged) {
+      setIsSignInButtonClicked(false);
+    };
   }, []);
   useEffect(() => {
     if (isSignInButtonClicked || isSignUpButtonClicked) {
@@ -117,7 +120,7 @@ const Navbar = ({
                 <div className="navbar-wrap-2-navicon-wrap">
                   <div className="navbar-vertical"></div>
                   <NavIcon
-                  isNotificationsRead={isNotificationsRead}
+                    isNotificationsRead={isNotificationsRead}
                     handleNotificationPopup={handleNotificationPopup}
                     src={notification}
                   />
