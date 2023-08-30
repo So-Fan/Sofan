@@ -344,6 +344,10 @@ const NftCollection = ({
       );
     }
   };
+  useEffect(() => {
+    
+  }, [])
+  
   return (
     <div className="nftcollection-page">
       <div>

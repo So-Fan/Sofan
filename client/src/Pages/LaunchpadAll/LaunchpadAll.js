@@ -14,7 +14,7 @@ import {
   limit,
   addDoc,
   deleteDoc,
-  doc
+  doc,
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 
@@ -33,11 +33,13 @@ function LaunchpadAll({
     const fetchData = async () => {
       try {
         const launchpadsSnapshot = await getDocs(launchpadAllCollection);
-        
-        const dataPromises = launchpadsSnapshot.docs.map(async doc => {
+
+        const dataPromises = launchpadsSnapshot.docs.map(async (doc) => {
           const launchpadData = doc.data();
-          
-          const nftCollectionDoc = await getDoc(launchpadData.nft_collection_ref);
+
+          const nftCollectionDoc = await getDoc(
+            launchpadData.nft_collection_ref
+          );
           const userDoc = await getDoc(launchpadData.athlete_ref);
 
           return {
@@ -57,39 +59,47 @@ function LaunchpadAll({
     fetchData();
   }, []);
   const multiplyDocuments = async () => {
-    const feedLaunchpadRef = collection(db, 'feed_launchpad');
+    const feedLaunchpadRef = collection(db, "feed_launchpad");
     const snapshot = await getDocs(feedLaunchpadRef);
-  
+
+    let totalDocs = snapshot.size; // Nombre actuel de documents dans la collection
+    let addedDocs = 0; // Nombre de documents ajoutés lors de cette opération
+
     snapshot.forEach(async (doc) => {
-      // Clone le document 3 fois
+      // Clone le document 3 fois ou jusqu'à ce que le total atteigne 10
       for (let i = 0; i < 3; i++) {
+        if (totalDocs + addedDocs >= 10) {
+          console.log("Limite de 10 documents atteinte.");
+          return; // Sortir de la boucle si la limite est atteinte
+        }
         await addDoc(feedLaunchpadRef, doc.data());
+        addedDocs++; // Incrémente le compteur de documents ajoutés
       }
     });
-    
-    console.log('Documents multipliés par 3.');
+
+    console.log("Documents multipliés.");
   };
-  
+
   // Pour exécuter la fonction, décommentez la ligne suivante
   // multiplyDocuments();
   const deleteDocuments = async () => {
-    const feedLaunchpadRef = collection(db, 'feed_launchpad');
+    const feedLaunchpadRef = collection(db, "feed_launchpad");
     const snapshot = await getDocs(feedLaunchpadRef);
-  
+
     let count = 0;
     for (const docSnap of snapshot.docs) {
       if (count >= 500) break;
-  
-      await deleteDoc(doc(db, 'feed_launchpad', docSnap.id));
+
+      await deleteDoc(doc(db, "feed_launchpad", docSnap.id));
       count++;
     }
-    
+
     console.log(`Supprimé ${count} documents.`);
   };
-  
+
   // Pour exécuter la fonction, décommentez la ligne suivante
   // deleteDocuments();
-  console.log(launchpadItems);  
+  console.log(launchpadItems);
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-wrap">

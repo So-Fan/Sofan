@@ -252,8 +252,8 @@ function App() {
                 }
               />
               <Route
-                path="/collectionlive"
-                element={<LaunchpadCollectionLive />}
+                path="/collectionlive/:id/:collectionAddress"
+                element={<LaunchpadCollectionLive/>}
               />
               <Route
                 path="/launchpad"

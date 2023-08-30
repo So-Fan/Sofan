@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./LaunchpadCollectionLive.css";
 import Web3 from "web3";
 import {
@@ -50,6 +51,7 @@ function LaunchpadCollectionLive() {
     state: { web3, contract, accounts },
     setContractAddress,
   } = useEth();
+  const { id, collectionAddress } = useParams();
   // // Start Backend
   // useEffect(() => {
   //   // retrieve collection address from firestore below
@@ -409,6 +411,7 @@ function LaunchpadCollectionLive() {
     fetchData();
   }, []);
   console.log(launchpadCollectionLiveItems);
+  // récupérer adresse de la collection 
   return (
     <>
       <section className="launchpad-collection-live-page-container">
