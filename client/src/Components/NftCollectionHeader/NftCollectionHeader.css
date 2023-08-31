@@ -13,10 +13,11 @@
   position: relative;
 }
 .nft-collection-header-picture img {
-  /* width: 100%; */
-  /* height: 100%; */
+  min-width: 100%;
+  min-height: 100%;
   width: 620px;
   height: 620px;
+  border-radius: 20px;
 }
 .nft-collection-header-data-and-buy-module-container {
   height: 100%;
@@ -406,7 +407,10 @@
   transform: scale(0.65);
 }
 .launchpad-collection-live-button-container:hover {
-  background-color: #00000015;
+  /* background-color: #0000008f; */
+background-color: #e0d4d4e0;
+  /* background: #f7c520; */
+  /* color: white; */
   transition-duration: 300ms !important;
 }
 
@@ -458,6 +462,10 @@
 .launchpad-collection-live-header-right-creator-username-creator-link {
   text-decoration: none;
   color: black;
+}
+.launchpad-collection-live-header-right-creator-username-creator-link:active {
+  transform: scale(0.65);
+  transition-duration: 300ms;
 }
 /* .launchpad-collection-live-header-right-creator-username-creator-link:hover{
   text-decoration: underline;

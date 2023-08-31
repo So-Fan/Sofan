@@ -253,7 +253,7 @@ function App() {
               />
               <Route
                 path="/collectionlive/:id/:collectionAddress"
-                element={<LaunchpadCollectionLive/>}
+                element={<LaunchpadCollectionLive isLogged={loggedInUser} />}
               />
               <Route
                 path="/launchpad"

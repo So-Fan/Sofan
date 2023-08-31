@@ -1,26 +1,35 @@
 import React, { useState } from "react";
 import "./NftCollectionMoreAboutAthlete.css";
+import { Link } from "react-router-dom";
 
 function NftCollectionMoreAboutAthlete({
   moreAbout,
   launchpadCollectionLivePage,
   moreAboutAthlete,
+  knowMoreAboutAthleteDescription,
+  athleteId,
+  knowMoreAboutAthleteSport,
+  knowMoreAboutAthleteProfileAvatar,
+  knowMoreAboutAthleteDisplayName
 }) {
   // console.log("blabla " + moreAboutAthleteDescription);
   // console.log(moreAbout)
-// console.log(moreAbout[0].fullName)
+  // console.log(moreAbout[0].fullName)
   return (
     <section className="nft-collection-more-about-athlete-container">
       <div className="nft-collection-more-about-athlete-title">
-        En savoir + sur   {launchpadCollectionLivePage ? <>{moreAboutAthlete.fullName}</> : <>{moreAbout[0].fullName}</>}
-
+        En savoir + sur{" "}
+        {launchpadCollectionLivePage ? (
+          <>{knowMoreAboutAthleteDisplayName}</>
+        ) : (
+          <>{moreAbout[0].fullName}</>
+        )}
       </div>
       <div className="nft-collection-more-about-athlete-wrap">
         <div className="nft-collection-more-about-athlete-picture-container">
           {launchpadCollectionLivePage ? (
             <>
-            <img src={moreAboutAthlete.picture} alt="photo athlete" />
-            
+              <img src={knowMoreAboutAthleteProfileAvatar} alt="photo athlete" />
             </>
           ) : (
             <>
@@ -30,33 +39,36 @@ function NftCollectionMoreAboutAthlete({
         </div>
         <div className="nft-collection-more-about-athlete-presentation-container">
           <div className="nft-collection-more-about-athete-sport-title">
-            Skipper
+            {knowMoreAboutAthleteSport}
           </div>
           <div className="nft-collection-more-about-athlete-name">
-            {launchpadCollectionLivePage ? <>{moreAboutAthlete.fullName}</> : <>{moreAbout[0].fullName}</>}
+            {launchpadCollectionLivePage ? (
+              <>{knowMoreAboutAthleteDisplayName}</>
+            ) : (
+              <>{moreAbout[0].fullName}</>
+            )}
           </div>
           <div className="nft-collection-more-about-athlete-description">
             {launchpadCollectionLivePage ? (
-              <>{moreAboutAthlete.description}</>
+              <>{knowMoreAboutAthleteDescription}</>
             ) : (
               <>{moreAbout[0].description}</>
             )}
           </div>
           <div className="nft-collection-more-about-athlete-fans-count">
             {launchpadCollectionLivePage ? (
-              <>
-              {moreAboutAthlete.fansNumber} fans
-              </>
+              <>{moreAboutAthlete.fansNumber} fans</>
             ) : (
               <>{moreAbout[0].fansNumber} fans</>
             )}
           </div>
-          <a href="/athleteprofile">
-
-          <button className="nft-collection-more-about-athlete-view-profile-button">
+          <Link
+            className="nft-collection-more-about-athlete-view-profile-button"
+            to={`/athleteprofile/${athleteId}`}
+            target="_blank"
+          >
             Voir le profil
-          </button>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

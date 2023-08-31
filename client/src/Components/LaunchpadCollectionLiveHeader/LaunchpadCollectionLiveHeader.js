@@ -4,9 +4,6 @@ import "./LaunchpadCollectionLiveHeader.css";
 function LaunchpadCollectionLiveHeader({
   collectionName,
   nftNumber,
-  creatorName,
-  creatorProfilePic,
-  description,
   ownerName,
   ownerProfilePic,
   //
@@ -25,17 +22,24 @@ function LaunchpadCollectionLiveHeader({
   collectionNameApi,
   collectionDescriptionApi,
   nftPicture,
+  // Firebase backend
+  athleteId,
+  creatorProfilePic,
+  creatorName,
+  description,
   // Coingecko API
   ethPrice,
   // function for display mint popup
   handleMintButtonClick,
   // Infura API
-  nftCollectionMaxItems
+  nftCollectionMaxItems,
 }) {
+  console.log(description)
   return (
     <section className="launchpad-collection-live-header-container">
       <NftCollectionHeader
         //   dataBackend Firestore
+        athleteId={athleteId}
         launchpadCollectionLiveHeader={launchpadCollectionLiveHeader}
         creatorProfilePic={creatorProfilePic}
         creatorName={creatorName}

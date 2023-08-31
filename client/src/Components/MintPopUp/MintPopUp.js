@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./MintPopUp.css";
 import MintPopUpBuy from "./MintPopUpBuy/MintPopUpBuy";
 import MintPopUpStatus from "./MintPopUpStatus/MintPopUpStatus";
-function MintPopUpTemplate({ setIsMintButtonClicked, approve, isMintingProcessBegan }) {
+function MintPopUpTemplate({
+  setIsMintButtonClicked,
+  approve,
+  isMintingProcessBegan,
+  counterNftMinted,
+  totalNftMintable,
+}) {
   // change those state for passing to buy module to processing
 
   const [mintCounter, setMintCounter] = useState(1);
@@ -68,8 +74,8 @@ function MintPopUpTemplate({ setIsMintButtonClicked, approve, isMintingProcessBe
         ethPrice={dataApi.popup[0].ethPrice}
         eurPrice={dataApi.popup[0].eurPrice}
         //
-        counterNftMinted={dataApi.popup[0].counterNftMinted}
-        totalNftMintable={dataApi.popup[0].totalNftMintable}
+        counterNftMinted={counterNftMinted}
+        totalNftMintable={totalNftMintable}
         //
         ethPriceApi={ethPriceApi}
         dataBlockchain={dataBlockchain}

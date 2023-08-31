@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./LaunchpadCollectionLive.css";
 import Web3 from "web3";
 import {
@@ -26,7 +26,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpStatus/MintPopUpStatus";
-function LaunchpadCollectionLive() {
+function LaunchpadCollectionLive(isLogged) {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
@@ -42,35 +42,21 @@ function LaunchpadCollectionLive() {
   const [
     launchpadCollectionLiveAthleteDataBackend,
     setLaunchpadCollectionLiveAthleteDataBackend,
-  ] = useState();
-  const [launchpadCollectionLiveItems, setLaunchpadCollectionLiveItems] =
+  ] = useState([]);
+  const [launchpadCollectionAthleteInfos, setLaunchpadCollectionAthleteInfos] =
     useState([]);
+  // const [launchpadCollectionLiveItems, setLaunchpadCollectionLiveItems] =
+  //   useState([]);
   const launchpadCollectionLive = collection(db, "nft_collections");
   const launchpadCollectionLiveAthlete = collection(db, "users");
   const {
     state: { web3, contract, accounts },
     setContractAddress,
   } = useEth();
-  const { id, collectionAddress } = useParams();
-  // // Start Backend
-  // useEffect(() => {
-  //   // retrieve collection address from firestore below
-
-  //       // Start temporary code
-  //         const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-  //       // End temporary code
-  //   // then pass it to the state below
-  //   setContractAddress(collectionAddress);
-  // }, []);
-  // End Backend
-  // API Coingecko price ETH
-
-  // const handleButtonClick = () => {
-  //   // const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-  //   //     // End temporary code
-  //   // // then pass it to the state below
-  //   // setContractAddress(collectionAddress);
-  // }
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const athleteId = segments[2];
+  const collectionAddress = segments[3];
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
@@ -121,7 +107,7 @@ function LaunchpadCollectionLive() {
   const { abi } = require("../../contracts/SofanNftTemplate.json");
   const contractInfura = new web3Instance.eth.Contract(
     abi,
-    "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
+    `${collectionAddress}`
   );
   async function getCollectionLimit() {
     const tx = await contractInfura.methods.collectionLimit().call();
@@ -220,22 +206,11 @@ function LaunchpadCollectionLive() {
   }, []);
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
-
-  const [handleMintButtonClickFunction, setHandleMintButtonClickFunction] =
-    useState();
-
   // display mint pop up
   function handleMintButtonClick(e) {
-    // TODO : load contract address from backend
-    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
-    // End temporary code
-    // then pass it to the state below
     setContractAddress(collectionAddress);
     setIsMintButtonClicked(true);
-    // console.log("test");
   }
-
-  // start import
 
   const [isMintingProcessBegan, setIsMintingProcessBegan] = useState(false);
   const [mintingProcessStatus, setMintingProcessStatus] = useState(true);
@@ -316,102 +291,71 @@ function LaunchpadCollectionLive() {
   };
   //
   useEffect(() => {
-    async function getCollectionLiveAthleteData() {
-      // Create a query against the collection
-      const q = query(
-        launchpadCollectionLiveAthlete,
-        // orderBy("launch_date", "desc"),
-        // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
-        // where("account_type", "==", "athlete"),
-        limit(1)
-      );
-      const data = await getDocs(q);
-      setLaunchpadCollectionLiveAthleteDataBackend(
-        data.docs.map((doc) => {
-          const docData = doc.data();
-          return {
-            // collection_address: docData.collection_address,
-            // title: docData.title,
-            // display_name: docData.display_name,
-            // profile_avatar: docData.profile_avatar,
-            // description: docData.description,
-            // item_number: docData.item_number,
-            // img: docData.img,
-            // launch_date: docData.launch_date,
-
-            id: doc.id, // Include the document ID if needed
-          };
-        })
-      );
-    }
-    async function getLaunchpadCollectionLiveKnowMore() {
-      // Create a query against the collection
-      const q = query(
-        launchpadCollectionLive,
-        // orderBy("launch_date", "desc"),
-        // pour classer en décroissant et mettre l'element le plus vieux en banniere avec l'index 0
-        // where("account_type", "==", "athlete"),
-        limit(10)
-      );
-      const data = await getDocs(q);
-      setLaunchpadCollectionLiveAthleteDataBackend(
-        data.docs.map((doc) => {
-          const docData = doc.data();
-          return {
-            // collection_address: docData.collection_address,
-            // title: docData.title,
-            // display_name: docData.display_name,
-            // profile_avatar: docData.profile_avatar,
-            // description: docData.description,
-            // item_number: docData.item_number,
-            // img: docData.img,
-            // launch_date: docData.launch_date,
-            know_more_collection: docData.know_more_collection,
-            know_more_athlete_description:
-              docData.know_more_athlete_description,
-            id: doc.id, // Include the document ID if needed
-          };
-        })
-      );
-    }
-    getCollectionLiveAthleteData();
-    getLaunchpadCollectionLiveKnowMore();
-  }, []);
-  // console.log(launchpadCollectionLiveAthleteDataBackend);
-  // Informations à récupérer
-  // ID athlete, Nom athlete, Photo athlete, nft title, description, photo de la collection, nombre de nft mintable,
-  useEffect(() => {
-    const fetchData = async () => {
+    async function getAthleteInfoCollectionLive() {
       try {
-        const launchpadsSnapshot = await getDocs(launchpadCollectionLive);
-        console.log("launchpadSnapchshots ---> ", launchpadsSnapshot);
-        const dataPromises = launchpadsSnapshot.docs.map(async (doc) => {
-          const launchpadData = doc.data();
-
-          const nftCollectionDoc = await getDoc(
-            launchpadData.nft_collection_ref
-          );
-          const userDoc = await getDoc(launchpadData.athlete_ref);
-
-          return {
-            launchpad: launchpadData,
-            nftCollection: nftCollectionDoc.data(),
-            user: userDoc.data(),
-          };
-        });
-
-        const resolvedData = await Promise.all(dataPromises);
-        setLaunchpadCollectionLiveItems(resolvedData);
-        console.log("try réussis !");
+        const q = query(
+          launchpadCollectionLiveAthlete,
+          where("id", "==", `${athleteId}`)
+        );
+        const data = await getDocs(q);
+        setLaunchpadCollectionAthleteInfos(
+          data.docs.map((doc) => {
+            const docData = doc.data();
+            return {
+              display_name: docData.display_name,
+              profile_avatar: docData.profile_avatar,
+              id: doc.id,
+              sport: docData.sport,
+            };
+          })
+        );
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error(
+          "Erreur lors de la récupération des infos athlète:",
+          error
+        );
       }
-    };
+    }
 
-    fetchData();
+    async function getCollectionLiveAthleteData() {
+      try {
+        const q = query(
+          launchpadCollectionLive,
+          where("athlete_id", "==", `${athleteId}`),
+          where("collection_address", "==", `${collectionAddress}`),
+          limit(1)
+        );
+        const data = await getDocs(q);
+        setLaunchpadCollectionLiveAthleteDataBackend(
+          data.docs.map((doc) => {
+            const docData = doc.data();
+            return {
+              collection_title: docData.collection_title,
+              collection_avatar: docData.collection_avatar,
+              collection_address: docData.collection_address,
+              collection_description: docData.collection_description,
+              know_more_collection: docData.know_more_collection,
+              know_more_athlete_description:
+                docData.know_more_athlete_description,
+              know_more_athlete_description:
+                docData.know_more_athlete_description,
+              nft_collection_limit: docData.nft_collection_limit,
+              id: doc.id,
+            };
+          })
+        );
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données de collection:",
+          error
+        );
+      }
+    }
+
+    getAthleteInfoCollectionLive();
+    getCollectionLiveAthleteData();
   }, []);
-  console.log(launchpadCollectionLiveItems);
-  // récupérer adresse de la collection 
+  // récupérer adresse de la collection
   return (
     <>
       <section className="launchpad-collection-live-page-container">
@@ -420,10 +364,18 @@ function LaunchpadCollectionLive() {
           handleMintButtonClick={handleMintButtonClick}
           //   dataBackend Firestore
           launchpadCollectionLiveHeader={true}
-          creatorProfilePic={dataBackend.header[0].creatorProfilePic}
-          creatorName={dataBackend.header[0].creatorName}
-          collectionName={dataBackend.header[0].collectionName}
-          description={dataBackend.header[0].description}
+          athleteId={athleteId}
+          nftPicture={
+            launchpadCollectionLiveAthleteDataBackend[0]?.collection_avatar
+          }
+          creatorProfilePic={launchpadCollectionAthleteInfos[0]?.profile_avatar}
+          creatorName={launchpadCollectionAthleteInfos[0]?.display_name}
+          collectionName={
+            launchpadCollectionLiveAthleteDataBackend[0]?.collection_title
+          }
+          description={
+            launchpadCollectionLiveAthleteDataBackend[0]?.collection_description
+          }
           minLimit={dataBackend.header[0].mintLimit}
           // dataBacken RealTimeDb
           timer={dataRealTimeDb.header[0].timer}
@@ -435,7 +387,6 @@ function LaunchpadCollectionLive() {
           // Api Alchemy
           collectionNameApi={collectionNameApi}
           collectionDescriptionApi={collectionDescriptionApi}
-          nftPicture={nftPicture}
           // Api CoinGecko
           ethPrice={ethPrice}
           // display mint popup
@@ -447,13 +398,27 @@ function LaunchpadCollectionLive() {
           />
           <div className="launchpad-collection-live-page-more-about-collection-container">
             <LaunchpadCollectionLiveMoreAboutCollection
+              knowMoreAboutCollection={
+                launchpadCollectionLiveAthleteDataBackend[0]
+                  ?.know_more_collection
+              }
               moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
             />
           </div>
         </div>
         <NftCollectionMoreAboutAthlete
           launchpadCollectionLivePage={true}
+          athleteId={athleteId}
+          knowMoreAboutAthleteDescription={
+            launchpadCollectionLiveAthleteDataBackend[0]
+              ?.know_more_athlete_description
+          }
           moreAboutAthlete={dataBackend.moreAboutAthlete[0]}
+          knowMoreAboutAthleteDisplayName={launchpadCollectionAthleteInfos[0]?.display_name}
+          knowMoreAboutAthleteSport={launchpadCollectionAthleteInfos[0]?.sport}
+          knowMoreAboutAthleteProfileAvatar={
+            launchpadCollectionAthleteInfos[0]?.profile_avatar
+          }
         />
       </section>
       {isMintButtonClicked && (
@@ -467,6 +432,11 @@ function LaunchpadCollectionLive() {
             <>
               <div className="launchpad-collection-live-mintPopUpStatus-container">
                 <MintPopUpStatus
+                  isLogged={isLogged}
+                  collection_title={
+                    launchpadCollectionLiveAthleteDataBackend[0]
+                      ?.collection_title
+                  }
                   statusProcessing={mintingProcessStatus}
                   statusMint={isMintingProcessEndedSuccessfully}
                   setIsMintingProcessBegan={setIsMintingProcessBegan}
@@ -483,6 +453,8 @@ function LaunchpadCollectionLive() {
             </>
           ) : (
             <MintPopUp
+              counterNftMinted={nftCollectionItemMint}
+              totalNftMintable={nftCollectionMaxItems}
               setIsMintButtonClicked={setIsMintButtonClicked}
               approve={approve}
               isMintingProcessBegan={isMintingProcessBegan}

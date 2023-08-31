@@ -6,13 +6,14 @@ import LaunchPadMintProgressBar from "../LaunchPadMintProgressBar/LaunchPadMintP
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import PopupListNFT from "../PopupListNFT/PopupListNFT";
+import { Link } from "react-router-dom";
 
 function NftCollectionHeader({
   collectionName,
   nftNumber,
   creatorName,
   creatorProfilePic,
-  // description,
+  description,
   ownerName,
   ownerProfilePic,
   //
@@ -44,6 +45,7 @@ function NftCollectionHeader({
   handleUnlistButton,
   isBuyListingButtonDisabled,
   listingPrice,
+  athleteId
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
 
@@ -82,26 +84,25 @@ function NftCollectionHeader({
           <div className="launchpad-collection-live-header-right-container">
             <div className="launchpad-collection-live-header-right-wrap">
               <div className="launchpad-collection-live-header-right-creator-pic-and-usernamme-container">
-                <a
+                  <Link 
                   className="launchpad-collection-live-header-right-creator-username-creator-link"
-                  href="/athleteprofile"
-                >
+                  to={`/athleteprofile/${athleteId}`}>
                   <div className="launchpad-collection-live-header-right-creator-pic-and-usernamme-wrap">
                     <div>
                       <img
                         src={creatorProfilePic}
                         alt="Photo de profile Createur"
-                      />
+                        />
                     </div>
                     <div>par {creatorName}</div>
                   </div>
-                </a>
+                </Link>
               </div>
               <div className="launchpad-collection-live-header-right-collection-name">
-                {collectionNameApi}
+                {collectionName}
               </div>
               <div className="launchpad-collection-live-header-right-collection-description">
-                {collectionDescriptionApi}
+                {description}
               </div>
               <div className="launchpad-collection-live-header-right-line-separation"></div>
               <div className="launchpad-collection-live-header-right-price-container">
@@ -125,13 +126,13 @@ function NftCollectionHeader({
                   nftMintedCalculated={nftMintedCalculated}
                   counterNftMinted={counterNftMinted}
                   totalNftMintable={totalNftMintable}
-                />
+                  />
                 <div className="launchpad-collection-live-header-right-mint-module-mint-button-container">
                   <button
                     style={{ backgroundColor: handleStyleButton() }}
                     className="launchpad-collection-live-header-right-mint-module-mint-button"
                     onClick={handleMintButtonClick}
-                  >
+                    >
                     Mint maintenant
                   </button>
                 </div>
