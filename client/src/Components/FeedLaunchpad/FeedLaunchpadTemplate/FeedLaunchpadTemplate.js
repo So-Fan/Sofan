@@ -7,10 +7,11 @@ const FeedLaunchpadTemplate = ({
   img,
   athleteProfilePicture,
   id,
+  collectionAddress,
 }) => {
   return (
     <Link
-      to={id}
+      to={`/collectionlive/${id}/${collectionAddress}`}
       className="feedlaunchpad-content-container"
       style={{
         backgroundImage: `url(${img})`,

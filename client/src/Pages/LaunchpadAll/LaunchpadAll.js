@@ -58,6 +58,7 @@ function LaunchpadAll({
 
     fetchData();
   }, []);
+  console.log(launchpadItems)
   const multiplyDocuments = async () => {
     const feedLaunchpadRef = collection(db, "feed_launchpad");
     const snapshot = await getDocs(feedLaunchpadRef);
