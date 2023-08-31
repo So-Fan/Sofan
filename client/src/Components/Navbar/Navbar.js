@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
 import "./Navbar.css";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import SofanLogo2 from "../../Assets/Image/sofanlogo2.svg";
 import Searchbar from "./Searchbar/Searchbar";
-import NavLink from "./NavLink/NavLink";
 import NavIcon from "./NavIcon/NavIcon";
 import notification from "../../Assets/Image/notification.svg";
 import NavProfile from "./NavProfile/NavProfile";
@@ -36,8 +36,11 @@ const Navbar = ({
     setPixelScrolledAthleteProfilePage(window.scrollY);
   };
   const [isNotificationsRead, setIsNotificationsRead] = useState(false);
-  const navigate = useNavigate();
-
+  const [isPageHomeDisplay, setIsPageHomeDisplay] = useState(false);
+  const [isPageLaunchpadDisplay, setIsPageLaunchpadDisplay] = useState(false);
+  // const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname);
   function handleSignInButtonClick() {
     // navigate('/login'); // redirect to signin popup
     setIsSignInButtonClicked(true);
@@ -55,8 +58,32 @@ const Navbar = ({
     );
     if (isLogged) {
       setIsSignInButtonClicked(false);
+    }
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handlePixelScrolledAthleteProfilePage,
+        false
+      );
     };
   }, []);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setIsPageHomeDisplay(true);
+      setIsPageLaunchpadDisplay(false);
+
+      console.log("ceci est home");
+    } else {
+      setIsPageHomeDisplay(false);
+    }
+    if (location.pathname === "/Launchpad") {
+      setIsPageLaunchpadDisplay(true);
+      setIsPageHomeDisplay(false);
+      console.log("ceci est launchpad");
+    } else {
+      setIsPageLaunchpadDisplay(false);
+    }
+  }, [location]);
   useEffect(() => {
     if (isSignInButtonClicked || isSignUpButtonClicked) {
       document.body.style.overflow = "hidden";
@@ -89,7 +116,6 @@ const Navbar = ({
       setIsSignInButtonClicked(false);
     }
   }
-  // console.log(isLogged)
   return (
     <>
       {!isLogged && (
@@ -114,8 +140,30 @@ const Navbar = ({
                 : "navbar-wrap-2-unauthenticated"
             }
           >
-            <NavLink name="Feed" link="/Feed" />
-            <NavLink name="Launchpad" link="/Launchpad" />
+            {/* <NavLink location={location} name="Feed" link="/" /> */}
+            <Link className="navbar-navicon" to="/">
+              <div
+                className={
+                  isPageHomeDisplay
+                    ? "navbar-navicon-name-active-home"
+                    : "navbar-navicon-name"
+                }
+              >
+                Feed
+              </div>
+            </Link>
+            <Link className="navbar-navicon" to="/Launchpad">
+              <div
+                className={
+                  isPageLaunchpadDisplay
+                    ? "navbar-navicon-name-active-launchpad"
+                    : "navbar-navicon-name"
+                }
+              >
+                Launchpad
+              </div>
+            </Link>
+            {/* <NavLink location={location} name="Launchpad" link="/Launchpad" /> */}
             {isLogged && Object.keys(isLogged).length > 0 ? (
               <div className="navbar-wrap-2-subwrap-navicon-and-navprofile">
                 <div className="navbar-wrap-2-navicon-wrap">

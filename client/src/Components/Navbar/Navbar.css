@@ -36,6 +36,67 @@
   align-items: center;
   width: 280px;
 }
+.navbar-navicon {
+  text-decoration: none;
+  font-family: "Britanica-Heavy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #000000;
+  position: relative;
+}
+
+.navbar-navicon-name {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* Conditionnal rendering if clicked or not */
+.navbar-navicon-name-active-home {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+  /* text-decoration: underline; */
+  /* text-decoration-thickness: 2px; */
+}
+.navbar-navicon-name-active-home::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: 7px;
+  width: 63%;
+  background-color: black;
+  height: 1px;
+}
+.navbar-navicon-name-active-launchpad {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+}
+.navbar-navicon-name-active-launchpad::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: 7px;
+  width: 80%;
+  background-color: black;
+  height: 1px;
+}
+.navbar-navicon-name:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+}
 .navbar-wrap-2-unauthenticated {
   display: flex;
   justify-content: space-between;
