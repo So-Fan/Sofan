@@ -165,7 +165,7 @@ function Home({
             {
             // isLogged === true &&
               // isLogged !== undefined &&
-              isLogged?.account_type !== "free" && (
+              isLogged && isLogged.account_type !== "free" && (
                 <Button
                   createPostButtonclassName="button-component-create-post"
                   style={CreatePostButtonStyle.inlineStyle}
