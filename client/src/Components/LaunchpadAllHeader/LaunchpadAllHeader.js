@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import "./LaunchpadAllHeader.css";
-const LaunchpadAllHeader = ({ data, hidePrice }) => {
+const LaunchpadAllHeader = ({ data, dataAthlete, hidePrice }) => {
   const [dimLaunchpadHeader, setDimLaunchpadHeader] = useState(
     window.innerWidth
   );
@@ -87,7 +87,7 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
   return (
     <div className="launchpadallheader-component">
       <img
-        src={data?.img}
+        src={data?.collection_avatar}
         alt="background"
         style={launchpadallheaderComponentImg}
       />
@@ -99,13 +99,16 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
           className="launchpadallheader-data-wrap"
           style={launchpadallheaderDataWrap}
         >
-          <a href="/athleteprofile" className="launchpadallheader-data-wrap-img-and-name">
+          <a
+            href={`/athleteprofile/${dataAthlete?.id}`}
+            className="launchpadallheader-data-wrap-img-and-name"
+          >
             <div
               className="launchpadallheader-data-wrap-img"
               style={launchpadallheaderDataWrapImg}
             >
               <img
-                src={data?.profile_avatar}
+                src={dataAthlete?.profile_avatar}
                 alt="profile"
                 style={launchpadallheaderDataWrapImgImg}
               />
@@ -114,14 +117,14 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
               className="launchpadallheader-data-wrap-athletename"
               style={launchpadallheaderDataWrapthletename}
             >
-              by {data?.display_name}
+              by {dataAthlete?.display_name}
             </span>
           </a>
           <span
             className="launchpadallheader-data-wrap-title"
             style={launchpadallheaderDataWrapTitle}
           >
-            {data?.title}
+            {data?.collection_title}
           </span>
           <span
             className="launchpadallheader-data-wrap-description"
@@ -133,10 +136,16 @@ const LaunchpadAllHeader = ({ data, hidePrice }) => {
             className="launchpadallheader-data-wrap-nft"
             style={launchpadallheaderDataWrapNft}
           >
-            {data?.item_number} items{" "}
+            {data?.nft_collection_limit} items
             {hidePrice ? <></> : <>- {data?.item_number} ETH</>}
           </span>
-          <Button onClick={redirectTo} active="button-active-props" hover="button-hover-props" text="Découvrir" style={launchpadallheaderDataWrapButton} />
+          <Button
+            onClick={redirectTo}
+            active="button-active-props"
+            hover="button-hover-props"
+            text="Découvrir"
+            style={launchpadallheaderDataWrapButton}
+          />
         </div>
       </div>
     </div>

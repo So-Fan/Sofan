@@ -157,7 +157,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
     // Effacer l'intervalle lors du démontage du composant
     return () => clearInterval(intervalId);
   }, [date]); // Dépendance à 'date' pour recalculer si la date change
-  //console.log(date);
+  // console.log(date);
   return (
     <div
       className={`launchpadallupcominglaunchesTemplate-component ${

@@ -119,7 +119,7 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   }
   useEffect(() => {
     const currentTime = Date.now();
-    console.log(launchDate)
+    // console.log(launchDate)
     
   }, [])
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import MoreAboutThisCollection from "../MoreAboutThisCollection/MoreAboutThisCollection";
 import "./LaunchpadCollectionLiveMoreAboutCollection.css";
 
-function LaunchpadCollectionLiveMoreAboutCollection({moreAboutCollectionArray
+function LaunchpadCollectionLiveMoreAboutCollection({moreAboutCollectionArray, knowMoreAboutCollection
 }) {
   const dataBackend = {
   };
@@ -10,6 +10,7 @@ function LaunchpadCollectionLiveMoreAboutCollection({moreAboutCollectionArray
     <section>
       <MoreAboutThisCollection 
       moreAboutCollectionArray={moreAboutCollectionArray}
+      knowMoreAboutCollection={knowMoreAboutCollection}
       />
     </section>
   );

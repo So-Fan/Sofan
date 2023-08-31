@@ -88,6 +88,11 @@
   border-radius: 5px;
   font-size: 20px;
   font-family: "britanica-heavy";
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .nft-collection-more-about-athlete-view-profile-button:active {
   transform: scale(0.8);

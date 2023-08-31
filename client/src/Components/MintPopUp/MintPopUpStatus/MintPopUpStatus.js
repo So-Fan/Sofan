@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./MintPopUpStatus.css";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
 import redCross from "../../../Assets/Image/redcross-offers.svg";
 import MintPopUpProcessing from "../MintPopUpProcessing/MintPopUpProcessing";
+import { Link } from "react-router-dom";
 function MintPopUpStatus({
   statusMint,
   statusProcessing,
@@ -13,12 +14,16 @@ function MintPopUpStatus({
   styleImage,
   styleDiv,
   styleP2,
+  collection_title,
+  isLogged,
 }) {
   const handleBackToMintClicked = () => {
     setMintingProcessStatus(true);
     setIsMintingProcessEndedSuccessfully(false);
     setIsMintingProcessBegan(false);
   };
+  console.log(isLogged)
+  useEffect(()=>{console.log(isLogged)},[isLogged])
   return (
     <>
       {/* {statusMint} */}
@@ -56,7 +61,12 @@ function MintPopUpStatus({
             <div className="mint-pop-up-status-text">
               {statusMint ? (
                 <>
-                  <p>Congrats ! You’re now an holder of this collection !</p>
+                  <p>
+                    Félicitations ! Vous êtes un détenteur de la collection
+                    <span>
+                      <br /> {collection_title}
+                    </span>
+                  </p>
                 </>
               ) : (
                 <>An error has occured, please try later</>
@@ -64,9 +74,17 @@ function MintPopUpStatus({
             </div>
             {statusMint ? (
               <>
-                <button className="mint-pop-up-status-button">
-                  Go to my profile
-                </button>
+                <Link
+                  to={
+                    isLogged.isLogged.account_type === "athlete"
+                      ? `/athleteprofile/${isLogged.isLogged.id}`
+                      : `/userprofile/${isLogged.isLogged.id}`
+                  }
+                  // isLogged.isLogged
+                  className="mint-pop-up-status-button-link"
+                >
+                  Aller vers mon profil
+                </Link>
               </>
             ) : (
               <>

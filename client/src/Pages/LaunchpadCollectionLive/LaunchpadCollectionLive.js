@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./LaunchpadCollectionLive.css";
+import Web3 from "web3";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+  limit,
+  getDocs,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../../Configs/firebase";
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
 import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities";
 import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
@@ -13,7 +26,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpStatus/MintPopUpStatus";
-function LaunchpadCollectionLive() {
+function LaunchpadCollectionLive(isLogged) {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
@@ -23,30 +36,27 @@ function LaunchpadCollectionLive() {
   const [nftPicture, setNftPicture] = useState();
   const [collectionNameApi, setCollectionNameApi] = useState();
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
-
+  const [nftCollectionMaxItems, setNftCollectionMaxItems] = useState();
+  const [nftCollectionItemMint, setNftCollectionItemMint] = useState();
+  const [nftMintPrice, setNftMintPrice] = useState();
+  const [
+    launchpadCollectionLiveAthleteDataBackend,
+    setLaunchpadCollectionLiveAthleteDataBackend,
+  ] = useState([]);
+  const [launchpadCollectionAthleteInfos, setLaunchpadCollectionAthleteInfos] =
+    useState([]);
+  // const [launchpadCollectionLiveItems, setLaunchpadCollectionLiveItems] =
+  //   useState([]);
+  const launchpadCollectionLive = collection(db, "nft_collections");
+  const launchpadCollectionLiveAthlete = collection(db, "users");
   const {
     state: { web3, contract, accounts },
     setContractAddress,
   } = useEth();
-  // // Start Backend
-  // useEffect(() => {
-  //   // retrieve collection address from firestore below
-
-  //       // Start temporary code
-  //         const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-  //       // End temporary code
-  //   // then pass it to the state below
-  //   setContractAddress(collectionAddress);
-  // }, []);
-  // End Backend
-  // API Coingecko price ETH
-
-  // const handleButtonClick = () => {
-  //   // const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-  //   //     // End temporary code
-  //   // // then pass it to the state below
-  //   // setContractAddress(collectionAddress);
-  // }
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const athleteId = segments[2];
+  const collectionAddress = segments[3];
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
@@ -58,22 +68,29 @@ function LaunchpadCollectionLive() {
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_MAINNET,
+    network: Network.ETH_GOERLI,
     maxRetries: 10,
   };
 
   const alchemy = new Alchemy(settings);
   async function getNftsData() {
-    const nftsData = await alchemy.nft.getContractMetadata(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    );
+    try {
+      const nftsData = await alchemy.nft.getContractMetadata(
+        // "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+        "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
+      );
+      setCollectionNameApi(nftsData?.name);
+      setCollectionDescriptionApi(nftsData?.openSea?.description);
+      // console.log(nftsData?.totalSupply);
+      setNftCollectionItemMint(nftsData?.totalSupply);
+    } catch (error) {
+      console.error(error);
+    }
     // const transferData = await alchemy.nft.getTransfersForContract(
     //   "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection contract
     //   { from: "0x0000000000000000000000000000000000000000" }
     // );
     // console.log(transferData);
-    setCollectionNameApi(nftsData?.openSea?.collectionName);
-    setCollectionDescriptionApi(nftsData?.openSea?.description);
   }
   async function getNftPicture() {
     const nftsFromContract = await alchemy.nft.getNftMetadata(
@@ -83,11 +100,30 @@ function LaunchpadCollectionLive() {
     // console.log(nftsFromContract?.media[0]?.gateway)
     setNftPicture(nftsFromContract?.media[0]?.gateway);
   }
+  // API Infura
+  const web3Instance = new Web3(
+    new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
+  );
+  const { abi } = require("../../contracts/SofanNftTemplate.json");
+  const contractInfura = new web3Instance.eth.Contract(
+    abi,
+    `${collectionAddress}`
+  );
+  async function getCollectionLimit() {
+    const tx = await contractInfura.methods.collectionLimit().call();
+    setNftCollectionMaxItems(tx);
+  }
+  async function getPrice() {
+    // const price = await contractInfura?.methods?.price().call(); TODO:
+    setNftMintPrice(3);
+  }
+  // -------------------------------
   useEffect(() => {
     getNftsData();
     getNftPicture();
+    getCollectionLimit();
+    getPrice();
   }, []);
-
   const dataBackend = {
     header: [
       {
@@ -170,22 +206,11 @@ function LaunchpadCollectionLive() {
   }, []);
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
-
-  const [handleMintButtonClickFunction, setHandleMintButtonClickFunction] =
-    useState();
-
   // display mint pop up
   function handleMintButtonClick(e) {
-    // TODO : load contract address from backend
-    const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
-    // End temporary code
-    // then pass it to the state below
     setContractAddress(collectionAddress);
     setIsMintButtonClicked(true);
-    // console.log("test");
   }
-
-  // start import
 
   const [isMintingProcessBegan, setIsMintingProcessBegan] = useState(false);
   const [mintingProcessStatus, setMintingProcessStatus] = useState(true);
@@ -264,7 +289,73 @@ function LaunchpadCollectionLive() {
     }
     console.log(result2);
   };
+  //
+  useEffect(() => {
+    async function getAthleteInfoCollectionLive() {
+      try {
+        const q = query(
+          launchpadCollectionLiveAthlete,
+          where("id", "==", `${athleteId}`)
+        );
+        const data = await getDocs(q);
+        setLaunchpadCollectionAthleteInfos(
+          data.docs.map((doc) => {
+            const docData = doc.data();
+            return {
+              display_name: docData.display_name,
+              profile_avatar: docData.profile_avatar,
+              id: doc.id,
+              sport: docData.sport,
+            };
+          })
+        );
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des infos athlète:",
+          error
+        );
+      }
+    }
 
+    async function getCollectionLiveAthleteData() {
+      try {
+        const q = query(
+          launchpadCollectionLive,
+          where("athlete_id", "==", `${athleteId}`),
+          where("collection_address", "==", `${collectionAddress}`),
+          limit(1)
+        );
+        const data = await getDocs(q);
+        setLaunchpadCollectionLiveAthleteDataBackend(
+          data.docs.map((doc) => {
+            const docData = doc.data();
+            return {
+              collection_title: docData.collection_title,
+              collection_avatar: docData.collection_avatar,
+              collection_address: docData.collection_address,
+              collection_description: docData.collection_description,
+              know_more_collection: docData.know_more_collection,
+              know_more_athlete_description:
+                docData.know_more_athlete_description,
+              know_more_athlete_description:
+                docData.know_more_athlete_description,
+              nft_collection_limit: docData.nft_collection_limit,
+              id: doc.id,
+            };
+          })
+        );
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données de collection:",
+          error
+        );
+      }
+    }
+
+    getAthleteInfoCollectionLive();
+    getCollectionLiveAthleteData();
+  }, []);
+  // récupérer adresse de la collection
   return (
     <>
       <section className="launchpad-collection-live-page-container">
@@ -273,25 +364,33 @@ function LaunchpadCollectionLive() {
           handleMintButtonClick={handleMintButtonClick}
           //   dataBackend Firestore
           launchpadCollectionLiveHeader={true}
-          creatorProfilePic={dataBackend.header[0].creatorProfilePic}
-          creatorName={dataBackend.header[0].creatorName}
-          collectionName={dataBackend.header[0].collectionName}
-          description={dataBackend.header[0].description}
+          athleteId={athleteId}
+          nftPicture={
+            launchpadCollectionLiveAthleteDataBackend[0]?.collection_avatar
+          }
+          creatorProfilePic={launchpadCollectionAthleteInfos[0]?.profile_avatar}
+          creatorName={launchpadCollectionAthleteInfos[0]?.display_name}
+          collectionName={
+            launchpadCollectionLiveAthleteDataBackend[0]?.collection_title
+          }
+          description={
+            launchpadCollectionLiveAthleteDataBackend[0]?.collection_description
+          }
           minLimit={dataBackend.header[0].mintLimit}
           // dataBacken RealTimeDb
           timer={dataRealTimeDb.header[0].timer}
           // FAKE apiData
-          nftPriceEth={dataApi.header[0].ethPrice}
+          nftPriceEth={nftMintPrice}
           nftPriceEur={dataApi.header[0].eurPrice}
-          counterNftMinted={dataApi.header[0].counterNftMinted}
+          counterNftMinted={nftCollectionItemMint}
           totalNftMintable={dataApi.header[0].totalNftMintable}
           // Api Alchemy
           collectionNameApi={collectionNameApi}
           collectionDescriptionApi={collectionDescriptionApi}
-          nftPicture={nftPicture}
           // Api CoinGecko
           ethPrice={ethPrice}
           // display mint popup
+          nftCollectionMaxItems={nftCollectionMaxItems}
         />
         <div className="launchpad-collection-live-page-left-container">
           <LaunchpadCollectionLiveUtilities
@@ -299,13 +398,27 @@ function LaunchpadCollectionLive() {
           />
           <div className="launchpad-collection-live-page-more-about-collection-container">
             <LaunchpadCollectionLiveMoreAboutCollection
+              knowMoreAboutCollection={
+                launchpadCollectionLiveAthleteDataBackend[0]
+                  ?.know_more_collection
+              }
               moreAboutCollectionArray={dataBackend.moreAboutThisCollection}
             />
           </div>
         </div>
         <NftCollectionMoreAboutAthlete
           launchpadCollectionLivePage={true}
+          athleteId={athleteId}
+          knowMoreAboutAthleteDescription={
+            launchpadCollectionLiveAthleteDataBackend[0]
+              ?.know_more_athlete_description
+          }
           moreAboutAthlete={dataBackend.moreAboutAthlete[0]}
+          knowMoreAboutAthleteDisplayName={launchpadCollectionAthleteInfos[0]?.display_name}
+          knowMoreAboutAthleteSport={launchpadCollectionAthleteInfos[0]?.sport}
+          knowMoreAboutAthleteProfileAvatar={
+            launchpadCollectionAthleteInfos[0]?.profile_avatar
+          }
         />
       </section>
       {isMintButtonClicked && (
@@ -319,6 +432,11 @@ function LaunchpadCollectionLive() {
             <>
               <div className="launchpad-collection-live-mintPopUpStatus-container">
                 <MintPopUpStatus
+                  isLogged={isLogged}
+                  collection_title={
+                    launchpadCollectionLiveAthleteDataBackend[0]
+                      ?.collection_title
+                  }
                   statusProcessing={mintingProcessStatus}
                   statusMint={isMintingProcessEndedSuccessfully}
                   setIsMintingProcessBegan={setIsMintingProcessBegan}
@@ -335,6 +453,8 @@ function LaunchpadCollectionLive() {
             </>
           ) : (
             <MintPopUp
+              counterNftMinted={nftCollectionItemMint}
+              totalNftMintable={nftCollectionMaxItems}
               setIsMintButtonClicked={setIsMintButtonClicked}
               approve={approve}
               isMintingProcessBegan={isMintingProcessBegan}

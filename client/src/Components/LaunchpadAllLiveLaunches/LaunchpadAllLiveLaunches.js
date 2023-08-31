@@ -133,9 +133,12 @@ const LaunchpadAllLiveLaunches = ({
     window.addEventListener("resize", handleDim, false);
   }, []);
   document.documentElement.style.setProperty("--dim", window.innerWidth + "px");
-  const liveLaunches = data?.filter(
-    (launchpadlive) => launchpadlive?.launch_date * 1000 < Date.now()
-  );
+
+  const liveLaunches = data?.filter((launch, index) => {
+    const launchDateSeconds = launch?.launchpad?.launch_date?.seconds;
+    return launchDateSeconds ? launchDateSeconds * 1000 < Date.now() : false;
+  });
+  
   return (
     <div className="launchpadalllivelaunches-component">
       <div
@@ -224,15 +227,14 @@ const LaunchpadAllLiveLaunches = ({
             <div key={uuidv4()} style={responsiveWidth}>
               <LaunchpadAllLiveLaunchesTemplate
                 key={uuidv4()}
+                profilePicture={launchpadlive?.user?.profile_avatar}
                 hidePrice={hidePrice}
-                background={launchpadlive?.img}
-                profilePicture={launchpadlive?.profile_avatar}
-                athleteName={launchpadlive?.display_name}
-                title={launchpadlive?.title}
-                nftLength={launchpadlive?.item_number}
+                background={launchpadlive?.nftCollection?.collection_avatar}
+                athleteName={launchpadlive?.user?.display_name}
+                title={launchpadlive?.nftCollection?.collection_title}
+                nftLength={launchpadlive?.nftCollection?.nft_collection_limit}
                 launchDate={launchpadlive?.launch_date}
                 // nftPrice={launchpadlive[i].nftPrice}
-                test="oui"
                 dim={dim}
               />
             </div>

@@ -89,6 +89,7 @@ const Navbar = ({
       setIsSignInButtonClicked(false);
     }
   }
+  // console.log(isLogged)
   return (
     <>
       {!isLogged && (

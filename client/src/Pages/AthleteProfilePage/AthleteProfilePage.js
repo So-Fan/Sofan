@@ -886,6 +886,7 @@ const AthleteProfilePage = ({
             collectionFloorPriceApiData={collectionFloorPriceApiData}
             dataCollections={dataConcat?.collections}
             hidePrice={true}
+            athleteId={id}
           />
         ) : isAthleteProfileSubMenuClicked[6] === true ? (
           <AthleteProfileEvent dataEvents={dataConcat?.events} />
