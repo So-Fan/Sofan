@@ -15,6 +15,7 @@ import {
   addDoc,
   deleteDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 
@@ -50,7 +51,24 @@ function LaunchpadAll({
         });
 
         const resolvedData = await Promise.all(dataPromises);
+
         setLaunchpadItems(resolvedData);
+        console.log(resolvedData);
+        console.log("Data fetched.");
+        // Nouveau code pour mettre à jour les documents
+        resolvedData.forEach(async (item) => {
+          console.log(
+            "Current collection_address:",
+            item.nftCollection.collection_address
+          );
+          if (item.nftCollection.collection_address === "") {
+            const docRef = doc(db, "nft_collections", item.nftCollection.id); // Assurez-vous que item.launchpad.id est correct
+            await updateDoc(docRef, {
+              collection_address: "0xeD8263C7E0df64bc1E9D69C5A72734DfB85Ba32c",
+            });
+            console.log("Updated collection_address.");
+          }
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -58,49 +76,29 @@ function LaunchpadAll({
 
     fetchData();
   }, []);
-  console.log(launchpadItems)
-  const multiplyDocuments = async () => {
-    const feedLaunchpadRef = collection(db, "feed_launchpad");
-    const snapshot = await getDocs(feedLaunchpadRef);
 
-    let totalDocs = snapshot.size; // Nombre actuel de documents dans la collection
-    let addedDocs = 0; // Nombre de documents ajoutés lors de cette opération
+  const updateEmptyAddresses = async () => {
+    const nftCollectionRef = collection(db, "nft_collections"); // Replace with your collection name
+    const q = query(
+      nftCollectionRef,
+      where("collection_address", "==", "Your Hardcoded Address")
+    );
 
-    snapshot.forEach(async (doc) => {
-      // Clone le document 3 fois ou jusqu'à ce que le total atteigne 10
-      for (let i = 0; i < 3; i++) {
-        if (totalDocs + addedDocs >= 10) {
-          console.log("Limite de 10 documents atteinte.");
-          return; // Sortir de la boucle si la limite est atteinte
-        }
-        await addDoc(feedLaunchpadRef, doc.data());
-        addedDocs++; // Incrémente le compteur de documents ajoutés
-      }
-    });
+    try {
+      const querySnapshot = await getDocs(q);
 
-    console.log("Documents multipliés.");
-  };
-
-  // Pour exécuter la fonction, décommentez la ligne suivante
-  // multiplyDocuments();
-  const deleteDocuments = async () => {
-    const feedLaunchpadRef = collection(db, "feed_launchpad");
-    const snapshot = await getDocs(feedLaunchpadRef);
-
-    let count = 0;
-    for (const docSnap of snapshot.docs) {
-      if (count >= 500) break;
-
-      await deleteDoc(doc(db, "feed_launchpad", docSnap.id));
-      count++;
+      querySnapshot.forEach(async (docSnapshot) => {
+        const docRef = doc(nftCollectionRef, docSnapshot.id);
+        await updateDoc(docRef, {
+          collection_address: "0xeD8263C7E0df64bc1E9D69C5A72734DfB85Ba32c",
+        });
+        console.log(`Updated address for document ${docSnapshot.id}`);
+      });
+    } catch (error) {
+      console.error("Error updating addresses:", error);
     }
-
-    console.log(`Supprimé ${count} documents.`);
   };
 
-  // Pour exécuter la fonction, décommentez la ligne suivante
-  // deleteDocuments();
-  console.log(launchpadItems);
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-wrap">
