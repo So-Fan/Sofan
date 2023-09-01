@@ -10,7 +10,7 @@ import { formatDistanceToNow } from "date-fns";
 const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
-
+  const [final, setFinal] = useState([]);
   const [AllTx, setAllTx] = useState([]);
   const [AllSofanCollection, setAllSofanCollection] = useState([]);
   const [allErc721Event, setAllErc721Event] = useState([]);
@@ -77,6 +77,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 tempConcatArray.push({
                   ...tempObj,
                   tokenId: allErc721EventElement.tokenID,
+                  nftContract: txElement.to,
                 });
               }
             }
@@ -102,6 +103,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               ...txElement,
               functionName: "transferFrom",
               tokenId: decodedParams.tokens,
+              nftContract: txElement.to,
             };
             tempConcatArray.push(tempObj);
             let tempObjForAlchemy = {
@@ -186,7 +188,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
         ) {
           const decodedParams = web3Instance.eth.abi.decodeParameters(
             [
-              { type: "address", name: "nftAddress" },
+              { type: "address", name: "nftAddress" }, // correspond à _receiverAddress
               { type: "uint256", name: "tokenId" },
             ],
             txElement.input.slice(
@@ -198,15 +200,15 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             ...txElement,
             functionName: "Buy",
             tokenId: decodedParams.tokenId,
-            nftContract: decodedParams.nftAddress,
+            // nftContract: decodedParams.nftAddress, // correspond à _receiverAddress
           };
           tempConcatArray.push(tempObj);
-          let tempObjForAlchemy = {
-            contractAddress: decodedParams.nftAddress,
-            tokenId: decodedParams.tokenId,
-            tokenType: "ERC721",
-          };
-          tempAlchemyArray.push(tempObjForAlchemy);
+          // let tempObjForAlchemy = {
+          //   contractAddress: decodedParams.nftAddress, // correspond à _receiverAddress
+          //   tokenId: decodedParams.tokenId,
+          //   tokenType: "ERC721",
+          // };
+          // tempAlchemyArray.push(tempObjForAlchemy);
         }
         if (
           // TODO: only for test. should be replaced by marketplaceAddress.
@@ -232,6 +234,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             functionName: "Sell",
             tokenId: decodedParams._tokenId,
             offerPrice: decodedParams._offerPrice,
+            nftContract: decodedParams._contract,
           };
           tempConcatArray.push(tempObj);
           let tempObjForAlchemy = {
@@ -281,6 +284,30 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             refreshCache: false,
           });
           console.log(res);
+          console.log(concatArray);
+          var tempConcatArray = [...concatArray];
+          console.log(tempConcatArray);
+          for (let i = 0; i < res.length; i++) {
+            const alchemyMetadataElement = res[i];
+            for (let i = 0; i < concatArray.length; i++) {
+              const tempConcatArrayElement = concatArray[i];
+              if (
+                alchemyMetadataElement.tokenId ===
+                  tempConcatArrayElement.tokenId &&
+                alchemyMetadataElement.contract.address.toLowerCase() ===
+                  tempConcatArrayElement.nftContract.toLowerCase()
+              ) {
+                const tempobj = {
+                  ...tempConcatArrayElement,
+                  title: alchemyMetadataElement.rawMetadata.name,
+                  image: alchemyMetadataElement.rawMetadata.image,
+                };
+                tempConcatArray[i] = tempobj;
+              }
+            }
+          }
+          setFinal(tempConcatArray);
+          console.log(tempConcatArray);
         } catch (error) {
           console.error(error);
         }
@@ -288,6 +315,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     };
     tryMe();
   }, [alchemyArray]);
+
   useEffect(() => {
     const web3Instance = new Web3(
       new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
@@ -335,53 +363,107 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           <div>Date</div>
         </div>
         <div className="useractivitytab-content-container">
-          {concatArray.length != 0 &&
-            concatArray?.map((tx, index, apiNftData) => (
-              <div
-                key={uuidv4()}
-                className="useractivitytab-content-container-wrap"
-              >
-                <div className="useractivitytab-content-container-methods-wrap">
-                  <span>{tx.functionName}</span>
-                </div>
-                <div className="useractivitytab-content-container-nft-wrap">
-                  <img src={"yes"} alt="nft" />
-                  <div className="useractivitytab-content-container-nft-wrap-info-wrap">
-                    <span>{"CollectionName"}</span>
-                    <span>#{tx.tokenId}</span>
+          {final.length != 0
+            ? final.length != 0 &&
+              final?.map((tx, index, apiNftData) => (
+                <div
+                  key={uuidv4()}
+                  className="useractivitytab-content-container-wrap"
+                >
+                  <div className="useractivitytab-content-container-methods-wrap">
+                    <span>{"purut"}</span>
+                  </div>
+                  <div className="useractivitytab-content-container-nft-wrap">
+                    <img
+                      src={tx?.image ? tx.image : "template image"}
+                      alt="nft"
+                    />
+                    <div className="useractivitytab-content-container-nft-wrap-info-wrap">
+                      <span>{"CollectionName"}</span>
+                      <span>#{tx.tokenId}</span>
+                    </div>
+                  </div>
+                  <div className="useractivitytab-content-container-price-container">
+                    <div className="useractivitytab-content-container-price-wrap">
+                      <span>{"Price"} ETH</span>
+                      <span>
+                        {/* {(
+                      apiNftData[index]?.contract?.openSea?.floorPrice *
+                      ethPrice
+                    ).toLocaleString("fr-FR", {
+                      maximumFractionDigits: 1,
+                    })} */}
+                        €
+                      </span>
+                    </div>
+                  </div>
+                  <div className="useractivitytab-content-container-qty-wrap">
+                    <span>{tx?.quantity}</span>
+                  </div>
+                  <div></div>
+                  <div className="useractivitytab-content-container-from-wrap">
+                    <span>{tx.from}</span>
+                  </div>
+                  <div>
+                    <span>{tx.to}</span>
+                  </div>
+                  <div></div>
+                  <div>
+                    {/* TODO: convert to date */}
+                    <span>{tx.timeStamp}</span>
                   </div>
                 </div>
-                <div className="useractivitytab-content-container-price-container">
-                  <div className="useractivitytab-content-container-price-wrap">
-                    <span>{"Price"} ETH</span>
-                    <span>
-                      {/* {(
+              ))
+            : concatArray.length != 0 &&
+              concatArray?.map((tx, index, apiNftData) => (
+                <div
+                  key={uuidv4()}
+                  className="useractivitytab-content-container-wrap"
+                >
+                  <div className="useractivitytab-content-container-methods-wrap">
+                    <span>{tx.functionName}</span>
+                  </div>
+                  <div className="useractivitytab-content-container-nft-wrap">
+                    <img
+                      src={tx?.image ? tx.image : "template image"}
+                      alt="nft"
+                    />
+                    <div className="useractivitytab-content-container-nft-wrap-info-wrap">
+                      <span>{"CollectionName"}</span>
+                      <span>#{tx.tokenId}</span>
+                    </div>
+                  </div>
+                  <div className="useractivitytab-content-container-price-container">
+                    <div className="useractivitytab-content-container-price-wrap">
+                      <span>{"Price"} ETH</span>
+                      <span>
+                        {/* {(
                         apiNftData[index]?.contract?.openSea?.floorPrice *
                         ethPrice
                       ).toLocaleString("fr-FR", {
                         maximumFractionDigits: 1,
                       })} */}
-                      €
-                    </span>
+                        €
+                      </span>
+                    </div>
+                  </div>
+                  <div className="useractivitytab-content-container-qty-wrap">
+                    <span>{tx?.quantity}</span>
+                  </div>
+                  <div></div>
+                  <div className="useractivitytab-content-container-from-wrap">
+                    <span>{tx.from}</span>
+                  </div>
+                  <div>
+                    <span>{tx.to}</span>
+                  </div>
+                  <div></div>
+                  <div>
+                    {/* TODO: convert to date */}
+                    <span>{tx.timeStamp}</span>
                   </div>
                 </div>
-                <div className="useractivitytab-content-container-qty-wrap">
-                  <span>{tx?.quantity}</span>
-                </div>
-                <div></div>
-                <div className="useractivitytab-content-container-from-wrap">
-                  <span>{tx.from}</span>
-                </div>
-                <div>
-                  <span>{tx.to}</span>
-                </div>
-                <div></div>
-                <div>
-                  {/* TODO: convert to date */}
-                  <span>{tx.timeStamp}</span>
-                </div>
-              </div>
-            ))}
+              ))}
         </div>
       </div>
     </>
