@@ -2,23 +2,23 @@ import React from "react";
 import "./DropDownMenu.css";
 
 function DropDownMenu({
-  isDropDownMenuCommentClicked,
   dropdownStates,
   id,
-  isAdminLogged,
-  isAthleteLogged,
-  isCommentsOwnerLogged,
-  handleClickCopyPostLink
+  handleClickCopyPostLink,
+  fullPagePostPageStyle,
+  postCreatorId,
 }) {
   // Backend here
   const isOwner = true;
-  console.log(id)
+  console.log(id);
   return (
     <>
       <section
-      id={id}
+        id={id}
         style={
-          dropdownStates && id && dropdownStates[id]
+          fullPagePostPageStyle
+            ? { top: "24%", right: "16%" }
+            : dropdownStates && id && dropdownStates[id]
             ? {
                 top: "95%",
                 right: "-15%",
@@ -28,28 +28,24 @@ function DropDownMenu({
               }
             : { top: "7%", right: "5%" }
         }
-        className="dropdown-menu-container"
+        className={
+          fullPagePostPageStyle
+            ? "dropdown-menu-container-fullpagepost-page"
+            : "dropdown-menu-container"
+        }
       >
         <ul id={id}>
           {isOwner && (
             <>
-              {/* <li href="/" id={id}> */}
-                <li>Supprimer</li>
-              {/* </li> */}
-              {/* <div className="separation-line-dropdown-menu"></div>
-              <li href="/" id="link-dropdown-menu">
-                <li>Modifier la publication</li>
-              </li> */}
+              <li>Supprimer</li>
               <div className="separation-line-dropdown-menu"></div>
             </>
           )}
-          {/* <li href="/" id={id}> */}
-            <li onClick={()=>handleClickCopyPostLink(id)}>Copier le lien</li>
-          {/* </li> */}
+          <li onClick={() => handleClickCopyPostLink(id)}>Copier le lien</li>
           <div className="separation-line-dropdown-menu"></div>
-          {/* <li href="/athleteprofile" id={id}> */}
+          <a target="blank" href={`/athleteprofile/${postCreatorId}`}>
             <li>Voir le profil</li>
-          {/* </li> */}
+          </a>
         </ul>
       </section>
     </>

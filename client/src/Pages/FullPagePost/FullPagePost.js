@@ -6,8 +6,6 @@ import LikesCommentsCounter from "../../Components/PostsComponents/LikesComments
 import PostsDescription from "../../Components/PostsComponents/PostsDescription/PostsDescription";
 import PostsComments from "../../Components/PostsComponents/PostsComments/PostsComments";
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
-import mediaPostAttanasio from "../../Assets/Image/mediapostattanasio.svg";
-import { Link } from "react-router-dom";
 import PollPost from "../../Components/PostsComponents/PollPost/PollPost";
 
 function FullPagePost({
@@ -29,6 +27,8 @@ function FullPagePost({
   pollTotalVote,
   isPostClicked,
   setIsPostClicked,
+  fullPagePostPageStyle,
+  handleClickCopyPostLink
 }) {
   const [
     isMediaQueriesFullPagePostDisabled,
@@ -126,7 +126,7 @@ function FullPagePost({
       );
     }
   }
-  console.log("id:",id)
+  console.log("id:", id);
   return (
     <>
       <div
@@ -142,6 +142,16 @@ function FullPagePost({
             isMediaQueriesFullPagePostDisabled
               ? "post-container-fullpagepost-no-media-queries"
               : "post-container-fullpagepost"
+          }
+          style={
+            fullPagePostPageStyle
+              ? {
+                boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.2)",
+                  border: "solid 2px #f6d463",
+                  borderRadius: "10px",
+                  
+                }
+              : {}
           }
         >
           {postPicture && (
@@ -164,7 +174,7 @@ function FullPagePost({
             style={
               polldata?.choices[0].text !== "" &&
               polldata?.choices[1].text !== ""
-                ? { paddingBottom: "20px"}
+                ? { paddingBottom: "20px" }
                 : {}
             }
           >
@@ -184,6 +194,8 @@ function FullPagePost({
                 id="dropdown-medium"
               >
                 <HeadOfPost
+                  fullPagePostPageStyle={fullPagePostPageStyle}
+                  handleClickCopyPostLink={handleClickCopyPostLink}
                   setPostStates={setPostStates}
                   postName={postName}
                   //

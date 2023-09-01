@@ -28,7 +28,8 @@ function HeadOfPost({
   postType,
   fullPagePostHeadOfPostStyle,
   isMediaQueriesFullPagePostDisabled,
-  handleClickCopyPostLink
+  handleClickCopyPostLink,
+  fullPagePostPageStyle,
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
@@ -65,11 +66,11 @@ function HeadOfPost({
         }));
       }
     }
-  
-    document.addEventListener('click', handleClickOutside);
-  
+
+    document.addEventListener("click", handleClickOutside);
+
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [id, setDropdownStates]);
   const getPostCreatorData = async (uid) => {
@@ -109,7 +110,6 @@ function HeadOfPost({
     addSuffix: true,
   });
   postDate = postDate.replace("environ ", "");
-  // console.log(agePublicationPollPost);
   // console.log("dropdownStates:", dropdownStates);
   // console.log("id:", id);
 
@@ -195,9 +195,11 @@ function HeadOfPost({
         />
         {dropdownStates[id] && (
           <>
-            <DropDownMenu 
-            id={id}
-            handleClickCopyPostLink={handleClickCopyPostLink}
+            <DropDownMenu
+              postCreatorId={postCreatorId}
+              id={id}
+              handleClickCopyPostLink={handleClickCopyPostLink}
+              fullPagePostPageStyle={fullPagePostPageStyle}
             />
           </>
         )}
