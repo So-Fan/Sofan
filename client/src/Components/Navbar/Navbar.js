@@ -40,7 +40,7 @@ const Navbar = ({
   const [isPageLaunchpadDisplay, setIsPageLaunchpadDisplay] = useState(false);
   // const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   function handleSignInButtonClick() {
     // navigate('/login'); // redirect to signin popup
     setIsSignInButtonClicked(true);

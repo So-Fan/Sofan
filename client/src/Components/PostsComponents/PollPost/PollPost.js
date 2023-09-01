@@ -14,10 +14,10 @@ const PollPost = ({
   pollSecondChoice,
   pollThirdChoice,
   pollFourthChoice,
-  pollDate,
-  pollDateType,
+  // pollDate,
+  // pollDateType,
   //
-  pollTotalVote,
+  // pollTotalVote,
   pollFirstChoiceNumber,
   pollSecondChoiceNumber,
   pollThirdChoiceNumber,
@@ -174,10 +174,13 @@ const PollPost = ({
         <div className="ageofpost-poll-container">
           <div className="ageofpost-poll-wrap">
             <div className="ageofpost-and-timeleft-poll">
-              <div>{pollTotalVote} votes</div>
+              <div>
+                {/* {pollTotalVote}  */}
+                votes</div>
               <div>-</div>
               <div>
-                {pollDate} {pollDateType}
+                {/* {pollDate}  */}
+                {/* {pollDateType} */}
               </div>
             </div>
           </div>

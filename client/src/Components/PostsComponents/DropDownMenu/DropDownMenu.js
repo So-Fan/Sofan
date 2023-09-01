@@ -2,22 +2,23 @@ import React from "react";
 import "./DropDownMenu.css";
 
 function DropDownMenu({
-  isDropDownMenuCommentClicked,
   dropdownStates,
-  commentId,
-  isAdminLogged,
-  isAthleteLogged,
-  isCommentsOwnerLogged,
+  id,
+  handleClickCopyPostLink,
+  fullPagePostPageStyle,
+  postCreatorId,
 }) {
   // Backend here
   const isOwner = true;
-
+  console.log(id);
   return (
     <>
       <section
-      id={commentId}
+        id={id}
         style={
-          dropdownStates[commentId]
+          fullPagePostPageStyle
+            ? { top: "24%", right: "16%" }
+            : dropdownStates && id && dropdownStates[id]
             ? {
                 top: "95%",
                 right: "-15%",
@@ -27,26 +28,22 @@ function DropDownMenu({
               }
             : { top: "7%", right: "5%" }
         }
-        className="dropdown-menu-container"
+        className={
+          fullPagePostPageStyle
+            ? "dropdown-menu-container-fullpagepost-page"
+            : "dropdown-menu-container"
+        }
       >
-        <ul>
+        <ul id={id}>
           {isOwner && (
             <>
-              <a href="/" id="link-dropdown-menu">
-                <li>Supprimer</li>
-              </a>
-              {/* <div className="separation-line-dropdown-menu"></div>
-              <a href="/" id="link-dropdown-menu">
-                <li>Modifier la publication</li>
-              </a> */}
+              <li>Supprimer</li>
               <div className="separation-line-dropdown-menu"></div>
             </>
           )}
-          <a href="/" id="link-dropdown-menu">
-            <li>Copier le lien</li>
-          </a>
+          <li onClick={() => handleClickCopyPostLink(id)}>Copier le lien</li>
           <div className="separation-line-dropdown-menu"></div>
-          <a href="/athleteprofile" id="link-dropdown-menu">
+          <a target="blank" href={`/athleteprofile/${postCreatorId}`}>
             <li>Voir le profil</li>
           </a>
         </ul>

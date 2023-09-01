@@ -14,8 +14,8 @@ function LikeButton({
   likeButtonSizePollPost,
   postId,
   loggedInUserId,
-  setIsPostClicked,
-  isPostClicked,
+  // setIsPostClicked,
+  // isPostClicked,
   isMediaQueriesFullPagePostDisabled,
 }) {
   const [isPostLiked, setIsPostedLiked] = useState(false);

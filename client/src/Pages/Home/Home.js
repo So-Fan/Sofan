@@ -46,6 +46,8 @@ function Home({
   const [isSuggestionSeeMoreButtonClicked, setIsSuggestSeeMoreButtonClicked] =
     useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCopyPostLinkClicked, setIsCopyPostLinkClicked] = useState(false);
+  const [copyPostAnimationHide, setCopyPostAnimationHide] = useState(false);
   function handleAthleteSuggestionClick(e) {
     setIsSuggestSeeMoreButtonClicked(true);
   }
@@ -61,6 +63,7 @@ function Home({
       return false;
     }
   }
+  console.log(dataPost);
   useEffect(() => {
     setIsLoading(true);
 
@@ -124,7 +127,23 @@ function Home({
     }
     getSuggestionsAthletes();
   }, []);
-  console.log(isLogged)
+  // console.log(isLogged)
+  function handleClickCopyPostLink(postId) {
+    navigator.clipboard.writeText(`https://staging.sofan.app/post/${postId}`);
+    console.log(postId);
+    setIsCopyPostLinkClicked(true);
+    // const timeOutAnimationCopyClicked =
+    setTimeout(() => {
+      setCopyPostAnimationHide(true);
+    }, 5000);
+    // clearTimeout(timeOutAnimationCopyClicked);
+    // const timeOutHideCopyClicked =
+    setTimeout(() => {
+      setIsCopyPostLinkClicked(false);
+      setCopyPostAnimationHide(false);
+    }, 5700);
+    // clearTimeout(timeOutHideCopyClicked);
+  }
   return (
     <>
       <section className="home-component">
@@ -163,7 +182,7 @@ function Home({
               />
             </div>
             {
-            // isLogged === true &&
+              // isLogged === true &&
               // isLogged !== undefined &&
               isLogged && isLogged.account_type !== "free" && (
                 <Button
@@ -175,7 +194,8 @@ function Home({
                   hover="button-hover-props"
                   active="button-active-props"
                 />
-              )}
+              )
+            }
           </div>
           <FavAthlete />
           <FeedSuggestions
@@ -202,7 +222,6 @@ function Home({
                       key={uuidv4()}
                       id={post.id}
                       singlePostData={post}
-                      postName="Rami Abdou"
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
                       postLikes={post.likes ? post.likes.length : 0}
@@ -217,6 +236,7 @@ function Home({
                       lockPremiumContent={handleDisplayPremiumContent(index)}
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                       isDropdownClicked={isDropdownClicked}
+                      handleClickCopyPostLink={handleClickCopyPostLink}
                     />
                   );
                 })}
@@ -242,9 +262,7 @@ function Home({
           setState={setIsSuggestSeeMoreButtonClicked}
           style={{ top: "24px", right: "20px" }}
         >
-          <AthleteSuggestPopUp 
-          suggestionsAthletes={suggestionsAthletes}
-          />
+          <AthleteSuggestPopUp suggestionsAthletes={suggestionsAthletes} />
         </Modal>
       )}
       {isNotificationButtonClicked && (
@@ -254,6 +272,19 @@ function Home({
         >
           <NotificationPopUp notificationPopUpComponent={true} />
         </Modal>
+      )}
+      {isCopyPostLinkClicked && (
+        <>
+          <div
+            className={
+              copyPostAnimationHide
+                ? "home-post-link-copied-hide"
+                : "home-post-link-copied"
+            }
+          >
+            Copié dans le presse-papier !
+          </div>
+        </>
       )}
     </>
   );
