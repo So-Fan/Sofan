@@ -4,20 +4,21 @@ import "./DropDownMenu.css";
 function DropDownMenu({
   isDropDownMenuCommentClicked,
   dropdownStates,
-  commentId,
+  id,
   isAdminLogged,
   isAthleteLogged,
   isCommentsOwnerLogged,
+  handleClickCopyPostLink
 }) {
   // Backend here
   const isOwner = true;
-
+  console.log(id)
   return (
     <>
       <section
-      id={commentId}
+      id={id}
         style={
-          dropdownStates[commentId]
+          dropdownStates && id && dropdownStates[id]
             ? {
                 top: "95%",
                 right: "-15%",
@@ -29,26 +30,26 @@ function DropDownMenu({
         }
         className="dropdown-menu-container"
       >
-        <ul>
+        <ul id={id}>
           {isOwner && (
             <>
-              <a href="/" id="link-dropdown-menu">
+              {/* <li href="/" id={id}> */}
                 <li>Supprimer</li>
-              </a>
+              {/* </li> */}
               {/* <div className="separation-line-dropdown-menu"></div>
-              <a href="/" id="link-dropdown-menu">
+              <li href="/" id="link-dropdown-menu">
                 <li>Modifier la publication</li>
-              </a> */}
+              </li> */}
               <div className="separation-line-dropdown-menu"></div>
             </>
           )}
-          <a href="/" id="link-dropdown-menu">
-            <li>Copier le lien</li>
-          </a>
+          {/* <li href="/" id={id}> */}
+            <li onClick={()=>handleClickCopyPostLink(id)}>Copier le lien</li>
+          {/* </li> */}
           <div className="separation-line-dropdown-menu"></div>
-          <a href="/athleteprofile" id="link-dropdown-menu">
+          {/* <li href="/athleteprofile" id={id}> */}
             <li>Voir le profil</li>
-          </a>
+          {/* </li> */}
         </ul>
       </section>
     </>

@@ -25,7 +25,7 @@ function FullPagePost({
   postCommentNumber,
   polldata,
   pollDate,
-  pollDateType,
+  // pollDateType,
   pollTotalVote,
   isPostClicked,
   setIsPostClicked,
@@ -119,13 +119,14 @@ function FullPagePost({
           // pollSecondChoiceNumber={pollSecondChoiceNumber}
           // pollThirdChoiceNumber={pollThirdChoiceNumber}
           // pollFourthChoiceNumber={pollFourthChoiceNumber}
-          pollDate={pollDate}
-          pollDateType={pollDateType}
+          // pollDate={pollDate}
+          // pollDateType={pollDateType}
           pollTotalVote={pollTotalVote}
         />
       );
     }
   }
+  console.log("id:",id)
   return (
     <>
       <div

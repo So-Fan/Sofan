@@ -13,7 +13,7 @@
   height: 686px; /* A modif*/
   max-height: 686px; /* A modif*/
 }
-.home-navlink-create-post-wrap{
+.home-navlink-create-post-wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,13 +51,64 @@
   width: 249px;
   height: 619px;
 }
+.home-post-link-copied {
+  width: 200px;
+  height: 30px;
+  font-size: 14px;
+  font-family: "britanica-black";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 8%;
+  bottom: 5%;
+  border: 2px solid #f6d463;
+  padding: 5px;
+  border-radius: 10px;
+  animation: slide-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+}
+.home-post-link-copied-hide {
+  width: 200px;
+  height: 30px;
+  font-size: 14px;
+  font-family: "britanica-black";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 8%;
+  bottom: 5%;
+  border: 2px solid #f6d463;
+  padding: 5px;
+  border-radius: 10px;
+  animation: hide-smooth 700ms ;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+}
+@keyframes slide-in {
+  0% {
+    transform: translateX(-150px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes hide-smooth {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
 /* Animation Loading */
 .lds-ripple {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
-  margin:  50px auto;
+  margin: 50px auto;
 }
 .lds-ripple div {
   position: absolute;

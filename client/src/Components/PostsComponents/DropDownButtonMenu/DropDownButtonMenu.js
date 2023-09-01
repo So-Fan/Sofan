@@ -10,7 +10,7 @@ function DropDownButtonMenu({
   return (
     <>
       <button
-        onClick={handleDropdownPostFeedClick}
+        onClick={()=>handleDropdownPostFeedClick(id)}
         className={`dropdown-menu-button-container ${dropDownMenuSizeContainer}`}
         id={id?.toString()}
       >

@@ -14,9 +14,10 @@ import PollPost from "../PollPost/PollPost";
 function PostsFeed({
   handleDropdownPostFeedClick,
   isDropdownClicked,
+  handleClickCopyPostLink,
   id,
   lockPremiumContent,
-  postName,
+  // postName,
   postDate,
   postDateType,
   postType,
@@ -39,7 +40,7 @@ function PostsFeed({
   pollThirdChoiceNumber,
   pollFourthChoiceNumber,
   athleteProfilePageStyling,
-  setPostStates,
+  // setPostStates,
   loggedInUser,
   polldata,
   singlePostData,
@@ -72,15 +73,15 @@ function PostsFeed({
           pollSecondChoiceNumber={pollSecondChoiceNumber}
           pollThirdChoiceNumber={pollThirdChoiceNumber}
           pollFourthChoiceNumber={pollFourthChoiceNumber}
-          pollDate={pollDate}
+          // pollDate={pollDate}
           pollDateType={pollDateType}
-          pollTotalVote={pollTotalVote}
+          // pollTotalVote={pollTotalVote}
         />
       );
     }
   }
-  // console.log(lockPremiumContent)
-  // console.log(postDate);
+  // console.log("id de postfeed --> ",id)
+  console.log(postCommentNumber)
   return (
     <>
       <div
@@ -100,12 +101,11 @@ function PostsFeed({
           className="publication-content"
           style={lockPremiumContent ? { filter: "blur(17px)" } : {}}
         >
-          {isDropdownClicked && <DropDownMenu />}
+          {isDropdownClicked && <DropDownMenu id={id} />}
           {/* <DropDownMenu/> */}
           <div className="publication-head-container">
             <HeadOfPost
-              setPostStates={setPostStates}
-              postName={postName}
+              // setPostStates={setPostStates}
               //
               dropDownMenuSize="dropdown-button-point-size-M"
               headOfPostSizeLeft="publication-head-left-container-size-pollpost"
@@ -113,13 +113,15 @@ function PostsFeed({
               publicationTypeHeadOfPostPollPost="publication-type-pollpost"
               athleteNamePollPost="athlete-name-publication-pollpost"
               agePublicationPollPost="age-publication-pollpost"
-              handleDropdownPostFeedClick={handleDropdownPostFeedClick}
               id={id}
               postCreatorId={postCreatorId}
               //
               postDate={postDate}
               postDateType={postDateType}
               postType={postType}
+              //
+              handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+              handleClickCopyPostLink={handleClickCopyPostLink}
             />
           </div>
           <PostsDescription
@@ -180,9 +182,9 @@ function PostsFeed({
             id={id}
             postType={postType}
             postDate={postDate}
-            postDateType={postDateType}
-            setPostStates={setPostStates}
-            postName={postName}
+            // postDateType={postDateType}
+            // setPostStates={setPostStates}
+            // postName={postName}
             postCreatorId={postCreatorId}
             postPicture={postPicture}
             postDescription={postDescription}
@@ -190,9 +192,9 @@ function PostsFeed({
             postLikes={postLikes}
             postCommentNumber={postCommentNumber}
             polldata={polldata}
-            pollDate={pollDate}
-            pollDateType={pollDateType}
-            pollTotalVote={pollTotalVote}
+            // pollDate={pollDate}
+            // pollDateType={pollDateType}
+            // pollTotalVote={pollTotalVote}
             isPostClicked={isPostClicked}
             setIsPostClicked={setIsPostClicked}
             // postType={singlePostData.postType === "normal"}

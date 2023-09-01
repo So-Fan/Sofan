@@ -9,6 +9,7 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
 import spinnerAnimation from "../../../Assets/Image/spinner-animation-small.svg";
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
 
 function HeadOfPost({
   dropDownMenuSize,
@@ -17,7 +18,7 @@ function HeadOfPost({
   publicationTypeHeadOfPostPollPost,
   agePublicationPollPost,
   athleteNamePollPost,
-  handleDropdownPostFeedClick,
+  // handleDropdownPostFeedClick,
   id,
   postCreatorId,
   //
@@ -27,13 +28,50 @@ function HeadOfPost({
   postType,
   fullPagePostHeadOfPostStyle,
   isMediaQueriesFullPagePostDisabled,
+  handleClickCopyPostLink
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
   // ]);
   const [postCreatorData, setPostCreatorData] = useState(null);
+  const [dropdownStates, setDropdownStates] = useState({});
   const navigate = useNavigate();
-
+  // const handleDropdownPostFeedClick = (idPost) => {
+  //   setDropdownStates((prev) => ({
+  //     ...prev,
+  //     [id]: !prev[idPost],
+  //   }));
+  // };
+  const handleDropdownPostFeedClick = (id) => {
+    // console.log("id:", id);
+    setDropdownStates((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      const dropdownMenu = document.getElementById(`${id}`);
+      const dropdownButton = document.getElementById(`${id}`);
+      if (
+        dropdownMenu &&
+        dropdownButton &&
+        !dropdownMenu.contains(event.target) &&
+        !dropdownButton.contains(event.target)
+      ) {
+        setDropdownStates((prev) => ({
+          ...prev,
+          [id]: false,
+        }));
+      }
+    }
+  
+    document.addEventListener('click', handleClickOutside);
+  
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [id, setDropdownStates]);
   const getPostCreatorData = async (uid) => {
     try {
       if (!uid) {
@@ -72,6 +110,9 @@ function HeadOfPost({
   });
   postDate = postDate.replace("environ ", "");
   // console.log(agePublicationPollPost);
+  // console.log("dropdownStates:", dropdownStates);
+  // console.log("id:", id);
+
   return (
     <div
       className={
@@ -152,6 +193,14 @@ function HeadOfPost({
           dropDownMenuSize={dropDownMenuSize}
           id={id}
         />
+        {dropdownStates[id] && (
+          <>
+            <DropDownMenu 
+            id={id}
+            handleClickCopyPostLink={handleClickCopyPostLink}
+            />
+          </>
+        )}
       </div>
     </div>
   );

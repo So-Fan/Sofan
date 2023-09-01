@@ -20,6 +20,8 @@ import CGU from "./Pages/CGU/CGU";
 import UserContext from "./contexts/UserContext/UserContext";
 import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import FullPagePost from "./Pages/FullPagePost/FullPagePost";
+import FullPagePostPage from "./Pages/FullPagePostPage/FullPagePostPage";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -219,6 +221,10 @@ function App() {
                   />
                 }
               />
+              <Route path="/post/:id" element={<FullPagePostPage
+              isLogged={loggedInUser}
+              dataPost={dataPost}
+              />} />
               <Route
                 path="/athleteprofile/:id"
                 element={

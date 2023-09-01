@@ -21,8 +21,7 @@
   justify-content: space-evenly;
   flex-direction: column;
 }
-.dropdown-menu-container a
-/* ,.dropdown-menu-container #link-dropdown-menu  */
+.dropdown-menu-container li
  {
   outline: none;
   margin: 0;
@@ -35,10 +34,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   /* background-color: red; */
 }
 
-.dropdown-menu-container a:hover {
+.dropdown-menu-container li:hover {
   color: #f6d463;
   transition: 0.3s;
 }
