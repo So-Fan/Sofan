@@ -104,8 +104,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               tokenId: decodedParams.tokens,
             };
             tempConcatArray.push(tempObj);
+            let tempObjForAlchemy = {
+              contractAddress: txElement.to,
+              tokenId: decodedParams.tokens,
+              tokenType: "ERC721",
+            };
+            tempAlchemyArray.push(tempObjForAlchemy);
           }
-        }
+        } // TODO: Maybe: add else if to detect if someone transfered to us a nft linked to Sofan with the allErc721Event array
         // add if else to handle marketPlace address tx
         if (
           // TODO: only for test. should be replaced by marketplaceAddress.
@@ -131,8 +137,16 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             functionName: "List",
             tokenId: decodedParams._tokenId,
             price: decodedParams._price,
+            nftContract: decodedParams._contract,
           };
           tempConcatArray.push(tempObj);
+
+          let tempObjForAlchemy = {
+            contractAddress: decodedParams._contract,
+            tokenId: decodedParams._tokenId,
+            tokenType: "ERC721",
+          };
+          tempAlchemyArray.push(tempObjForAlchemy);
         }
         if (
           // TODO: only for test. should be replaced by marketplaceAddress.
@@ -152,8 +166,16 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             ...txElement,
             functionName: "Cancel",
             listingId: decodedParams.itemId,
+            // nftContract: decodedParams._contract
           };
           tempConcatArray.push(tempObj);
+          // request token Id from Listing Id
+          // let tempObjForAlchemy = {
+          //   contractAddress: txElement.to,
+          //   tokenId:  decodedParams._tokenId,
+          //   tokenType: "ERC721",
+          // };
+          // tempAlchemyArray.push(tempObjForAlchemy);
         }
         if (
           // TODO: only for test. should be replaced by marketplaceAddress.
@@ -176,8 +198,15 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             ...txElement,
             functionName: "Buy",
             tokenId: decodedParams.tokenId,
+            nftContract: decodedParams.nftAddress,
           };
           tempConcatArray.push(tempObj);
+          let tempObjForAlchemy = {
+            contractAddress: decodedParams.nftAddress,
+            tokenId: decodedParams.tokenId,
+            tokenType: "ERC721",
+          };
+          tempAlchemyArray.push(tempObjForAlchemy);
         }
         if (
           // TODO: only for test. should be replaced by marketplaceAddress.
@@ -205,6 +234,12 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             offerPrice: decodedParams._offerPrice,
           };
           tempConcatArray.push(tempObj);
+          let tempObjForAlchemy = {
+            contractAddress: decodedParams._contract,
+            tokenId: decodedParams._tokenId,
+            tokenType: "ERC721",
+          };
+          tempAlchemyArray.push(tempObjForAlchemy);
         }
         if (
           // TODO: only for test. should be replaced by marketplaceAddress. Use this if in offer made
@@ -233,24 +268,26 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       }
       console.log("after", tempConcatArray);
       setConcatArray(tempConcatArray);
+      setAlchemyArray(tempAlchemyArray);
     }
   }, [AllTx, AllSofanCollection]);
   useMemo(() => {
     // TODO: call API pour image, collection name, prix
-
-    alchemy.nft.getNftMetadataBatch([
-      {
-        contractAddress: "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a",
-        tokenId: "1",
-        tokenType: "ERC721",
-      },
-      {
-        contractAddress: "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a",
-        tokenId: "0",
-        tokenType: "ERC721",
-      },
-    ]);
-  }, [concatArray]);
+    const tryMe = async () => {
+      if (alchemyArray.length != 0) {
+        console.log("dosfujhnsduovbsbdlvhsdbvhcxbvjxwbvihsdq", alchemyArray);
+        try {
+          const res = await alchemy.nft.getNftMetadataBatch(alchemyArray, {
+            refreshCache: false,
+          });
+          console.log(res);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    tryMe();
+  }, [alchemyArray]);
   useEffect(() => {
     const web3Instance = new Web3(
       new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
