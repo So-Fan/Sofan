@@ -4,11 +4,16 @@ import { v4 as uuidv4 } from "uuid";
 import Web3 from "web3";
 import useEth from "../../contexts/EthContext/useEth";
 import { Alchemy, Network } from "alchemy-sdk";
+import { concatStringFromTo } from "../../Utils/concatString";
+import { fr } from "date-fns/locale";
+import { formatDistanceToNow } from "date-fns";
 const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [concatArray, setConcatArray] = useState([]);
+  const [alchemyArray, setAlchemyArray] = useState([]);
 
   const [AllTx, setAllTx] = useState([]);
   const [AllSofanCollection, setAllSofanCollection] = useState([]);
+  const [allErc721Event, setAllErc721Event] = useState([]);
   const [web3Instance, setWeb3Instance] = useState();
   const { marketplaceAddress } = useEth();
 
@@ -24,6 +29,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       console.log(AllTx);
       console.log(AllSofanCollection);
       let tempConcatArray = [];
+      let tempAlchemyArray = [];
       for (let i = 0; i < AllTx.result.length; i++) {
         const txElement = AllTx.result[i];
         // Handle Collection specific tx
@@ -54,8 +60,26 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               quantity: decodedParams.quantity,
               usdcValue: decodedParams.value,
             };
-            // Peut etre array séparé pour les mint puis push mintArray Elem en fonction du timestamp dans tempConcatArray
-            tempConcatArray.push(tempObj);
+
+            console.log(allErc721Event);
+            for (let i = 0; i < allErc721Event.result.length; i++) {
+              const allErc721EventElement = allErc721Event.result[i];
+              if (
+                txElement.hash.toLowerCase() ===
+                allErc721EventElement.hash.toLowerCase()
+              ) {
+                let tempObjForAlchemy = {
+                  contractAddress: txElement.to,
+                  tokenId: allErc721EventElement.tokenID,
+                  tokenType: "ERC721",
+                };
+                tempAlchemyArray.push(tempObjForAlchemy);
+                tempConcatArray.push({
+                  ...tempObj,
+                  tokenId: allErc721EventElement.tokenID,
+                });
+              }
+            }
           } else if (
             collectionAddressElement.toLowerCase() ===
               txElement.to.toLowerCase() &&
@@ -176,7 +200,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           );
           let tempObj = {
             ...txElement,
-            functionName: "Accept Bid",
+            functionName: "Sell",
             tokenId: decodedParams._tokenId,
             offerPrice: decodedParams._offerPrice,
           };
@@ -194,12 +218,38 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           let tempObj = { ...txElement, functionName: "placeBid" };
         }
       }
-      console.log(tempConcatArray);
+      console.log("before", tempConcatArray);
+      if (tempConcatArray) {
+        for (let i = 0; i < tempConcatArray.length; i++) {
+          const element = tempConcatArray[i];
+          element.from = concatStringFromTo(element.from, 1, 5, true, true, 6);
+          element.to = concatStringFromTo(element.to, 1, 5, true, true, 6);
+          element.timeStamp = formatDistanceToNow(element.timeStamp * 1000, {
+            locale: fr,
+            addSuffix: true,
+          });
+          element.timeStamp = element.timeStamp.replace("environ ", "");
+        }
+      }
+      console.log("after", tempConcatArray);
       setConcatArray(tempConcatArray);
     }
   }, [AllTx, AllSofanCollection]);
-  useEffect(() => {
+  useMemo(() => {
     // TODO: call API pour image, collection name, prix
+
+    alchemy.nft.getNftMetadataBatch([
+      {
+        contractAddress: "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a",
+        tokenId: "1",
+        tokenType: "ERC721",
+      },
+      {
+        contractAddress: "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a",
+        tokenId: "0",
+        tokenType: "ERC721",
+      },
+    ]);
   }, [concatArray]);
   useEffect(() => {
     const web3Instance = new Web3(
@@ -221,6 +271,12 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       const fetchAllTx = await fetch(
         `https://api-goerli.etherscan.io/api?module=account&action=txlist&address=${currentProfileUserWallet}&startblock=9458446&endblock=99999999&page=1&offset=25&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       );
+      const fetchAllErc721TransferEvent = await fetch(
+        `https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&address=${currentProfileUserWallet}&page=1&offset=25&startblock=9458446&endblock=99999999&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+      );
+      const dataAllErc721TransferEvent =
+        await fetchAllErc721TransferEvent.json();
+      setAllErc721Event(dataAllErc721TransferEvent);
       const dataAllTx = await fetchAllTx.json();
       setAllTx(dataAllTx);
     };
