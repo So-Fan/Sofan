@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./HeadOfPost.css";
 import "./HeadOfPostNoMediaQueries.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
@@ -30,12 +30,16 @@ function HeadOfPost({
   isMediaQueriesFullPagePostDisabled,
   handleClickCopyPostLink,
   fullPagePostPageStyle,
+  loggedInUserId,
+  isFullPagePostModalDisplay,
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
   // ]);
   const [postCreatorData, setPostCreatorData] = useState(null);
   const [dropdownStates, setDropdownStates] = useState({});
+  const [dropDownStatesFullPagePostModal, setDropDownStatesFullPagePostModal] =
+    useState();
   const navigate = useNavigate();
   // const handleDropdownPostFeedClick = (idPost) => {
   //   setDropdownStates((prev) => ({
@@ -45,15 +49,22 @@ function HeadOfPost({
   // };
   const handleDropdownPostFeedClick = (id) => {
     // console.log("id:", id);
-    setDropdownStates((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    if (isFullPagePostModalDisplay) {
+      console.log("fullpagepost actif !!");
+      setDropDownStatesFullPagePostModal(true);
+    } else {
+      setDropDownStatesFullPagePostModal(false);
+      setDropdownStates((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
+    }
   };
   useEffect(() => {
     function handleClickOutside(event) {
       const dropdownMenu = document.getElementById(`${id}`);
       const dropdownButton = document.getElementById(`${id}`);
+      const dropdownMenuFullPagePost = document.getElementById(`${id}`);
       if (
         dropdownMenu &&
         dropdownButton &&
@@ -64,6 +75,21 @@ function HeadOfPost({
           ...prev,
           [id]: false,
         }));
+      }
+      // if (
+      //   dropdownMenuFullPagePost &&
+      //   !dropdownMenuFullPagePost.contains(event.target)
+      // ) {
+      //   setDropDownStatesFullPagePostModal(false);
+      // }
+      // console.log(
+      //   "ye ne gombran ba",
+      //   dropdownMenuFullPagePost.contains(event.target)
+      // );
+      // console.log(dropdownMenuFullPagePost);
+      console.log(event.target.className);
+      if (event.target.className !== "dropdown-button-publication") {
+        setDropDownStatesFullPagePostModal(false);
       }
     }
 
@@ -112,7 +138,9 @@ function HeadOfPost({
   postDate = postDate.replace("environ ", "");
   // console.log("dropdownStates:", dropdownStates);
   // console.log("id:", id);
-
+  // useEffect(() => {
+  //   console.log('dropdownStates in HeadOfPost:', dropdownStates);
+  // }, [dropdownStates]);
   return (
     <div
       className={
@@ -198,8 +226,22 @@ function HeadOfPost({
             <DropDownMenu
               postCreatorId={postCreatorId}
               id={id}
+              loggedInUserId={loggedInUserId}
               handleClickCopyPostLink={handleClickCopyPostLink}
               fullPagePostPageStyle={fullPagePostPageStyle}
+              dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
+            />
+          </>
+        )}
+        {dropDownStatesFullPagePostModal && (
+          <>
+            <DropDownMenu
+              postCreatorId={postCreatorId}
+              id={id}
+              loggedInUserId={loggedInUserId}
+              handleClickCopyPostLink={handleClickCopyPostLink}
+              fullPagePostPageStyle={fullPagePostPageStyle}
+              dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
             />
           </>
         )}

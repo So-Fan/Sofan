@@ -61,7 +61,7 @@
   text-align: center;
   background-color: white;
 }
-.dropdown-menu-container-fullpagepost-page a {
+.dropdown-menu-container-fullpagepost-page a, .dropdown-menu-container a {
   text-decoration: none;
   color: black;
 }

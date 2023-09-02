@@ -7,6 +7,7 @@ import PostsDescription from "../../Components/PostsComponents/PostsDescription/
 import PostsComments from "../../Components/PostsComponents/PostsComments/PostsComments";
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import PollPost from "../../Components/PostsComponents/PollPost/PollPost";
+import DropDownMenu from "../../Components/PostsComponents/DropDownMenu/DropDownMenu";
 
 function FullPagePost({
   id,
@@ -28,7 +29,11 @@ function FullPagePost({
   isPostClicked,
   setIsPostClicked,
   fullPagePostPageStyle,
-  handleClickCopyPostLink
+  handleClickCopyPostLink,
+  isDropdownClicked,
+  isFullPagePostModalDisplay,
+  // handleDropdownPostFeedClick,
+
 }) {
   const [
     isMediaQueriesFullPagePostDisabled,
@@ -126,7 +131,11 @@ function FullPagePost({
       );
     }
   }
-  console.log("id:", id);
+  // console.log("id:", id);
+  function handleDropdownPostFeedClick() {
+    console.log("je m'appelle rami");
+  }
+  // console.log(loggedInUserId);
   return (
     <>
       <div
@@ -146,10 +155,9 @@ function FullPagePost({
           style={
             fullPagePostPageStyle
               ? {
-                boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.2)",
+                  boxShadow: "0px 0px 12px rgba(0, 0, 0, 0.2)",
                   border: "solid 2px #f6d463",
                   borderRadius: "10px",
-                  
                 }
               : {}
           }
@@ -185,6 +193,7 @@ function FullPagePost({
                   : "bloc-content-fullpagepost"
               }
             >
+              {isDropdownClicked && <DropDownMenu id={id} />}
               <div
                 className={
                   isMediaQueriesFullPagePostDisabled
@@ -195,7 +204,6 @@ function FullPagePost({
               >
                 <HeadOfPost
                   fullPagePostPageStyle={fullPagePostPageStyle}
-                  handleClickCopyPostLink={handleClickCopyPostLink}
                   setPostStates={setPostStates}
                   postName={postName}
                   //
@@ -205,9 +213,10 @@ function FullPagePost({
                   publicationTypeHeadOfPostPollPost="publication-type-pollpost"
                   athleteNamePollPost="athlete-name-publication-pollpost"
                   agePublicationPollPost="age-publication-pollpost"
-                  // handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+                  handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                   id={id}
                   postCreatorId={postCreatorId}
+                  loggedInUserId={loggedInUserId}
                   //
                   postDate={postDate}
                   postDateType={postDateType}
@@ -216,6 +225,8 @@ function FullPagePost({
                   isMediaQueriesFullPagePostDisabled={
                     isMediaQueriesFullPagePostDisabled
                   }
+                  handleClickCopyPostLink={handleClickCopyPostLink}
+                  isFullPagePostModalDisplay={isFullPagePostModalDisplay}
                 />
               </div>
               <PostsDescription

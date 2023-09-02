@@ -7,10 +7,12 @@ function DropDownMenu({
   handleClickCopyPostLink,
   fullPagePostPageStyle,
   postCreatorId,
+  loggedInUserId,
+  dropDownStatesFullPagePostModal
 }) {
   // Backend here
   const isOwner = true;
-  console.log(id);
+  // console.log(loggedInUserId);
   return (
     <>
       <section
@@ -35,12 +37,12 @@ function DropDownMenu({
         }
       >
         <ul id={id}>
-          {isOwner && (
+          {/* {postCreatorId == loggedInUserId && ( */}
             <>
               <li>Supprimer</li>
               <div className="separation-line-dropdown-menu"></div>
             </>
-          )}
+          {/* )} */}
           <li onClick={() => handleClickCopyPostLink(id)}>Copier le lien</li>
           <div className="separation-line-dropdown-menu"></div>
           <a target="blank" href={`/athleteprofile/${postCreatorId}`}>

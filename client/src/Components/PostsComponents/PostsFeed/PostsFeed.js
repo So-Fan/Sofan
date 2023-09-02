@@ -28,13 +28,13 @@ function PostsFeed({
   postCreatorId,
   //
   pollDateType,
-  pollFirstChoice,
-  pollSecondChoice,
-  pollThirdChoice,
-  pollFourthChoice,
-  pollDate,
-  pollVoteNumbers,
-  pollTotalVote,
+  // pollFirstChoice,
+  // pollSecondChoice,
+  // pollThirdChoice,
+  // pollFourthChoice,
+  // pollDate,
+  // pollVoteNumbers,
+  // pollTotalVote,
   pollFirstChoiceNumber,
   pollSecondChoiceNumber,
   pollThirdChoiceNumber,
@@ -43,7 +43,7 @@ function PostsFeed({
   // setPostStates,
   loggedInUser,
   polldata,
-  singlePostData,
+  // singlePostData,
 }) {
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
@@ -81,7 +81,7 @@ function PostsFeed({
     }
   }
   // console.log("id de postfeed --> ",id)
-  console.log(postCommentNumber)
+  console.log(postCommentNumber);
   return (
     <>
       <div
@@ -197,6 +197,10 @@ function PostsFeed({
             // pollTotalVote={pollTotalVote}
             isPostClicked={isPostClicked}
             setIsPostClicked={setIsPostClicked}
+            handleDropdownPostFeedClick={handleDropdownPostFeedClick}
+            isDropdownClicked={isDropdownClicked}
+            handleClickCopyPostLink={handleClickCopyPostLink}
+            isFullPagePostModalDisplay={true}
             // postType={singlePostData.postType === "normal"}
           />
         </Modal>
