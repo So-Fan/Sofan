@@ -341,15 +341,17 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               }
             }
             // console.log("tempArray", tempArray);
-            const sumOfUsdcValues = tempArray.reduce((sum, current) => {
-              return sum + parseInt(current.value);
-            }, 0);
-            // console.log(sumOfUsdcValues);
-            const tempObj = {
-              ...tempConcatArrayElement,
-              usdc: sumOfUsdcValues.toString(),
-            };
-            tempConcatArray[i] = tempObj;
+            if (tempArray.length != 0) {
+              const sumOfUsdcValues = tempArray.reduce((sum, current) => {
+                return sum + parseInt(current.value);
+              }, 0);
+              // console.log(sumOfUsdcValues);
+              const tempObj = {
+                ...tempConcatArrayElement,
+                usdc: sumOfUsdcValues.toString(),
+              };
+              tempConcatArray[i] = tempObj;
+            }
           }
           setFinal(tempConcatArray);
           console.log(tempConcatArray);
