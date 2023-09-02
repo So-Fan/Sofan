@@ -10,6 +10,7 @@ function AddCommentInput({
   inputCommentPublicationPollPost,
   publishButtonAddCommentPollPost,
   isMediaQueriesFullPagePostDisabled,
+  postFeedHomeStyle,
 }) {
   const [focusInputComment, setFocusInputComment] = useState();
   const [blurInputComment, setBlurInputComment] = useState();
@@ -36,6 +37,8 @@ function AddCommentInput({
         className={
           isMediaQueriesFullPagePostDisabled
             ? `input-comment-elements-no-media-queries ${inputCommentElementsPollPost}-no-media-queries`
+            : postFeedHomeStyle
+            ? `input-comment-elements-home-responsive ${inputCommentElementsPollPost}`
             : `input-comment-elements ${inputCommentElementsPollPost}`
         }
         style={
@@ -64,26 +67,14 @@ function AddCommentInput({
             </svg>
           </a> */}
         </div>
-
-        {/* <TextareaAutosize
-          ref={textareaRef}
-          placeholder="Publiez un commentaire..."
-          className={
-            isMediaQueriesFullPagePostDisabled
-              ? `input-comment-publication-no-media-queries ${inputCommentPublicationPollPost}-no-media-queries`
-              : `input-comment-publication ${inputCommentPublicationPollPost}`
-          }
-          type="text"
-          onChange={handleChangeInputComment}
-          onFocus={handleFocusInputComment}
-          onBlur={handleBlurInputComment}
-        /> */}
         <textarea
           ref={textareaRef}
           placeholder="Publiez un commentaire..."
           className={
             isMediaQueriesFullPagePostDisabled
               ? `input-comment-publication-no-media-queries ${inputCommentPublicationPollPost}-no-media-queries`
+              : postFeedHomeStyle
+              ? `input-comment-publication ${inputCommentPublicationPollPost} input-comment-publication-home-responsive`
               : `input-comment-publication ${inputCommentPublicationPollPost}`
           }
           type="text"

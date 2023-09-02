@@ -33,7 +33,7 @@ function FullPagePost({
   isDropdownClicked,
   isFullPagePostModalDisplay,
   // handleDropdownPostFeedClick,
-
+  fullPagePostModalStyle,
 }) {
   const [
     isMediaQueriesFullPagePostDisabled,
@@ -227,6 +227,7 @@ function FullPagePost({
                   }
                   handleClickCopyPostLink={handleClickCopyPostLink}
                   isFullPagePostModalDisplay={isFullPagePostModalDisplay}
+                  fullPagePostModalStyle={fullPagePostModalStyle}
                 />
               </div>
               <PostsDescription
@@ -257,6 +258,8 @@ function FullPagePost({
                   isMediaQueriesFullPagePostDisabled={
                     isMediaQueriesFullPagePostDisabled
                   }
+                  fullPagePostModalStyle={fullPagePostModalStyle}
+                  fullPagePostPageStyle={fullPagePostPageStyle}
                 />
               </div>
               <div

@@ -84,7 +84,11 @@
   background-color: #f7c520;
   transition: 500ms;
 }
-
+@media (max-height: 900px) {
+  .publication-head-right-container{
+    padding-right: 25px;
+  }
+}
 @media (max-width: 1450px) {
   .publication-head-left-container {
     width: 45%;

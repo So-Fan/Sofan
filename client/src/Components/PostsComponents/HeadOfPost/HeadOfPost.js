@@ -32,6 +32,7 @@ function HeadOfPost({
   fullPagePostPageStyle,
   loggedInUserId,
   isFullPagePostModalDisplay,
+  fullPagePostModalStyle,
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
@@ -50,8 +51,7 @@ function HeadOfPost({
   const handleDropdownPostFeedClick = (id) => {
     // console.log("id:", id);
     if (isFullPagePostModalDisplay) {
-      console.log("fullpagepost actif !!");
-      setDropDownStatesFullPagePostModal(true);
+      setDropDownStatesFullPagePostModal(!dropDownStatesFullPagePostModal);
     } else {
       setDropDownStatesFullPagePostModal(false);
       setDropdownStates((prev) => ({
@@ -76,18 +76,6 @@ function HeadOfPost({
           [id]: false,
         }));
       }
-      // if (
-      //   dropdownMenuFullPagePost &&
-      //   !dropdownMenuFullPagePost.contains(event.target)
-      // ) {
-      //   setDropDownStatesFullPagePostModal(false);
-      // }
-      // console.log(
-      //   "ye ne gombran ba",
-      //   dropdownMenuFullPagePost.contains(event.target)
-      // );
-      // console.log(dropdownMenuFullPagePost);
-      console.log(event.target.className);
       if (event.target.className !== "dropdown-button-publication") {
         setDropDownStatesFullPagePostModal(false);
       }
@@ -136,11 +124,6 @@ function HeadOfPost({
     addSuffix: true,
   });
   postDate = postDate.replace("environ ", "");
-  // console.log("dropdownStates:", dropdownStates);
-  // console.log("id:", id);
-  // useEffect(() => {
-  //   console.log('dropdownStates in HeadOfPost:', dropdownStates);
-  // }, [dropdownStates]);
   return (
     <div
       className={
@@ -220,6 +203,7 @@ function HeadOfPost({
           handleDropdownPostFeedClick={handleDropdownPostFeedClick}
           dropDownMenuSize={dropDownMenuSize}
           id={id}
+          fullPagePostModalStyle={fullPagePostModalStyle}
         />
         {dropdownStates[id] && (
           <>
@@ -230,6 +214,7 @@ function HeadOfPost({
               handleClickCopyPostLink={handleClickCopyPostLink}
               fullPagePostPageStyle={fullPagePostPageStyle}
               dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
+              fullPagePostModalStyle={fullPagePostModalStyle} // à voir si ça créer des conflits de css
             />
           </>
         )}
@@ -242,6 +227,7 @@ function HeadOfPost({
               handleClickCopyPostLink={handleClickCopyPostLink}
               fullPagePostPageStyle={fullPagePostPageStyle}
               dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
+              fullPagePostModalStyle={fullPagePostModalStyle}
             />
           </>
         )}

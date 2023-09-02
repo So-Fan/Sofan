@@ -17,6 +17,8 @@ function LikeButton({
   // setIsPostClicked,
   // isPostClicked,
   isMediaQueriesFullPagePostDisabled,
+  fullPagePostModalStyle,
+  fullPagePostPageStyle
 }) {
   const [isPostLiked, setIsPostedLiked] = useState(false);
 
@@ -95,6 +97,8 @@ function LikeButton({
         className={
           isMediaQueriesFullPagePostDisabled
             ? `logo-likes-no-media-queries ${likeButtonSizePollPost}`
+            : fullPagePostModalStyle || fullPagePostPageStyle
+            ? `logo-likes-fullpagepost-modal-and-page ${likeButtonSizePollPost}`
             : `logo-likes ${likeButtonSizePollPost}`
         }
       >

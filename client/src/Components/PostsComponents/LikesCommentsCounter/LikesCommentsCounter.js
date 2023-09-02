@@ -20,6 +20,8 @@ function LikesCommentsCounter({
   isPostClicked,
   fullPagePostLikesCommentsCounterStyle,
   isMediaQueriesFullPagePostDisabled,
+  fullPagePostModalStyle,
+  fullPagePostPageStyle,
 }) {
   const [pluralLikes, setPluralLikes] = useState();
   useEffect(() => {
@@ -28,15 +30,6 @@ function LikesCommentsCounter({
     } else {
       setPluralLikes(false);
     }
-    // if (fullPagePostLikesCommentsCounterStyle) {
-    //   fullPagePostLikesCommentsCounterStyle = {
-    //     firstDiv: "likes-comments-container-publication-fullpagepost",
-    //     secondDiv: "likes-button-container-fullpagepost",
-    //   };
-    //   console.log(fullPagePostLikesCommentsCounterStyle?.firstDiv)
-    // } else {
-    //   fullPagePostLikesCommentsCounterStyle = {};
-    // }
   }, []);
 
   return (
@@ -63,7 +56,11 @@ function LikesCommentsCounter({
           likeButtonSize={"likeButton-M-size"}
           postId={postId}
           loggedInUserId={loggedInUserId}
-          isMediaQueriesFullPagePostDisabled={isMediaQueriesFullPagePostDisabled}
+          isMediaQueriesFullPagePostDisabled={
+            isMediaQueriesFullPagePostDisabled
+          }
+          fullPagePostModalStyle={fullPagePostModalStyle}
+          fullPagePostPageStyle={fullPagePostPageStyle}
           // likeButtonContainerPollPost={likeButtonContainerPollPost}
         />
         <div
@@ -82,6 +79,8 @@ function LikesCommentsCounter({
         className={
           isMediaQueriesFullPagePostDisabled
             ? `comments-publication-no-media-queries ${commentPublicationPollPost}-no-media-queries`
+            : fullPagePostModalStyle || fullPagePostPageStyle
+            ? `comments-publication-fullpagepost-modal-and-page ${commentPublicationPollPost}`
             : `comments-publication ${commentPublicationPollPost}`
         }
       >
@@ -89,6 +88,8 @@ function LikesCommentsCounter({
           className={
             isMediaQueriesFullPagePostDisabled
               ? `logo-comments-publication-no-media-queries ${logoCommentsPublicationPollPost}-no-media-queries`
+              : fullPagePostModalStyle || fullPagePostPageStyle
+              ? `logo-comments-publication-fullpagepost-modal-and-page ${logoCommentsPublicationPollPost}`
               : `logo-comments-publication ${logoCommentsPublicationPollPost}`
           }
         >
@@ -113,7 +114,9 @@ function LikesCommentsCounter({
               : `comments-counter-publication ${commentsCounterPublicationPollPost}`
           }
         >
-          <Link onClick={setIsPostClicked}>{postCommentNumber} comments</Link>
+          <Link onClick={setIsPostClicked}>
+            {postCommentNumber} comments
+          </Link>
         </div>
       </div>
     </div>

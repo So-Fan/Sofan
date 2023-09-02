@@ -63,6 +63,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 80%;
+    overflow: hidden;
   }
   /* .favAthlete-responsive-container > a  {
     background-color: #f6d46352;

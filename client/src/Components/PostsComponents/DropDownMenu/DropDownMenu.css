@@ -67,6 +67,16 @@
 }
 .separation-line-dropdown-menu {
   width: 90%;
-  border: 0.3px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 0.3px solid rgba(0, 0, 0, 0.2);
   opacity: 0.5;
+}
+@media (max-width: 1450px) {
+.dropdown-menu-container{
+  font-size: 0.7rem;
+  width: 80px;
+  border-radius: 10px;
+}
+.dropdown-menu-container li{
+  height: 24px;
+}
 }
