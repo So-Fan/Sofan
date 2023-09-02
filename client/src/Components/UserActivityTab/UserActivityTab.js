@@ -29,7 +29,8 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     if (
       AllTx.length != 0 &&
       AllSofanCollection.length != 0 &&
-      allErc721Event.length != 0
+      allErc721Event.length != 0 &&
+      allErc20Event.length != 0
     ) {
       console.log(AllTx);
       console.log(AllSofanCollection);
@@ -222,7 +223,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               tempConcatArray.push({
                 ...tempObj,
                 tokenId: allErc721EventElement.tokenID,
-                nftContract: txElement.contractAddress,
+                nftContract: allErc721EventElement.contractAddress,
               });
             }
           }
@@ -290,7 +291,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       setConcatArray(tempConcatArray);
       setAlchemyArray(tempAlchemyArray);
     }
-  }, [AllTx, AllSofanCollection, allErc721Event]);
+  }, [AllTx, AllSofanCollection, allErc721Event, allErc20Event]);
   useMemo(() => {
     // TODO: call API pour image, collection name, prix
     const tryMe = async () => {
@@ -322,6 +323,33 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 tempConcatArray[i] = tempobj;
               }
             }
+          }
+
+          for (let i = 0; i < tempConcatArray.length; i++) {
+            const tempConcatArrayElement = tempConcatArray[i];
+            const tempArray = [];
+            console.log("tempCVsdfArray", allErc20Event.result.length);
+            for (let i = 0; i < allErc20Event.result.length; i++) {
+              const allErc20Element = allErc20Event.result[i];
+              console.log(i);
+              if (
+                tempConcatArrayElement.hash.toLowerCase() ===
+                allErc20Element.hash.toLowerCase()
+              ) {
+                console.log("push");
+                tempArray.push(allErc20Element);
+              }
+            }
+            // console.log("tempArray", tempArray);
+            const sumOfUsdcValues = tempArray.reduce((sum, current) => {
+              return sum + parseInt(current.value);
+            }, 0);
+            // console.log(sumOfUsdcValues);
+            const tempObj = {
+              ...tempConcatArrayElement,
+              usdc: sumOfUsdcValues.toString(),
+            };
+            tempConcatArray[i] = tempObj;
           }
           setFinal(tempConcatArray);
           console.log(tempConcatArray);
@@ -411,7 +439,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   </div>
                   <div className="useractivitytab-content-container-price-container">
                     <div className="useractivitytab-content-container-price-wrap">
-                      <span>{"Price"} ETH</span>
+                      <span>{tx?.usdc ? tx.usdc : "--"} €</span>
                       <span>
                         {/* {(
                       apiNftData[index]?.contract?.openSea?.floorPrice *
@@ -419,7 +447,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     ).toLocaleString("fr-FR", {
                       maximumFractionDigits: 1,
                     })} */}
-                        €
+                        {tx?.usdc ? "equivalent" : "--"} ETH
                       </span>
                     </div>
                   </div>
