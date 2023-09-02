@@ -237,6 +237,7 @@ function Home({
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                       isDropdownClicked={isDropdownClicked}
                       handleClickCopyPostLink={handleClickCopyPostLink}
+                      postFeedHomeStyle={true}
                     />
                   );
                 })}

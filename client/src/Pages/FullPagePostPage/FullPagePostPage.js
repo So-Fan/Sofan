@@ -53,7 +53,6 @@ function FullPagePostPage({ dataPost, isLogged, postType }) {
       {fullpagePostPageData.length !== 0 && (
         <FullPagePost
           key={uuidv4()}
-          fullPagePostPageStyle={true}
           id={postId}
           postType={fullpagePostPageData[0]?.visibility}
           postDate={fullpagePostPageData[0]?.createdAt.seconds}
@@ -69,6 +68,7 @@ function FullPagePostPage({ dataPost, isLogged, postType }) {
           postPicture={fullpagePostPageData[0]?.imagePath}
           polldata={fullpagePostPageData[0]?.pollData}
           handleClickCopyPostLink={handleClickCopyPostLink}
+          fullPagePostPageStyle={true}
         />
       )}
     </div>

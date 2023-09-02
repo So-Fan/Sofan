@@ -8,7 +8,8 @@ function DropDownMenu({
   fullPagePostPageStyle,
   postCreatorId,
   loggedInUserId,
-  dropDownStatesFullPagePostModal
+  // dropDownStatesFullPagePostModal,
+  fullPagePostModalStyle,
 }) {
   // Backend here
   const isOwner = true;
@@ -19,7 +20,9 @@ function DropDownMenu({
         id={id}
         style={
           fullPagePostPageStyle
-            ? { top: "24%", right: "16%" }
+            ? { top: "25%", right: "12.5%" }
+            : fullPagePostModalStyle
+            ? { top: "9%", right: "2%" }
             : dropdownStates && id && dropdownStates[id]
             ? {
                 top: "95%",
@@ -38,10 +41,10 @@ function DropDownMenu({
       >
         <ul id={id}>
           {/* {postCreatorId == loggedInUserId && ( */}
-            <>
-              <li>Supprimer</li>
-              <div className="separation-line-dropdown-menu"></div>
-            </>
+          <>
+            <li>Supprimer</li>
+            <div className="separation-line-dropdown-menu"></div>
+          </>
           {/* )} */}
           <li onClick={() => handleClickCopyPostLink(id)}>Copier le lien</li>
           <div className="separation-line-dropdown-menu"></div>

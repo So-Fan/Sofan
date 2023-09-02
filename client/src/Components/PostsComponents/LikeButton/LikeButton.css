@@ -7,6 +7,9 @@
 .logo-likes {
   width: 30px;
 }
+.logo-likes-fullpagepost-modal-and-page {
+  width: 30px;
+}
 
 @media (max-width: 1050px) {
   .logo-likes svg {
@@ -17,10 +20,16 @@
     /* background-color: red; */
     width: 22px;
   }
+  .logo-likes-fullpagepost-modal-and-page svg {
+    width: 15px;
+  }
   .logo-likes-pollpost svg {
     width: 22px !important;
   }
   .logo-likes {
-    width: 5px;
+    width: 35px;
+  }
+  .logo-likes-fullpagepost-modal-and-page {
+    width: 10px;
   }
 }

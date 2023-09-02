@@ -40,6 +40,9 @@ const Navbar = ({
   const [isPageLaunchpadDisplay, setIsPageLaunchpadDisplay] = useState(false);
   // const navigate = useNavigate();
   const location = useLocation();
+  const segments = location.pathname.split("/");
+  const path = segments[1];
+  // console.log(path)
   // console.log(location.pathname);
   function handleSignInButtonClick() {
     // navigate('/login'); // redirect to signin popup
@@ -125,85 +128,104 @@ const Navbar = ({
     `}
         </style>
       )}
-      <section className="navbar-section">
-        <div className="navbar-wrap">
-          <div className="navbar-wrap-1">
-            <Link to="/">
-              <img className="navbar-main-logo" src={SofanLogo2} alt="Sofan" />
-            </Link>
-            <Searchbar />
-          </div>
-          <div
-            className={
-              isLogged && Object.keys(isLogged).length > 0
-                ? "navbar-wrap-2"
-                : "navbar-wrap-2-unauthenticated"
-            }
-          >
-            {/* <NavLink location={location} name="Feed" link="/" /> */}
-            <Link className="navbar-navicon" to="/">
+      {path === "post" ? (
+        <>
+          <Link to="/">
+            <img
+              style={{ marginTop: "60px", width: "200px" }}
+              className="navbar-main-logo"
+              src={SofanLogo2}
+              alt="Sofan"
+            />
+          </Link>
+        </>
+      ) : (
+        <>
+          <section className="navbar-section">
+            <div className="navbar-wrap">
+              <div className="navbar-wrap-1">
+                <Link to="/">
+                  <img
+                    className="navbar-main-logo"
+                    src={SofanLogo2}
+                    alt="Sofan"
+                  />
+                </Link>
+                <Searchbar />
+              </div>
               <div
                 className={
-                  isPageHomeDisplay
-                    ? "navbar-navicon-name-active-home"
-                    : "navbar-navicon-name"
+                  isLogged && Object.keys(isLogged).length > 0
+                    ? "navbar-wrap-2"
+                    : "navbar-wrap-2-unauthenticated"
                 }
               >
-                Feed
+                {/* <NavLink location={location} name="Feed" link="/" /> */}
+                <Link className="navbar-navicon" to="/">
+                  <div
+                    className={
+                      isPageHomeDisplay
+                        ? "navbar-navicon-name-active-home"
+                        : "navbar-navicon-name"
+                    }
+                  >
+                    Feed
+                  </div>
+                </Link>
+                <Link className="navbar-navicon" to="/Launchpad">
+                  <div
+                    className={
+                      isPageLaunchpadDisplay
+                        ? "navbar-navicon-name-active-launchpad"
+                        : "navbar-navicon-name"
+                    }
+                  >
+                    Launchpad
+                  </div>
+                </Link>
+                {/* <NavLink location={location} name="Launchpad" link="/Launchpad" /> */}
+                {isLogged && Object.keys(isLogged).length > 0 ? (
+                  <div className="navbar-wrap-2-subwrap-navicon-and-navprofile">
+                    <div className="navbar-wrap-2-navicon-wrap">
+                      <div className="navbar-vertical"></div>
+                      <NavIcon
+                        isNotificationsRead={isNotificationsRead}
+                        handleNotificationPopup={handleNotificationPopup}
+                        src={notification}
+                      />
+                      <div className="navbar-vertical"></div>
+                    </div>
+                    <NavProfile
+                      userInfo={isLogged}
+                      isProfileClicked={isProfileClicked}
+                      src={isLogged.profile_avatar}
+                      web3auth={web3auth}
+                    />
+                  </div>
+                ) : (
+                  <div className="navbar-wrap-2-subwrap-sign">
+                    <div className="navbar-wrap-2-subwrap-sign-up-button">
+                      <Button
+                        onClick={handleSignUpButtonClick}
+                        text="S'inscrire"
+                        style={NavbarButtonStyle.signUp}
+                        customMediaQueries={customNavbarButtonMediaQueries}
+                      />
+                    </div>
+                    <div className="navbar-wrap-2-subwrap-sign-in-button">
+                      <Button
+                        onClick={handleSignInButtonClick}
+                        text="Se connecter"
+                        style={NavbarButtonStyle.signIn}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-            </Link>
-            <Link className="navbar-navicon" to="/Launchpad">
-              <div
-                className={
-                  isPageLaunchpadDisplay
-                    ? "navbar-navicon-name-active-launchpad"
-                    : "navbar-navicon-name"
-                }
-              >
-                Launchpad
-              </div>
-            </Link>
-            {/* <NavLink location={location} name="Launchpad" link="/Launchpad" /> */}
-            {isLogged && Object.keys(isLogged).length > 0 ? (
-              <div className="navbar-wrap-2-subwrap-navicon-and-navprofile">
-                <div className="navbar-wrap-2-navicon-wrap">
-                  <div className="navbar-vertical"></div>
-                  <NavIcon
-                    isNotificationsRead={isNotificationsRead}
-                    handleNotificationPopup={handleNotificationPopup}
-                    src={notification}
-                  />
-                  <div className="navbar-vertical"></div>
-                </div>
-                <NavProfile
-                  userInfo={isLogged}
-                  isProfileClicked={isProfileClicked}
-                  src={isLogged.profile_avatar}
-                  web3auth={web3auth}
-                />
-              </div>
-            ) : (
-              <div className="navbar-wrap-2-subwrap-sign">
-                <div className="navbar-wrap-2-subwrap-sign-up-button">
-                  <Button
-                    onClick={handleSignUpButtonClick}
-                    text="S'inscrire"
-                    style={NavbarButtonStyle.signUp}
-                    customMediaQueries={customNavbarButtonMediaQueries}
-                  />
-                </div>
-                <div className="navbar-wrap-2-subwrap-sign-in-button">
-                  <Button
-                    onClick={handleSignInButtonClick}
-                    text="Se connecter"
-                    style={NavbarButtonStyle.signIn}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
+        </>
+      )}
       {isNotificationButtonClicked && (
         <Modal
           setState={setIsNotificationButtonClicked}

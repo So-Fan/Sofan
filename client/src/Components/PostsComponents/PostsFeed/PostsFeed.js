@@ -44,6 +44,7 @@ function PostsFeed({
   loggedInUser,
   polldata,
   // singlePostData,
+  postFeedHomeStyle
 }) {
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
@@ -167,6 +168,7 @@ function PostsFeed({
             emojiCommentPublicationPollPost="emoji-comment-publication-pollpost"
             inputCommentPublicationPollPost="input-comment-publication-pollpost"
             publishButtonAddCommentPollPost="publish-comments-button-container-publication-pollpost"
+            postFeedHomeStyle={postFeedHomeStyle}
           />
         </div>
       </div>
@@ -201,6 +203,7 @@ function PostsFeed({
             isDropdownClicked={isDropdownClicked}
             handleClickCopyPostLink={handleClickCopyPostLink}
             isFullPagePostModalDisplay={true}
+            fullPagePostModalStyle={true}
             // postType={singlePostData.postType === "normal"}
           />
         </Modal>
