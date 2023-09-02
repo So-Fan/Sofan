@@ -20,7 +20,7 @@ function DropDownMenu({
         id={id}
         style={
           fullPagePostPageStyle
-            ? { top: "24%", right: "16%" }
+            ? { top: "25%", right: "12.5%" }
             : fullPagePostModalStyle
             ? { top: "9%", right: "2%" }
             : dropdownStates && id && dropdownStates[id]
