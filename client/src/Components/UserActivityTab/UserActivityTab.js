@@ -14,6 +14,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [AllTx, setAllTx] = useState([]);
   const [AllSofanCollection, setAllSofanCollection] = useState([]);
   const [allErc721Event, setAllErc721Event] = useState([]);
+  const [allErc20Event, setAllErc20Event] = useState([]);
   const [web3Instance, setWeb3Instance] = useState();
   const { marketplaceAddress } = useEth();
 
@@ -25,7 +26,11 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const alchemy = new Alchemy(settings);
 
   useMemo(() => {
-    if (AllTx.length != 0 && AllSofanCollection.length != 0) {
+    if (
+      AllTx.length != 0 &&
+      AllSofanCollection.length != 0 &&
+      allErc721Event.length != 0
+    ) {
       console.log(AllTx);
       console.log(AllSofanCollection);
       let tempConcatArray = [];
@@ -200,15 +205,27 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             ...txElement,
             functionName: "Buy",
             tokenId: decodedParams.tokenId,
-            // nftContract: decodedParams.nftAddress, // correspond à _receiverAddress
           };
-          tempConcatArray.push(tempObj);
-          // let tempObjForAlchemy = {
-          //   contractAddress: decodedParams.nftAddress, // correspond à _receiverAddress
-          //   tokenId: decodedParams.tokenId,
-          //   tokenType: "ERC721",
-          // };
-          // tempAlchemyArray.push(tempObjForAlchemy);
+          // tempConcatArray.push(tempObj);
+          for (let i = 0; i < allErc721Event.result.length; i++) {
+            const allErc721EventElement = allErc721Event.result[i];
+            if (
+              txElement.hash.toLowerCase() ===
+              allErc721EventElement.hash.toLowerCase()
+            ) {
+              let tempObjForAlchemy = {
+                contractAddress: txElement.to,
+                tokenId: allErc721EventElement.tokenID,
+                tokenType: "ERC721",
+              };
+              tempAlchemyArray.push(tempObjForAlchemy);
+              tempConcatArray.push({
+                ...tempObj,
+                tokenId: allErc721EventElement.tokenID,
+                nftContract: txElement.contractAddress,
+              });
+            }
+          }
         }
         if (
           // TODO: only for test. should be replaced by marketplaceAddress.
@@ -273,7 +290,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       setConcatArray(tempConcatArray);
       setAlchemyArray(tempAlchemyArray);
     }
-  }, [AllTx, AllSofanCollection]);
+  }, [AllTx, AllSofanCollection, allErc721Event]);
   useMemo(() => {
     // TODO: call API pour image, collection name, prix
     const tryMe = async () => {
@@ -336,14 +353,23 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       const fetchAllTx = await fetch(
         `https://api-goerli.etherscan.io/api?module=account&action=txlist&address=${currentProfileUserWallet}&startblock=9458446&endblock=99999999&page=1&offset=25&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       );
+      const dataAllTx = await fetchAllTx.json();
+      setAllTx(dataAllTx);
+
       const fetchAllErc721TransferEvent = await fetch(
         `https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&address=${currentProfileUserWallet}&page=1&offset=25&startblock=9458446&endblock=99999999&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       );
       const dataAllErc721TransferEvent =
         await fetchAllErc721TransferEvent.json();
+      console.log(dataAllErc721TransferEvent);
       setAllErc721Event(dataAllErc721TransferEvent);
-      const dataAllTx = await fetchAllTx.json();
-      setAllTx(dataAllTx);
+
+      const fetchAllErc20TransferEvent = await fetch(
+        `https://api-goerli.etherscan.io/api?module=account&action=tokentx&address=${currentProfileUserWallet}&page=1&offset=100&startblock=9458446&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+      );
+      const dataAllErc20TransferEvent = await fetchAllErc20TransferEvent.json();
+      setAllErc20Event(dataAllErc20TransferEvent);
+      console.log(dataAllErc20TransferEvent);
     };
     load();
   }, []);
@@ -371,7 +397,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   className="useractivitytab-content-container-wrap"
                 >
                   <div className="useractivitytab-content-container-methods-wrap">
-                    <span>{"purut"}</span>
+                    <span>{tx.functionName}</span>
                   </div>
                   <div className="useractivitytab-content-container-nft-wrap">
                     <img
@@ -379,7 +405,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                       alt="nft"
                     />
                     <div className="useractivitytab-content-container-nft-wrap-info-wrap">
-                      <span>{"CollectionName"}</span>
+                      <span>{tx?.title ? tx.title : "CollectionName"}</span>
                       <span>#{tx.tokenId}</span>
                     </div>
                   </div>
