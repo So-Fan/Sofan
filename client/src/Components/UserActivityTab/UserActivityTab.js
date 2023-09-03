@@ -317,7 +317,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               ) {
                 const tempobj = {
                   ...tempConcatArrayElement,
-                  title: alchemyMetadataElement.rawMetadata.name,
+                  title: concatStringFromTo(
+                    alchemyMetadataElement.rawMetadata.name,
+                    28,
+                    28,
+                    true,
+                    false,
+                    0
+                  ),
                   image: alchemyMetadataElement.rawMetadata.image,
                 };
                 tempConcatArray[i] = tempobj;
@@ -465,12 +472,11 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
         <div className="useractivitytab-table-container">
           <div></div>
           <div>NFT</div>
-          <div>Price</div>
-          <div>Quantity</div>
+          <div className="useractivitytab-table-container-price">Price</div>
+          <div className="useractivitytab-table-container-qty">Quantity</div>
           <div></div>
           <div>from</div>
           <div>To</div>
-          <div></div>
           <div>Date</div>
         </div>
         <div className="useractivitytab-content-container">
@@ -501,10 +507,10 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                         {/* {(
                       apiNftData[index]?.contract?.openSea?.floorPrice *
                       ethPrice
-                    ).toLocaleString("fr-FR", {
-                      maximumFractionDigits: 1,
-                    })} */}
-                        {tx?.usdc ? "equivalent" : "--"} ETH
+                        ).toLocaleString("fr-FR", {
+                       maximumFractionDigits: 1,
+                         })} */}
+                        {tx?.usdc ? "0.00" + " ETH" : "--"}
                       </span>
                     </div>
                   </div>
@@ -518,7 +524,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   <div>
                     <span>{tx.to}</span>
                   </div>
-                  <div></div>
+                  {/* <div></div> */}
                   <div>
                     {/* TODO: convert to date */}
                     <span>{tx.timeStamp}</span>

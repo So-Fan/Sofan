@@ -32,7 +32,7 @@ contract SofanNftTemplate is
     mapping(address => uint256) public NftOwned;
     address SofanWallet = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
     address AthleteWallet = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
-    uint256 price;
+    uint256 public price;
     address SofanSplitter = 0xd9145CCE52D386f254917e481eB44e9943F39138;
     // 0x07865c6E87B9F70255377e024ace6630C1Eaa37F 0x98339D8C260052B7ad81c28c16C0b98420f2B46a
     IERC20 public usdc = IERC20(0x07865c6E87B9F70255377e024ace6630C1Eaa37F);
@@ -106,7 +106,7 @@ contract SofanNftTemplate is
         // A changer avec transferFrom du contrat USDC
         bool success = usdc.transferFrom(msg.sender, address(this), _amount);
         require(success, "Transction was not successful");
-        
+
         uint256 toAthleteTemp = SafeMath.mul(_amount, 80);
         uint256 toAthlete = SafeMath.div(toAthleteTemp, 100);
         bool success2 = usdc.transfer(AthleteWallet, toAthlete);
@@ -179,12 +179,9 @@ contract SofanNftTemplate is
      *
      * - Cannot get the URI of unexistent tokenID.
      */
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override
-        returns (string memory)
-    {
+    function tokenURI(
+        uint256 tokenId
+    ) public view override returns (string memory) {
         if (!_exists(tokenId)) revert URIQueryForNonexistentToken();
 
         string memory baseURI = _baseURI();
@@ -213,13 +210,9 @@ contract SofanNftTemplate is
         emit IERC721A.Approval(owner, to, tokenId);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(ERC2981, ERC721A)
-        returns (bool)
-    {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(ERC2981, ERC721A) returns (bool) {
         return
             interfaceId == type(IERC2981).interfaceId ||
             interfaceId == 0x01ffc9a7 ||
@@ -229,28 +222,25 @@ contract SofanNftTemplate is
     }
 
     //ERC2981
-    function setRoyaltyInfo(address _receiver, uint96 _royaltyFeesInBips)
-        public
-        onlyOwner
-    {
+    function setRoyaltyInfo(
+        address _receiver,
+        uint96 _royaltyFeesInBips
+    ) public onlyOwner {
         _setDefaultRoyalty(_receiver, _royaltyFeesInBips);
     }
 
     // Opensea
-    function setApprovalForAll(address operator, bool approved)
-        public
-        override
-        onlyAllowedOperatorApproval(operator)
-    {
+    function setApprovalForAll(
+        address operator,
+        bool approved
+    ) public override onlyAllowedOperatorApproval(operator) {
         super.setApprovalForAll(operator, approved);
     }
 
-    function approve(address operator, uint256 tokenId)
-        public
-        payable
-        override
-        onlyAllowedOperatorApproval(operator)
-    {
+    function approve(
+        address operator,
+        uint256 tokenId
+    ) public payable override onlyAllowedOperatorApproval(operator) {
         super.approve(operator, tokenId);
     }
 
