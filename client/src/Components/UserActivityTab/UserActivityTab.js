@@ -7,6 +7,7 @@ import { Alchemy, Network } from "alchemy-sdk";
 import { concatStringFromTo } from "../../Utils/concatString";
 import { fr } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
+import copyLogo from "../../Assets/Image/copy-logo.svg";
 const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
@@ -278,13 +279,19 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       if (tempConcatArray) {
         for (let i = 0; i < tempConcatArray.length; i++) {
           const element = tempConcatArray[i];
-          element.from = concatStringFromTo(element.from, 1, 4, true, true, 5);
-          element.to = concatStringFromTo(element.to, 1, 4, true, true, 5);
+          // element.from = concatStringFromTo(element.from, 1, 4, true, true, 5);
+          // element.to = concatStringFromTo(element.to, 1, 4, true, true, 5);
           element.timeStamp = formatDistanceToNow(element.timeStamp * 1000, {
             locale: fr,
             addSuffix: true,
           });
           element.timeStamp = element.timeStamp.replace("environ ", "");
+          const tempObj = {
+            ...element,
+            fromDisplay: concatStringFromTo(element.from, 1, 4, true, true, 5),
+            toDisplay: concatStringFromTo(element.to, 1, 4, true, true, 5),
+          };
+          tempConcatArray[i] = tempObj;
         }
       }
       console.log("after", tempConcatArray);
@@ -319,8 +326,8 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   ...tempConcatArrayElement,
                   title: concatStringFromTo(
                     alchemyMetadataElement.rawMetadata.name,
-                    28,
-                    28,
+                    22,
+                    22,
                     true,
                     false,
                     0
@@ -351,20 +358,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               const sumOfUsdcValues = tempArray.reduce((sum, current) => {
                 return sum + parseInt(current.value);
               }, 0);
-              //
-              // Objectif
-              /*
-                convertir cette somme en valeur monétaire. Arrondir à de décimal.
-                SI 1 USDC alors 1000000 sats =>  Supprimer les six 0.
-                Si 2 USDC alors 2000000 sats => Supprimer les six 0.
-                Si 0.1 USDC alors 100000 sats => supprimer les cinq 0.
-                125684.267565
-                SI longeur > 6 alors slice de 0 a length -6, ajouter une virgule à la fin, a nouveau slice de -6 à length convertir en int puis math.round(2) puis toString => expected output : "X..X,XX"
-                Si longueur = 6 alors ajouter un "0," puis arrondir à 2 => expected output : "0,XX" 
-                Si 5 longueur = 5 alors ajouter "0,0" et arrondir à 1
-                Si longueur < 5 alors afficher ">0"
-              */
-
               console.log(sumOfUsdcValues.toString().length);
               if (sumOfUsdcValues.toString().length > 6) {
                 const beginning = sumOfUsdcValues
@@ -466,6 +459,24 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     load();
   }, []);
 
+  const [
+    isCopyClipboardAddressConfirmWalletClicked,
+    setIsCopyClipboardAddressConfirmWalletClicked,
+  ] = useState(false);
+
+  function handleClickCopyConfirmWallet(e) {
+    navigator.clipboard.writeText(
+      e.target.parentElement.children[0].attributes[0].value
+    );
+    setIsCopyClipboardAddressConfirmWalletClicked(true);
+  }
+  useEffect(() => {
+    const timeoutCopyConfirmWallet = setTimeout(() => {
+      setIsCopyClipboardAddressConfirmWalletClicked(false);
+    }, 3000);
+    return () => clearTimeout(timeoutCopyConfirmWallet);
+  }, [isCopyClipboardAddressConfirmWalletClicked]);
+
   return (
     <>
       <div className="useractivitytab-component">
@@ -515,14 +526,46 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     </div>
                   </div>
                   <div className="useractivitytab-content-container-qty-wrap">
-                    <span>{tx?.quantity}</span>
+                    <span>{tx?.quantity ? tx.quantity : "1"}</span>
                   </div>
                   <div></div>
                   <div className="useractivitytab-content-container-from-wrap">
-                    <span>{tx.from}</span>
+                    {/* tout le contenu n'est display que si l'adresse n'appartient pas à un compte Sofan
+                    Si l'adresse appartient à un compte Sofan alors il faut display le nom + redirection vers le profil.
+                    */}
+                    <span about={tx.from}>{tx.fromDisplay}</span>
+                    <img
+                      style={{ width: 15, height: 15, marginLeft: 4 }}
+                      onClick={handleClickCopyConfirmWallet}
+                      src={copyLogo}
+                      alt="copy logo"
+                    />
+                    {isCopyClipboardAddressConfirmWalletClicked && (
+                      <>
+                        <div className="signup-user-confirm-wallet-copy-message-confirm">
+                          Copié !
+                        </div>
+                      </>
+                    )}
                   </div>
                   <div>
-                    <span>{tx.to}</span>
+                    {/* tout le contenu n'est display que si l'adresse n'appartient pas à un compte Sofan
+                    Si l'adresse appartient à un compte Sofan alors il faut display le nom + redirection vers le profil.
+                    */}
+                    <span about={tx.to}>{tx.toDisplay}</span>
+                    <img
+                      style={{ width: 15, height: 15, marginLeft: 4 }}
+                      onClick={handleClickCopyConfirmWallet}
+                      src={copyLogo}
+                      alt="copy logo"
+                    />
+                    {isCopyClipboardAddressConfirmWalletClicked && (
+                      <>
+                        <div className="signup-user-confirm-wallet-copy-message-confirm">
+                          Copié !
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/* <div></div> */}
                   <div>
@@ -569,10 +612,10 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   </div>
                   <div></div>
                   <div className="useractivitytab-content-container-from-wrap">
-                    <span>{tx.from}</span>
+                    <span>{tx.fromDisplay}</span>
                   </div>
                   <div>
-                    <span>{tx.to}</span>
+                    <span>{tx.toDisplay}</span>
                   </div>
                   <div></div>
                   <div>
