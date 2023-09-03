@@ -278,8 +278,8 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       if (tempConcatArray) {
         for (let i = 0; i < tempConcatArray.length; i++) {
           const element = tempConcatArray[i];
-          element.from = concatStringFromTo(element.from, 1, 5, true, true, 6);
-          element.to = concatStringFromTo(element.to, 1, 5, true, true, 6);
+          element.from = concatStringFromTo(element.from, 1, 4, true, true, 5);
+          element.to = concatStringFromTo(element.to, 1, 4, true, true, 5);
           element.timeStamp = formatDistanceToNow(element.timeStamp * 1000, {
             locale: fr,
             addSuffix: true,
@@ -328,29 +328,84 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           for (let i = 0; i < tempConcatArray.length; i++) {
             const tempConcatArrayElement = tempConcatArray[i];
             const tempArray = [];
-            console.log("tempCVsdfArray", allErc20Event.result.length);
+            // console.log("tempCVsdfArray", allErc20Event.result.length);
             for (let i = 0; i < allErc20Event.result.length; i++) {
               const allErc20Element = allErc20Event.result[i];
-              console.log(i);
+              // console.log(i);
               if (
                 tempConcatArrayElement.hash.toLowerCase() ===
                 allErc20Element.hash.toLowerCase()
               ) {
-                console.log("push");
+                // console.log("push");
                 tempArray.push(allErc20Element);
               }
             }
-            // console.log("tempArray", tempArray);
             if (tempArray.length != 0) {
               const sumOfUsdcValues = tempArray.reduce((sum, current) => {
                 return sum + parseInt(current.value);
               }, 0);
-              // console.log(sumOfUsdcValues);
-              const tempObj = {
-                ...tempConcatArrayElement,
-                usdc: sumOfUsdcValues.toString(),
-              };
-              tempConcatArray[i] = tempObj;
+              //
+              // Objectif
+              /*
+                convertir cette somme en valeur monétaire. Arrondir à de décimal.
+                SI 1 USDC alors 1000000 sats =>  Supprimer les six 0.
+                Si 2 USDC alors 2000000 sats => Supprimer les six 0.
+                Si 0.1 USDC alors 100000 sats => supprimer les cinq 0.
+                125684.267565
+                SI longeur > 6 alors slice de 0 a length -6, ajouter une virgule à la fin, a nouveau slice de -6 à length convertir en int puis math.round(2) puis toString => expected output : "X..X,XX"
+                Si longueur = 6 alors ajouter un "0," puis arrondir à 2 => expected output : "0,XX" 
+                Si 5 longueur = 5 alors ajouter "0,0" et arrondir à 1
+                Si longueur < 5 alors afficher ">0"
+              */
+
+              console.log(sumOfUsdcValues.toString().length);
+              if (sumOfUsdcValues.toString().length > 6) {
+                const beginning = sumOfUsdcValues
+                  .toString()
+                  .slice(0, sumOfUsdcValues.toString().length - 6);
+                const ending = sumOfUsdcValues
+                  .toString()
+                  .slice(
+                    sumOfUsdcValues.toString().length - 2,
+                    sumOfUsdcValues.toString().length
+                  );
+                const tempObj = {
+                  ...tempConcatArrayElement,
+                  usdc: parseInt(beginning + ending),
+                };
+                tempConcatArray[i] = tempObj;
+              } else if (sumOfUsdcValues.toString().length === 6) {
+                const ending = sumOfUsdcValues.toString().slice(0, 2);
+                const tempObj = {
+                  ...tempConcatArrayElement,
+                  usdc: parseInt("0." + ending),
+                };
+                tempConcatArray[i] = tempObj;
+              } else if (sumOfUsdcValues.toString().length === 5) {
+                const ending = sumOfUsdcValues.toString().slice(0, 1);
+                const tempObj = {
+                  ...tempConcatArrayElement,
+                  usdc: parseInt("0.0" + ending),
+                };
+                tempConcatArray[i] = tempObj;
+              } else if (0 === sumOfUsdcValues.toString().length) {
+                const tempObj = {
+                  ...tempConcatArrayElement,
+                  usdc: "error",
+                };
+                tempConcatArray[i] = tempObj;
+              } else if (
+                sumOfUsdcValues.toString().length > 0 &&
+                sumOfUsdcValues.toString().length < 6
+              ) {
+                const tempObj = {
+                  ...tempConcatArrayElement,
+                  usdc: "--",
+                };
+                tempConcatArray[i] = tempObj;
+              }
+
+              //
             }
           }
           setFinal(tempConcatArray);
