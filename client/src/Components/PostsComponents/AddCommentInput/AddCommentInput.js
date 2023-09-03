@@ -15,7 +15,17 @@ function AddCommentInput({
   const [focusInputComment, setFocusInputComment] = useState();
   const [blurInputComment, setBlurInputComment] = useState();
   const [textareaheight, setTextareaheight] = useState(1);
-  function handleChangeInputComment(event) {}
+
+  function handleChangeInputComment(event) {
+
+  }
+
+  const handleSubmitComments = (e) => {
+    e.preventDefault();
+    
+    console.log('Comment Added');
+  }
+  
   const textareaRef = useRef(null);
   function handleFocusInputComment(e) {
     setBlurInputComment(false);
@@ -89,8 +99,7 @@ function AddCommentInput({
               : `publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`
           }
         >
-          {/* Backend here */}
-          <button>Publier</button>
+          <button onClick={(e) => handleSubmitComments(e)}>Publier</button>
         </div>
       </div>
     </div>
