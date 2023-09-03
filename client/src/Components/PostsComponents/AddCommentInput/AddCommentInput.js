@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
-import autosize from "autosize";
 import "./AddCommentInput.css";
 import "./AddCommentInputNoMediaQueries.css";
+import { db } from "../../../Configs/firebase";
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; 
 
 function AddCommentInput({
   inputAddCommentContainer,
@@ -11,11 +12,44 @@ function AddCommentInput({
   publishButtonAddCommentPollPost,
   isMediaQueriesFullPagePostDisabled,
   postFeedHomeStyle,
+  postId,
+  loggedInUser
 }) {
   const [focusInputComment, setFocusInputComment] = useState();
   const [blurInputComment, setBlurInputComment] = useState();
   const [textareaheight, setTextareaheight] = useState(1);
-  function handleChangeInputComment(event) {}
+  const [commentText, setCommentText] = useState("")
+
+  function handleChangeInputComment(event) {
+    event.preventDefault();
+    setCommentText(event.target.value)
+
+  }
+  const feedPostCollectionRef = collection(db, 'feed_post');
+  const handleSubmitComments = async (e) => {
+    e.preventDefault();
+
+    const commentData = {
+      createdAt: serverTimestamp(),
+      userId: loggedInUser.id,  // Replace with the actual user ID
+      display_name: loggedInUser.displayName,
+      profile_avatar: loggedInUser.profile_avatar,
+      comment: commentText,
+      likes: [],
+      status: true
+    };
+    
+    try {
+      const commentRef = collection(feedPostCollectionRef, `${postId}/post_comments`);
+      await addDoc(commentRef, commentData);
+      console.log("Comment successfully added!");
+    } catch (e) {
+      console.error("Error adding comment: ", e);
+    }
+    setCommentText("");
+    console.log('Comment Added on post ID: ', postId, "Comment: ", commentText);
+  }
+  
   const textareaRef = useRef(null);
   function handleFocusInputComment(e) {
     setBlurInputComment(false);
@@ -78,9 +112,10 @@ function AddCommentInput({
               : `input-comment-publication ${inputCommentPublicationPollPost}`
           }
           type="text"
-          onChange={handleChangeInputComment}
+          onChange={(e) => handleChangeInputComment(e)}
           onFocus={handleFocusInputComment}
           onBlur={handleBlurInputComment}
+          value={commentText}
         ></textarea>
         <div
           className={
@@ -89,8 +124,7 @@ function AddCommentInput({
               : `publish-comments-button-container-publication ${publishButtonAddCommentPollPost}`
           }
         >
-          {/* Backend here */}
-          <button>Publier</button>
+          <button onClick={(e) => handleSubmitComments(e)}>Publier</button>
         </div>
       </div>
     </div>

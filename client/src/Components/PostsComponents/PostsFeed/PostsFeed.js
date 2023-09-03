@@ -169,6 +169,8 @@ function PostsFeed({
             inputCommentPublicationPollPost="input-comment-publication-pollpost"
             publishButtonAddCommentPollPost="publish-comments-button-container-publication-pollpost"
             postFeedHomeStyle={postFeedHomeStyle}
+            loggedInUser={loggedInUser}
+            postId={id}
           />
         </div>
       </div>

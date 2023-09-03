@@ -68,7 +68,7 @@ function Home({
     setIsLoading(true);
 
     const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
-    const q = query(feedPostCollectionRef, orderBy("createdAt", "desc")); // Order by 'createdAt' in descending order
+    const q = query(feedPostCollectionRef, where("status", '==' , true), orderBy("createdAt", "desc")); // Order by 'createdAt' in descending order
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const feedData = [];
