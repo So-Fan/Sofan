@@ -8,6 +8,8 @@ import PostsComments from "../../Components/PostsComponents/PostsComments/PostsC
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import PollPost from "../../Components/PostsComponents/PollPost/PollPost";
 import DropDownMenu from "../../Components/PostsComponents/DropDownMenu/DropDownMenu";
+import { db } from "../../Configs/firebase";
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 function FullPagePost({
   id,
@@ -47,6 +49,7 @@ function FullPagePost({
   const [isDropDownMenuCommentClicked, setIsDropDownMenuCommentClicked] =
     useState();
   const [dropdownStates, setDropdownStates] = useState({});
+  const [comments, setComments] = useState({})
 
   function handleClickOutsideDropDownMenuComments(e) {
     if (
@@ -93,6 +96,26 @@ function FullPagePost({
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
     },
   ];
+
+  useEffect(() => {
+    const commentsRef = collection(db, `feed_post/${id}/post_comments`);
+    const q = query(commentsRef, orderBy('createdAt', 'desc'));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const comments = [];
+      querySnapshot.forEach((doc) => {
+        comments.push(doc.data());
+      });
+      // Set your state here to re-render the component with the comments
+      setComments(comments);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [id]);
+
+
   useEffect(() => {
     if (postPicture) {
       setIstMediaQueriesFullPagePostDisabled(false);
@@ -136,6 +159,7 @@ function FullPagePost({
     console.log("je m'appelle rami");
   }
   // console.log(loggedInUserId);
+  console.log(comments);
   return (
     <>
       <div
