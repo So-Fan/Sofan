@@ -80,9 +80,29 @@ const CreationPostPoll = ({ userId }) => {
       let post;
 
       if (
-        pollData.choices !== arrayVerifier.choices &&
-        pollData.timer !== arrayVerifier.timer
+        pollData.choices[0].text === arrayVerifier.choices[0].text &&
+        pollData.choices[1].text === arrayVerifier.choices[1].text &&
+        pollData.choices[2].text === arrayVerifier.choices[2].text &&
+        pollData.choices[3].text === arrayVerifier.choices[3].text &&
+        pollData.timer.days === arrayVerifier.timer.days &&
+        pollData.timer.hours === arrayVerifier.timer.hours &&
+        pollData.timer.minutes === arrayVerifier.timer.minutes &&
+        pollData.timer.timestamp === arrayVerifier.timer.timestamp
       ) {
+        const postType = "post";
+        post = {
+          userId,
+          text,
+          visibility:
+            isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
+          createdAt,
+          imagePath: "",
+          postType,
+          pollData,
+          likes: [],
+          status: true
+        };
+      } else {
         const postType = "poll";
         post = {
           userId,
@@ -93,18 +113,7 @@ const CreationPostPoll = ({ userId }) => {
           postType,
           pollData,
           likes: [],
-        };
-      } else {
-        const postType = "post";
-        post = {
-          userId,
-          text,
-          visibility:
-            isVisibilityClicked[0].backgroundColor === "#F6D463" ? false : true, // false = premium post | true = free post
-          createdAt,
-          imagePath: "",
-          postType,
-          likes: [],
+          status: true
         };
       }
 

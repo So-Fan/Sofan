@@ -317,6 +317,7 @@ function FullPagePost({
                   isMediaQueriesFullPagePostDisabled={
                     isMediaQueriesFullPagePostDisabled
                   }
+                  postId={id}
                 />
               </div>
             </div>
