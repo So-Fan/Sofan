@@ -86,8 +86,8 @@
 .useractivitytab-content-container-clipboard {
   font-size: 14px;
   position: absolute;
-  right: 0px;
-  top: 18px;
+  left: 110px;
+  top: -2px;
   font-family: "britanica-black";
   color: #f6d463;
   /* background-color: red; */
