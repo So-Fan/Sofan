@@ -287,10 +287,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               allErc721Element.contractAddress.toLowerCase() ===
                 sofanCollectionElement.toLowerCase() &&
               allErc20Element.hash.toLowerCase() ===
-                allErc721Element.hash.toLowerCase()
+                allErc721Element.hash.toLowerCase() &&
+              allErc721Element.from.toLowerCase() !==
+                "0x0000000000000000000000000000000000000000".toLowerCase()
             ) {
               // TODO: mimic object from final array but add only used property in DOM
+              // console.log(currentProfileUserWallet.toLowerCase());
               let tempObj = {
+                blockNumber: allErc721Element.blockNumber,
                 hash: allErc721Element.hash,
                 from: allErc721Element.from,
                 to: allErc721Element.to,
@@ -392,7 +396,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               const sumOfUsdcValues = tempArray.reduce((sum, current) => {
                 return sum + parseInt(current.value);
               }, 0);
-              // console.log(sumOfUsdcValues.toString().length);
+              console.log(sumOfUsdcValues, tempConcatArrayElement);
               if (sumOfUsdcValues.toString().length > 6) {
                 const beginning = sumOfUsdcValues
                   .toString()
@@ -400,26 +404,26 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 const ending = sumOfUsdcValues
                   .toString()
                   .slice(
-                    sumOfUsdcValues.toString().length - 2,
-                    sumOfUsdcValues.toString().length
+                    sumOfUsdcValues.toString().length - 6,
+                    sumOfUsdcValues.toString().length - 4
                   );
                 const tempObj = {
                   ...tempConcatArrayElement,
-                  usdc: parseInt(beginning + ending),
+                  usdc: beginning + "," + ending,
                 };
                 tempConcatArray[i] = tempObj;
               } else if (sumOfUsdcValues.toString().length === 6) {
                 const ending = sumOfUsdcValues.toString().slice(0, 2);
                 const tempObj = {
                   ...tempConcatArrayElement,
-                  usdc: parseInt("0." + ending),
+                  usdc: "0," + ending,
                 };
                 tempConcatArray[i] = tempObj;
               } else if (sumOfUsdcValues.toString().length === 5) {
                 const ending = sumOfUsdcValues.toString().slice(0, 1);
                 const tempObj = {
                   ...tempConcatArrayElement,
-                  usdc: parseInt("0.0" + ending),
+                  usdc: "0,0" + ending,
                 };
                 tempConcatArray[i] = tempObj;
               } else if (0 === sumOfUsdcValues.toString().length) {
