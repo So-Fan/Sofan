@@ -33,8 +33,8 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       allErc721Event.length != 0 &&
       allErc20Event.length != 0
     ) {
-      console.log(AllTx);
-      console.log(AllSofanCollection);
+      console.log("Alltx", AllTx);
+      console.log("all Sofan Collection", AllSofanCollection);
       let tempConcatArray = [];
       let tempAlchemyArray = [];
       for (let i = 0; i < AllTx.result.length; i++) {
@@ -68,7 +68,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               usdcValue: decodedParams.value,
             };
 
-            console.log(allErc721Event);
+            // console.log(allErc721Event);
             for (let i = 0; i < allErc721Event.result.length; i++) {
               const allErc721EventElement = allErc721Event.result[i];
               if (
@@ -252,7 +252,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             ...txElement,
             functionName: "Sell",
             tokenId: decodedParams._tokenId,
-            offerPrice: decodedParams._offerPrice,
+            usdc: decodedParams._offerPrice,
             nftContract: decodedParams._contract,
           };
           tempConcatArray.push(tempObj);
@@ -275,7 +275,41 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           let tempObj = { ...txElement, functionName: "placeBid" };
         }
       }
-      console.log("before", tempConcatArray);
+      for (let i = 0; i < allErc721Event.result.length; i++) {
+        const allErc721Element = allErc721Event.result[i];
+        for (let i = 0; i < AllSofanCollection.length; i++) {
+          const sofanCollectionElement = AllSofanCollection[i];
+          for (let i = 0; i < allErc20Event.result.length; i++) {
+            const allErc20Element = allErc20Event.result[i];
+            if (
+              // handle Buy from bid accepted by other user and Sell from other user that buy user's listing
+              //
+              allErc721Element.contractAddress.toLowerCase() ===
+                sofanCollectionElement.toLowerCase() &&
+              allErc20Element.hash.toLowerCase() ===
+                allErc721Element.hash.toLowerCase()
+            ) {
+              // TODO: mimic object from final array but add only used property in DOM
+              let tempObj = {
+                hash: allErc721Element.hash,
+                from: allErc721Element.from,
+                to: allErc721Element.to,
+                value: allErc20Element.value, // + part de sofan et part de l'athlete => call le contrat pour connaitre le montant de royalties ou call les transfert erc20 de l'autre user puis les 2 avec le meme hash alors somme la value
+                timeStamp: allErc20Element.timeStamp,
+                tokenId: allErc721Element.tokenID,
+                nftContract: allErc721Element.contractAddress,
+                functionName:
+                  allErc721Element.from.toLowerCase() ===
+                  currentProfileUserWallet.toLowerCase()
+                    ? "Sell Bid"
+                    : "Buy Bid",
+              };
+              tempConcatArray.push(tempObj);
+            }
+          }
+        }
+      }
+      // console.log("before", tempConcatArray);
       if (tempConcatArray) {
         for (let i = 0; i < tempConcatArray.length; i++) {
           const element = tempConcatArray[i];
@@ -294,7 +328,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           tempConcatArray[i] = tempObj;
         }
       }
-      console.log("after", tempConcatArray);
+      console.log("after first useEffect", tempConcatArray);
       setConcatArray(tempConcatArray);
       setAlchemyArray(tempAlchemyArray);
     }
@@ -303,15 +337,15 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     // TODO: call API pour image, collection name, prix
     const tryMe = async () => {
       if (alchemyArray.length != 0) {
-        console.log("dosfujhnsduovbsbdlvhsdbvhcxbvjxwbvihsdq", alchemyArray);
+        console.log("Lachemy Array to get metadata", alchemyArray);
         try {
           const res = await alchemy.nft.getNftMetadataBatch(alchemyArray, {
             refreshCache: false,
           });
-          console.log(res);
-          console.log(concatArray);
+          console.log("getNftMetadata response", res);
+          // console.log("should be the same as after first useEffect", concatArray);
           var tempConcatArray = [...concatArray];
-          console.log(tempConcatArray);
+          // console.log(tempConcatArray);
           for (let i = 0; i < res.length; i++) {
             const alchemyMetadataElement = res[i];
             for (let i = 0; i < concatArray.length; i++) {
@@ -358,7 +392,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               const sumOfUsdcValues = tempArray.reduce((sum, current) => {
                 return sum + parseInt(current.value);
               }, 0);
-              console.log(sumOfUsdcValues.toString().length);
+              // console.log(sumOfUsdcValues.toString().length);
               if (sumOfUsdcValues.toString().length > 6) {
                 const beginning = sumOfUsdcValues
                   .toString()
@@ -409,7 +443,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             }
           }
           setFinal(tempConcatArray);
-          console.log(tempConcatArray);
+          console.log("final array mapped", tempConcatArray);
         } catch (error) {
           console.error(error);
         }
@@ -430,6 +464,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       marketplaceAddress
     );
     const load = async () => {
+      // TODO: V2 Can be optimizied be querying NFT contract that user historically interact with. Meaning the upper for loop will loop through less adresses (we can assume that nb of contract interacted with << all Sofan collection)
       const tempAllSofanCollectionArray = await contract.methods
         .getAllCollection()
         .call();
@@ -446,7 +481,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       );
       const dataAllErc721TransferEvent =
         await fetchAllErc721TransferEvent.json();
-      console.log(dataAllErc721TransferEvent);
+      console.log("ERC721", dataAllErc721TransferEvent);
       setAllErc721Event(dataAllErc721TransferEvent);
 
       const fetchAllErc20TransferEvent = await fetch(
@@ -454,7 +489,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       );
       const dataAllErc20TransferEvent = await fetchAllErc20TransferEvent.json();
       setAllErc20Event(dataAllErc20TransferEvent);
-      console.log(dataAllErc20TransferEvent);
+      console.log("ERC20", dataAllErc20TransferEvent);
     };
     load();
   }, []);
