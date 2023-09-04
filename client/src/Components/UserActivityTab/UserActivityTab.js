@@ -25,7 +25,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);
-
+  const [tempClipboard, setTempClipboard] = useState([]);
   useMemo(() => {
     if (
       AllTx.length != 0 &&
@@ -399,7 +399,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               const sumOfUsdcValues = tempArray.reduce((sum, current) => {
                 return sum + parseInt(current.value);
               }, 0);
-              console.log(sumOfUsdcValues, tempConcatArrayElement);
+              // console.log(sumOfUsdcValues, tempConcatArrayElement);
               if (sumOfUsdcValues.toString().length > 6) {
                 const beginning = sumOfUsdcValues
                   .toString()
@@ -451,6 +451,19 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           }
           setFinal(tempConcatArray);
           console.log("final array mapped", tempConcatArray);
+
+          //
+          let tempTempClipboard = [];
+          for (let i = 0; i < tempConcatArray.length; i++) {
+            // const element = tempConcatArray[i];
+            // const tempObj = {
+            //   i: uuidv4()
+            // }
+            tempTempClipboard.push(false);
+            tempTempClipboard.push(false);
+          }
+          setTempClipboard(tempTempClipboard);
+          setIsCopyClipboardAddressConfirmWalletClicked(tempTempClipboard);
         } catch (error) {
           console.error(error);
         }
@@ -504,18 +517,38 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [
     isCopyClipboardAddressConfirmWalletClicked,
     setIsCopyClipboardAddressConfirmWalletClicked,
-  ] = useState(false);
+  ] = useState([]);
 
   function handleClickCopyConfirmWallet(e) {
     navigator.clipboard.writeText(
       e.target.parentElement.children[0].attributes[0].value
     );
-    setIsCopyClipboardAddressConfirmWalletClicked(true);
+    setIsCopyClipboardAddressConfirmWalletClicked((prevState) => {
+      const tt = [...tempClipboard];
+      tt[e.target.name] = true;
+      return tt;
+    });
   }
   useEffect(() => {
-    const timeoutCopyConfirmWallet = setTimeout(() => {
-      setIsCopyClipboardAddressConfirmWalletClicked(false);
-    }, 3000);
+    console.log(
+      isCopyClipboardAddressConfirmWalletClicked[0] === tempClipboard[0]
+    );
+    let timeoutCopyConfirmWallet;
+    for (
+      let i = 0;
+      i < isCopyClipboardAddressConfirmWalletClicked.length;
+      i++
+    ) {
+      if (
+        isCopyClipboardAddressConfirmWalletClicked[i] != tempClipboard[i] &&
+        tempClipboard.length != 0
+      ) {
+        console.log("Timeout est lancé");
+        timeoutCopyConfirmWallet = setTimeout(() => {
+          setIsCopyClipboardAddressConfirmWalletClicked([...tempClipboard]);
+        }, 3000);
+      }
+    }
     return () => clearTimeout(timeoutCopyConfirmWallet);
   }, [isCopyClipboardAddressConfirmWalletClicked]);
 
@@ -571,39 +604,45 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     <span>{tx?.quantity ? tx.quantity : "1"}</span>
                   </div>
                   <div></div>
-                  <div className="useractivitytab-content-container-from-wrap">
+                  <div className="useractivitytab-content-container-address-wrap">
                     {/* tout le contenu n'est display que si l'adresse n'appartient pas à un compte Sofan
                     Si l'adresse appartient à un compte Sofan alors il faut display le nom + redirection vers le profil.
                     */}
                     <span about={tx.from}>{tx.fromDisplay}</span>
                     <img
-                      style={{ width: 15, height: 15, marginLeft: 4 }}
+                      className="useractivitytab-content-container-clipboardlogo"
                       onClick={handleClickCopyConfirmWallet}
                       src={copyLogo}
                       alt="copy logo"
+                      name={index == 0 ? index : 2 * index}
                     />
-                    {isCopyClipboardAddressConfirmWalletClicked && (
+                    {isCopyClipboardAddressConfirmWalletClicked[
+                      index == 0 ? index : 2 * index
+                    ] && (
                       <>
-                        <div className="signup-user-confirm-wallet-copy-message-confirm">
+                        <div className="useractivitytab-content-container-clipboard">
                           Copié !
                         </div>
                       </>
                     )}
                   </div>
-                  <div>
+                  <div className="useractivitytab-content-container-address-wrap">
                     {/* tout le contenu n'est display que si l'adresse n'appartient pas à un compte Sofan
                     Si l'adresse appartient à un compte Sofan alors il faut display le nom + redirection vers le profil.
                     */}
                     <span about={tx.to}>{tx.toDisplay}</span>
                     <img
-                      style={{ width: 15, height: 15, marginLeft: 4 }}
+                      className="useractivitytab-content-container-clipboardlogo"
                       onClick={handleClickCopyConfirmWallet}
                       src={copyLogo}
                       alt="copy logo"
+                      name={2 * index + 1}
                     />
-                    {isCopyClipboardAddressConfirmWalletClicked && (
+                    {isCopyClipboardAddressConfirmWalletClicked[
+                      2 * index + 1
+                    ] && (
                       <>
-                        <div className="signup-user-confirm-wallet-copy-message-confirm">
+                        <div className="useractivitytab-content-container-clipboard">
                           Copié !
                         </div>
                       </>

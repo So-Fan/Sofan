@@ -83,6 +83,37 @@
   display: flex;
   justify-content: flex-end;
 }
+.useractivitytab-content-container-clipboard {
+  font-size: 14px;
+  position: absolute;
+  right: 0px;
+  top: 18px;
+  font-family: "britanica-black";
+  color: #f6d463;
+  /* background-color: red; */
+  animation: slide-bottom-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.useractivitytab-content-container-clipboardlogo {
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+}
+.useractivitytab-content-container-clipboardlogo:active {
+  transform: scale(0.85);
+}
+.useractivitytab-content-container-address-wrap {
+  position: relative;
+}
+@keyframes slide-bottom-up {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 @media (max-width: 1150px) {
   .useractivitytab-table-container {
     font-size: 12.6px; /* 0.9 */
