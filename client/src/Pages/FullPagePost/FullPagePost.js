@@ -8,8 +8,9 @@ import PostsComments from "../../Components/PostsComponents/PostsComments/PostsC
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import PollPost from "../../Components/PostsComponents/PollPost/PollPost";
 import DropDownMenu from "../../Components/PostsComponents/DropDownMenu/DropDownMenu";
+import { v4 as uuidv4 } from "uuid";
 import { db } from "../../Configs/firebase";
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 
 function FullPagePost({
   id,
@@ -49,7 +50,7 @@ function FullPagePost({
   const [isDropDownMenuCommentClicked, setIsDropDownMenuCommentClicked] =
     useState();
   const [dropdownStates, setDropdownStates] = useState({});
-  const [comments, setComments] = useState({})
+  const [comments, setComments] = useState([]);
 
   function handleClickOutsideDropDownMenuComments(e) {
     if (
@@ -99,7 +100,7 @@ function FullPagePost({
 
   useEffect(() => {
     const commentsRef = collection(db, `feed_post/${id}/post_comments`);
-    const q = query(commentsRef, orderBy('createdAt', 'desc'));
+    const q = query(commentsRef, orderBy("createdAt", "desc"));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const comments = [];
@@ -114,7 +115,6 @@ function FullPagePost({
       unsubscribe();
     };
   }, [id]);
-
 
   useEffect(() => {
     if (postPicture) {
@@ -156,7 +156,7 @@ function FullPagePost({
   }
   // console.log("id:", id);
   function handleDropdownPostFeedClick() {
-    console.log("je m'appelle rami");
+    // console.log("je m'appelle rami");
   }
   // console.log(loggedInUserId);
   console.log(comments);
@@ -300,12 +300,18 @@ function FullPagePost({
                     : "comments-container-fullpagepost"
                 }
               >
-                {dataComments.map((comments, i) => {
+                {comments.map((commentss, i) => {
                   return (
                     <>
                       <PostsComments
-                        comments={comments.comments}
-                        commentId={comments.id}
+                        userId={commentss.userId}
+                        displayName={commentss.display_name}
+                        commentText={commentss.comment}
+                        profileAvatar={commentss.profile_avatar}
+                        // comments={comments.comments}
+                        timeStampComment={commentss.createdAt.seconds}
+                        likesCounter={commentss?.likes.length}
+                        commentId={uuidv4()}
                         setIsDropDownMenuCommentClicked={
                           setIsDropDownMenuCommentClicked
                         }
