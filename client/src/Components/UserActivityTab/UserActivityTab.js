@@ -289,7 +289,10 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               allErc20Element.hash.toLowerCase() ===
                 allErc721Element.hash.toLowerCase() &&
               allErc721Element.from.toLowerCase() !==
-                "0x0000000000000000000000000000000000000000".toLowerCase()
+                "0x0000000000000000000000000000000000000000".toLowerCase() &&
+              (i != 0
+                ? allErc20Element.hash !== allErc20Event.result[i - 1].hash
+                : true)
             ) {
               // TODO: mimic object from final array but add only used property in DOM
               // console.log(currentProfileUserWallet.toLowerCase());
