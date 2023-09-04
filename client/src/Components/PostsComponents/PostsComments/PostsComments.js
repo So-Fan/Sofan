@@ -77,7 +77,7 @@ function PostsComments({
       setIsLikePlural(false);
     }
   }, [likesCounter]);
-
+// console.log(userId);
   return (
     <>
       <div

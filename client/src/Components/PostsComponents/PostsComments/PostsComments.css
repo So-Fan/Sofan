@@ -2,11 +2,13 @@
 .posts-comments-component-container {
   width: 100%;
   max-width: 496px;
-  min-height: 81px;
+  /* min-height: 81px; */
+  margin-bottom: 10px;
   display: flex;
+  /* background-color: red; */
 }
 .posts-comments-component-profile-pic-container {
-  height: 81px;
+  /* height: 81px; */
   margin-right: 10px;
   /* background-color: aquamarine; */
 }
@@ -115,10 +117,12 @@
     /* min-height: 68px; */
     /* height: 68px !important; */
     /* max-height: 68px !important; */
+    /* background-color: blue; */
+    margin-bottom: 2px;
   }
   .posts-comments-component-profile-pic-container {
     /* background-color: darkblue; */
-    height: 61px;
+    /* height: 61px; */
   }
   .posts-comments-component-profile-pic-container img {
     width: 25px;

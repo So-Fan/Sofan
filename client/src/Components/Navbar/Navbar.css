@@ -59,7 +59,7 @@
   padding-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #00000015;
+  /* background-color: #00000015; */
   transition-duration: 300ms !important;
   border-radius: 30px;
   /* text-decoration: underline; */
@@ -79,7 +79,7 @@
   padding-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #00000015;
+  /* background-color: #00000015; */
   transition-duration: 300ms !important;
   border-radius: 30px;
 }
