@@ -186,6 +186,7 @@ function PostsFeed({
             id={id}
             postType={postType}
             postDate={postDate}
+            loggedInUser={loggedInUser}
             // postDateType={postDateType}
             // setPostStates={setPostStates}
             // postName={postName}

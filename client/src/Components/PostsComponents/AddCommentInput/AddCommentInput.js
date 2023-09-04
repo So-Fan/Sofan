@@ -31,8 +31,8 @@ function AddCommentInput({
 
     const commentData = {
       createdAt: serverTimestamp(),
-      userId: loggedInUser.id,  // Replace with the actual user ID
-      display_name: loggedInUser.displayName,
+      userId: loggedInUser.id,
+      display_name: loggedInUser.display_name,
       profile_avatar: loggedInUser.profile_avatar,
       comment: commentText,
       likes: [],
