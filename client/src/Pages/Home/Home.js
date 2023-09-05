@@ -54,6 +54,7 @@ function Home({
   const [displayPollPost, setDisplayPollPost] = useState(false);
   const [suggestionsAthletes, setSuggestionsAthletes] = useState([]);
   const suggestionCollectionAthlete = collection(db, "users");
+  const [commentCounts, setCommentCounts] = useState({});
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
@@ -63,12 +64,22 @@ function Home({
       return false;
     }
   }
-  console.log(dataPost);
+  const getCommentCount = async (postId) => {
+    const commentsRef = collection(db, `feed_post/${postId}/post_comments`);
+    const q = query(commentsRef, orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
+    const commentCount = querySnapshot.size;
+    setCommentCounts((prevState) => ({ ...prevState, [postId]: commentCount }));
+  };
   useEffect(() => {
     setIsLoading(true);
 
     const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
-    const q = query(feedPostCollectionRef, where("status", '==' , true), orderBy("createdAt", "desc")); // Order by 'createdAt' in descending order
+    const q = query(
+      feedPostCollectionRef,
+      where("status", "==", true),
+      orderBy("createdAt", "desc")
+    ); // Order by 'createdAt' in descending order
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const feedData = [];
@@ -77,8 +88,10 @@ function Home({
       });
       setPostData(feedData);
       setIsLoading(false);
+      feedData.forEach((post) => {
+        getCommentCount(post.id);
+      });
     });
-
     // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
     return () => unsubscribe();
   }, []);
@@ -144,6 +157,10 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
+  useEffect(() => {
+    console.log(dataPost);
+  }, [dataPost]);
+
   return (
     <>
       <section className="home-component">
@@ -225,7 +242,7 @@ function Home({
                       postDate={post.createdAt.seconds}
                       postDescription={post.text}
                       postLikes={post.likes ? post.likes.length : 0}
-                      postCommentNumber={post?.comments?.length}
+                      // postCommentNumber={post?.comments?.length}
                       postType={post.visibility}
                       postPicture={post.imagePath}
                       postCreatorId={post.userId}
@@ -238,6 +255,7 @@ function Home({
                       isDropdownClicked={isDropdownClicked}
                       handleClickCopyPostLink={handleClickCopyPostLink}
                       postFeedHomeStyle={true}
+                      postCommentNumber={commentCounts[post.id] || 0}
                     />
                   );
                 })}

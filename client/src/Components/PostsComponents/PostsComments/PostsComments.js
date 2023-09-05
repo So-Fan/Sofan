@@ -29,6 +29,8 @@ function PostsComments({
   profileAvatar,
   timeStampComment,
   likesCounter,
+  userType,
+  postCreatorId,
 }) {
   // Si l'athlete ou un admin ou le proprietaire du compte est connecté il peut voir le menu dropdown
   const [isAdminLogged, setIsAdminLogged] = useState();
@@ -62,8 +64,11 @@ function PostsComments({
     console.log(dropdownStates);
   }
   function redirectToProfileFromComment(e) {
-    // mettre une condition si le commentaire viens d'un utilisateur ou d'un athlete il faut changer le path
-    navigate(`/userprofile/`);
+    if (userType === "athlete") {
+      navigate(`/athleteprofile/${userId}`);
+    } else if (userType === "athlete") {
+      navigate(`/userprofile/${userId}`);
+    }
   }
   timeStampComment = formatDistanceToNow(timeStampComment * 1000, {
     locale: fr,
@@ -77,7 +82,7 @@ function PostsComments({
       setIsLikePlural(false);
     }
   }, [likesCounter]);
-// console.log(userId);
+  // console.log(userId);
   return (
     <>
       <div
@@ -95,7 +100,15 @@ function PostsComments({
           }
           onClick={redirectToProfileFromComment}
         >
-          <img src={profileAvatar} alt="AVATAR PROFIL PHOTO" />
+          <img
+            style={
+              userType === "athlete"
+                ? { borderRadius: "10px" }
+                : { borderRadius: "30px" }
+            }
+            src={profileAvatar}
+            alt="AVATAR PROFIL PHOTO"
+          />
         </div>
         <div
           className={
@@ -119,7 +132,16 @@ function PostsComments({
               }
               onClick={redirectToProfileFromComment}
             >
-              {displayName}
+              <span className="post-comments-component-username-for-hover">
+                {displayName}
+              </span>
+              {postCreatorId === userId && (
+                <>
+                  <span className="posts-comments-component-creator-badge">
+                    Auteur
+                  </span>
+                </>
+              )}
             </div>
             <div
               className={

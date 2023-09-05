@@ -37,6 +37,8 @@ function FullPagePost({
   isFullPagePostModalDisplay,
   // handleDropdownPostFeedClick,
   fullPagePostModalStyle,
+  loggedInUser,
+  setCommentLengthPostsFeed,
 }) {
   const [
     isMediaQueriesFullPagePostDisabled,
@@ -60,43 +62,6 @@ function FullPagePost({
       setDropdownStates({});
     }
   }
-  const dataComments = [
-    {
-      id: 1590395,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 2593509509,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 353095309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 3539873095309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 4539873098765309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 473098765309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 44093904090,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-  ];
 
   useEffect(() => {
     const commentsRef = collection(db, `feed_post/${id}/post_comments`);
@@ -143,12 +108,6 @@ function FullPagePost({
           pollSecondChoice={polldata?.choices[1].text}
           pollThirdChoice={polldata?.choices[2].text}
           pollFourthChoice={polldata?.choices[3].text}
-          // pollFirstChoiceNumber={pollFirstChoiceNumber}
-          // pollSecondChoiceNumber={pollSecondChoiceNumber}
-          // pollThirdChoiceNumber={pollThirdChoiceNumber}
-          // pollFourthChoiceNumber={pollFourthChoiceNumber}
-          // pollDate={pollDate}
-          // pollDateType={pollDateType}
           pollTotalVote={pollTotalVote}
         />
       );
@@ -158,8 +117,8 @@ function FullPagePost({
   function handleDropdownPostFeedClick() {
     // console.log("je m'appelle rami");
   }
-  // console.log(loggedInUserId);
-  console.log(comments);
+  // console.log(comments);
+  setCommentLengthPostsFeed(comments.length);
   return (
     <>
       <div
@@ -305,6 +264,8 @@ function FullPagePost({
                     <>
                       <PostsComments
                         userId={commentss.userId}
+                        userType={commentss.userType}
+                        postCreatorId={postCreatorId}
                         displayName={commentss.display_name}
                         commentText={commentss.comment}
                         profileAvatar={commentss.profile_avatar}
@@ -348,6 +309,7 @@ function FullPagePost({
                     isMediaQueriesFullPagePostDisabled
                   }
                   postId={id}
+                  loggedInUser={loggedInUser}
                 />
               </div>
             </div>
