@@ -45,7 +45,7 @@ const FeedLaunchpad = () => {
         result.sort((a, b) => a.launch_date.seconds - b.launch_date.seconds);
 
         const mostRecentUpcomingLaunch = result[0];
-        console.log(mostRecentUpcomingLaunch);
+        //console.log(mostRecentUpcomingLaunch);
         setMostRecentLaunchpad(mostRecentUpcomingLaunch);
       } else {
         console.log("No upcoming launches found.");

@@ -121,6 +121,7 @@ const CreationPostPoll = ({ userId }) => {
 
       try {
         // Upload the post object to Firestore
+        // const postRef = collection(db, "scheduled_posts");
         const postRef = collection(db, "feed_post");
         let postUid;
         await addDoc(postRef, post).then((snapshot) => {

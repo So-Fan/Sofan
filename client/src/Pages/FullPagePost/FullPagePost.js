@@ -36,6 +36,7 @@ function FullPagePost({
   isFullPagePostModalDisplay,
   // handleDropdownPostFeedClick,
   fullPagePostModalStyle,
+  loggedInUser,
 }) {
   const [
     isMediaQueriesFullPagePostDisabled,
@@ -342,6 +343,7 @@ function FullPagePost({
                     isMediaQueriesFullPagePostDisabled
                   }
                   postId={id}
+                  loggedInUser={loggedInUser}
                 />
               </div>
             </div>

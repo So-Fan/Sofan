@@ -77,3 +77,41 @@ exports.sendWelcomeEmail = functions.https.onRequest((req, res) => {
   });
 });
 
+
+
+const admin = require('firebase-admin');
+//const functions = require('firebase-functions');
+admin.initializeApp();
+
+exports.scheduledPublish = functions.pubsub.schedule('every 60 minutes').onRun(async (context) => {
+  const now = admin.firestore.Timestamp.now();
+  const scheduledPostsRef = admin.firestore().collection('scheduled_posts');
+  const feedPostsRef = admin.firestore().collection('feed_post');
+
+  console.log('Checking for scheduled posts to publish...');
+
+  const snapshot = await scheduledPostsRef.where('publish_timestamp', '<=', now).get();
+
+  if (snapshot.empty) {
+    console.log('No posts to publish.');
+    return null;
+  }
+
+  const batch = admin.firestore().batch();
+
+  snapshot.docs.forEach((doc) => {
+    const postData = doc.data();
+    postData.createdAt = now; // Update the createdAt value to the current timestamp
+    const newPostRef = feedPostsRef.doc();
+    
+    batch.set(newPostRef, postData);
+    batch.delete(doc.ref);
+  });
+
+  return batch.commit().then(() => {
+    console.log('Posts published successfully!');
+    return null;
+  });
+});
+
+
