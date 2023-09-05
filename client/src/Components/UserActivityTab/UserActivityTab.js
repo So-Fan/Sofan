@@ -564,9 +564,9 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
 
   useEffect(() => {
     const displayInfoFromBackend = async () => {
-      const feedPostCollectionRef = collection(db, "users");
       if (final.length != 0 && currentProfileUserWallet) {
-        let UserSpecificQuery;
+        const feedPostCollectionRef = collection(db, "users");
+        var userSpecificData;
         try {
           const tempUserSpecificQueryMetamask = query(
             feedPostCollectionRef,
@@ -576,28 +576,31 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           if (!querySnapshot.empty) {
             querySnapshot.forEach((doc) => {
               const userInfo = doc.data();
+              userSpecificData = userInfo;
               console.log(userInfo);
             });
           } else {
             // try web3auth
-            console.log("No user found");
+            console.log("No metamask found");
             const tempUserSpecificQueryWeb3auth = query(
               feedPostCollectionRef,
               where("web3auth", "==", currentProfileUserWallet)
             );
-            const querySnapshot = await getDocs(tempUserSpecificQueryMetamask);
+            const querySnapshot = await getDocs(tempUserSpecificQueryWeb3auth);
             if (!querySnapshot.empty) {
               querySnapshot.forEach((doc) => {
                 const userInfo = doc.data();
+                userSpecificData = userInfo;
                 console.log(userInfo);
               });
             } else {
-              console.log("No user found");
+              console.log("No metamask or web3auth found");
             }
           }
         } catch (error) {
           console.error(error);
         }
+        console.log(userSpecificData);
         for (let i = 0; i < final.length; i++) {
           const element = final[i];
           // Change fromDisplay address to UserSpecificQuery.username + add property linkId: UserSpecificQuery.id + if else for athlete redirection if needed
@@ -610,9 +613,69 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             // set element to new object with
             const otherUserSpecificQuery = query(
               feedPostCollectionRef,
-              where("userId", "==", element.to),
-              orderBy("createdAt", "desc")
+              where("metamask", "==", element.to)
             );
+            const querySnapshot = await getDocs(otherUserSpecificQuery);
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                const userInfo = doc.data();
+                tempOtherUserSpecificQuery = userInfo;
+                console.log(userInfo);
+              });
+            } else {
+              console.log("No metamask found");
+              const tempUserSpecificQueryWeb3auth = query(
+                feedPostCollectionRef,
+                where("web3auth", "==", element.to)
+              );
+              const querySnapshot = await getDocs(
+                tempUserSpecificQueryWeb3auth
+              );
+              if (!querySnapshot.empty) {
+                querySnapshot.forEach((doc) => {
+                  const userInfo = doc.data();
+                  tempOtherUserSpecificQuery = userInfo;
+                  console.log(userInfo);
+                });
+              } else {
+                console.log("No metamask or web3auth found");
+              }
+            }
+            // console.log("otherUserSpecificQuery", otherUserSpecificQuery);
+          } else if (
+            element.to.toLowerCase() === currentProfileUserWallet.toLowerCase()
+          ) {
+            // set element to new object with
+            const otherUserSpecificQuery = query(
+              feedPostCollectionRef,
+              where("metamask", "==", element.from)
+            );
+            const querySnapshot = await getDocs(otherUserSpecificQuery);
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                const userInfo = doc.data();
+                tempOtherUserSpecificQuery = userInfo;
+                console.log(userInfo);
+              });
+            } else {
+              console.log("No metamask found");
+              const tempUserSpecificQueryWeb3auth = query(
+                feedPostCollectionRef,
+                where("web3auth", "==", element.from)
+              );
+              const querySnapshot = await getDocs(
+                tempUserSpecificQueryWeb3auth
+              );
+              if (!querySnapshot.empty) {
+                querySnapshot.forEach((doc) => {
+                  const userInfo = doc.data();
+                  tempOtherUserSpecificQuery = userInfo;
+                  console.log(userInfo);
+                });
+              } else {
+                console.log("No metamask or web3auth found");
+              }
+            }
             // console.log("otherUserSpecificQuery", otherUserSpecificQuery);
           }
         }
