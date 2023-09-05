@@ -31,6 +31,7 @@ function PostsComments({
   likesCounter,
   userType,
   postCreatorId,
+  handleClickCopyPostLink
 }) {
   // Si l'athlete ou un admin ou le proprietaire du compte est connecté il peut voir le menu dropdown
   const [isAdminLogged, setIsAdminLogged] = useState();
@@ -61,7 +62,8 @@ function PostsComments({
       ...prevState,
       [commentId]: !prevState[commentId],
     }));
-    console.log(dropdownStates);
+    // console.log("dropdownStates --> ",dropdownStates);
+    // console.log("commentId --> ",commentId);
   }
   function redirectToProfileFromComment(e) {
     if (userType === "athlete") {
@@ -98,9 +100,9 @@ function PostsComments({
               ? "posts-comments-component-profile-pic-container-no-media-queries"
               : "posts-comments-component-profile-pic-container"
           }
-          onClick={redirectToProfileFromComment}
         >
           <img
+            onClick={redirectToProfileFromComment}
             style={
               userType === "athlete"
                 ? { borderRadius: "10px" }
@@ -130,14 +132,20 @@ function PostsComments({
                   ? "posts-comments-component-username-no-media-queries"
                   : "posts-comments-component-username"
               }
-              onClick={redirectToProfileFromComment}
+              // onClick={redirectToProfileFromComment}
             >
-              <span className="post-comments-component-username-for-hover">
+              <span
+                onClick={redirectToProfileFromComment}
+                className="post-comments-component-username-for-hover"
+              >
                 {displayName}
               </span>
               {postCreatorId === userId && (
                 <>
-                  <span className="posts-comments-component-creator-badge">
+                  <span
+                    onClick={redirectToProfileFromComment}
+                    className="posts-comments-component-creator-badge"
+                  >
                     Auteur
                   </span>
                 </>
@@ -214,6 +222,10 @@ function PostsComments({
                       isAdminLogged={isAdminLogged}
                       isAthleteLogged={isAthleteLogged}
                       isCommentsOwnerLogged={isCommentsOwnerLogged}
+                      userType={userType}
+                      userId={userId}
+                      isPostsCommentsDisplay={true}
+                      handleClickCopyPostLink={handleClickCopyPostLink}
                     />
                   </>
                 )}

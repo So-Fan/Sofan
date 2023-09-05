@@ -82,7 +82,7 @@ function PostsFeed({
       );
     }
   }
-  console.log("id de postfeed --> ",id)
+  // console.log("id de postfeed --> ",id)
   // console.log(postCommentNumber);
   return (
     <>

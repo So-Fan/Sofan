@@ -70,9 +70,10 @@ function FullPagePost({
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const comments = [];
       querySnapshot.forEach((doc) => {
-        comments.push(doc.data());
+        const commentData = doc.data();
+        commentData.commentId = doc.id;
+        comments.push(commentData);
       });
-      // Set your state here to re-render the component with the comments
       setComments(comments);
     });
 
@@ -117,8 +118,17 @@ function FullPagePost({
   function handleDropdownPostFeedClick() {
     // console.log("je m'appelle rami");
   }
-  // console.log(comments);
   setCommentLengthPostsFeed(comments.length);
+  function handleClickCopyPostLink(userId, userType) {
+    userType === "athlete"
+      ? navigator.clipboard.writeText(
+          `https://staging.sofan.app/athleteprofile/${userId}`
+        )
+      : navigator.clipboard.writeText(
+          `https://staging.sofan.app/userprofile/${userId}`
+        );
+  }
+  // console.log(comments)
   return (
     <>
       <div
@@ -259,20 +269,20 @@ function FullPagePost({
                     : "comments-container-fullpagepost"
                 }
               >
-                {comments.map((commentss, i) => {
+                {comments.map((comment, i) => {
                   return (
                     <>
                       <PostsComments
-                        userId={commentss.userId}
-                        userType={commentss.userType}
+                        userId={comment.userId}
+                        userType={comment.userType}
                         postCreatorId={postCreatorId}
-                        displayName={commentss.display_name}
-                        commentText={commentss.comment}
-                        profileAvatar={commentss.profile_avatar}
-                        // comments={comments.comments}
-                        timeStampComment={commentss.createdAt.seconds}
-                        likesCounter={commentss?.likes.length}
-                        commentId={uuidv4()}
+                        displayName={comment.display_name}
+                        commentText={comment.comment}
+                        profileAvatar={comment.profile_avatar}
+                        // comment={comment.comment}
+                        timeStampComment={comment.createdAt.seconds}
+                        likesCounter={comment?.likes.length}
+                        commentId={comment.commentId}
                         setIsDropDownMenuCommentClicked={
                           setIsDropDownMenuCommentClicked
                         }
@@ -285,6 +295,7 @@ function FullPagePost({
                         isMediaQueriesFullPagePostDisabled={
                           isMediaQueriesFullPagePostDisabled
                         }
+                        handleClickCopyPostLink={handleClickCopyPostLink}
                       />
                     </>
                   );
