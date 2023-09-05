@@ -600,7 +600,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
         } catch (error) {
           console.error(error);
         }
-        console.log(userSpecificData);
+        // console.log(userSpecificData);
         for (let i = 0; i < final.length; i++) {
           const element = final[i];
           // Change fromDisplay address to UserSpecificQuery.username + add property linkId: UserSpecificQuery.id + if else for athlete redirection if needed
@@ -641,7 +641,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 console.log("No metamask or web3auth found");
               }
             }
-            // console.log("otherUserSpecificQuery", otherUserSpecificQuery);
+            // if userSpecificData
+            // Change fromDisplay = userSpecificData.display_name
+            // Add fromAccountType = userSpecificData.account_type
+            // Add fromAccountId = userSpecificData.id
+            // if tempOtherUserSpecificQuery
+            // Change toDisplay = tempOtherUserSpecificQuery.display_name
+            // Add toAccountType = tempOtherUserSpecificQuery.account_type
+            // Add toAccountId = tempOtherUserSpecificQuery.id
           } else if (
             element.to.toLowerCase() === currentProfileUserWallet.toLowerCase()
           ) {
@@ -676,7 +683,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 console.log("No metamask or web3auth found");
               }
             }
-            // console.log("otherUserSpecificQuery", otherUserSpecificQuery);
+            // if userSpecificData
+            // Change toDisplay = userSpecificData.display_name
+            // Add toAccountType = userSpecificData.account_type
+            // Add toAccountId = userSpecificData.id
+            // if tempOtherUserSpecificQuery
+            // Change fromDisplay = tempOtherUserSpecificQuery.display_name
+            // Add fromAccountType = tempOtherUserSpecificQuery.account_type
+            // Add fromAccountId = tempOtherUserSpecificQuery.id
           }
         }
       }
