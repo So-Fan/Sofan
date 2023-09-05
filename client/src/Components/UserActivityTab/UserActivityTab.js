@@ -8,6 +8,16 @@ import { concatStringFromTo } from "../../Utils/concatString";
 import { fr } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
 import copyLogo from "../../Assets/Image/copy-logo.svg";
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
+  getDocs,
+  getDoc,
+} from "@firebase/firestore";
+import { db } from "../../Configs/firebase";
 const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
@@ -552,6 +562,64 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     return () => clearTimeout(timeoutCopyConfirmWallet);
   }, [isCopyClipboardAddressConfirmWalletClicked]);
 
+  useEffect(() => {
+    const displayInfoFromBackend = async () => {
+      const feedPostCollectionRef = collection(db, "users");
+      if (final.length != 0 && currentProfileUserWallet) {
+        let UserSpecificQuery;
+        try {
+          const tempUserSpecificQueryMetamask = query(
+            feedPostCollectionRef,
+            where("metamask", "==", currentProfileUserWallet)
+          );
+          const querySnapshot = await getDocs(tempUserSpecificQueryMetamask);
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              const userInfo = doc.data();
+              console.log(userInfo);
+            });
+          } else {
+            // try web3auth
+            console.log("No user found");
+            const tempUserSpecificQueryWeb3auth = query(
+              feedPostCollectionRef,
+              where("web3auth", "==", currentProfileUserWallet)
+            );
+            const querySnapshot = await getDocs(tempUserSpecificQueryMetamask);
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                const userInfo = doc.data();
+                console.log(userInfo);
+              });
+            } else {
+              console.log("No user found");
+            }
+          }
+        } catch (error) {
+          console.error(error);
+        }
+        for (let i = 0; i < final.length; i++) {
+          const element = final[i];
+          // Change fromDisplay address to UserSpecificQuery.username + add property linkId: UserSpecificQuery.id + if else for athlete redirection if needed
+          // Change toDisplay address to tempOtherUserSpecificQuery.username + add property linkId: UserSpecificQuery.id + if else for athlete redirection if needed
+          let tempOtherUserSpecificQuery;
+          if (
+            element.from.toLowerCase() ===
+            currentProfileUserWallet.toLowerCase()
+          ) {
+            // set element to new object with
+            const otherUserSpecificQuery = query(
+              feedPostCollectionRef,
+              where("userId", "==", element.to),
+              orderBy("createdAt", "desc")
+            );
+            // console.log("otherUserSpecificQuery", otherUserSpecificQuery);
+          }
+        }
+      }
+    };
+    displayInfoFromBackend();
+  }, [final]);
   return (
     <>
       <div className="useractivitytab-component">
