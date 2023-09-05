@@ -2,11 +2,13 @@
 .posts-comments-component-container {
   width: 100%;
   max-width: 496px;
-  min-height: 81px;
+  /* min-height: 81px; */
+  margin-bottom: 10px;
   display: flex;
+  /* background-color: red; */
 }
 .posts-comments-component-profile-pic-container {
-  height: 81px;
+  /* height: 81px; */
   margin-right: 10px;
   /* background-color: aquamarine; */
 }
@@ -15,7 +17,7 @@
   height: 30px;
   max-width: 30px;
   max-height: 30px;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   border: solid 2px white;
 }
 .posts-comments-component-profile-pic-container img:hover {
@@ -32,10 +34,29 @@
   font-size: 16px;
   font-family: "britanica-heavy";
 }
-.posts-comments-component-username:hover {
+.post-comments-component-username-for-hover:hover{
   text-decoration: underline;
   cursor: pointer;
 }
+.posts-comments-component-creator-badge {
+  background-color: #f6d463;
+  color: white;
+  padding: 1px 3px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-left: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+.posts-comments-component-creator-badge:hover {
+  background-color: #f7c520;
+  transition-duration: 300ms;
+}
+/* .posts-comments-component-username:hover {
+  text-decoration: underline;
+  cursor: pointer;
+} */
 .posts-comments-component-comments {
   font-size: 14px;
   margin-top: 5px;
@@ -115,11 +136,10 @@
     /* min-height: 68px; */
     /* height: 68px !important; */
     /* max-height: 68px !important; */
+    /* background-color: blue; */
+    margin-bottom: 2px;
   }
-  .posts-comments-component-profile-pic-container {
-    /* background-color: darkblue; */
-    height: 61px;
-  }
+
   .posts-comments-component-profile-pic-container img {
     width: 25px;
     height: 25px;

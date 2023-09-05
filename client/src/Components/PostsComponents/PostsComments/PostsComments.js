@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PostsComments.css";
 import "./PostsCommentsNoMediaQueries.css";
 import profilePicFan from "../../../Assets/Image/profilepicmbappecomments.svg";
@@ -7,6 +7,8 @@ import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
 import dropDownImage from "../../../Assets/Image/dropdown.svg";
 import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import { useNavigate } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
+import { fr } from "date-fns/locale";
 function PostsComments({
   likeButtonSizePollPost,
   postId,
@@ -21,12 +23,22 @@ function PostsComments({
   setDropdownStates,
   dropdownStates,
   isMediaQueriesFullPagePostDisabled,
+  userId,
+  displayName,
+  commentText,
+  profileAvatar,
+  timeStampComment,
+  likesCounter,
+  userType,
+  postCreatorId,
+  handleClickCopyPostLink
 }) {
   // Si l'athlete ou un admin ou le proprietaire du compte est connecté il peut voir le menu dropdown
   const [isAdminLogged, setIsAdminLogged] = useState();
   const [isAthleteLogged, setIsAthleteLogged] = useState();
   const [isCommentsOwnerLogged, setisCommentsOwnerLogged] = useState(true);
   const [isCommentLiked, setIsCommentLiked] = useState(false);
+  const [isLikesPlural, setIsLikePlural] = useState(false);
   const navigate = useNavigate();
   function handleCommentLike() {
     setIsCommentLiked(!isCommentLiked);
@@ -50,12 +62,29 @@ function PostsComments({
       ...prevState,
       [commentId]: !prevState[commentId],
     }));
-    console.log(dropdownStates);
+    // console.log("dropdownStates --> ",dropdownStates);
+    // console.log("commentId --> ",commentId);
   }
   function redirectToProfileFromComment(e) {
-    // mettre une condition si le commentaire viens d'un utilisateur ou d'un athlete il faut changer le path
-    navigate(`/userprofile/`);
+    if (userType === "athlete") {
+      navigate(`/athleteprofile/${userId}`);
+    } else {
+      navigate(`/userprofile/${userId}`);
+    }
   }
+  timeStampComment = formatDistanceToNow(timeStampComment * 1000, {
+    locale: fr,
+    addSuffix: true,
+  });
+  timeStampComment = timeStampComment.replace("environ ", "");
+  useEffect(() => {
+    if (likesCounter > 1) {
+      setIsLikePlural(true);
+    } else {
+      setIsLikePlural(false);
+    }
+  }, [likesCounter]);
+  // console.log(userId);
   return (
     <>
       <div
@@ -71,9 +100,17 @@ function PostsComments({
               ? "posts-comments-component-profile-pic-container-no-media-queries"
               : "posts-comments-component-profile-pic-container"
           }
-          onClick={redirectToProfileFromComment}
         >
-          <img src={profilePicFan} alt="" />
+          <img
+            onClick={redirectToProfileFromComment}
+            style={
+              userType === "athlete"
+                ? { borderRadius: "10px" }
+                : { borderRadius: "30px" }
+            }
+            src={profileAvatar}
+            alt="AVATAR PROFIL PHOTO"
+          />
         </div>
         <div
           className={
@@ -95,9 +132,24 @@ function PostsComments({
                   ? "posts-comments-component-username-no-media-queries"
                   : "posts-comments-component-username"
               }
-              onClick={redirectToProfileFromComment}
+              // onClick={redirectToProfileFromComment}
             >
-              DonOfSomething
+              <span
+                onClick={redirectToProfileFromComment}
+                className="post-comments-component-username-for-hover"
+              >
+                {displayName}
+              </span>
+              {postCreatorId === userId && (
+                <>
+                  <span
+                    onClick={redirectToProfileFromComment}
+                    className="posts-comments-component-creator-badge"
+                  >
+                    Auteur
+                  </span>
+                </>
+              )}
             </div>
             <div
               className={
@@ -106,8 +158,7 @@ function PostsComments({
                   : "posts-comments-component-comments"
               }
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dumm…
+              {commentText}
             </div>
           </div>
           <div
@@ -124,7 +175,7 @@ function PostsComments({
                   : "posts-comments-component-comments-like-counter"
               }
             >
-              12 likes
+              {likesCounter} like{isLikesPlural && "s"}
             </div>
             <div
               className={
@@ -133,7 +184,7 @@ function PostsComments({
                   : "posts-comments-component-comments-timestamp"
               }
             >
-              28min
+              {timeStampComment}
             </div>
           </div>
         </div>
@@ -171,6 +222,10 @@ function PostsComments({
                       isAdminLogged={isAdminLogged}
                       isAthleteLogged={isAthleteLogged}
                       isCommentsOwnerLogged={isCommentsOwnerLogged}
+                      userType={userType}
+                      userId={userId}
+                      isPostsCommentsDisplay={true}
+                      handleClickCopyPostLink={handleClickCopyPostLink}
                     />
                   </>
                 )}

@@ -8,8 +8,9 @@ import PostsComments from "../../Components/PostsComponents/PostsComments/PostsC
 import AddCommentInput from "../../Components/PostsComponents/AddCommentInput/AddCommentInput";
 import PollPost from "../../Components/PostsComponents/PollPost/PollPost";
 import DropDownMenu from "../../Components/PostsComponents/DropDownMenu/DropDownMenu";
+import { v4 as uuidv4 } from "uuid";
 import { db } from "../../Configs/firebase";
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 
 function FullPagePost({
   id,
@@ -37,6 +38,7 @@ function FullPagePost({
   // handleDropdownPostFeedClick,
   fullPagePostModalStyle,
   loggedInUser,
+  setCommentLengthPostsFeed,
 }) {
   const [
     isMediaQueriesFullPagePostDisabled,
@@ -50,7 +52,7 @@ function FullPagePost({
   const [isDropDownMenuCommentClicked, setIsDropDownMenuCommentClicked] =
     useState();
   const [dropdownStates, setDropdownStates] = useState({});
-  const [comments, setComments] = useState({})
+  const [comments, setComments] = useState([]);
 
   function handleClickOutsideDropDownMenuComments(e) {
     if (
@@ -60,54 +62,18 @@ function FullPagePost({
       setDropdownStates({});
     }
   }
-  const dataComments = [
-    {
-      id: 1590395,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 2593509509,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 353095309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 3539873095309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 4539873098765309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 473098765309,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-    {
-      id: 44093904090,
-      comments:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm…",
-    },
-  ];
 
   useEffect(() => {
     const commentsRef = collection(db, `feed_post/${id}/post_comments`);
-    const q = query(commentsRef, orderBy('createdAt', 'desc'));
+    const q = query(commentsRef, orderBy("createdAt", "desc"));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const comments = [];
       querySnapshot.forEach((doc) => {
-        comments.push(doc.data());
+        const commentData = doc.data();
+        commentData.commentId = doc.id;
+        comments.push(commentData);
       });
-      // Set your state here to re-render the component with the comments
       setComments(comments);
     });
 
@@ -115,7 +81,6 @@ function FullPagePost({
       unsubscribe();
     };
   }, [id]);
-
 
   useEffect(() => {
     if (postPicture) {
@@ -144,12 +109,6 @@ function FullPagePost({
           pollSecondChoice={polldata?.choices[1].text}
           pollThirdChoice={polldata?.choices[2].text}
           pollFourthChoice={polldata?.choices[3].text}
-          // pollFirstChoiceNumber={pollFirstChoiceNumber}
-          // pollSecondChoiceNumber={pollSecondChoiceNumber}
-          // pollThirdChoiceNumber={pollThirdChoiceNumber}
-          // pollFourthChoiceNumber={pollFourthChoiceNumber}
-          // pollDate={pollDate}
-          // pollDateType={pollDateType}
           pollTotalVote={pollTotalVote}
         />
       );
@@ -157,10 +116,19 @@ function FullPagePost({
   }
   // console.log("id:", id);
   function handleDropdownPostFeedClick() {
-    console.log("je m'appelle rami");
+    // console.log("je m'appelle rami");
   }
-  // console.log(loggedInUserId);
-  console.log(comments);
+  setCommentLengthPostsFeed(comments.length);
+  function handleClickCopyPostLink(userId, userType) {
+    userType === "athlete"
+      ? navigator.clipboard.writeText(
+          `https://staging.sofan.app/athleteprofile/${userId}`
+        )
+      : navigator.clipboard.writeText(
+          `https://staging.sofan.app/userprofile/${userId}`
+        );
+  }
+  // console.log(comments)
   return (
     <>
       <div
@@ -301,12 +269,20 @@ function FullPagePost({
                     : "comments-container-fullpagepost"
                 }
               >
-                {dataComments.map((comments, i) => {
+                {comments.map((comment, i) => {
                   return (
                     <>
                       <PostsComments
-                        comments={comments.comments}
-                        commentId={comments.id}
+                        userId={comment.userId}
+                        userType={comment.userType}
+                        postCreatorId={postCreatorId}
+                        displayName={comment.display_name}
+                        commentText={comment.comment}
+                        profileAvatar={comment.profile_avatar}
+                        // comment={comment.comment}
+                        timeStampComment={comment.createdAt.seconds}
+                        likesCounter={comment?.likes.length}
+                        commentId={comment.commentId}
                         setIsDropDownMenuCommentClicked={
                           setIsDropDownMenuCommentClicked
                         }
@@ -319,6 +295,7 @@ function FullPagePost({
                         isMediaQueriesFullPagePostDisabled={
                           isMediaQueriesFullPagePostDisabled
                         }
+                        handleClickCopyPostLink={handleClickCopyPostLink}
                       />
                     </>
                   );

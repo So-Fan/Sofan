@@ -48,6 +48,7 @@ function PostsFeed({
 }) {
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
+  const [commentsLengthPostsFeed, setCommentLengthPostsFeed] = useState();
   function handleClickShowComment(e) {
     e.preventDefault();
     setIsPostClicked(true);
@@ -82,7 +83,7 @@ function PostsFeed({
     }
   }
   // console.log("id de postfeed --> ",id)
-  console.log(postCommentNumber);
+  // console.log(postCommentNumber);
   return (
     <>
       <div
@@ -207,6 +208,7 @@ function PostsFeed({
             handleClickCopyPostLink={handleClickCopyPostLink}
             isFullPagePostModalDisplay={true}
             fullPagePostModalStyle={true}
+            setCommentLengthPostsFeed={setCommentLengthPostsFeed}
             // postType={singlePostData.postType === "normal"}
           />
         </Modal>

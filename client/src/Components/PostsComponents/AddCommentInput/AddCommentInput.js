@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "./AddCommentInput.css";
 import "./AddCommentInputNoMediaQueries.css";
 import { db } from "../../../Configs/firebase";
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; 
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 function AddCommentInput({
   inputAddCommentContainer,
@@ -13,43 +13,49 @@ function AddCommentInput({
   isMediaQueriesFullPagePostDisabled,
   postFeedHomeStyle,
   postId,
-  loggedInUser
+  loggedInUser,
 }) {
   const [focusInputComment, setFocusInputComment] = useState();
   const [blurInputComment, setBlurInputComment] = useState();
   const [textareaheight, setTextareaheight] = useState(1);
-  const [commentText, setCommentText] = useState("")
+  const [commentText, setCommentText] = useState("");
 
   function handleChangeInputComment(event) {
     event.preventDefault();
-    setCommentText(event.target.value)
-
+    setCommentText(event.target.value);
   }
-  const feedPostCollectionRef = collection(db, 'feed_post');
+  const feedPostCollectionRef = collection(db, "feed_post");
   const handleSubmitComments = async (e) => {
     e.preventDefault();
 
-    const commentData = {
-      createdAt: serverTimestamp(),
+    if (!loggedInUser && !commentText){
+      return;
+    }
+      const commentData = {
+        createdAt: serverTimestamp(),
       userId: loggedInUser.id,
+      userType: loggedInUser.account_type,
       display_name: loggedInUser.display_name,
       profile_avatar: loggedInUser.profile_avatar,
       comment: commentText,
       likes: [],
-      status: true
+      status: true,
     };
-    
+
     try {
-      const commentRef = collection(feedPostCollectionRef, `${postId}/post_comments`);
+      const commentRef = collection(
+        feedPostCollectionRef,
+        `${postId}/post_comments`
+      );
       await addDoc(commentRef, commentData);
       console.log("Comment successfully added!");
     } catch (e) {
       console.error("Error adding comment: ", e);
     }
     setCommentText("");
-    console.log('Comment Added on post ID: ', postId, "Comment: ", commentText);
-  }
-  
+    console.log("Comment Added on post ID: ", postId, "Comment: ", commentText);
+  };
+
   const textareaRef = useRef(null);
   function handleFocusInputComment(e) {
     setBlurInputComment(false);

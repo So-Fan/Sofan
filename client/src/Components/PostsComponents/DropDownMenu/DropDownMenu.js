@@ -10,6 +10,9 @@ function DropDownMenu({
   loggedInUserId,
   // dropDownStatesFullPagePostModal,
   fullPagePostModalStyle,
+  userType,
+  userId,
+  isPostsCommentsDisplay,
 }) {
   // Backend here
   const isOwner = true;
@@ -46,9 +49,28 @@ function DropDownMenu({
             <div className="separation-line-dropdown-menu"></div>
           </>
           {/* )} */}
-          <li onClick={() => handleClickCopyPostLink(id)}>Copier le lien</li>
+          {isPostsCommentsDisplay ? (
+            <>
+              <li onClick={() => handleClickCopyPostLink(userId, userType)}>
+                Copier le lien
+              </li>
+            </>
+          ) : (
+            <>
+              <li onClick={() => handleClickCopyPostLink(id)}>
+                Copier le lien
+              </li>
+            </>
+          )}
           <div className="separation-line-dropdown-menu"></div>
-          <a target="blank" href={`/athleteprofile/${postCreatorId}`}>
+          <a
+            target="blank"
+            href={
+              userType === "athlete"
+                ? `/athleteprofile/${postCreatorId}`
+                : `/userprofile/${userId}`
+            }
+          >
             <li>Voir le profil</li>
           </a>
         </ul>
