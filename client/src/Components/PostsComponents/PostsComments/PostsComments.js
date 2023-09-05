@@ -68,7 +68,7 @@ function PostsComments({
   function redirectToProfileFromComment(e) {
     if (userType === "athlete") {
       navigate(`/athleteprofile/${userId}`);
-    } else if (userType === "athlete") {
+    } else {
       navigate(`/userprofile/${userId}`);
     }
   }
