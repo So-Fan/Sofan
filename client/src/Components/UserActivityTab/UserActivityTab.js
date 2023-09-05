@@ -562,9 +562,15 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     return () => clearTimeout(timeoutCopyConfirmWallet);
   }, [isCopyClipboardAddressConfirmWalletClicked]);
 
+  const [displayInfoFromBackendAvailable, setDisplayInfoFromBackendAvailable] =
+    useState(true);
   useEffect(() => {
     const displayInfoFromBackend = async () => {
-      if (final.length != 0 && currentProfileUserWallet) {
+      if (
+        final.length != 0 &&
+        currentProfileUserWallet &&
+        displayInfoFromBackendAvailable === true
+      ) {
         const feedPostCollectionRef = collection(db, "users");
         var userSpecificData;
         try {
@@ -601,8 +607,9 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           console.error(error);
         }
         // console.log(userSpecificData);
-        for (let i = 0; i < final.length; i++) {
-          const element = final[i];
+        const finalCopy = [...final];
+        for (let i = 0; i < finalCopy.length; i++) {
+          const element = finalCopy[i];
           // Change fromDisplay address to UserSpecificQuery.username + add property linkId: UserSpecificQuery.id + if else for athlete redirection if needed
           // Change toDisplay address to tempOtherUserSpecificQuery.username + add property linkId: UserSpecificQuery.id + if else for athlete redirection if needed
           let tempOtherUserSpecificQuery;
@@ -641,14 +648,40 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 console.log("No metamask or web3auth found");
               }
             }
-            // if userSpecificData
-            // Change fromDisplay = userSpecificData.display_name
-            // Add fromAccountType = userSpecificData.account_type
-            // Add fromAccountId = userSpecificData.id
-            // if tempOtherUserSpecificQuery
-            // Change toDisplay = tempOtherUserSpecificQuery.display_name
-            // Add toAccountType = tempOtherUserSpecificQuery.account_type
-            // Add toAccountId = tempOtherUserSpecificQuery.id
+            let tempNewObject;
+            if (userSpecificData) {
+              let tempObj = {
+                ...element,
+                fromAccountType: userSpecificData.account_type,
+                fromAccountId: userSpecificData.id,
+                oldFromDisplay: element.fromDisplay,
+              };
+              // handle string display
+              tempObj.fromDisplay = userSpecificData.display_name;
+              tempNewObject = tempObj;
+            }
+            if (tempOtherUserSpecificQuery) {
+              let tempObj = tempNewObject
+                ? {
+                    ...tempNewObject,
+                    toAccountType: tempOtherUserSpecificQuery.account_type,
+                    toAccountId: tempOtherUserSpecificQuery.id,
+                    oldToDisplay: element.toDisplay,
+                  }
+                : {
+                    ...element,
+                    toAccountType: tempOtherUserSpecificQuery.account_type,
+                    toAccountId: tempOtherUserSpecificQuery.id,
+                    oldToDisplay: element.toDisplay,
+                  };
+              // handle string display
+              tempObj.toDisplay = tempOtherUserSpecificQuery.display_name;
+              tempNewObject = tempObj;
+            }
+            if (tempNewObject) {
+              finalCopy[i] = tempNewObject;
+            }
+            // else do nothing
           } else if (
             element.to.toLowerCase() === currentProfileUserWallet.toLowerCase()
           ) {
@@ -683,16 +716,45 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 console.log("No metamask or web3auth found");
               }
             }
-            // if userSpecificData
-            // Change toDisplay = userSpecificData.display_name
-            // Add toAccountType = userSpecificData.account_type
-            // Add toAccountId = userSpecificData.id
-            // if tempOtherUserSpecificQuery
-            // Change fromDisplay = tempOtherUserSpecificQuery.display_name
-            // Add fromAccountType = tempOtherUserSpecificQuery.account_type
-            // Add fromAccountId = tempOtherUserSpecificQuery.id
+            let tempNewObject;
+            if (userSpecificData) {
+              let tempObj = {
+                ...element,
+                toAccountType: userSpecificData.account_type,
+                toAccountId: userSpecificData.id,
+                oldToDisplay: element.toDisplay,
+              };
+              // handle string display
+              tempObj.toDisplay = userSpecificData.display_name;
+              tempNewObject = tempObj;
+            }
+            if (tempOtherUserSpecificQuery) {
+              let tempObj = tempNewObject
+                ? {
+                    ...tempNewObject,
+                    fromAccountType: tempOtherUserSpecificQuery.account_type,
+                    fromAccountId: tempOtherUserSpecificQuery.id,
+                    oldFromDisplay: element.fromDisplay,
+                  }
+                : {
+                    ...element,
+                    fromAccountType: tempOtherUserSpecificQuery.account_type,
+                    fromAccountId: tempOtherUserSpecificQuery.id,
+                    oldFromDisplay: element.fromDisplay,
+                  };
+              // handle string display
+              tempObj.fromDisplay = tempOtherUserSpecificQuery.display_name;
+              tempNewObject = tempObj;
+            }
+            if (tempNewObject) {
+              finalCopy[i] = tempNewObject;
+            }
+            // else do nothing
           }
         }
+        // console.log(finalCopy);
+        setDisplayInfoFromBackendAvailable(false);
+        setFinal(finalCopy);
       }
     };
     displayInfoFromBackend();
@@ -754,6 +816,22 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     Si l'adresse appartient à un compte Sofan alors il faut display le nom + redirection vers le profil.
                     */}
                     <span about={tx.from}>{tx.fromDisplay}</span>
+                    {tx.fromDisplay.slice(0, 2) == "0x" && (
+                      <>
+                        <span
+                          style={{
+                            background: "red",
+                            width: "150px",
+                            height: "50px",
+                            position: "absolute",
+                            color: "black",
+                            fontSize: "14px",
+                          }}
+                        >
+                          {tx.oldFromDisplay}
+                        </span>
+                      </>
+                    )}
                     <img
                       className="useractivitytab-content-container-clipboardlogo"
                       onClick={handleClickCopyConfirmWallet}
