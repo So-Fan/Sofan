@@ -782,7 +782,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     };
     displayInfoFromBackend();
   }, [final]);
-
+  console.log(typeof ethPrice);
   return (
     <>
       <div className="useractivitytab-component">
@@ -831,7 +831,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                         ).toLocaleString("fr-FR", {
                        maximumFractionDigits: 1,
                          })} */}
-                        {tx?.usdc ? "0.00" + " ETH" : "--"}
+                        {tx?.usdc && ethPrice
+                          ? (
+                              parseFloat(tx.usdc.toString().replace(",", ".")) /
+                              ethPrice
+                            )
+                              .toString()
+                              .slice(0, 8) + " ETH"
+                          : "--"}
                       </span>
                     </div>
                   </div>
