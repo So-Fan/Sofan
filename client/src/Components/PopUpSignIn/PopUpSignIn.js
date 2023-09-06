@@ -371,17 +371,22 @@ const PopUpSignIn = ({
       // setGoogleIdToken(idToken);
       // console.log("idToken", idToken);
 
-      const web3authProvider = await web3auth.connectTo(
-        WALLET_ADAPTERS.OPENLOGIN,
-        {
+      let web3authProvider;
+      try {
+        web3authProvider = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
           loginProvider: "jwt",
           extraLoginOptions: {
             id_token: idToken,
             verifierIdField: "sub",
             domain: "http://localhost:3000",
           },
-        }
-      );
+        });
+      } catch (error) {
+        console.error(error);
+        setIsSigninGoogleLoading(false);
+        return;
+      }
+
       setWeb3authProvider(web3authProvider);
       setIsWeb3authConnectClicked([true, web3authProvider]);
       setDisplayLogin(false);

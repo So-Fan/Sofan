@@ -93,12 +93,19 @@ function LaunchpadCollectionLive(isLogged) {
     // console.log(transferData);
   }
   async function getNftPicture() {
-    const nftsFromContract = await alchemy.nft.getNftMetadata(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
-      "15"
-    );
+    let nftsFromContract;
+    try {
+      nftsFromContract = await alchemy.nft.getNftMetadata(
+        "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+        "15"
+      );
+    } catch (error) {
+      console.error(error);
+    }
     // console.log(nftsFromContract?.media[0]?.gateway)
-    setNftPicture(nftsFromContract?.media[0]?.gateway);
+    if (nftsFromContract?.media[0]?.gateway) {
+      setNftPicture(nftsFromContract?.media[0]?.gateway);
+    }
   }
   // API Infura
   const web3Instance = new Web3(
@@ -110,8 +117,15 @@ function LaunchpadCollectionLive(isLogged) {
     `${collectionAddress}`
   );
   async function getCollectionLimit() {
-    const tx = await contractInfura.methods.collectionLimit().call();
-    setNftCollectionMaxItems(tx);
+    let tx;
+    try {
+      tx = await contractInfura.methods.collectionLimit().call();
+    } catch (error) {
+      console.error(error);
+    }
+    if (tx) {
+      setNftCollectionMaxItems(tx);
+    }
   }
   async function getPrice() {
     // const price = await contractInfura?.methods?.price().call(); TODO:
@@ -277,7 +291,8 @@ function LaunchpadCollectionLive(isLogged) {
     }
   };
 
-  const mint = async () => {
+  const mint = async (e) => {
+    e.preventDefault();
     console.log(accounts, contract);
     const result2 = await contract.methods
       .mint("0x266a8e449A62878A6d63BB14c90a95F425a3d30f", 1, 1000000)
@@ -414,7 +429,9 @@ function LaunchpadCollectionLive(isLogged) {
               ?.know_more_athlete_description
           }
           moreAboutAthlete={dataBackend.moreAboutAthlete[0]}
-          knowMoreAboutAthleteDisplayName={launchpadCollectionAthleteInfos[0]?.display_name}
+          knowMoreAboutAthleteDisplayName={
+            launchpadCollectionAthleteInfos[0]?.display_name
+          }
           knowMoreAboutAthleteSport={launchpadCollectionAthleteInfos[0]?.sport}
           knowMoreAboutAthleteProfileAvatar={
             launchpadCollectionAthleteInfos[0]?.profile_avatar
