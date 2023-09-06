@@ -38,6 +38,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   ] = useState([]);
   const [displayInfoFromBackendAvailable, setDisplayInfoFromBackendAvailable] =
     useState(true);
+  const [userProfileSpecificData, setUserProfileSpecificData] = useState();
   const { marketplaceAddress } = useEth();
 
   const settings = {
@@ -774,6 +775,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           }
         }
         // console.log(finalCopy);
+        setUserProfileSpecificData(userSpecificData);
         setDisplayInfoFromBackendAvailable(false);
         setFinal(finalCopy);
       }
@@ -835,12 +837,17 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   <div></div>
                   {tx.fromDisplay.slice(0, 2) != "0x" ? (
                     <div>
-                      <Link
-                        style={{ textDecoration: "none" }}
-                        to={`/userprofile/${tx.firebaseFromId}`}
-                      >
-                        {tx.fromDisplay}
-                      </Link>
+                      {tx.firebaseFromId === userProfileSpecificData.id ? (
+                        <span>{tx.fromDisplay}</span>
+                      ) : (
+                        <Link
+                          style={{ textDecoration: "none" }}
+                          to={`/userprofile/${tx.firebaseFromId}`}
+                          target="_blank"
+                        >
+                          {tx.fromDisplay}
+                        </Link>
+                      )}
                       <div>
                         <span
                           about={tx.from}
@@ -875,12 +882,17 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   )}
                   {tx.toDisplay.slice(0, 2) != "0x" ? (
                     <div>
-                      <Link
-                        style={{ textDecoration: "none" }}
-                        to={`/userprofile/${tx.firebaseToId}`}
-                      >
-                        {tx.toDisplay}
-                      </Link>
+                      {tx.firebaseToId === userProfileSpecificData.id ? (
+                        <span>{tx.toDisplay}</span>
+                      ) : (
+                        <Link
+                          style={{ textDecoration: "none" }}
+                          to={`/userprofile/${tx.firebaseToId}`}
+                          target="_blank"
+                        >
+                          {tx.toDisplay}
+                        </Link>
+                      )}
                       <div>
                         <span
                           about={tx.to}
