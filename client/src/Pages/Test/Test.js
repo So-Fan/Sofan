@@ -3,13 +3,12 @@ import "./Test.css";
 import PopUpBlockchainError from "../../Components/PopUpBlockchainError/PopUpBlockchainError";
 import Modal from "../../Components/Modal/Modal";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
+import UserActivityTab from "../../Components/UserActivityTab/UserActivityTab";
 const Test = () => {
   return (
-    <>
-      <Modal style={{ display: "none" }}>
-        <PopUpAddFundToWallet />
-      </Modal>
-    </>
+    <div style={{ marginTop: 94 }}>
+      <UserActivityTab />
+    </div>
   );
 };
 

@@ -2,14 +2,24 @@ import React, { useRef } from "react";
 import "./NftCard.css";
 import NftCardTemplate from "./NftCardTemplate/NftCardTemplate";
 import { v4 as uuidv4 } from "uuid";
-const NftCard = ({ userFrom, nftsFromOwner, isNftSpam, nftCardRef, hidePrice }) => {
+const NftCard = ({
+  userFrom,
+  nftsFromOwner,
+  isNftSpam,
+  nftCardRef,
+  hidePrice,
+}) => {
   // console.log(userFrom?.length % 4);
   setTimeout(() => {
     // console.log("C'est UserFrom --> " + userFrom);
   }, 900);
   return (
     <>
-      <div ref={nftCardRef} id="nftcard-component" className="nftcard-component">
+      <div
+        ref={nftCardRef}
+        id="nftcard-component"
+        className="nftcard-component"
+      >
         {nftsFromOwner?.map((nft, i, apiNftData) => (
           <>
             {isNftSpam ? (
@@ -17,8 +27,8 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam, nftCardRef, hidePrice }) 
             ) : (
               <>
                 <NftCardTemplate
-                key={uuidv4()}
-                hidePrice={hidePrice}
+                  key={uuidv4()}
+                  hidePrice={hidePrice}
                   to={`/user/nftcard/${apiNftData[i]?.tokenId}`}
                   img={nft.img}
                   athleteName={nft.athleteName}
@@ -29,7 +39,9 @@ const NftCard = ({ userFrom, nftsFromOwner, isNftSpam, nftCardRef, hidePrice }) 
                   // nftsFromOwner={nftsFromOwner[i]}
                   nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
                   nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
-                  nftsFromOwnerFloorPrice={apiNftData[i]?.contract?.openSea?.floorPrice}
+                  nftsFromOwnerFloorPrice={
+                    apiNftData[i]?.contract?.openSea?.floorPrice
+                  }
                   nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
                   isNftSpam={isNftSpam}
                 />

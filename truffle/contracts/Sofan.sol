@@ -12,7 +12,7 @@ contract Sofan is Ownable, ReentrancyGuard {
     // 0x07865c6E87B9F70255377e024ace6630C1Eaa37F 0x98339D8C260052B7ad81c28c16C0b98420f2B46a
     address usdcAddress = 0x07865c6E87B9F70255377e024ace6630C1Eaa37F;
     IERC20 public usdc = IERC20(usdcAddress);
-    address[] public sofanCollection;
+    address[] internal sofanCollection;
     // address[] atheleteAddress;
     enum BidStatus {
         waiting,
@@ -53,6 +53,14 @@ contract Sofan is Ownable, ReentrancyGuard {
     //     _p[0] = 0xd423DCBd697164e282717009044312fDBC6C04f0; _s[0] = 1;
     //     deployCollection(_t, _r, _e, 0, 10, 0, true, 1000000, _p, _s, 250);
     // }
+
+    function getAllCollection() external view returns (address[] memory) {
+        address[] memory temp = new address[](sofanCollection.length);
+        for (uint32 i = 0; i < sofanCollection.length; i++) {
+            temp[i] = sofanCollection[i];
+        }
+        return temp;
+    }
 
     function getCollectionCreatedByWallet(
         address _walletAddress
@@ -345,6 +353,7 @@ contract Sofan is Ownable, ReentrancyGuard {
         require(success2, "Transction was not successful");
     }
 
+    // only the one who made the listing can cancel + add contract and  tokenId to param for easier display in front
     function cancelListing(uint _index) external {
         require(
             ListingMapping[msg.sender][_index].listingStauts ==
