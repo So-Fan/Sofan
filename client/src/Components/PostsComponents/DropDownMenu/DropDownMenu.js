@@ -17,6 +17,9 @@ function DropDownMenu({
   // Backend here
   const isOwner = true;
   // console.log(loggedInUserId);
+  console.log(
+   "", postCreatorId,
+    loggedInUserId)
   return (
     <>
       <section

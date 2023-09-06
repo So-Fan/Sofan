@@ -44,7 +44,7 @@ function PostsFeed({
   loggedInUser,
   polldata,
   // singlePostData,
-  postFeedHomeStyle
+  postFeedHomeStyle,
 }) {
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
@@ -84,6 +84,7 @@ function PostsFeed({
   }
   // console.log("id de postfeed --> ",id)
   // console.log(postCommentNumber);
+  console.log(postPicture);
   return (
     <>
       <div
@@ -134,7 +135,7 @@ function PostsFeed({
           {/* Backend here */}
           <div className="publication-media">
             {/* <img src={attanasioBateau} alt="utilisateur" /> */}
-            <img src={postPicture} alt="" />
+            {postPicture && <img src={postPicture} alt="" />}
           </div>
           {/* Backend here */}
           <LikesCommentsCounter
