@@ -5,7 +5,6 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.8",
     "@mui/x-date-pickers": "^6.12.1",
     "@openzeppelin/contracts": "^4.9.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -36,7 +35,6 @@
     "react-scripts": "5.0.1",
     "react-textarea-autosize": "^8.5.2",
     "scroll-lock": "^2.1.5",
-    "tw-elements": "^1.0.0-rc.1",
     "web-vitals": "^2.1.4",
     "web3": "^1.8.2"
   },

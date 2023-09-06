@@ -22,13 +22,12 @@ import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import FullPagePost from "./Pages/FullPagePost/FullPagePost";
 import FullPagePostPage from "./Pages/FullPagePostPage/FullPagePostPage";
-import { initTE } from "tw-elements";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [localWeb3authProvider, setLocalWeb3authProvider] = useState(null);
   const [web3auth, setWeb3auth] = useState(null);
-  initTE();
+
   useEffect(() => {
     // Check if user data exists in localStorage
     const storedUser = localStorage.getItem("loggedInUser");
@@ -222,10 +221,15 @@ function App() {
                   />
                 }
               />
-              <Route path="/post/:id" element={<FullPagePostPage
-              isLogged={loggedInUser}
-              dataPost={dataPost}
-              />} />
+              <Route
+                path="/post/:id"
+                element={
+                  <FullPagePostPage
+                    isLogged={loggedInUser}
+                    dataPost={dataPost}
+                  />
+                }
+              />
               <Route
                 path="/athleteprofile/:id"
                 element={
