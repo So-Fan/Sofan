@@ -807,7 +807,11 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   <div className="useractivitytab-content-container-methods-wrap">
                     <span>{tx.functionName}</span>
                   </div>
-                  <div className="useractivitytab-content-container-nft-wrap">
+                  <Link
+                    to={`/nftsingle/${tx.nftContract}/${tx.tokenId}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                    className="useractivitytab-content-container-nft-wrap"
+                  >
                     <img
                       src={tx?.image ? tx.image : "template image"}
                       alt="nft"
@@ -816,7 +820,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                       <span>{tx?.title ? tx.title : "CollectionName"}</span>
                       <span>#{tx.tokenId}</span>
                     </div>
-                  </div>
+                  </Link>
                   <div className="useractivitytab-content-container-price-container">
                     <div className="useractivitytab-content-container-price-wrap">
                       <span>{tx?.usdc ? tx.usdc : "--"} €</span>

@@ -237,7 +237,10 @@ function App() {
                 }
               />
               <Route path="/nftcollection" element={<NftCollection />} />
-              <Route path="/nftsingle" element={<NftSingle />} />
+              <Route
+                path="/nftsingle/:contractAddress/:nftId"
+                element={<NftSingle />}
+              />
               <Route path="signupathlete" element={<SignUpAthletePage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/test" element={<Test />} />
