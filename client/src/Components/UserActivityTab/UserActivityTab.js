@@ -18,6 +18,7 @@ import {
   getDoc,
 } from "@firebase/firestore";
 import { db } from "../../Configs/firebase";
+import { Link } from "react-router-dom";
 const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
@@ -27,6 +28,16 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [allErc721Event, setAllErc721Event] = useState([]);
   const [allErc20Event, setAllErc20Event] = useState([]);
   const [web3Instance, setWeb3Instance] = useState();
+  const [isAddressCopiedClicked, setIsAddressCopiedClicked] = useState(false);
+  const [copyAddressAnimationHide, setCopyAddressAnimationHide] =
+    useState(false);
+  const [tempClipboard, setTempClipboard] = useState([]);
+  const [
+    isCopyClipboardAddressConfirmWalletClicked,
+    setIsCopyClipboardAddressConfirmWalletClicked,
+  ] = useState([]);
+  const [displayInfoFromBackendAvailable, setDisplayInfoFromBackendAvailable] =
+    useState(true);
   const { marketplaceAddress } = useEth();
 
   const settings = {
@@ -35,7 +46,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);
-  const [tempClipboard, setTempClipboard] = useState([]);
   useMemo(() => {
     if (
       AllTx.length != 0 &&
@@ -524,11 +534,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     load();
   }, []);
 
-  const [
-    isCopyClipboardAddressConfirmWalletClicked,
-    setIsCopyClipboardAddressConfirmWalletClicked,
-  ] = useState([]);
-
   function handleClickCopyConfirmWallet(e) {
     navigator.clipboard.writeText(
       e.target.parentElement.children[0].attributes[0].value
@@ -574,8 +579,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   //   return () => clearTimeout(timeoutCopyConfirmWallet);
   // }, [isCopyClipboardAddressConfirmWalletClicked]);
 
-  const [displayInfoFromBackendAvailable, setDisplayInfoFromBackendAvailable] =
-    useState(true);
   useEffect(() => {
     const displayInfoFromBackend = async () => {
       if (
@@ -667,6 +670,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 fromAccountType: userSpecificData.account_type,
                 fromAccountId: userSpecificData.id,
                 oldFromDisplay: element.fromDisplay,
+                firebaseFromId: userSpecificData.id,
               };
               // handle string display
               tempObj.fromDisplay = userSpecificData.display_name;
@@ -679,12 +683,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     toAccountType: tempOtherUserSpecificQuery.account_type,
                     toAccountId: tempOtherUserSpecificQuery.id,
                     oldToDisplay: element.toDisplay,
+                    firebaseToId: tempOtherUserSpecificQuery.id,
                   }
                 : {
                     ...element,
                     toAccountType: tempOtherUserSpecificQuery.account_type,
                     toAccountId: tempOtherUserSpecificQuery.id,
                     oldToDisplay: element.toDisplay,
+                    firebaseToId: tempOtherUserSpecificQuery.id,
                   };
               // handle string display
               tempObj.toDisplay = tempOtherUserSpecificQuery.display_name;
@@ -735,6 +741,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 toAccountType: userSpecificData.account_type,
                 toAccountId: userSpecificData.id,
                 oldToDisplay: element.toDisplay,
+                firebaseToId: userSpecificData.id,
               };
               // handle string display
               tempObj.toDisplay = userSpecificData.display_name;
@@ -747,12 +754,14 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     fromAccountType: tempOtherUserSpecificQuery.account_type,
                     fromAccountId: tempOtherUserSpecificQuery.id,
                     oldFromDisplay: element.fromDisplay,
+                    firebaseFromId: tempOtherUserSpecificQuery.id,
                   }
                 : {
                     ...element,
                     fromAccountType: tempOtherUserSpecificQuery.account_type,
                     fromAccountId: tempOtherUserSpecificQuery.id,
                     oldFromDisplay: element.fromDisplay,
+                    firebaseFromId: tempOtherUserSpecificQuery.id,
                   };
               // handle string display
               tempObj.fromDisplay = tempOtherUserSpecificQuery.display_name;
@@ -772,9 +781,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     displayInfoFromBackend();
   }, [final]);
 
-  const [isAddressCopiedClicked, setIsAddressCopiedClicked] = useState(false);
-  const [copyAddressAnimationHide, setCopyAddressAnimationHide] =
-    useState(false);
   return (
     <>
       <div className="useractivitytab-component">
@@ -829,7 +835,12 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   <div></div>
                   {tx.fromDisplay.slice(0, 2) != "0x" ? (
                     <div>
-                      <span>{tx.fromDisplay}</span>
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={`/userprofile/${tx.firebaseFromId}`}
+                      >
+                        {tx.fromDisplay}
+                      </Link>
                       <div>
                         <span
                           about={tx.from}
@@ -864,7 +875,12 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   )}
                   {tx.toDisplay.slice(0, 2) != "0x" ? (
                     <div>
-                      <span>{tx.toDisplay}</span>
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={`/userprofile/${tx.firebaseToId}`}
+                      >
+                        {tx.toDisplay}
+                      </Link>
                       <div>
                         <span
                           about={tx.to}
