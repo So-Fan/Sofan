@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CreationPostPoll.css";
+import arrowPrevious from "../../Assets/Image/arrow-previous.svg";
+
 import validationLogo from "../../Assets/Image/greencross-offers.svg";
 import PostPoll from "./PostPoll/PostPoll";
 import {
@@ -100,7 +102,7 @@ const CreationPostPoll = ({ userId }) => {
           postType,
           pollData,
           likes: [],
-          status: true
+          status: true,
         };
       } else {
         const postType = "poll";
@@ -113,7 +115,7 @@ const CreationPostPoll = ({ userId }) => {
           postType,
           pollData,
           likes: [],
-          status: true
+          status: true,
         };
       }
 
@@ -220,7 +222,10 @@ const CreationPostPoll = ({ userId }) => {
   useEffect(() => {
     setIsFile(0);
   }, []);
-
+  function handlePreviousStepPublishPost() {
+    setStep(step - 1);
+    console.log(step,"clickk")
+  }
   return (
     // <div className="creation-post-component">
     <div
@@ -235,7 +240,23 @@ const CreationPostPoll = ({ userId }) => {
           style={validationPublishPost ? { visibility: "hidden" } : {}}
           className="creation-text-wrap"
         >
-          <span>{step !== 1 ? "Create a post" : "Who can see your post"}</span>
+          <span>
+            {step !== 1
+              ? "Créer une publication"
+              : "Qui peut voir votre publication ?"}
+          </span>
+          {step !== 1 ? (
+            <></>
+          ) : (
+            <>
+              <div
+                onClick={handlePreviousStepPublishPost}
+                className="creation-text-wrap-previous-arrow-container"
+              >
+                <img src={arrowPrevious} alt="FLECHE ETAPE PRECEDENTE" />
+              </div>
+            </>
+          )}
           <button className="cancel-button-creation-post">
             {/* <img src={Cross} alt="a cross" /> */}
           </button>
@@ -279,7 +300,7 @@ const CreationPostPoll = ({ userId }) => {
               className="creation-visibility-choice-fans-only"
               style={isVisibilityClicked[0]}
             >
-              <span>Only my fans</span>
+              <span>Seulement mes fans</span>
             </div>
             <div
               id="1"
@@ -287,7 +308,7 @@ const CreationPostPoll = ({ userId }) => {
               className="creation-visibility-choice-everyone"
               style={isVisibilityClicked[1]}
             >
-              <span>All SoFan users</span>
+              <span>Tout les users Sofan</span>
             </div>
           </div>
         )}
@@ -295,7 +316,7 @@ const CreationPostPoll = ({ userId }) => {
           style={validationPublishPost ? { visibility: "hidden" } : {}}
           onClick={handleNextClick}
         >
-          {step !== 1 ? "Next" : "Publish"}
+          {step !== 1 ? "Suivant" : "Publier"}
         </button>
       </div>
     </div>
