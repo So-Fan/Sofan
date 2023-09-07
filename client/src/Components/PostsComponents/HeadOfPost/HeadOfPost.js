@@ -33,6 +33,7 @@ function HeadOfPost({
   loggedInUserId,
   isFullPagePostModalDisplay,
   fullPagePostModalStyle,
+  userType,
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
@@ -124,6 +125,8 @@ function HeadOfPost({
     addSuffix: true,
   });
   postDate = postDate.replace("environ ", "");
+  // console.log("postCreatorId --> ",postCreatorId)
+  // console.log("loggedInUserId --> ",loggedInUserId)
   return (
     <div
       className={
@@ -215,6 +218,7 @@ function HeadOfPost({
               fullPagePostPageStyle={fullPagePostPageStyle}
               dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
               fullPagePostModalStyle={fullPagePostModalStyle} // à voir si ça créer des conflits de css
+              userType={userType}
             />
           </>
         )}
@@ -228,6 +232,7 @@ function HeadOfPost({
               fullPagePostPageStyle={fullPagePostPageStyle}
               dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
               fullPagePostModalStyle={fullPagePostModalStyle}
+              userType={userType}
             />
           </>
         )}

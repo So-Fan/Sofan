@@ -45,10 +45,15 @@ function PostsFeed({
   polldata,
   // singlePostData,
   postFeedHomeStyle,
+  userType,
+  setCommentCounterIncrementLocal,
+  commentCounterIncrementLocal,
 }) {
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
   const [commentsLengthPostsFeed, setCommentLengthPostsFeed] = useState();
+  // const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
+  //   useState(0);
   function handleClickShowComment(e) {
     e.preventDefault();
     setIsPostClicked(true);
@@ -82,9 +87,6 @@ function PostsFeed({
       );
     }
   }
-  // console.log("id de postfeed --> ",id)
-  // console.log(postCommentNumber);
-  console.log(postPicture);
   return (
     <>
       <div
@@ -125,6 +127,8 @@ function PostsFeed({
               //
               handleDropdownPostFeedClick={handleDropdownPostFeedClick}
               handleClickCopyPostLink={handleClickCopyPostLink}
+              loggedInUserId={loggedInUser?.id}
+              userType={userType}
             />
           </div>
           <PostsDescription
@@ -151,12 +155,18 @@ function PostsFeed({
             postCommentNumber={postCommentNumber}
             postId={id}
             loggedInUserId={loggedInUser?.id}
+            commentCounterIncrementLocal={commentCounterIncrementLocal}
           />
           <div className="show-comments-button-publication">
             <Link onClick={(e) => handleClickShowComment(e)}>
-              Voir{postCommentNumber > 1 ? " les" : ""}{" "}
-              {postCommentNumber > 1
-                ? postCommentNumber + " commentaires"
+              Voir
+              {postCommentNumber + commentCounterIncrementLocal > 1
+                ? " les"
+                : ""}{" "}
+              {postCommentNumber + commentCounterIncrementLocal > 1
+                ? postCommentNumber +
+                  commentCounterIncrementLocal +
+                  " commentaires"
                 : "commentaire(s)"}
             </Link>
           </div>
@@ -173,6 +183,8 @@ function PostsFeed({
             postFeedHomeStyle={postFeedHomeStyle}
             loggedInUser={loggedInUser}
             postId={id}
+            setCommentCounterIncrementLocal={setCommentCounterIncrementLocal}
+            commentCounterIncrementLocal={commentCounterIncrementLocal}
           />
         </div>
       </div>
@@ -210,6 +222,9 @@ function PostsFeed({
             isFullPagePostModalDisplay={true}
             fullPagePostModalStyle={true}
             setCommentLengthPostsFeed={setCommentLengthPostsFeed}
+            userType={userType}
+            commentCounterIncrementLocal={commentCounterIncrementLocal}
+
             // postType={singlePostData.postType === "normal"}
           />
         </Modal>
