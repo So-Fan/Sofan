@@ -32,8 +32,8 @@ function AddCommentInput({
     if (!loggedInUser && !commentText){
       return;
     }
-      const commentData = {
-        createdAt: serverTimestamp(),
+    const commentData = {
+      createdAt: serverTimestamp(),
       userId: loggedInUser.id,
       userType: loggedInUser.account_type,
       display_name: loggedInUser.display_name,
