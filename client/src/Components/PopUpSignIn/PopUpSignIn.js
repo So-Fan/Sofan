@@ -370,6 +370,7 @@ const PopUpSignIn = ({
       // setGoogleIdToken(idToken)
       // setGoogleIdToken(idToken);
       // console.log("idToken", idToken);
+
       let web3authProvider;
       try {
         web3authProvider = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
@@ -385,6 +386,10 @@ const PopUpSignIn = ({
         setIsSigninGoogleLoading(false);
         return;
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8ab80739393f5f2ec3e88000a983e69a25519c92
       setWeb3authProvider(web3authProvider);
       setIsWeb3authConnectClicked([true, web3authProvider]);
       setDisplayLogin(false);

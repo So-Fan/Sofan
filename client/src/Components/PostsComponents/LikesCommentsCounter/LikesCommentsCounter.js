@@ -22,6 +22,7 @@ function LikesCommentsCounter({
   isMediaQueriesFullPagePostDisabled,
   fullPagePostModalStyle,
   fullPagePostPageStyle,
+  commentCounterIncrementLocal
 }) {
   const [pluralLikes, setPluralLikes] = useState();
   useEffect(() => {
@@ -32,6 +33,7 @@ function LikesCommentsCounter({
     }
   }, []);
 
+  // postLikes + commentCounterIncrementLocal
   return (
     <div
       className={
@@ -115,7 +117,7 @@ function LikesCommentsCounter({
           }
         >
           <Link onClick={setIsPostClicked}>
-            {postCommentNumber} comments
+            {postCommentNumber + commentCounterIncrementLocal} comments
           </Link>
         </div>
       </div>

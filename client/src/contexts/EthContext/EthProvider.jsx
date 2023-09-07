@@ -25,8 +25,8 @@ function EthProvider({ children, setWeb3auth }) {
   const [isWeb3authConnectClicked, setIsWeb3authConnectClicked] =
     useState(false);
   const [contractAddress, setContractAddress] = useState(null); // declencher useEffect quand contractAddress change
-  const marketplaceAddress = "0x7082cc65E582DE32A7caD11fDC396b02490b97DD";
-
+  const marketplaceAddress = "0x3d273016D59f58b509C52970B128134b5DDc8e18";
+  //  "0x7082cc65E582DE32A7caD11fDC396b02490b97DD"
   useEffect(() => {
     if (localStorage.getItem("Web3Auth-cachedAdapter")) {
       const init = async () => {

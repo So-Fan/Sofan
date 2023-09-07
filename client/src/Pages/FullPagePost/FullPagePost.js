@@ -10,7 +10,13 @@ import PollPost from "../../Components/PostsComponents/PollPost/PollPost";
 import DropDownMenu from "../../Components/PostsComponents/DropDownMenu/DropDownMenu";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../../Configs/firebase";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+} from "firebase/firestore";
 
 function FullPagePost({
   id,
@@ -39,6 +45,8 @@ function FullPagePost({
   fullPagePostModalStyle,
   loggedInUser,
   setCommentLengthPostsFeed,
+  userType,
+  commentCounterIncrementLocal,
 }) {
   const [
     isMediaQueriesFullPagePostDisabled,
@@ -65,7 +73,11 @@ function FullPagePost({
 
   useEffect(() => {
     const commentsRef = collection(db, `feed_post/${id}/post_comments`);
-    const q = query(commentsRef, orderBy("createdAt", "desc"));
+    const q = query(
+      commentsRef,
+      where("status", "==", true)
+      // orderBy("createdAt", "desc")
+    );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const comments = [];
@@ -74,8 +86,10 @@ function FullPagePost({
         commentData.commentId = doc.id;
         comments.push(commentData);
       });
+      comments.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
       setComments(comments);
     });
+    setCommentLengthPostsFeed(comments.length);
 
     return () => {
       unsubscribe();
@@ -118,7 +132,7 @@ function FullPagePost({
   function handleDropdownPostFeedClick() {
     // console.log("je m'appelle rami");
   }
-  setCommentLengthPostsFeed(comments.length);
+  // setCommentLengthPostsFeed(comments.length);
   function handleClickCopyPostLink(userId, userType) {
     userType === "athlete"
       ? navigator.clipboard.writeText(
@@ -128,7 +142,6 @@ function FullPagePost({
           `https://staging.sofan.app/userprofile/${userId}`
         );
   }
-  // console.log(comments)
   return (
     <>
       <div
@@ -221,6 +234,7 @@ function FullPagePost({
                   handleClickCopyPostLink={handleClickCopyPostLink}
                   isFullPagePostModalDisplay={isFullPagePostModalDisplay}
                   fullPagePostModalStyle={fullPagePostModalStyle}
+                  userType={userType}
                 />
               </div>
               <PostsDescription
@@ -253,6 +267,7 @@ function FullPagePost({
                   }
                   fullPagePostModalStyle={fullPagePostModalStyle}
                   fullPagePostPageStyle={fullPagePostPageStyle}
+                  commentCounterIncrementLocal={commentCounterIncrementLocal}
                 />
               </div>
               <div
@@ -296,6 +311,7 @@ function FullPagePost({
                           isMediaQueriesFullPagePostDisabled
                         }
                         handleClickCopyPostLink={handleClickCopyPostLink}
+                        postId={id}
                       />
                     </>
                   );

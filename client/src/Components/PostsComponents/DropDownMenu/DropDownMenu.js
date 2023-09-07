@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./DropDownMenu.css";
-
+import { updateDoc, doc } from "firebase/firestore";
+import { db } from "../../../Configs/firebase";
 function DropDownMenu({
   dropdownStates,
   id,
@@ -13,13 +14,42 @@ function DropDownMenu({
   userType,
   userId,
   isPostsCommentsDisplay,
+  commentId,
+  postId,
 }) {
-  // Backend here
-  const isOwner = true;
-  // console.log(loggedInUserId);
-  console.log(
-   "", postCreatorId,
-    loggedInUserId)
+  async function handleDeleteComments(e) {
+    try {
+      // Créer une référence vers le commentaire que vous souhaitez supprimer
+      const commentRef = doc(
+        db,
+        `feed_post/${postId}/post_comments/${commentId}`
+      );
+
+      // Mettre à jour le champ 'status' en le mettant à false
+      await updateDoc(commentRef, {
+        status: false,
+      });
+
+      console.log("Le status a bien été passé à false");
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du statut:", error);
+    }
+  }
+  async function handleDeletePosts(e) {
+    try {
+      // Créer une référence vers le commentaire que vous souhaitez supprimer
+      const postRef = doc(db, `feed_post/${id}`);
+
+      // Mettre à jour le champ 'status' en le mettant à false
+      await updateDoc(postRef, {
+        status: false,
+      });
+
+      console.log("Le status a bien été passé à false");
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du statut:", error);
+    }
+  }
   return (
     <>
       <section
@@ -46,12 +76,25 @@ function DropDownMenu({
         }
       >
         <ul id={id}>
-          {/* {postCreatorId == loggedInUserId && ( */}
-          <>
-            <li>Supprimer</li>
-            <div className="separation-line-dropdown-menu"></div>
-          </>
-          {/* )} */}
+          {isPostsCommentsDisplay ? (
+            <>
+              {userId === loggedInUserId && (
+                <>
+                  <li onClick={handleDeleteComments}>Supprimer</li>
+                  <div className="separation-line-dropdown-menu"></div>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              {postCreatorId === loggedInUserId && (
+                <>
+                  <li onClick={handleDeletePosts}>Supprimer</li>
+                  <div className="separation-line-dropdown-menu"></div>
+                </>
+              )}
+            </>
+          )}
           {isPostsCommentsDisplay ? (
             <>
               <li onClick={() => handleClickCopyPostLink(userId, userType)}>
