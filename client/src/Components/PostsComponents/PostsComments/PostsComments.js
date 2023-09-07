@@ -228,6 +228,7 @@ function PostsComments({
                       handleClickCopyPostLink={handleClickCopyPostLink}
                       postCreatorId={postCreatorId}
                       loggedInUserId={loggedInUserId}
+                      postId={postId}
                     />
                   </>
                 )}

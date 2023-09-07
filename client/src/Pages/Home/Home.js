@@ -55,6 +55,8 @@ function Home({
   const [suggestionsAthletes, setSuggestionsAthletes] = useState([]);
   const suggestionCollectionAthlete = collection(db, "users");
   const [commentCounts, setCommentCounts] = useState({});
+  const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
+    useState(0);
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
@@ -66,20 +68,23 @@ function Home({
   }
   const getCommentCount = async (postId) => {
     const commentsRef = collection(db, `feed_post/${postId}/post_comments`);
-    const q = query(commentsRef, orderBy("createdAt", "desc"));
+    const q = query(commentsRef, where("status", "==", true));
+
     const querySnapshot = await getDocs(q);
     const commentCount = querySnapshot.size;
+
     setCommentCounts((prevState) => ({ ...prevState, [postId]: commentCount }));
   };
+
   useEffect(() => {
     setIsLoading(true);
 
-    const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
+    const feedPostCollectionRef = collection(db, "feed_post");
     const q = query(
       feedPostCollectionRef,
       where("status", "==", true),
       orderBy("createdAt", "desc")
-    ); // Order by 'createdAt' in descending order
+    );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const feedData = [];
@@ -160,7 +165,7 @@ function Home({
   useEffect(() => {
     console.log(dataPost);
   }, [dataPost]);
-
+  // console.log(loggedInUser?.account_type)
   return (
     <>
       <section className="home-component">
@@ -256,6 +261,13 @@ function Home({
                       handleClickCopyPostLink={handleClickCopyPostLink}
                       postFeedHomeStyle={true}
                       postCommentNumber={commentCounts[post.id] || 0}
+                      userType={loggedInUser?.account_type}
+                      commentCounterIncrementLocal={
+                        commentCounterIncrementLocal
+                      }
+                      setCommentCounterIncrementLocal={
+                        setCommentCounterIncrementLocal
+                      }
                     />
                   );
                 })}

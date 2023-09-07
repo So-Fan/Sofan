@@ -14,6 +14,8 @@ function AddCommentInput({
   postFeedHomeStyle,
   postId,
   loggedInUser,
+  setCommentCounterIncrementLocal,
+  commentCounterIncrementLocal
 }) {
   const [focusInputComment, setFocusInputComment] = useState();
   const [blurInputComment, setBlurInputComment] = useState();
@@ -27,7 +29,6 @@ function AddCommentInput({
   const feedPostCollectionRef = collection(db, "feed_post");
   const handleSubmitComments = async (e) => {
     e.preventDefault();
-
     if (!loggedInUser && !commentText){
       return;
     }
@@ -49,6 +50,9 @@ function AddCommentInput({
       );
       await addDoc(commentRef, commentData);
       console.log("Comment successfully added!");
+      // state here
+      setCommentCounterIncrementLocal(prevState => prevState + 1);
+      console.log("compteur depis AddCommentInput --> ",commentCounterIncrementLocal)
     } catch (e) {
       console.error("Error adding comment: ", e);
     }
