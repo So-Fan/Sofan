@@ -287,7 +287,11 @@ function UserProfilePage({
         //   transferNftDataApi={transferNftDataApi}
         //   ethPrice={ethPrice}
         // />
-        <UserOffersMade />
+        <UserOffersMade
+          ethPrice={ethPrice}
+          currentProfileUserWallet={currentProfileUserWallet}
+          display_name={allUserInfo.display_name}
+        />
       );
     } else if (isProfileSubMenuButtonClicked[3] === true) {
       return (
@@ -303,6 +307,7 @@ function UserProfilePage({
       );
     }
   }
+  console.log(allUserInfo);
   return (
     <>
       <section
