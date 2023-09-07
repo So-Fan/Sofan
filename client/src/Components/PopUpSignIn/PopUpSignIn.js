@@ -386,10 +386,7 @@ const PopUpSignIn = ({
         setIsSigninGoogleLoading(false);
         return;
       }
-<<<<<<< HEAD
-=======
 
->>>>>>> 8ab80739393f5f2ec3e88000a983e69a25519c92
       setWeb3authProvider(web3authProvider);
       setIsWeb3authConnectClicked([true, web3authProvider]);
       setDisplayLogin(false);

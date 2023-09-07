@@ -24,6 +24,7 @@
 }
 .dropdown-menu-container li,
 .dropdown-menu-container-fullpagepost-page li {
+  user-select: none;
   outline: none;
   margin: 0;
   padding: 0;

@@ -87,6 +87,8 @@ function PostsFeed({
       );
     }
   }
+  useEffect(() => {}, []);
+
   return (
     <>
       <div
@@ -97,14 +99,26 @@ function PostsFeed({
         }
         className="publication-container"
       >
-        {lockPremiumContent && (
+        {postCreatorId === loggedInUser?.id ? (
+          <></>
+        ) : (
           <>
-            <PremiumContentLocked />
+            {lockPremiumContent && (
+              <>
+                <PremiumContentLocked />
+              </>
+            )}
           </>
         )}
         <div
           className="publication-content"
-          style={lockPremiumContent ? { filter: "blur(17px)" } : {}}
+          style={
+            postCreatorId === loggedInUser?.id
+              ? {}
+              : lockPremiumContent
+              ? { filter: "blur(17px)" }
+              : {}
+          }
         >
           {isDropdownClicked && <DropDownMenu id={id} />}
           {/* <DropDownMenu/> */}
