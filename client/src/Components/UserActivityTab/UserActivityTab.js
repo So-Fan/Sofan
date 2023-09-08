@@ -853,7 +853,11 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                       ) : (
                         <Link
                           style={{ textDecoration: "none" }}
-                          to={`/userprofile/${tx.firebaseFromId}`}
+                          to={
+                            tx.account_type === "athlete"
+                              ? `/athleteprofile/${tx.firebaseFromId}`
+                              : `/userprofile/${tx.firebaseFromId}`
+                          }
                           target="_blank"
                         >
                           {tx.fromDisplay}
@@ -898,7 +902,11 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                       ) : (
                         <Link
                           style={{ textDecoration: "none" }}
-                          to={`/userprofile/${tx.firebaseToId}`}
+                          to={
+                            tx.account_type === "athlete"
+                              ? `/athleteprofile/${tx.firebaseToId}`
+                              : `/userprofile/${tx.firebaseToId}`
+                          }
                           target="_blank"
                         >
                           {tx.toDisplay}

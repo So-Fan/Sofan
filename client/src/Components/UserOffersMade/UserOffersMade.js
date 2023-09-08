@@ -9,6 +9,8 @@ import { Alchemy, Network } from "alchemy-sdk";
 import useEth from "../../contexts/EthContext/useEth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+import { Link } from "react-router-dom";
+import copyLogo from "../../Assets/Image/copy-logo.svg";
 const UserOffersMade = ({
   ethPrice,
   currentProfileUserWallet,
@@ -183,6 +185,7 @@ const UserOffersMade = ({
                   ...element,
                   firebaseToId: userInfo.id,
                   toAccountType: userInfo.account_type,
+                  oldToDisplay: element.toDisplay,
                 };
                 tempObj.toDisplay = userInfo.display_name;
                 tempPlaceBid[i] = tempObj;
@@ -206,6 +209,7 @@ const UserOffersMade = ({
                     ...element,
                     firebaseToId: userInfo.id,
                     toAccountType: userInfo.account_type,
+                    oldToDisplay: element.toDisplay,
                   };
                   tempObj.toDisplay = userInfo.display_name;
                   tempPlaceBid[i] = tempObj;
@@ -258,6 +262,45 @@ const UserOffersMade = ({
     };
     loadMetadataAndBidStatus();
   }, [placeBid, alchemyPlaceBidMetadata]);
+
+  // should be in UserProfilePage
+  const [isAddressCopiedClicked, setIsAddressCopiedClicked] = useState(false);
+  const [copyAddressAnimationHide, setCopyAddressAnimationHide] =
+    useState(false);
+  const [handleTimeout, setHandleTimeout] = useState([]);
+  function handleClickCopyConfirmWallet(e) {
+    navigator.clipboard.writeText(
+      e.target.parentElement.children[0].attributes[0].value
+    );
+    console.log(window);
+    setIsAddressCopiedClicked(true);
+    // setHandleTimeout([first]);
+  }
+
+  useEffect(() => {
+    if (isAddressCopiedClicked === true) {
+      const first = setTimeout(() => {
+        setCopyAddressAnimationHide(true);
+      }, 2000);
+
+      const second = setTimeout(() => {
+        setIsAddressCopiedClicked(false);
+        setCopyAddressAnimationHide(false);
+      }, 2200);
+
+      return () => {
+        clearTimeout(first);
+        clearTimeout(second);
+      };
+    }
+  }, [isAddressCopiedClicked]);
+  // useEffect(() => {
+  //   if
+  //   if(handleTimeout.length === 2){
+  //     clearTimeout(handleTimeout[0]);
+  //     clearTimeout(handleTimeout[1]);
+  //   }
+  // }, [handleTimeout]);
   return (
     <>
       <div className="useroffersmade-component">
@@ -298,9 +341,40 @@ const UserOffersMade = ({
                   <div className="useroffersmade-content-container-from-wrap">
                     <span>{tx.fromDisplay}</span>
                   </div>
-                  <div>
-                    <span>{tx.toDisplay}</span>
-                  </div>
+                  {tx.toDisplay.slice(0, 2) != "0x" ? (
+                    <div>
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={
+                          tx.account_type === "athlete"
+                            ? `/athleteprofile/${tx.firebaseToId}`
+                            : `/userprofile/${tx.firebaseToId}`
+                        }
+                        target="_blank"
+                      >
+                        {tx.toDisplay}
+                      </Link>
+                      <div>
+                        <span
+                          about={tx.to}
+                          style={{ opacity: "0.7", fontSize: "11px" }}
+                        >
+                          {tx.oldToDisplay}
+                        </span>
+                        <img
+                          // className="useractivitytab-content-container-clipboardlogo"
+                          onClick={handleClickCopyConfirmWallet}
+                          src={copyLogo}
+                          alt="copy logo"
+                          style={{ width: 10, heigth: 10, marginLeft: 4 }}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <span>{tx.toDisplay}</span>
+                    </div>
+                  )}
                   <div>
                     <span>{tx.status ? tx.status : "error"}</span>
                   </div>
@@ -343,6 +417,19 @@ const UserOffersMade = ({
               ))}
         </div>
       </div>
+      {isAddressCopiedClicked && (
+        <>
+          <div
+            className={
+              copyAddressAnimationHide
+                ? "useroffersmade-address-hide"
+                : "useroffersmade-address-copied"
+            }
+          >
+            Copié dans le presse-papier !
+          </div>
+        </>
+      )}
     </>
   );
 };
