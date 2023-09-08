@@ -1,0 +1,20 @@
+.dashboard-my-collections-container{
+    width: 100%;
+    max-width: 1077.02px;
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: red; */
+}
+.dashboard-my-collections-wrap{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.dashboard-my-collections-subwrap{ 
+    width: 308px ;
+    height: 387px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+}
