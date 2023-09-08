@@ -7,6 +7,8 @@ import { fr } from "date-fns/locale";
 import { formatPriceDisplay } from "../../Utils/formatPriceDisplay";
 import { Alchemy, Network } from "alchemy-sdk";
 import useEth from "../../contexts/EthContext/useEth";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../Configs/firebase";
 const UserOffersMade = ({
   ethPrice,
   currentProfileUserWallet,
@@ -159,12 +161,60 @@ const UserOffersMade = ({
           }
         );
 
-        console.log(res);
+        // console.log(res);
         let tempPlaceBid = [...placeBid];
         for (let i = 0; i < res.length; i++) {
           const AlchemyElement = res[i];
           for (let i = 0; i < placeBid.length; i++) {
             const element = placeBid[i];
+            // query `to` user into firebase and add it if exist
+            // let tempUserInfo;
+            const feedPostCollectionRef = collection(db, "users");
+            const otherUserSpecificQuery = query(
+              feedPostCollectionRef,
+              where("metamask", "==", element.to)
+            );
+            const querySnapshot = await getDocs(otherUserSpecificQuery);
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                const userInfo = doc.data();
+                // tempUserInfo = userInfo;
+                const tempObj = {
+                  ...element,
+                  firebaseToId: userInfo.id,
+                  toAccountType: userInfo.account_type,
+                };
+                tempObj.toDisplay = userInfo.display_name;
+                tempPlaceBid[i] = tempObj;
+                console.log(tempPlaceBid[i]);
+                console.log(userInfo);
+              });
+            } else {
+              console.log("No metamask found");
+              const tempUserSpecificQueryWeb3auth = query(
+                feedPostCollectionRef,
+                where("web3auth", "==", element.to)
+              );
+              const querySnapshot = await getDocs(
+                tempUserSpecificQueryWeb3auth
+              );
+              if (!querySnapshot.empty) {
+                querySnapshot.forEach((doc) => {
+                  const userInfo = doc.data();
+                  // tempUserInfo = userInfo;
+                  const tempObj = {
+                    ...element,
+                    firebaseToId: userInfo.id,
+                    toAccountType: userInfo.account_type,
+                  };
+                  tempObj.toDisplay = userInfo.display_name;
+                  tempPlaceBid[i] = tempObj;
+                  console.log(userInfo);
+                });
+              } else {
+                console.log("No metamask or web3auth found");
+              }
+            }
 
             if (
               AlchemyElement.tokenId === element.tokenId &&
@@ -174,9 +224,9 @@ const UserOffersMade = ({
               const getBid = await web3MarketplaceInstance.methods
                 .getBid(element.to, element.nftContract, element.tokenId)
                 .call();
-              console.log("getBid", getBid);
+              // console.log("getBid", getBid);
               let tempObj = {
-                ...element,
+                ...tempPlaceBid[i],
                 title: concatStringFromTo(
                   AlchemyElement.rawMetadata.name,
                   22,
@@ -202,6 +252,7 @@ const UserOffersMade = ({
             }
           }
         }
+        console.log(tempPlaceBid);
         setFinalPlaceBid(tempPlaceBid);
       }
     };
