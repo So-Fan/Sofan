@@ -89,6 +89,9 @@ function PostsFeed({
   }
   useEffect(() => {}, []);
 
+  // console.log("id de postfeed --> ",id)
+  // console.log(postCommentNumber);
+  //console.log(postPicture);
   return (
     <>
       <div
