@@ -123,23 +123,25 @@ function AthleteProfileHeader({
   };
 
   useEffect(() => {
-    if (!loggedInUser?.id || !userInfo?.id) return;
+    if (!userInfo?.id) return;
 
     const athleteDataRef = doc(db, "users", userInfo.id, "athlete_data", userInfo.id);
 
     const unsubscribe = onSnapshot(athleteDataRef, (snapshot) => {
         const data = snapshot.data();
         if (data && data.followers) {
-            // Update the following status
-            setIsFollowing(data.followers.includes(loggedInUser.id));
-            
-            // Update the total followers count
+            // Update the following status ONLY if there's a logged-in user
+            if (loggedInUser?.id) {
+                setIsFollowing(data.followers.includes(loggedInUser.id));
+            }
+            // Always update the total followers count
             setTotalFollowers(data.followers.length);
         }
     });
 
     return () => unsubscribe();
   }, [db, userInfo?.id, loggedInUser?.id]);
+
 
 
   const storedUser = localStorage.getItem("loggedInUser");
