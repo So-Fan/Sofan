@@ -73,7 +73,7 @@ function AthleteProfileHeader({
       return;
     }
 
-    console.log(loggedInUser.display_name, " Trying to follow/unfollow!");
+    //console.log(loggedInUser.display_name, " Trying to follow/unfollow!");
 
     try {
       // Reference to the athlete_data document for the specific user
@@ -152,7 +152,7 @@ function AthleteProfileHeader({
     }
   }, [userInfo]);
   // console.log(userInfo)
-  console.log(fansCounterApi);
+  //console.log(fansCounterApi);
 
   const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
     useState(false);
