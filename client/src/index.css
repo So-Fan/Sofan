@@ -163,7 +163,6 @@ table {
 
 /* END OF RESET */
 
-
 body {
   height: 100%;
   width: 100%;
@@ -178,7 +177,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: "britanica-regular" !important;
 }
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   display: none;
 }
 .page-container {
@@ -187,4 +186,7 @@ body::-webkit-scrollbar{
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+a:active {
+  color: black;
 }

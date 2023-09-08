@@ -106,7 +106,8 @@ const UserOffersMade = ({
           tokenId: decodedParams._tokenId,
           price: decodedParams._offerPrice,
           usdc: formatPriceDisplay(decodedParams._offerPrice),
-          fromDisplay: display_name,
+          oldFromDisplay: display_name,
+          fromDisplay: concatStringFromTo(element.from, 1, 4, true, true, 5),
           toDisplay: concatStringFromTo(
             decodedParams._receiver,
             1,
@@ -267,14 +268,12 @@ const UserOffersMade = ({
   const [isAddressCopiedClicked, setIsAddressCopiedClicked] = useState(false);
   const [copyAddressAnimationHide, setCopyAddressAnimationHide] =
     useState(false);
-  const [handleTimeout, setHandleTimeout] = useState([]);
   function handleClickCopyConfirmWallet(e) {
     navigator.clipboard.writeText(
       e.target.parentElement.children[0].attributes[0].value
     );
     console.log(window);
     setIsAddressCopiedClicked(true);
-    // setHandleTimeout([first]);
   }
 
   useEffect(() => {
@@ -286,7 +285,7 @@ const UserOffersMade = ({
       const second = setTimeout(() => {
         setIsAddressCopiedClicked(false);
         setCopyAddressAnimationHide(false);
-      }, 2200);
+      }, 2300);
 
       return () => {
         clearTimeout(first);
@@ -294,13 +293,6 @@ const UserOffersMade = ({
       };
     }
   }, [isAddressCopiedClicked]);
-  // useEffect(() => {
-  //   if
-  //   if(handleTimeout.length === 2){
-  //     clearTimeout(handleTimeout[0]);
-  //     clearTimeout(handleTimeout[1]);
-  //   }
-  // }, [handleTimeout]);
   return (
     <>
       <div className="useroffersmade-component">
@@ -317,13 +309,18 @@ const UserOffersMade = ({
           {finalPlaceBid.length != 0
             ? finalPlaceBid.map((tx) => (
                 <div className="useroffersmade-content-container-wrap">
-                  <div className="useroffersmade-content-container-nft-wrap">
+                  <Link
+                    to={`/nftsingle/${tx.nftContract}/${tx.tokenId}`}
+                    target="_blank"
+                    style={{ textDecoration: "none", color: "black" }}
+                    className="useroffersmade-content-container-nft-wrap"
+                  >
                     <img src={tx.image} alt="nft" />
                     <div className="useroffersmade-content-container-nft-wrap-info-wrap">
                       <span>{tx.title}</span>
                       <span>#{tx.tokenId}</span>
                     </div>
-                  </div>
+                  </Link>
                   <div className="useroffersmade-content-container-offer-wrap">
                     <span>{tx.usdc} €</span>
                     <span>
@@ -339,14 +336,29 @@ const UserOffersMade = ({
                   </div>
                   <div></div>
                   <div className="useroffersmade-content-container-from-wrap">
-                    <span>{tx.fromDisplay}</span>
+                    <span>{tx.oldFromDisplay}</span>
+                    <div>
+                      <span
+                        about={tx.from}
+                        style={{ opacity: "0.7", fontSize: "11px" }}
+                      >
+                        {tx.fromDisplay}
+                      </span>
+                      <img
+                        // className="useractivitytab-content-container-clipboardlogo"
+                        onClick={handleClickCopyConfirmWallet}
+                        src={copyLogo}
+                        alt="copy logo"
+                        style={{ width: 10, heigth: 10, marginLeft: 4 }}
+                      />
+                    </div>
                   </div>
                   {tx.toDisplay.slice(0, 2) != "0x" ? (
                     <div>
                       <Link
                         style={{ textDecoration: "none" }}
                         to={
-                          tx.account_type === "athlete"
+                          tx.toAccountType === "athlete"
                             ? `/athleteprofile/${tx.firebaseToId}`
                             : `/userprofile/${tx.firebaseToId}`
                         }
