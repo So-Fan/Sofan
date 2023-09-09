@@ -854,7 +854,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                         <Link
                           style={{ textDecoration: "none" }}
                           to={
-                            tx.account_type === "athlete"
+                            tx.toAccountType === "athlete"
                               ? `/athleteprofile/${tx.firebaseFromId}`
                               : `/userprofile/${tx.firebaseFromId}`
                           }

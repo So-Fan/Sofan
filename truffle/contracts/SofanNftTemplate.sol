@@ -29,7 +29,24 @@ contract SofanNftTemplate is
     uint256 launchpadTime;
     uint256 deployDate;
     bool isAbleChangeMaxLimitCollection;
-    mapping(address => uint256) public NftOwned;
+    // Add ERC721Enumerable.sol
+    /*
+    Add
+    function tokensOfOwner(address _owner) external view returns (uint256[] memory) {
+		uint256 tokenCount = balanceOf(_owner);
+		if (tokenCount == 0) return new uint256[](0);
+		else {
+			uint256[] memory result = new uint256[](tokenCount);
+			uint256 index;
+			for (index = 0; index < tokenCount; index++) {
+				result[index] = tokenOfOwnerByIndex(_owner, index);
+			}
+			return result;
+		}
+	}
+    
+     */
+    mapping(address => uint[]) public NftByOwner;
     address SofanWallet = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
     address AthleteWallet = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
     uint256 public price;
@@ -84,7 +101,7 @@ contract SofanNftTemplate is
         if (isLimitByWallet == true) // Optimize this for fees
         {
             require(
-                (NftOwned[_to] + _quantity) <= limitByWallet,
+                (ERC721A.balanceOf(_to) + _quantity) <= limitByWallet,
                 "Limit of owned NFT reached or too much NFTs asked"
             );
         }
@@ -124,7 +141,8 @@ contract SofanNftTemplate is
         //     value: ((address(this).balance * 100) / 100)
         // }("");
         // require(success, "Transfer failed.");
-        NftOwned[_to] = NftOwned[_to] + _quantity;
+        // NftOwned[_to] = NftOwned[_to] + _quantity;
+        NftByOwner[msg.sender].push(ERC721A._nextTokenId());
         _mint(_to, _quantity);
     }
 

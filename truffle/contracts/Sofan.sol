@@ -32,6 +32,7 @@ contract Sofan is Ownable, ReentrancyGuard {
         address sender;
         BidStatus bidStatus;
         address receiver;
+        //Add TimeStamp
     }
     struct Listing {
         address contractAddress;
