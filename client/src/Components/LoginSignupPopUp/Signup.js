@@ -56,6 +56,7 @@ function Signup({
   setWeb3auth,
   setIsSignUpButtonClicked,
   handlePopoUpSignUpSignInClick,
+  setIsSignupCompleted,
 }) {
   //
   const { setLoggedInUser } = useContext(UserContext);
@@ -425,7 +426,7 @@ function Signup({
   };
 
   async function verifyFormIsValid(e) {
-    e.preventDefault();
+    // e.preventDefault();
     setIsSubmitClicked(true);
     if (
       !emailError &&
@@ -965,6 +966,8 @@ function Signup({
     setDisplayConfirmWallet(false);
     setTimeout(() => {
       setDisplayValidationSignup(true);
+      // from LandingPage state to pass true
+      setIsSignupCompleted(true);
     }, 2000);
   }
   function handleConfirmationCodePreviousStep() {
