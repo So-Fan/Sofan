@@ -1,0 +1,219 @@
+.scroll-lock {
+  overflow: hidden !important;
+}
+.navbar-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 90px;
+  padding-bottom: 4px;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 10000;
+}
+.navbar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* mdifier vers 1200*/
+  max-width: 1246px;
+}
+.navbar-wrap-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 654px;
+}
+.navbar-main-logo {
+  width: 114px;
+}
+
+.navbar-wrap-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 280px;
+}
+.navbar-navicon {
+  text-decoration: none;
+  font-family: "Britanica-Heavy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #000000;
+  position: relative;
+}
+
+.navbar-navicon-name {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* Conditionnal rendering if clicked or not */
+.navbar-navicon-name-active-home {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* background-color: #00000015; */
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+  /* text-decoration: underline; */
+  /* text-decoration-thickness: 2px; */
+}
+.navbar-navicon-name-active-home::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: 7px;
+  width: 63%;
+  background-color: black;
+  height: 1px;
+}
+.navbar-navicon-name-active-launchpad {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* background-color: #00000015; */
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+}
+.navbar-navicon-name-active-launchpad::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: 7px;
+  width: 80%;
+  background-color: black;
+  height: 1px;
+}
+.navbar-navicon-name:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 30px;
+}
+.navbar-wrap-2-unauthenticated {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 414px;
+}
+.navbar-wrap-2-subwrap-navicon-and-navprofile {
+  display: flex;
+  justify-content: space-between;
+  width: 110px;
+}
+.navbar-wrap-2-navicon-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60px;
+}
+
+.navbar-vertical {
+  width: 0px;
+  height: 30px;
+  border: 0.3px solid #0000003c;
+}
+.navbar-wrap-2-subwrap-sign {
+  display: flex;
+  justify-content: space-between;
+  min-width: 244px;
+}
+.navbar-wrap-2-subwrap-sign-up-button button:hover {
+  background-color: #f6d46391 !important;
+  transition-duration: 500ms !important;
+}
+.navbar-wrap-2-subwrap-sign-up-button button:active {
+  transform: scale(0.9) !important;
+}
+.navbar-wrap-2-subwrap-sign-in-button button {
+  background-color: #f6d463 !important;
+  border-radius: 10px;
+}
+.navbar-wrap-2-subwrap-sign-in-button button:hover {
+  background-color: #f7c520 !important;
+  /* border-radius: 10px; */
+  transition-duration: 300ms !important;
+}
+.navbar-wrap-2-subwrap-sign-in-button button:active {
+  transform: scale(0.9) !important;
+}
+.navbar-signup-user-popup-crop-profile-pic-modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  width: 100vw;
+  height: 100vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999 !important;
+}
+.signup-user-setup-profile-profile-pic-add-button-lib-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh !important;
+}
+
+.signup-user-setup-profile-profile-pic-add-button-lib {
+  animation: bounceIn 500ms both;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.signup-user-setup-profile-profile-pic-add-button-lib {
+  /* background: white; */
+  z-index: 1321321321312 !important;
+  margin-top: 15%;
+  border-radius: 20px;
+}
+
+/* background-color: #f7c520; */
+@media (max-width: 1300px) {
+  .navbar-wrap {
+    width: 97%;
+  }
+}
+@media (max-width: 1060px) {
+  .navbar-wrap-1 {
+    width: 520px;
+  }
+}
+@media (max-width: 910px) {
+  .navbar-wrap {
+    width: 97%;
+  }
+  .navbar-wrap-1 {
+    width: 500px;
+  }
+  .navbar-wrap-2 {
+    width: 250px;
+  }
+}
+@media (max-width: 860px) {
+  .navbar-wrap-2-subwrap-sign {
+    min-width: 215px;
+  }
+}
+@media (max-width: 825px) {
+  .navbar-wrap-2-subwrap-sign {
+    min-width: 190px;
+  }
+}

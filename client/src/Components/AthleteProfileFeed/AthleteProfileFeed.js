@@ -31,6 +31,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId }) {
     const userSpecificQuery = query(
       feedPostCollectionRef,
       where("userId", "==", athleteUserId), // Replace with the actual user ID or prop
+      where("status", "==", true),
       orderBy("createdAt", "desc")
     );
 

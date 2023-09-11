@@ -12,6 +12,15 @@ import Modal from "../Modal/Modal";
 import PopUpEditProfile from "../PopUpEditProfile/PopUpEditProfile";
 import AthleteFollowersFansPopUp from "../TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 import AthleteProfileRanking from "../AthleteProfileRanking/AthleteProfileRanking";
+import { db } from "../../Configs/firebase";
+import {
+  getDoc,
+  doc,
+  collection,
+  updateDoc,
+  setDoc,
+  onSnapshot,
+} from "firebase/firestore";
 
 const MemoPopUpEditProfile = memo(PopUpEditProfile, (prevProps, nextProps) => {
   if (prevProps.allUserInfo === nextProps.allUserInfo) {
@@ -34,6 +43,9 @@ function AthleteProfileHeader({
   // pixelScrolledAthleteProfilePage,
 }) {
   const [isStoredUser, setIsStoredUser] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [totalFollowers, setTotalFollowers] = useState(0);
+
   const { id } = useParams();
   const { loggedInUser } = useUserCollection();
   // userInfo.followers = 300000; // fake data
@@ -53,6 +65,85 @@ function AthleteProfileHeader({
     }
   }
 
+  const handleFollowClick = async (e) => {
+    e.preventDefault();
+
+    if (!loggedInUser) {
+      console.log("Please log in first");
+      return;
+    }
+
+    //console.log(loggedInUser.display_name, " Trying to follow/unfollow!");
+
+    try {
+      // Reference to the athlete_data document for the specific user
+      const athleteDataRef = doc(
+        db,
+        "users",
+        userInfo.id,
+        "athlete_data",
+        userInfo.id
+      );
+
+      // Get the current athlete data
+      const athleteDataSnap = await getDoc(athleteDataRef);
+
+      // If the athlete_data document doesn't exist, create it first with initial values
+      if (!athleteDataSnap.exists()) {
+        await setDoc(athleteDataRef, {
+          followers: [],
+        });
+      }
+
+      // Get the current athlete data again to ensure we have the most recent data
+      const updatedAthleteDataSnap = await getDoc(athleteDataRef);
+      const data = updatedAthleteDataSnap.data();
+
+      if (!data) {
+        console.error("Failed to retrieve athlete data after creation!");
+        return;
+      }
+
+      const followers = data.followers || [];
+
+      // Add or remove the logged-in user's ID from the followers array
+      if (followers.includes(loggedInUser.id)) {
+        followers.splice(followers.indexOf(loggedInUser.id), 1);
+      } else {
+        followers.push(loggedInUser.id);
+      }
+
+      // Update the followers array in Firestore
+      await updateDoc(athleteDataRef, { followers });
+
+      // Optionally update the local state if you are managing followers locally
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (!userInfo?.id) return;
+
+    const athleteDataRef = doc(db, "users", userInfo.id, "athlete_data", userInfo.id);
+
+    const unsubscribe = onSnapshot(athleteDataRef, (snapshot) => {
+        const data = snapshot.data();
+        if (data && data.followers) {
+            // Update the following status ONLY if there's a logged-in user
+            if (loggedInUser?.id) {
+                setIsFollowing(data.followers.includes(loggedInUser.id));
+            }
+            // Always update the total followers count
+            setTotalFollowers(data.followers.length);
+        }
+    });
+
+    return () => unsubscribe();
+  }, [db, userInfo?.id, loggedInUser?.id]);
+
+
+
   const storedUser = localStorage.getItem("loggedInUser");
   useEffect(() => {
     if (storedUser) {
@@ -63,7 +154,7 @@ function AthleteProfileHeader({
     }
   }, [userInfo]);
   // console.log(userInfo)
-  console.log(fansCounterApi);
+  //console.log(fansCounterApi);
 
   const [isSettingsAthletePageClicked, setSettingsAthletePageClicked] =
     useState(false);
@@ -116,7 +207,7 @@ function AthleteProfileHeader({
                     onClick={handleAthleteFollowersClick}
                   >
                     <span>
-                      {convertNumberToDisplayFormat(userInfo?.followers)}
+                      {convertNumberToDisplayFormat(totalFollowers)}
                     </span>
                     <span>followers</span>
                   </div>
@@ -188,8 +279,9 @@ function AthleteProfileHeader({
                 />
                 <Button
                   className="athleteprofileheader-content-container-second-button"
-                  text={"Follow"}
+                  text={isFollowing ? "Unfollow" : "Follow"}
                   style={AthleteProfileHeaderFollowButton}
+                  onClick={(e) => handleFollowClick(e)}
                 />
               </div>
             )}
