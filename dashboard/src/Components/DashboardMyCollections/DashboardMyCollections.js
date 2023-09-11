@@ -1,5 +1,5 @@
 import React from "react";
-import AthleteProfileNFTCollection from "../AthleteProfileNFTCollection/AthleteProfileNFTCollection";
+//import AthleteProfileNFTCollection from "../AthleteProfileNFTCollection/AthleteProfileNFTCollection";
 import AthleteProfileNFTCollectionTemplate from "../AthleteProfileNFTCollection/AthleteProfileNFTCollectionTemplate/AthleteProfileNFTCollectionTemplate";
 import "./DashboardMyCollections.css";
 function DashboardMyCollections({

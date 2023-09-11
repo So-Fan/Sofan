@@ -170,7 +170,7 @@ function App() {
             />
 
             <Routes>
-              <Route index path="/dashboard" element={<Dashboard />} />
+              <Route index path="/" element={<Dashboard />} />
               <Route path="/error" element={<ErrorPage />} />
             </Routes>
           </div>
