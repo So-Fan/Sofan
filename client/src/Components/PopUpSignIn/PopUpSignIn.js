@@ -37,6 +37,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import "./PopUpSignIn.css";
+import "./PopUpSignInBlockAccess.css";
 import Button from "../Button/Button";
 import ForgotPassword from "../LoginSignupPopUp/ForgotPassword/ForgotPassword";
 import ConfirmationCode from "../LoginSignupPopUp/ConfirmationCode/ConfirmationCode";
@@ -52,6 +53,7 @@ const PopUpSignIn = ({
   handlePopoUpSignInSignUpClick,
   setIsSignInButtonClicked,
   checkWalletProvider,
+  isBlockAccessPageDisplay,
 }) => {
   const googleImage =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f";
@@ -755,7 +757,13 @@ const PopUpSignIn = ({
         </>
       ) : displaySetupProfile ? (
         <>
-          <div className="signup-user-setup-profile-container">
+          <div
+            className={
+              isBlockAccessPageDisplay
+                ? "signup-user-setup-profile-container-block-access"
+                : "signup-user-setup-profile-container"
+            }
+          >
             <SetupProfile
               handleSetupProfileNextButtonClick={
                 handleSetupProfileNextButtonClick
@@ -781,7 +789,13 @@ const PopUpSignIn = ({
         </>
       ) : displayConnectWallet ? (
         <>
-          <div className="signup-user-connect-wallet-container">
+          <div
+            className={
+              isBlockAccessPageDisplay
+                ? "signup-user-connect-wallet-container-block-access"
+                : "signup-user-connect-wallet-container"
+            }
+          >
             <ConnectWallet
               handleConnectWalletClick={handleConnectWalletClick}
               handlePreviousStepConnectWallet={handlePreviousStepConnectWallet}
@@ -793,7 +807,13 @@ const PopUpSignIn = ({
         </>
       ) : displayConfirmWallet ? (
         <>
-          <div className="signup-user-confirm-wallet-container">
+          <div
+            className={
+              isBlockAccessPageDisplay
+                ? "signup-user-confirm-wallet-container-block-access"
+                : "signup-user-confirm-wallet-container"
+            }
+          >
             <ConfirmWallet
               handleConfirmWalletClick={handleConfirmWalletClick}
               handlePreviousStepConfirmWallet={handlePreviousStepConfirmWallet}
@@ -802,31 +822,61 @@ const PopUpSignIn = ({
         </>
       ) : displayValidationSignup ? (
         <>
-          <div className="signup-user-validation-signup-container">
+          <div
+            className={
+              isBlockAccessPageDisplay
+                ? "signup-user-validation-signup-container-block-access"
+                : "signup-user-validation-signup-container"
+            }
+          >
             <ValidationSignup handleCloseClick={handleCloseClick} />
           </div>
         </>
       ) : displayLogin ? (
         <>
-          <div className="popupsignin-component">
+          <div
+            className={
+              isBlockAccessPageDisplay
+                ? "popupsignin-component-block-access"
+                : "popupsignin-component"
+            }
+          >
             <span>Se connecter</span>
             <span>
               Sign up now to connect with athletes and explore exclusive NFT
               content within a vibrant community of sports enthusiasts!
             </span>
             {error && (
-              <span className="popupsignin-error-message">
+              <span
+                className={
+                  isBlockAccessPageDisplay
+                    ? "popupsignin-error-message-block-access"
+                    : "popupsignin-error-message"
+                }
+              >
                 Votre Email ou votre Mot de Passe est incorrect.
               </span>
             )}
             {errorGoogleNotRegister && (
-              <span className="popupsignin-error-message-google-not-register">
+              <span
+                className={
+                  isBlockAccessPageDisplay
+                    ? "popupsignin-error-message-google-not-register-block-access"
+                    : "popupsignin-error-message-google-not-register"
+                }
+              >
                 Vous n'êtes pas encore inscris chez nous. Cliquer{" "}
                 <span onClick={handlePopoUpSignInSignUpClick}>ICI</span>
                 pour vous inscrire !
               </span>
             )}
-            <div className="popupsignin-input-container">
+            <div
+              className={
+                isBlockAccessPageDisplay
+                  ? "popupsignin-input-container-block-access"
+                  : "popupsignin-input-container"
+              }
+            >
               <span>E-mail</span>
               <input
                 onKeyDown={(e) => {
@@ -840,12 +890,24 @@ const PopUpSignIn = ({
                 onBlur={handleMailInput}
               />
               {emailError && (
-                <p className="popupsignin-input-mail-error">
+                <p
+                  className={
+                    isBlockAccessPageDisplay
+                      ? "popupsignin-input-mail-error-block-access"
+                      : "popupsignin-input-mail-error"
+                  }
+                >
                   Veuillez entrer une adresse e-mail valide.
                 </p>
               )}
             </div>
-            <div className="popupsignin-input-container">
+            <div
+              className={
+                isBlockAccessPageDisplay
+                  ? "popupsignin-input-container-block-access"
+                  : "popupsignin-input-container"
+              }
+            >
               <span>Mot de passe</span>
               <input
                 onKeyDown={(e) => {
@@ -857,7 +919,13 @@ const PopUpSignIn = ({
                 placeholder={"Entrez votre mot de passe"}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div className="popupsignin-input-display-button">
+              <div
+                className={
+                  isBlockAccessPageDisplay
+                    ? "popupsignin-input-display-button-block-access"
+                    : "popupsignin-input-display-button"
+                }
+              >
                 {isDisplayNewPasswordButtonClicked ? (
                   <>
                     <svg
@@ -884,7 +952,11 @@ const PopUpSignIn = ({
             </div>
             <button
               onClick={handleForgotPasswordClick}
-              className="popupsignin-forget-password"
+              className={
+                isBlockAccessPageDisplay
+                  ? "popupsignin-forget-password-block-access"
+                  : "popupsignin-forget-password"
+              }
             >
               Mot de passe oublié ?
             </button>
@@ -914,19 +986,39 @@ const PopUpSignIn = ({
                   : {}
               }
               onClick={handleLogin}
-              className="popupsignin-signin-button"
+              className={
+                isBlockAccessPageDisplay
+                  ? "popupsignin-signin-button-block-access"
+                  : "popupsignin-signin-button"
+              }
             >
               {isSigninLoading ? <></> : <>Se connecter</>}
             </button>
-            <div className="popupsignin-style-container">
+            <div
+              className={
+                isBlockAccessPageDisplay
+                  ? "popupsignin-style-container-block-access"
+                  : "popupsignin-style-container"
+              }
+            >
               <div></div>
               <span>OU</span>
               <div></div>
             </div>
-            <div className="popupsignin-socials-container">
+            <div
+              className={
+                isBlockAccessPageDisplay
+                  ? "popupsignin-socials-container-block-access"
+                  : "popupsignin-socials-container"
+              }
+            >
               <img src={googleImage} alt="google sign in" />
               <button
-                className="popupsignin-google-button"
+                className={
+                  isBlockAccessPageDisplay
+                    ? "popupsignin-google-button-block-access"
+                    : "popupsignin-google-button"
+                }
                 onClick={googleLogin}
               >
                 Se connecter avec Google
@@ -934,7 +1026,13 @@ const PopUpSignIn = ({
             </div>
             {isGoogleSignInPopupClosed && (
               <>
-                <div className="popupsignin-google-error">
+                <div
+                  className={
+                    isBlockAccessPageDisplay
+                      ? "popupsignin-google-error-block-access"
+                      : "popupsignin-google-error"
+                  }
+                >
                   Oops quelque chose s'est mal passé avec votre connexion Google
                   Veuillez réessayer.
                 </div>
@@ -948,11 +1046,21 @@ const PopUpSignIn = ({
                 Veuillez réessayer.
               </>
             )} */}
-            <div className="popupsignin-signup-container">
+            <div
+              className={
+                isBlockAccessPageDisplay
+                  ? "popupsignin-signup-container-block-access"
+                  : "popupsignin-signup-container"
+              }
+            >
               <span>Vous n'avez pas de compte ? </span>
               <button
                 onClick={handlePopoUpSignInSignUpClick}
-                className="popupsignin-signup-button"
+                className={
+                  isBlockAccessPageDisplay
+                    ? "popupsignin-signup-button-block-access"
+                    : "popupsignin-signup-button"
+                }
               >
                 Créer un compte
               </button>

@@ -37,6 +37,12 @@
   justify-content: center;
   height: 30px;
   margin-bottom: 20px;
+  user-select: none;
+}
+.app-sofan-block-access-sofan-logo-container a {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
 }
 .app-sofan-block-access-title {
   font-family: "britanica-heavy";
@@ -164,7 +170,18 @@
 .svg-socials-waiting-page:hover {
   fill: #f7c520;
 }
+@media (max-width:1050px) {
+  .app-sofan-block-access-login-container div {
+    max-width: 380px ;
+  }
+  .app-sofan-block-access-login-container  form{
+    max-width: 350px ;
+  }
+}
 @media (max-width: 800px) {
+  .app-sofan-block-access-container{
+    display: none;
+  }
   .error-mobile-waiting-page {
     height: 100vh !important;
     width: 100vw !important;
@@ -243,6 +260,9 @@
   }
 }
 @media (max-height: 700px) {
+  .app-sofan-block-access-container{
+    display: none;
+  }
   .error-mobile-waiting-page {
     height: 100vh !important;
     width: 100vw !important;

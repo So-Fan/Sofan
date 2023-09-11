@@ -3,6 +3,7 @@ import { isValidPhoneNumber } from "libphonenumber-js";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import "./Signup.css";
+import "./SignupBlockAccess.css";
 import errorLogo from "../../Assets/Image/error-red-logo.svg";
 import previousArrow from "../../Assets/Image/arrow-previous.svg";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
@@ -57,6 +58,7 @@ function Signup({
   setIsSignUpButtonClicked,
   handlePopoUpSignUpSignInClick,
   setIsSignupCompleted,
+  isBlockAccessPageDisplay,
 }) {
   //
   const { setLoggedInUser } = useContext(UserContext);
@@ -1408,7 +1410,13 @@ function Signup({
                       </div>
                     </>
                   )}
-                  <div className="signup-user-already-an-account">
+                  <div
+                    className={
+                      isBlockAccessPageDisplay
+                        ? "signup-user-already-an-account signup-user-already-an-account-block-access-page"
+                        : "signup-user-already-an-account"
+                    }
+                  >
                     <span>Vous avez déjà un compte ? </span>
                     <Button
                       customMediaQueries={
