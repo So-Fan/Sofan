@@ -2,7 +2,8 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useTransition, animated } from "@react-spring/web";
 import sofanLogo from "./Assets/Image/sofanlogo.svg";
 import UserProfilePage from "./Pages/UserProfilePage/UserProfilePage";
 import Test from "./Pages/Test/Test";
@@ -177,7 +178,46 @@ function App() {
     setIsSignInButtonClicked(false);
     setIsSignUpButtonClicked(true);
   };
-  console.log(loggedInUser)
+  console.log(loggedInUser);
+  const ref = useRef([]);
+  const [items, set] = useState([]);
+  const transitions = useTransition(items, {
+    from: {
+      opacity: 0,
+      height: 0,
+      innerHeight: 0,
+      transform: "perspective(600px) rotateX(0deg)",
+      // color: "#8fa5b6",
+      color: "#8fa5b6",
+    },
+    enter: [
+      { opacity: 1, height: 80, innerHeight: 80 },
+      { transform: "perspective(600px) rotateX(180deg)", color: "#28d79f" },
+      { transform: "perspective(600px) rotateX(0deg)" },
+    ],
+    leave: [
+      // { color: "#c23369" },
+      { color: "#c23369" },
+      { innerHeight: 0 },
+      { opacity: 0, height: 0 },
+    ],
+    // update: { color: "#28b4d7" },
+    update: { color: "#f6d463" },
+  });
+
+  const reset = useCallback(() => {
+    ref.current.forEach(clearTimeout);
+    ref.current = [];
+    set([]);
+    ref.current.push(setTimeout(() => set(["NFTs", "Sofan", ""]), 2000));
+    ref.current.push(setTimeout(() => set(["NFTs", "Sport"]), 5000));
+    ref.current.push(setTimeout(() => set(["NFTs", "Sofan", "Passion"]), 8000));
+  }, []);
+
+  useEffect(() => {
+    reset();
+    return () => ref.current.forEach(clearTimeout);
+  }, []);
   return (
     <UserContext.Provider
       value={{
@@ -194,12 +234,32 @@ function App() {
               <div className="app-sofan-block-access-container">
                 <div className="app-sofan-block-access-wrap">
                   <div className="app-sofan-block-access-subwrap">
+                    <div className="app-sofan-block-access-sofan-logo-container">
+                      <img src={sofanLogo} alt="" />
+                    </div>
                     <div className="app-sofan-block-access-title">
                       Rejoignez la communauté Sofan !
                     </div>
                     <div className="app-sofan-block-access-img-and-button-container">
                       <div className="app-sofan-block-access-img-container">
-                        <img src={sofanLogo} alt="" />
+                        <div className="app-sofan-block-acces-animation-container">
+                          {transitions(({ innerHeight, ...rest }, item) => (
+                            <animated.div
+                              className="transitionsItem"
+                              style={rest}
+                              onClick={reset}
+                            >
+                              <animated.div
+                                style={{
+                                  overflow: "hidden",
+                                  height: innerHeight,
+                                }}
+                              >
+                                {item}
+                              </animated.div>
+                            </animated.div>
+                          ))}
+                        </div>
                       </div>
                       <div className="app-sofan-block-access-login-signup-container">
                         <div className="app-sofan-block-access-login-container">
