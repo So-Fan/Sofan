@@ -22,7 +22,6 @@ import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
-import Web3 from "web3";
 // fin mathéo
 import {
   collection,
@@ -34,7 +33,6 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-  addDoc,
 } from "firebase/firestore";
 import "./PopUpSignIn.css";
 import "./PopUpSignInBlockAccess.css";

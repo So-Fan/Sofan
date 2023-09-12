@@ -94,13 +94,14 @@
   align-items: center;
   justify-content: space-between;
   opacity: 0.5;
-  width: 460px;
+  /* width: 460px; */
+  width: 90%;
   height: 20px;
   margin-bottom: 20px;
 }
 .popupsignin-style-container-block-access > div {
   background-color: rgba(0, 0, 0, 0.5);
-  width: 200px;
+  width: 180px;
   height: 1px;
 }
 .popupsignin-style-container-block-access > span {
@@ -236,6 +237,9 @@
   }
   .popupsignin-socials-container-block-access {
     width: 100%;
+  }
+  .popupsignin-style-container-block-access div {
+    width: 140px;
   }
   .popupsignin-socials-container-block-access > img {
     left: 30px;
