@@ -3,6 +3,7 @@ import { isValidPhoneNumber } from "libphonenumber-js";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import "./Signup.css";
+import "./SignupBlockAccess.css";
 import errorLogo from "../../Assets/Image/error-red-logo.svg";
 import previousArrow from "../../Assets/Image/arrow-previous.svg";
 import ConfirmationCode from "./ConfirmationCode/ConfirmationCode";
@@ -56,6 +57,8 @@ function Signup({
   setWeb3auth,
   setIsSignUpButtonClicked,
   handlePopoUpSignUpSignInClick,
+  setIsSignupCompleted,
+  isBlockAccessPageDisplay,
 }) {
   //
   const { setLoggedInUser } = useContext(UserContext);
@@ -425,7 +428,7 @@ function Signup({
   };
 
   async function verifyFormIsValid(e) {
-    e.preventDefault();
+    // e.preventDefault();
     setIsSubmitClicked(true);
     if (
       !emailError &&
@@ -965,6 +968,8 @@ function Signup({
     setDisplayConfirmWallet(false);
     setTimeout(() => {
       setDisplayValidationSignup(true);
+      // from LandingPage state to pass true
+      setIsSignupCompleted(true);
     }, 2000);
   }
   function handleConfirmationCodePreviousStep() {
@@ -1405,7 +1410,13 @@ function Signup({
                       </div>
                     </>
                   )}
-                  <div className="signup-user-already-an-account">
+                  <div
+                    className={
+                      isBlockAccessPageDisplay
+                        ? "signup-user-already-an-account signup-user-already-an-account-block-access-page"
+                        : "signup-user-already-an-account"
+                    }
+                  >
                     <span>Vous avez déjà un compte ? </span>
                     <Button
                       customMediaQueries={

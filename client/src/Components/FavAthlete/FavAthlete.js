@@ -75,7 +75,7 @@ const FavAthlete = () => {
       <div className="favAthlete-wrap">
         <div className="favAthlete-subwrap">
           <span>Vos sportifs préférés</span>
-          <a href="/favathlete-details"> Voir plus</a>
+          {/* <a href="/favathlete-details"> Voir plus</a> */}
         </div>
         <Carroussel />
         <div className="favAthlete-responsive-container">
