@@ -54,6 +54,8 @@
 }
 .carroussel-left-arrow-wrap > img {
   transform: rotate(180deg);
+  background-repeat: no-repeat;
+  
 }
 @media (max-width: 950px) {
   .carroussel-section{

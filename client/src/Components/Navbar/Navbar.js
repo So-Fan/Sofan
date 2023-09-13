@@ -76,7 +76,7 @@ const Navbar = ({
       setIsPageHomeDisplay(true);
       setIsPageLaunchpadDisplay(false);
 
-      console.log("ceci est home");
+      // console.log("ceci est home");
     } else {
       setIsPageHomeDisplay(false);
     }

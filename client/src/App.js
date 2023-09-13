@@ -178,7 +178,7 @@ function App() {
     setIsSignInButtonClicked(false);
     setIsSignUpButtonClicked(true);
   };
-  console.log(loggedInUser);
+  // console.log(loggedInUser);
   const ref = useRef([]);
   const [items, set] = useState([]);
   const transitions = useTransition(items, {
