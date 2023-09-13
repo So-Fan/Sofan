@@ -5,7 +5,7 @@ import Mbappe from "../fakeData/mbappe.svg";
 import RightArrow from "../../../Assets/Image/right_arrow.svg";
 import "./Carroussel.css";
 import { v4 as uuidv4 } from "uuid";
-const Carroussel = () => {
+const Carroussel = ({ athletesFollowing }) => {
   const [rightArrowClicked, setRightArrowClicked] = useState(false);
   const [leftArrowClicked, setLeftArrowClicked] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -92,15 +92,14 @@ const Carroussel = () => {
             counter !== (filteredArray.length - 2) * 120 * -1 ? style2 : style
           }
         >
-          {filteredArray.map((athlete) => {
+          {athletesFollowing.map((athlete) => {
             return (
               <div key={uuidv4()} className="athlete-template-container">
                 <AthleteTemplate
-                  
-                  href={`/profile/${athlete.id}`}
-                  src={athlete.img}
-                  athleteName={athlete.surName + " " + athlete.firstName}
-                  isFan={athlete.isFan}
+                  href={`/athleteprofile/${athlete.athleteId}`}
+                  src={athlete.profile_avatar}
+                  athleteName={athlete.username}
+                  // isFan={athlete.isFan}
                 />
               </div>
             );

@@ -57,6 +57,8 @@ function Home({
   const [commentCounts, setCommentCounts] = useState({});
   const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
     useState(0);
+  const [athletesFollowing, setAthletesFollowing] = useState([]);
+
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
@@ -100,6 +102,53 @@ function Home({
     // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const userIdToFind = loggedInUser?.id;
+
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("account_type", "==", "athlete"));
+
+    const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+      const foundAthletes = [];
+      for (let doc of querySnapshot.docs) {
+        const athleteId = doc.id;
+        const userData = doc.data();
+
+        // Accéder à la collection athlete_data pour l'athlète spécifique
+        const athleteDataRef = collection(
+          db,
+          "users",
+          athleteId,
+          "athlete_data"
+        );
+
+        // Récupérer le document
+        const athleteDataSnapshot = await getDocs(athleteDataRef);
+        athleteDataSnapshot.forEach((doc) => {
+          if (doc.exists) {
+            const athleteData = doc.data();
+            if (
+              athleteData &&
+              athleteData.followers &&
+              athleteData.followers.includes(userIdToFind)
+            ) {
+              foundAthletes.push({
+                athleteId,
+                profile_avatar: userData.profile_avatar,
+                username: userData.username,
+              });
+            }
+          }
+        });
+      }
+      setAthletesFollowing(foundAthletes);
+    });
+
+    return () => unsubscribe();
+  }, [loggedInUser]);
+
+  console.log(athletesFollowing);
 
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < dataPost.length; i++) {
@@ -162,10 +211,7 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
-  useEffect(() => {
-    console.log(dataPost);
-  }, [dataPost]);
-  // console.log(loggedInUser?.account_type)
+
   return (
     <>
       <section className="home-component">
@@ -219,7 +265,9 @@ function Home({
               )
             }
           </div>
-          <FavAthlete />
+          <FavAthlete
+          athletesFollowing={athletesFollowing}
+          />
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}

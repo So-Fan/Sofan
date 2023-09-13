@@ -1015,11 +1015,11 @@ function Signup({
       isPasswordMatch;
 
     if (allFieldsValid) {
-      console.log("Tout est bon!");
+      // console.log("Tout est bon!");
       setIsAllFieldsComplete(true);
     } else {
       setIsAllFieldsComplete(false);
-      console.log("tout n'est pas bon");
+      // console.log("tout n'est pas bon");
     }
     // }, [email, username, password, showError, isPasswordMatch]);
   }, [
