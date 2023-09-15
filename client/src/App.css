@@ -177,7 +177,7 @@
   .app-sofan-block-access-title {
     width: 70%;
   }
-  .socials-network-waiting-page{
+  .socials-network-waiting-page {
     width: 70%;
     left: 0%;
     bottom: 2%;
@@ -357,5 +357,38 @@
 
   .App {
     display: none !important;
+  }
+}
+@media ((max-width: 1150px) and (max-height:850px)) {
+  .socials-network-waiting-page {
+    width: 50%;
+  }
+  .app-sofan-block-access-img-container{
+    width: 75%;
+  }
+  .logo-socials-waiting-page{
+    width: 50%;
+  }
+}
+@media ((max-width: 1150px) and (max-height:700px)) {
+  .socials-network-waiting-page {
+    width: 100%;
+  }
+  .app-sofan-block-access-img-container{
+    width: 75%;
+  }
+  .logo-socials-waiting-page{
+    width: 20%;
+  }
+}
+@media ((max-width: 800px) and (max-height:850px)) {
+  .socials-network-waiting-page {
+    width: 100%;
+  }
+  .app-sofan-block-access-img-container{
+    width: 75%;
+  }
+  .logo-socials-waiting-page{
+    width: 20%;
   }
 }
