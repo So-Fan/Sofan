@@ -40,21 +40,21 @@
     "absolutePath": "project:/contracts/DefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        9529
+        5443
       ],
       "DefaultOperatorFilterer": [
-        4601
+        3988
       ],
       "OperatorFilterer": [
-        6722
+        4347
       ]
     },
-    "id": 4602,
+    "id": 3989,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4584,
+        "id": 3971,
         "literals": [
           "solidity",
           "^",
@@ -62,26 +62,26 @@
           ".13"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:24:17"
+        "src": "33:24:16"
       },
       {
         "absolutePath": "project:/contracts/OperatorFilterer.sol",
         "file": "./OperatorFilterer.sol",
-        "id": 4586,
+        "id": 3973,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 4602,
-        "sourceUnit": 6723,
-        "src": "61:56:17",
+        "scope": 3989,
+        "sourceUnit": 4348,
+        "src": "61:56:16",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 4585,
+              "id": 3972,
               "name": "OperatorFilterer",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6722,
-              "src": "69:16:17",
+              "referencedDeclaration": 4347,
+              "src": "69:16:16",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -92,21 +92,21 @@
       {
         "absolutePath": "project:/contracts/lib/Constants.sol",
         "file": "./lib/Constants.sol",
-        "id": 4588,
+        "id": 3975,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 4602,
-        "sourceUnit": 9530,
-        "src": "119:64:17",
+        "scope": 3989,
+        "sourceUnit": 5444,
+        "src": "119:64:16",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 4587,
+              "id": 3974,
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 9529,
-              "src": "127:27:17",
+              "referencedDeclaration": 5443,
+              "src": "127:27:16",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -119,65 +119,65 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 4590,
+              "id": 3977,
               "name": "OperatorFilterer",
               "nameLocations": [
-                "677:16:17"
+                "677:16:16"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 6722,
-              "src": "677:16:17"
+              "referencedDeclaration": 4347,
+              "src": "677:16:16"
             },
-            "id": 4591,
+            "id": 3978,
             "nodeType": "InheritanceSpecifier",
-            "src": "677:16:17"
+            "src": "677:16:16"
           }
         ],
         "canonicalName": "DefaultOperatorFilterer",
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 4589,
+          "id": 3976,
           "nodeType": "StructuredDocumentation",
-          "src": "185:443:17",
+          "src": "185:443:16",
           "text": " @title  DefaultOperatorFilterer\n @notice Inherits from OperatorFilterer and automatically subscribes to the default OpenSea subscription.\n @dev    Please note that if your token contract does not provide an owner with EIP-173, it must provide\n         administration methods on the contract itself to interact with the registry otherwise the subscription\n         will be locked to the options set during construction."
         },
         "fullyImplemented": true,
-        "id": 4601,
+        "id": 3988,
         "linearizedBaseContracts": [
-          4601,
-          6722
+          3988,
+          4347
         ],
         "name": "DefaultOperatorFilterer",
-        "nameLocation": "650:23:17",
+        "nameLocation": "650:23:16",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 4599,
+              "id": 3986,
               "nodeType": "Block",
-              "src": "849:2:17",
+              "src": "849:2:16",
               "statements": []
             },
             "documentation": {
-              "id": 4592,
+              "id": 3979,
               "nodeType": "StructuredDocumentation",
-              "src": "701:76:17",
+              "src": "701:76:16",
               "text": "@dev The constructor that is called when the contract is being deployed."
             },
-            "id": 4600,
+            "id": 3987,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
               {
                 "arguments": [
                   {
-                    "id": 4595,
+                    "id": 3982,
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 9529,
-                    "src": "814:27:17",
+                    "referencedDeclaration": 5443,
+                    "src": "814:27:16",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -185,14 +185,14 @@
                   },
                   {
                     "hexValue": "74727565",
-                    "id": 4596,
+                    "id": 3983,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "843:4:17",
+                    "src": "843:4:16",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -200,72 +200,72 @@
                     "value": "true"
                   }
                 ],
-                "id": 4597,
+                "id": 3984,
                 "kind": "baseConstructorSpecifier",
                 "modifierName": {
-                  "id": 4594,
+                  "id": 3981,
                   "name": "OperatorFilterer",
                   "nameLocations": [
-                    "797:16:17"
+                    "797:16:16"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 6722,
-                  "src": "797:16:17"
+                  "referencedDeclaration": 4347,
+                  "src": "797:16:16"
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "797:51:17"
+                "src": "797:51:16"
               }
             ],
             "name": "",
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4593,
+              "id": 3980,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "794:2:17"
+              "src": "794:2:16"
             },
             "returnParameters": {
-              "id": 4598,
+              "id": 3985,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "849:0:17"
+              "src": "849:0:16"
             },
-            "scope": 4601,
-            "src": "783:68:17",
+            "scope": 3988,
+            "src": "783:68:16",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 4602,
-        "src": "632:222:17",
+        "scope": 3989,
+        "src": "632:222:16",
         "usedErrors": [
-          6593
+          4218
         ]
       }
     ],
-    "src": "33:823:17"
+    "src": "33:823:16"
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/DefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        9529
+        5443
       ],
       "DefaultOperatorFilterer": [
-        4601
+        3988
       ],
       "OperatorFilterer": [
-        6722
+        4347
       ]
     },
-    "id": 4602,
+    "id": 3989,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4584,
+        "id": 3971,
         "literals": [
           "solidity",
           "^",
@@ -273,26 +273,26 @@
           ".13"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:24:17"
+        "src": "33:24:16"
       },
       {
         "absolutePath": "project:/contracts/OperatorFilterer.sol",
         "file": "./OperatorFilterer.sol",
-        "id": 4586,
+        "id": 3973,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 4602,
-        "sourceUnit": 6723,
-        "src": "61:56:17",
+        "scope": 3989,
+        "sourceUnit": 4348,
+        "src": "61:56:16",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 4585,
+              "id": 3972,
               "name": "OperatorFilterer",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6722,
-              "src": "69:16:17",
+              "referencedDeclaration": 4347,
+              "src": "69:16:16",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -303,21 +303,21 @@
       {
         "absolutePath": "project:/contracts/lib/Constants.sol",
         "file": "./lib/Constants.sol",
-        "id": 4588,
+        "id": 3975,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 4602,
-        "sourceUnit": 9530,
-        "src": "119:64:17",
+        "scope": 3989,
+        "sourceUnit": 5444,
+        "src": "119:64:16",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 4587,
+              "id": 3974,
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 9529,
-              "src": "127:27:17",
+              "referencedDeclaration": 5443,
+              "src": "127:27:16",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -330,65 +330,65 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 4590,
+              "id": 3977,
               "name": "OperatorFilterer",
               "nameLocations": [
-                "677:16:17"
+                "677:16:16"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 6722,
-              "src": "677:16:17"
+              "referencedDeclaration": 4347,
+              "src": "677:16:16"
             },
-            "id": 4591,
+            "id": 3978,
             "nodeType": "InheritanceSpecifier",
-            "src": "677:16:17"
+            "src": "677:16:16"
           }
         ],
         "canonicalName": "DefaultOperatorFilterer",
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 4589,
+          "id": 3976,
           "nodeType": "StructuredDocumentation",
-          "src": "185:443:17",
+          "src": "185:443:16",
           "text": " @title  DefaultOperatorFilterer\n @notice Inherits from OperatorFilterer and automatically subscribes to the default OpenSea subscription.\n @dev    Please note that if your token contract does not provide an owner with EIP-173, it must provide\n         administration methods on the contract itself to interact with the registry otherwise the subscription\n         will be locked to the options set during construction."
         },
         "fullyImplemented": true,
-        "id": 4601,
+        "id": 3988,
         "linearizedBaseContracts": [
-          4601,
-          6722
+          3988,
+          4347
         ],
         "name": "DefaultOperatorFilterer",
-        "nameLocation": "650:23:17",
+        "nameLocation": "650:23:16",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 4599,
+              "id": 3986,
               "nodeType": "Block",
-              "src": "849:2:17",
+              "src": "849:2:16",
               "statements": []
             },
             "documentation": {
-              "id": 4592,
+              "id": 3979,
               "nodeType": "StructuredDocumentation",
-              "src": "701:76:17",
+              "src": "701:76:16",
               "text": "@dev The constructor that is called when the contract is being deployed."
             },
-            "id": 4600,
+            "id": 3987,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
               {
                 "arguments": [
                   {
-                    "id": 4595,
+                    "id": 3982,
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 9529,
-                    "src": "814:27:17",
+                    "referencedDeclaration": 5443,
+                    "src": "814:27:16",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -396,14 +396,14 @@
                   },
                   {
                     "hexValue": "74727565",
-                    "id": 4596,
+                    "id": 3983,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "843:4:17",
+                    "src": "843:4:16",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -411,52 +411,52 @@
                     "value": "true"
                   }
                 ],
-                "id": 4597,
+                "id": 3984,
                 "kind": "baseConstructorSpecifier",
                 "modifierName": {
-                  "id": 4594,
+                  "id": 3981,
                   "name": "OperatorFilterer",
                   "nameLocations": [
-                    "797:16:17"
+                    "797:16:16"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 6722,
-                  "src": "797:16:17"
+                  "referencedDeclaration": 4347,
+                  "src": "797:16:16"
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "797:51:17"
+                "src": "797:51:16"
               }
             ],
             "name": "",
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4593,
+              "id": 3980,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "794:2:17"
+              "src": "794:2:16"
             },
             "returnParameters": {
-              "id": 4598,
+              "id": 3985,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "849:0:17"
+              "src": "849:0:16"
             },
-            "scope": 4601,
-            "src": "783:68:17",
+            "scope": 3988,
+            "src": "783:68:16",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 4602,
-        "src": "632:222:17",
+        "scope": 3989,
+        "src": "632:222:16",
         "usedErrors": [
-          6593
+          4218
         ]
       }
     ],
-    "src": "33:823:17"
+    "src": "33:823:16"
   },
   "compiler": {
     "name": "solc",
@@ -464,7 +464,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-08-23T13:26:01.469Z",
+  "updatedAt": "2023-09-14T22:31:43.666Z",
   "devdoc": {
     "details": "Please note that if your token contract does not provide an owner with EIP-173, it must provide         administration methods on the contract itself to interact with the registry otherwise the subscription         will be locked to the options set during construction.",
     "errors": {
