@@ -102,7 +102,7 @@ function Home({
     // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
     return () => unsubscribe();
   }, []);
-
+  console.log(loggedInUser);
   useEffect(() => {
     const userIdToFind = loggedInUser?.id;
 
@@ -265,9 +265,7 @@ function Home({
               )
             }
           </div>
-          <FavAthlete
-          athletesFollowing={athletesFollowing}
-          />
+          <FavAthlete athletesFollowing={athletesFollowing} />
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}

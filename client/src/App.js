@@ -275,6 +275,7 @@ function App() {
                                 web3auth={web3auth}
                                 checkWalletProvider={checkWalletProvider}
                                 isBlockAccessPageDisplay={true}
+                                setIsSignInButtonClicked={setIsSignInButtonClicked}
                               />
                             </>
                           ) : (

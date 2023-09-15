@@ -54,7 +54,7 @@ const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
             Voir profil
           </Link>
           <Link to="/settings">Settings</Link>
-          <Link to="/legals">
+          <Link to="/cgu">
             Mentions
             <br />
             légales
