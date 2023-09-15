@@ -6,7 +6,7 @@ import LeBron from "./fakeData/lebron.svg";
 import Mbappe from "./fakeData/mbappe.svg";
 import FeedSuggestionTemplate from "../FeedSuggestions/FeedSuggestionTemplate/FeedSuggestionTemplate";
 import { v4 as uuidv4 } from "uuid";
-const FavAthlete = () => {
+const FavAthlete = ({athletesFollowing}) => {
   const fakeArray = [
     {
       firstName: "James",
@@ -75,9 +75,9 @@ const FavAthlete = () => {
       <div className="favAthlete-wrap">
         <div className="favAthlete-subwrap">
           <span>Vos sportifs préférés</span>
-          <a href="/favathlete-details"> Voir plus</a>
+          {/* <a href="/favathlete-details"> Voir plus</a> */}
         </div>
-        <Carroussel />
+        <Carroussel athletesFollowing={athletesFollowing}/>
         <div className="favAthlete-responsive-container">
           {filteredArray.map((athlete)  => (
             <FeedSuggestionTemplate 

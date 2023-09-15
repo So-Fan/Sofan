@@ -27,6 +27,7 @@ const Navbar = ({
   web3auth,
   setWeb3auth,
   checkWalletProvider,
+  setIsSignupCompleted
 }) => {
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
@@ -75,7 +76,7 @@ const Navbar = ({
       setIsPageHomeDisplay(true);
       setIsPageLaunchpadDisplay(false);
 
-      console.log("ceci est home");
+      // console.log("ceci est home");
     } else {
       setIsPageHomeDisplay(false);
     }
@@ -247,6 +248,7 @@ const Navbar = ({
             setWeb3auth={setWeb3auth}
             handlePopoUpSignUpSignInClick={handlePopoUpSignUpSignInClick}
             setIsSignUpButtonClicked={setIsSignUpButtonClicked}
+            setIsSignupCompleted={setIsSignupCompleted}
           />
         </Modal>
       )}
