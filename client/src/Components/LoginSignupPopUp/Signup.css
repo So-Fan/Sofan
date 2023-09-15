@@ -173,7 +173,7 @@
   margin-top: 15px;
 }
 .signup-user-confirmation-password-title {
-  margin-top: 20px !important;
+  margin-top: 20px;
 }
 .signup-user-password-input-container,
 .signup-user-confirm-password-input-container {
@@ -423,47 +423,73 @@
   }
 }
 /* ================= */
-@media (max-height: 830px) {
+@media (max-height: 980px) {
   .signup-user-container {
     width: 500px;
     min-height: 375px;
-    height: 750px;
+    height: 600px;
+    
+  }
+  .signup-user-title {
+    margin-top: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+  .signup-user-title-description {
+    font-size: 14px;
+    height: 30px;
+  }
+  .signup-user-mail-title,
+  .signup-user-username-title,
+  .signup-user-phone-title,
+  .signup-user-password-title,
+  .signup-user-confirmation-password-title {
+    height: 17px;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  .signup-user-phone-title {
+    margin-top: 20px;
+  }
+  .signup-user-mail-input,
+  .signup-user-username-input,
+  .signup-user-phone-input,
+  .signup-user-password-input,
+  .signup-user-confirmation-password-input {
+    height: 25px;
+    margin-top: 5px;
+  }
+  .PhoneInputCountry {
+    font-size: 10px;
+  }
+  .signup-user-mail-input::placeholder,
+  .signup-user-username-input::placeholder,
+  .signup-user-phone-input::placeholder,
+  .signup-user-confirmation-password-input::placeholder,
+  .signup-user-password-input::placeholder {
+    font-size: 10px;
+  }
+  .signup-user-input-display-button {
+    top: 13px;
   }
   .signup-user-wrap-form {
     width: 460px;
     height: 725px;
   }
-}
-@media (max-height: 775px) {
-  .signup-user-container {
-    width: 500px;
-    min-height: 375px;
-    height: 700px;
+  .signup-user-create-account-button,
+  .signup-user-google-signup {
+    margin-top: 15px;
+    height: 46px;
+    font-size: 18px;
   }
-  .signup-user-wrap-form {
-    width: 460px;
-    height: 675px;
+  .signup-page-confirmation-accept-cgu {
+    font-size: 10px;
   }
-  .signup-user-title {
-    height: 28px;
-    font-size: 25px;
+  .signup-user-google-signup img {
+    height: 18px;
+    width: 18px;
   }
-  .signup-user-title-description {
-    font-size: 14px;
-    height: 28px;
-  }
-  .signup-user-mail-title {
-    height: 17px;
-    margin-top: 10px;
-  }
-  .signup-user-phone-title,
-  .signup-user-password-title,
-  .signup-user-confirmation-password-title,
-  .signup-user-username-title {
-    height: 17px;
-    font-family: "britanica-heavy";
-    font-size: 14px;
-    /* background-color: tomato; */
-    margin-top: 10px;
+  .signup-user-google-signup-text {
+    font-size: 18px;
   }
 }

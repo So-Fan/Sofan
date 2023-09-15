@@ -170,16 +170,43 @@
 .svg-socials-waiting-page:hover {
   fill: #f7c520;
 }
-@media (max-width:1050px) {
-  .app-sofan-block-access-login-container div {
-    max-width: 380px ;
+@media (max-height: 980px) {
+  .app-sofan-block-access-sofan-logo-container {
+    width: 70%;
   }
-  .app-sofan-block-access-login-container  form{
-    max-width: 350px ;
+  .app-sofan-block-access-title {
+    width: 70%;
+  }
+  .socials-network-waiting-page{
+    width: 70%;
+    left: 0%;
+    bottom: 2%;
+  }
+}
+@media (max-height: 1000px) {
+  .app-sofan-block-access-img-container {
+    width: 70%;
+  }
+  .app-sofan-block-access-login-signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* background-color: cadetblue; */
+    width: 30%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 1050px) {
+  .app-sofan-block-access-login-container div {
+    max-width: 380px;
+  }
+  .app-sofan-block-access-login-container form {
+    max-width: 350px;
   }
 }
 @media (max-width: 800px) {
-  .app-sofan-block-access-container{
+  .app-sofan-block-access-container {
     display: none;
   }
   .error-mobile-waiting-page {
@@ -260,7 +287,7 @@
   }
 }
 @media (max-height: 700px) {
-  .app-sofan-block-access-container{
+  .app-sofan-block-access-container {
     display: none;
   }
   .error-mobile-waiting-page {
