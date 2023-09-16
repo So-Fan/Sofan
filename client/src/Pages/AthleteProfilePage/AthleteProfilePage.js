@@ -267,7 +267,9 @@ const AthleteProfilePage = ({
   // Récupérer la valeur de pixel scrollé pour ensuite faire afficher le modal au bon endroit
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-
+    const handlePixelScrolledAthleteProfilePage = () => {
+      setPixelScrolledAthleteProfilePage(window.scrollY);
+    };
   const athletesNftsAvailable = useRef(null);
   function handleClicNftsAvailable() {
     setIsAthleteProfileSubMenuClicked([
@@ -391,6 +393,20 @@ const AthleteProfilePage = ({
   const handleRejectedConfirmationOffer = async () => {
     // TODO: Ajouter les données de l'offre refusé au backend lié à l'utilisateur qui a rejeté l'offre.
   };
+  useEffect(() => {
+    window.addEventListener(
+      "scroll",
+      handlePixelScrolledAthleteProfilePage,
+      false
+    );
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handlePixelScrolledAthleteProfilePage,
+        false
+      );
+    };
+  }, []);
   return (
     <>
       <div className="athleteprofilepage-component">
@@ -425,6 +441,7 @@ const AthleteProfilePage = ({
             athleteUserId={id}
             athleteName={userInfo?.display_name}
             athleteAvatar={userInfo?.profile_avatar}
+            pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
           />
         ) : isAthleteProfileSubMenuClicked[5] === true ? (
           <AthleteProfileNFTCollection
