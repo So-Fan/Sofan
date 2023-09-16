@@ -48,6 +48,7 @@ function PostsFeed({
   userType,
   setCommentCounterIncrementLocal,
   commentCounterIncrementLocal,
+  pixelScrolledAthleteProfilePage
 }) {
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
@@ -90,7 +91,7 @@ function PostsFeed({
   useEffect(() => {}, []);
 
   // console.log("id de postfeed --> ",id)
-  // console.log(postCommentNumber);
+  console.log(postCommentNumber);
   //console.log(postPicture);
   return (
     <>
