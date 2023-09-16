@@ -104,6 +104,7 @@ function Home({
   }, []);
 
   // retrouver les athletes suivis
+  console.log(loggedInUser);
   useEffect(() => {
     const userIdToFind = loggedInUser?.id;
 
