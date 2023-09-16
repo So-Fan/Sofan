@@ -7,6 +7,7 @@
   overflow: hidden;
   /* Suggestion: mettre 3 petits points pour les noms à rallonge */
   opacity: 0;
+  animation-delay: 0.5s !important;
   animation: fadeInUp 700ms ease-in-out forwards;
 }
 .feedlaunchpad-header-container {

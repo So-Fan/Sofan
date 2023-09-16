@@ -227,6 +227,8 @@ const PopUpSignIn = ({
             // console.log(AllUserInfo)
             setIsLoginFinishFromBlockAccessPage(true);
             setIsUserLogged(true);
+            setIsSignInButtonClicked(false);
+            window.location.reload();
           });
           if (checkWalletProvider(tempUserData) === "web3auth") {
             // await web3auth.logout();
@@ -298,6 +300,9 @@ const PopUpSignIn = ({
         tempUserInfo = AllUserInfo;
         setAllUserInfo(AllUserInfo);
         setLoggedInUser(AllUserInfo);
+        setIsUserLogged(true);
+        setIsSignInButtonClicked(false);
+        window.location.reload();
       } else {
         // setIsSigninGoogleLoading(false);
         const createdAt = new Date();

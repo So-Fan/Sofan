@@ -104,7 +104,6 @@ function Home({
   }, []);
 
   // retrouver les athletes suivis
-  console.log(loggedInUser);
   useEffect(() => {
     const userIdToFind = loggedInUser?.id;
 
@@ -213,8 +212,7 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
-  console.log(athletesFollowing.length);
-
+  console.log(isLogged)
   return (
     <>
       <section className="home-component">
@@ -258,7 +256,7 @@ function Home({
             {
               // isLogged === true &&
               // isLogged !== undefined &&
-              isLogged && isLogged.account_type !== "free" && (
+              isLogged?.account_type === "athlete" && (
                 <Button
                   createPostButtonclassName="button-component-create-post"
                   style={CreatePostButtonStyle.inlineStyle}
@@ -272,10 +270,11 @@ function Home({
             }
           </div>
           <FavAthlete athletesFollowing={athletesFollowing} />
-          {athletesFollowing.length === 0 && <>
-          <div className="home-left-separation-line">
-          </div>
-          </>}
+          {athletesFollowing.length === 0 && (
+            <>
+              <div className="home-left-separation-line"></div>
+            </>
+          )}
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}

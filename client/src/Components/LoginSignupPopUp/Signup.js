@@ -971,6 +971,7 @@ function Signup({
       setDisplayValidationSignup(true);
       // from LandingPage state to pass true
       setIsUserLogged(true);
+      window.location.reload();
     }, 2000);
   }
   function handleConfirmationCodePreviousStep() {

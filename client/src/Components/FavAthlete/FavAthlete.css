@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: space-between;
   opacity: 0;
-  animation-delay: 2.5s !important;
+  animation-delay: 0.3s !important;
   animation: fadeInUp 700ms ease-in-out forwards;
 }
 .favAthlete-horizontal {
