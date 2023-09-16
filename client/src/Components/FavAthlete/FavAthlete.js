@@ -6,7 +6,7 @@ import LeBron from "./fakeData/lebron.svg";
 import Mbappe from "./fakeData/mbappe.svg";
 import FeedSuggestionTemplate from "../FeedSuggestions/FeedSuggestionTemplate/FeedSuggestionTemplate";
 import { v4 as uuidv4 } from "uuid";
-const FavAthlete = ({athletesFollowing}) => {
+const FavAthlete = ({ athletesFollowing }) => {
   const fakeArray = [
     {
       firstName: "James",
@@ -16,7 +16,7 @@ const FavAthlete = ({athletesFollowing}) => {
       id: 0,
       interaction: 15,
       isFan: false,
-      type: "Basketball"
+      type: "Basketball",
     },
     {
       firstName: "Kylian",
@@ -26,7 +26,7 @@ const FavAthlete = ({athletesFollowing}) => {
       id: 1,
       interaction: 18,
       isFan: true,
-      type: "Football"
+      type: "Football",
     },
     {
       firstName: "James2",
@@ -36,7 +36,7 @@ const FavAthlete = ({athletesFollowing}) => {
       id: 2,
       interaction: 12,
       isFan: true,
-      type: "Basketball"
+      type: "Basketball",
     },
     {
       firstName: "Kylian2",
@@ -46,7 +46,7 @@ const FavAthlete = ({athletesFollowing}) => {
       id: 3,
       interaction: 8,
       isFan: false,
-      type: "Football"
+      type: "Football",
     },
     {
       firstName: "Kylian3",
@@ -56,7 +56,7 @@ const FavAthlete = ({athletesFollowing}) => {
       id: 4,
       interaction: 1,
       isFan: false,
-      type: "Football"
+      type: "Football",
     },
   ];
   const userFanAthlete = fakeArray.filter((athlete) => athlete.isFan === true);
@@ -70,16 +70,19 @@ const FavAthlete = ({athletesFollowing}) => {
 
   const filteredArray = [...userFanAthlete, ...userRecommandationAthlete];
   return (
-    <div className="favAthlete-container">
+    <div
+      style={athletesFollowing.length == 0 ? { display: "none" } : {}}
+      className="favAthlete-container"
+    >
       <div className="favAthlete-horizontal"></div>
       <div className="favAthlete-wrap">
         <div className="favAthlete-subwrap">
           <span>Vos sportifs préférés</span>
           {/* <a href="/favathlete-details"> Voir plus</a> */}
         </div>
-        <Carroussel athletesFollowing={athletesFollowing}/>
+        <Carroussel athletesFollowing={athletesFollowing} />
         <div className="favAthlete-responsive-container">
-          {filteredArray.map((athlete)  => (
+          {/* {filteredArray.map((athlete)  => (
             <FeedSuggestionTemplate 
             key={uuidv4()}
             name={`${athlete.firstName} ${athlete.surName}`}
@@ -87,7 +90,7 @@ const FavAthlete = ({athletesFollowing}) => {
             athleteProfilePicture={athlete.imgResponsive}
             id={athlete.id}
             />
-          ))}
+          ))} */}
         </div>
       </div>
       <div className="favAthlete-horizontal"></div>

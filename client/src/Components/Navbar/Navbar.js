@@ -27,7 +27,7 @@ const Navbar = ({
   web3auth,
   setWeb3auth,
   checkWalletProvider,
-  setIsSignupCompleted
+  setIsUserLogged,
 }) => {
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
@@ -248,7 +248,7 @@ const Navbar = ({
             setWeb3auth={setWeb3auth}
             handlePopoUpSignUpSignInClick={handlePopoUpSignUpSignInClick}
             setIsSignUpButtonClicked={setIsSignUpButtonClicked}
-            setIsSignupCompleted={setIsSignupCompleted}
+            setIsUserLogged={setIsUserLogged}
           />
         </Modal>
       )}

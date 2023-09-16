@@ -103,6 +103,7 @@ function Home({
     return () => unsubscribe();
   }, []);
 
+  // retrouver les athletes suivis
   useEffect(() => {
     const userIdToFind = loggedInUser?.id;
 
@@ -148,7 +149,7 @@ function Home({
     return () => unsubscribe();
   }, [loggedInUser]);
 
-  console.log(athletesFollowing);
+  // console.log(athletesFollowing);
 
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < dataPost.length; i++) {
@@ -211,6 +212,7 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
+  console.log(athletesFollowing.length);
 
   return (
     <>
@@ -220,7 +222,10 @@ function Home({
           style={
             isLogged?.account_type === "athlete"
               ? { height: "686px", maxHeight: "686px" }
+              : athletesFollowing.length === 0
+              ? { height: "398px" }
               : { maxHeight: "646px" }
+            // athletesFollowing.length === 0 ? {}: {}
           }
         >
           <div
@@ -265,9 +270,11 @@ function Home({
               )
             }
           </div>
-          <FavAthlete
-          athletesFollowing={athletesFollowing}
-          />
+          <FavAthlete athletesFollowing={athletesFollowing} />
+          {athletesFollowing.length === 0 && <>
+          <div className="home-left-separation-line">
+          </div>
+          </>}
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}
