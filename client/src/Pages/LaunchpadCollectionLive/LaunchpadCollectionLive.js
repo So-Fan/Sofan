@@ -366,9 +366,65 @@ function LaunchpadCollectionLive(isLogged) {
         );
       }
     }
-
     getAthleteInfoCollectionLive();
     getCollectionLiveAthleteData();
+    // const collectionsRef = collection(db, "nft_collections");
+    // const q = query(collectionsRef, where("collection_address", "==", collectionAddress));
+
+    // getDocs(q).then(querySnapshot => {
+    //     querySnapshot.forEach(doc => {
+    //         // Étape 2 : Accéder à la sous-collection "collection-utilities"
+    //         const utilitiesRef = collection(doc.ref, "collection-utilities");
+
+    //         // Étape 3 : Récupérer et afficher les champs souhaités
+    //         getDocs(utilitiesRef).then(utilitiesSnapshot => {
+    //             utilitiesSnapshot.forEach(utilityDoc => {
+    //                 console.log("collections_utilities_description -->", utilityDoc.data().collections_utilities_description);
+    //                 console.log("collections_utilities_title -->", utilityDoc.data().collections_utilities_title);
+    //                 console.log("utilities_date -->", utilityDoc.data().utilities_date);
+    //             });
+    //         });
+    //     });
+    // });
+    // Récupération du document de la collection "nft_collections" où "collection_address" est égal à "collectionAddress"
+    const nftCollectionRef = collection(db, "nft_collections");
+    const q1 = query(
+      nftCollectionRef,
+      where("collection_address", "==", collectionAddress)
+    );
+
+    let collectionDocId;
+
+    // Récupération de l'ID du document correspondant
+    const unsubscribe1 = onSnapshot(q1, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        collectionDocId = doc.id;
+      });
+
+      // Si l'ID du document est trouvé, accéder à la sous-collection "collection-utilities"
+      if (collectionDocId) {
+        const utilitiesRef = collection(
+          db,
+          `nft_collections/${collectionDocId}/collection-utilities`
+        );
+
+        const unsubscribe2 = onSnapshot(utilitiesRef, (querySnapshot) => {
+          const utilities = [];
+          querySnapshot.forEach((doc) => {
+            utilities.push(doc.data());
+          });
+          console.log(utilities); // Vous pouvez traiter les données comme vous le souhaitez
+        });
+        
+        return () => {
+          unsubscribe2();
+        };
+      }
+    });
+
+    return () => {
+      unsubscribe1();
+    };
   }, []);
   // récupérer adresse de la collection
   return (

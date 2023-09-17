@@ -34,7 +34,7 @@ function LaunchpadCollectionLiveHeader({
   // Infura API
   nftCollectionMaxItems,
 }) {
-  console.log(description)
+  // console.log(description)
   return (
     <section className="launchpad-collection-live-header-container">
       <NftCollectionHeader
