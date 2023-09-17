@@ -109,6 +109,7 @@
 .posts-comments-component-comments-like-button {
   width: 30px;
   height: 20px;
+  padding-left: 3px;
   /* background-color: burlywood; */
 }
 @media (max-height: 900px) {
