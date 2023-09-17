@@ -415,7 +415,6 @@ const AthleteProfilePage = ({
           fansCounterApi={fansCounterApi}
           handleClicNftsAvailable={handleClicNftsAvailable}
           setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
-          testProps="salut"
         />
         <div className="athleteprofilepage-profilesubmenu-wrap">
           <MemoProfileSubMenu

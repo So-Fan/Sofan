@@ -35,7 +35,6 @@ function AthleteProfileHeader({
   handleClicNftsAvailable,
   setIsProfileSubMenuButtonClicked,
 }) {
-  console.log(setIsProfileSubMenuButtonClicked);
   const [isStoredUser, setIsStoredUser] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [totalFollowers, setTotalFollowers] = useState(0);
