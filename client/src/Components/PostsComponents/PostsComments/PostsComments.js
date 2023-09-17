@@ -9,6 +9,8 @@ import DropDownMenu from "../DropDownMenu/DropDownMenu";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
+import CommentLikeButton from "./CommentLikeButton/CommentLikeButton";
+
 function PostsComments({
   likeButtonSizePollPost,
   postId,
@@ -244,7 +246,18 @@ function PostsComments({
                 : "posts-comments-component-comments-like-button"
             }
           >
-            LIKE
+            <CommentLikeButton
+              setIsPostClicked={setIsPostClicked}
+              isPostClicked={isPostClicked}
+              likeButtonSizePollPost={likeButtonSizePollPost}
+              likeButtonSize={"likeButton-M-size"}
+              postId={postId}
+              loggedInUserId={loggedInUserId}
+              commentId={commentId}
+              isMediaQueriesFullPagePostDisabled={
+                isMediaQueriesFullPagePostDisabled
+              }
+            />
           </div>
         </div>
       </div>
