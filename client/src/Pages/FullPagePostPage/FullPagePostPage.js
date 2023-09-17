@@ -9,6 +9,7 @@ function FullPagePostPage({ dataPost, isLogged, postType }) {
   const [fullpagePostPageData, setFullPagePostPageData] = useState([]);
   const [isCopyPostLinkClicked, setIsCopyPostLinkClicked] = useState(false);
   const [copyPostAnimationHide, setCopyPostAnimationHide] = useState(false);
+  const [commentsLengthPostsFeed, setCommentLengthPostsFeed] = useState();
   const location = useLocation();
   const segments = location.pathname.split("/");
   const postId = segments[2];
@@ -69,6 +70,7 @@ function FullPagePostPage({ dataPost, isLogged, postType }) {
           polldata={fullpagePostPageData[0]?.pollData}
           handleClickCopyPostLink={handleClickCopyPostLink}
           fullPagePostPageStyle={true}
+          setCommentLengthPostsFeed={setCommentLengthPostsFeed}
         />
       )}
     </div>
