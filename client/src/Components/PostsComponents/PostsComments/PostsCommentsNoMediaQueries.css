@@ -95,5 +95,6 @@
 .posts-comments-component-comments-like-button-no-media-queries {
   width: 30px;
   height: 20px;
+  padding-left: 3px;
   /* background-color: burlywood; */
 }
