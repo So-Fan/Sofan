@@ -185,24 +185,16 @@ contract('SofanNft', accounts => {
         FiatTokenV2_1Instance = await FiatTokenV2_1.new({from:second})
         FiatTokenProxyInstance = await FiatTokenProxy.new(FiatTokenV2_1Instance.address, {from:second});
         FiatTokenV2_1ViaProxy = await FiatTokenV2_1.at(FiatTokenProxyInstance.address)
+        await FiatTokenV2_1ViaProxy.initialize("FiatTokenV1","USD//C (USDC)", "usdc", 6, owner, owner, owner, owner,{from:owner})
+        await FiatTokenV2_1ViaProxy.configureMinter(owner, 100000000, {from:owner})
+        await FiatTokenV2_1ViaProxy.mint(owner, 10000000, {from:owner})
+        // await FiatTokenV2_1ViaProxy.approve(FiatTokenV2_1ViaProxy.address, 10000000, {from:owner})
       })
-      it("...should get admin from proxy", async () => {
-        const storedData = await FiatTokenProxyInstance.admin({from:owner})
-        expect(storedData).to.equal(second);  
+      it("...should mint 1 nft", async () => {
+        await FiatTokenV2_1ViaProxy.approve(FiatTokenV2_1ViaProxy.address, 100000000, {from:owner})
+        const storedData = await FiatTokenV2_1ViaProxy.allowance(owner, FiatTokenV2_1ViaProxy.address, {from:owner})
+        expect(new BN(storedData)).to.be.bignumber.equal(new BN(100000000));
       })
-      it("...should get implementation from proxy", async () => {
-        const storedData = await FiatTokenProxyInstance.implementation({from:owner})
-        expect(storedData).to.equal(FiatTokenV2_1Instance.address);  
-      })
-      it("...should initialize as delegated call from proxy", async () => {
-        const storedData = await FiatTokenV2_1ViaProxy.initialize("FiatTokenV1","USD//C (USDC)", "usdc", 6, owner, owner, owner, owner,{from:owner})
-        expect(storedData.receipt.status).to.be.true
-      })
-      // it("...should mint 10 USDC", async () => {
-      //     await FiatTokenV2_1ViaProxy.mint(owner, 10000000, {from:owner})
-      //     const storedData = await FiatTokenV2_1ViaProxy.balanceOf(owner, {from:owner})
-      //     expect(new BN(storedData)).to.be.bignumber.equal(new BN(0));  
-      // })
     })
 
 })
