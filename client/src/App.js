@@ -30,7 +30,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [localWeb3authProvider, setLocalWeb3authProvider] = useState(null);
   const [web3auth, setWeb3auth] = useState(null);
-  const [isSignupCompleted, setIsSignupCompleted] = useState(false);
+  const [isUserLogged, setIsUserLogged] = useState();
 
   useEffect(() => {
     // Check if user data exists in localStorage
@@ -38,7 +38,17 @@ function App() {
     if (storedUser) {
       setLoggedInUser(JSON.parse(storedUser));
     }
+    // Check if isUserLogged exists in localStorage
+    const storedSignupStatus = localStorage.getItem("isUserLogged");
+    if (storedSignupStatus && storedSignupStatus !== "undefined") {
+      setIsUserLogged(JSON.parse(storedSignupStatus));
+    }
   }, []);
+  useEffect(() => {
+    // met dans le storage l'etat de connexion ou non pour gerer l'acces du site
+    // si l'utilisateur lis le code et cahnge le storage manuellement il peut avoir acces à sofan sans compte
+    localStorage.setItem("isUserLogged", JSON.stringify(isUserLogged));
+  }, [isUserLogged]);
 
   useEffect(() => {
     // Save loggedInUser to localStorage when it changes
@@ -68,6 +78,11 @@ function App() {
   const [isDropdownClicked, setIsDropdownClicked] = useState();
   const [isSignUpButtonClicked, setIsSignUpButtonClicked] = useState(false);
   const [isSignInButtonClicked, setIsSignInButtonClicked] = useState(false);
+  const [isSignupProcessing, setIsSignupProcessing] = useState();
+  const [
+    isLoginFinishFromBlockAccessPage,
+    setIsLoginFinishFromBlockAccessPage,
+  ] = useState();
   // const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
   //   useState(false);
   function handleClickOutside(e) {
@@ -167,7 +182,6 @@ function App() {
   }
   useEffect(() => {
     if (loggedInUser?.username !== undefined) {
-      setIsSignupCompleted(true);
     }
   }, [loggedInUser]);
   const handlePopoUpSignUpSignInClick = () => {
@@ -215,6 +229,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // console.log("etat de signup process--> ", isSignupProcessing);
     reset();
     return () => ref.current.forEach(clearTimeout);
   }, []);
@@ -229,7 +244,7 @@ function App() {
     >
       <BrowserRouter>
         <EthProvider setWeb3auth={setWeb3auth}>
-          {isSignupCompleted === false ? (
+          {isUserLogged === false || isUserLogged === undefined ? (
             <>
               <div className="app-sofan-block-access-container">
                 <div className="app-sofan-block-access-wrap">
@@ -275,7 +290,13 @@ function App() {
                                 web3auth={web3auth}
                                 checkWalletProvider={checkWalletProvider}
                                 isBlockAccessPageDisplay={true}
-                                setIsSignInButtonClicked={setIsSignInButtonClicked}
+                                setIsSignInButtonClicked={
+                                  setIsSignInButtonClicked
+                                }
+                                setIsLoginFinishFromBlockAccessPage={
+                                  setIsLoginFinishFromBlockAccessPage
+                                }
+                                setIsUserLogged={setIsUserLogged}
                               />
                             </>
                           ) : (
@@ -289,7 +310,8 @@ function App() {
                                 setIsSignUpButtonClicked={
                                   setIsSignUpButtonClicked
                                 }
-                                setIsSignupCompleted={setIsSignupCompleted}
+                                setIsUserLogged={setIsUserLogged}
+                                setIsSignupProcessing={setIsSignupProcessing}
                                 isBlockAccessPageDisplay={true}
                               />
                             </>
@@ -384,7 +406,7 @@ function App() {
               web3auth={web3auth}
               setWeb3auth={setWeb3auth}
               checkWalletProvider={checkWalletProvider}
-              setIsSignupCompleted={setIsSignupCompleted}
+              setIsUserLogged={setIsUserLogged}
             />
 
             <Routes>

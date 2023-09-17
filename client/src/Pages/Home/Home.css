@@ -13,6 +13,10 @@
   height: 686px; /* A modif*/
   max-height: 686px; /* A modif*/
 }
+.home-left-separation-line{
+  border: 0.3px solid rgba(0, 0, 0, 0.1);
+
+}
 .home-navlink-create-post-wrap {
   display: flex;
   flex-direction: column;

@@ -20,6 +20,7 @@ const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
         setLoggedInUser(null);
         setLocalWeb3authProvider(null);
         localStorage.removeItem("loggedInUser");
+        localStorage.removeItem("isUserLogged");
         navigate("/");
       })
       .catch((error) => {

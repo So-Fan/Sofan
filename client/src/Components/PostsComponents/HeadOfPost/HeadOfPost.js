@@ -101,7 +101,7 @@ function HeadOfPost({
       if (userDoc.exists()) {
         return userDoc.data();
       } else {
-        console.log("No such user!");
+        // console.log("No such user!");
         return null;
       }
     } catch (error) {

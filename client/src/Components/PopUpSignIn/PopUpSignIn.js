@@ -52,6 +52,8 @@ const PopUpSignIn = ({
   setIsSignInButtonClicked,
   checkWalletProvider,
   isBlockAccessPageDisplay,
+  setIsLoginFinishFromBlockAccessPage,
+  setIsUserLogged,
 }) => {
   const googleImage =
     "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/google%201.png?alt=media&token=3a8d7bf6-eaf1-46d1-a1b4-0c73eb8ac18f";
@@ -222,8 +224,12 @@ const PopUpSignIn = ({
             };
             tempUserData = AllUserInfo;
             setLoggedInUser(AllUserInfo);
+            // console.log(AllUserInfo)
+            setIsLoginFinishFromBlockAccessPage(true);
+            setIsUserLogged(true);
+            setIsSignInButtonClicked(false);
+            window.location.reload();
           });
-
           if (checkWalletProvider(tempUserData) === "web3auth") {
             // await web3auth.logout();
             await auth.currentUser
@@ -242,6 +248,7 @@ const PopUpSignIn = ({
                 );
                 setWeb3authProvider(web3authProvider);
                 setIsWeb3authConnectClicked([true, web3authProvider]);
+                // for giving access to sofan app from block access page
               })
               .catch(function (error) {
                 // Handle error
@@ -293,6 +300,9 @@ const PopUpSignIn = ({
         tempUserInfo = AllUserInfo;
         setAllUserInfo(AllUserInfo);
         setLoggedInUser(AllUserInfo);
+        setIsUserLogged(true);
+        setIsSignInButtonClicked(false);
+        window.location.reload();
       } else {
         // setIsSigninGoogleLoading(false);
         const createdAt = new Date();
@@ -447,15 +457,15 @@ const PopUpSignIn = ({
   function handleForgotPasswordClick(e) {
     setIsForgotPasswordClicked(true);
   }
-  function handleSigninFormValid() {
-    if (email !== "" && emailError === false) {
-      console.log("Le form sign in est valide");
-      setIsSignInFormValid(true);
-    } else if (email === "" || emailError === true) {
-      console.log("Le form sign in est pas valide");
-      setIsSignInFormValid(false);
-    }
-  }
+  // function handleSigninFormValid() {
+  //   if (email !== "" && emailError === false) {
+  //     console.log("Le form sign in est valide");
+  //     setIsSignInFormValid(true);
+  //   } else if (email === "" || emailError === true) {
+  //     console.log("Le form sign in est pas valide");
+  //     setIsSignInFormValid(false);
+  //   }
+  // }
   // useEffect(() => {
 
   //   handleSigninFormValid();

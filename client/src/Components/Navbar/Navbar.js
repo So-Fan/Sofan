@@ -27,7 +27,7 @@ const Navbar = ({
   web3auth,
   setWeb3auth,
   checkWalletProvider,
-  setIsSignupCompleted
+  setIsUserLogged,
 }) => {
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
@@ -60,7 +60,7 @@ const Navbar = ({
       handlePixelScrolledAthleteProfilePage,
       false
     );
-    if (isLogged) {
+    if (isLogged?.username !== undefined) {
       setIsSignInButtonClicked(false);
     }
     return () => {
@@ -145,13 +145,13 @@ const Navbar = ({
           <section className="navbar-section">
             <div className="navbar-wrap">
               <div className="navbar-wrap-1">
-                <Link to="/">
+                <a href="/">
                   <img
                     className="navbar-main-logo"
                     src={SofanLogo2}
                     alt="Sofan"
                   />
-                </Link>
+                </a>{" "}
                 <Searchbar />
               </div>
               <div
@@ -248,7 +248,7 @@ const Navbar = ({
             setWeb3auth={setWeb3auth}
             handlePopoUpSignUpSignInClick={handlePopoUpSignUpSignInClick}
             setIsSignUpButtonClicked={setIsSignUpButtonClicked}
-            setIsSignupCompleted={setIsSignupCompleted}
+            setIsUserLogged={setIsUserLogged}
           />
         </Modal>
       )}

@@ -57,8 +57,9 @@ function Signup({
   setWeb3auth,
   setIsSignUpButtonClicked,
   handlePopoUpSignUpSignInClick,
-  setIsSignupCompleted,
+  setIsUserLogged,
   isBlockAccessPageDisplay,
+  setIsSignupProcessing,
 }) {
   //
   const { setLoggedInUser } = useContext(UserContext);
@@ -221,7 +222,7 @@ function Signup({
       return false;
     }
     const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\S])[A-Za-z\d\S]{8,100}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};:,'".<>?~=-])[A-Za-z\d!@#$%^&*()_+[\]{};:,'".<>?~=-]{8,100}$/;
 
     return regex.test(password);
   }
@@ -476,7 +477,7 @@ function Signup({
 
             const userDocRef = doc(usersRef, user.uid);
             const userDoc = await getDoc(userDocRef);
-            console.log(userDoc, "\nUser Doc called from firebase ");
+            // console.log(userDoc, "\nUser Doc called from firebase ");
             const userExists = userDoc.exists();
 
             if (!userExists) {
@@ -565,7 +566,7 @@ function Signup({
       console.log("la première condition n'est pas remplie");
       setIsFormValid(false);
     }
-    console.log("oui");
+    // console.log("oui");
   }
 
   function handleKeyDown(event) {
@@ -969,7 +970,8 @@ function Signup({
     setTimeout(() => {
       setDisplayValidationSignup(true);
       // from LandingPage state to pass true
-      setIsSignupCompleted(true);
+      setIsUserLogged(true);
+      window.location.reload();
     }, 2000);
   }
   function handleConfirmationCodePreviousStep() {
@@ -1036,8 +1038,26 @@ function Signup({
   useEffect(() => {
     if (isConfirmCodeResendInterval) {
       setIsResendCodeMailLoading(false);
-      console.log("kod");
+      console.log("resend mail");
     }
+    function verifySignUpProcess() {
+      if (
+        // isGoogleSignupLoading === true ||
+        // displayConfirmationCode === true ||
+        // displaySetupProfile === true ||
+        // displayConnectWallet === true ||
+        // displayConfirmWallet === true ||
+        // displayValidationSignup
+        !errorBackendRegister &&
+        isFormValid
+      ) {
+        setIsSignupProcessing(true);
+      } else {
+        setIsSignupProcessing(false);
+        console.log("pas d'inscription en cours");
+      }
+    }
+    verifySignUpProcess();
   }, []);
 
   return (

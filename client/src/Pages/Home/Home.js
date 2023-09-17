@@ -102,7 +102,8 @@ function Home({
     // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
     return () => unsubscribe();
   }, []);
-  console.log(loggedInUser);
+
+  // retrouver les athletes suivis
   useEffect(() => {
     const userIdToFind = loggedInUser?.id;
 
@@ -148,7 +149,7 @@ function Home({
     return () => unsubscribe();
   }, [loggedInUser]);
 
-  console.log(athletesFollowing);
+  // console.log(athletesFollowing);
 
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < dataPost.length; i++) {
@@ -211,7 +212,7 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
-
+  console.log(isLogged)
   return (
     <>
       <section className="home-component">
@@ -220,7 +221,10 @@ function Home({
           style={
             isLogged?.account_type === "athlete"
               ? { height: "686px", maxHeight: "686px" }
+              : athletesFollowing.length === 0
+              ? { height: "398px" }
               : { maxHeight: "646px" }
+            // athletesFollowing.length === 0 ? {}: {}
           }
         >
           <div
@@ -252,7 +256,7 @@ function Home({
             {
               // isLogged === true &&
               // isLogged !== undefined &&
-              isLogged && isLogged.account_type !== "free" && (
+              isLogged?.account_type === "athlete" && (
                 <Button
                   createPostButtonclassName="button-component-create-post"
                   style={CreatePostButtonStyle.inlineStyle}
@@ -266,6 +270,11 @@ function Home({
             }
           </div>
           <FavAthlete athletesFollowing={athletesFollowing} />
+          {athletesFollowing.length === 0 && (
+            <>
+              <div className="home-left-separation-line"></div>
+            </>
+          )}
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}
