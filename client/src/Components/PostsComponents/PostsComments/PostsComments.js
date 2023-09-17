@@ -250,7 +250,7 @@ function PostsComments({
               setIsPostClicked={setIsPostClicked}
               isPostClicked={isPostClicked}
               likeButtonSizePollPost={likeButtonSizePollPost}
-              likeButtonSize={"likeButton-M-size"}
+              likeButtonSize={"likeButton-S-size"}
               postId={postId}
               loggedInUserId={loggedInUserId}
               commentId={commentId}
