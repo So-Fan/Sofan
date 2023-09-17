@@ -31,13 +31,13 @@ contract SofanNft is
     uint256 public launchpadTime;
     // uint256 public deployDate; // not pub
     bool public isAbleChangeMaxLimitCollection;
-    mapping(address => uint256) public NftOwned;
-    address public SofanWallet = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
-    address public AthleteWallet = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
+    // mapping(address => uint256) public NftOwned;
+    address public SofanWallet;
+    address public AthleteWallet;
     uint256 public price;
     // address public SofanSplitter;
     // 0x07865c6E87B9F70255377e024ace6630C1Eaa37F 0x98339D8C260052B7ad81c28c16C0b98420f2B46a
-    IERC20 public usdc = IERC20(0x07865c6E87B9F70255377e024ace6630C1Eaa37F);
+    IERC20 public usdc;
     // Check if can put 0x07865c6E87B9F70255377e024ace6630C1Eaa37F into an address var and try to change var
     constructor(
         string[3] memory _collectionData2,
@@ -70,7 +70,15 @@ contract SofanNft is
         // SofanSplitter = _splitterAddress;
         setRoyaltyInfo(_splitterAddress, _percentInBips);
     }
-
+    function setUsdcAddress(address _newUSDCAddress) external onlyOwner{
+        usdc = IERC20(_newUSDCAddress);
+    }
+    function setAthleteWallet(address _newAthleteWallet) external onlyOwner{
+        AthleteWallet = _newAthleteWallet;
+    }
+    function setSofanWallet(address _newSofanWallet) external onlyOwner{
+        SofanWallet = _newSofanWallet;
+    }
     function mint(
         address _to,
         uint256 _quantity,
@@ -83,7 +91,7 @@ contract SofanNft is
         if (isLimitByWallet == true) // Optimize this for fees
         {
             require(
-                (NftOwned[_to] + _quantity) <= limitByWallet,
+                (ERC721A.balanceOf(_to) + _quantity) <= limitByWallet,
                 "Limit of owned NFT reached or too much NFTs asked"
             );
         }
@@ -116,12 +124,13 @@ contract SofanNft is
         uint256 toSofan = SafeMath.div(toSofanTemp, 100);
         bool success3 = usdc.transfer(SofanWallet, toSofan);
         require(success3, "Transaction was not successful");
-        NftOwned[_to] = NftOwned[_to] + _quantity;
+        // NftOwned[_to] = NftOwned[_to] + _quantity;
         _mint(_to, _quantity);
         }
     }
 
     function withdrawUSDC() public onlyOwner {
+        require(usdc.balanceOf(address(this)) > 0, "No USDC in the contract");
         uint256 balance = usdc.balanceOf(address(this));
         usdc.approve(msg.sender, balance);
         usdc.transfer(msg.sender, balance);
@@ -186,22 +195,22 @@ contract SofanNft is
 
     event temp(address msgSender);
 
-    function approveCustom(
-        address to,
-        uint256 tokenId,
-        address _msgSender
-    ) public payable onlyAllowedOperatorApproval(to) {
-        address owner = ERC721A.ownerOf(tokenId);
+    // function approveCustom(
+    //     address to,
+    //     uint256 tokenId,
+    //     address _msgSender
+    // ) public payable onlyAllowedOperatorApproval(to) {
+    //     address owner = ERC721A.ownerOf(tokenId);
 
-        if (_msgSender != owner) {
-            if (!isApprovedForAll(owner, _msgSender)) {
-                revert ApprovalCallerNotOwnerNorApproved();
-            }
-        }
+    //     if (_msgSender != owner) {
+    //         if (!isApprovedForAll(owner, _msgSender)) {
+    //             revert ApprovalCallerNotOwnerNorApproved();
+    //         }
+    //     }
 
-        ERC721A._tokenApprovals[tokenId].value = to;
-        emit IERC721A.Approval(owner, to, tokenId);
-    }
+    //     ERC721A._tokenApprovals[tokenId].value = to;
+    //     emit IERC721A.Approval(owner, to, tokenId);
+    // }
 
     function supportsInterface(
         bytes4 interfaceId
