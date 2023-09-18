@@ -203,7 +203,6 @@ const AthleteProfilePage = ({
   }, []);
 
   // -------------------------------------
-  
 
   function handleAcceptOffersClick(
     nftsFromOwnerImage,
@@ -267,9 +266,9 @@ const AthleteProfilePage = ({
   // Récupérer la valeur de pixel scrollé pour ensuite faire afficher le modal au bon endroit
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
     useState();
-    const handlePixelScrolledAthleteProfilePage = () => {
-      setPixelScrolledAthleteProfilePage(window.scrollY);
-    };
+  const handlePixelScrolledAthleteProfilePage = () => {
+    setPixelScrolledAthleteProfilePage(window.scrollY);
+  };
   const athletesNftsAvailable = useRef(null);
   function handleClicNftsAvailable() {
     setIsAthleteProfileSubMenuClicked([
@@ -414,26 +413,16 @@ const AthleteProfilePage = ({
         <MemoAthleteProfileHeader
           userInfo={userInfo}
           fansCounterApi={fansCounterApi}
-          // setIsAthleteFollowersClicked={setIsAthleteFollowersClicked}
-          // handleAthleteFollowersClick={handleAthleteFollowersClick}
-          // handleAthleteSupportersClick={handleAthleteSupportersClick}
-          // handleClickNftReceived={handleClickNftReceived}
           handleClicNftsAvailable={handleClicNftsAvailable}
-          // handlePalmaresButtonClick={handlePalmaresButtonClick}
-          // setSettingsAthletePageClicked={setSettingsAthletePageClicked}
-          // handleSettingsAthletePageClick={handleSettingsAthletePageClick}
-          // pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
+          setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
         />
         <div className="athleteprofilepage-profilesubmenu-wrap">
           <MemoProfileSubMenu
             isPageAthlete={true}
             isProfileSubMenuButtonClicked={isAthleteProfileSubMenuClicked}
             setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
-            // profileSubMenuOffresClicked={profileSubMenuOffresClicked}
-            // setProfileSubMenuOffresClicked={setProfileSubMenuOffresClicked}
           />
         </div>
-        {/* {displayAthleteProfileSubMenu()} */}
         {isAthleteProfileSubMenuClicked[4] === true ? (
           <MemoAthleteProfileFeed
             athleteProfilePageStyling={true}

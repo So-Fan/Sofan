@@ -32,15 +32,8 @@ const MemoPopUpEditProfile = memo(PopUpEditProfile, (prevProps, nextProps) => {
 function AthleteProfileHeader({
   userInfo,
   fansCounterApi,
-  // setIsAthleteFollowersClicked,
-  // handleAthleteFollowersClick,
-  // handleAthleteSupportersClick,
-  // handleClickNftReceived,
   handleClicNftsAvailable,
-  // handlePalmaresButtonClick,
-  // setSettingsAthletePageClicked,
-  // handleSettingsAthletePageClick
-  // pixelScrolledAthleteProfilePage,
+  setIsProfileSubMenuButtonClicked,
 }) {
   const [isStoredUser, setIsStoredUser] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -179,7 +172,17 @@ function AthleteProfileHeader({
   function handleSettingsAthletePageClick() {
     setSettingsAthletePageClicked(true);
   }
-
+function redirectToNftCollection () {
+  setIsProfileSubMenuButtonClicked([
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+  ])
+}
   return (
     <>
       <div className="athleteprofileheader-component">
@@ -274,6 +277,7 @@ function AthleteProfileHeader({
             {!isStoredUser && (
               <div className="athleteprofileheader-content-container-button-wrap">
                 <Button
+                onClick={redirectToNftCollection}
                   text={"Devenir un fan"}
                   style={AthleteProfileHeaderFanButton}
                 />
