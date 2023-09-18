@@ -79,6 +79,7 @@ contract SofanNft is
     function setSofanWallet(address _newSofanWallet) external onlyOwner{
         SofanWallet = _newSofanWallet;
     }
+    // _amount is a useless parameter but a helper for our front end as no event
     function mint(
         address _to,
         uint256 _quantity,
@@ -104,7 +105,7 @@ contract SofanNft is
         // }
         require(
             usdc.allowance(msg.sender, address(this)) >= _amount,
-            "Please make sure you have approve enought USDC !"
+            "Please make sure you have approve enough USDC !"
         );
         require(
             _amount >= price * _quantity,

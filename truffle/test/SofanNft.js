@@ -105,7 +105,7 @@ contract('SofanNft', accounts => {
     // })
     // describe('getter after constructor when everything = 0', () => {
     //     it("...should revert if no royalty address === 0x0", async () => {
-    //         await expectRevert(SofanNft.new(["", "", ""], [0,0,0,0], false, "0x0000000000000000000000000000000000000000", 0, {from:owner}), "intrinsic gas too low");
+    //         await expectRevert(SofanNft.new(["", "", ""], [0,0,0,0], false, "0x0000000000000000000000000000000000000000", 0, {from:owner}), "invalid receiver");
     //     })
     //     beforeEach(async function() {
     //         SofanNftInstance = await SofanNft.new(["", "", ""], [0,0,0,0], false, "0xd9145CCE52D386f254917e481eB44e9943F39138", 0, {from:owner});
@@ -184,7 +184,7 @@ contract('SofanNft', accounts => {
     //         })
     //     })
     // })
-    context('mint process', () => {
+    // context('mint process', () => {
       // Add describe for revert, another for good process
       // describe('when condition are satisfied', () => {
       //   beforeEach(async () => {
@@ -202,45 +202,49 @@ contract('SofanNft', accounts => {
       //     await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
       //     await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 100000000, {from:owner})
       //   })
-        // it("...should get usdc address", async () => {
-        //   const storedData = await SofanNftInstance.usdc({from:owner})
-        //   expect(storedData).to.equal(FiatTokenV2_1ViaProxy.address);
-        // })
-        // it("...should mint 1 nft", async () => {
-        //   const storedData = await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-        //   expect(storedData.receipt.status).to.equal(true);
-        // })
-        // it("...should increment total supply 1 nft", async () => {
-        //   await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-        //   const storedData = await SofanNftInstance.totalSupply({from:owner})
-        //   expect(new BN(storedData)).to.be.bignumber.equal(new BN(1)); 
-        // })
-        // it("...should have balance of 1 nft", async () => {
-        //   await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-        //   const storedData = await SofanNftInstance.balanceOf(owner, {from:owner})
-        //   expect(new BN(storedData)).to.be.bignumber.equal(new BN(1)); 
-        // })
-        // it("...should get tokenURI of nft 0", async () => {
-        //   await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-        //   const storedData = await SofanNftInstance.tokenURI(0, {from:owner})
-        //   expect(storedData).to.equal("https://url.com/0.json"); 
-        // })
-        // it("...should get royaltyInfo of nft 0", async () => {
-        //   await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-        //   const storedData = await SofanNftInstance.royaltyInfo(0, 1000000, {from:owner})
-        //   expect(storedData[0]).to.equal("0xd9145CCE52D386f254917e481eB44e9943F39138"); 
-        //   expect(new BN(storedData[1])).to.be.bignumber.equal(new BN(25000)); 
-        // })
-        // it("...should get tokenURI of nft 0", async () => {
-        //   await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-        //   const storedData = await SofanNftInstance.tokenURI(0, {from:owner})
-        //   expect(storedData).to.equal("https://url.com/0.json"); 
-        // })  
-        // it("...should get owner of nft 0", async () => {
-        //   await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-        //   const storedData = await SofanNftInstance.ownerOf(0, {from:owner})
-        //   expect(storedData).to.equal(owner); 
-        // })  
+      //   it("...should get usdc address", async () => {
+      //     const storedData = await SofanNftInstance.usdc({from:owner})
+      //     expect(storedData).to.equal(FiatTokenV2_1ViaProxy.address);
+      //   })
+      //   it("...should mint 1 nft", async () => {
+      //     const storedData = await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
+      //     expect(storedData.receipt.status).to.equal(true);
+      //   })
+      //   it("...should mint 3 nft", async () => {
+      //     const storedData = await SofanNftInstance.mint(owner, 3, 3000000, {from:owner})
+      //     expect(storedData.receipt.status).to.equal(true);
+      //   })
+      //   it("...should increment total supply 1 nft", async () => {
+      //     await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
+      //     const storedData = await SofanNftInstance.totalSupply({from:owner})
+      //     expect(new BN(storedData)).to.be.bignumber.equal(new BN(1)); 
+      //   })
+      //   it("...should have balance of 1 nft", async () => {
+      //     await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
+      //     const storedData = await SofanNftInstance.balanceOf(owner, {from:owner})
+      //     expect(new BN(storedData)).to.be.bignumber.equal(new BN(1)); 
+      //   })
+      //   it("...should get tokenURI of nft 0", async () => {
+      //     await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
+      //     const storedData = await SofanNftInstance.tokenURI(0, {from:owner})
+      //     expect(storedData).to.equal("https://url.com/0.json"); 
+      //   })
+      //   it("...should get royaltyInfo of nft 0", async () => {
+      //     await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
+      //     const storedData = await SofanNftInstance.royaltyInfo(0, 1000000, {from:owner})
+      //     expect(storedData[0]).to.equal("0xd9145CCE52D386f254917e481eB44e9943F39138"); 
+      //     expect(new BN(storedData[1])).to.be.bignumber.equal(new BN(25000)); 
+      //   })
+      //   it("...should get tokenURI of nft 0", async () => {
+      //     await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
+      //     const storedData = await SofanNftInstance.tokenURI(0, {from:owner})
+      //     expect(storedData).to.equal("https://url.com/0.json"); 
+      //   })  
+      //   it("...should get owner of nft 0", async () => {
+      //     await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
+      //     const storedData = await SofanNftInstance.ownerOf(0, {from:owner})
+      //     expect(storedData).to.equal(owner); 
+      //   })  
       //   it("...should get athlete wallet", async () => {
       //     const storedData = await SofanNftInstance.AthleteWallet({from:owner})
       //     expect(storedData).to.equal(third); 
@@ -260,29 +264,132 @@ contract('SofanNft', accounts => {
       //     expect(new BN(storedData)).to.be.bignumber.equal(new BN((1000000 * 20) / 100)); 
       //   })  
       // })
-      describe('when condition are not satisfied', () => {
+    //   describe('when condition are not satisfied', () => {
+    //     beforeEach(async () => {
+    //     // simulate usdc contract
+    //       FiatTokenV2_1Instance = await FiatTokenV2_1.new({from:second})
+    //       FiatTokenProxyInstance = await FiatTokenProxy.new(FiatTokenV2_1Instance.address, {from:second});
+    //       FiatTokenV2_1ViaProxy = await FiatTokenV2_1.at(FiatTokenProxyInstance.address)
+    //       await FiatTokenV2_1ViaProxy.initialize("FiatTokenV1","USD//C (USDC)", "usdc", 6, owner, owner, owner, owner,{from:owner})
+    //       await FiatTokenV2_1ViaProxy.configureMinter(owner, 100000000, {from:owner})
+    //       await FiatTokenV2_1ViaProxy.mint(owner, 100000000, {from:owner})
+    //     })
+    //     it("...should not mint : Limit of collection NFT reached or too much NFTs asked", async () => {
+    //       SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [0,2,0,1000000], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+    //       await SofanNftInstance.setAthleteWallet(third, {from:owner})
+    //       await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+    //       await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+    //       await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 3000000, {from:owner})
+    //       await expectRevert(
+    //         SofanNftInstance.mint(owner, 3, 3000000, {from:owner}),
+    //         "Limit of collection NFT reached or too much NFTs asked"
+    //       )
+    //     })
+    //     it("...should not mint : Limit of owned NFT reached or too much NFTs asked", async () => {
+    //       SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [1,100,0,1000000], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+    //       await SofanNftInstance.setAthleteWallet(third, {from:owner})
+    //       await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+    //       await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+    //       await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 3000000, {from:owner})
+    //       await expectRevert(
+    //         SofanNftInstance.mint(owner, 2, 2000000, {from:owner}),
+    //         "Limit of owned NFT reached or too much NFTs asked"
+    //       )
+    //     })
+    //     it("...should not mint : Timestamp > = block.timestamp", async () => {
+    //       SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [0,100,1705063360,1000000], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+    //       await SofanNftInstance.setAthleteWallet(third, {from:owner})
+    //       await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+    //       await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+    //       await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 3000000, {from:owner})
+    //       await expectRevert(
+    //         SofanNftInstance.mint(owner, 1, 1000000, {from:owner}),
+    //         "Cannot mint. Check Launchpad date !"
+    //       )
+    //     })
+    //     it("...should not mint : user doesn't have approve enough ETH", async () => {
+    //       SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [0,100,0,1000000], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+    //       await SofanNftInstance.setAthleteWallet(third, {from:owner})
+    //       await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+    //       await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+    //       await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 1000000, {from:owner})
+    //       await expectRevert(
+    //         SofanNftInstance.mint(owner, 2, 2000000, {from:owner}),
+    //         "Please make sure you have approve enough USDC !"
+    //       )
+    //     })
+    //     it("...should not mint : user doesn't send enough ETH", async () => {
+    //       SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [0,100,0,1000000], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+    //       await SofanNftInstance.setAthleteWallet(third, {from:owner})
+    //       await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+    //       await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+    //       await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 2000000, {from:owner})
+    //       await expectRevert(
+    //         SofanNftInstance.mint(owner, 2, 1000000, {from:owner}),
+    //         "Not enough USDC sent; check price!"
+    //       )
+    //     })
+    //       it("...should mint 1 but not transfer usdc, async () => {
+    //       SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [0,100,0,0], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+    //       await SofanNftInstance.setAthleteWallet(third, {from:owner})
+    //       await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+    //       await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+    //       await SofanNftInstance.mint(owner, 1, 0, {from:owner})
+    //       const storedData = await SofanNftInstance.balanceOf(owner, {from:owner})
+    //       expect(new BN(storedData)).to.be.bignumber.equal(new BN(1))
+    //     })
+    //       it("...should mint 2 but not transfer usdc, async () => {
+    //       SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [0,100,0,0], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+    //       await SofanNftInstance.setAthleteWallet(third, {from:owner})
+    //       await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+    //       await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+    //       await SofanNftInstance.mint(owner, 2, 0, {from:owner})
+    //       const storedData = await SofanNftInstance.balanceOf(owner, {from:owner})
+    //       expect(new BN(storedData)).to.be.bignumber.equal(new BN(2))
+    //     })
+      
+    // })
+    context('setter and modifier', () => {
         beforeEach(async () => {
           // simulate usdc contract
-        FiatTokenV2_1Instance = await FiatTokenV2_1.new({from:second})
-        FiatTokenProxyInstance = await FiatTokenProxy.new(FiatTokenV2_1Instance.address, {from:second});
-        FiatTokenV2_1ViaProxy = await FiatTokenV2_1.at(FiatTokenProxyInstance.address)
-        await FiatTokenV2_1ViaProxy.initialize("FiatTokenV1","USD//C (USDC)", "usdc", 6, owner, owner, owner, owner,{from:owner})
-        await FiatTokenV2_1ViaProxy.configureMinter(owner, 100000000, {from:owner})
-        await FiatTokenV2_1ViaProxy.mint(owner, 10000000, {from:owner})
-        // create collection, set USDC Address, set Athlete wallet, approve
-        SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [3,100,10,1000000], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
-        await SofanNftInstance.setAthleteWallet(third, {from:owner})
-        await SofanNftInstance.setSofanWallet(fourth, {from:owner})
-        await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
-        await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 100000000, {from:owner})
+          FiatTokenV2_1Instance = await FiatTokenV2_1.new({from:second})
+          FiatTokenProxyInstance = await FiatTokenProxy.new(FiatTokenV2_1Instance.address, {from:second});
+          FiatTokenV2_1ViaProxy = await FiatTokenV2_1.at(FiatTokenProxyInstance.address)
+          await FiatTokenV2_1ViaProxy.initialize("FiatTokenV1","USD//C (USDC)", "usdc", 6, owner, owner, owner, owner,{from:owner})
+          await FiatTokenV2_1ViaProxy.configureMinter(owner, 100000000, {from:owner})
+          await FiatTokenV2_1ViaProxy.mint(owner, 100000000, {from:owner})
+          // create collection, set USDC Address, set Athlete wallet, approve
+          SofanNftInstance = await SofanNft.new(["CollectionName", "CollectionSymbol", "https://url.com/"], [3,100,10,1000000], true, "0xd9145CCE52D386f254917e481eB44e9943F39138", 250, {from:owner});
+          await SofanNftInstance.setAthleteWallet(third, {from:owner})
+          await SofanNftInstance.setSofanWallet(fourth, {from:owner})
+          await SofanNftInstance.setUsdcAddress(FiatTokenV2_1ViaProxy.address, {from:owner})
+          await FiatTokenV2_1ViaProxy.approve(SofanNftInstance.address, 100000000, {from:owner})
         })
-        it("...should not mint : Limit of collection NFT reached or too much NFTs asked", async () => {
-          await SofanNftInstance.mint(owner, 1, 1000000, {from:owner})
-          const storedData = await FiatTokenV2_1ViaProxy.balanceOf(fourth, {from:owner})
-          expect(new BN(storedData)).to.be.bignumber.equal(new BN((1000000 * 20) / 100)); 
-        }) 
-      })
-      
+        describe('setter', () => {
+          it("...should set usdc address to null", async () => {
+            const storedData = await SofanNftInstance.usdc({from:owner});           
+            expect(storedData).to.equal(FiatTokenV2_1ViaProxy.address); 
+            await SofanNftInstance.setUsdcAddress("0x0000000000000000000000000000000000000000")
+            const storedData2 = await SofanNftInstance.usdc({from:owner});  
+            expect(storedData2).to.equal("0x0000000000000000000000000000000000000000"); 
+          })  
+          it("...should set athlete wallet to null", async () => {
+            const storedData = await SofanNftInstance.AthleteWallet({from:owner});           
+            expect(storedData).to.equal(third); 
+            await SofanNftInstance.setAthleteWallet("0x0000000000000000000000000000000000000000")
+            const storedData2 = await SofanNftInstance.AthleteWallet({from:owner});  
+            expect(storedData2).to.equal("0x0000000000000000000000000000000000000000"); 
+          })  
+          it("...should set sofan wallet to null", async () => {
+            const storedData = await SofanNftInstance.SofanWallet({from:owner});           
+            expect(storedData).to.equal(fourth); 
+            await SofanNftInstance.setAthleteWallet("0x0000000000000000000000000000000000000000")
+            const storedData2 = await SofanNftInstance.SofanWallet({from:owner});  
+            expect(storedData2).to.equal("0x0000000000000000000000000000000000000000"); 
+          })  
+        })
+        // describe('modifier', () => {
+          
+        // })
     })
-
 })
