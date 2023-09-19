@@ -8,6 +8,8 @@ function MintPopUpTemplate({
   isMintingProcessBegan,
   counterNftMinted,
   totalNftMintable,
+  limitByWalletInfo,
+  nftCollectionAddress,
 }) {
   // change those state for passing to buy module to processing
 
@@ -49,25 +51,11 @@ function MintPopUpTemplate({
       },
     ],
   };
-  // function handleStateMint() {
-  //   if (isMintingProcessBegan === true) {
-  //     setIsMintComponentCalled(false);
-  //   } else if (isMintingProcessBegan === false) {
-  //     setIsMintComponentCalled(true);
-  //   } else if (isMintComponentCalled === true) {
-  //     setIsMintingProcessBegan(false);
-  //   } else if (isMintComponentCalled === false) {
-  //     setIsMintingProcessBegan(true);
-  //   }
-  // }
-  // useEffect(() => {
-  //   handleStateMint();
-  // }, []);
 
   return (
     <section className="mint-pop-up-container">
       <MintPopUpBuy
-        maxMint={dataBackend.mint[0].maximum}
+        maxMint={dataBackend.mint[0].maximum} // delete
         mintCounter={mintCounter}
         setMintCounter={setMintCounter}
         //
@@ -83,6 +71,8 @@ function MintPopUpTemplate({
         //
         approve={approve}
         isMintingProcessBegan={isMintingProcessBegan}
+        limitByWalletInfo={limitByWalletInfo}
+        nftCollectionAddress={nftCollectionAddress}
       />
     </section>
   );

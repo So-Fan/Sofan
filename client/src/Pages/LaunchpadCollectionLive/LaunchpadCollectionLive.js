@@ -523,6 +523,8 @@ function LaunchpadCollectionLive(isLogged) {
               setIsMintButtonClicked={setIsMintButtonClicked}
               approve={approve}
               isMintingProcessBegan={isMintingProcessBegan}
+              limitByWalletInfo={nftLimitByWalletInfo}
+              nftCollectionAddress={collectionAddress}
             />
           )}
         </Modal>
