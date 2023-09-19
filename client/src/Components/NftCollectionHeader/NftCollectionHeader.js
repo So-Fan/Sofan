@@ -45,7 +45,7 @@ function NftCollectionHeader({
   handleUnlistButton,
   isBuyListingButtonDisabled,
   listingPrice,
-  athleteId
+  athleteId,
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
 
@@ -84,15 +84,16 @@ function NftCollectionHeader({
           <div className="launchpad-collection-live-header-right-container">
             <div className="launchpad-collection-live-header-right-wrap">
               <div className="launchpad-collection-live-header-right-creator-pic-and-usernamme-container">
-                  <Link 
+                <Link
                   className="launchpad-collection-live-header-right-creator-username-creator-link"
-                  to={`/athleteprofile/${athleteId}`}>
+                  to={`/athleteprofile/${athleteId}`}
+                >
                   <div className="launchpad-collection-live-header-right-creator-pic-and-usernamme-wrap">
                     <div>
                       <img
                         src={creatorProfilePic}
                         alt="Photo de profile Createur"
-                        />
+                      />
                     </div>
                     <div>par {creatorName}</div>
                   </div>
@@ -107,7 +108,7 @@ function NftCollectionHeader({
               <div className="launchpad-collection-live-header-right-line-separation"></div>
               <div className="launchpad-collection-live-header-right-price-container">
                 <div className="launchpad-collection-live-header-right-eth-price">
-                  {ethPricePriceConverted}€
+                  {nftPriceEur}€
                 </div>
                 <div className="launchpad-collection-live-header-right-eur-price">
                   {nftPriceEth} ETH
@@ -126,13 +127,13 @@ function NftCollectionHeader({
                   nftMintedCalculated={nftMintedCalculated}
                   counterNftMinted={counterNftMinted}
                   totalNftMintable={totalNftMintable}
-                  />
+                />
                 <div className="launchpad-collection-live-header-right-mint-module-mint-button-container">
                   <button
                     style={{ backgroundColor: handleStyleButton() }}
                     className="launchpad-collection-live-header-right-mint-module-mint-button"
                     onClick={handleMintButtonClick}
-                    >
+                  >
                     Mint maintenant
                   </button>
                 </div>

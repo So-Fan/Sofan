@@ -12,12 +12,18 @@ export const formatCurrentBalance = (balance, setter) => {
       balanceStringLength
     );
     const concat = balanceStringFirstPart + "." + balanceStringSecondPart;
-    setter(concat);
+    if (setter) {
+      setter(concat);
+    }
+    return concat;
   } else if (6 >= balanceStringLength && balanceStringLength > 0) {
     const balanceStringAddPart = "0.00000";
     const concat =
       balanceStringAddPart.slice(0, 8 - balanceStringLength) + balanceString;
-    setter(concat);
+    if (setter) {
+      setter(concat);
+    }
+    return concat;
   } else {
     return;
   }

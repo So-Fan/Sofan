@@ -38,7 +38,8 @@ function LaunchpadCollectionLive(isLogged) {
   const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
   const [nftCollectionMaxItems, setNftCollectionMaxItems] = useState();
   const [nftCollectionItemMint, setNftCollectionItemMint] = useState();
-  const [nftMintPrice, setNftMintPrice] = useState();
+  const [nftMintPriceInUSDC, setNftMintPriceInUSDC] = useState();
+  const [nftMintPriceInETH, setNftMintPriceInETH] = useState();
   const [
     launchpadCollectionLiveAthleteDataBackend,
     setLaunchpadCollectionLiveAthleteDataBackend,
@@ -111,11 +112,12 @@ function LaunchpadCollectionLive(isLogged) {
   const web3Instance = new Web3(
     new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
   );
-  const { abi } = require("../../contracts/SofanNftTemplate.json");
+  const { abi } = require("../../contracts/SofanNft.json");
   const contractInfura = new web3Instance.eth.Contract(
     abi,
     `${collectionAddress}`
   );
+
   async function getCollectionLimit() {
     let tx;
     try {
@@ -128,8 +130,32 @@ function LaunchpadCollectionLive(isLogged) {
     }
   }
   async function getPrice() {
-    // const price = await contractInfura?.methods?.price().call(); TODO:
-    setNftMintPrice(3);
+    let tx;
+    try {
+      tx = await contractInfura.methods.price().call();
+    } catch (error) {
+      console.error(error);
+    }
+    let priceFormatted;
+    if (tx) {
+      priceFormatted = formatCurrentBalance(tx);
+      setNftMintPriceInUSDC(priceFormatted.slice(0, 4));
+    } else {
+      setNftMintPriceInUSDC(NaN);
+    }
+
+    fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+    )
+      .then((response) => response.json())
+      .then((data) =>
+        setNftMintPriceInETH(
+          (priceFormatted.slice(0, 4) / data.ethereum.usd)
+            .toString()
+            .slice(0, 8)
+        )
+      )
+      .catch((error) => console.log(error));
   }
   // -------------------------------
   useEffect(() => {
@@ -395,8 +421,8 @@ function LaunchpadCollectionLive(isLogged) {
           // dataBacken RealTimeDb
           timer={dataRealTimeDb.header[0].timer}
           // FAKE apiData
-          nftPriceEth={nftMintPrice}
-          nftPriceEur={dataApi.header[0].eurPrice}
+          nftPriceEth={nftMintPriceInETH}
+          nftPriceEur={nftMintPriceInUSDC}
           counterNftMinted={nftCollectionItemMint}
           totalNftMintable={dataApi.header[0].totalNftMintable}
           // Api Alchemy

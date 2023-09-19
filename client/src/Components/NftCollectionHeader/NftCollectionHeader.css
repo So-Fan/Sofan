@@ -18,6 +18,7 @@
   width: 620px;
   height: 620px;
   border-radius: 20px;
+  object-fit: cover;
 }
 .nft-collection-header-data-and-buy-module-container {
   height: 100%;
