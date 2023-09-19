@@ -25,10 +25,12 @@ function MintPopUpBuy({
   isMintingProcessBegan,
   limitByWalletInfo,
   nftCollectionAddress,
+  setTotalPriceInUSDC,
+  totalPriceInUSDC,
 }) {
   const [currentNumberOfNftOwned, setCurrentNumberOfNftOwned] = useState(0);
   const [copyLimitByWalletInfo, setCopyLimitByWalletInfo] = useState();
-  const [totalPriceInUSDC, setTotalPriceInUSDC] = useState();
+
   const [totalPriceInETH, setTotalPriceInETH] = useState();
   const loggedInUserInfo = useUserCollection();
   const settings = {
@@ -79,7 +81,6 @@ function MintPopUpBuy({
   }, [currentNumberOfNftOwned]);
 
   function handleClick(e) {
-    console.log(nftMintPriceInUSDC);
     if (
       copyLimitByWalletInfo.limitByWallet != 0 &&
       e.target.className ===
@@ -153,7 +154,10 @@ function MintPopUpBuy({
                   formatCurrentBalance(totalPriceInUSDC).slice(0, 4)}
                 €
               </div>
-              <div className="mint-pop-up-price-eur">{totalPriceInETH} ETH</div>
+              <div className="mint-pop-up-price-eur">
+                {totalPriceInETH && totalPriceInETH.toString().slice(0, 8)}
+                ETH
+              </div>
             </div>
           </div>
           <div className="mint-pop-up-line-separation-second"></div>

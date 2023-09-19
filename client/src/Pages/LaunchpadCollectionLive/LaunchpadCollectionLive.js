@@ -26,6 +26,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpStatus/MintPopUpStatus";
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
 function LaunchpadCollectionLive(isLogged) {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
@@ -41,6 +42,8 @@ function LaunchpadCollectionLive(isLogged) {
   const [nftMintPriceInUSDC, setNftMintPriceInUSDC] = useState();
   const [nftMintPriceInETH, setNftMintPriceInETH] = useState();
   const [nftLimitByWalletInfo, setNftLimitByWalletInfo] = useState();
+  const [totalPriceInUSDC, setTotalPriceInUSDC] = useState();
+  const [mintCounter, setMintCounter] = useState(1);
   const [
     launchpadCollectionLiveAthleteDataBackend,
     setLaunchpadCollectionLiveAthleteDataBackend,
@@ -59,6 +62,7 @@ function LaunchpadCollectionLive(isLogged) {
   const segments = location.pathname.split("/");
   const athleteId = segments[2];
   const collectionAddress = segments[3];
+  const loggedInUserInfo = useUserCollection();
   useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
@@ -120,22 +124,16 @@ function LaunchpadCollectionLive(isLogged) {
   );
 
   async function getNftLimitByWalletInfo() {
-    console.log("getNftLimitByWalletInfo start");
     try {
-      console.log("getNftLimitByWalletInfo start try");
       let isLimitByWallet = await contractInfura.methods
         .isLimitByWallet()
         .call();
-      console.log("getNftLimitByWalletInfo after isLimitByWallet");
       let limitByWallet = await contractInfura.methods.limitByWallet().call();
-      console.log("getNftLimitByWalletInfo after limitByWallet");
       setNftLimitByWalletInfo({
         isLimitByWallet: isLimitByWallet,
         limitByWallet: limitByWallet,
       });
-      console.log(isLimitByWallet, isLimitByWallet);
     } catch (error) {
-      console.log("error");
       console.error(error);
     }
   }
@@ -303,7 +301,7 @@ function LaunchpadCollectionLive(isLogged) {
         .call({ from: accounts[0] });
       console.log("Je suis result", result);
       formatCurrentBalance(result, setCurrentBalance);
-      if (result > 0 && result < parseInt(mintPrice)) {
+      if (result > 0 && result < parseInt(totalPriceInUSDC)) {
         // setIsBidNftButtonClicked(false);
         // setIsMintButtonClicked(false);
         setDisplayPopUpAddFundToWalletFromMint(true);
@@ -318,12 +316,13 @@ function LaunchpadCollectionLive(isLogged) {
 
     try {
       setIsMintingProcessBegan(true);
-      const price = 1000000;
+      // const price = 1000000;
       const result = await contractUSDCInstance.methods
-        .approve(contract._address, price)
+        .approve(collectionAddress, totalPriceInUSDC)
         .send({ from: accounts[0] });
       console.log(result);
-      if (result.status) {
+      if (result.status === true) {
+        console.log("before mint");
         await mint();
         // setIsMintingProcessBegan(false)
         setMintingProcessStatus(false);
@@ -339,18 +338,26 @@ function LaunchpadCollectionLive(isLogged) {
     }
   };
 
-  const mint = async (e) => {
-    e.preventDefault();
+  const mint = async () => {
+    // e.preventDefault();
     console.log(accounts, contract);
-    const result2 = await contract.methods
-      .mint("0x266a8e449A62878A6d63BB14c90a95F425a3d30f", 1, 1000000)
-      .send({ from: accounts[0] });
-    if (result2.status) {
-      setIsMintingProcessEndedSuccessfully(true);
-    } else {
-      setIsMintingProcessEndedSuccessfully(false);
+    let userWallet;
+    if (loggedInUserInfo.loggedInUser.metamask) {
+      userWallet = loggedInUserInfo.loggedInUser.metamask;
+    } else if (loggedInUserInfo.loggedInUser.web3auth) {
+      userWallet = loggedInUserInfo.loggedInUser.web3auth;
     }
-    console.log(result2);
+    if (userWallet) {
+      const result2 = await contract.methods
+        .mint(userWallet, mintCounter, totalPriceInUSDC)
+        .send({ from: accounts[0] });
+      if (result2.status) {
+        setIsMintingProcessEndedSuccessfully(true);
+      } else {
+        setIsMintingProcessEndedSuccessfully(false);
+      }
+    }
+    // console.log(result2);3539.75
   };
   //
   useEffect(() => {
@@ -418,7 +425,6 @@ function LaunchpadCollectionLive(isLogged) {
     getAthleteInfoCollectionLive();
     getCollectionLiveAthleteData();
   }, []);
-  // récupérer adresse de la collection
   return (
     <>
       <section className="launchpad-collection-live-page-container">
@@ -527,6 +533,10 @@ function LaunchpadCollectionLive(isLogged) {
               nftCollectionAddress={collectionAddress}
               nftMintPriceInUSDC={nftMintPriceInUSDC}
               nftMintPriceInETH={nftMintPriceInETH}
+              totalPriceInUSDC={totalPriceInUSDC}
+              setTotalPriceInUSDC={setTotalPriceInUSDC}
+              mintCounter={mintCounter}
+              setMintCounter={setMintCounter}
             />
           )}
         </Modal>

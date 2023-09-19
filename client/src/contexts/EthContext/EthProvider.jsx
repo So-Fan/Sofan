@@ -148,7 +148,7 @@ function EthProvider({ children, setWeb3auth }) {
                 Web3.givenProvider || "ws://localhost:8545"
               );
               let address, contract, accounts, networkID;
-              const artifact = require("../../contracts/SofanNftTemplate.json");
+              const artifact = require("../../contracts/SofanNft.json");
               const { abi } = artifact;
 
               try {
@@ -184,7 +184,7 @@ function EthProvider({ children, setWeb3auth }) {
       contractAddress !== null &&
       contractAddress !== "0x000000000000000000000000000000000000dEaD"
     ) {
-      const artifact = require("../../contracts/SofanNftTemplate.json");
+      const artifact = require("../../contracts/SofanNft.json");
       const abi = artifact.abi;
       try {
         const tempWeb3 = state.web3;
@@ -216,7 +216,7 @@ function EthProvider({ children, setWeb3auth }) {
     ) {
       const tryInit = async () => {
         try {
-          const artifact = require("../../contracts/SofanNftTemplate.json");
+          const artifact = require("../../contracts/SofanNft.json");
           init(artifact, tempIsWeb3authConnectClicked);
           // console.log("end init ethprovider");
         } catch (err) {

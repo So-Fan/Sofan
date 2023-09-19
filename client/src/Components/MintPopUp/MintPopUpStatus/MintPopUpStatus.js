@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./MintPopUpStatus.css";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
 import redCross from "../../../Assets/Image/redcross-offers.svg";
@@ -22,8 +22,6 @@ function MintPopUpStatus({
     setIsMintingProcessEndedSuccessfully(false);
     setIsMintingProcessBegan(false);
   };
-  console.log(isLogged)
-  useEffect(()=>{console.log(isLogged)},[isLogged])
   return (
     <>
       {/* {statusMint} */}

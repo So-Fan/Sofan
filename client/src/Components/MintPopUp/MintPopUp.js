@@ -12,10 +12,13 @@ function MintPopUpTemplate({
   nftCollectionAddress,
   nftMintPriceInUSDC,
   nftMintPriceInETH,
+  setTotalPriceInUSDC,
+  totalPriceInUSDC,
+  setMintCounter,
+  mintCounter,
 }) {
   // change those state for passing to buy module to processing
 
-  const [mintCounter, setMintCounter] = useState(1);
   const [ethPriceApi, setEthPriceApi] = useState();
   // API Coingecko price ETH
   useEffect(() => {
@@ -75,6 +78,8 @@ function MintPopUpTemplate({
         isMintingProcessBegan={isMintingProcessBegan}
         limitByWalletInfo={limitByWalletInfo}
         nftCollectionAddress={nftCollectionAddress}
+        setTotalPriceInUSDC={setTotalPriceInUSDC}
+        totalPriceInUSDC={totalPriceInUSDC}
       />
     </section>
   );
