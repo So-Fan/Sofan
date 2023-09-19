@@ -16,16 +16,16 @@ import Modal from "../../Components/Modal/Modal";
 import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { useParams } from "react-router-dom";
 import { getStorage, ref, getMetadata } from "firebase/storage";
-import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
-import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
-import useUserCollection from "../../contexts/UserContext/useUserCollection";
+// import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
+// import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
+// import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import useEth from "../../contexts/EthContext/useEth";
 import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
-
+import { useLocation } from "react-router-dom";
 const MemoProfileSubMenu = memo(ProfileSubMenu);
 const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
 const MemoAthleteProfileFeed = memo(
@@ -61,6 +61,7 @@ const AthleteProfilePage = ({
   const [dataPopupConfirmation, setDataPopupConfirmation] = useState([]);
   // Backend
   const [dataConcat, setDataConcat] = useState({ athletes: [{}] });
+  const [palmaresData, setPalmaresData] = useState();
   // API Alchemy
   const [nftDataApi, setNftDataApi] = useState();
   const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
@@ -77,7 +78,9 @@ const AthleteProfilePage = ({
   //   console.log("amagnacouuuuunia");
   // }
   // const profileSubMenuOffresClicked= true
-
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const athleteId = segments[2];
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "users"), where("id", "==", id)); // Use the correct parameter name here
@@ -259,7 +262,39 @@ const AthleteProfilePage = ({
         });
       }
     }
-  }, []);
+    const palmaresCollectionAthlete = collection(db, "athlete_records");
+    const q = query(
+      palmaresCollectionAthlete,
+      where("athlete_id", "==", `${athleteId}`)
+    );
+
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const fetchedData = [];
+        snapshot.forEach((doc) => {
+          const docData = doc.data();
+          fetchedData.push({
+            palmares_date: docData.palmares_date,
+            palmares_description: docData.palmares_description,
+            palmares_title: docData.palmares_title,
+          });
+        });
+        setPalmaresData(fetchedData);
+      },
+      (error) => {
+        console.error(
+          "Erreur lors de la récupération des infos athlète:",
+          error
+        );
+      }
+    );
+    // Cleanup function to unsubscribe from the listener
+    return () => {
+      unsubscribe();
+    };
+  }, [athleteId]);
+  // console.log(palmaresData, "fekzfopekzfopk");
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
   // ============================================================
@@ -415,6 +450,7 @@ const AthleteProfilePage = ({
           fansCounterApi={fansCounterApi}
           handleClicNftsAvailable={handleClicNftsAvailable}
           setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
+          palmaresData={palmaresData}
         />
         <div className="athleteprofilepage-profilesubmenu-wrap">
           <MemoProfileSubMenu
