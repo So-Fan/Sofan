@@ -26,16 +26,13 @@ const NftCard = ({
               <></>
             ) : (
               <>
+                {/* {console.log(nft)} */}
                 <NftCardTemplate
                   key={uuidv4()}
                   hidePrice={hidePrice}
-                  to={`/user/nftcard/${apiNftData[i]?.tokenId}`}
+                  to={`/nftsingle/${nft.contract.address}/${nft.tokenId}`}
                   img={nft.img}
                   athleteName={nft.athleteName}
-                  title={nft.nftTitle}
-                  id={nft.nftId}
-                  price={nft.nftPriceEth}
-                  bid={nft.bid}
                   // nftsFromOwner={nftsFromOwner[i]}
                   nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
                   nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}

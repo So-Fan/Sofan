@@ -95,39 +95,73 @@ function UserProfilePage({
   useEffect(() => {
     // get Nfts from Owner and Contracts
     async function getNftsForOwner() {
-      // we select all the nfts hold by an address for a specific collection
-      const web3Instance = new Web3(
-        new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
+      let arraySofanCollection = [];
+      let nftCollectionInfo = [];
+      const q = query(collection(db, "nft_collections"));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const nftcollectionInfo = doc.data();
+          arraySofanCollection.push(nftcollectionInfo.collection_address);
+          nftCollectionInfo.push(nftcollectionInfo);
+        });
+      } else {
+        console.log("No collection found");
+      }
+      // Collecting all unique user IDs
+      const uniqueUserIds = [
+        ...new Set(nftCollectionInfo.map((item) => item.athlete_id)),
+      ];
+
+      // Fetching all users in one go
+      const qUsers = query(
+        collection(db, "users"),
+        where("id", "in", uniqueUserIds)
       );
-      const { abi } = require("../../contracts/Sofan.json");
-      const contract = new web3Instance.eth.Contract(
-        abi,
-        // Replace this with the address of your deployed contract
-        marketplaceAddress
-      );
-      const arraySofanCollection = await contract.methods
-        .getAllCollection()
-        .call();
-      console.log("array sofan", arraySofanCollection);
-      let curentProfileWalletAddresses;
+      const usersQuerySnapshot = await getDocs(qUsers);
+      const usersData = usersQuerySnapshot.docs.map((doc) => doc.data());
+      // Now you can use usersData to get display_name or any other info
+
+      let currentProfileWalletAddresses;
       if (allUserInfo?.metamask) {
-        curentProfileWalletAddresses = allUserInfo.metamask;
+        currentProfileWalletAddresses = allUserInfo.metamask;
         setCurrentProfileUserWallet(allUserInfo.metamask);
       } else if (allUserInfo?.web3auth) {
-        curentProfileWalletAddresses = allUserInfo.web3auth;
+        currentProfileWalletAddresses = allUserInfo.web3auth;
         setCurrentProfileUserWallet(allUserInfo.web3auth);
       }
-      console.log(curentProfileWalletAddresses);
+      // console.log(currentProfileWalletAddresses);
+
       try {
         const nftsFromOwner = await alchemy.nft.getNftsForOwner(
-          // TODO: Comes from backend
-          curentProfileWalletAddresses,
+          currentProfileWalletAddresses,
           {
             contractAddresses: arraySofanCollection,
-          } // filter
+          }
         );
+        for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
+          const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
+          for (let a = 0; a < nftCollectionInfo.length; a++) {
+            const elementFromNftCollectionInfo = nftCollectionInfo[a];
+            for (let b = 0; b < usersData.length; b++) {
+              const elementFromUserData = usersData[b];
+              if (
+                elementFromAlchemy.contract.address ===
+                  elementFromNftCollectionInfo.collection_address.toLowerCase() &&
+                elementFromUserData.id ===
+                  elementFromNftCollectionInfo.athlete_id
+              ) {
+                nftsFromOwner.ownedNfts[i] = {
+                  ...nftsFromOwner.ownedNfts[i],
+                  athleteName: elementFromUserData.display_name,
+                };
+              }
+            }
+          }
+        }
         setNftsFromOwner(nftsFromOwner?.ownedNfts);
-        console.log("yess", nftsFromOwner);
+        // console.log("yess", nftsFromOwner);
       } catch (error) {
         console.error(error);
       }
@@ -256,7 +290,7 @@ function UserProfilePage({
             }
           /> */}
           <NftCard
-            hidePrice
+            hidePrice={true}
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
