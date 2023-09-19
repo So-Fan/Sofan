@@ -40,6 +40,7 @@ function LaunchpadCollectionLive(isLogged) {
   const [nftCollectionItemMint, setNftCollectionItemMint] = useState();
   const [nftMintPriceInUSDC, setNftMintPriceInUSDC] = useState();
   const [nftMintPriceInETH, setNftMintPriceInETH] = useState();
+  const [nftLimitByWalletInfo, setNftLimitByWalletInfo] = useState();
   const [
     launchpadCollectionLiveAthleteDataBackend,
     setLaunchpadCollectionLiveAthleteDataBackend,
@@ -118,6 +119,26 @@ function LaunchpadCollectionLive(isLogged) {
     `${collectionAddress}`
   );
 
+  async function getNftLimitByWalletInfo() {
+    console.log("getNftLimitByWalletInfo start");
+    try {
+      console.log("getNftLimitByWalletInfo start try");
+      let isLimitByWallet = await contractInfura.methods
+        .isLimitByWallet()
+        .call();
+      console.log("getNftLimitByWalletInfo after isLimitByWallet");
+      let limitByWallet = await contractInfura.methods.limitByWallet().call();
+      console.log("getNftLimitByWalletInfo after limitByWallet");
+      setNftLimitByWalletInfo({
+        isLimitByWallet: isLimitByWallet,
+        limitByWallet: limitByWallet,
+      });
+      console.log(isLimitByWallet, isLimitByWallet);
+    } catch (error) {
+      console.log("error");
+      console.error(error);
+    }
+  }
   async function getCollectionLimit() {
     let tx;
     try {
@@ -162,6 +183,7 @@ function LaunchpadCollectionLive(isLogged) {
     getNftsData();
     getNftPicture();
     getCollectionLimit();
+    getNftLimitByWalletInfo();
     getPrice();
   }, []);
   const dataBackend = {
@@ -417,7 +439,7 @@ function LaunchpadCollectionLive(isLogged) {
           description={
             launchpadCollectionLiveAthleteDataBackend[0]?.collection_description
           }
-          minLimit={dataBackend.header[0].mintLimit}
+          minLimit={nftLimitByWalletInfo}
           // dataBacken RealTimeDb
           timer={dataRealTimeDb.header[0].timer}
           // FAKE apiData

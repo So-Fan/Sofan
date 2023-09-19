@@ -119,9 +119,11 @@ function NftCollectionHeader({
                   <div className="launchpad-collection-live-header-right-mint-module-timer">
                     Fin dans {timer}
                   </div>
-                  <div className="launchpad-collection-live-header-right-mint-module-limit">
-                    Limité à {minLimit} par wallet
-                  </div>
+                  {minLimit?.isLimitByWallet && (
+                    <div className="launchpad-collection-live-header-right-mint-module-limit">
+                      Limité à {minLimit.limitByWallet} par wallet
+                    </div>
+                  )}
                 </div>
                 <LaunchPadMintProgressBar
                   nftMintedCalculated={nftMintedCalculated}
