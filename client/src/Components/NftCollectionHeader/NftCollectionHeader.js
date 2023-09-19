@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import PopupListNFT from "../PopupListNFT/PopupListNFT";
 import { Link } from "react-router-dom";
+import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 
 function NftCollectionHeader({
   collectionName,
@@ -108,7 +109,8 @@ function NftCollectionHeader({
               <div className="launchpad-collection-live-header-right-line-separation"></div>
               <div className="launchpad-collection-live-header-right-price-container">
                 <div className="launchpad-collection-live-header-right-eth-price">
-                  {nftPriceEur}€
+                  {nftPriceEur && formatCurrentBalance(nftPriceEur).slice(0, 4)}
+                  €
                 </div>
                 <div className="launchpad-collection-live-header-right-eur-price">
                   {nftPriceEth} ETH

@@ -159,8 +159,8 @@ function LaunchpadCollectionLive(isLogged) {
     }
     let priceFormatted;
     if (tx) {
-      priceFormatted = formatCurrentBalance(tx);
-      setNftMintPriceInUSDC(priceFormatted.slice(0, 4));
+      // priceFormatted = formatCurrentBalance(tx);
+      setNftMintPriceInUSDC(tx);
     } else {
       setNftMintPriceInUSDC(NaN);
     }
@@ -171,7 +171,7 @@ function LaunchpadCollectionLive(isLogged) {
       .then((response) => response.json())
       .then((data) =>
         setNftMintPriceInETH(
-          (priceFormatted.slice(0, 4) / data.ethereum.usd)
+          (formatCurrentBalance(tx).slice(0, 4) / data.ethereum.usd)
             .toString()
             .slice(0, 8)
         )
@@ -525,6 +525,8 @@ function LaunchpadCollectionLive(isLogged) {
               isMintingProcessBegan={isMintingProcessBegan}
               limitByWalletInfo={nftLimitByWalletInfo}
               nftCollectionAddress={collectionAddress}
+              nftMintPriceInUSDC={nftMintPriceInUSDC}
+              nftMintPriceInETH={nftMintPriceInETH}
             />
           )}
         </Modal>

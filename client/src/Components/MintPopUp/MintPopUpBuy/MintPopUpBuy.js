@@ -15,8 +15,8 @@ function MintPopUpBuy({
   setMintCounter,
   counterNftMinted,
   totalNftMintable,
-  ethPrice,
-  eurPrice,
+  nftMintPriceInETH,
+  nftMintPriceInUSDC,
   //
   ethPriceApi,
   dataBlockchain,
@@ -28,6 +28,9 @@ function MintPopUpBuy({
 }) {
   const [currentNumberOfNftOwned, setCurrentNumberOfNftOwned] = useState(0);
   const [copyLimitByWalletInfo, setCopyLimitByWalletInfo] = useState();
+  const [totalPriceInUSDC, setTotalPriceInUSDC] = useState();
+  const [totalPriceInETH, setTotalPriceInETH] = useState();
+  const loggedInUserInfo = useUserCollection();
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
     network: Network.ETH_GOERLI,
@@ -35,12 +38,7 @@ function MintPopUpBuy({
   };
 
   const alchemy = new Alchemy(settings);
-  let ethPricePriceConverted = (ethPriceApi * ethPrice).toLocaleString(
-    "fr-FR",
-    { minimumFractionDigits: 1 }
-  );
 
-  const loggedInUserInfo = useUserCollection();
   useEffect(() => {
     if (limitByWalletInfo) {
       const loadData = async () => {
@@ -81,7 +79,7 @@ function MintPopUpBuy({
   }, [currentNumberOfNftOwned]);
 
   function handleClick(e) {
-    console.log(copyLimitByWalletInfo);
+    console.log(nftMintPriceInUSDC);
     if (
       copyLimitByWalletInfo.limitByWallet != 0 &&
       e.target.className ===
@@ -89,6 +87,8 @@ function MintPopUpBuy({
       mintCounter < copyLimitByWalletInfo.limitByWallet
     ) {
       setMintCounter(mintCounter + 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter + 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter + 1));
     } else if (
       copyLimitByWalletInfo.limitByWallet != 0 &&
       e.target.className ===
@@ -96,8 +96,14 @@ function MintPopUpBuy({
       mintCounter > 1
     ) {
       setMintCounter(mintCounter - 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
     }
   }
+  useEffect(() => {
+    setTotalPriceInUSDC(nftMintPriceInUSDC * mintCounter);
+    setTotalPriceInETH(nftMintPriceInETH * mintCounter);
+  }, []);
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
 
@@ -143,9 +149,11 @@ function MintPopUpBuy({
             <div className="mint-pop-up-price-title">Prix</div>
             <div className="mint-pop-up-price-eth-eur-container">
               <div className="mint-pop-up-price-eth">
-                {ethPricePriceConverted} €
+                {totalPriceInUSDC &&
+                  formatCurrentBalance(totalPriceInUSDC).slice(0, 4)}
+                €
               </div>
-              <div className="mint-pop-up-price-eur">{ethPrice} ETH</div>
+              <div className="mint-pop-up-price-eur">{totalPriceInETH} ETH</div>
             </div>
           </div>
           <div className="mint-pop-up-line-separation-second"></div>

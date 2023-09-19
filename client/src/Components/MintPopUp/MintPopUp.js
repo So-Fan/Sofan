@@ -10,6 +10,8 @@ function MintPopUpTemplate({
   totalNftMintable,
   limitByWalletInfo,
   nftCollectionAddress,
+  nftMintPriceInUSDC,
+  nftMintPriceInETH,
 }) {
   // change those state for passing to buy module to processing
 
@@ -59,8 +61,8 @@ function MintPopUpTemplate({
         mintCounter={mintCounter}
         setMintCounter={setMintCounter}
         //
-        ethPrice={dataApi.popup[0].ethPrice}
-        eurPrice={dataApi.popup[0].eurPrice}
+        nftMintPriceInETH={nftMintPriceInETH}
+        nftMintPriceInUSDC={nftMintPriceInUSDC}
         //
         counterNftMinted={counterNftMinted}
         totalNftMintable={totalNftMintable}
