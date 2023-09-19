@@ -29,7 +29,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
   useEffect(() => {
     setIsLoading(true);
 
-    const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
+    const feedPostCollectionRef = collection(db, "feed_post");
 
     // Add a condition to filter posts by user ID (assuming user's ID is stored in a 'userId' field)
     const userSpecificQuery = query(
@@ -64,6 +64,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
 
     return () => unsubscribe(); // Cleanup on component unmount
   }, []);
+
   useEffect(() => {
     setIsLoading(true);
     const feedPostCollectionRef = collection(db, "feed_post");
@@ -152,9 +153,6 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
     setCommentCounts((prevState) => ({ ...prevState, [postId]: commentCount }));
   };
 
-  // console.log(Object.values(commentCounts)[0]);
-  // const postCommentNumber = Object.values(commentCounts)[0];
-  // console.log(postCommentNumber);
   useEffect(() => {
     // Combine both freePosts and premiumPosts into one array for processing
     const allPosts = [...freePosts, ...premiumPosts];
@@ -163,7 +161,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
     });
   }, [freePosts, premiumPosts]);
   Object.values(commentCounts).forEach(count => {
-    console.log(count);
+    //console.log(count);
   });
   
   return (
@@ -171,18 +169,6 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
       <div className="athlete-profie-feed-free-container">
         {freePosts?.map((post, index) => {
           return (
-            // <PostsFeed
-            //   athleteProfilePageStyling={athleteProfilePageStyling}
-            //   key={uuidv4()}
-            //   postDate={post.postDate}
-            //   postDateType={post.postDateType}
-            //   postType={post.postType}
-            //   postName={post.postName}
-            //   postPicture={post.postPicture}
-            //   postDescription={post.postDescription}
-            //   postLikeNumber={post.postLikeNumber}
-            //   postCommentNumber={post.postCommentNumber}
-            // />
             <PostsFeed
               key={uuidv4()}
               id={post.id}

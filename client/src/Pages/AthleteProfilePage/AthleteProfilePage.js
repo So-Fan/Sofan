@@ -393,20 +393,20 @@ const AthleteProfilePage = ({
   const handleRejectedConfirmationOffer = async () => {
     // TODO: Ajouter les données de l'offre refusé au backend lié à l'utilisateur qui a rejeté l'offre.
   };
-  useEffect(() => {
-    window.addEventListener(
-      "scroll",
-      handlePixelScrolledAthleteProfilePage,
-      false
-    );
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handlePixelScrolledAthleteProfilePage,
-        false
-      );
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener(
+  //     "scroll",
+  //     handlePixelScrolledAthleteProfilePage,
+  //     false
+  //   );
+  //   return () => {
+  //     window.removeEventListener(
+  //       "scroll",
+  //       handlePixelScrolledAthleteProfilePage,
+  //       false
+  //     );
+  //   };
+  // }, []);
   return (
     <>
       <div className="athleteprofilepage-component">

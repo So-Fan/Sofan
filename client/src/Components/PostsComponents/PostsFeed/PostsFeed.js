@@ -17,7 +17,6 @@ function PostsFeed({
   handleClickCopyPostLink,
   id,
   lockPremiumContent,
-  // postName,
   postDate,
   postDateType,
   postType,
@@ -91,7 +90,7 @@ function PostsFeed({
   useEffect(() => {}, []);
 
   // console.log("id de postfeed --> ",id)
-  console.log(postCommentNumber);
+  //console.log(postCommentNumber);
   //console.log(postPicture);
   return (
     <>

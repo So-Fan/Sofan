@@ -212,7 +212,7 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
-  console.log(isLogged)
+  //console.log(isLogged)
   return (
     <>
       <section className="home-component">

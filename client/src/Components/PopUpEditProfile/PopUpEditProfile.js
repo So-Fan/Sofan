@@ -23,6 +23,9 @@ import "./PopUpEditProfile.css";
 import greenCross from "../../Assets/Image/greencross-offers.svg";
 import redCross from "../../Assets/Image/redcross-offers.svg";
 import LoadingEllipsisAnimation from "../LoadingEllipsisAnimation/LoadingEllipsisAnimation";
+import { db } from "../../Configs/firebase";
+
+import { collection, query, where, getDocs, updateDoc } from "firebase/firestore";
 
 // afficher les infos de la bdd en provenance de la page user/athlete + J'ai mis en commentaire les mêmes fonctions liés au backend que dans signup garde ce que tu as à garder et supprime le reste
 // handleSaveProfile sert à push croppedBanner et croppedAvatar sur la bdd
@@ -257,8 +260,64 @@ const PopUpEditProfile = ({
     }
   }, [previewProfile, croppedAreaPixels]);
 
+
+  const updateBannerPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_banner: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Banner path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating banner path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+  const updateAvatarPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_avatar: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Avatar path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Avatar path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
   function handleSaveProfile() {
-    setLoadingEditProfile(true);
+    console.log('Updated');
+    //setLoadingEditProfile(true);
   }
   useEffect(() => {
     if (loadingEditProfile === true) {
@@ -408,7 +467,7 @@ const PopUpEditProfile = ({
           >
             {/* <img src={previousArrow} alt="FLECHE ETAPE" /> */}
           </div>
-          <div className="popup-edit-profile-title">Créez votre profil</div>
+          <div className="popup-edit-profile-title">Modifier votre profil</div>
           <div className="popup-edit-profile-banner-and-profile-pic">
             <div className="popup-edit-profile-banner-container">
               {croppedBanner ? (
