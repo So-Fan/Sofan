@@ -86,7 +86,7 @@ function FullPagePost({
         commentData.commentId = doc.id;
         comments.push(commentData);
       });
-      comments.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+      comments.sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
       setComments(comments);
     });
     setCommentLengthPostsFeed(comments.length);
@@ -295,7 +295,7 @@ function FullPagePost({
                         commentText={comment.comment}
                         profileAvatar={comment.profile_avatar}
                         // comment={comment.comment}
-                        timeStampComment={comment.createdAt.seconds}
+                        timeStampComment={comment.createdAt?.seconds}
                         likesCounter={comment?.likes.length}
                         commentId={comment.commentId}
                         setIsDropDownMenuCommentClicked={

@@ -33,7 +33,7 @@ function PostsComments({
   likesCounter,
   userType,
   postCreatorId,
-  handleClickCopyPostLink
+  handleClickCopyPostLink,
 }) {
   // Si l'athlete ou un admin ou le proprietaire du compte est connecté il peut voir le menu dropdown
   const [isAdminLogged, setIsAdminLogged] = useState();
@@ -74,10 +74,20 @@ function PostsComments({
       navigate(`/userprofile/${userId}`);
     }
   }
-  timeStampComment = formatDistanceToNow(timeStampComment * 1000, {
-    locale: fr,
-    addSuffix: true,
-  });
+  // timeStampComment = formatDistanceToNow(timeStampComment * 1000, {
+  //   locale: fr,
+  //   addSuffix: true,
+  // });
+  const isValidTimestamp =
+    timeStampComment && typeof timeStampComment === "number";
+
+  timeStampComment = isValidTimestamp
+    ? formatDistanceToNow(timeStampComment * 1000, {
+        locale: fr,
+        addSuffix: true,
+      })
+    : "Date inconnue";
+
   timeStampComment = timeStampComment.replace("environ ", "");
   useEffect(() => {
     if (likesCounter > 1) {
