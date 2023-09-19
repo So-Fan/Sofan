@@ -1,94 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./AthleteProfileRanking.css";
 import Button from "../Button/Button";
-const AthleteProfileRanking = ({handleClick, isPalmaresButtonClicked}) => {
-  const [dataAthleteProfilePageConcat, setDataAthleteProfilePageConcat] =
-    useState();
+const AthleteProfileRanking = ({ handleClick, palmaresData }) => {
+  const combinedData = [];
+  if (palmaresData && palmaresData[0]) {
+    const dates = palmaresData[0].palmares_date;
+    const descriptions = palmaresData[0].palmares_description;
+    const titles = palmaresData[0].palmares_title;
 
-  useEffect(() => {
-    const data = {
-      user: "Romain Attanasio",
-      rankings: [
-        {
-          year: {
-            start: "2020",
-            end: "Today",
-          },
-          club: "Paris Saint-Germain",
-          description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-        },
-        {
-          year: {
-            start: "2019",
-            end: "2020",
-          },
-          club: "Saint Etienne",
-          description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-        },
-        {
-          year: {
-            start: "2019",
-            end: "2020",
-          },
-          club: "Saint Etienne",
-          description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-        },
-        {
-          year: {
-            start: "2019",
-            end: "2020",
-          },
-          club: "Saint Etienne",
-          description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-        },
-        {
-          year: {
-            start: "2019",
-            end: "2020",
-          },
-          club: "Saint Etienne",
-          description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-        },
-        {
-          year: {
-            start: "2019",
-            end: "2020",
-          },
-          club: "Saint Etienne",
-          description:
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-        },
-      ],
-    };
-    setDataAthleteProfilePageConcat(data);
-  }, []);
-
+    for (let i = 0; i < dates.length; i++) {
+      combinedData.push({
+        date: dates[i],
+        club: titles[i],
+        description: descriptions[i],
+      });
+    }
+  }
   return (
     <div className="athleteprofileranking-component">
       <span>Palmarès</span>
       <div className="athleteprofileranking-container">
-        {dataAthleteProfilePageConcat?.rankings.map((ranking) => (
+        {combinedData.map((palmares) => (
           <div className="athleteprofileranking-wrap">
             <div className="athleteprofileranking-subwrap">
-              <span>
-                {ranking.year.start} - {ranking.year.end}
-              </span>
-              <span>{ranking.club}</span>
+              <span>{palmares.date}</span>
+              <span>{palmares.club}</span>
               <div className="athleteprofileranking-subwrap-circle"></div>
               <div className="athleteprofileranking-subwrap-segment"></div>
             </div>
             <div className="athleteprofileranking-wrap-description">
-              {ranking.description}
+              {palmares.description}
             </div>
           </div>
         ))}
       </div>
-      <Button hover="button-hover-props" id="custom-close-button" text="Fermer" onClick={handleClick} />
+      <Button
+        hover="button-hover-props"
+        id="custom-close-button"
+        text="Fermer"
+        onClick={handleClick}
+      />
     </div>
   );
 };
