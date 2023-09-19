@@ -34,6 +34,7 @@ function AthleteProfileHeader({
   fansCounterApi,
   handleClicNftsAvailable,
   setIsProfileSubMenuButtonClicked,
+  palmaresData
 }) {
   const [isStoredUser, setIsStoredUser] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -337,6 +338,7 @@ function redirectToNftCollection () {
         >
           <AthleteProfileRanking
             isPalmaresButtonClicked={isPalmaresButtonClicked}
+            palmaresData={palmaresData}
           />
         </Modal>
       )}
