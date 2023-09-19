@@ -34,6 +34,7 @@ function AthleteProfileHeader({
   fansCounterApi,
   handleClicNftsAvailable,
   setIsProfileSubMenuButtonClicked,
+  palmaresData
 }) {
   const [isStoredUser, setIsStoredUser] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -303,7 +304,7 @@ function redirectToNftCollection () {
           />
         </Modal>
       )}
-      {isAthleteFollowersClicked && (
+      {/* {isAthleteFollowersClicked && (
         <Modal
           dynamicPositionPopUpMargin={`${-94 + window.scrollY}px`}
           setState={setIsAthleteFollowersClicked}
@@ -328,7 +329,7 @@ function redirectToNftCollection () {
             isAthleteSupportersClicked={isAthleteSupportersClicked}
           />
         </Modal>
-      )}
+      )} */}
       {isPalmaresButtonClicked && (
         <Modal
           dynamicPositionPopUpMargin={`${window.scrollY - 94}px`}
@@ -337,6 +338,7 @@ function redirectToNftCollection () {
         >
           <AthleteProfileRanking
             isPalmaresButtonClicked={isPalmaresButtonClicked}
+            palmaresData={palmaresData}
           />
         </Modal>
       )}
