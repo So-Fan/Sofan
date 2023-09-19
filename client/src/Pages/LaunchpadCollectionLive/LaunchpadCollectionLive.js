@@ -79,7 +79,7 @@ function LaunchpadCollectionLive(isLogged) {
     try {
       const nftsData = await alchemy.nft.getContractMetadata(
         // "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-        "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a"
+        `${collectionAddress}`
       );
       setCollectionNameApi(nftsData?.name);
       setCollectionDescriptionApi(nftsData?.openSea?.description);

@@ -116,7 +116,10 @@ function NftCollectionHeader({
               </div>
               <div className="launchpad-collection-live-header-right-mint-module-container">
                 <div className="launchpad-collection-live-header-right-mint-module-timer-and-limit">
-                  <div className="launchpad-collection-live-header-right-mint-module-timer">
+                  <div
+                    style={{ visibility: "hidden" }}
+                    className="launchpad-collection-live-header-right-mint-module-timer"
+                  >
                     Fin dans {timer}
                   </div>
                   {minLimit?.isLimitByWallet && (
