@@ -282,7 +282,7 @@ const ProfileSubMenu = ({
           <></>
         ) : (
           <>
-            {profileSubMenuOffersChoice !== "Offres formulées" &&
+            {/* {profileSubMenuOffersChoice !== "Offres formulées" &&
               profileSubMenuOffersChoice !== "Offres reçues" && (
                 <div
                   onClick={handleProfileSubMenuOffresButtonClicked}
@@ -400,7 +400,7 @@ const ProfileSubMenu = ({
                   </span>
                 </div>
               </div>
-            )}
+            )} */}
           </>
         )}
       </>
