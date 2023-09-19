@@ -126,8 +126,8 @@ contract SofanNft is
         bool success3 = usdc.transfer(SofanWallet, toSofan);
         require(success3, "Transaction was not successful");
         // NftOwned[_to] = NftOwned[_to] + _quantity;
-        _mint(_to, _quantity);
         }
+        _mint(_to, _quantity);
     }
 
     function withdrawUSDC() public onlyOwner {
@@ -159,7 +159,7 @@ contract SofanNft is
      * @dev set a new base uri.
      * example : https://website.com/ipfs/CID/
      */
-    function setBaseURI(string memory _uri) external {
+    function setBaseURI(string memory _uri) external onlyOwner{
         require(
             keccak256(abi.encodePacked(_uri)) !=
                 keccak256(abi.encodePacked(uri)),
