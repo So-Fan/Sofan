@@ -304,7 +304,7 @@ function redirectToNftCollection () {
           />
         </Modal>
       )}
-      {isAthleteFollowersClicked && (
+      {/* {isAthleteFollowersClicked && (
         <Modal
           dynamicPositionPopUpMargin={`${-94 + window.scrollY}px`}
           setState={setIsAthleteFollowersClicked}
@@ -329,7 +329,7 @@ function redirectToNftCollection () {
             isAthleteSupportersClicked={isAthleteSupportersClicked}
           />
         </Modal>
-      )}
+      )} */}
       {isPalmaresButtonClicked && (
         <Modal
           dynamicPositionPopUpMargin={`${window.scrollY - 94}px`}
