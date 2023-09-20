@@ -125,9 +125,10 @@ function NftCollectionMoreAboutNft({
               fontStyle="nftcardtemplate-container-content-title-props"
               img={element.nftImage}
               title={element.collectionName}
-              id={element.nftId}
+              id={element.tokenId}
               price={element.ethPrice}
               bid={element.highestBidEth}
+              to={`/nftsingle/${element.contract.address}/${element.tokenId}`}
               //
               nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
               nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}

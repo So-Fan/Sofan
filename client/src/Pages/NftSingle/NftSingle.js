@@ -19,6 +19,8 @@ import useEth from "../../contexts/EthContext/useEth";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import { useLocation } from "react-router-dom";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../Configs/firebase";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -64,6 +66,10 @@ const NftSingle = () => {
   const [displayPopUpAddFundToWallet, setDisplayPopUpAddFundToWallet] =
     useState();
   const [currentBalance, setCurrentBalance] = useState(null);
+  const [currentNftCollectionInfoState, setCurrentNftCollectionInfoState] =
+    useState();
+  const [currentAthleteCollectionOwner, setCurrentAthleteCollectionOwner] =
+    useState();
   const location = useLocation();
   const segments = location.pathname.split("/");
   const collectionAddress = segments[2];
@@ -108,6 +114,64 @@ const NftSingle = () => {
       .then((response) => response.json())
       .then((data) => setEthPrice(data.ethereum.eur))
       .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    const getAthleteInfo = async () => {
+      console.log(collectionAddress);
+      console.log(
+        collectionAddress === "0x6F7A8769007A91F3a28b42d1b6f6306c9bEE8D28"
+      );
+      let nftCollectionInfo = [];
+      const q = query(collection(db, "nft_collections"));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const tempNftcollectionInfo = doc.data();
+          // console.log(nftcollectionInfo);
+          nftCollectionInfo.push(tempNftcollectionInfo);
+        });
+        console.log(nftCollectionInfo);
+      } else {
+        console.log("No collection found");
+      }
+      let currentNftCollectionInfo;
+      for (let i = 0; i < nftCollectionInfo.length; i++) {
+        const element = nftCollectionInfo[i];
+        if (
+          element.collection_address.toLowerCase() ===
+          collectionAddress.toLowerCase()
+        ) {
+          currentNftCollectionInfo = element;
+          // break car une adresse n'est censé n'être liée qu'à un seul document firebase ie une seule table de collection
+          break;
+        }
+      }
+      setCurrentNftCollectionInfoState(currentNftCollectionInfo);
+      // TODO: prendre le ref id et chercher le display name
+      const q2 = query(
+        collection(db, "users"),
+        where("id", "==", currentNftCollectionInfo.athlete_id)
+      ); // Use the correct parameter name here
+      const querySnapshot2 = await getDocs(q2);
+
+      if (!querySnapshot2.empty) {
+        querySnapshot2.forEach((doc) => {
+          const userInfo = doc.data();
+          const AllUserInfo = {
+            ...userInfo,
+          };
+          // Do something with the user info
+          setCurrentAthleteCollectionOwner(AllUserInfo);
+          console.log(AllUserInfo);
+        });
+      } else {
+        // Handle case when no user is found with the given ID
+        console.log("No user found");
+      }
+    };
+    getAthleteInfo();
   }, []);
   // Faire afficher le pop up dynamiquement en récupérent le nb de pixel scrollé
   // const handlePixelScrolledAthleteProfilePage = () => {
