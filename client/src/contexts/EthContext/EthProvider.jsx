@@ -95,28 +95,33 @@ function EthProvider({ children, setWeb3auth }) {
       //   tempIsWeb3authConnectClicked
       // );
       let accounts;
-      if (
-        tempIsWeb3authConnectClicked[1] != null &&
-        tempIsWeb3authConnectClicked[0] == true
-      ) {
-        web3 = new Web3(tempIsWeb3authConnectClicked[1]); // come from web3auth check Login.js
-        accounts = await web3.eth.getAccounts();
-        console.log("je suis passé par là");
-      } else {
-        web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+      try {
+        if (
+          tempIsWeb3authConnectClicked[1] != null &&
+          tempIsWeb3authConnectClicked[0] == true
+        ) {
+          web3 = new Web3(tempIsWeb3authConnectClicked[1]); // come from web3auth check Login.js
+          accounts = await web3.eth.getAccounts();
+          console.log("je suis passé par là");
+        } else {
+          web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 
-        try {
-          accounts = await web3.eth.requestAccounts();
-        } catch (error) {
-          console.error(error);
-          setIsWalletConnectClicked(false);
-          return;
+          try {
+            accounts = await web3.eth.requestAccounts();
+          } catch (error) {
+            console.error(error);
+            setIsWalletConnectClicked(false);
+            return;
+          }
+
+          console.log("je suis passé par ici");
         }
-
-        console.log("je suis passé par ici");
+      } catch (error) {
+        // le wallet a été deconnecté, l'erreur se detecte ici:
+        console.error("Erreur :", error);
       }
 
-      const networkID = await web3.eth.net.getId();
+      const networkID = await web3?.eth.net.getId();
       const { abi } = artifact;
       let address, contract;
       setIsInit(true);
