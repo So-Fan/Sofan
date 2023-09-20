@@ -4,13 +4,17 @@ import AthleteProfileHeader from "../../Components/AthleteProfileHeader/AthleteP
 import AthleteProfileNFTCollection from "../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection";
 import NftCard from "../../Components/NftCard/NftCard";
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
+import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
 import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
+import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import Modal from "../../Components/Modal/Modal";
+import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
+import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
 import {
   collection,
@@ -21,6 +25,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { useParams } from "react-router-dom";
+import { getStorage, ref, getMetadata } from "firebase/storage";
 // import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 // import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 // import useUserCollection from "../../contexts/UserContext/useUserCollection";
@@ -158,8 +163,8 @@ const AthleteProfilePage = ({
     } else {
       console.log("No collection found");
     }
-    console.log(nftCollectionInfo);
-    console.log(arraySofanCollection);
+    // console.log(nftCollectionInfo);
+    // console.log(arraySofanCollection);
     // Collecting all unique user IDs
     const uniqueUserIds = [
       ...new Set(nftCollectionInfo.map((item) => item.athlete_id)),
@@ -172,7 +177,7 @@ const AthleteProfilePage = ({
     );
     const usersQuerySnapshot = await getDocs(qUsers);
     const usersData = usersQuerySnapshot.docs.map((doc) => doc.data());
-    console.log(usersData);
+    // console.log(usersData);
     // Now you can use usersData to get display_name or any other info
 
     let currentProfileWalletAddresses;
@@ -183,7 +188,7 @@ const AthleteProfilePage = ({
       currentProfileWalletAddresses = userInfo.web3auth;
       setCurrentProfileUserWallet(userInfo.web3auth);
     }
-    console.log(currentProfileWalletAddresses);
+    // console.log(currentProfileWalletAddresses);
 
     try {
       const nftsFromOwner = await alchemy.nft.getNftsForOwner(
@@ -192,7 +197,7 @@ const AthleteProfilePage = ({
           contractAddresses: arraySofanCollection,
         }
       );
-      console.log(nftsFromOwner);
+      // console.log(nftsFromOwner);
       for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
         const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
         for (let a = 0; a < nftCollectionInfo.length; a++) {
@@ -204,7 +209,7 @@ const AthleteProfilePage = ({
                 elementFromNftCollectionInfo.collection_address.toLowerCase() &&
               elementFromUserData.id === elementFromNftCollectionInfo.athlete_id
             ) {
-              console.log("enter");
+              // console.log("enter");
               nftsFromOwner.ownedNfts[i] = {
                 ...nftsFromOwner.ownedNfts[i],
                 athleteName: elementFromUserData.display_name,
@@ -214,7 +219,7 @@ const AthleteProfilePage = ({
         }
       }
       setNftsFromOwner(nftsFromOwner?.ownedNfts);
-      console.log("yess", nftsFromOwner);
+      // console.log("yess", nftsFromOwner);
     } catch (error) {
       console.error(error);
     }
@@ -376,7 +381,7 @@ const AthleteProfilePage = ({
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
 
-  // console.log("Triggered from athletePage");
+  console.log("Triggered from athletePage");
 
   const {
     state: { web3, accounts },
@@ -498,7 +503,6 @@ const AthleteProfilePage = ({
       );
     };
   }, []);
-  // console.log(window.scrollY)
   return (
     <>
       <div className="athleteprofilepage-component">
