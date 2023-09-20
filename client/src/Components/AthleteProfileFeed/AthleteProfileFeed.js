@@ -163,7 +163,7 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
     });
   }, [freePosts, premiumPosts]);
   Object.values(commentCounts).forEach(count => {
-    console.log(count);
+    // console.log(count);
   });
   
   return (
