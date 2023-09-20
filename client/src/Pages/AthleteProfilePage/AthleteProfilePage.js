@@ -4,17 +4,13 @@ import AthleteProfileHeader from "../../Components/AthleteProfileHeader/AthleteP
 import AthleteProfileNFTCollection from "../../Components/AthleteProfileNFTCollection/AthleteProfileNFTCollection";
 import NftCard from "../../Components/NftCard/NftCard";
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
-import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
 import { Network, Alchemy } from "alchemy-sdk";
 import "./AthleteProfilePage.css";
-import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import Modal from "../../Components/Modal/Modal";
-import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
-import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
 import {
   collection,
@@ -25,7 +21,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { useParams } from "react-router-dom";
-import { getStorage, ref, getMetadata } from "firebase/storage";
 // import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 // import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 // import useUserCollection from "../../contexts/UserContext/useUserCollection";
@@ -381,7 +376,7 @@ const AthleteProfilePage = ({
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
 
-  console.log("Triggered from athletePage");
+  // console.log("Triggered from athletePage");
 
   const {
     state: { web3, accounts },
@@ -503,6 +498,7 @@ const AthleteProfilePage = ({
       );
     };
   }, []);
+  // console.log(window.scrollY)
   return (
     <>
       <div className="athleteprofilepage-component">
