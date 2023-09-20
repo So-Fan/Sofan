@@ -2,10 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import BannerAndProfilePic from "../../Components/BannerAndProfilePic/BannerAndProfilePic";
 import NftCard from "../../Components/NftCard/NftCard";
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
-import SortBySelector from "../../Components/SortBySelector/SortBySelector";
-import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedOffers/FormulatedOffers";
-import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
-import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAndStats/UserNameAndStats";
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
@@ -15,17 +11,14 @@ import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/Athl
 import Modal from "../../Components/Modal/Modal";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
 import { useParams } from "react-router-dom";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, getDoc, doc } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
-import EditProfilePopUp from "../../Components/EditProfilePopUp/EditProfilePopUp";
 import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import UserActivityTab from "../../Components/UserActivityTab/UserActivityTab";
 import UserOffersReceived from "../../Components/UserOffersReceived/UserOffersReceived";
 import UserOffersMade from "../../Components/UserOffersMade/UserOffersMade";
 import useEth from "../../contexts/EthContext/useEth";
-import Web3 from "web3";
-import { concatStringFromTo } from "../../Utils/concatString";
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -60,6 +53,8 @@ function UserProfilePage({
   const { loggedInUser } = useUserCollection();
   const { marketplaceAddress } = useEth();
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
+  const [athletesFollowedCount, setAthletesFollowedCount] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "users"), where("id", "==", id)); // Use the correct parameter name here
@@ -73,7 +68,7 @@ function UserProfilePage({
           };
           // Do something with the user info
           setAllUserInfo(AllUserInfo);
-          console.log(AllUserInfo);
+          // console.log(AllUserInfo);
         });
       } else {
         // Handle case when no user is found with the given ID
@@ -216,10 +211,10 @@ function UserProfilePage({
   }
   // ----------------------------
   function handleAthleteFollowingClick(e) {
-    setIsAthleteFollowingClicked(true);
+    // setIsAthleteFollowingClicked(true);
   }
   function handleAthleteSupportingClick(e) {
-    setIsAthleteSupportingClicked(true);
+    // setIsAthleteSupportingClicked(true);
   }
   function handleAcceptOffersClick(
     nftsFromOwnerImage,
@@ -337,6 +332,29 @@ function UserProfilePage({
       );
     }
   }
+  useEffect(() => {
+    async function countAthletesFollowed() {
+        const athletesQuery = query(collection(db, "users"), where("account_type", "==", "athlete"));
+        const athletesSnapshot = await getDocs(athletesQuery);
+
+        let count = 0;
+        for (const athleteDoc of athletesSnapshot.docs) {
+            const athleteDataRef = doc(db, "users", athleteDoc.id, "athlete_data", athleteDoc.id); // Remplacez "someDocumentID" par l'ID de document approprié
+            const athleteDataSnapshot = await getDoc(athleteDataRef);
+
+            if (athleteDataSnapshot.exists()) {
+                const followers = athleteDataSnapshot.data().followers;
+                if (followers.includes(loggedInUser?.id)) {
+                    count++;
+                }
+            }
+        }
+
+        setAthletesFollowedCount(count);
+    }
+
+    countAthletesFollowed();
+}, [loggedInUser]);
   return (
     <>
       <section
@@ -360,6 +378,7 @@ function UserProfilePage({
                   nftCardRef={nftCardRef}
                   handleClickNftReceived={handleClickNftReceived}
                   allUserInfo={allUserInfo}
+                  athletesFollowedCount={athletesFollowedCount}
                 />
               </div>
               {loggedInUser?.id == id && (
