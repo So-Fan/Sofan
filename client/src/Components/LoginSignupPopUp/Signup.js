@@ -222,7 +222,7 @@ function Signup({
       return false;
     }
     const regex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};:,'".<>?~=-])[A-Za-z\d!@#$%^&*()_+[\]{};:,'".<>?~=-]{8,100}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};:,'".<>?~=-])[A-Za-z\d!@#$%^&*()_+[\]{};:,'".<>?~=-]{8,100}$/;
 
     return regex.test(password);
   }
@@ -971,7 +971,7 @@ function Signup({
       setDisplayValidationSignup(true);
       // from LandingPage state to pass true
       setIsUserLogged(true);
-      window.location.reload();
+      // window.location.reload();
     }, 2000);
   }
   function handleConfirmationCodePreviousStep() {
