@@ -15,7 +15,7 @@ const FeedLaunchpadTemplate = ({
       className="feedlaunchpad-content-container"
       style={{
         backgroundImage: `url(${img})`,
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
