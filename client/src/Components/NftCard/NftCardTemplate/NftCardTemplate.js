@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./NftCardTemplate.css";
 const NftCardTemplate = ({
   to,
-  img,
   athleteName,
   isTransparent,
   fontStyle,

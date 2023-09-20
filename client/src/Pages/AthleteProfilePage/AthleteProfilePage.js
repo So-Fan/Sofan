@@ -16,7 +16,13 @@ import Modal from "../../Components/Modal/Modal";
 import AthleteFollowersFansPopUp from "../../Components/TemplatePopUp/AthleteFollowersFansPopUp/AthleteFollowersFansPopUp";
 import AthleteProfileRanking from "../../Components/AthleteProfileRanking/AthleteProfileRanking";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
-import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { useParams } from "react-router-dom";
 import { getStorage, ref, getMetadata } from "firebase/storage";
@@ -73,7 +79,7 @@ const AthleteProfilePage = ({
   const [ethPrice, setEthPrice] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const { id } = useParams();
-
+  const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
   // const setProfileSubMenuOffresClicked = () => {
   //   console.log("amagnacouuuuunia");
   // }
@@ -83,7 +89,7 @@ const AthleteProfilePage = ({
   const athleteId = segments[2];
   useEffect(() => {
     const fetchData = async () => {
-      const q = query(collection(db, "users"), where("id", "==", id)); // Use the correct parameter name here
+      const q = query(collection(db, "users"), where("id", "==", athleteId)); // Use the correct parameter name here
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
@@ -143,24 +149,75 @@ const AthleteProfilePage = ({
   // console.log(collectionFloorPriceApiData);
   // get Nfts from Owner and Contracts
   async function getNftsForOwner() {
-    // we select all the nfts hold by an address for a specific collection
-    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
-      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
-      {
-        contractAddresses: [
-          "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e", // Doodles
-          // "0x5CC5B05a8A13E3fBDB0BB9FcCd98D38e50F90c38", // Sandbox
-          "0x60E4d786628Fea6478F785A6d7e704777c86a7c6", // MutantApe
-          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
-          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BoredApe
-        ],
-      } // filter
-    );
-    const nftsSale = await alchemy.nft.getFloorPrice(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
-    );
+    let arraySofanCollection = [];
+    let nftCollectionInfo = [];
+    const q = query(collection(db, "nft_collections"));
+    const querySnapshot = await getDocs(q);
 
-    setNftsFromOwner(nftsFromOwner?.ownedNfts);
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        const nftcollectionInfo = doc.data();
+        arraySofanCollection.push(nftcollectionInfo.collection_address);
+        nftCollectionInfo.push(nftcollectionInfo);
+      });
+    } else {
+      console.log("No collection found");
+    }
+    // Collecting all unique user IDs
+    const uniqueUserIds = [
+      ...new Set(nftCollectionInfo.map((item) => item.athlete_id)),
+    ];
+
+    // Fetching all users in one go
+    const qUsers = query(
+      collection(db, "users"),
+      where("id", "in", uniqueUserIds)
+    );
+    const usersQuerySnapshot = await getDocs(qUsers);
+    const usersData = usersQuerySnapshot.docs.map((doc) => doc.data());
+    // Now you can use usersData to get display_name or any other info
+
+    let currentProfileWalletAddresses;
+    if (userInfo?.metamask) {
+      currentProfileWalletAddresses = userInfo.metamask;
+      setCurrentProfileUserWallet(userInfo.metamask);
+    } else if (userInfo?.web3auth) {
+      currentProfileWalletAddresses = userInfo.web3auth;
+      setCurrentProfileUserWallet(userInfo.web3auth);
+    }
+    // console.log(currentProfileWalletAddresses);
+
+    try {
+      const nftsFromOwner = await alchemy.nft.getNftsForOwner(
+        currentProfileWalletAddresses,
+        {
+          contractAddresses: arraySofanCollection,
+        }
+      );
+      for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
+        const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
+        for (let a = 0; a < nftCollectionInfo.length; a++) {
+          const elementFromNftCollectionInfo = nftCollectionInfo[a];
+          for (let b = 0; b < usersData.length; b++) {
+            const elementFromUserData = usersData[b];
+            if (
+              elementFromAlchemy.contract.address ===
+                elementFromNftCollectionInfo.collection_address.toLowerCase() &&
+              elementFromUserData.id === elementFromNftCollectionInfo.athlete_id
+            ) {
+              nftsFromOwner.ownedNfts[i] = {
+                ...nftsFromOwner.ownedNfts[i],
+                athleteName: elementFromUserData.display_name,
+              };
+            }
+          }
+        }
+      }
+      setNftsFromOwner(nftsFromOwner?.ownedNfts);
+      // console.log("yess", nftsFromOwner);
+    } catch (error) {
+      console.error(error);
+    }
   }
   async function getTransferData() {
     const nftsTransferData = await alchemy.core.getAssetTransfers({
@@ -494,7 +551,7 @@ const AthleteProfilePage = ({
               nftsFromOwner={nftsFromOwner}
               userFrom={dataConcat?.collected}
               isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
-              athletesNftsAvailable={athletesNftsAvailable}
+              // nftCardRef={nftCardRef}
             />
           </div>
         ) : isAthleteProfileSubMenuClicked[1] === true ? (
@@ -603,7 +660,7 @@ const AthleteProfilePage = ({
           />
         </Modal>
       )}
-      <button onClick={() => setIsAcceptedOffersClicked(true)}>
+      {/* <button onClick={() => setIsAcceptedOffersClicked(true)}>
         Accept Offer
       </button>
       <button onClick={() => setIsCanceledOffersClicked(true)}>
@@ -611,7 +668,7 @@ const AthleteProfilePage = ({
       </button>
       <button onClick={() => setIsRejectedOffersClicked(true)}>
         Refuse Offer
-      </button>
+      </button> */}
     </>
   );
 };

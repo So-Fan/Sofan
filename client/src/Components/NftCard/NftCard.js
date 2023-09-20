@@ -31,7 +31,6 @@ const NftCard = ({
                   key={uuidv4()}
                   hidePrice={hidePrice}
                   to={`/nftsingle/${nft.contract.address}/${nft.tokenId}`}
-                  img={nft.img}
                   athleteName={nft.athleteName}
                   // nftsFromOwner={nftsFromOwner[i]}
                   nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
