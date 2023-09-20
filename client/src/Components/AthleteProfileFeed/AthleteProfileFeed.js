@@ -13,7 +13,11 @@ import {
 import { db } from "../../Configs/firebase";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 
-function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScrolledAthleteProfilePage }) {
+function AthleteProfileFeed({
+  athleteProfilePageStyling,
+  athleteUserId,
+  pixelScrolledAthleteProfilePage,
+}) {
   // console.log(dataPosts);
   // console.log(athleteProfileFeedPageStyling)
   const [isUserFan, setIsUserFan] = useState(false);
@@ -162,10 +166,10 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
       getCommentCount(post.id);
     });
   }, [freePosts, premiumPosts]);
-  Object.values(commentCounts).forEach(count => {
-    console.log(count);
+  Object.values(commentCounts).forEach((count) => {
+    // console.log(count);
   });
-  
+
   return (
     <section className="athlete-profile-feed-container">
       <div className="athlete-profie-feed-free-container">
