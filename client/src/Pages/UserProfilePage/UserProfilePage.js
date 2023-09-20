@@ -125,7 +125,7 @@ function UserProfilePage({
       const usersQuerySnapshot = await getDocs(qUsers);
       const usersData = usersQuerySnapshot.docs.map((doc) => doc.data());
       // console.log(usersData);
-      setAthletesSupportingCount(usersData.length);
+
       // Now you can use usersData to get display_name or any other info
 
       let currentProfileWalletAddresses;
@@ -145,6 +145,7 @@ function UserProfilePage({
             contractAddresses: arraySofanCollection,
           }
         );
+        let tempAtheleteSupportingCounter = [];
         for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
           const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
           for (let a = 0; a < nftCollectionInfo.length; a++) {
@@ -161,10 +162,20 @@ function UserProfilePage({
                   ...nftsFromOwner.ownedNfts[i],
                   athleteName: elementFromUserData.display_name,
                 };
+                if (
+                  !tempAtheleteSupportingCounter.includes(
+                    elementFromUserData.display_name
+                  )
+                ) {
+                  tempAtheleteSupportingCounter.push(
+                    elementFromUserData.display_name
+                  );
+                }
               }
             }
           }
         }
+        setAthletesSupportingCount(tempAtheleteSupportingCounter.length);
         setNftsFromOwner(nftsFromOwner?.ownedNfts);
         // console.log("yess", nftsFromOwner);
       } catch (error) {
