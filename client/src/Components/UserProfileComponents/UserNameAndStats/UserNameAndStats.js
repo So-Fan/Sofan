@@ -8,7 +8,8 @@ function UserNameAndStats({
   handleAthleteSupportingClick,
   handleClickNftReceived,
   allUserInfo,
-  athletesFollowedCount
+  athletesFollowedCount,
+  athletesSupportingCount,
 }) {
   const [pluralNftCollected, setPluralNftCollected] = useState(false);
   // donne un effet smooth au click d'un #
@@ -24,18 +25,16 @@ function UserNameAndStats({
       setPluralNftCollected(true);
     } else {
       setPluralNftCollected(false);
-    };
+    }
   }
-// afin de faire afficher le pluriel une fois le nombre de nft collectés reçu
+  // afin de faire afficher le pluriel une fois le nombre de nft collectés reçu
   useEffect(() => {
     handlePlural();
-  }, [nftsCollectedCounter])
-  
+  }, [nftsCollectedCounter]);
+
   return (
     <div className="username-and-stats-container">
-      <div className="username-container-userpage">
-        {allUserInfo?.username}
-      </div>
+      <div className="username-container-userpage">{allUserInfo?.username}</div>
       <div className="stats-user-container">
         <div className="line-separation-userprofile"></div>
         <div
@@ -56,7 +55,7 @@ function UserNameAndStats({
           className="athlete-supporting-container"
         >
           <div className="athlete-supporting-number">
-            {userNameAndStatsObject?.athleteSupporting}
+            {athletesSupportingCount}
           </div>
           <div className="athlete-supporting-title">
             <div id="athlete-title-userpage">Athletes</div>
@@ -76,8 +75,7 @@ function UserNameAndStats({
               {nftsCollectedCounter}
             </div>
             <div className="counter-nft-owner-user-title">
-            NFT{pluralNftCollected ? <>s</>:<></>}
-              
+              NFT{pluralNftCollected ? <>s</> : <></>}
             </div>
           </div>
         </a>

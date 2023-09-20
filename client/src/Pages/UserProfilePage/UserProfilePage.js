@@ -11,7 +11,14 @@ import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/Athl
 import Modal from "../../Components/Modal/Modal";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
 import { useParams } from "react-router-dom";
-import { collection, query, where, getDocs, getDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import PopUpEditProfile from "../../Components/PopUpEditProfile/PopUpEditProfile";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
@@ -54,6 +61,7 @@ function UserProfilePage({
   const { marketplaceAddress } = useEth();
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
   const [athletesFollowedCount, setAthletesFollowedCount] = useState(0);
+  const [athletesSupportingCount, setAthletesSupportingCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,6 +124,8 @@ function UserProfilePage({
       );
       const usersQuerySnapshot = await getDocs(qUsers);
       const usersData = usersQuerySnapshot.docs.map((doc) => doc.data());
+      // console.log(usersData);
+      setAthletesSupportingCount(usersData.length);
       // Now you can use usersData to get display_name or any other info
 
       let currentProfileWalletAddresses;
@@ -334,27 +344,36 @@ function UserProfilePage({
   }
   useEffect(() => {
     async function countAthletesFollowed() {
-        const athletesQuery = query(collection(db, "users"), where("account_type", "==", "athlete"));
-        const athletesSnapshot = await getDocs(athletesQuery);
+      const athletesQuery = query(
+        collection(db, "users"),
+        where("account_type", "==", "athlete")
+      );
+      const athletesSnapshot = await getDocs(athletesQuery);
 
-        let count = 0;
-        for (const athleteDoc of athletesSnapshot.docs) {
-            const athleteDataRef = doc(db, "users", athleteDoc.id, "athlete_data", athleteDoc.id); // Remplacez "someDocumentID" par l'ID de document approprié
-            const athleteDataSnapshot = await getDoc(athleteDataRef);
+      let count = 0;
+      for (const athleteDoc of athletesSnapshot.docs) {
+        const athleteDataRef = doc(
+          db,
+          "users",
+          athleteDoc.id,
+          "athlete_data",
+          athleteDoc.id
+        ); // Remplacez "someDocumentID" par l'ID de document approprié
+        const athleteDataSnapshot = await getDoc(athleteDataRef);
 
-            if (athleteDataSnapshot.exists()) {
-                const followers = athleteDataSnapshot.data().followers;
-                if (followers.includes(loggedInUser?.id)) {
-                    count++;
-                }
-            }
+        if (athleteDataSnapshot.exists()) {
+          const followers = athleteDataSnapshot.data().followers;
+          if (followers.includes(loggedInUser?.id)) {
+            count++;
+          }
         }
+      }
 
-        setAthletesFollowedCount(count);
+      setAthletesFollowedCount(count);
     }
 
     countAthletesFollowed();
-}, [loggedInUser]);
+  }, [loggedInUser]);
   return (
     <>
       <section
@@ -379,6 +398,7 @@ function UserProfilePage({
                   handleClickNftReceived={handleClickNftReceived}
                   allUserInfo={allUserInfo}
                   athletesFollowedCount={athletesFollowedCount}
+                  athletesSupportingCount={athletesSupportingCount}
                 />
               </div>
               {loggedInUser?.id == id && (
