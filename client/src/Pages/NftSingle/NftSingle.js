@@ -81,8 +81,8 @@ const NftSingle = () => {
 
   // Api Alchemy setup
   const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
+    apiKey: "8Q5rQrlFWbV8Gg29S9DWYG2RStuOfANJ ",
+    network: Network.ETH_MAINNET,
     maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);
@@ -1072,6 +1072,9 @@ const NftSingle = () => {
             nftCard={dataSinglePageNftCollection.nftCard}
             nftsFromContract={nftsFromContract}
             hidePrice={true}
+            currentAthleteCollectionOwner={
+              currentAthleteCollectionOwner?.display_name
+            }
           />
         </div>
       </section>

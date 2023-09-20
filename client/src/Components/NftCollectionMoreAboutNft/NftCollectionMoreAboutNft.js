@@ -2,10 +2,12 @@ import React from "react";
 import NftCardTemplate from "../NftCard/NftCardTemplate/NftCardTemplate";
 import "./NftCollectionMoreAboutNft.css";
 import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
 function NftCollectionMoreAboutNft({
   adaptTitleToNftCollectionPageItems,
   nftsFromContract,
   hidePrice,
+  currentAthleteCollectionOwner,
 }) {
   // console.log(adaptTitleToNftCollectionPageItems);
   // console.log(nftsFromOwner)
@@ -115,7 +117,11 @@ function NftCollectionMoreAboutNft({
               En savoir + sur la collection
             </div>
             <div className="nft-collection-more-about-title-button">
-              <button>Voir tout</button>
+              <Link
+                to={`/nftcollection/${nftsFromContract[0]?.contract.address}`}
+              >
+                Voir tout
+              </Link>
             </div>
           </div>
         )}
@@ -136,6 +142,7 @@ function NftCollectionMoreAboutNft({
                 apiNftData[i]?.contract?.openSea?.floorPrice
               }
               nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
+              athleteName={currentAthleteCollectionOwner}
               // mettre le nombre de nft de la collection correspondante
               key={uuidv4()}
               // collectionFloorPriceApiData={collectionFloorPriceApiData}
