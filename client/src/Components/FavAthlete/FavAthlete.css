@@ -71,6 +71,11 @@
     border-radius: 99px;
   } */
 }
+@media (max-width: 950px) {
+  .favAthlete-container {
+display: none;
+  }
+}
 @media (max-width: 900px) {
   .favAthlete-container {
     width: 220px;
