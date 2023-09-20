@@ -235,7 +235,7 @@ function Home({
                 : { height: "64px" }
             }
           >
-            <div className="home-feedsidenavlink-wrap">
+            {/* <div className="home-feedsidenavlink-wrap">
               <FeedSideNavLink
                 href="/launchpad"
                 svg={World}
@@ -252,7 +252,7 @@ function Home({
                 imgWidth="22.83px"
                 gap="8.59px"
               />
-            </div>
+            </div> */}
             {
               // isLogged === true &&
               // isLogged !== undefined &&

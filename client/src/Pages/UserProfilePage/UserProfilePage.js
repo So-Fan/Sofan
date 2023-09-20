@@ -124,7 +124,7 @@ function UserProfilePage({
       );
       const usersQuerySnapshot = await getDocs(qUsers);
       const usersData = usersQuerySnapshot.docs.map((doc) => doc.data());
-      // console.log(usersData);
+      console.log(usersData);
 
       // Now you can use usersData to get display_name or any other info
 
@@ -136,7 +136,7 @@ function UserProfilePage({
         currentProfileWalletAddresses = allUserInfo.web3auth;
         setCurrentProfileUserWallet(allUserInfo.web3auth);
       }
-      // console.log(currentProfileWalletAddresses);
+      console.log(currentProfileWalletAddresses);
 
       try {
         const nftsFromOwner = await alchemy.nft.getNftsForOwner(

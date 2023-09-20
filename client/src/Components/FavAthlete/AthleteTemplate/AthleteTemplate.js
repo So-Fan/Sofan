@@ -13,7 +13,8 @@ const AthleteTemplate = ({ href, src, athleteName, isFan }) => {
       style={{
         backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%), url(${src})`,
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat"
+        backgroundRepeat: "no-repeat",
+        backgroundSize:"cover"
       }}
     >
       {isFan && <img src={Star} alt="star" className="athleteTemplate-star" />}
