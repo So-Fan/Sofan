@@ -5,7 +5,7 @@ import Mbappe from "../fakeData/mbappe.svg";
 import RightArrow from "../../../Assets/Image/right_arrow.svg";
 import "./Carroussel.css";
 import { v4 as uuidv4 } from "uuid";
-const Carroussel = ({ athletesFollowing }) => {
+const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
   const [rightArrowClicked, setRightArrowClicked] = useState(false);
   const [leftArrowClicked, setLeftArrowClicked] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -82,7 +82,7 @@ const Carroussel = ({ athletesFollowing }) => {
       setLeftArrowClicked(false);
     }
   }, [rightArrowClicked, leftArrowClicked, counter]);
-
+// console.log("athletesSupportingData --> ",athletesSupportingData)
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">
@@ -92,6 +92,18 @@ const Carroussel = ({ athletesFollowing }) => {
             counter !== (filteredArray.length - 2) * 120 * -1 ? style2 : style
           }
         >
+          {athletesSupportingData.map((athleteSupporting) => {
+            return (
+              <div key={uuidv4()} className="athlete-template-container">
+                <AthleteTemplate
+                  href={`/athleteprofile/${athleteSupporting.athlete_id}`}
+                  src={athleteSupporting.profile_avatar}
+                  athleteName={athleteSupporting.display_name}
+                  isFan={true}
+                />
+              </div>
+            );
+          })}
           {athletesFollowing.map((athlete) => {
             return (
               <div key={uuidv4()} className="athlete-template-container">
