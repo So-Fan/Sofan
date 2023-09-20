@@ -32,6 +32,7 @@ import { getStorage, ref, getMetadata } from "firebase/storage";
 import useEth from "../../contexts/EthContext/useEth";
 import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 import { useLocation } from "react-router-dom";
+import Web3 from "web3";
 const MemoProfileSubMenu = memo(ProfileSubMenu);
 const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
 const MemoAthleteProfileFeed = memo(
@@ -80,6 +81,8 @@ const AthleteProfilePage = ({
   const [userInfo, setUserInfo] = useState(null);
   const { id } = useParams();
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
+  const [arrayAthleteCollection, setArrayAthleteCollection] = useState([]);
+  const [availableNftCount, setAvailableNftCount] = useState(0);
   // const setProfileSubMenuOffresClicked = () => {
   //   console.log("amagnacouuuuunia");
   // }
@@ -188,7 +191,7 @@ const AthleteProfilePage = ({
       currentProfileWalletAddresses = userInfo.web3auth;
       setCurrentProfileUserWallet(userInfo.web3auth);
     }
-    // console.log(currentProfileWalletAddresses);
+    console.log(currentProfileWalletAddresses);
 
     try {
       const nftsFromOwner = await alchemy.nft.getNftsForOwner(
@@ -245,11 +248,68 @@ const AthleteProfilePage = ({
     );
     setFansCounterApi(owners?.owners?.length);
   }
+
+  const availableNft = async () => {
+    // Get all collection from this athlete
+    const launchpadCollectionLive = collection(db, "nft_collections");
+    try {
+      const q = query(
+        launchpadCollectionLive,
+        where("athlete_id", "==", `${id}`)
+      );
+      getDocs(q)
+        .then((querySnapshot) => {
+          let data = [];
+          querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+          });
+          console.log(data);
+          setArrayAthleteCollection(data);
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error(error);
+        });
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    const getAvailableNft = async () => {
+      // API Infura
+      const web3Instance = new Web3(
+        new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
+      );
+      const { abi } = require("../../contracts/SofanNft.json");
+      let tempAvailableNftCount = 0;
+      for (let i = 0; i < arrayAthleteCollection.length; i++) {
+        const element = arrayAthleteCollection[i];
+        const contractInfura = new web3Instance.eth.Contract(
+          abi,
+          `${element.collection_address}`
+        );
+        const tempCollectionLimit = await contractInfura.methods
+          .collectionLimit()
+          .call();
+        const tempTotalSupply = await contractInfura.methods
+          .totalSupply()
+          .call();
+        console.log(tempCollectionLimit, tempTotalSupply);
+        tempAvailableNftCount += tempCollectionLimit - tempTotalSupply;
+      }
+
+      setAvailableNftCount(tempAvailableNftCount);
+    };
+    if (arrayAthleteCollection.length != 0) {
+      getAvailableNft();
+    }
+  }, [arrayAthleteCollection]);
   useEffect(() => {
     try {
       // getNft();
       // getCollectionFloorPrice();
       getNftsFromOwner();
+      availableNft();
       getTransferData();
       getOwnersForContract();
     } catch (err) {
@@ -513,6 +573,7 @@ const AthleteProfilePage = ({
           handleClicNftsAvailable={handleClicNftsAvailable}
           setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
           palmaresData={palmaresData}
+          availableNftCount={availableNftCount}
         />
         <div className="athleteprofilepage-profilesubmenu-wrap">
           <MemoProfileSubMenu

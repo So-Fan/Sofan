@@ -34,7 +34,8 @@ function AthleteProfileHeader({
   fansCounterApi,
   handleClicNftsAvailable,
   setIsProfileSubMenuButtonClicked,
-  palmaresData
+  palmaresData,
+  availableNftCount,
 }) {
   const [isStoredUser, setIsStoredUser] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -119,24 +120,28 @@ function AthleteProfileHeader({
   useEffect(() => {
     if (!userInfo?.id) return;
 
-    const athleteDataRef = doc(db, "users", userInfo.id, "athlete_data", userInfo.id);
+    const athleteDataRef = doc(
+      db,
+      "users",
+      userInfo.id,
+      "athlete_data",
+      userInfo.id
+    );
 
     const unsubscribe = onSnapshot(athleteDataRef, (snapshot) => {
-        const data = snapshot.data();
-        if (data && data.followers) {
-            // Update the following status ONLY if there's a logged-in user
-            if (loggedInUser?.id) {
-                setIsFollowing(data.followers.includes(loggedInUser.id));
-            }
-            // Always update the total followers count
-            setTotalFollowers(data.followers.length);
+      const data = snapshot.data();
+      if (data && data.followers) {
+        // Update the following status ONLY if there's a logged-in user
+        if (loggedInUser?.id) {
+          setIsFollowing(data.followers.includes(loggedInUser.id));
         }
+        // Always update the total followers count
+        setTotalFollowers(data.followers.length);
+      }
     });
 
     return () => unsubscribe();
   }, [db, userInfo?.id, loggedInUser?.id]);
-
-
 
   const storedUser = localStorage.getItem("loggedInUser");
   useEffect(() => {
@@ -173,17 +178,17 @@ function AthleteProfileHeader({
   function handleSettingsAthletePageClick() {
     setSettingsAthletePageClicked(true);
   }
-function redirectToNftCollection () {
-  setIsProfileSubMenuButtonClicked([
-    false,
-    false,
-    false,
-    false,
-    false,
-    true,
-    false,
-  ])
-}
+  function redirectToNftCollection() {
+    setIsProfileSubMenuButtonClicked([
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+    ]);
+  }
   return (
     <>
       <div className="athleteprofileheader-component">
@@ -210,9 +215,7 @@ function redirectToNftCollection () {
                     className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap"
                     onClick={handleAthleteFollowersClick}
                   >
-                    <span>
-                      {convertNumberToDisplayFormat(totalFollowers)}
-                    </span>
+                    <span>{convertNumberToDisplayFormat(totalFollowers)}</span>
                     <span>followers</span>
                   </div>
                   <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-separation"></div>
@@ -230,7 +233,7 @@ function redirectToNftCollection () {
                     onClick={handleClicNftsAvailable}
                   >
                     <div className="athleteprofileheader-content-wrap-namestatssocial-wrap-namestats-stats-wrap-subwrap-last">
-                      <span>{userInfo?.nftAvailable}</span>
+                      <span>{availableNftCount}</span>
                       <span>NFTs disponible</span>
                     </div>
                   </a>
@@ -278,7 +281,7 @@ function redirectToNftCollection () {
             {!isStoredUser && (
               <div className="athleteprofileheader-content-container-button-wrap">
                 <Button
-                onClick={redirectToNftCollection}
+                  onClick={redirectToNftCollection}
                   text={"Devenir un fan"}
                   style={AthleteProfileHeaderFanButton}
                 />
