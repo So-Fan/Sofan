@@ -31,7 +31,6 @@ function NftCollectionHeader({
   totalNftMintable,
   //
   collectionNameApi,
-  collectionDescriptionApi,
   nftPicture,
   nftIdApi,
   //
@@ -58,7 +57,6 @@ function NftCollectionHeader({
     //   return "";
     // }
   }
-  // console.log(collectionDescriptionApi)
   let ethPricePriceConverted = (nftPriceEth * ethPrice).toLocaleString(
     "fr-FR",
     { maximumFractionDigits: 2 }
@@ -137,7 +135,7 @@ function NftCollectionHeader({
                 />
                 <div className="launchpad-collection-live-header-right-mint-module-mint-button-container">
                   <button
-                    style={{ backgroundColor: handleStyleButton() }}
+                    // style={{ backgroundColor: handleStyleButton() }}
                     className="launchpad-collection-live-header-right-mint-module-mint-button"
                     onClick={handleMintButtonClick}
                   >
@@ -203,7 +201,7 @@ function NftCollectionHeader({
               </div>
             </div>
             <div className="nft-collection-header-line-separation"></div>
-            <div
+            {/* <div
               className={
                 isNFTOwner
                   ? "nft-collection-header-buy-module-container-owner"
@@ -224,12 +222,10 @@ function NftCollectionHeader({
                         Prix
                       </span>
                       <span className="nft-collection-header-eth-price">
-                        {/* Handle ListingPrice correct display later */}
                         {listingPrice ? `${listingPrice} ` : "-- "} €
                       </span>
                       <span className="nft-collection-header-eur-price">
                         {listingPrice ? `${nftPriceEth} ` : "-- "} ETH
-                        {/* Change nftPriceEth by the conversion of USDC in ETH */}
                       </span>
                     </div>
                   </div>
@@ -290,7 +286,7 @@ function NftCollectionHeader({
                   )}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </>
       )}

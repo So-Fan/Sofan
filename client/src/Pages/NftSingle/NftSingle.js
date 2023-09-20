@@ -18,6 +18,7 @@ import PopUpUnlistNFT from "../../Components/PopUpUnlistNFT/PopUpUnlistNFT";
 import useEth from "../../contexts/EthContext/useEth";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
+import { useLocation } from "react-router-dom";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -33,10 +34,9 @@ const NftSingle = () => {
   const [isNftPropertiesExist, setIsNftPropertiesExist] = useState(false);
   //
   const [ethPrice, setEthPrice] = useState(); // API CoinGecko
-  const [nftsFromOwner, setNftsFromOwner] = useState([]); // API Alchemy
+  const [nftsFromContract, setNftsFromContract] = useState([]); // API Alchemy
   const [nftPicture, setNftPicture] = useState();
   const [collectionNameApi, setCollectionNameApi] = useState();
-  const [collectionDescriptionApi, setCollectionDescriptionApi] = useState();
   const [nftIdApi, setNftIdApi] = useState();
   const [mintPopUpProccesing, setMintPopUpProccesing] = useState(false);
   const [blockchainError, setBlockchainError] = useState();
@@ -64,7 +64,9 @@ const NftSingle = () => {
   const [displayPopUpAddFundToWallet, setDisplayPopUpAddFundToWallet] =
     useState();
   const [currentBalance, setCurrentBalance] = useState(null);
-
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const collectionAddress = segments[2];
   const {
     setContractAddress,
     state: { contract, accounts, web3 },
@@ -74,36 +76,19 @@ const NftSingle = () => {
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_MAINNET,
+    network: Network.ETH_GOERLI,
     maxRetries: 10,
   };
-  // get Nfts from Owner and Contracts
-  async function getNftsForOwner() {
-    // we select all the nfts hold by an address for a specific collection
-    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
-      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
-      {
-        contractAddresses: [
-          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", // Otherdead collection
-          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection
-        ],
-      } // filter
+  const alchemy = new Alchemy(settings);
+
+  async function getNftsFromContract() {
+    const nftsFromContract = await alchemy.nft.getNftsForContract(
+      collectionAddress
     );
-    const nftsSale = await alchemy.nft.getFloorPrice(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
-    );
-    setNftsFromOwner(nftsFromOwner?.ownedNfts);
+    console.log(nftsFromContract);
+    setNftsFromContract(nftsFromContract?.nfts);
   }
 
-  // console.log(collectionNameApi)
-  const alchemy = new Alchemy(settings);
-  async function getNftsData() {
-    const nftsData = await alchemy.nft.getContractMetadata(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    );
-    setCollectionNameApi(nftsData?.openSea?.collectionName);
-    setCollectionDescriptionApi(nftsData?.openSea?.description);
-  }
   async function getNftPicture() {
     const nftsFromContract = await alchemy.nft.getNftMetadata(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
@@ -115,8 +100,7 @@ const NftSingle = () => {
   }
   // API Coingecko price ETH
   useEffect(() => {
-    getNftsForOwner();
-    getNftsData();
+    getNftsFromContract();
     getNftPicture();
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
@@ -126,16 +110,16 @@ const NftSingle = () => {
       .catch((error) => console.log(error));
   }, []);
   // Faire afficher le pop up dynamiquement en récupérent le nb de pixel scrollé
-  const handlePixelScrolledAthleteProfilePage = () => {
-    setPixelScrolledAthleteProfilePage(window.scrollY);
-  };
-  useEffect(() => {
-    window.addEventListener(
-      "scroll",
-      handlePixelScrolledAthleteProfilePage,
-      false
-    );
-  }, []);
+  // const handlePixelScrolledAthleteProfilePage = () => {
+  //   setPixelScrolledAthleteProfilePage(window.scrollY);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener(
+  //     "scroll",
+  //     handlePixelScrolledAthleteProfilePage,
+  //     false
+  //   );
+  // }, []);
 
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
@@ -795,118 +779,118 @@ const NftSingle = () => {
     setIsUnlistClicked(false);
   };
 
-  useEffect(() => {
-    console.log(
-      "USEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECT"
-    );
-    const init = async () => {
-      // TODO: Ce useEffect est trigger quand la personne recharge la page car accounts se reset mais sera-t il trigger sans arrivé depuis un bouton?
-      // TODO: Remplacer 0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a par la string de l'adresse du contrat depuis le backend
-      // TODO: Remplacer "0" par la string du tokenId du contrat depuis le backend
-      const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
-      const tokenId = "0";
-      setCurrentNftTokenId(parseInt(tokenId));
-      if (accounts) {
-        let nftContractArtifact = require("../../contracts/SofanNftTemplate.json");
-        // const nftContractAbi = nftContractArtifact.abi;
-        const { abi: nftContractAbi } = nftContractArtifact;
-        const nftContractInstance = new web3.eth.Contract(
-          nftContractAbi,
-          collectionAddress
-        );
-        let tempCurrentNftOwnerFromBlockchain;
-        try {
-          const result = await nftContractInstance.methods
-            .ownerOf(parseInt(tokenId))
-            .call({ from: accounts[0] });
-          tempCurrentNftOwnerFromBlockchain = result;
-          setcurrentNftOwnerFromBlockchain(tempCurrentNftOwnerFromBlockchain);
-          console.log("je suis le resultat", result);
-          console.log(tempCurrentNftOwnerFromBlockchain);
-        } catch (error) {
-          console.log(error);
-        }
-        if (accounts[0] === tempCurrentNftOwnerFromBlockchain) {
-          console.log("je suis rentré");
-          setIsNFTOwner(true);
-          const artifacts = require("../../contracts/Sofan.json");
-          const { abi } = artifacts;
-          const web3MarketplaceInstance = new web3.eth.Contract(
-            abi,
-            marketplaceAddress
-          );
-          try {
-            // handleListings(web3MarketplaceInstance, collectionAddress, tokenId);
-            const result = await web3MarketplaceInstance.methods
-              .getListing(accounts[0])
-              .call({ from: accounts[0] });
-            console.log("je suis getListing Result", result);
-            for (let i = 0; i < result.length; i++) {
-              const element = result[i];
-              console.log("Je suis element", element);
-              if (
-                element.listingStauts === "1" &&
-                element.contractAddress === collectionAddress &&
-                element.tokenId === tokenId
-              ) {
-                setIsNFTListed(true);
-                setListingPrice(element.price);
-                setCurrentNftListingFromMarketplace(i);
-                console.log("change state");
-                break;
-              }
-              if (i === result.length - 1) {
-                setListingPrice();
-              }
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        } else {
-          // setIsNFTOwner(false);
-          const artifacts = require("../../contracts/Sofan.json");
-          const { abi } = artifacts;
-          const web3MarketplaceInstance = new web3.eth.Contract(
-            abi,
-            marketplaceAddress
-          );
-          try {
-            const result = await web3MarketplaceInstance.methods
-              .getListing(tempCurrentNftOwnerFromBlockchain)
-              .call({ from: accounts[0] });
-            console.log("je suis getListing Result", result);
-            if (result.length === 0) {
-              setIsBuyListingButtonDisabled(true);
-            } else {
-              for (let i = 0; i < result.length; i++) {
-                const element = result[i];
-                console.log("Je suis element", element);
+  // useEffect(() => {
+  //   console.log(
+  //     "USEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECTUSEEFFECT"
+  //   );
+  //   const init = async () => {
+  //     // TODO: Ce useEffect est trigger quand la personne recharge la page car accounts se reset mais sera-t il trigger sans arrivé depuis un bouton?
+  //     // TODO: Remplacer 0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a par la string de l'adresse du contrat depuis le backend
+  //     // TODO: Remplacer "0" par la string du tokenId du contrat depuis le backend
+  //     const collectionAddress = "0x3EdA1072dC656c1272f4442F43DF06d1DDC75a5a";
+  //     const tokenId = "0";
+  //     setCurrentNftTokenId(parseInt(tokenId));
+  //     if (accounts) {
+  //       let nftContractArtifact = require("../../contracts/SofanNftTemplate.json");
+  //       // const nftContractAbi = nftContractArtifact.abi;
+  //       const { abi: nftContractAbi } = nftContractArtifact;
+  //       const nftContractInstance = new web3.eth.Contract(
+  //         nftContractAbi,
+  //         collectionAddress
+  //       );
+  //       let tempCurrentNftOwnerFromBlockchain;
+  //       try {
+  //         const result = await nftContractInstance.methods
+  //           .ownerOf(parseInt(tokenId))
+  //           .call({ from: accounts[0] });
+  //         tempCurrentNftOwnerFromBlockchain = result;
+  //         setcurrentNftOwnerFromBlockchain(tempCurrentNftOwnerFromBlockchain);
+  //         console.log("je suis le resultat", result);
+  //         console.log(tempCurrentNftOwnerFromBlockchain);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //       if (accounts[0] === tempCurrentNftOwnerFromBlockchain) {
+  //         console.log("je suis rentré");
+  //         setIsNFTOwner(true);
+  //         const artifacts = require("../../contracts/Sofan.json");
+  //         const { abi } = artifacts;
+  //         const web3MarketplaceInstance = new web3.eth.Contract(
+  //           abi,
+  //           marketplaceAddress
+  //         );
+  //         try {
+  //           // handleListings(web3MarketplaceInstance, collectionAddress, tokenId);
+  //           const result = await web3MarketplaceInstance.methods
+  //             .getListing(accounts[0])
+  //             .call({ from: accounts[0] });
+  //           console.log("je suis getListing Result", result);
+  //           for (let i = 0; i < result.length; i++) {
+  //             const element = result[i];
+  //             console.log("Je suis element", element);
+  //             if (
+  //               element.listingStauts === "1" &&
+  //               element.contractAddress === collectionAddress &&
+  //               element.tokenId === tokenId
+  //             ) {
+  //               setIsNFTListed(true);
+  //               setListingPrice(element.price);
+  //               setCurrentNftListingFromMarketplace(i);
+  //               console.log("change state");
+  //               break;
+  //             }
+  //             if (i === result.length - 1) {
+  //               setListingPrice();
+  //             }
+  //           }
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       } else {
+  //         // setIsNFTOwner(false);
+  //         const artifacts = require("../../contracts/Sofan.json");
+  //         const { abi } = artifacts;
+  //         const web3MarketplaceInstance = new web3.eth.Contract(
+  //           abi,
+  //           marketplaceAddress
+  //         );
+  //         try {
+  //           const result = await web3MarketplaceInstance.methods
+  //             .getListing(tempCurrentNftOwnerFromBlockchain)
+  //             .call({ from: accounts[0] });
+  //           console.log("je suis getListing Result", result);
+  //           if (result.length === 0) {
+  //             setIsBuyListingButtonDisabled(true);
+  //           } else {
+  //             for (let i = 0; i < result.length; i++) {
+  //               const element = result[i];
+  //               console.log("Je suis element", element);
 
-                if (
-                  element.listingStauts === "1" &&
-                  element.contractAddress === collectionAddress &&
-                  element.tokenId === tokenId
-                ) {
-                  setListingPrice(element.price);
-                  setIsBuyListingButtonDisabled(false);
-                  setCurrentNftListingFromMarketplace(i);
-                  console.log("change state");
-                  break;
-                }
-              }
-            }
-          } catch (error) {
-            console.error(error);
-          }
-          console.log("je suis ici");
-        }
-        setContractAddress(collectionAddress);
-        console.log("Change Contract Address");
-      }
-    };
+  //               if (
+  //                 element.listingStauts === "1" &&
+  //                 element.contractAddress === collectionAddress &&
+  //                 element.tokenId === tokenId
+  //               ) {
+  //                 setListingPrice(element.price);
+  //                 setIsBuyListingButtonDisabled(false);
+  //                 setCurrentNftListingFromMarketplace(i);
+  //                 console.log("change state");
+  //                 break;
+  //               }
+  //             }
+  //           }
+  //         } catch (error) {
+  //           console.error(error);
+  //         }
+  //         console.log("je suis ici");
+  //       }
+  //       setContractAddress(collectionAddress);
+  //       console.log("Change Contract Address");
+  //     }
+  //   };
 
-    init();
-  }, [accounts, isNFTOwner, isNFTListed]);
+  //   init();
+  // }, [accounts, isNFTOwner, isNFTListed]);
 
   return (
     <>
@@ -930,8 +914,7 @@ const NftSingle = () => {
           nftBidEth={apiOpenSea[0].nftBidEth}
           nftBifEur={apiOpenSea[0].nftBidEur}
           // Api Alchemy
-          collectionNameApi={collectionNameApi}
-          collectionDescriptionApi={collectionDescriptionApi}
+          // collectionNameApi={collectionNameApi} TODO: Call SC to get collection name
           nftIdApi={nftIdApi}
           nftPicture={nftPicture}
           // Api CoinGecko
@@ -993,7 +976,6 @@ const NftSingle = () => {
               properties={
                 dataSinglePageNftCollection.propertiesData[0].properties
               }
-              nftsFromOwner={nftsFromOwner}
               isNftPropertiesExist={isNftPropertiesExist}
             />
           )}
@@ -1024,7 +1006,7 @@ const NftSingle = () => {
           </div>
           <NftCollectionMoreAboutNft
             nftCard={dataSinglePageNftCollection.nftCard}
-            nftsFromOwner={nftsFromOwner}
+            nftsFromContract={nftsFromContract}
             hidePrice={true}
           />
         </div>

@@ -4,8 +4,8 @@ import "./NftCollectionMoreAboutNft.css";
 import { v4 as uuidv4 } from "uuid";
 function NftCollectionMoreAboutNft({
   adaptTitleToNftCollectionPageItems,
-  nftsFromOwner,
-  hidePrice
+  nftsFromContract,
+  hidePrice,
 }) {
   // console.log(adaptTitleToNftCollectionPageItems);
   // console.log(nftsFromOwner)
@@ -120,7 +120,7 @@ function NftCollectionMoreAboutNft({
           </div>
         )}
         <div className="nft-collection-more-about-nft-card-container">
-          {nftsFromOwner?.map((element, i, apiNftData) => (
+          {nftsFromContract?.map((element, i, apiNftData) => (
             <NftCardTemplate
               fontStyle="nftcardtemplate-container-content-title-props"
               img={element.nftImage}
