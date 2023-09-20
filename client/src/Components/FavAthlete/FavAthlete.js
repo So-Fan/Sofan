@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AthleteTemplate from "./AthleteTemplate/AthleteTemplate";
 import Carroussel from "./Carroussel/Carroussel";
 import "./FavAthlete.css";
@@ -6,7 +6,12 @@ import LeBron from "./fakeData/lebron.svg";
 import Mbappe from "./fakeData/mbappe.svg";
 import FeedSuggestionTemplate from "../FeedSuggestions/FeedSuggestionTemplate/FeedSuggestionTemplate";
 import { v4 as uuidv4 } from "uuid";
-const FavAthlete = ({ athletesFollowing }) => {
+const FavAthlete = ({
+  athletesFollowing,
+  athletesSupportingData,
+  isSupportingOrFollowingAthlete,
+  setIsSupportingOrFollowingAthlete,
+}) => {
   const fakeArray = [
     {
       firstName: "James",
@@ -69,9 +74,23 @@ const FavAthlete = ({ athletesFollowing }) => {
   });
 
   const filteredArray = [...userFanAthlete, ...userRecommandationAthlete];
+  // console.log("athletesSupportingData --> ", athletesSupportingData.length);
+  function handleDisplayFavAthlete() {
+    if (athletesFollowing.length > 0 || athletesSupportingData.length > 0) {
+      setIsSupportingOrFollowingAthlete(true);
+    } else {
+      setIsSupportingOrFollowingAthlete(false);
+    }
+  }
+
+  useEffect(() => {
+    handleDisplayFavAthlete();
+    console.log(isSupportingOrFollowingAthlete);
+  }, [athletesFollowing.length, athletesSupportingData.length]);
+
   return (
     <div
-      style={athletesFollowing.length == 0 ? { display: "none" } : {}}
+      style={isSupportingOrFollowingAthlete ? {} : { display: "none" }}
       className="favAthlete-container"
     >
       <div className="favAthlete-horizontal"></div>
@@ -80,7 +99,10 @@ const FavAthlete = ({ athletesFollowing }) => {
           <span>Vos sportifs préférés</span>
           {/* <a href="/favathlete-details"> Voir plus</a> */}
         </div>
-        <Carroussel athletesFollowing={athletesFollowing} />
+        <Carroussel
+          athletesSupportingData={athletesSupportingData}
+          athletesFollowing={athletesFollowing}
+        />
         <div className="favAthlete-responsive-container">
           {/* {filteredArray.map((athlete)  => (
             <FeedSuggestionTemplate 
