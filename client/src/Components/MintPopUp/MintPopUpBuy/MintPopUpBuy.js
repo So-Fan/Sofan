@@ -81,12 +81,14 @@ function MintPopUpBuy({
   }, [currentNumberOfNftOwned]);
 
   function handleClick(e) {
+    console.log("before click");
     if (
       copyLimitByWalletInfo.limitByWallet != 0 &&
       e.target.className ===
         "mint-pop-up-buy-quantity-selector-increase-button" &&
       mintCounter < copyLimitByWalletInfo.limitByWallet
     ) {
+      console.log("increment click");
       setMintCounter(mintCounter + 1);
       setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter + 1));
       setTotalPriceInETH(nftMintPriceInETH * (mintCounter + 1));
@@ -96,6 +98,25 @@ function MintPopUpBuy({
         "mint-pop-up-buy-quantity-selector-decrease-button" &&
       mintCounter > 1
     ) {
+      console.log("decrement click");
+      setMintCounter(mintCounter - 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
+    } else if (
+      copyLimitByWalletInfo.limitByWallet === 0 &&
+      e.target.className === "mint-pop-up-buy-quantity-selector-increase-button"
+    ) {
+      console.log("increment click from second");
+      setMintCounter(mintCounter + 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter + 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter + 1));
+    } else if (
+      copyLimitByWalletInfo.limitByWallet === 0 &&
+      e.target.className ===
+        "mint-pop-up-buy-quantity-selector-decrease-button" &&
+      mintCounter > 1
+    ) {
+      console.log("decrement click");
       setMintCounter(mintCounter - 1);
       setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
       setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
