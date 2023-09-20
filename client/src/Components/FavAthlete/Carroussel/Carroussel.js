@@ -9,6 +9,7 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
   const [rightArrowClicked, setRightArrowClicked] = useState(false);
   const [leftArrowClicked, setLeftArrowClicked] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [isTotalElementsEqualTwo, setIsTotalElementsEqualTwo] = useState();
 
   const fakeArray = [
     {
@@ -82,7 +83,18 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
       setLeftArrowClicked(false);
     }
   }, [rightArrowClicked, leftArrowClicked, counter]);
-// console.log("athletesSupportingData --> ",athletesSupportingData)
+  // console.log("athletesSupportingData --> ",athletesSupportingData)
+  useEffect(() => {
+    if (athletesSupportingData.length + athletesFollowing.length === 2) {
+      console.log(
+        "il y a moins de 3 éléments --> ",
+        athletesFollowing.length + athletesSupportingData.length
+      );
+      setIsTotalElementsEqualTwo(true);
+    } else {
+      setIsTotalElementsEqualTwo(false);
+    }
+  }, [athletesFollowing, athletesSupportingData]);
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">
@@ -116,6 +128,34 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
               </div>
             );
           })}
+          {/* {isTotalElementsEqualTwo && (
+            <>
+            <div
+              // style={{ visibility: "hidden" }}
+              className="athlete-template-container"
+              >
+              
+              <AthleteTemplate
+              // href={`/athleteprofile/${athlete.athleteId}`}
+              // src={athlete.profile_avatar}
+              // athleteName={athlete.username}
+              // isFan={athlete.isFan}
+              />
+            </div>
+            <div
+              // style={{ visibility: "hidden" }}
+              className="athlete-template-container"
+              >
+              
+              <AthleteTemplate
+              // href={`/athleteprofile/${athlete.athleteId}`}
+              // src={athlete.profile_avatar}
+              // athleteName={athlete.username}
+              // isFan={athlete.isFan}
+              />
+            </div>
+              </>
+          )} */}
         </div>
       </div>
       {counter !== (arrayLength - 2) * 120 * -1 && (

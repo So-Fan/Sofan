@@ -343,9 +343,10 @@ function Home({
           style={
             isLogged?.account_type === "athlete"
               ? { height: "686px", maxHeight: "686px" }
-              : athletesFollowing.length === 0
+              : athletesFollowing.length === 0 &&
+                athletesSupportingData.length === 0
               ? { height: "398px" }
-              : { maxHeight: "646px" }
+              : { maxHeight: "552px" }
             // athletesFollowing.length === 0 ? {}: {}
           }
         >
@@ -354,7 +355,7 @@ function Home({
             style={
               isLogged?.account_type === "athlete"
                 ? { height: "138px" }
-                : { height: "64px" }
+                : { height: "0px" }
             }
           >
             {/* <div className="home-feedsidenavlink-wrap">
