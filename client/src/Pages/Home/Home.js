@@ -23,10 +23,12 @@ import {
   orderBy,
   onSnapshot,
   getDocs,
+  getDoc,
+  doc,
   where,
   limit,
 } from "firebase/firestore";
-
+import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 function Home({
   loggedInUser,
   setPostData,
@@ -58,7 +60,12 @@ function Home({
   const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
     useState(0);
   const [athletesFollowing, setAthletesFollowing] = useState([]);
-
+  const [athleteNftInfo, setAthleteNftInfo] = useState([]);
+  const [nftsFromOwner, setNftsFromOwner] = useState([]);
+  const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
+  const [athletesSupportingData, setAthletesSupportingData] = useState([]);
+  const [isSupportingOrFollowingAthlete, setIsSupportingOrFollowingAthlete] =
+    useState();
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
@@ -149,7 +156,7 @@ function Home({
     return () => unsubscribe();
   }, [loggedInUser]);
 
-  // console.log(athletesFollowing);
+  // retrouver les athlete supportés
 
   const handleDropdownPostFeedClick = (e) => {
     for (let i = 0; i < dataPost.length; i++) {
@@ -212,7 +219,122 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
-  console.log(isLogged)
+  // Api Alchemy setup
+  const settings = {
+    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
+    network: Network.ETH_GOERLI,
+    maxRetries: 10,
+  };
+  const alchemy = new Alchemy(settings);
+  useEffect(() => {
+    // get Nfts from Owner and Contracts
+    async function getNftsForOwner() {
+      let arraySofanCollection = [];
+      let nftCollectionInfo = [];
+      const q = query(collection(db, "nft_collections"));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const nftcollectionInfo = doc.data();
+          arraySofanCollection.push(nftcollectionInfo.collection_address);
+          nftCollectionInfo.push(nftcollectionInfo);
+        });
+      } else {
+        console.log("No collection found");
+      }
+      // Collecting all unique user IDs
+      const uniqueUserIds = [
+        ...new Set(nftCollectionInfo.map((item) => item.athlete_id)),
+      ];
+
+      // Fetching all users in one go
+      const qUsers = query(
+        collection(db, "users"),
+        where("id", "in", uniqueUserIds)
+      );
+      const usersQuerySnapshot = await getDocs(qUsers);
+      const usersData = usersQuerySnapshot.docs.map((doc) => doc.data());
+      // console.log(usersData);
+
+      // Now you can use usersData to get display_name or any other info
+
+      let currentProfileWalletAddresses;
+      if (isLogged?.metamask) {
+        currentProfileWalletAddresses = isLogged.metamask;
+        setCurrentProfileUserWallet(isLogged.metamask);
+      } else if (isLogged?.web3auth) {
+        currentProfileWalletAddresses = isLogged.web3auth;
+        setCurrentProfileUserWallet(isLogged.web3auth);
+      }
+      console.log(currentProfileWalletAddresses);
+
+      try {
+        const nftsFromOwner = await alchemy.nft.getNftsForOwner(
+          currentProfileWalletAddresses,
+          {
+            contractAddresses: arraySofanCollection,
+          }
+        );
+        let athletesSupportingArray = [];
+        for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
+          const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
+          for (let a = 0; a < nftCollectionInfo.length; a++) {
+            const elementFromNftCollectionInfo = nftCollectionInfo[a];
+            for (let b = 0; b < usersData.length; b++) {
+              const elementFromUserData = usersData[b];
+              if (
+                elementFromAlchemy.contract.address ===
+                  elementFromNftCollectionInfo.collection_address.toLowerCase() &&
+                elementFromUserData.id ===
+                  elementFromNftCollectionInfo.athlete_id
+              ) {
+                nftsFromOwner.ownedNfts[i] = {
+                  ...nftsFromOwner.ownedNfts[i],
+                  athleteName: elementFromUserData.display_name,
+                  profileAvatar: elementFromUserData.profile_avatar,
+                  athlete_id: elementFromUserData.id,
+                };
+                if (
+                  !athletesSupportingArray.includes(
+                    elementFromUserData.display_name
+                  )
+                ) {
+                  athletesSupportingArray.push({
+                    display_name: elementFromUserData.display_name,
+                    profile_avatar: elementFromUserData.profile_avatar,
+                    athlete_id: elementFromUserData.id,
+                  });
+                }
+              }
+            }
+          }
+        }
+        function removeDuplicatesBy(keyFn, array) {
+          const mySet = new Set();
+          return array.filter((x) => {
+            const key = keyFn(x);
+            const isNew = !mySet.has(key);
+            if (isNew) mySet.add(key);
+            return isNew;
+          });
+        }
+        const uniqueAthleteSupportingArray = removeDuplicatesBy(
+          (x) => x.athlete_id,
+          athletesSupportingArray
+        );
+        setAthletesSupportingData(uniqueAthleteSupportingArray);
+        // setAthletesSupportingData(athletesSupportingArray);
+        setNftsFromOwner(nftsFromOwner?.ownedNfts);
+        // console.log("yess", nftsFromOwner);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getNftsForOwner();
+  }, [isLogged]);
+  // console.log("nftsFromOwner --> ",nftsFromOwner, "athletesSupportingData --> ",athletesSupportingData)
+  console.log(athletesSupportingData);
   return (
     <>
       <section className="home-component">
@@ -269,15 +391,23 @@ function Home({
               )
             }
           </div>
-          <FavAthlete athletesFollowing={athletesFollowing} />
-          {athletesFollowing.length === 0 && (
+          {/* {isSupportingOrFollowingAthlete && (
             <>
               <div className="home-left-separation-line"></div>
             </>
-          )}
+          )} */}
+          <FavAthlete
+            athletesSupportingData={athletesSupportingData}
+            athletesFollowing={athletesFollowing}
+            setIsSupportingOrFollowingAthlete={
+              setIsSupportingOrFollowingAthlete
+            }
+            isSupportingOrFollowingAthlete={isSupportingOrFollowingAthlete}
+          />
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}
+            athletesSupportingData={athletesSupportingData}
           />
         </div>
         <div className="home-center-container">
