@@ -473,7 +473,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/nftcollection" element={<NftCollection />} />
+              <Route path="/nftcollection/:id" element={<NftCollection />} />
               <Route
                 path="/nftsingle/:contractAddress/:nftId"
                 element={<NftSingle />}

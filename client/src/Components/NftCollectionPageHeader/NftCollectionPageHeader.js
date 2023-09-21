@@ -1,34 +1,54 @@
-import React from 'react'
-import "./NftCollectionPageHeader.css"
+import React, { useState, useEffect } from "react";
+import "./NftCollectionPageHeader.css";
 import Checkmark from "../../Assets/Image/checkmark_profile.svg";
 import Discord from "../../Assets/Image/discord.svg";
 import Twitter from "../../Assets/Image/twitter.svg";
 import Instagram from "../../Assets/Image/instagram.svg";
-const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, ethPrice, hidePrice}) => {
+import { Link } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
+// import { collection, query, where, getDocs } from "firebase/firestore";
+// import { db } from "../../Configs/firebase";
+const NftCollectionPageHeader = ({
+  collectionInfo,
+  collectionFloorPriceApiData,
+  ethPrice,
+  hidePrice,
+  collectionBackendData,
+  athleteDisplayName,
+}) => {
   // let floorPriceEur = collectionFloorPriceApiData * ethPrice
-  let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+  let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString(
+    "fr-FR",
+    { maximumFractionDigits: 2 }
+  );
   return (
     <div className="nftcollectionheader-component">
       <div className="nftcollectionheader-bannerandprofilepicture-wrap">
-        <img src={collectionInfo?.banner} alt="banner" />
+        <img src={collectionBackendData[0]?.collection_banner} alt="banner" />
         <div className="nftcollectionheader-profilepciture-wrap">
           <img
-            src={collectionInfo?.profilePicture}
+            src={collectionBackendData[0]?.collection_avatar}
             alt="profile"
           />
         </div>
       </div>
       <div className="nftcollectionheader-content-container">
         <div className="nftcollectionheader-content-wrap">
-          <span className="nftcollectionheader-content-wrap-sport">
-            by {collectionInfo?.athleteName}
-          </span>
+          <Link
+            to={`/athleteprofile/${collectionBackendData[0]?.athlete_id}`}
+            style={{ textDecoration: "none" }}
+            className="nftcollectionheader-content-subwrap"
+          >
+            <span className="nftcollectionheader-content-wrap-sport">
+              by {athleteDisplayName[0]?.display_name}
+            </span>
+          </Link>
           <div className="nftcollectionheader-content-wrap-namestatssocial-wrap">
             <div className="nftcollectionheader-content-wrap-namestatssocial-wrap-namestats">
               <span className="nftcollectionheader-content-wrap-namestatssocial-wrap-namestats-title">
-                {collectionInfo?.collectionName}
+                {collectionBackendData[0]?.collection_title}
                 <img src={Checkmark} alt="Checkmark" />
-              </span> 
+              </span>
             </div>
             <div className="nftcollectionheader-content-wrap-namestatssocial-wrap-social-container">
               {/* <div className="nftcollectionheader-content-wrap-namestatssocial-wrap-social-container-social">
@@ -54,39 +74,62 @@ const NftCollectionPageHeader = ({collectionInfo, collectionFloorPriceApiData, e
             </div>
           </div>
           <div className="nftcollectionheader-content-container-descriptionn">
-            {collectionInfo?.description}
+            {collectionBackendData[0]?.collection_description}
           </div>
-          <div className='nftcollectionheader-content-wrap-stats-container'>
-            {hidePrice ? <></>: 
-            <>
-            <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-1'>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{floorPriceEur}€</span>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Floor price</span>
+          <div className="nftcollectionheader-content-wrap-stats-container">
+            {hidePrice ? (
+              <></>
+            ) : (
+              <>
+                <div className="nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-1">
+                  <span className="nftcollectionheader-content-wrap-stats-wrap-value">
+                    {floorPriceEur}€
+                  </span>
+                  <span className="nftcollectionheader-content-wrap-stats-wrap-name">
+                    Floor price
+                  </span>
+                </div>
+                <div className="nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-2">
+                  <span className="nftcollectionheader-content-wrap-stats-wrap-value">
+                    {collectionInfo?.AveragePrice} ETH
+                  </span>
+                  <span className="nftcollectionheader-content-wrap-stats-wrap-name">
+                    Average price
+                  </span>
+                </div>
+              </>
+            )}
+
+            <div className="nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-3">
+              <span className="nftcollectionheader-content-wrap-stats-wrap-value">
+                {collectionInfo?.Owners}
+              </span>
+              <span className="nftcollectionheader-content-wrap-stats-wrap-name">
+                Owners
+              </span>
             </div>
-            <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-2'>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.AveragePrice} ETH</span>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Average price</span>
-            </div>
-            </>}
-            
-            <div className='nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-3'>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.Owners}</span>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Owners</span>
-            </div>
-            {hidePrice ? <></>: <>
-            <div className='nftcollectionheader-content-wrap-stats-wrap'>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-value'>{collectionInfo?.Volume} ETH</span>
-                <span className='nftcollectionheader-content-wrap-stats-wrap-name'>Total Volume</span>
-            </div>
-            </>}
+            {hidePrice ? (
+              <></>
+            ) : (
+              <>
+                <div className="nftcollectionheader-content-wrap-stats-wrap">
+                  <span className="nftcollectionheader-content-wrap-stats-wrap-value">
+                    {collectionInfo?.Volume} ETH
+                  </span>
+                  <span className="nftcollectionheader-content-wrap-stats-wrap-name">
+                    Total Volume
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NftCollectionPageHeader
+export default NftCollectionPageHeader;
 
 // const AthleteProfileHeaderPalmaresButton = {
 //     backgroundColor: "#F6D463",

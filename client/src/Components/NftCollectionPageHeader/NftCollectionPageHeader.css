@@ -32,14 +32,14 @@
   display: flex;
   align-items: flex-start;
   padding-top: 48px;
-  height: 238px;
+  /* height: 238px; */
 }
 .nftcollectionheader-content-wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  height: 143px;
+  /* height: 143px; */
   width: 100%;
 }
 .nftcollectionheader-content-wrap-sport {
@@ -104,11 +104,37 @@ text-decoration-thickness: 2px;
   height: 20px;
 }
 .nftcollectionheader-content-container-descriptionn {
-  width: 441px;
+  width: 541px;
   font-size: 14px;
   line-height: 17px;
   padding-top: 12px;
   padding-bottom: 20px;
+  max-height: 80px ;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+  /* background-color: red; */
+}
+.nftcollectionheader-content-container-descriptionn::-webkit-scrollbar,
+.nftcollectionheader-content-container-descriptionn {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  width: 100.5%;
+}
+.nftcollectionheader-content-container-descriptionn::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+  border-radius: 10px;
+}
+.nftcollectionheader-content-container-descriptionn::-webkit-scrollbar-track {
+  background: transparent; /* Set the track background */
+}
+
+.nftcollectionheader-content-container-descriptionn::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar */
+  border-radius: 10px; /* Set the border-radius */
+}
+
+.nftcollectionheader-content-container-descriptionn::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color when hovered */
 }
 .nftcollectionheader-content-wrap-stats-container {
   display: flex;
