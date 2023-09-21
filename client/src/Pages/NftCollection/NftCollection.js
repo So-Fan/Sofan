@@ -5,6 +5,9 @@ import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
 import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+import { useLocation } from "react-router-dom";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../Configs/firebase";
 import "./NftCollection.css";
 const NftCollection = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -20,7 +23,14 @@ const NftCollection = ({
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
+// Backend
+const [collectionBackendData, setCollectionBackendData] = useState([]);
+const [athleteDisplayName, setAthleteDisplayName] = useState([]);
 
+// Fetch url info
+const location = useLocation();
+const segments = location.pathname.split("/");
+const collectionAddress = segments[2];
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -311,7 +321,75 @@ const NftCollection = ({
 
     setDataConcat(data);
   }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const nftCollections = collection(db, "nft_collections");
+  //     const q = query(
+  //       nftCollections,
+  //       where("collection_address", "==", collectionAddress)
+  //     );
 
+  //     const querySnapshot = await getDocs(q);
+
+  //     const data = querySnapshot.docs.map((doc) => {
+  //       return {
+  //         collection_avatar: doc.data().collection_avatar,
+  //         collection_banner: doc.data().collection_banner,
+  //         athlete_id: doc.data().athlete_id,
+  //       };
+  //     });
+
+  //     setCollectionBackendData(data);
+  //   };
+
+  //   fetchData();
+  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      // Première requête pour obtenir les données de nft_collections
+      const nftCollections = collection(db, "nft_collections");
+      const nftQuery = query(
+        nftCollections,
+        where("collection_address", "==", collectionAddress)
+      );
+
+      const nftQuerySnapshot = await getDocs(nftQuery);
+
+      const nftData = nftQuerySnapshot.docs.map(doc => {
+        return {
+          collection_avatar: doc.data().collection_avatar,
+          collection_banner: doc.data().collection_banner,
+          collection_title: doc.data().collection_title,
+          collection_description: doc.data().collection_description,
+          athlete_id: doc.data().athlete_id // Supposons que chaque doc ait un champ athlete_id
+        };
+      });
+
+      setCollectionBackendData(nftData);
+
+      // Deuxième requête pour obtenir les données de users
+      const usersCollection = collection(db, "users");
+      const userQueries = nftData.map(({ athlete_id }) => {
+        const userQuery = query(
+          usersCollection,
+          where("id", "==", athlete_id)
+        );
+        return getDocs(userQuery);
+      });
+
+      const userQuerySnapshots = await Promise.all(userQueries);
+
+      const userData = userQuerySnapshots.map(snapshot => {
+        return snapshot.docs.map(doc => {
+          return { display_name: doc.data().display_name };
+        })[0]; // On prend le premier élément car id est unique
+      });
+
+      setAthleteDisplayName(userData);
+    };
+
+    fetchData();
+  }, [collectionAddress]);
   const displayNftCollectionProfileSubMenu = () => {
     if (isProfileSubMenuButtonClicked[0] === true) {
       return (
@@ -354,6 +432,8 @@ const NftCollection = ({
           collectionInfo={dataConcat?.collections[0]}
           collectionFloorPriceApiData={collectionFloorPriceApiData}
           ethPrice={ethPrice}
+          collectionBackendData={collectionBackendData}
+          athleteDisplayName={athleteDisplayName}
         />
         <ProfileSubMenu
           isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}

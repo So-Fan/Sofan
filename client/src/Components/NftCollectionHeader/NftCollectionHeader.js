@@ -8,7 +8,7 @@ import Modal from "../Modal/Modal";
 import PopupListNFT from "../PopupListNFT/PopupListNFT";
 import { Link } from "react-router-dom";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
-
+import { useLocation } from "react-router-dom";
 function NftCollectionHeader({
   collectionName,
   nftNumber,
@@ -48,7 +48,9 @@ function NftCollectionHeader({
   athleteId,
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
-
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const collectionAddress = segments[3];
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   function handleStyleButton() {
     // if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
@@ -69,7 +71,7 @@ function NftCollectionHeader({
       <div className="nft-collection-header-picture">
         {launchpadCollectionLiveHeader && (
           <>
-            <a href="/nftcollection">
+            <a href={`/nftcollection/${collectionAddress}`}>
               <button className="launchpad-collection-live-button-container">
                 Explorer la collection
               </button>

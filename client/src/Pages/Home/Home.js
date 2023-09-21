@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
-import FeedSideNavLink from "../../Components/FeedSideNavLink/FeedSideNavLink";
+// import FeedSideNavLink from "../../Components/FeedSideNavLink/FeedSideNavLink";
 import FavAthlete from "../../Components/FavAthlete/FavAthlete";
 import FeedSuggestions from "../../Components/FeedSuggestions/FeedSuggestions";
 import PostsFeed from "../../Components/PostsComponents/PostsFeed/PostsFeed";
 import FeedEvent from "../../Components/EventComponent/FeedEvent";
 import FeedLaunchpad from "../../Components/FeedLaunchpad/FeedLaunchpad";
-import World from "../../Assets/Image/world.svg";
-import Star from "../../Assets/Image/star.svg";
+// import World from "../../Assets/Image/world.svg";
+// import Star from "../../Assets/Image/star.svg";
 import Button from "../../Components/Button/Button";
 import CreationPostPoll from "../../Components/CreationPostPoll/CreationPostPoll";
 import Modal from "../../Components/Modal/Modal";
-import FullPagePost from "../FullPagePost/FullPagePost";
+// import FullPagePost from "../FullPagePost/FullPagePost";
 import { v4 as uuidv4 } from "uuid";
-import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
+// import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
 import { db } from "../../Configs/firebase";
@@ -354,7 +354,7 @@ function Home({
             className="home-navlink-create-post-wrap"
             style={
               isLogged?.account_type === "athlete"
-                ? { height: "138px" }
+                ? { height: "0px" }
                 : { height: "0px" }
             }
           >
