@@ -8,6 +8,7 @@ import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import { useLocation } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+// import { Alchemy, Network } from "alchemy-sdk";
 import "./NftCollection.css";
 const NftCollection = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -26,7 +27,7 @@ const NftCollection = ({
 // Backend
 const [collectionBackendData, setCollectionBackendData] = useState([]);
 const [athleteDisplayName, setAthleteDisplayName] = useState([]);
-
+const [totalOwnersForContract, setTotalOwnersForContract] = useState();
 // Fetch url info
 const location = useLocation();
 const segments = location.pathname.split("/");
@@ -109,6 +110,12 @@ const collectionAddress = segments[2];
     });
     // console.log(nftsTransferData.pageKey )
   }
+  async function getOwnersForContractFunction() {
+    const address = collectionAddress;
+    const response = await alchemy.nft.getOwnersForContract(address)
+    console.log(response)
+    setTotalOwnersForContract(response)
+  }
   useEffect(() => {
     getNft();
     getCollectionFloorPrice();
@@ -117,6 +124,7 @@ const collectionAddress = segments[2];
     // console.log(nftsFromOwner[0]?.contract?.totalSupply);
     // console.log(nftsFromOwner.length)
     getNftMinted();
+    getOwnersForContractFunction();
   }, []);
 
   // API Coingecko --> Get ETH price
@@ -434,6 +442,7 @@ const collectionAddress = segments[2];
           ethPrice={ethPrice}
           collectionBackendData={collectionBackendData}
           athleteDisplayName={athleteDisplayName}
+          totalOwnersForContract={totalOwnersForContract}
         />
         <ProfileSubMenu
           isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}

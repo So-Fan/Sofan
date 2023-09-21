@@ -15,12 +15,15 @@ const NftCollectionPageHeader = ({
   hidePrice,
   collectionBackendData,
   athleteDisplayName,
+  totalOwnersForContract,
+  collectionAddress
 }) => {
   // let floorPriceEur = collectionFloorPriceApiData * ethPrice
   let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString(
     "fr-FR",
     { maximumFractionDigits: 2 }
   );
+  console.log("totalOwnersForContract --> ",totalOwnersForContract?.owners.length)
   return (
     <div className="nftcollectionheader-component">
       <div className="nftcollectionheader-bannerandprofilepicture-wrap">
@@ -102,7 +105,7 @@ const NftCollectionPageHeader = ({
 
             <div className="nftcollectionheader-content-wrap-stats-wrap nftcollectionheader-content-wrap-stats-wrap-3">
               <span className="nftcollectionheader-content-wrap-stats-wrap-value">
-                {collectionInfo?.Owners}
+                {totalOwnersForContract?.owners.length}
               </span>
               <span className="nftcollectionheader-content-wrap-stats-wrap-name">
                 Owners
