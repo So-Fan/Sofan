@@ -23,7 +23,7 @@ const NftCollectionPageHeader = ({
     "fr-FR",
     { maximumFractionDigits: 2 }
   );
-  console.log("totalOwnersForContract --> ",totalOwnersForContract?.owners.length)
+  // console.log("totalOwnersForContract --> ",totalOwnersForContract?.owners.length)
   return (
     <div className="nftcollectionheader-component">
       <div className="nftcollectionheader-bannerandprofilepicture-wrap">
