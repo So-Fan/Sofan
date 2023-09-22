@@ -33,6 +33,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 import { useLocation } from "react-router-dom";
 import Web3 from "web3";
+import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
 const MemoProfileSubMenu = memo(ProfileSubMenu);
 const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
 const MemoAthleteProfileFeed = memo(
@@ -241,13 +242,40 @@ const AthleteProfilePage = ({
 
     setTransferNftDataApi(nftsTransferData);
   }
-  async function getOwnersForContract() {
-    // Mettre une boucle pour récupérer toutes les collections de l'athlete pour mettre le compteurs de fans à jour
-    const owners = await alchemy.nft.getOwnersForContract(
-      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+
+  const getAthleteInfo = async () => {
+    let tempAllAthleteCollection = [];
+    const q = query(
+      collection(db, "nft_collections"),
+      where("athlete_id", "==", athleteId)
     );
-    setFansCounterApi(owners?.owners?.length);
-  }
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        const tempNftcollectionInfo = doc.data();
+        tempAllAthleteCollection.push(tempNftcollectionInfo);
+      });
+    } else {
+      console.log("No collection found");
+    }
+    let tempAthleteFans = [];
+    for (let i = 0; i < tempAllAthleteCollection.length; i++) {
+      const element = tempAllAthleteCollection[i];
+      const allAthleteCollectionOwners = await alchemy.nft.getOwnersForContract(
+        element.collection_address
+      );
+      // console.log(allAthleteCollectionOwners.owners);
+      for (let i = 0; i < allAthleteCollectionOwners.owners.length; i++) {
+        const elementFromAlchemy = allAthleteCollectionOwners.owners[i];
+        tempAthleteFans.push(elementFromAlchemy);
+      }
+    }
+    // console.log(tempAllAthleteCollection);
+    const athletefans = removeDuplicatesFromArray(tempAthleteFans);
+    // console.log(allAthleteCollection);
+    setFansCounterApi(athletefans.length);
+  };
 
   const availableNft = async () => {
     // Get all collection from this athlete
@@ -304,14 +332,19 @@ const AthleteProfilePage = ({
       getAvailableNft();
     }
   }, [arrayAthleteCollection]);
+
+  useEffect(() => {
+    if (userInfo) {
+      getNftsFromOwner();
+    }
+  }, [userInfo]);
   useEffect(() => {
     try {
       // getNft();
       // getCollectionFloorPrice();
-      getNftsFromOwner();
+      getAthleteInfo();
       availableNft();
       getTransferData();
-      getOwnersForContract();
     } catch (err) {
       console.log(err);
     }
