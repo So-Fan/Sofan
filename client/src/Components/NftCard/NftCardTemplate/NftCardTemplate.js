@@ -25,7 +25,7 @@ const NftCardTemplate = ({
       style={isTransparent && { visibility: "hidden" }}
     >
       <div className="nftcardtemplate-image-wrap">
-        <img src={nftsFromOwnerImage} alt="NFT" />
+        {nftsFromOwnerImage ? <img src={nftsFromOwnerImage} alt="NFT" />: <div className="nftcardtemplate-when-no-image">PAS D'IMAGE</div>}
       </div>
       <div className="nftcardtemplate-container-content">
         <span className="nftcardtemplate-container-content-athletename">
