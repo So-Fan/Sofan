@@ -14,9 +14,19 @@
   max-height: 686px; /* A modif*/
   padding-top: 50px;
 }
-.home-left-separation-line{
+.home-left-separation-line {
   border: 0.3px solid rgba(0, 0, 0, 0.1);
-
+}
+.home-legals-mentions-container {
+  font-size: 13px;
+}
+.home-legals-mentions-container a {
+  text-decoration: underline;
+  color: black;
+}
+.home-legals-mentions-container a:hover {
+  color: #f6d463;
+  transition-duration: 200ms;
 }
 .home-navlink-create-post-wrap {
   display: flex;
@@ -175,7 +185,7 @@
   .home-left-container {
     /* min-height: 420px; */
     display: flex;
-    flex-direction: column-reverse;
+    /* flex-direction: column-reverse; */
     max-height: 492px;
     padding-top: 70px;
     /* background-color: red; */

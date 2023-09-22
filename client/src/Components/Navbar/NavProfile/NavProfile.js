@@ -54,12 +54,11 @@ const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
           >
             Voir profil
           </Link>
+          <div className="navbar-dropdown-separation-line"></div>
           <Link to="/settings">Settings</Link>
-          <Link to="/cgu">
-            Mentions
-            <br />
-            légales
-          </Link>
+          <div className="navbar-dropdown-separation-line"></div>
+          <Link to="/cgu">CGU</Link>
+          <div className="navbar-dropdown-separation-line"></div>
           <Link
             onClick={handleSignOut}
             // to="/"

@@ -364,7 +364,7 @@ function App() {
                         </svg>
                       </div>
                       <div className="app-sofan-block-access-mentions-legales">
-                         <a target="_blank" href="/mentions-legales">© Sofan</a> Tout droits
+                         <a target="_blank" href="/mentions-legales">© 2023 Sofan</a> Tout droits
                         réservés
                       </div>
                     </div>
@@ -495,7 +495,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/nftcollection" element={<NftCollection />} />
+              <Route path="/nftcollection/:id" element={<NftCollection />} />
               <Route
                 path="/nftsingle/:contractAddress/:nftId"
                 element={<NftSingle />}
