@@ -23,6 +23,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import Web3 from "web3";
 import { concatStringFromTo } from "../../Utils/concatString";
+import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -76,6 +77,7 @@ const NftSingle = () => {
     useState();
   const [currentTokenIdOwner, setCurrentTokenIdOwner] = useState();
   const [currentNFTCollectionInfo, setCurrentNFTCollectionInfo] = useState();
+  const [athleteFanNumber, setAthleteFanNumber] = useState(null);
   const location = useLocation();
   const segments = location.pathname.split("/");
   const collectionAddress = segments[2];
@@ -199,6 +201,7 @@ const NftSingle = () => {
       } else {
         console.log("No collection found");
       }
+      // console.log(nftCollectionInfo);
       let currentNftCollectionInfo;
       for (let i = 0; i < nftCollectionInfo.length; i++) {
         const element = nftCollectionInfo[i];
@@ -226,11 +229,34 @@ const NftSingle = () => {
             ...userInfo,
           };
           setCurrentAthleteCollectionCreator(AllUserInfo);
-          console.log(AllUserInfo);
+          // console.log(AllUserInfo);
         });
       } else {
         console.log("No user found");
       }
+
+      // Get all collection for the owner => get the fan amount
+      let tempAllAthleteCollection = [];
+      for (let i = 0; i < nftCollectionInfo.length; i++) {
+        const element = nftCollectionInfo[i];
+        // console.log(element);
+        if (element.athlete_id === currentNftCollectionInfo.athlete_id) {
+          // console.log("i'm in");
+          const allAthleteCollectionOwners =
+            await alchemy.nft.getOwnersForContract(element.collection_address);
+          // console.log(allAthleteCollectionOwners.owners);
+          for (let i = 0; i < allAthleteCollectionOwners.owners.length; i++) {
+            const elementFromAlchemy = allAthleteCollectionOwners.owners[i];
+            tempAllAthleteCollection.push(elementFromAlchemy);
+          }
+        }
+      }
+      // console.log(tempAllAthleteCollection);
+      const allAthleteCollection = removeDuplicatesFromArray(
+        tempAllAthleteCollection
+      );
+      // console.log(allAthleteCollection);
+      setAthleteFanNumber(allAthleteCollection.length);
     };
     getAthleteInfo();
   }, []);
@@ -1144,7 +1170,7 @@ const NftSingle = () => {
                 currentNftCollectionInfoFromBackend?.know_more_athlete_description
               }
               athleteId={currentAthleteCollectionCreator?.id}
-              knowMoreAboutAthleteFanNumber={0}
+              knowMoreAboutAthleteFanNumber={athleteFanNumber}
             />
           </div>
           <NftCollectionMoreAboutNft
