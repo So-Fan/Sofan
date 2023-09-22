@@ -158,6 +158,7 @@ const NftSingle = () => {
         console.log("user not found");
       }
     }
+    // console.log(currentOwnerOfToken);
     setCurrentTokenIdOwner(currentOwnerOfToken);
   }
 
@@ -1019,6 +1020,8 @@ const NftSingle = () => {
     <>
       <section className="nft-single-collection-page-container">
         <NftCollectionHeader
+          athleteId={currentAthleteCollectionCreator?.id}
+          currentOwnerInfo={currentTokenIdOwner}
           creatorName={currentAthleteCollectionCreator?.display_name}
           creatorProfilePic={currentAthleteCollectionCreator?.profile_avatar}
           ownerName={
