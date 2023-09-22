@@ -8,6 +8,7 @@ import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import { useLocation } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+// import { Alchemy, Network } from "alchemy-sdk";
 import "./NftCollection.css";
 const NftCollection = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -23,18 +24,19 @@ const NftCollection = ({
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
-// Backend
-const [collectionBackendData, setCollectionBackendData] = useState([]);
-const [athleteDisplayName, setAthleteDisplayName] = useState([]);
-
-// Fetch url info
-const location = useLocation();
-const segments = location.pathname.split("/");
-const collectionAddress = segments[2];
+  const [totalOwnersForContract, setTotalOwnersForContract] = useState();
+  const [nftsFromCollection, setNftsFromCollection] = useState();
+  // Backend
+  const [collectionBackendData, setCollectionBackendData] = useState([]);
+  const [athleteDisplayName, setAthleteDisplayName] = useState([]);
+  // Fetch url info
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const collectionAddress = segments[2];
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_MAINNET,
+    network: Network.ETH_GOERLI,
     maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);
@@ -109,14 +111,29 @@ const collectionAddress = segments[2];
     });
     // console.log(nftsTransferData.pageKey )
   }
+  async function getOwnersForContractFunction() {
+    const address = collectionAddress;
+    const response = await alchemy.nft.getOwnersForContract(address);
+    console.log(response);
+    setTotalOwnersForContract(response);
+  }
+  async function getNftsForContractFunction() {
+    const response = await alchemy.nft.getNftsForContract(collectionAddress);
+
+    //Logging the response to the console
+    // console.log("response ---> ",response?.nfts);
+    setNftsFromCollection(response?.nfts)
+  }
   useEffect(() => {
-    getNft();
-    getCollectionFloorPrice();
-    getNftsForOwner();
-    getTransferData();
+    // getNft();
+    // getCollectionFloorPrice();
+    // getNftsForOwner();
+    // getTransferData();
     // console.log(nftsFromOwner[0]?.contract?.totalSupply);
     // console.log(nftsFromOwner.length)
-    getNftMinted();
+    // getNftMinted();
+    getOwnersForContractFunction();
+    getNftsForContractFunction();
   }, []);
 
   // API Coingecko --> Get ETH price
@@ -355,13 +372,13 @@ const collectionAddress = segments[2];
 
       const nftQuerySnapshot = await getDocs(nftQuery);
 
-      const nftData = nftQuerySnapshot.docs.map(doc => {
+      const nftData = nftQuerySnapshot.docs.map((doc) => {
         return {
           collection_avatar: doc.data().collection_avatar,
           collection_banner: doc.data().collection_banner,
           collection_title: doc.data().collection_title,
           collection_description: doc.data().collection_description,
-          athlete_id: doc.data().athlete_id // Supposons que chaque doc ait un champ athlete_id
+          athlete_id: doc.data().athlete_id, // Supposons que chaque doc ait un champ athlete_id
         };
       });
 
@@ -370,17 +387,14 @@ const collectionAddress = segments[2];
       // Deuxième requête pour obtenir les données de users
       const usersCollection = collection(db, "users");
       const userQueries = nftData.map(({ athlete_id }) => {
-        const userQuery = query(
-          usersCollection,
-          where("id", "==", athlete_id)
-        );
+        const userQuery = query(usersCollection, where("id", "==", athlete_id));
         return getDocs(userQuery);
       });
 
       const userQuerySnapshots = await Promise.all(userQueries);
 
-      const userData = userQuerySnapshots.map(snapshot => {
-        return snapshot.docs.map(doc => {
+      const userData = userQuerySnapshots.map((snapshot) => {
+        return snapshot.docs.map((doc) => {
           return { display_name: doc.data().display_name };
         })[0]; // On prend le premier élément car id est unique
       });
@@ -407,6 +421,8 @@ const collectionAddress = segments[2];
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+            nftsFromCollection={nftsFromCollection}
+            isNftCollectionPage={true}
           />
         </div>
       );
@@ -434,6 +450,7 @@ const collectionAddress = segments[2];
           ethPrice={ethPrice}
           collectionBackendData={collectionBackendData}
           athleteDisplayName={athleteDisplayName}
+          totalOwnersForContract={totalOwnersForContract}
         />
         <ProfileSubMenu
           isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}
