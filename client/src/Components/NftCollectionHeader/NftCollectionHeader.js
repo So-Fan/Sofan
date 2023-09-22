@@ -46,6 +46,7 @@ function NftCollectionHeader({
   isBuyListingButtonDisabled,
   listingPrice,
   athleteId,
+  currentOwnerInfo,
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
   const location = useLocation();
@@ -175,14 +176,18 @@ function NftCollectionHeader({
                       alt="Photo de profile Createur"
                     />
                   </div>
-                  <div className="nft-collection-header-owner-creator-title-and-name-creator">
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={`/athleteprofile/${athleteId}`}
+                    className="nft-collection-header-owner-creator-title-and-name-creator"
+                  >
                     <span className="nft-collection-header-owner-creator-title-creator">
                       Créateur
                     </span>
                     <span className="nft-collection-header-owner-creator-name-creator">
                       {creatorName}
                     </span>
-                  </div>
+                  </Link>
                 </div>
                 <div className="nft-collection-header-owner-container">
                   <div>
@@ -191,14 +196,34 @@ function NftCollectionHeader({
                       alt="Photo de profile Propriétaire"
                     />
                   </div>
-                  <div className="nft-collection-header-owner-creator-title-and-name-owner">
-                    <span className="nft-collection-header-owner-creator-title-owner">
-                      Propriétaire
+                  {currentOwnerInfo?.account_type !== "athlete" &&
+                  currentOwnerInfo?.account_type !== "free" ? (
+                    <span className="nft-collection-header-owner-creator-title-and-name-owner">
+                      <span className="nft-collection-header-owner-creator-title-owner">
+                        Propriétaire
+                      </span>
+                      <span className="nft-collection-header-owner-creator-name-owner">
+                        {ownerName}
+                      </span>
                     </span>
-                    <span className="nft-collection-header-owner-creator-name-owner">
-                      {ownerName}
-                    </span>
-                  </div>
+                  ) : (
+                    <Link
+                      style={{ textDecoration: "none", color: "black" }}
+                      to={
+                        currentOwnerInfo?.account_type === "athlete"
+                          ? `/athleteprofile/${currentOwnerInfo.id}`
+                          : `/userprofile/${currentOwnerInfo.id}`
+                      }
+                      className="nft-collection-header-owner-creator-title-and-name-owner"
+                    >
+                      <span className="nft-collection-header-owner-creator-title-owner">
+                        Propriétaire
+                      </span>
+                      <span className="nft-collection-header-owner-creator-name-owner">
+                        {ownerName}
+                      </span>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
