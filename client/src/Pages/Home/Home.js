@@ -66,6 +66,7 @@ function Home({
   const [athletesSupportingData, setAthletesSupportingData] = useState([]);
   const [isSupportingOrFollowingAthlete, setIsSupportingOrFollowingAthlete] =
     useState();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
       return true;
@@ -334,7 +335,20 @@ function Home({
     getNftsForOwner();
   }, [isLogged]);
   // console.log("nftsFromOwner --> ",nftsFromOwner, "athletesSupportingData --> ",athletesSupportingData)
-  console.log(athletesSupportingData);
+  // console.log(athletesSupportingData);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    }
+    
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+  
+  // console.log(windowWidth);
   return (
     <>
       <section className="home-component">
@@ -342,7 +356,7 @@ function Home({
           className="home-left-container"
           style={
             isLogged?.account_type === "athlete"
-              ? { height: "686px", maxHeight: "686px" }
+              ? windowWidth < 950 ? {height:"500px"}: { height: "726px", maxHeight: "726px" }
               : athletesFollowing.length === 0 &&
                 athletesSupportingData.length === 0
               ? { height: "398px" }
@@ -410,6 +424,9 @@ function Home({
             suggestionsAthletes={suggestionsAthletes}
             athletesSupportingData={athletesSupportingData}
           />
+          <div style={loggedInUser?.account_type === "free" ? {paddingTop:"15px"}:{}} className="home-legals-mentions-container">
+            <a target="_blank" href="/mentions-legales">© 2023 Sofan</a> Tout droits réservés
+          </div>
         </div>
         <div className="home-center-container">
           <div>
@@ -447,7 +464,7 @@ function Home({
                       handleClickCopyPostLink={handleClickCopyPostLink}
                       postFeedHomeStyle={true}
                       postCommentNumber={commentCounts[post.id] || 0}
-                      userType={loggedInUser?.account_type}
+                      userType={loggedInUser?. account_type}
                       commentCounterIncrementLocal={
                         commentCounterIncrementLocal
                       }

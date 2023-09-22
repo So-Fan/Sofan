@@ -1,0 +1,50 @@
+.legals-mentions-page-container {
+  /* background-color: red; */
+  margin-top: 91px;
+  width: 80%;
+  height: 100%;
+}
+.legals-mentions-page-title {
+  padding: 30px;
+  font-size: 25px;
+  font-family: "britanica-heavy";
+}
+.legals-mentions-page-company-registration {
+  width: 40%;
+  padding: 30px;
+  /* background-color: yellow; */
+  font-size: 20px;
+  font-family: "britanica-regular";
+  font-weight: 500;
+  text-align: justify;
+}
+.legals-mentions-page-contact {
+  padding: 30px;
+  /* display: flex; */
+  font-size: 20px;
+}
+.legals-mentions-page-contact div {
+  font-family: "britanica-heavy";
+  padding-bottom: 10px;
+}
+.legals-mentions-page-publication-director {
+  padding: 30px;
+  /* display: flex; */
+  font-size: 20px;
+}
+.legals-mentions-page-publication-director div {
+  font-family: "britanica-heavy";
+  padding-bottom: 10px;
+}
+.legals-mentions-page-hosting {
+  padding: 30px;
+  /* display: flex; */
+  font-size: 20px;
+  width: 40%;
+  text-align: justify;
+
+}
+.legals-mentions-page-hosting div {
+  font-family: "britanica-heavy";
+  padding-bottom: 10px;
+}

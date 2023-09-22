@@ -151,6 +151,7 @@ const Navbar = ({
                     src={SofanLogo2}
                     alt="Sofan"
                   />
+                  <div className="navbar-main-logo-beta">beta</div>
                 </a>{" "}
                 <Searchbar />
               </div>
