@@ -105,7 +105,7 @@ function NftCollectionMoreAboutNft({
   };
   //
   // function NftCollectionMoreAboutNft({ nftCard }) {
-
+  // console.log(nftsFromContract);
   return (
     <section className="nft-collection-more-about-nft-container">
       <div className="nft-collection-more-about-nft-wrap">

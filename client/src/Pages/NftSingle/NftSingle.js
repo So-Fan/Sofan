@@ -21,6 +21,8 @@ import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import { useLocation } from "react-router-dom";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+import Web3 from "web3";
+import { concatStringFromTo } from "../../Utils/concatString";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -66,13 +68,19 @@ const NftSingle = () => {
   const [displayPopUpAddFundToWallet, setDisplayPopUpAddFundToWallet] =
     useState();
   const [currentBalance, setCurrentBalance] = useState(null);
-  const [currentNftCollectionInfoState, setCurrentNftCollectionInfoState] =
+  const [
+    currentNftCollectionInfoFromBackend,
+    setCurrentNftCollectionInfoFromBackend,
+  ] = useState();
+  const [currentAthleteCollectionCreator, setCurrentAthleteCollectionCreator] =
     useState();
-  const [currentAthleteCollectionOwner, setCurrentAthleteCollectionOwner] =
-    useState();
+  const [currentTokenIdOwner, setCurrentTokenIdOwner] = useState();
+  const [currentNFTCollectionInfo, setCurrentNFTCollectionInfo] = useState();
   const location = useLocation();
   const segments = location.pathname.split("/");
   const collectionAddress = segments[2];
+  const tokenId = segments[3];
+  // console.log(typeof collectionAddress);
   const {
     setContractAddress,
     state: { contract, accounts, web3 },
@@ -81,8 +89,8 @@ const NftSingle = () => {
 
   // Api Alchemy setup
   const settings = {
-    apiKey: "8Q5rQrlFWbV8Gg29S9DWYG2RStuOfANJ ",
-    network: Network.ETH_MAINNET,
+    apiKey: "8Q5rQrlFWbV8Gg29S9DWYG2RStuOfANJ",
+    network: Network.ETH_GOERLI,
     maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);
@@ -95,17 +103,77 @@ const NftSingle = () => {
     setNftsFromContract(nftsFromContract?.nfts);
   }
 
+  async function getNftMetadata() {
+    const currentNftMetadata = await alchemy.nft.getNftMetadata(
+      collectionAddress,
+      tokenId
+    );
+    console.log(currentNftMetadata);
+    setCurrentNFTCollectionInfo(currentNftMetadata);
+  }
+
+  async function getCurrentOwnerInfo() {
+    // API Infura
+    const web3Instance = new Web3(
+      new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
+    );
+    const { abi } = require("../../contracts/SofanNft.json");
+    const contractInfura = new web3Instance.eth.Contract(
+      abi,
+      `${collectionAddress}`
+    );
+    const currentOwnerAddress = await contractInfura.methods
+      .ownerOf(tokenId)
+      .call();
+    console.log(currentOwnerAddress);
+    const q = query(
+      collection(db, "users"),
+      where("metamask", "==", currentOwnerAddress)
+    );
+    const q2 = query(
+      collection(db, "users"),
+      where("web3auth", "==", currentOwnerAddress)
+    );
+    let currentOwnerOfToken;
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        const currentOwnerOfTokenData = doc.data();
+        currentOwnerOfToken = currentOwnerOfTokenData;
+      });
+    } else {
+      const querySnapshot = await getDocs(q2);
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const currentOwnerOfTokenData = doc.data();
+          currentOwnerOfToken = currentOwnerOfTokenData;
+        });
+      } else {
+        currentOwnerOfToken = {
+          externalWallet: currentOwnerAddress,
+          profile_avatar:
+            "https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_avatar%2FEllipse%2045.png?alt=media&token=bde0f1b1-7d06-4eea-877c-d8916e1f9032",
+        };
+        console.log("user not found");
+      }
+    }
+    setCurrentTokenIdOwner(currentOwnerOfToken);
+  }
+
+  // useless ?
   async function getNftPicture() {
     const nftsFromContract = await alchemy.nft.getNftMetadata(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
       "15"
     );
-    // console.log(nftsFromContract?.media[0]?.gateway)
     setNftPicture(nftsFromContract?.media[0]?.gateway);
     setNftIdApi(nftsFromContract?.tokenId);
   }
-  // API Coingecko price ETH
+
   useEffect(() => {
+    getCurrentOwnerInfo();
+    getNftMetadata();
     getNftsFromContract();
     getNftPicture();
     fetch(
@@ -118,10 +186,6 @@ const NftSingle = () => {
 
   useEffect(() => {
     const getAthleteInfo = async () => {
-      console.log(collectionAddress);
-      console.log(
-        collectionAddress === "0x6F7A8769007A91F3a28b42d1b6f6306c9bEE8D28"
-      );
       let nftCollectionInfo = [];
       const q = query(collection(db, "nft_collections"));
       const querySnapshot = await getDocs(q);
@@ -129,10 +193,8 @@ const NftSingle = () => {
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           const tempNftcollectionInfo = doc.data();
-          // console.log(nftcollectionInfo);
           nftCollectionInfo.push(tempNftcollectionInfo);
         });
-        console.log(nftCollectionInfo);
       } else {
         console.log("No collection found");
       }
@@ -148,12 +210,12 @@ const NftSingle = () => {
           break;
         }
       }
-      setCurrentNftCollectionInfoState(currentNftCollectionInfo);
-      // TODO: prendre le ref id et chercher le display name
+      setCurrentNftCollectionInfoFromBackend(currentNftCollectionInfo);
+      console.log(currentNftCollectionInfo);
       const q2 = query(
         collection(db, "users"),
         where("id", "==", currentNftCollectionInfo.athlete_id)
-      ); // Use the correct parameter name here
+      );
       const querySnapshot2 = await getDocs(q2);
 
       if (!querySnapshot2.empty) {
@@ -162,12 +224,10 @@ const NftSingle = () => {
           const AllUserInfo = {
             ...userInfo,
           };
-          // Do something with the user info
-          setCurrentAthleteCollectionOwner(AllUserInfo);
+          setCurrentAthleteCollectionCreator(AllUserInfo);
           console.log(AllUserInfo);
         });
       } else {
-        // Handle case when no user is found with the given ID
         console.log("No user found");
       }
     };
@@ -955,45 +1015,49 @@ const NftSingle = () => {
 
   //   init();
   // }, [accounts, isNFTOwner, isNFTListed]);
-
   return (
     <>
       <section className="nft-single-collection-page-container">
         <NftCollectionHeader
-          collectionName={
-            dataSinglePageNftCollection.headerData[0].collectionName
+          creatorName={currentAthleteCollectionCreator?.display_name}
+          creatorProfilePic={currentAthleteCollectionCreator?.profile_avatar}
+          ownerName={
+            currentTokenIdOwner?.display_name != ""
+              ? currentTokenIdOwner?.display_name
+              : concatStringFromTo(
+                  currentTokenIdOwner?.externalWallet,
+                  0,
+                  4,
+                  true,
+                  true,
+                  4
+                )
           }
-          nftNumber={dataSinglePageNftCollection.headerData[0].nftNumber}
-          creatorName={dataSinglePageNftCollection.headerData[0].creatorName}
-          creatorProfilePic={
-            dataSinglePageNftCollection.headerData[0].creatorProfilePic
-          }
-          ownerName={dataSinglePageNftCollection.headerData[0].ownerName}
-          ownerProfilePic={
-            dataSinglePageNftCollection.headerData[0].ownerProfilePic
-          }
+          ownerProfilePic={currentTokenIdOwner?.profile_avatar}
           //
-          nftPriceEth={apiOpenSea[0].nftPriceEth}
-          nftPriceEur={apiOpenSea[0].nftPriceEur}
-          nftBidEth={apiOpenSea[0].nftBidEth}
-          nftBifEur={apiOpenSea[0].nftBidEur}
+          // nftPriceEth={apiOpenSea[0].nftPriceEth}
+          // nftPriceEur={apiOpenSea[0].nftPriceEur}
+          // nftBidEth={apiOpenSea[0].nftBidEth}
+          // nftBifEur={apiOpenSea[0].nftBidEur}
           // Api Alchemy
-          // collectionNameApi={collectionNameApi} TODO: Call SC to get collection name
-          nftIdApi={nftIdApi}
-          nftPicture={nftPicture}
+          collectionNameApi={
+            currentNftCollectionInfoFromBackend?.collection_title
+          }
+          nftIdApi={currentNFTCollectionInfo?.tokenId}
+          nftPicture={currentNFTCollectionInfo?.media[0].raw}
           // Api CoinGecko
           ethPrice={ethPrice}
           //
-          handleBuyNftButtonClick={handleBuyNftButtonClick} // Buy Now
-          handleBidNftButtonClick={handleBidNftButtonClick} // place a bid
-          handleListNftButton={handleListNftButton} // list
-          isNFTOwner={isNFTOwner} // comparer wallet de la session utilisateur et propriétaire du nft
-          isNFTListed={isNFTListed} // check listing status on contract
-          handleUnlistButton={handleUnlistButton} // unlist
-          // Change CSS
-          isBuyListingButtonDisabled={isBuyListingButtonDisabled}
-          // Pass Blockchain Data
-          listingPrice={listingPrice}
+          // handleBuyNftButtonClick={handleBuyNftButtonClick} // Buy Now
+          // handleBidNftButtonClick={handleBidNftButtonClick} // place a bid
+          // handleListNftButton={handleListNftButton} // list
+          // isNFTOwner={isNFTOwner} // comparer wallet de la session utilisateur et propriétaire du nft
+          // isNFTListed={isNFTListed} // check listing status on contract
+          // handleUnlistButton={handleUnlistButton} // unlist
+          // // Change CSS
+          // isBuyListingButtonDisabled={isBuyListingButtonDisabled}
+          // // Pass Blockchain Data
+          // listingPrice={listingPrice}
         />
         <div className="nft-single-collection-page-left-container">
           {/* {isSubMenuClicked[0] ? <>
@@ -1011,14 +1075,14 @@ const NftSingle = () => {
             className="nft-single-collection-page-submenu-container"
           >
             <NftCollectionSubMenu
-              handleClickSubMenuButton={handleClickSubMenuButton}
-              isSubMenuClicked={isSubMenuClicked}
-              nftsPropertiesCounter={
-                dataSinglePageNftCollection.propertiesData[0].properties.length
-              }
-              //
-              isNftPropertiesExist={isNftPropertiesExist}
-              setIsNftPropertiesExist={setIsNftPropertiesExist}
+            // handleClickSubMenuButton={handleClickSubMenuButton}
+            // isSubMenuClicked={isSubMenuClicked}
+            // nftsPropertiesCounter={
+            //   dataSinglePageNftCollection.propertiesData[0].properties.length
+            // }
+            //
+            // isNftPropertiesExist={isNftPropertiesExist}
+            // setIsNftPropertiesExist={setIsNftPropertiesExist}
             />
           </div>
           {isSubMenuClicked[0] && (
@@ -1026,24 +1090,24 @@ const NftSingle = () => {
               utilitiesArray={
                 dataSinglePageNftCollection.overviewData[0].utilities
               }
-              moreAboutCollectionArray={
-                dataSinglePageNftCollection.overviewData[0].moreAboutCollection
+              knowMoreAboutCollection={
+                currentNftCollectionInfoFromBackend?.know_more_collection
               }
-              latestBidsArray={
-                dataSinglePageNftCollection.overviewData[0].latestBids
-              }
+              // latestBidsArray={
+              //   dataSinglePageNftCollection.overviewData[0].latestBids
+              // }
               ethPrice={ethPrice}
             />
           )}
-          {isSubMenuClicked[1] && (
+          {/* {isSubMenuClicked[1] && (
             <NftCollectionProperties
               properties={
                 dataSinglePageNftCollection.propertiesData[0].properties
               }
               isNftPropertiesExist={isNftPropertiesExist}
             />
-          )}
-          {isSubMenuClicked[2] && (
+          )} */}
+          {/* {isSubMenuClicked[2] && (
             <NftCollectionLatestsBids
               latestBidsArray={
                 dataSinglePageNftCollection.overviewData[0].latestBids
@@ -1051,8 +1115,8 @@ const NftSingle = () => {
               bidsSectionDeleteSpace={true}
               ethPrice={ethPrice}
             />
-          )}
-          {isSubMenuClicked[3] && (
+          )} */}
+          {/* {isSubMenuClicked[3] && (
             <>
               <div>
                 <NftCollectionHistory
@@ -1062,18 +1126,29 @@ const NftSingle = () => {
                 />
               </div>
             </>
-          )}
+          )} */}
           <div className="nft-single-collection-page-more-about-athlete-container">
             <NftCollectionMoreAboutAthlete
-              moreAbout={dataSinglePageNftCollection.moreAbout}
+              // moreAbout={dataSinglePageNftCollection.moreAbout}
+              knowMoreAboutAthleteDisplayName={
+                currentAthleteCollectionCreator?.display_name
+              }
+              knowMoreAboutAthleteProfileAvatar={
+                currentAthleteCollectionCreator?.profile_avatar
+              }
+              knowMoreAboutAthleteSport={currentAthleteCollectionCreator?.sport}
+              knowMoreAboutAthleteDescription={
+                currentNftCollectionInfoFromBackend?.know_more_athlete_description
+              }
+              athleteId={currentAthleteCollectionCreator?.id}
+              knowMoreAboutAthleteFanNumber={0}
             />
           </div>
           <NftCollectionMoreAboutNft
-            nftCard={dataSinglePageNftCollection.nftCard}
             nftsFromContract={nftsFromContract}
             hidePrice={true}
-            currentAthleteCollectionOwner={
-              currentAthleteCollectionOwner?.display_name
+            currentAthleteCollectionCreator={
+              currentAthleteCollectionCreator?.display_name
             }
           />
         </div>

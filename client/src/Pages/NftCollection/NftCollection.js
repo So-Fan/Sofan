@@ -17,20 +17,20 @@ const NftCollection = ({
   const [isProfileSubMenuButtonClicked, setIsProfileSubMenuButtonClicked] =
     useState([true, false, false, false]);
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
-  const [nftDataApi, setNftDataApi] = useState();
+  // const [nftDataApi, setNftDataApi] = useState();
   const [collectionFloorPriceApiData, setCollectionFloorPriceApiData] =
     useState();
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
-// Backend
-const [collectionBackendData, setCollectionBackendData] = useState([]);
-const [athleteDisplayName, setAthleteDisplayName] = useState([]);
+  // Backend
+  const [collectionBackendData, setCollectionBackendData] = useState([]);
+  const [athleteDisplayName, setAthleteDisplayName] = useState([]);
 
-// Fetch url info
-const location = useLocation();
-const segments = location.pathname.split("/");
-const collectionAddress = segments[2];
+  // Fetch url info
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const collectionAddress = segments[2];
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
@@ -39,28 +39,28 @@ const collectionAddress = segments[2];
   };
   const alchemy = new Alchemy(settings);
   async function getNft() {
-    const metadata = await alchemy.nft.getContractMetadata(
-      "0x5180db8F5c931aaE63c74266b211F580155ecac8"
-    );
-    const dataCollection = await alchemy.nft.getNftsForContract(
-      "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
-    );
-    const contractFromOwners = await alchemy.nft.getContractsForOwner(
-      "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03"
-    ); // BoredApe creator adress (not the contract)
-    const nfts = await alchemy.nft.getNftsForOwner("vitalik.eth");
-    setNftDataApi(nfts);
+    // const metadata = await alchemy.nft.getContractMetadata(
+    //   "0x5180db8F5c931aaE63c74266b211F580155ecac8"
+    // );
+    // const dataCollection = await alchemy.nft.getNftsForContract(
+    //   "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+    // );
+    // const contractFromOwners = await alchemy.nft.getContractsForOwner(
+    //   "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03"
+    // ); // BoredApe creator adress (not the contract)
+    // const nfts = await alchemy.nft.getNftsForOwner("vitalik.eth");
+    // setNftDataApi(nfts);
     // console.log(nfts);
   }
 
   // getFloorprice for Bored Ape Yacht Club:
   async function getCollectionFloorPrice() {
-    const alchemy = new Alchemy(settings);
-    const collectionFloorPrice = await alchemy.nft.getFloorPrice(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    );
-    // console.log(collectionFloorPrice.openSea.floorPrice)
-    setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
+    // const alchemy = new Alchemy(settings);
+    // const collectionFloorPrice = await alchemy.nft.getFloorPrice(
+    //   "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    // );
+    // // console.log(collectionFloorPrice.openSea.floorPrice)
+    // setCollectionFloorPriceApiData(collectionFloorPrice.openSea.floorPrice);
   }
 
   // get Nfts from Owner and Contracts
@@ -75,9 +75,9 @@ const collectionAddress = segments[2];
         ],
       } // filter
     );
-    const nftsSale = await alchemy.nft.getFloorPrice(
-      "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-    );
+    // const nftsSale = await alchemy.nft.getFloorPrice(
+    //   "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+    // );
     setNftsFromOwner(nftsFromOwner?.ownedNfts);
     // console.log(nftsFromOwner?.ownedNfts)
   }
@@ -92,21 +92,19 @@ const collectionAddress = segments[2];
       ],
       withMetadata: true,
     });
-
     setTransferNftDataApi(nftsTransferData);
   }
   async function getNftMinted() {
-    const nftsTransferData = await alchemy.core.getAssetTransfers({
-      fromAddress: "0x0000000000000000000000000000000000000000",
-      contractAddresses: [
-        // "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
-
-        "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
-      ],
-      excludeZeroValue: true,
-      category: ["erc721", "erc1155"],
-      // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"
-    });
+    // const nftsTransferData = await alchemy.core.getAssetTransfers({
+    //   fromAddress: "0x0000000000000000000000000000000000000000",
+    //   contractAddresses: [
+    //     // "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
+    //     "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+    //   ],
+    //   excludeZeroValue: true,
+    //   category: ["erc721", "erc1155"],
+    //   // pageKey:"31a37a38-7ff0-4094-9ab3-1fb744166171"
+    // });
     // console.log(nftsTransferData.pageKey )
   }
   useEffect(() => {
@@ -355,13 +353,13 @@ const collectionAddress = segments[2];
 
       const nftQuerySnapshot = await getDocs(nftQuery);
 
-      const nftData = nftQuerySnapshot.docs.map(doc => {
+      const nftData = nftQuerySnapshot.docs.map((doc) => {
         return {
           collection_avatar: doc.data().collection_avatar,
           collection_banner: doc.data().collection_banner,
           collection_title: doc.data().collection_title,
           collection_description: doc.data().collection_description,
-          athlete_id: doc.data().athlete_id // Supposons que chaque doc ait un champ athlete_id
+          athlete_id: doc.data().athlete_id, // Supposons que chaque doc ait un champ athlete_id
         };
       });
 
@@ -370,17 +368,14 @@ const collectionAddress = segments[2];
       // Deuxième requête pour obtenir les données de users
       const usersCollection = collection(db, "users");
       const userQueries = nftData.map(({ athlete_id }) => {
-        const userQuery = query(
-          usersCollection,
-          where("id", "==", athlete_id)
-        );
+        const userQuery = query(usersCollection, where("id", "==", athlete_id));
         return getDocs(userQuery);
       });
 
       const userQuerySnapshots = await Promise.all(userQueries);
 
-      const userData = userQuerySnapshots.map(snapshot => {
-        return snapshot.docs.map(doc => {
+      const userData = userQuerySnapshots.map((snapshot) => {
+        return snapshot.docs.map((doc) => {
           return { display_name: doc.data().display_name };
         })[0]; // On prend le premier élément car id est unique
       });

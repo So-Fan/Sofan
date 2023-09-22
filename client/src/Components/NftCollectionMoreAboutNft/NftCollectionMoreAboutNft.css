@@ -49,16 +49,26 @@
 .nft-collection-more-about-nft-title {
   font-size: 30px;
 }
-.nft-collection-more-about-title-button button {
+.nft-collection-more-about-title-button {
+  width: 110px !important;
+  height: 44px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nft-collection-more-about-title-button a {
   border: none;
   background: none;
   border-radius: 5px;
   background-color: #f6d463;
-  width: 110px;
-  height: 44px;
-  font-size: 20px;
+  width: 110px !important;
+  height: 44px !important;
+  font-size: 20px !important;
   font-family: "britanica-heavy";
   cursor: pointer;
   text-decoration: none;
   color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

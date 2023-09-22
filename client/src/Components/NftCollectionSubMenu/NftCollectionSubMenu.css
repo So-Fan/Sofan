@@ -20,7 +20,7 @@
   margin-left: 5px;
   margin-right: 5px;
 }
-.nft-collection-submenu-button:hover {
+/* .nft-collection-submenu-button:hover {
   opacity: 0.7;
   height: 40px;
   display: flex;
@@ -29,7 +29,7 @@
   background: #f6d463;
   border-radius: 10px;
   cursor: pointer;
-}
+} */
 .nft-collection-submenu-button-clicked {
   width: 150px;
   height: 15px;

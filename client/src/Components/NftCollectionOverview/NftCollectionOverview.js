@@ -3,13 +3,13 @@ import "./NftCollectionOverview.css";
 import UtilitiesComponent from "../UtilitiesComponent/UtilitiesComponent";
 import { v4 as uuidv4 } from "uuid";
 import NftCollectionLatestsBids from "../NftCollectionLatestsBids/NftCollectionLatestsBids";
-import MoreAboutThisCollection from "../MoreAboutThisCollection/MoreAboutThisCollection"
+import MoreAboutThisCollection from "../MoreAboutThisCollection/MoreAboutThisCollection";
 
 function NftCollectionOverview({
   utilitiesArray,
-  moreAboutCollectionArray,
+  knowMoreAboutCollection,
   latestBidsArray,
-  ethPrice
+  ethPrice,
 }) {
   return (
     <section className="nft-collection-overview-container">
@@ -25,19 +25,19 @@ function NftCollectionOverview({
           />
         ))}
       </div>
-      <div className="nft-collection-overview-price-evolution-container">
+      {/* <div className="nft-collection-overview-price-evolution-container">
         <div className="nft-collection-overview-price-evolution-title">
           Price evolution
         </div>
         <div className="nft-collection-overview-price-evolution-chart"></div>
-      </div>
+      </div> */}
       <MoreAboutThisCollection
-      moreAboutCollectionArray={moreAboutCollectionArray}
+        knowMoreAboutCollection={knowMoreAboutCollection}
       />
-      <NftCollectionLatestsBids
-      latestBidsArray={latestBidsArray}
-      ethPrice={ethPrice}
-      />
+      {/* <NftCollectionLatestsBids
+        latestBidsArray={latestBidsArray}
+        ethPrice={ethPrice}
+      /> */}
     </section>
   );
 }

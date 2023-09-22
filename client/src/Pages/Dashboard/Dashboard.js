@@ -15,7 +15,7 @@ function Dashboard() {
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_MAINNET,
+    network: Network.ETH_GOERLI,
     maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);

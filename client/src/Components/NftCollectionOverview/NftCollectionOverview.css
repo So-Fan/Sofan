@@ -1,6 +1,6 @@
 .nft-collection-overview-container {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   max-width: 620px;
   max-height: 1932px;
   display: flex;
@@ -28,14 +28,13 @@
 
 /* -----------------------------------------  */
 /* -----------------------------------------  */
-.nft-collection-overview-price-evolution-container {
+/* .nft-collection-overview-price-evolution-container {
   width: 100%;
   height: 406px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-top: 44px;
-  /* background-color: darkgreen; */
 }
 .nft-collection-overview-price-evolution-title {
   width: 100%;
@@ -46,14 +45,13 @@
   font-family: "britanica-heavy";
   font-size: 30px;
   margin-bottom: 22px;
-  /* background-color: blueviolet; */
 }
 .nft-collection-overview-price-evolution-chart {
   width: 614px;
   height: 348px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-}
+} */
 .nft-collection-overview-more-about-collection-container {
   max-width: 545px;
   height: 185px;
@@ -61,7 +59,6 @@
   justify-content: space-between;
   flex-direction: column;
   margin-top: 64px;
-  /* background-color: lightskyblue; */
 }
 .nft-collection-overview-more-about-collection-title {
   max-width: 100%;
