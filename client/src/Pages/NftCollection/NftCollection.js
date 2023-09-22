@@ -8,6 +8,7 @@ import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 import { useLocation } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+// import { Alchemy, Network } from "alchemy-sdk";
 import "./NftCollection.css";
 const NftCollection = ({
   setIsUSerProfileSeortBySelectorClicked,
@@ -23,10 +24,11 @@ const NftCollection = ({
   const [transferNftDataApi, setTransferNftDataApi] = useState();
   const [nftsSalesDataApi, setNftsSalesDataApi] = useState();
   const [ethPrice, setEthPrice] = useState(""); // API CoinGecko
+  const [totalOwnersForContract, setTotalOwnersForContract] = useState();
+  const [nftsFromCollection, setNftsFromCollection] = useState();
   // Backend
   const [collectionBackendData, setCollectionBackendData] = useState([]);
   const [athleteDisplayName, setAthleteDisplayName] = useState([]);
-
   // Fetch url info
   const location = useLocation();
   const segments = location.pathname.split("/");
@@ -34,7 +36,7 @@ const NftCollection = ({
   // Api Alchemy setup
   const settings = {
     apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_MAINNET,
+    network: Network.ETH_GOERLI,
     maxRetries: 10,
   };
   const alchemy = new Alchemy(settings);
@@ -107,14 +109,29 @@ const NftCollection = ({
     // });
     // console.log(nftsTransferData.pageKey )
   }
+  async function getOwnersForContractFunction() {
+    const address = collectionAddress;
+    const response = await alchemy.nft.getOwnersForContract(address);
+    console.log(response);
+    setTotalOwnersForContract(response);
+  }
+  async function getNftsForContractFunction() {
+    const response = await alchemy.nft.getNftsForContract(collectionAddress);
+
+    //Logging the response to the console
+    // console.log("response ---> ",response?.nfts);
+    setNftsFromCollection(response?.nfts);
+  }
   useEffect(() => {
-    getNft();
-    getCollectionFloorPrice();
-    getNftsForOwner();
-    getTransferData();
+    // getNft();
+    // getCollectionFloorPrice();
+    // getNftsForOwner();
+    // getTransferData();
     // console.log(nftsFromOwner[0]?.contract?.totalSupply);
     // console.log(nftsFromOwner.length)
-    getNftMinted();
+    // getNftMinted();
+    getOwnersForContractFunction();
+    getNftsForContractFunction();
   }, []);
 
   // API Coingecko --> Get ETH price
@@ -402,6 +419,8 @@ const NftCollection = ({
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
+            nftsFromCollection={nftsFromCollection}
+            isNftCollectionPage={true}
           />
         </div>
       );
@@ -429,6 +448,7 @@ const NftCollection = ({
           ethPrice={ethPrice}
           collectionBackendData={collectionBackendData}
           athleteDisplayName={athleteDisplayName}
+          totalOwnersForContract={totalOwnersForContract}
         />
         <ProfileSubMenu
           isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}
