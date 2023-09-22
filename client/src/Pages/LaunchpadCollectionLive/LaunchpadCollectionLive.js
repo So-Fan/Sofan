@@ -27,6 +27,7 @@ import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpStatus/MintPopUpStatus";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
+import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
 function LaunchpadCollectionLive(isLogged) {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
@@ -44,6 +45,9 @@ function LaunchpadCollectionLive(isLogged) {
   const [nftLimitByWalletInfo, setNftLimitByWalletInfo] = useState();
   const [totalPriceInUSDC, setTotalPriceInUSDC] = useState();
   const [mintCounter, setMintCounter] = useState(1);
+
+  const [athleteFanNumber, setAthleteFanNumber] = useState();
+
   const [
     launchpadCollectionLiveAthleteDataBackend,
     setLaunchpadCollectionLiveAthleteDataBackend,
@@ -422,6 +426,39 @@ function LaunchpadCollectionLive(isLogged) {
       }
     }
 
+    const getAthleteInfo = async () => {
+      let tempAllAthleteCollection = [];
+      const q = query(
+        collection(db, "nft_collections"),
+        where("athlete_id", "==", athleteId)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const tempNftcollectionInfo = doc.data();
+          tempAllAthleteCollection.push(tempNftcollectionInfo);
+        });
+      } else {
+        console.log("No collection found");
+      }
+      let tempAthleteFans = [];
+      for (let i = 0; i < tempAllAthleteCollection.length; i++) {
+        const element = tempAllAthleteCollection[i];
+        const allAthleteCollectionOwners =
+          await alchemy.nft.getOwnersForContract(element.collection_address);
+        // console.log(allAthleteCollectionOwners.owners);
+        for (let i = 0; i < allAthleteCollectionOwners.owners.length; i++) {
+          const elementFromAlchemy = allAthleteCollectionOwners.owners[i];
+          tempAthleteFans.push(elementFromAlchemy);
+        }
+      }
+      // console.log(tempAllAthleteCollection);
+      const athletefans = removeDuplicatesFromArray(tempAthleteFans);
+      // console.log(allAthleteCollection);
+      setAthleteFanNumber(athletefans.length);
+    };
+    getAthleteInfo();
     getAthleteInfoCollectionLive();
     getCollectionLiveAthleteData();
   }, []);
@@ -490,6 +527,7 @@ function LaunchpadCollectionLive(isLogged) {
           knowMoreAboutAthleteProfileAvatar={
             launchpadCollectionAthleteInfos[0]?.profile_avatar
           }
+          knowMoreAboutAthleteFanNumber={athleteFanNumber}
         />
       </section>
       {isMintButtonClicked && (
