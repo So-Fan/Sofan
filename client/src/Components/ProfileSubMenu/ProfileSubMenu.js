@@ -222,7 +222,7 @@ const ProfileSubMenu = ({
               }
             />
           </div>
-          <div
+          {/* <div
             className={
               isProfileSubMenuButtonClicked[6]
                 ? "profilesubmenu-wrap-clicked profilesubmenu-wrap"
@@ -238,7 +238,7 @@ const ProfileSubMenu = ({
                   : ProfileSubMenuButtonStyle.stylingNotClicked
               }
             />
-          </div>
+          </div> */}
         </>
       )}
       {/* ============================= */}
