@@ -6,12 +6,11 @@ import LeBron from "./fakeData/lebron.svg";
 import Mbappe from "./fakeData/mbappe.svg";
 import FeedSuggestionTemplate from "../FeedSuggestions/FeedSuggestionTemplate/FeedSuggestionTemplate";
 import { v4 as uuidv4 } from "uuid";
-const FavAthlete = ({
-  athletesFollowing,
-  athletesSupportingData,
-  isSupportingOrFollowingAthlete,
-  setIsSupportingOrFollowingAthlete,
-}) => {
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
+const FavAthlete = ({ athletesFollowing, athletesSupportingData }) => {
+  const { loggedInUser } = useUserCollection();
+  const [isSupportingOrFollowingAthlete, setIsSupportingOrFollowingAthlete] =
+    useState();
   const fakeArray = [
     {
       firstName: "James",
@@ -78,15 +77,36 @@ const FavAthlete = ({
   function handleDisplayFavAthlete() {
     if (athletesFollowing.length > 0 || athletesSupportingData.length > 0) {
       setIsSupportingOrFollowingAthlete(true);
+      console.log(
+        "isSupportingOrFollowingAthlete",
+        isSupportingOrFollowingAthlete
+      );
     } else {
       setIsSupportingOrFollowingAthlete(false);
+      // console.log(
+      //   "isSupportingOrFollowingAthlete",
+      //   isSupportingOrFollowingAthlete
+      // );
     }
   }
-
   useEffect(() => {
-    handleDisplayFavAthlete();
-    console.log(isSupportingOrFollowingAthlete);
-  }, [athletesFollowing.length, athletesSupportingData.length]);
+    if (athletesFollowing.length > 0 || athletesSupportingData.length > 0) {
+      setIsSupportingOrFollowingAthlete(true);
+      // console.log(
+      //   "isSupportingOrFollowingAthlete",
+      //   isSupportingOrFollowingAthlete
+      // );
+    } else if (
+      athletesFollowing.length < 1 ||
+      athletesSupportingData.length < 1
+    ) {
+      setIsSupportingOrFollowingAthlete(false);
+      console.log(
+        "isSupportingOrFollowingAthlete",
+        isSupportingOrFollowingAthlete
+      );
+    }
+  }, [athletesFollowing,athletesSupportingData]);
 
   return (
     <div

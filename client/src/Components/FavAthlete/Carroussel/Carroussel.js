@@ -86,15 +86,16 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
   // console.log("athletesSupportingData --> ",athletesSupportingData)
   useEffect(() => {
     if (athletesSupportingData.length + athletesFollowing.length === 2) {
-      console.log(
-        "il y a moins de 3 éléments --> ",
-        athletesFollowing.length + athletesSupportingData.length
-      );
+      // console.log(
+      //   "il y a moins de 3 éléments --> ",
+      //   athletesFollowing.length + athletesSupportingData.length
+      // );
       setIsTotalElementsEqualTwo(true);
     } else {
       setIsTotalElementsEqualTwo(false);
     }
   }, [athletesFollowing, athletesSupportingData]);
+  // console.log(athletesFollowing)
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">

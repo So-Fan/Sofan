@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -87,11 +86,8 @@ function App() {
   ] = useState();
   // const [profileSubMenuOffresClicked, setProfileSubMenuOffresClicked] =
   //   useState(false);
-  // console.log(window.location.pathname);
   const urlArraySplitted = window.location.pathname.split("/");
-  // console.log(urlArraySplitted)
   const urlFirstSegment = urlArraySplitted[1];
-  console.log(urlFirstSegment);
   function handleClickOutside(e) {
     // Navbar
     if (e.target.id === "navbar-user-profile-img") {
@@ -184,13 +180,13 @@ function App() {
   };
 
   //
-  function handleNotificationPopup(e) {
+  function handleNotificationPopup() {
     setIsNotificationButtonClicked(true);
   }
-  useEffect(() => {
-    if (loggedInUser?.username !== undefined) {
-    }
-  }, [loggedInUser]);
+  // useEffect(() => {
+  //   if (loggedInUser?.username !== undefined) {
+  //   }
+  // }, [loggedInUser]);
   const handlePopoUpSignUpSignInClick = () => {
     setIsSignUpButtonClicked(false);
     setIsSignInButtonClicked(true);
@@ -199,7 +195,6 @@ function App() {
     setIsSignInButtonClicked(false);
     setIsSignUpButtonClicked(true);
   };
-  // console.log(loggedInUser);
   const ref = useRef([]);
   const [items, set] = useState([]);
   const transitions = useTransition(items, {
@@ -217,29 +212,30 @@ function App() {
       { transform: "perspective(600px) rotateX(0deg)" },
     ],
     leave: [
-      // { color: "#c23369" },
       { color: "#c23369" },
       { innerHeight: 0 },
       { opacity: 0, height: 0 },
     ],
-    // update: { color: "#28b4d7" },
     update: { color: "#f6d463" },
   });
 
   const reset = useCallback(() => {
-    ref.current.forEach(clearTimeout);
-    ref.current = [];
-    set([]);
-    ref.current.push(setTimeout(() => set(["NFTs", "Sofan", ""]), 2000));
-    ref.current.push(setTimeout(() => set(["NFTs", "Sport"]), 5000));
-    ref.current.push(setTimeout(() => set(["NFTs", "Sofan", "Passion"]), 8000));
-  }, []);
+    if (isUserLogged === false || isUserLogged === undefined) {
+      ref.current.forEach(clearTimeout);
+      ref.current = [];
+      set([]);
+      ref.current.push(setTimeout(() => set(["NFTs", "Sofan", ""]), 2000));
+      ref.current.push(setTimeout(() => set(["NFTs", "Sport"]), 5000));
+      ref.current.push(
+        setTimeout(() => set(["NFTs", "Sofan", "Passion"]), 8000)
+      );
+    }
+  }, [isUserLogged]);
 
   useEffect(() => {
-    // console.log("etat de signup process--> ", isSignupProcessing);
     reset();
     return () => ref.current.forEach(clearTimeout);
-  }, []);
+  }, [isUserLogged]);
   return (
     <UserContext.Provider
       value={{
@@ -281,7 +277,7 @@ function App() {
                                     style={{
                                       overflow: "hidden",
                                       height: innerHeight,
-                                    }}
+                                    }}z
                                   >
                                     {item}
                                   </animated.div>
@@ -364,8 +360,10 @@ function App() {
                         </svg>
                       </div>
                       <div className="app-sofan-block-access-mentions-legales">
-                         <a target="_blank" href="/mentions-legales">© 2023 Sofan</a> Tout droits
-                        réservés
+                        <a target="_blank" href="/mentions-legales">
+                          © 2023 Sofan
+                        </a>{" "}
+                        Tout droits réservés
                       </div>
                     </div>
                   </div>

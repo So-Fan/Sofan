@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import "./PostsFeed.css";
 import HeadOfPost from "../HeadOfPost/HeadOfPost";
 import PostsDescription from "../PostsDescription/PostsDescription";
@@ -11,6 +11,30 @@ import { Link } from "react-router-dom";
 import Modal from "../../Modal/Modal";
 import PremiumContentLocked from "../../PremiumContentLocked/PremiumContentLocked";
 import PollPost from "../PollPost/PollPost";
+const MemoHeadOfPost = memo(HeadOfPost, (prevProps, nextProps)=> {
+  if (prevProps === nextProps) {
+        console.log("les props du post n'ont pas changés");
+        return true;
+      }
+      console.log("les props du post ont changés");
+      return false;
+})
+const MemoDescription = memo(PostsDescription, (prevProps, nextProps)=> {
+  if (prevProps === nextProps) {
+        console.log("les props du post n'ont pas changés");
+        return true;
+      }
+      console.log("les props du post ont changés");
+      return false;
+})
+const MemoLikesCommentsCounter = memo(LikesCommentsCounter, (prevProps, nextProps)=> {
+  if (prevProps === nextProps) {
+        console.log("les props du post n'ont pas changés");
+        return true;
+      }
+      console.log("les props du post ont changés");
+      return false;
+})
 function PostsFeed({
   handleDropdownPostFeedClick,
   isDropdownClicked,
@@ -93,6 +117,7 @@ function PostsFeed({
   // console.log("id de postfeed --> ",id)
   // console.log(postCommentNumber);
   //console.log(postPicture);
+
   return (
     <>
       <div
@@ -127,7 +152,7 @@ function PostsFeed({
           {isDropdownClicked && <DropDownMenu id={id} />}
           {/* <DropDownMenu/> */}
           <div className="publication-head-container">
-            <HeadOfPost
+            <MemoHeadOfPost
               // setPostStates={setPostStates}
               //
               dropDownMenuSize="dropdown-button-point-size-M"
@@ -149,7 +174,7 @@ function PostsFeed({
               userType={userType}
             />
           </div>
-          <PostsDescription
+          <MemoDescription
             postFeedDescription="post-feed-description-resize"
             postDescription={postDescription}
           />

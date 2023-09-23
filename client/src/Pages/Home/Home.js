@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useMemo, useCallback } from "react";
 import "./Home.css";
 // import FeedSideNavLink from "../../Components/FeedSideNavLink/FeedSideNavLink";
 import FavAthlete from "../../Components/FavAthlete/FavAthlete";
@@ -29,6 +29,15 @@ import {
   limit,
 } from "firebase/firestore";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+const MemoPostsFeed = memo(PostsFeed, (prevProps, nextProps) => {
+  // si les props ont changés
+  if (prevProps === nextProps) {
+    console.log("les props du post n'ont pas changés");
+    return true;
+  }
+  console.log("les props du post ont changés");
+  return false;
+});
 function Home({
   loggedInUser,
   setPostData,
@@ -64,8 +73,7 @@ function Home({
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
   const [athletesSupportingData, setAthletesSupportingData] = useState([]);
-  const [isSupportingOrFollowingAthlete, setIsSupportingOrFollowingAthlete] =
-    useState();
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   function handleDisplayPremiumContent(i) {
     if (isUserFan === false && dataPost[i]?.visibility === false) {
@@ -109,16 +117,16 @@ function Home({
     });
     // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
     return () => unsubscribe();
-  }, []);
+  }, [loggedInUser]);
 
   // retrouver les athletes suivis
   useEffect(() => {
     const userIdToFind = loggedInUser?.id;
 
     const usersRef = collection(db, "users");
-    const q = query(usersRef, where("account_type", "==", "athlete"));
+    const q1 = query(usersRef, where("account_type", "==", "athlete"));
 
-    const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+    const unsubscribe1 = onSnapshot(q1, async (querySnapshot) => {
       const foundAthletes = [];
       for (let doc of querySnapshot.docs) {
         const athleteId = doc.id;
@@ -153,27 +161,53 @@ function Home({
       }
       setAthletesFollowing(foundAthletes);
     });
+    // setIsLoading(true);
 
-    return () => unsubscribe();
+    // const feedPostCollectionRef = collection(db, "feed_post");
+    // const q2 = query(
+    //   feedPostCollectionRef,
+    //   where("status", "==", true),
+    //   orderBy("createdAt", "desc")
+    // );
+
+    // const unsubscribe2 = onSnapshot(q2, (querySnapshot) => {
+    //   const feedData = [];
+    //   querySnapshot.forEach((doc) => {
+    //     feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
+    //   });
+    //   setPostData(feedData);
+    //   setIsLoading(false);
+    //   feedData.forEach((post) => {
+    //     getCommentCount(post.id);
+    //   });
+    // });
+    // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
+    return () => {
+      unsubscribe1();
+      // unsubscribe2();
+    };
   }, [loggedInUser]);
 
   // retrouver les athlete supportés
 
-  const handleDropdownPostFeedClick = (e) => {
-    for (let i = 0; i < dataPost.length; i++) {
-      if (
-        e.currentTarget.id === dataPost[i].id &&
-        dataPost[i].isDropdownClicked === false
-      ) {
-        console.log(e.currentTarget.id);
-        console.log(dataPost[i].id);
-        const newData = [...dataPost];
-        newData[i].isDropdownClicked = true;
-        setPostData(newData);
-        setIsDropdownClicked(true);
+  const handleDropdownPostFeedClick = useCallback(
+    (e) => {
+      for (let i = 0; i < dataPost.length; i++) {
+        if (
+          e.currentTarget.id === dataPost[i].id &&
+          dataPost[i].isDropdownClicked === false
+        ) {
+          console.log(e.currentTarget.id);
+          console.log(dataPost[i].id);
+          const newData = [...dataPost];
+          newData[i].isDropdownClicked = true;
+          setPostData(newData);
+          setIsDropdownClicked(true);
+        }
       }
-    }
-  };
+    },
+    [dataPost, setIsDropdownClicked, setPostData]
+  );
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
@@ -268,7 +302,7 @@ function Home({
         currentProfileWalletAddresses = isLogged.web3auth;
         setCurrentProfileUserWallet(isLogged.web3auth);
       }
-      console.log(currentProfileWalletAddresses);
+      // console.log(currentProfileWalletAddresses);
 
       try {
         const nftsFromOwner = await alchemy.nft.getNftsForOwner(
@@ -339,16 +373,18 @@ function Home({
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-    }
-    
-    window.addEventListener('resize', handleResize);
-    
+    };
+
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      window.removeEventListener('resize', handleResize);
-    }
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
-  
-  // console.log(windowWidth);
+
+  // useMemo
+  // console.log(athletesFollowing)
+  const modalStyle = useMemo(() => ({ top: "24px", right: "20px" }), []);
   return (
     <>
       <section className="home-component">
@@ -356,7 +392,9 @@ function Home({
           className="home-left-container"
           style={
             isLogged?.account_type === "athlete"
-              ? windowWidth < 950 ? {height:"500px"}: { height: "726px", maxHeight: "726px" }
+              ? windowWidth < 950
+                ? { height: "500px" }
+                : { height: "726px", maxHeight: "726px" }
               : athletesFollowing.length === 0 &&
                 athletesSupportingData.length === 0
               ? { height: "398px" }
@@ -414,18 +452,24 @@ function Home({
           <FavAthlete
             athletesSupportingData={athletesSupportingData}
             athletesFollowing={athletesFollowing}
-            setIsSupportingOrFollowingAthlete={
-              setIsSupportingOrFollowingAthlete
-            }
-            isSupportingOrFollowingAthlete={isSupportingOrFollowingAthlete}
           />
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}
             athletesSupportingData={athletesSupportingData}
           />
-          <div style={loggedInUser?.account_type === "free" ? {paddingTop:"15px"}:{}} className="home-legals-mentions-container">
-            <a target="_blank" href="/mentions-legales">© 2023 Sofan</a> Tout droits réservés
+          <div
+            style={
+              loggedInUser?.account_type === "free"
+                ? { paddingTop: "15px" }
+                : {}
+            }
+            className="home-legals-mentions-container"
+          >
+            <a target="_blank" href="/mentions-legales">
+              © 2023 Sofan
+            </a>{" "}
+            Tout droits réservés
           </div>
         </div>
         <div className="home-center-container">
@@ -443,7 +487,7 @@ function Home({
                   // console.log(post.isDropdownClicked)
                   // console.log(data);
                   return (
-                    <PostsFeed
+                    <MemoPostsFeed
                       key={uuidv4()}
                       id={post.id}
                       singlePostData={post}
@@ -464,7 +508,7 @@ function Home({
                       handleClickCopyPostLink={handleClickCopyPostLink}
                       postFeedHomeStyle={true}
                       postCommentNumber={commentCounts[post.id] || 0}
-                      userType={loggedInUser?. account_type}
+                      userType={loggedInUser?.account_type}
                       commentCounterIncrementLocal={
                         commentCounterIncrementLocal
                       }
@@ -484,26 +528,17 @@ function Home({
         </div>
       </section>
       {isCreatePostButtonClicked && (
-        <Modal
-          setState={setIsCreatePostButtonClicked}
-          style={{ top: "24px", right: "20px" }}
-        >
+        <Modal setState={setIsCreatePostButtonClicked} style={modalStyle}>
           <CreationPostPoll userId={loggedInUser.id} />
         </Modal>
       )}
       {isSuggestionSeeMoreButtonClicked && (
-        <Modal
-          setState={setIsSuggestSeeMoreButtonClicked}
-          style={{ top: "24px", right: "20px" }}
-        >
+        <Modal setState={setIsSuggestSeeMoreButtonClicked} style={modalStyle}>
           <AthleteSuggestPopUp suggestionsAthletes={suggestionsAthletes} />
         </Modal>
       )}
       {isNotificationButtonClicked && (
-        <Modal
-          setState={setIsNotificationButtonClicked}
-          style={{ top: "24px", right: "20px" }}
-        >
+        <Modal setState={setIsNotificationButtonClicked} style={modalStyle}>
           <NotificationPopUp notificationPopUpComponent={true} />
         </Modal>
       )}
