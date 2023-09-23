@@ -43,7 +43,7 @@ function Home({
   const [isCreatePostButtonClicked, setIsCreatePostButtonClicked] =
     useState(false);
   const [isPostClicked, setIsPostClicked] = useState(false);
-  const [isUserFan, setIsUserFan] = useState(false);
+  // const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
   const [isSuggestionSeeMoreButtonClicked, setIsSuggestSeeMoreButtonClicked] =
     useState(false);
@@ -67,15 +67,101 @@ function Home({
   const [isSupportingOrFollowingAthlete, setIsSupportingOrFollowingAthlete] =
     useState();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  function handleDisplayPremiumContent(i) {
-    if (isUserFan === false && dataPost[i]?.visibility === false) {
-      return true;
-    } else if (isUserFan === true && dataPost[i]?.visibility === false) {
-      return false;
-    } else if (dataPost[i]?.visibility === true) {
-      return false;
-    }
+  const [isAthleteAlreadyTested, setIsAthleteAlreadyTested] = useState([]);
+  async function handleDisplayPremiumContent(i) {
+    console.log("enter");
+    // let isUserFan = false;
+    // // console.log(dataPost[i]);
+    // // Récuperer du dataPost l'id de l'athlete
+    // // console.log(dataPost[i].userId);
+    // // Vérifier si l'id de l'athlete à déja ete testé
+    // // si déjà tester alors return le status stocké en mémoire
+    // for (let i = 0; i < isAthleteAlreadyTested.length; i++) {
+    //   const element = isAthleteAlreadyTested[i];
+    //   console.log(element);
+    //   if (element.id === dataPost[i].userId) {
+    //     console.log("Athlete already tested. EXIT.");
+    //     return element.isUserFan;
+    //   }
+    // }
+    // // sinon
+    // // requête firebase vers nft_collection where id == id
+    // const q = query(
+    //   collection(db, "nft_collections"),
+    //   where("athlete_id", "==", dataPost[i].userId)
+    // );
+    // const querySnapshot = await getDocs(q);
+
+    // let tempAllAthleteCollection = [];
+    // if (!querySnapshot.empty) {
+    //   querySnapshot.forEach((doc) => {
+    //     const tempNftcollectionInfo = doc.data();
+    //     tempAllAthleteCollection.push(tempNftcollectionInfo);
+    //   });
+    // } else {
+    //   console.log("No collection found");
+    // }
+    // // Pour chacune des collections vérifier si le loggedin user possède au moins 1 nft
+    // // sdk alchemy gets owner for contract, comparer si l'addresse du loggedin user est include dans le result
+    // // break dès que une comparaison est true
+    // // let isFind = false;
+    // for (let i = 0; i < tempAllAthleteCollection.length; i++) {
+    //   const element = tempAllAthleteCollection[i];
+    //   if (isUserFan === true) {
+    //     console.log("I break !");
+    //     break;
+    //   }
+    //   const allAthleteCollectionOwners = await alchemy.nft.getOwnersForContract(
+    //     element.collection_address
+    //   );
+    //   // console.log(allAthleteCollectionOwners.owners);
+    //   for (let i = 0; i < allAthleteCollectionOwners.owners.length; i++) {
+    //     const elementFromAlchemy = allAthleteCollectionOwners.owners[i];
+    //     if (
+    //       elementFromAlchemy.toLowerCase() ===
+    //         loggedInUser?.metamask?.toLowerCase() ||
+    //       elementFromAlchemy.toLowerCase() ===
+    //         loggedInUser?.web3auth?.toLowerCase()
+    //     ) {
+    //       console.log("I found a new fan !");
+    //       isUserFan = true;
+    //     }
+    //   }
+    // }
+    // console.log(isAthleteAlreadyTested);
+    // setIsAthleteAlreadyTested((prevState) => [
+    //   ...prevState,
+    //   { id: dataPost[i].userId, isUserFan: isUserFan },
+    // ]);
+    // // Gardez en mémoire l'id de l'athlete testé et le status de l'user
+    // if (isUserFan === false && dataPost[i]?.visibility === false) {
+    //   console.log("pas fan et post privé");
+    //   return true;
+    // } else if (isUserFan === true && dataPost[i]?.visibility === false) {
+    //   console.log("Fan et post privé");
+    //   return false;
+    // } else if (dataPost[i]?.visibility === true) {
+    //   console.log("post public");
+    //   return false;
+    // }
   }
+
+  // useEffect(() => {
+  //   if (fansCounterApi && loggedInUser) {
+  //     if (loggedInUser.metamask) {
+  //       const temp = loggedInUser.metamask.toLowerCase();
+  //       fansCounterApi.includes(temp) === true
+  //         ? setIsUserFan(true)
+  //         : setIsUserFan(false);
+  //     } else if (loggedInUser.web3auth) {
+  //       const temp = loggedInUser.web3auth.toLowerCase();
+  //       fansCounterApi.includes(temp) === true
+  //         ? setIsUserFan(true)
+  //         : setIsUserFan(false);
+  //     }
+  //   }
+  // }, [fansCounterApi, loggedInUser]);
+
   const getCommentCount = async (postId) => {
     const commentsRef = collection(db, `feed_post/${postId}/post_comments`);
     const q = query(commentsRef, where("status", "==", true));
@@ -268,7 +354,7 @@ function Home({
         currentProfileWalletAddresses = isLogged.web3auth;
         setCurrentProfileUserWallet(isLogged.web3auth);
       }
-      console.log(currentProfileWalletAddresses);
+      // console.log(currentProfileWalletAddresses);
 
       try {
         const nftsFromOwner = await alchemy.nft.getNftsForOwner(
@@ -339,15 +425,15 @@ function Home({
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-    }
-    
-    window.addEventListener('resize', handleResize);
-    
+    };
+
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      window.removeEventListener('resize', handleResize);
-    }
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
-  
+
   // console.log(windowWidth);
   return (
     <>
@@ -356,7 +442,9 @@ function Home({
           className="home-left-container"
           style={
             isLogged?.account_type === "athlete"
-              ? windowWidth < 950 ? {height:"500px"}: { height: "726px", maxHeight: "726px" }
+              ? windowWidth < 950
+                ? { height: "500px" }
+                : { height: "726px", maxHeight: "726px" }
               : athletesFollowing.length === 0 &&
                 athletesSupportingData.length === 0
               ? { height: "398px" }
@@ -424,8 +512,18 @@ function Home({
             suggestionsAthletes={suggestionsAthletes}
             athletesSupportingData={athletesSupportingData}
           />
-          <div style={loggedInUser?.account_type === "free" ? {paddingTop:"15px"}:{}} className="home-legals-mentions-container">
-            <a target="_blank" href="/mentions-legales">© 2023 Sofan</a> Tout droits réservés
+          <div
+            style={
+              loggedInUser?.account_type === "free"
+                ? { paddingTop: "15px" }
+                : {}
+            }
+            className="home-legals-mentions-container"
+          >
+            <a target="_blank" href="/mentions-legales">
+              © 2023 Sofan
+            </a>{" "}
+            Tout droits réservés
           </div>
         </div>
         <div className="home-center-container">
@@ -464,7 +562,7 @@ function Home({
                       handleClickCopyPostLink={handleClickCopyPostLink}
                       postFeedHomeStyle={true}
                       postCommentNumber={commentCounts[post.id] || 0}
-                      userType={loggedInUser?. account_type}
+                      userType={loggedInUser?.account_type}
                       commentCounterIncrementLocal={
                         commentCounterIncrementLocal
                       }

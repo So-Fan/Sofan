@@ -91,7 +91,7 @@ function App() {
   const urlArraySplitted = window.location.pathname.split("/");
   // console.log(urlArraySplitted)
   const urlFirstSegment = urlArraySplitted[1];
-  console.log(urlFirstSegment);
+  // console.log(urlFirstSegment);
   function handleClickOutside(e) {
     // Navbar
     if (e.target.id === "navbar-user-profile-img") {
@@ -364,8 +364,10 @@ function App() {
                         </svg>
                       </div>
                       <div className="app-sofan-block-access-mentions-legales">
-                         <a target="_blank" href="/mentions-legales">© 2023 Sofan</a> Tout droits
-                        réservés
+                        <a target="_blank" href="/mentions-legales">
+                          © 2023 Sofan
+                        </a>{" "}
+                        Tout droits réservés
                       </div>
                     </div>
                   </div>
