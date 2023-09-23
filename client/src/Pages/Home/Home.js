@@ -12,7 +12,6 @@ import Button from "../../Components/Button/Button";
 import CreationPostPoll from "../../Components/CreationPostPoll/CreationPostPoll";
 import Modal from "../../Components/Modal/Modal";
 // import FullPagePost from "../FullPagePost/FullPagePost";
-import { v4 as uuidv4 } from "uuid";
 // import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
@@ -462,7 +461,7 @@ function Home({
                   // console.log(data);
                   return (
                     <MemoPostsFeed
-                      // key={uuidv4()}
+                      key={post.id}
                       id={post.id}
                       singlePostData={post}
                       postDate={post.createdAt.seconds}
