@@ -26,6 +26,7 @@ import FullPagePostPage from "./Pages/FullPagePostPage/FullPagePostPage";
 import Signup from "./Components/LoginSignupPopUp/Signup";
 import Login from "./Components/PopUpSignIn/PopUpSignIn";
 import LegalsMentions from "./Pages/LegalsMentions/LegalsMentions";
+import { ProfileClickedContext } from "./contexts/ProfileClickedContext/ProfileClickedContext";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -88,68 +89,76 @@ function App() {
   //   useState(false);
   const urlArraySplitted = window.location.pathname.split("/");
   const urlFirstSegment = urlArraySplitted[1];
-  function handleClickOutside(e) {
-    // Navbar
-    if (e.target.id === "navbar-user-profile-img") {
-      setIsProfileClicked(!isProfileClicked);
-    } else {
-      setIsProfileClicked(false);
-    }
-    // Dropdown
-    if (isDropdownClicked) {
-      for (let i = 0; i < dataPost.length; i++) {
-        // console.log(dataPost[i]);
-        if (dataPost[i].isDropdownClicked === true) {
-          // console.log("je suis ici");
-          const newData = [...dataPost];
-          newData[i].isDropdownClicked = false;
-          setPostData(newData);
-          setIsDropdownClicked(false);
+  const isProfileClickedRef = useRef(isProfileClicked);
+  const handleClickOutside = useCallback(
+    (e) => {
+      // Navbar
+      if (e.target.id === "navbar-user-profile-img") {
+        setIsProfileClicked(!isProfileClicked);
+      } else {
+        setIsProfileClicked(false);
+      }
+      // Dropdown
+      if (isDropdownClicked) {
+        for (let i = 0; i < dataPost.length; i++) {
+          // console.log(dataPost[i]);
+          if (dataPost[i].isDropdownClicked === true) {
+            // console.log("je suis ici");
+            const newData = [...dataPost];
+            newData[i].isDropdownClicked = false;
+            setPostData(newData);
+            setIsDropdownClicked(false);
+          }
         }
       }
-    }
-    // Profile Page Sort by selector
-    if (e.target.id !== "sortbyselector-component") {
-      setIsUSerProfileSeortBySelectorClicked(false);
-    }
-    // Athlete Profile SubMenu Offers
-    if (
-      e.target.id !== "profilesubmenu-offres" &&
-      e.target.id !== "profilesubmenu-offres-formulées" &&
-      e.target.id !== "profilesubmenu-offres-reçues"
-    ) {
-      // console.log(e.target.id);
-      // setProfileSubMenuOffresClicked(false);
-    }
-    // click outside for launchpad all page - live launch part
-    if (
-      e.target.className === "launchpadalllivelaunches-top-wrap-dropdown" ||
-      e.target.className ===
-        "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked" ||
-      e.target.id === "launchpadalllivelaunches-dropdown-main" ||
-      e.target.id === "launchpadalllivelaunches-dropdown-img" ||
-      e.target.id === "launchpadalllivelaunches-dropdown-span"
-    ) {
-      setIsLiveLaunchSportDropdownClicked(!isLiveLaunchSportDropdownClicked);
-    } else {
-      setIsLiveLaunchSportDropdownClicked(false);
-    }
-    // click outside for launchpad all page - upcoming launch part
-    if (
-      e.target.id === "launchpadallupcominglaunches-dropdown-span" ||
-      e.target.className ===
-        "launchpadallupcominglaunches-top-wrap-dropdown launchpadallupcominglaunches-top-wrap-dropdown-clicked" ||
-      e.target.id === "launchpadallupcominglaunches-dropdown-img" ||
-      e.target.id === "launchpadallupcominglaunches-dropdown-main"
-    ) {
-      setIsUpcomingLaunchSportDropdownClicked(
-        !isUpcomingLaunchSportDropdownClicked
-      );
-    } else {
-      setIsUpcomingLaunchSportDropdownClicked(false);
-    }
-    // console.log(e.target.id)
-  }
+      // Profile Page Sort by selector
+      if (e.target.id !== "sortbyselector-component") {
+        setIsUSerProfileSeortBySelectorClicked(false);
+      }
+      // Athlete Profile SubMenu Offers
+      if (
+        e.target.id !== "profilesubmenu-offres" &&
+        e.target.id !== "profilesubmenu-offres-formulées" &&
+        e.target.id !== "profilesubmenu-offres-reçues"
+      ) {
+        // console.log(e.target.id);
+        // setProfileSubMenuOffresClicked(false);
+      }
+      // click outside for launchpad all page - live launch part
+      if (
+        e.target.className === "launchpadalllivelaunches-top-wrap-dropdown" ||
+        e.target.className ===
+          "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked" ||
+        e.target.id === "launchpadalllivelaunches-dropdown-main" ||
+        e.target.id === "launchpadalllivelaunches-dropdown-img" ||
+        e.target.id === "launchpadalllivelaunches-dropdown-span"
+      ) {
+        setIsLiveLaunchSportDropdownClicked(!isLiveLaunchSportDropdownClicked);
+      } else {
+        setIsLiveLaunchSportDropdownClicked(false);
+      }
+      // click outside for launchpad all page - upcoming launch part
+      if (
+        e.target.id === "launchpadallupcominglaunches-dropdown-span" ||
+        e.target.className ===
+          "launchpadallupcominglaunches-top-wrap-dropdown launchpadallupcominglaunches-top-wrap-dropdown-clicked" ||
+        e.target.id === "launchpadallupcominglaunches-dropdown-img" ||
+        e.target.id === "launchpadallupcominglaunches-dropdown-main"
+      ) {
+        setIsUpcomingLaunchSportDropdownClicked(
+          !isUpcomingLaunchSportDropdownClicked
+        );
+      } else {
+        setIsUpcomingLaunchSportDropdownClicked(false);
+      }
+      // console.log(e.target.id)
+    },
+    [isDropdownClicked, dataPost]
+  );
+  // Mettez à jour isProfileClickedRef chaque fois que isProfileClicked change
+  useEffect(() => {
+    isProfileClickedRef.current = isProfileClicked;
+  }, [isProfileClicked]);
   // Redirection smooth au chargement de la page
   useEffect(() => {
     const hash = window.location.hash;
@@ -236,6 +245,7 @@ function App() {
     reset();
     return () => ref.current.forEach(clearTimeout);
   }, [isUserLogged]);
+  console.log("re rendu");
   return (
     <UserContext.Provider
       value={{
@@ -277,7 +287,8 @@ function App() {
                                     style={{
                                       overflow: "hidden",
                                       height: innerHeight,
-                                    }}z
+                                    }}
+                                    z
                                   >
                                     {item}
                                   </animated.div>
@@ -417,17 +428,21 @@ function App() {
             onClick={handleClickOutside}
           >
             <></>
-            <Navbar
-              isNotificationButtonClicked={isNotificationButtonClicked}
-              handleNotificationPopup={handleNotificationPopup}
-              setIsNotificationButtonClicked={setIsNotificationButtonClicked}
-              isProfileClicked={isProfileClicked}
-              isLogged={loggedInUser}
-              web3auth={web3auth}
-              setWeb3auth={setWeb3auth}
-              checkWalletProvider={checkWalletProvider}
-              setIsUserLogged={setIsUserLogged}
-            />
+            <ProfileClickedContext.Provider
+              value={{ isProfileClicked, setIsProfileClicked }}
+            >
+              <Navbar
+                isNotificationButtonClicked={isNotificationButtonClicked}
+                handleNotificationPopup={handleNotificationPopup}
+                setIsNotificationButtonClicked={setIsNotificationButtonClicked}
+                // isProfileClicked={isProfileClicked}
+                isLogged={loggedInUser}
+                web3auth={web3auth}
+                setWeb3auth={setWeb3auth}
+                checkWalletProvider={checkWalletProvider}
+                setIsUserLogged={setIsUserLogged}
+              />
+            </ProfileClickedContext.Provider>
 
             <Routes>
               <Route

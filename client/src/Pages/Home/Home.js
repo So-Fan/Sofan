@@ -32,10 +32,10 @@ import { Network, Alchemy, NftFilters } from "alchemy-sdk";
 const MemoPostsFeed = memo(PostsFeed, (prevProps, nextProps) => {
   // si les props ont changés
   if (prevProps === nextProps) {
-    console.log("les props du post n'ont pas changés");
+    // console.log("les props du post n'ont pas changés");
     return true;
   }
-  console.log("les props du post ont changés");
+  // console.log("les props du post ont changés");
   return false;
 });
 function Home({
@@ -95,40 +95,16 @@ function Home({
   };
 
   useEffect(() => {
-    setIsLoading(true);
+    const fetchData = async () => {
+      setIsLoading(true);
 
-    const feedPostCollectionRef = collection(db, "feed_post");
-    const q = query(
-      feedPostCollectionRef,
-      where("status", "==", true),
-      orderBy("createdAt", "desc")
-    );
+      const userIdToFind = loggedInUser?.id;
+      const usersRef = collection(db, "users");
+      const q1 = query(usersRef, where("account_type", "==", "athlete"));
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const feedData = [];
-      querySnapshot.forEach((doc) => {
-        feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
-      });
-      setPostData(feedData);
-      setIsLoading(false);
-      feedData.forEach((post) => {
-        getCommentCount(post.id);
-      });
-    });
-    // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
-    return () => unsubscribe();
-  }, [loggedInUser]);
-
-  // retrouver les athletes suivis
-  useEffect(() => {
-    const userIdToFind = loggedInUser?.id;
-
-    const usersRef = collection(db, "users");
-    const q1 = query(usersRef, where("account_type", "==", "athlete"));
-
-    const unsubscribe1 = onSnapshot(q1, async (querySnapshot) => {
+      const querySnapshot1 = await getDocs(q1);
       const foundAthletes = [];
-      for (let doc of querySnapshot.docs) {
+      for (let doc of querySnapshot1.docs) {
         const athleteId = doc.id;
         const userData = doc.data();
 
@@ -160,34 +136,32 @@ function Home({
         });
       }
       setAthletesFollowing(foundAthletes);
-    });
-    // setIsLoading(true);
 
-    // const feedPostCollectionRef = collection(db, "feed_post");
-    // const q2 = query(
-    //   feedPostCollectionRef,
-    //   where("status", "==", true),
-    //   orderBy("createdAt", "desc")
-    // );
+      const feedPostCollectionRef = collection(db, "feed_post");
+      const q2 = query(
+        feedPostCollectionRef,
+        where("status", "==", true),
+        orderBy("createdAt", "desc")
+      );
 
-    // const unsubscribe2 = onSnapshot(q2, (querySnapshot) => {
-    //   const feedData = [];
-    //   querySnapshot.forEach((doc) => {
-    //     feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
-    //   });
-    //   setPostData(feedData);
-    //   setIsLoading(false);
-    //   feedData.forEach((post) => {
-    //     getCommentCount(post.id);
-    //   });
-    // });
-    // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
+      const querySnapshot2 = await getDocs(q2);
+      const feedData = [];
+      querySnapshot2.forEach((doc) => {
+        feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
+      });
+      setPostData(feedData);
+      setIsLoading(false);
+      feedData.forEach((post) => {
+        getCommentCount(post.id);
+      });
+    };
+
+    fetchData();
+
     return () => {
-      unsubscribe1();
-      // unsubscribe2();
+      // Cleanup code here if needed
     };
   }, [loggedInUser]);
-
   // retrouver les athlete supportés
 
   const handleDropdownPostFeedClick = useCallback(
@@ -488,7 +462,7 @@ function Home({
                   // console.log(data);
                   return (
                     <MemoPostsFeed
-                      key={uuidv4()}
+                      // key={uuidv4()}
                       id={post.id}
                       singlePostData={post}
                       postDate={post.createdAt.seconds}

@@ -13,26 +13,26 @@ import PremiumContentLocked from "../../PremiumContentLocked/PremiumContentLocke
 import PollPost from "../PollPost/PollPost";
 const MemoHeadOfPost = memo(HeadOfPost, (prevProps, nextProps)=> {
   if (prevProps === nextProps) {
-        console.log("les props du post n'ont pas changés");
+        // console.log("les props du post n'ont pas changés");
         return true;
       }
-      console.log("les props du post ont changés");
+      // console.log("les props du post ont changés");
       return false;
 })
 const MemoDescription = memo(PostsDescription, (prevProps, nextProps)=> {
   if (prevProps === nextProps) {
-        console.log("les props du post n'ont pas changés");
+        // console.log("les props du post n'ont pas changés");
         return true;
       }
-      console.log("les props du post ont changés");
+      // console.log("les props du post ont changés");
       return false;
 })
 const MemoLikesCommentsCounter = memo(LikesCommentsCounter, (prevProps, nextProps)=> {
   if (prevProps === nextProps) {
-        console.log("les props du post n'ont pas changés");
+        // console.log("les props du post n'ont pas changés");
         return true;
       }
-      console.log("les props du post ont changés");
+      // console.log("les props du post ont changés");
       return false;
 })
 function PostsFeed({
@@ -112,8 +112,6 @@ function PostsFeed({
       );
     }
   }
-  useEffect(() => {}, []);
-
   // console.log("id de postfeed --> ",id)
   // console.log(postCommentNumber);
   //console.log(postPicture);
@@ -185,7 +183,7 @@ function PostsFeed({
             {postPicture && <img src={postPicture} alt="" />}
           </div>
           {/* Backend here */}
-          <LikesCommentsCounter
+          <MemoLikesCommentsCounter
             likesCommentsContainerPublicationPollPost="likes-comments-container-publication-pollpost"
             likeButtonSizePollPost="logo-likes-pollpost"
             likesCounterPublicationPollPost="likes-counter-publication-pollpost"

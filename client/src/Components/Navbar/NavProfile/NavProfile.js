@@ -6,9 +6,13 @@ import { signOut } from "firebase/auth";
 import UserContext from "../../../contexts/UserContext/UserContext";
 import useEth from "../../../contexts/EthContext/useEth";
 import { useNavigate } from "react-router-dom";
+import { ProfileClickedContext } from "../../../contexts/ProfileClickedContext/ProfileClickedContext";
 
-const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
+const NavProfile = ({ web3auth, src, userInfo = null }) => {
   const { setLoggedInUser, setLocalWeb3authProvider } = useContext(UserContext);
+  const { isProfileClicked, setIsProfileClicked } = useContext(
+    ProfileClickedContext
+  );
   const navigate = useNavigate();
   const { setWeb3authProvider } = useEth();
 
@@ -33,7 +37,6 @@ const NavProfile = ({ web3auth, isProfileClicked, src, userInfo = null }) => {
       console.error(err);
     }
   };
-
   return (
     <div className="navbar-navprofile-container">
       <div className="navbar-navprofile" href="/my-profile">
