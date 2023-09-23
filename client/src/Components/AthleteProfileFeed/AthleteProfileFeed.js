@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PostsFeed from "../PostsComponents/PostsFeed/PostsFeed";
 import "./AthleteProfileFeed.css";
-import { v4 as uuidv4 } from "uuid";
 import {
   collection,
   query,
@@ -190,7 +189,7 @@ function AthleteProfileFeed({
             //   postCommentNumber={post.postCommentNumber}
             // />
             <PostsFeed
-              key={uuidv4()}
+              key={post.id}
               id={post.id}
               singlePostData={post}
               postDate={post.createdAt.seconds}
@@ -229,7 +228,7 @@ function AthleteProfileFeed({
             //   lockPremiumContent={handleDisplayPremiumContent}
             // />
             <PostsFeed
-              key={uuidv4()}
+              key={post.id}
               id={post.id}
               singlePostData={post}
               postDate={post.createdAt.seconds}

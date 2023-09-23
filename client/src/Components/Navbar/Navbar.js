@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import PopUpSignIn from "../PopUpSignIn/PopUpSignIn";
 
 const Navbar = ({
-  isProfileClicked,
+  // isProfileClicked,
   isLogged,
   handleNotificationPopup,
   isNotificationButtonClicked,
@@ -199,7 +199,7 @@ const Navbar = ({
                     </div>
                     <NavProfile
                       userInfo={isLogged}
-                      isProfileClicked={isProfileClicked}
+                      // isProfileClicked={isProfileClicked}
                       src={isLogged.profile_avatar}
                       web3auth={web3auth}
                     />

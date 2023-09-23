@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useMemo, useCallback } from "react";
 import "./Home.css";
 // import FeedSideNavLink from "../../Components/FeedSideNavLink/FeedSideNavLink";
 import FavAthlete from "../../Components/FavAthlete/FavAthlete";
@@ -12,7 +12,6 @@ import Button from "../../Components/Button/Button";
 import CreationPostPoll from "../../Components/CreationPostPoll/CreationPostPoll";
 import Modal from "../../Components/Modal/Modal";
 // import FullPagePost from "../FullPagePost/FullPagePost";
-import { v4 as uuidv4 } from "uuid";
 // import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import AthleteSuggestPopUp from "../../Components/TemplatePopUp/AthleteSuggestPopUp/AthleteSuggestPopUp";
 import NotificationPopUp from "../../Components/Navbar/NotificationPopUp/NotificationPopUp";
@@ -29,6 +28,15 @@ import {
   limit,
 } from "firebase/firestore";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+const MemoPostsFeed = memo(PostsFeed, (prevProps, nextProps) => {
+  // si les props ont changés
+  if (prevProps === nextProps) {
+    // console.log("les props du post n'ont pas changés");
+    return true;
+  }
+  // console.log("les props du post ont changés");
+  return false;
+});
 function Home({
   loggedInUser,
   setPostData,
@@ -64,8 +72,7 @@ function Home({
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
   const [athletesSupportingData, setAthletesSupportingData] = useState([]);
-  const [isSupportingOrFollowingAthlete, setIsSupportingOrFollowingAthlete] =
-    useState();
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isAthleteAlreadyTested, setIsAthleteAlreadyTested] = useState([]);
   async function handleDisplayPremiumContent(i) {
@@ -173,40 +180,16 @@ function Home({
   };
 
   useEffect(() => {
-    setIsLoading(true);
+    const fetchData = async () => {
+      setIsLoading(true);
 
-    const feedPostCollectionRef = collection(db, "feed_post");
-    const q = query(
-      feedPostCollectionRef,
-      where("status", "==", true),
-      orderBy("createdAt", "desc")
-    );
+      const userIdToFind = loggedInUser?.id;
+      const usersRef = collection(db, "users");
+      const q1 = query(usersRef, where("account_type", "==", "athlete"));
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const feedData = [];
-      querySnapshot.forEach((doc) => {
-        feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
-      });
-      setPostData(feedData);
-      setIsLoading(false);
-      feedData.forEach((post) => {
-        getCommentCount(post.id);
-      });
-    });
-    // Return the unsubscribe function to ensure this listener is removed when the component is unmounted
-    return () => unsubscribe();
-  }, []);
-
-  // retrouver les athletes suivis
-  useEffect(() => {
-    const userIdToFind = loggedInUser?.id;
-
-    const usersRef = collection(db, "users");
-    const q = query(usersRef, where("account_type", "==", "athlete"));
-
-    const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+      const querySnapshot1 = await getDocs(q1);
       const foundAthletes = [];
-      for (let doc of querySnapshot.docs) {
+      for (let doc of querySnapshot1.docs) {
         const athleteId = doc.id;
         const userData = doc.data();
 
@@ -238,28 +221,52 @@ function Home({
         });
       }
       setAthletesFollowing(foundAthletes);
-    });
 
-    return () => unsubscribe();
+      const feedPostCollectionRef = collection(db, "feed_post");
+      const q2 = query(
+        feedPostCollectionRef,
+        where("status", "==", true),
+        orderBy("createdAt", "desc")
+      );
+
+      const querySnapshot2 = await getDocs(q2);
+      const feedData = [];
+      querySnapshot2.forEach((doc) => {
+        feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
+      });
+      setPostData(feedData);
+      setIsLoading(false);
+      feedData.forEach((post) => {
+        getCommentCount(post.id);
+      });
+    };
+
+    fetchData();
+
+    return () => {
+      // Cleanup code here if needed
+    };
   }, [loggedInUser]);
-
   // retrouver les athlete supportés
 
-  const handleDropdownPostFeedClick = (e) => {
-    for (let i = 0; i < dataPost.length; i++) {
-      if (
-        e.currentTarget.id === dataPost[i].id &&
-        dataPost[i].isDropdownClicked === false
-      ) {
-        console.log(e.currentTarget.id);
-        console.log(dataPost[i].id);
-        const newData = [...dataPost];
-        newData[i].isDropdownClicked = true;
-        setPostData(newData);
-        setIsDropdownClicked(true);
+  const handleDropdownPostFeedClick = useCallback(
+    (e) => {
+      for (let i = 0; i < dataPost.length; i++) {
+        if (
+          e.currentTarget.id === dataPost[i].id &&
+          dataPost[i].isDropdownClicked === false
+        ) {
+          console.log(e.currentTarget.id);
+          console.log(dataPost[i].id);
+          const newData = [...dataPost];
+          newData[i].isDropdownClicked = true;
+          setPostData(newData);
+          setIsDropdownClicked(true);
+        }
       }
-    }
-  };
+    },
+    [dataPost, setIsDropdownClicked, setPostData]
+  );
   const handleCreatePostClick = () => {
     setIsCreatePostButtonClicked(true);
   };
@@ -434,7 +441,9 @@ function Home({
     };
   }, []);
 
-  // console.log(windowWidth);
+  // useMemo
+  // console.log(athletesFollowing)
+  const modalStyle = useMemo(() => ({ top: "24px", right: "20px" }), []);
   return (
     <>
       <section className="home-component">
@@ -502,10 +511,6 @@ function Home({
           <FavAthlete
             athletesSupportingData={athletesSupportingData}
             athletesFollowing={athletesFollowing}
-            setIsSupportingOrFollowingAthlete={
-              setIsSupportingOrFollowingAthlete
-            }
-            isSupportingOrFollowingAthlete={isSupportingOrFollowingAthlete}
           />
           <FeedSuggestions
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
@@ -541,8 +546,8 @@ function Home({
                   // console.log(post.isDropdownClicked)
                   // console.log(data);
                   return (
-                    <PostsFeed
-                      key={uuidv4()}
+                    <MemoPostsFeed
+                      key={post.id}
                       id={post.id}
                       singlePostData={post}
                       postDate={post.createdAt.seconds}
@@ -582,26 +587,17 @@ function Home({
         </div>
       </section>
       {isCreatePostButtonClicked && (
-        <Modal
-          setState={setIsCreatePostButtonClicked}
-          style={{ top: "24px", right: "20px" }}
-        >
+        <Modal setState={setIsCreatePostButtonClicked} style={modalStyle}>
           <CreationPostPoll userId={loggedInUser.id} />
         </Modal>
       )}
       {isSuggestionSeeMoreButtonClicked && (
-        <Modal
-          setState={setIsSuggestSeeMoreButtonClicked}
-          style={{ top: "24px", right: "20px" }}
-        >
+        <Modal setState={setIsSuggestSeeMoreButtonClicked} style={modalStyle}>
           <AthleteSuggestPopUp suggestionsAthletes={suggestionsAthletes} />
         </Modal>
       )}
       {isNotificationButtonClicked && (
-        <Modal
-          setState={setIsNotificationButtonClicked}
-          style={{ top: "24px", right: "20px" }}
-        >
+        <Modal setState={setIsNotificationButtonClicked} style={modalStyle}>
           <NotificationPopUp notificationPopUpComponent={true} />
         </Modal>
       )}

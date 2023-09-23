@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./HeadOfPost.css";
 import "./HeadOfPostNoMediaQueries.css";
 import DropDownButtonMenu from "../DropDownButtonMenu/DropDownButtonMenu";
@@ -117,9 +117,12 @@ function HeadOfPost({
 
     fetchCreatorData();
   }, [postCreatorId]);
-  const redirectToAthleteProfile = (postCreatorId) => {
-    navigate(`/athleteprofile/${postCreatorData.id}`);
-  };
+  const redirectToAthleteProfile = useCallback(
+    (postCreatorId) => {
+      navigate(`/athleteprofile/${postCreatorData.id}`);
+    },
+    [navigate, postCreatorData]
+  );
   postDate = formatDistanceToNow(postDate * 1000, {
     locale: fr,
     addSuffix: true,

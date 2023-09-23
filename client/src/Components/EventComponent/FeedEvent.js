@@ -32,9 +32,9 @@ const FeedEvent = () => {
     <div style={{display: displayEventsComponent}} className="event-component">
       <div className="event-header-container">
         <span className="event-header-title">Vos évènements</span>
-        <Link to="/" className="event-header-button">
+        {/* <Link to="/" className="event-header-button">
           voir plus
-        </Link>
+        </Link> */}
       </div>
       {firstEvent.map((event) => (
         <EventTemplate
