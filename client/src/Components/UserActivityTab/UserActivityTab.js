@@ -143,200 +143,200 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           }
         } // TODO: Maybe: add else if to detect if someone transfered to us a nft linked to Sofan with the allErc721Event array
         // add if else to handle marketPlace address tx
-        if (
-          // TODO: only for test. should be replaced by marketplaceAddress.
-          "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
-            txElement.to.toLowerCase() &&
-          txElement.functionName.split("(")[0] === "listToSell" &&
-          txElement.isError === "0"
-        ) {
-          const decodedParams = web3Instance.eth.abi.decodeParameters(
-            [
-              { type: "address", name: "_contract" },
-              { type: "uint256", name: "_tokenId" },
-              { type: "uint256", name: "_price" },
-            ],
-            txElement.input.slice(
-              txElement.methodId.length,
-              txElement.input.length
-            )
-          );
+        // if (
+        //   // TODO: only for test. should be replaced by marketplaceAddress.
+        //   "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
+        //     txElement.to.toLowerCase() &&
+        //   txElement.functionName.split("(")[0] === "listToSell" &&
+        //   txElement.isError === "0"
+        // ) {
+        //   const decodedParams = web3Instance.eth.abi.decodeParameters(
+        //     [
+        //       { type: "address", name: "_contract" },
+        //       { type: "uint256", name: "_tokenId" },
+        //       { type: "uint256", name: "_price" },
+        //     ],
+        //     txElement.input.slice(
+        //       txElement.methodId.length,
+        //       txElement.input.length
+        //     )
+        //   );
 
-          let tempObj = {
-            ...txElement,
-            functionName: "List",
-            tokenId: decodedParams._tokenId,
-            price: decodedParams._price,
-            nftContract: decodedParams._contract,
-          };
-          tempConcatArray.push(tempObj);
+        //   let tempObj = {
+        //     ...txElement,
+        //     functionName: "List",
+        //     tokenId: decodedParams._tokenId,
+        //     price: decodedParams._price,
+        //     nftContract: decodedParams._contract,
+        //   };
+        //   tempConcatArray.push(tempObj);
 
-          let tempObjForAlchemy = {
-            contractAddress: decodedParams._contract,
-            tokenId: decodedParams._tokenId,
-            tokenType: "ERC721",
-          };
-          tempAlchemyArray.push(tempObjForAlchemy);
-        }
-        if (
-          // TODO: only for test. should be replaced by marketplaceAddress.
-          "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
-            txElement.to.toLowerCase() &&
-          txElement.functionName.split("(")[0] === "cancelListing" &&
-          txElement.isError === "0"
-        ) {
-          const decodedParams = web3Instance.eth.abi.decodeParameters(
-            [{ type: "address", name: "itemId" }],
-            txElement.input.slice(
-              txElement.methodId.length,
-              txElement.input.length
-            )
-          );
-          let tempObj = {
-            ...txElement,
-            functionName: "Cancel",
-            listingId: decodedParams.itemId,
-            // nftContract: decodedParams._contract
-          };
-          tempConcatArray.push(tempObj);
-          // request token Id from Listing Id
-          // let tempObjForAlchemy = {
-          //   contractAddress: txElement.to,
-          //   tokenId:  decodedParams._tokenId,
-          //   tokenType: "ERC721",
-          // };
-          // tempAlchemyArray.push(tempObjForAlchemy);
-        }
-        if (
-          // TODO: only for test. should be replaced by marketplaceAddress.
-          "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
-            txElement.to.toLowerCase() &&
-          txElement.functionName.split("(")[0] === "buyListing" &&
-          txElement.isError === "0"
-        ) {
-          const decodedParams = web3Instance.eth.abi.decodeParameters(
-            [
-              { type: "address", name: "nftAddress" }, // correspond à _receiverAddress
-              { type: "uint256", name: "tokenId" },
-            ],
-            txElement.input.slice(
-              txElement.methodId.length,
-              txElement.input.length
-            )
-          );
-          let tempObj = {
-            ...txElement,
-            functionName: "Buy",
-            tokenId: decodedParams.tokenId,
-          };
-          // tempConcatArray.push(tempObj);
-          for (let i = 0; i < allErc721Event.result.length; i++) {
-            const allErc721EventElement = allErc721Event.result[i];
-            if (
-              txElement.hash.toLowerCase() ===
-              allErc721EventElement.hash.toLowerCase()
-            ) {
-              let tempObjForAlchemy = {
-                contractAddress: txElement.to,
-                tokenId: allErc721EventElement.tokenID,
-                tokenType: "ERC721",
-              };
-              tempAlchemyArray.push(tempObjForAlchemy);
-              tempConcatArray.push({
-                ...tempObj,
-                tokenId: allErc721EventElement.tokenID,
-                nftContract: allErc721EventElement.contractAddress,
-              });
-            }
-          }
-        }
-        if (
-          // TODO: only for test. should be replaced by marketplaceAddress.
-          "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
-            txElement.to.toLowerCase() &&
-          txElement.functionName.split("(")[0] === "acceptBid" &&
-          txElement.isError === "0"
-        ) {
-          const decodedParams = web3Instance.eth.abi.decodeParameters(
-            [
-              { type: "address", name: "_contract" },
-              { type: "uint256", name: "_tokenId" },
-              { type: "uint256", name: "_offerPrice" },
-              { type: "address", name: "_receiver" },
-            ],
-            txElement.input.slice(
-              txElement.methodId.length,
-              txElement.input.length
-            )
-          );
-          let tempObj = {
-            ...txElement,
-            functionName: "Sell",
-            tokenId: decodedParams._tokenId,
-            usdc: decodedParams._offerPrice,
-            nftContract: decodedParams._contract,
-          };
-          tempConcatArray.push(tempObj);
-          let tempObjForAlchemy = {
-            contractAddress: decodedParams._contract,
-            tokenId: decodedParams._tokenId,
-            tokenType: "ERC721",
-          };
-          tempAlchemyArray.push(tempObjForAlchemy);
-        }
-        if (
-          // TODO: only for test. should be replaced by marketplaceAddress. Use this if in offer made
-          // Not display in Activity but in offers made so use different array
-          "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
-            txElement.to.toLowerCase() &&
-          txElement.functionName.split("(")[0] === "placeBid" &&
-          txElement.isError === "0"
-        ) {
-          // Not needed
-          let tempObj = { ...txElement, functionName: "placeBid" };
-        }
+        //   let tempObjForAlchemy = {
+        //     contractAddress: decodedParams._contract,
+        //     tokenId: decodedParams._tokenId,
+        //     tokenType: "ERC721",
+        //   };
+        //   tempAlchemyArray.push(tempObjForAlchemy);
+        // }
+        // if (
+        //   // TODO: only for test. should be replaced by marketplaceAddress.
+        //   "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
+        //     txElement.to.toLowerCase() &&
+        //   txElement.functionName.split("(")[0] === "cancelListing" &&
+        //   txElement.isError === "0"
+        // ) {
+        //   const decodedParams = web3Instance.eth.abi.decodeParameters(
+        //     [{ type: "address", name: "itemId" }],
+        //     txElement.input.slice(
+        //       txElement.methodId.length,
+        //       txElement.input.length
+        //     )
+        //   );
+        //   let tempObj = {
+        //     ...txElement,
+        //     functionName: "Cancel",
+        //     listingId: decodedParams.itemId,
+        //     // nftContract: decodedParams._contract
+        //   };
+        //   tempConcatArray.push(tempObj);
+        //   // request token Id from Listing Id
+        //   // let tempObjForAlchemy = {
+        //   //   contractAddress: txElement.to,
+        //   //   tokenId:  decodedParams._tokenId,
+        //   //   tokenType: "ERC721",
+        //   // };
+        //   // tempAlchemyArray.push(tempObjForAlchemy);
+        // }
+        // if (
+        //   // TODO: only for test. should be replaced by marketplaceAddress.
+        //   "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
+        //     txElement.to.toLowerCase() &&
+        //   txElement.functionName.split("(")[0] === "buyListing" &&
+        //   txElement.isError === "0"
+        // ) {
+        //   const decodedParams = web3Instance.eth.abi.decodeParameters(
+        //     [
+        //       { type: "address", name: "nftAddress" }, // correspond à _receiverAddress
+        //       { type: "uint256", name: "tokenId" },
+        //     ],
+        //     txElement.input.slice(
+        //       txElement.methodId.length,
+        //       txElement.input.length
+        //     )
+        //   );
+        //   let tempObj = {
+        //     ...txElement,
+        //     functionName: "Buy",
+        //     tokenId: decodedParams.tokenId,
+        //   };
+        //   // tempConcatArray.push(tempObj);
+        //   for (let i = 0; i < allErc721Event.result.length; i++) {
+        //     const allErc721EventElement = allErc721Event.result[i];
+        //     if (
+        //       txElement.hash.toLowerCase() ===
+        //       allErc721EventElement.hash.toLowerCase()
+        //     ) {
+        //       let tempObjForAlchemy = {
+        //         contractAddress: txElement.to,
+        //         tokenId: allErc721EventElement.tokenID,
+        //         tokenType: "ERC721",
+        //       };
+        //       tempAlchemyArray.push(tempObjForAlchemy);
+        //       tempConcatArray.push({
+        //         ...tempObj,
+        //         tokenId: allErc721EventElement.tokenID,
+        //         nftContract: allErc721EventElement.contractAddress,
+        //       });
+        //     }
+        //   }
+        // }
+        // if (
+        //   // TODO: only for test. should be replaced by marketplaceAddress.
+        //   "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
+        //     txElement.to.toLowerCase() &&
+        //   txElement.functionName.split("(")[0] === "acceptBid" &&
+        //   txElement.isError === "0"
+        // ) {
+        //   const decodedParams = web3Instance.eth.abi.decodeParameters(
+        //     [
+        //       { type: "address", name: "_contract" },
+        //       { type: "uint256", name: "_tokenId" },
+        //       { type: "uint256", name: "_offerPrice" },
+        //       { type: "address", name: "_receiver" },
+        //     ],
+        //     txElement.input.slice(
+        //       txElement.methodId.length,
+        //       txElement.input.length
+        //     )
+        //   );
+        //   let tempObj = {
+        //     ...txElement,
+        //     functionName: "Sell",
+        //     tokenId: decodedParams._tokenId,
+        //     usdc: decodedParams._offerPrice,
+        //     nftContract: decodedParams._contract,
+        //   };
+        //   tempConcatArray.push(tempObj);
+        //   let tempObjForAlchemy = {
+        //     contractAddress: decodedParams._contract,
+        //     tokenId: decodedParams._tokenId,
+        //     tokenType: "ERC721",
+        //   };
+        //   tempAlchemyArray.push(tempObjForAlchemy);
+        // }
+        // if (
+        //   // TODO: only for test. should be replaced by marketplaceAddress. Use this if in offer made
+        //   // Not display in Activity but in offers made so use different array
+        //   "0x7082cc65e582de32a7cad11fdc396b02490b97dd".toLowerCase() ===
+        //     txElement.to.toLowerCase() &&
+        //   txElement.functionName.split("(")[0] === "placeBid" &&
+        //   txElement.isError === "0"
+        // ) {
+        //   // Not needed
+        //   let tempObj = { ...txElement, functionName: "placeBid" };
+        // }
       }
-      for (let i = 0; i < allErc721Event.result.length; i++) {
-        const allErc721Element = allErc721Event.result[i];
-        for (let i = 0; i < AllSofanCollection.length; i++) {
-          const sofanCollectionElement = AllSofanCollection[i];
-          for (let i = 0; i < allErc20Event.result.length; i++) {
-            const allErc20Element = allErc20Event.result[i];
-            if (
-              // handle Buy from bid accepted by other user and Sell from other user that buy user's listing
-              //
-              allErc721Element.contractAddress.toLowerCase() ===
-                sofanCollectionElement.toLowerCase() &&
-              allErc20Element.hash.toLowerCase() ===
-                allErc721Element.hash.toLowerCase() &&
-              allErc721Element.from.toLowerCase() !==
-                "0x0000000000000000000000000000000000000000".toLowerCase() &&
-              (i != 0
-                ? allErc20Element.hash !== allErc20Event.result[i - 1].hash
-                : true)
-            ) {
-              // TODO: mimic object from final array but add only used property in DOM
-              // console.log(currentProfileUserWallet.toLowerCase());
-              let tempObj = {
-                blockNumber: allErc721Element.blockNumber,
-                hash: allErc721Element.hash,
-                from: allErc721Element.from,
-                to: allErc721Element.to,
-                value: allErc20Element.value, // + part de sofan et part de l'athlete => call le contrat pour connaitre le montant de royalties ou call les transfert erc20 de l'autre user puis les 2 avec le meme hash alors somme la value
-                timeStamp: allErc20Element.timeStamp,
-                tokenId: allErc721Element.tokenID,
-                nftContract: allErc721Element.contractAddress,
-                functionName:
-                  allErc721Element.from.toLowerCase() ===
-                  currentProfileUserWallet.toLowerCase()
-                    ? "Sell Bid"
-                    : "Buy Bid",
-              };
-              tempConcatArray.push(tempObj);
-            }
-          }
-        }
-      }
+      // for (let i = 0; i < allErc721Event.result.length; i++) {
+      //   const allErc721Element = allErc721Event.result[i];
+      //   for (let i = 0; i < AllSofanCollection.length; i++) {
+      //     const sofanCollectionElement = AllSofanCollection[i];
+      //     for (let i = 0; i < allErc20Event.result.length; i++) {
+      //       const allErc20Element = allErc20Event.result[i];
+      //       if (
+      //         // handle Buy from bid accepted by other user and Sell from other user that buy user's listing
+      //         //
+      //         allErc721Element.contractAddress.toLowerCase() ===
+      //           sofanCollectionElement.toLowerCase() &&
+      //         allErc20Element.hash.toLowerCase() ===
+      //           allErc721Element.hash.toLowerCase() &&
+      //         allErc721Element.from.toLowerCase() !==
+      //           "0x0000000000000000000000000000000000000000".toLowerCase() &&
+      //         (i != 0
+      //           ? allErc20Element.hash !== allErc20Event.result[i - 1].hash
+      //           : true)
+      //       ) {
+      //         // TODO: mimic object from final array but add only used property in DOM
+      //         // console.log(currentProfileUserWallet.toLowerCase());
+      //         let tempObj = {
+      //           blockNumber: allErc721Element.blockNumber,
+      //           hash: allErc721Element.hash,
+      //           from: allErc721Element.from,
+      //           to: allErc721Element.to,
+      //           value: allErc20Element.value, // + part de sofan et part de l'athlete => call le contrat pour connaitre le montant de royalties ou call les transfert erc20 de l'autre user puis les 2 avec le meme hash alors somme la value
+      //           timeStamp: allErc20Element.timeStamp,
+      //           tokenId: allErc721Element.tokenID,
+      //           nftContract: allErc721Element.contractAddress,
+      //           functionName:
+      //             allErc721Element.from.toLowerCase() ===
+      //             currentProfileUserWallet.toLowerCase()
+      //               ? "Sell Bid"
+      //               : "Buy Bid",
+      //         };
+      //         tempConcatArray.push(tempObj);
+      //       }
+      //     }
+      //   }
+      // }
       // console.log("before", tempConcatArray);
       if (tempConcatArray) {
         for (let i = 0; i < tempConcatArray.length; i++) {
@@ -361,6 +361,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       setAlchemyArray(tempAlchemyArray);
     }
   }, [AllTx, AllSofanCollection, allErc721Event, allErc20Event]);
+
   useMemo(() => {
     // TODO: call API pour image, collection name, prix
     const tryMe = async () => {
@@ -387,20 +388,20 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 const tempobj = {
                   ...tempConcatArrayElement,
                   title: concatStringFromTo(
-                    alchemyMetadataElement.rawMetadata.name,
+                    alchemyMetadataElement.contract.name,
                     22,
                     22,
                     true,
                     false,
                     0
                   ),
-                  image: alchemyMetadataElement.rawMetadata.image,
+                  image: alchemyMetadataElement?.rawMetadata.image,
                 };
                 tempConcatArray[i] = tempobj;
               }
             }
           }
-
+          console.log("after added image", tempConcatArray);
           for (let i = 0; i < tempConcatArray.length; i++) {
             const tempConcatArrayElement = tempConcatArray[i];
             const tempArray = [];
@@ -498,19 +499,35 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
     );
     setWeb3Instance(web3Instance);
-    const { abi } = require("../../contracts/Sofan.json");
-    const contract = new web3Instance.eth.Contract(
-      abi,
-      // Replace this with the address of your deployed contract
-      marketplaceAddress
-    );
+    // const { abi } = require("../../contracts/Sofan.json");
+    // const contract = new web3Instance.eth.Contract(
+    //   abi,
+    //   // Replace this with the address of your deployed contract
+    //   marketplaceAddress
+    // );
     const load = async () => {
       // TODO: V2 Can be optimizied be querying NFT contract that user historically interact with. Meaning the upper for loop will loop through less adresses (we can assume that nb of contract interacted with << all Sofan collection)
-      const tempAllSofanCollectionArray = await contract.methods
-        .getAllCollection()
-        .call();
-      setAllSofanCollection(tempAllSofanCollectionArray);
-      console.log("je suis", tempAllSofanCollectionArray);
+      // const tempAllSofanCollectionArray = await contract.methods
+      //   .getAllCollection()
+      //   .call();
+
+      const q = query(collection(db, "nft_collections"));
+      const querySnapshot = await getDocs(q);
+
+      let tempAllAthleteCollection = [];
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const tempNftcollectionInfo = doc.data();
+          tempAllAthleteCollection.push(
+            tempNftcollectionInfo.collection_address
+          );
+          // console.log("Collection found");
+        });
+      } else {
+        // console.log("No collection found");
+      }
+      setAllSofanCollection(tempAllAthleteCollection);
+      // console.log("je suis", tempAllSofanCollectionArray);
       const fetchAllTx = await fetch(
         `https://api-goerli.etherscan.io/api?module=account&action=txlist&address=${currentProfileUserWallet}&startblock=9458446&endblock=99999999&page=1&offset=25&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       );
