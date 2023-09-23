@@ -28,6 +28,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+import Web3 from "web3";
 const MemoPostsFeed = memo(PostsFeed, (prevProps, nextProps) => {
   // si les props ont changés
   if (prevProps === nextProps) {
@@ -76,17 +77,17 @@ function Home({
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isAthleteAlreadyTested, setIsAthleteAlreadyTested] = useState([]);
   async function handleDisplayPremiumContent(i) {
-    console.log("enter");
-    // let isUserFan = false;
-    // // console.log(dataPost[i]);
+    // console.log("enter");
+    let isUserFan = false;
+    // console.log(dataPost);
     // // Récuperer du dataPost l'id de l'athlete
     // // console.log(dataPost[i].userId);
     // // Vérifier si l'id de l'athlete à déja ete testé
     // // si déjà tester alors return le status stocké en mémoire
-    // for (let i = 0; i < isAthleteAlreadyTested.length; i++) {
-    //   const element = isAthleteAlreadyTested[i];
+    // for (let j = 0; j < isAthleteAlreadyTested.length; j++) {
+    //   const element = isAthleteAlreadyTested[j];
     //   console.log(element);
-    //   if (element.id === dataPost[i].userId) {
+    //   if (element.id === dataPost[j].userId) {
     //     console.log("Athlete already tested. EXIT.");
     //     return element.isUserFan;
     //   }
@@ -112,8 +113,8 @@ function Home({
     // // sdk alchemy gets owner for contract, comparer si l'addresse du loggedin user est include dans le result
     // // break dès que une comparaison est true
     // // let isFind = false;
-    // for (let i = 0; i < tempAllAthleteCollection.length; i++) {
-    //   const element = tempAllAthleteCollection[i];
+    // for (let a = 0; a < tempAllAthleteCollection.length; a++) {
+    //   const element = tempAllAthleteCollection[a];
     //   if (isUserFan === true) {
     //     console.log("I break !");
     //     break;
@@ -122,8 +123,8 @@ function Home({
     //     element.collection_address
     //   );
     //   // console.log(allAthleteCollectionOwners.owners);
-    //   for (let i = 0; i < allAthleteCollectionOwners.owners.length; i++) {
-    //     const elementFromAlchemy = allAthleteCollectionOwners.owners[i];
+    //   for (let b = 0; b < allAthleteCollectionOwners.owners.length; b++) {
+    //     const elementFromAlchemy = allAthleteCollectionOwners.owners[b];
     //     if (
     //       elementFromAlchemy.toLowerCase() ===
     //         loggedInUser?.metamask?.toLowerCase() ||
@@ -140,34 +141,121 @@ function Home({
     //   ...prevState,
     //   { id: dataPost[i].userId, isUserFan: isUserFan },
     // ]);
-    // // Gardez en mémoire l'id de l'athlete testé et le status de l'user
-    // if (isUserFan === false && dataPost[i]?.visibility === false) {
-    //   console.log("pas fan et post privé");
-    //   return true;
-    // } else if (isUserFan === true && dataPost[i]?.visibility === false) {
-    //   console.log("Fan et post privé");
-    //   return false;
-    // } else if (dataPost[i]?.visibility === true) {
-    //   console.log("post public");
-    //   return false;
-    // }
+    // Gardez en mémoire l'id de l'athlete testé et le status de l'user
+    if (isUserFan === false && dataPost[i]?.visibility === false) {
+      console.log("pas fan et post privé");
+      return true;
+    } else if (isUserFan === true && dataPost[i]?.visibility === false) {
+      console.log("Fan et post privé");
+      return false;
+    } else if (dataPost[i]?.visibility === true) {
+      console.log("post public");
+      return false;
+    }
   }
+  const [isUserFanArray, setIsUserFanArray] = useState([]);
+  useEffect(() => {
+    if (
+      dataPost &&
+      loggedInUser &&
+      (loggedInUser?.metamask || loggedInUser?.web3auth)
+    ) {
+      // 1 for loop de data post
+      // Await nft collections where id === element.athlete id
+      //  recuperer le wallet du loggedinUser
+      // 2 options : call balanceOf de chacun des smart contract ou getOwnersForContract alchemy
+      // SC
+      // si = 0 alors on continue la boucle
+      // si > 0 alors stop la boucle
+      // on push dans le tableau un objet
+      // A la toute fin on set un state
+      // dans le mapping de data post on change pour si etat exist alors etat[i]
 
-  // useEffect(() => {
-  //   if (fansCounterApi && loggedInUser) {
-  //     if (loggedInUser.metamask) {
-  //       const temp = loggedInUser.metamask.toLowerCase();
-  //       fansCounterApi.includes(temp) === true
-  //         ? setIsUserFan(true)
-  //         : setIsUserFan(false);
-  //     } else if (loggedInUser.web3auth) {
-  //       const temp = loggedInUser.web3auth.toLowerCase();
-  //       fansCounterApi.includes(temp) === true
-  //         ? setIsUserFan(true)
-  //         : setIsUserFan(false);
-  //     }
-  //   }
-  // }, [fansCounterApi, loggedInUser]);
+      const feedDataFromAlchemyAndFirebase = async () => {
+        let tempIsUserFanArray = [];
+        for (let i = 0; i < dataPost.length; i++) {
+          let isUserFan = false;
+          const postElement = dataPost[i];
+          const q = query(
+            collection(db, "nft_collections"),
+            where("athlete_id", "==", postElement.userId)
+          );
+          const querySnapshot = await getDocs(q);
+
+          let tempAllAthleteCollection = [];
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              const tempNftcollectionInfo = doc.data();
+              tempAllAthleteCollection.push(tempNftcollectionInfo);
+              // console.log("Collection found");
+            });
+          } else {
+            // console.log("No collection found");
+          }
+
+          let currentUserWallet;
+
+          if (loggedInUser.metamask) {
+            currentUserWallet = loggedInUser.metamask;
+          } else if (loggedInUser.web3auth) {
+            currentUserWallet = loggedInUser.web3auth;
+          }
+
+          const web3Instance = new Web3(
+            new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
+          );
+          const { abi } = require("../../contracts/SofanNft.json");
+
+          for (let a = 0; a < tempAllAthleteCollection.length; a++) {
+            const collectionElement = tempAllAthleteCollection[a];
+            const contractInfura = new web3Instance.eth.Contract(
+              abi,
+              `${collectionElement.collection_address}`
+            );
+            const balanceOf = await contractInfura.methods
+              .balanceOf(currentUserWallet)
+              .call();
+
+            if (balanceOf > 0) {
+              // console.log("balance of nft from user");
+              isUserFan = true;
+              break;
+            }
+          }
+
+          let judgement;
+          if (isUserFan === false && dataPost[i]?.visibility === false) {
+            console.log("pas fan et post privé");
+            judgement = true;
+          } else if (isUserFan === true && dataPost[i]?.visibility === false) {
+            console.log("Fan et post privé");
+            judgement = false;
+          } else if (dataPost[i]?.visibility === true) {
+            console.log("post public");
+            judgement = false;
+          }
+
+          tempIsUserFanArray.push(judgement);
+        }
+        console.log(tempIsUserFanArray);
+        setIsUserFanArray(tempIsUserFanArray);
+      };
+
+      feedDataFromAlchemyAndFirebase();
+
+      // if (loggedInUser.metamask) {
+      //   const temp = loggedInUser.metamask.toLowerCase();
+      //   fansCounterApi.includes(temp) === true
+      //     ? setIsUserFan(true)
+      //     : setIsUserFan(false);
+      // } else if (loggedInUser.web3auth) {
+      //   const temp = loggedInUser.web3auth.toLowerCase();
+      //   fansCounterApi.includes(temp) === true
+      //     ? setIsUserFan(true)
+      //     : setIsUserFan(false);
+      // }
+    }
+  }, [dataPost]);
 
   const getCommentCount = async (postId) => {
     const commentsRef = collection(db, `feed_post/${postId}/post_comments`);
@@ -544,7 +632,7 @@ function Home({
               <>
                 {dataPost?.map((post, index) => {
                   // console.log(post.isDropdownClicked)
-                  // console.log(data);
+                  console.log(isUserFanArray[index]);
                   return (
                     <MemoPostsFeed
                       key={post.id}
@@ -561,7 +649,12 @@ function Home({
                       polldata={post.pollData}
                       //setIsPostClicked={setIsPostClicked}
                       setIsPostClicked={setIsPostClicked}
-                      lockPremiumContent={handleDisplayPremiumContent(index)}
+                      lockPremiumContent={
+                        isUserFanArray.length > 0
+                          ? isUserFanArray[index]
+                          : handleDisplayPremiumContent(index)
+                      }
+                      // lockPremiumContent={handleDisplayPremiumContent(index)}
                       handleDropdownPostFeedClick={handleDropdownPostFeedClick}
                       isDropdownClicked={isDropdownClicked}
                       handleClickCopyPostLink={handleClickCopyPostLink}
