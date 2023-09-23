@@ -96,17 +96,29 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                 txElement.hash.toLowerCase() ===
                 allErc721EventElement.hash.toLowerCase()
               ) {
-                let tempObjForAlchemy = {
-                  contractAddress: txElement.to,
-                  tokenId: allErc721EventElement.tokenID,
-                  tokenType: "ERC721",
-                };
-                tempAlchemyArray.push(tempObjForAlchemy);
-                tempConcatArray.push({
-                  ...tempObj,
-                  tokenId: allErc721EventElement.tokenID,
-                  nftContract: txElement.to,
-                });
+                let isAlreadyIncluded;
+                for (let i = 0; i < tempConcatArray.length; i++) {
+                  const tempConcatArrayElement = tempConcatArray[i];
+                  if (
+                    tempConcatArrayElement.tokenId ===
+                    allErc721EventElement.tokenID
+                  ) {
+                    isAlreadyIncluded = true;
+                  }
+                }
+                if (!isAlreadyIncluded) {
+                  let tempObjForAlchemy = {
+                    contractAddress: txElement.to,
+                    tokenId: allErc721EventElement.tokenID,
+                    tokenType: "ERC721",
+                  };
+                  tempAlchemyArray.push(tempObjForAlchemy);
+                  tempConcatArray.push({
+                    ...tempObj,
+                    tokenId: allErc721EventElement.tokenID,
+                    nftContract: txElement.to,
+                  });
+                }
               }
             }
           } else if (
