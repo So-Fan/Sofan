@@ -34,6 +34,7 @@ import PopUpValidate from "../../Components/PopUpValidate/PopUpValidate";
 import { useLocation } from "react-router-dom";
 import Web3 from "web3";
 import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
 const MemoProfileSubMenu = memo(ProfileSubMenu);
 const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
 const MemoAthleteProfileFeed = memo(
@@ -48,7 +49,7 @@ const MemoAthleteProfileFeed = memo(
 const AthleteProfilePage = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
-  loggedInUser,
+  // loggedInUser,
   // profileSubMenuOffresClicked,
   // setProfileSubMenuOffresClicked,
 }) => {
@@ -84,6 +85,7 @@ const AthleteProfilePage = ({
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
   const [arrayAthleteCollection, setArrayAthleteCollection] = useState([]);
   const [availableNftCount, setAvailableNftCount] = useState(0);
+  const [isUserFan, setIsUserFan] = useState(false);
   // const setProfileSubMenuOffresClicked = () => {
   //   console.log("amagnacouuuuunia");
   // }
@@ -91,6 +93,7 @@ const AthleteProfilePage = ({
   const location = useLocation();
   const segments = location.pathname.split("/");
   const athleteId = segments[2];
+  const { loggedInUser } = useUserCollection();
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "users"), where("id", "==", athleteId)); // Use the correct parameter name here
@@ -243,7 +246,7 @@ const AthleteProfilePage = ({
     setTransferNftDataApi(nftsTransferData);
   }
 
-  const getAthleteInfo = async () => {
+  const getFansData = async () => {
     let tempAllAthleteCollection = [];
     const q = query(
       collection(db, "nft_collections"),
@@ -274,7 +277,7 @@ const AthleteProfilePage = ({
     // console.log(tempAllAthleteCollection);
     const athletefans = removeDuplicatesFromArray(tempAthleteFans);
     // console.log(allAthleteCollection);
-    setFansCounterApi(athletefans.length);
+    setFansCounterApi(athletefans);
   };
 
   const availableNft = async () => {
@@ -302,6 +305,23 @@ const AthleteProfilePage = ({
       console.log("Error fetching data:", error);
     }
   };
+
+  useEffect(() => {
+    if (fansCounterApi && loggedInUser) {
+      if (loggedInUser.metamask) {
+        const temp = loggedInUser.metamask.toLowerCase();
+        fansCounterApi.includes(temp) === true
+          ? setIsUserFan(true)
+          : setIsUserFan(false);
+      } else if (loggedInUser.web3auth) {
+        const temp = loggedInUser.web3auth.toLowerCase();
+        fansCounterApi.includes(temp) === true
+          ? setIsUserFan(true)
+          : setIsUserFan(false);
+      }
+    }
+  }, [fansCounterApi, loggedInUser]);
+
   useEffect(() => {
     const getAvailableNft = async () => {
       // API Infura
@@ -342,7 +362,7 @@ const AthleteProfilePage = ({
     try {
       // getNft();
       // getCollectionFloorPrice();
-      getAthleteInfo();
+      getFansData();
       availableNft();
       getTransferData();
     } catch (err) {
@@ -582,27 +602,28 @@ const AthleteProfilePage = ({
   const handleRejectedConfirmationOffer = async () => {
     // TODO: Ajouter les données de l'offre refusé au backend lié à l'utilisateur qui a rejeté l'offre.
   };
-  useEffect(() => {
-    window.addEventListener(
-      "scroll",
-      handlePixelScrolledAthleteProfilePage,
-      false
-    );
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handlePixelScrolledAthleteProfilePage,
-        false
-      );
-    };
-  }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener(
+  //     "scroll",
+  //     handlePixelScrolledAthleteProfilePage,
+  //     false
+  //   );
+  //   return () => {
+  //     window.removeEventListener(
+  //       "scroll",
+  //       handlePixelScrolledAthleteProfilePage,
+  //       false
+  //     );
+  //   };
+  // }, []);
   return (
     <>
       <div className="athleteprofilepage-component">
         {/* <div className="athleteprofilepage-wrap"> */}
         <MemoAthleteProfileHeader
           userInfo={userInfo}
-          fansCounterApi={fansCounterApi}
+          fansCounterApi={fansCounterApi?.length}
           handleClicNftsAvailable={handleClicNftsAvailable}
           setIsProfileSubMenuButtonClicked={setIsAthleteProfileSubMenuClicked}
           palmaresData={palmaresData}
@@ -623,6 +644,7 @@ const AthleteProfilePage = ({
             athleteName={userInfo?.display_name}
             athleteAvatar={userInfo?.profile_avatar}
             pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
+            isUserFan={isUserFan}
           />
         ) : isAthleteProfileSubMenuClicked[5] === true ? (
           <AthleteProfileNFTCollection

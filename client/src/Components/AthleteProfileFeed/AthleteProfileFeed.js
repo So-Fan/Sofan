@@ -17,10 +17,12 @@ function AthleteProfileFeed({
   athleteProfilePageStyling,
   athleteUserId,
   pixelScrolledAthleteProfilePage,
+  isUserFan,
 }) {
+  console.log(isUserFan);
   // console.log(dataPosts);
   // console.log(athleteProfileFeedPageStyling)
-  const [isUserFan, setIsUserFan] = useState(false);
+  // const [isUserFan, setIsUserFan] = useState(false);
   const [lockPremiumContent, setLockPremiumContent] = useState(false);
   const [freePosts, setFreePosts] = useState([]);
   const [premiumPosts, setPremiumPosts] = useState([]);
