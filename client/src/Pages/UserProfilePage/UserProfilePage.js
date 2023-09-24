@@ -224,11 +224,11 @@ function UserProfilePage({
   // smooth redirection fonction
   const nftCardRef = useRef(null);
   function handleClickNftReceived(event) {
-    event.preventDefault();
-    nftCardRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    // event.preventDefault();
+    // nftCardRef.current.scrollIntoView({
+    //   behavior: "smooth",
+    //   block: "start",
+    // });
   }
   // ----------------------------
   function handleAthleteFollowingClick(e) {
@@ -485,9 +485,9 @@ function UserProfilePage({
       )}
       {isSettingsUserPageClicked && (
         <Modal
-          dynamicPositionPopUpMargin={pixelScrolledUserProfilePage}
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
           setState={setSettingsUserPageClicked}
-          style={{ marginTop: pixelScrolledUserProfilePage, display: "none" }}
+          style={{display: "none" }}
         >
           <PopUpEditProfile
             allUserInfo={allUserInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed

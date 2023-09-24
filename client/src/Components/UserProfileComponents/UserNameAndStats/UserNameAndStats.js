@@ -67,7 +67,7 @@ function UserNameAndStats({
         <a
           className="counter-nft-owned-user-container-link-element"
           onClick={handleClickNftReceived}
-          href="#nftcard-component"
+          // href="#nftcard-component"
         >
           {/* <Link className="counter-nft-owned-user-container-link-element" to="/dashboard"> */}
           <div className="counter-nft-owned-user-container">
