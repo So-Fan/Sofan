@@ -96,8 +96,8 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             for (let i = 0; i < allErc721Event.result.length; i++) {
               const allErc721EventElement = allErc721Event.result[i];
               if (
-                txElement.hash.toLowerCase() ===
-                allErc721EventElement.hash.toLowerCase()
+                txElement?.hash.toLowerCase() ===
+                allErc721EventElement?.hash.toLowerCase()
               ) {
                 let isAlreadyIncluded;
                 for (let i = 0; i < tempConcatArray.length; i++) {
@@ -908,7 +908,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   </div>
                   <div></div>
                   {tx.fromDisplay.slice(0, 2) != "0x" ? (
-                    <div>
+                    <div className="useractivitytab-content-address-container">
                       {tx.firebaseFromId === userProfileSpecificData.id ? (
                         <span>{tx.fromDisplay}</span>
                       ) : (
@@ -929,6 +929,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                         </span>
                         <img
                           // className="useractivitytab-content-container-clipboardlogo"
+                          title="Copier l'adresse"
                           onClick={handleClickCopyConfirmWallet}
                           src={copyLogo}
                           alt="copy logo"
@@ -944,6 +945,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     */}
                       <span about={tx.from}>{tx.fromDisplay}</span>
                       <img
+                      title="Copier l'adresse"
                         className="useractivitytab-content-container-clipboardlogo"
                         onClick={handleClickCopyConfirmWallet}
                         src={copyLogo}
@@ -953,14 +955,15 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     </div>
                   )}
                   {tx.toAccountType === "contractAddress" ? (
-                    <div>
+                    <div className="useractivitytab-content-contract-address-container">
                       {tx.firebaseToId === userProfileSpecificData.id ? (
                         <span>{tx.toDisplay}</span>
                       ) : (
                         <Link
-                          style={{ textDecoration: "none" }}
+                          // style={{ textDecoration: "none" }}
                           to={`/collectionlive/${tx.toAthleteId}/${tx.nftContract}`}
                           target="_blank"
+                          className="useractivitytab-content-collection-link"
                         >
                           {tx.toCollectionName}
                         </Link>
@@ -974,6 +977,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                         </span>
                         <img
                           // className="useractivitytab-content-container-clipboardlogo"
+                          title="Copier l'adresse"
                           onClick={handleClickCopyConfirmWallet}
                           src={copyLogo}
                           alt="copy logo"
@@ -986,6 +990,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     <div className="useractivitytab-content-container-address-wrap">
                       <span about={tx.to}>{tx.toDisplay}</span>
                       <img
+                        title="Copier l'addresse"
                         className="useractivitytab-content-container-clipboardlogo"
                         onClick={handleClickCopyConfirmWallet}
                         src={copyLogo}
