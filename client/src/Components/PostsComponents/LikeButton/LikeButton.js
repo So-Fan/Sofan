@@ -39,46 +39,7 @@ function LikeButton({
     return () => unsubscribe();
   }, [postId, loggedInUserId]);
 
-  //   const handleClick = async (e) => {
-  //     e.preventDefault();
-  //     console.log(postId, " ", loggedInUserId);
-  //     if (loggedInUserId) {
-  //       //setIsPostedLiked(!isPostLiked);
-  //       try {
-  //         const postRef = doc(collection(db, "feed_post"), postId);
-  //         // console.log(postRef);
 
-  //         // Get the current post
-  //         const postSnap = await getDoc(postRef);
-
-  //         if (!postSnap.exists()) {
-  //           console.log("No such post!");
-  //           return;
-  //         }
-
-  //         // Get the current likes array
-  //         const likes = postSnap.data().likes || [];
-
-  //         // Add or remove the user's ID from the likes array
-  //         if (likes.includes(loggedInUserId)) {
-  //           likes.splice(likes.indexOf(loggedInUserId), 1);
-  //         } else {
-  //           likes.push(loggedInUserId);
-  //         }
-
-  //         // Update the likes array in Firestore
-  //         await updateDoc(postRef, { likes });
-  //         // Optionally update the local state if you are managing likes locally
-  //         console.log("youpi likes");
-  //         setLikesCounterIncrementLocal((prevState) => prevState + 1);
-  //       } catch (err) {
-  //         console.error(err);
-  //       }
-  //     } else {
-  //       console.log("please log in first");
-  //     }
-
-  //   };
   const handleClick = async (e) => {
     e.preventDefault();
     console.log(postId, " ", loggedInUserId);
@@ -98,11 +59,11 @@ function LikeButton({
         if (likes.includes(loggedInUserId)) {
           likes.splice(likes.indexOf(loggedInUserId), 1);
           setIsPostedLiked(false); // Mettre à jour isPostLiked à false
-          setLikesCounterIncrementLocal((prevState) => prevState - 1); // Mettre à jour likesCounterIncrementLocal en soustrayant 1
+          // setLikesCounterIncrementLocal((prevState) => prevState - 1); // Mettre à jour likesCounterIncrementLocal en soustrayant 1
         } else {
           likes.push(loggedInUserId);
           setIsPostedLiked(true); // Mettre à jour isPostLiked à true
-          setLikesCounterIncrementLocal((prevState) => prevState + 1); // Mettre à jour likesCounterIncrementLocal en ajoutant 1
+          // setLikesCounterIncrementLocal((prevState) => prevState + 1); // Mettre à jour likesCounterIncrementLocal en ajoutant 1
         }
 
         await updateDoc(postRef, { likes });

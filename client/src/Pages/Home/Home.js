@@ -69,7 +69,7 @@ function Home({
   const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
     useState(0);
   const [likesCounterIncrementLocal, setLikesCounterIncrementLocal] =
-    useState(parseInt(0));
+    useState();
   const [athletesFollowing, setAthletesFollowing] = useState([]);
   const [athleteNftInfo, setAthleteNftInfo] = useState([]);
   const [nftsFromOwner, setNftsFromOwner] = useState([]);

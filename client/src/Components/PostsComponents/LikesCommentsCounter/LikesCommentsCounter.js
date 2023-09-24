@@ -76,7 +76,7 @@ function LikesCommentsCounter({
           }
         >
           <Link onClick={setIsPostClicked}>
-            {postLikes + likesCounterIncrementLocal} like{pluralLikes && "s"}
+            {postLikes} like{pluralLikes && "s"}
           </Link>
         </div>
       </div>
