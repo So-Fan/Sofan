@@ -87,7 +87,7 @@ const AthleteProfilePage = ({
   const [availableNftCount, setAvailableNftCount] = useState(0);
   const [isUserFan, setIsUserFan] = useState(false);
   // const setProfileSubMenuOffresClicked = () => {
-  //   console.log("amagnacouuuuunia");
+  //   console.log("");
   // }
   // const profileSubMenuOffresClicked= true
   const location = useLocation();

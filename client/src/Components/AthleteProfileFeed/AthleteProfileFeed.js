@@ -29,6 +29,9 @@ function AthleteProfileFeed({
   const [commentCounts, setCommentCounts] = useState({});
   const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
     useState(0);
+  const [likesCounterIncrementLocal, setLikesCounterIncrementLocal] = useState(
+    parseInt(0)
+  );
   const { loggedInUser } = useUserCollection();
 
   useEffect(() => {
@@ -204,6 +207,8 @@ function AthleteProfileFeed({
               setCommentCounterIncrementLocal={setCommentCounterIncrementLocal}
               commentCounterIncrementLocal={commentCounterIncrementLocal}
               pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
+              setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
+              likesCounterIncrementLocal={likesCounterIncrementLocal}
               //setIsPostClicked={setIsPostClicked}
               //lockPremiumContent={handleDisplayPremiumContent(index)}
               //handleDropdownPostFeedClick={handleDropdownPostFeedClick}
@@ -240,6 +245,8 @@ function AthleteProfileFeed({
               postCreatorId={post.userId}
               loggedInUser={loggedInUser}
               lockPremiumContent={handleDisplayPremiumContent(index)}
+              setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
+              likesCounterIncrementLocal={likesCounterIncrementLocal}
               //setIsPostClicked={setIsPostClicked}
               //lockPremiumContent={handleDisplayPremiumContent(index)}
               //handleDropdownPostFeedClick={handleDropdownPostFeedClick}
