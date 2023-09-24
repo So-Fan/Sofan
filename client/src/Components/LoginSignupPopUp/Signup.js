@@ -998,6 +998,11 @@ function Signup({
   function handlePreviousStepConfirmWallet(e) {
     setDisplayConfirmWallet(false);
     setDisplayConnectWallet(true);
+    // delete accounts[0]
+    if (accounts.length > 0) {
+      accounts.splice(0, 1); // Cela supprime l'élément à l'index 0
+    }
+    
   }
   //
   function handlePreviousStepErrorGoogleAlreadyExist(e) {

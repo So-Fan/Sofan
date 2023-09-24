@@ -39,6 +39,7 @@ const Navbar = ({
   const [isNotificationsRead, setIsNotificationsRead] = useState(false);
   const [isPageHomeDisplay, setIsPageHomeDisplay] = useState(false);
   const [isPageLaunchpadDisplay, setIsPageLaunchpadDisplay] = useState(false);
+  const [isSearchBarbClicked, setIsSearchBarClicked] = useState(false);
   // const navigate = useNavigate();
   const location = useLocation();
   const segments = location.pathname.split("/");
@@ -120,6 +121,9 @@ const Navbar = ({
       setIsSignInButtonClicked(false);
     }
   }
+  function handleSearchBarClick() {
+    setIsSearchBarClicked(!isSearchBarbClicked);
+  }
   return (
     <>
       {!isLogged && (
@@ -153,7 +157,14 @@ const Navbar = ({
                   />
                   <div className="navbar-main-logo-beta">beta</div>
                 </a>{" "}
-                <Searchbar />
+                <Searchbar handleSearchBarClick={handleSearchBarClick} />
+                {isSearchBarbClicked && (
+                  <>
+                    <div className="navbar-searchbar-dropdown">
+                      <div>Coming soon...</div>
+                    </div>
+                  </>
+                )}
               </div>
               <div
                 className={

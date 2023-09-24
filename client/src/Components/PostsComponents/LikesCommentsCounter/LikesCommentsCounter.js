@@ -22,7 +22,9 @@ function LikesCommentsCounter({
   isMediaQueriesFullPagePostDisabled,
   fullPagePostModalStyle,
   fullPagePostPageStyle,
-  commentCounterIncrementLocal
+  commentCounterIncrementLocal,
+  likesCounterIncrementLocal,
+  setLikesCounterIncrementLocal
 }) {
   const [pluralLikes, setPluralLikes] = useState();
   useEffect(() => {
@@ -63,6 +65,7 @@ function LikesCommentsCounter({
           }
           fullPagePostModalStyle={fullPagePostModalStyle}
           fullPagePostPageStyle={fullPagePostPageStyle}
+          setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
           // likeButtonContainerPollPost={likeButtonContainerPollPost}
         />
         <div
