@@ -35,6 +35,7 @@ import { useLocation } from "react-router-dom";
 import Web3 from "web3";
 import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
+import UserActivityTab from "../../Components/UserActivityTab/UserActivityTab";
 const MemoProfileSubMenu = memo(ProfileSubMenu);
 const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
 const MemoAthleteProfileFeed = memo(
@@ -676,12 +677,8 @@ const AthleteProfilePage = ({
             />
           </div>
         ) : isAthleteProfileSubMenuClicked[1] === true ? (
-          <UserActivity
-            isUserActivitySectionActive={true}
-            userFrom={dataConcat?.activities}
-            nftsFromOwner={nftsFromOwner}
-            transferNftDataApi={transferNftDataApi}
-            setTransferNftDataApi={setTransferNftDataApi}
+          <UserActivityTab
+            currentProfileUserWallet={currentProfileUserWallet}
             ethPrice={ethPrice}
           />
         ) : isAthleteProfileSubMenuClicked[2] === true ? (

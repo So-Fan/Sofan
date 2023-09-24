@@ -10,6 +10,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 // import { Alchemy, Network } from "alchemy-sdk";
 import "./NftCollection.css";
+import CollectionActivityTab from "../../Components/CollectionActivityTab/CollectionActivityTab";
 const NftCollection = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -425,15 +426,7 @@ const NftCollection = ({
         </div>
       );
     } else if (isProfileSubMenuButtonClicked[1] === true) {
-      return (
-        <UserActivity
-          userFrom={dataConcat?.activities}
-          nftsFromOwner={nftsFromOwner}
-          transferNftDataApi={transferNftDataApi}
-          setTransferNftDataApi={setTransferNftDataApi}
-          ethPrice={ethPrice}
-        />
-      );
+      return <CollectionActivityTab ethPrice={ethPrice} />;
     }
   };
   useEffect(() => {}, []);
