@@ -34,44 +34,43 @@ function AthleteProfileFeed({
   );
   const { loggedInUser } = useUserCollection();
 
-  useEffect(() => {
-    setIsLoading(true);
+  // useEffect(() => {
+  //   setIsLoading(true);
 
-    const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
+  //   const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
+  //   // Add a condition to filter posts by user ID (assuming user's ID is stored in a 'userId' field)
+  //   const userSpecificQuery = query(
+  //     feedPostCollectionRef,
+  //     where("userId", "==", athleteUserId), // Replace with the actual user ID or prop
+  //     where("status", "==", true),
+  //     orderBy("createdAt", "desc")
+  //   );
 
-    // Add a condition to filter posts by user ID (assuming user's ID is stored in a 'userId' field)
-    const userSpecificQuery = query(
-      feedPostCollectionRef,
-      where("userId", "==", athleteUserId), // Replace with the actual user ID or prop
-      where("status", "==", true),
-      orderBy("createdAt", "desc")
-    );
+  //   const unsubscribe = onSnapshot(userSpecificQuery, (querySnapshot) => {
+  //     const freeData = [];
+  //     const premiumData = [];
 
-    const unsubscribe = onSnapshot(userSpecificQuery, (querySnapshot) => {
-      const freeData = [];
-      const premiumData = [];
+  //     querySnapshot.forEach((doc) => {
+  //       const postData = {
+  //         ...doc.data(),
+  //         id: doc.id,
+  //         isDropdownClicked: false,
+  //       };
 
-      querySnapshot.forEach((doc) => {
-        const postData = {
-          ...doc.data(),
-          id: doc.id,
-          isDropdownClicked: false,
-        };
+  //       if (postData.visibility) {
+  //         freeData.push(postData);
+  //       } else {
+  //         premiumData.push(postData);
+  //       }
+  //     });
 
-        if (postData.visibility) {
-          freeData.push(postData);
-        } else {
-          premiumData.push(postData);
-        }
-      });
+  //     setFreePosts(freeData);
+  //     setPremiumPosts(premiumData);
+  //     setIsLoading(false);
+  //   });
 
-      setFreePosts(freeData);
-      setPremiumPosts(premiumData);
-      setIsLoading(false);
-    });
-
-    return () => unsubscribe(); // Cleanup on component unmount
-  }, []);
+  //   return () => unsubscribe(); // Cleanup on component unmount
+  // }, [athleteUserId]);
   useEffect(() => {
     setIsLoading(true);
     const feedPostCollectionRef = collection(db, "feed_post");
@@ -79,6 +78,7 @@ function AthleteProfileFeed({
       feedPostCollectionRef,
       where("status", "==", true),
       where("visibility", "==", true),
+      where("userId", "==", athleteUserId),
       orderBy("createdAt", "desc")
     );
     const unsubscribeFreePosts = onSnapshot(q, (querySnapshot) => {
@@ -101,6 +101,7 @@ function AthleteProfileFeed({
       feedPostCollectionRef,
       where("status", "==", true),
       where("visibility", "==", false),
+      where("userId", "==", athleteUserId),
       orderBy("createdAt", "desc")
     );
     const unsubscribePremiumPosts = onSnapshot(qPremium, (querySnapshot) => {
