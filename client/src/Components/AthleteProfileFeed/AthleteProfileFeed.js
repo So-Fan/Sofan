@@ -239,12 +239,15 @@ function AthleteProfileFeed({
               postDate={post.createdAt.seconds}
               postDescription={post.text}
               postLikes={post.likes ? post.likes.length : 0}
-              postCommentNumber={post?.comments?.length}
+              postCommentNumber={commentCounts[post.id] || 0}
               postType={post.visibility}
               postPicture={post.imagePath}
               postCreatorId={post.userId}
               loggedInUser={loggedInUser}
+              polldata={post.pollData}
               lockPremiumContent={handleDisplayPremiumContent(index)}
+              setCommentCounterIncrementLocal={setCommentCounterIncrementLocal}
+              commentCounterIncrementLocal={commentCounterIncrementLocal}
               setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
               likesCounterIncrementLocal={likesCounterIncrementLocal}
               //setIsPostClicked={setIsPostClicked}
