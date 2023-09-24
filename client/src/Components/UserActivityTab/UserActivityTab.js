@@ -375,7 +375,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   }, [AllTx, AllSofanCollection, allErc721Event, allErc20Event]);
 
   useMemo(() => {
-    // TODO: call API pour image, collection name, prix
     const tryMe = async () => {
       if (alchemyArray.length != 0) {
         console.log("Lachemy Array to get metadata", alchemyArray);
@@ -423,7 +422,9 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               // console.log(i);
               if (
                 tempConcatArrayElement.hash.toLowerCase() ===
-                allErc20Element.hash.toLowerCase()
+                  allErc20Element.hash.toLowerCase() &&
+                allErc20Element.from.toLowerCase() ===
+                  tempConcatArrayElement.from.toLowerCase()
               ) {
                 // console.log("push");
                 tempArray.push(allErc20Element);
@@ -865,7 +866,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     </div>
                   </div>
                   <div className="useractivitytab-content-container-qty-wrap">
-                    <span>{tx?.quantity ? tx.quantity : "1"}</span>
+                    <span>{tx?.quantity ? "1" : "1"}</span>
                   </div>
                   <div></div>
                   {tx.fromDisplay.slice(0, 2) != "0x" ? (
@@ -999,7 +1000,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     </div>
                   </div>
                   <div className="useractivitytab-content-container-qty-wrap">
-                    <span>{tx?.quantity}</span>
+                    <span>{1}</span>
                   </div>
                   <div></div>
                   <div className="useractivitytab-content-container-from-wrap">
