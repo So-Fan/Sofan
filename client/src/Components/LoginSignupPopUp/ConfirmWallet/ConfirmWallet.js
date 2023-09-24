@@ -94,7 +94,7 @@ function ConfirmWallet({
       >
         Confirmer
       </button>
-      <button className="signup-user-confirm-wallet-change-wallet-button">
+      <button onClick={handlePreviousStepConfirmWallet} className="signup-user-confirm-wallet-change-wallet-button">
         Changer de wallet
       </button>
       <div className="signup-user-confirm-wallet-progress-bar-container">

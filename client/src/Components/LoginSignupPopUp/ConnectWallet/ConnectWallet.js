@@ -228,7 +228,7 @@ function ConnectWallet({
                   Metamask
                 </div>
               </div>
-              <div className="signup-user-connect-wallet-list-wrap">
+              <div style={{opacity:"0.5"}} className="signup-user-connect-wallet-list-wrap">
                 <div className="signup-user-connect-wallet-list-logo">
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/coinbase-wallet.png?alt=media&token=a73e7567-60ea-40d1-8723-cbdd6dadc00b"
@@ -236,10 +236,10 @@ function ConnectWallet({
                   />
                 </div>
                 <div className="signup-user-connect-wallet-list-wallet-name">
-                  Coinbase Wallet
+                  Coinbase Wallet (soon)
                 </div>
               </div>
-              <div className="signup-user-connect-wallet-list-wrap">
+              <div style={{opacity:"0.5"}} className="signup-user-connect-wallet-list-wrap">
                 <div className="signup-user-connect-wallet-list-logo">
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/wallet-connect.png?alt=media&token=bf327435-99d9-443b-94cd-56f8db3d1dbc"
@@ -247,7 +247,7 @@ function ConnectWallet({
                   />
                 </div>
                 <div className="signup-user-connect-wallet-list-wallet-name">
-                  Wallet Connect
+                  Wallet Connect (soon)
                 </div>
               </div>
             </div>

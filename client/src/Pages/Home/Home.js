@@ -68,6 +68,8 @@ function Home({
   const [commentCounts, setCommentCounts] = useState({});
   const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
     useState(0);
+  const [likesCounterIncrementLocal, setLikesCounterIncrementLocal] =
+    useState(parseInt(0));
   const [athletesFollowing, setAthletesFollowing] = useState([]);
   const [athleteNftInfo, setAthleteNftInfo] = useState([]);
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
@@ -143,13 +145,13 @@ function Home({
     // ]);
     // Gardez en mémoire l'id de l'athlete testé et le status de l'user
     if (isUserFan === false && dataPost[i]?.visibility === false) {
-      console.log("pas fan et post privé");
+      // console.log("pas fan et post privé");
       return true;
     } else if (isUserFan === true && dataPost[i]?.visibility === false) {
-      console.log("Fan et post privé");
+      // console.log("Fan et post privé");
       return false;
     } else if (dataPost[i]?.visibility === true) {
-      console.log("post public");
+      // console.log("post public");
       return false;
     }
   }
@@ -225,19 +227,19 @@ function Home({
 
           let judgement;
           if (isUserFan === false && dataPost[i]?.visibility === false) {
-            console.log("pas fan et post privé");
+            // console.log("pas fan et post privé");
             judgement = true;
           } else if (isUserFan === true && dataPost[i]?.visibility === false) {
-            console.log("Fan et post privé");
+            // console.log("Fan et post privé");
             judgement = false;
           } else if (dataPost[i]?.visibility === true) {
-            console.log("post public");
+            // console.log("post public");
             judgement = false;
           }
 
           tempIsUserFanArray.push(judgement);
         }
-        console.log(tempIsUserFanArray);
+        // console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
 
@@ -632,9 +634,9 @@ function Home({
               <>
                 {dataPost?.map((post, index) => {
                   // console.log(post.isDropdownClicked)
-                  console.log(isUserFanArray[index]);
+                  // console.log(isUserFanArray[index]);
                   return (
-                    <MemoPostsFeed
+                    <PostsFeed
                       key={post.id}
                       id={post.id}
                       singlePostData={post}
@@ -667,6 +669,8 @@ function Home({
                       setCommentCounterIncrementLocal={
                         setCommentCounterIncrementLocal
                       }
+                      likesCounterIncrementLocal={likesCounterIncrementLocal}
+                      setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
                     />
                   );
                 })}

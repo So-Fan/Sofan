@@ -11,30 +11,33 @@ import { Link } from "react-router-dom";
 import Modal from "../../Modal/Modal";
 import PremiumContentLocked from "../../PremiumContentLocked/PremiumContentLocked";
 import PollPost from "../PollPost/PollPost";
-const MemoHeadOfPost = memo(HeadOfPost, (prevProps, nextProps)=> {
+const MemoHeadOfPost = memo(HeadOfPost, (prevProps, nextProps) => {
   if (prevProps === nextProps) {
-        // console.log("les props du post n'ont pas changés");
-        return true;
-      }
-      // console.log("les props du post ont changés");
-      return false;
-})
-const MemoDescription = memo(PostsDescription, (prevProps, nextProps)=> {
+    // console.log("les props du post n'ont pas changés");
+    return true;
+  }
+  // console.log("les props du post ont changés");
+  return false;
+});
+const MemoDescription = memo(PostsDescription, (prevProps, nextProps) => {
   if (prevProps === nextProps) {
-        // console.log("les props du post n'ont pas changés");
-        return true;
-      }
-      // console.log("les props du post ont changés");
-      return false;
-})
-const MemoLikesCommentsCounter = memo(LikesCommentsCounter, (prevProps, nextProps)=> {
-  if (prevProps === nextProps) {
-        // console.log("les props du post n'ont pas changés");
-        return true;
-      }
-      // console.log("les props du post ont changés");
-      return false;
-})
+    // console.log("les props du post n'ont pas changés");
+    return true;
+  }
+  // console.log("les props du post ont changés");
+  return false;
+});
+const MemoLikesCommentsCounter = memo(
+  LikesCommentsCounter,
+  (prevProps, nextProps) => {
+    if (prevProps === nextProps) {
+      // console.log("les props du post n'ont pas changés");
+      return true;
+    }
+    // console.log("les props du post ont changés");
+    return false;
+  }
+);
 function PostsFeed({
   handleDropdownPostFeedClick,
   isDropdownClicked,
@@ -73,6 +76,8 @@ function PostsFeed({
   setCommentCounterIncrementLocal,
   commentCounterIncrementLocal,
   pixelScrolledAthleteProfilePage,
+  likesCounterIncrementLocal,
+  setLikesCounterIncrementLocal,
 }) {
   const [isPostClicked, setIsPostClicked] = useState(false);
   const [isModdleToggled, setIsModalToggled] = useState(false);
@@ -115,6 +120,9 @@ function PostsFeed({
   // console.log("id de postfeed --> ",id)
   // console.log(postCommentNumber);
   //console.log(postPicture);
+  // useEffect(() => {
+
+  // }, [])
 
   return (
     <>
@@ -197,6 +205,8 @@ function PostsFeed({
             postId={id}
             loggedInUserId={loggedInUser?.id}
             commentCounterIncrementLocal={commentCounterIncrementLocal}
+            likesCounterIncrementLocal={likesCounterIncrementLocal}
+            setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
           />
           <div className="show-comments-button-publication">
             <Link onClick={(e) => handleClickShowComment(e)}>
