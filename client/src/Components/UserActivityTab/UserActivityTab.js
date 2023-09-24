@@ -25,6 +25,9 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [final, setFinal] = useState([]);
   const [AllTx, setAllTx] = useState([]);
   const [AllSofanCollection, setAllSofanCollection] = useState([]);
+  const [AllSofanCollectionBackend, setAllSofanCollectionBackend] = useState(
+    []
+  );
   const [allErc721Event, setAllErc721Event] = useState([]);
   const [allErc20Event, setAllErc20Event] = useState([]);
   const [web3Instance, setWeb3Instance] = useState();
@@ -528,17 +531,20 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       const querySnapshot = await getDocs(q);
 
       let tempAllAthleteCollection = [];
+      let tempAllAthleteCollectionBackend = [];
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           const tempNftcollectionInfo = doc.data();
           tempAllAthleteCollection.push(
             tempNftcollectionInfo.collection_address
           );
+          tempAllAthleteCollectionBackend.push(tempNftcollectionInfo);
           // console.log("Collection found");
         });
       } else {
         // console.log("No collection found");
       }
+      setAllSofanCollectionBackend(tempAllAthleteCollectionBackend);
       setAllSofanCollection(tempAllAthleteCollection);
       // console.log("je suis", tempAllSofanCollectionArray);
       const fetchAllTx = await fetch(
@@ -618,6 +624,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
         displayInfoFromBackendAvailable === true
       ) {
         const feedPostCollectionRef = collection(db, "users");
+        const q = collection(db, "nft_collections");
         var userSpecificData;
         try {
           const tempUserSpecificQueryMetamask = query(
@@ -663,37 +670,37 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             element.from.toLowerCase() ===
             currentProfileUserWallet.toLowerCase()
           ) {
-            // set element to new object with
-            const otherUserSpecificQuery = query(
-              feedPostCollectionRef,
-              where("metamask", "==", element.to)
-            );
-            const querySnapshot = await getDocs(otherUserSpecificQuery);
-            if (!querySnapshot.empty) {
-              querySnapshot.forEach((doc) => {
-                const userInfo = doc.data();
-                tempOtherUserSpecificQuery = userInfo;
-                console.log(userInfo);
-              });
-            } else {
-              console.log("No metamask found");
-              const tempUserSpecificQueryWeb3auth = query(
-                feedPostCollectionRef,
-                where("web3auth", "==", element.to)
-              );
-              const querySnapshot = await getDocs(
-                tempUserSpecificQueryWeb3auth
-              );
-              if (!querySnapshot.empty) {
-                querySnapshot.forEach((doc) => {
-                  const userInfo = doc.data();
-                  tempOtherUserSpecificQuery = userInfo;
-                  console.log(userInfo);
-                });
-              } else {
-                console.log("No metamask or web3auth found");
-              }
-            }
+            // Handle case where to === userprofile, in mvp user can only be from beacause only mint and no marketplace
+            // const otherUserSpecificQuery = query(
+            //   feedPostCollectionRef,
+            //   where("metamask", "==", element.to)
+            // );
+            // const querySnapshot = await getDocs(otherUserSpecificQuery);
+            // if (!querySnapshot.empty) {
+            //   querySnapshot.forEach((doc) => {
+            //     const userInfo = doc.data();
+            //     tempOtherUserSpecificQuery = userInfo;
+            //     console.log(userInfo);
+            //   });
+            // } else {
+            //   console.log("No metamask found");
+            //   const tempUserSpecificQueryWeb3auth = query(
+            //     feedPostCollectionRef,
+            //     where("web3auth", "==", element.to)
+            //   );
+            //   const querySnapshot = await getDocs(
+            //     tempUserSpecificQueryWeb3auth
+            //   );
+            //   if (!querySnapshot.empty) {
+            //     querySnapshot.forEach((doc) => {
+            //       const userInfo = doc.data();
+            //       tempOtherUserSpecificQuery = userInfo;
+            //       console.log(userInfo);
+            //     });
+            //   } else {
+            //     console.log("No metamask or web3auth found");
+            //   }
+            // }
             let tempNewObject;
             if (userSpecificData) {
               let tempObj = {
@@ -707,26 +714,49 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               tempObj.fromDisplay = userSpecificData.display_name;
               tempNewObject = tempObj;
             }
-            if (tempOtherUserSpecificQuery) {
-              let tempObj = tempNewObject
-                ? {
+
+            if (AllSofanCollection.length > 0) {
+              for (let i = 0; i < AllSofanCollection.length; i++) {
+                const AllSofanCollectionElement = AllSofanCollection[i];
+                if (
+                  element.nftContract.toLowerCase() ===
+                  AllSofanCollectionElement.toLowerCase()
+                ) {
+                  let tempObj = {
                     ...tempNewObject,
-                    toAccountType: tempOtherUserSpecificQuery.account_type,
-                    toAccountId: tempOtherUserSpecificQuery.id,
-                    oldToDisplay: element.toDisplay,
-                    firebaseToId: tempOtherUserSpecificQuery.id,
-                  }
-                : {
-                    ...element,
-                    toAccountType: tempOtherUserSpecificQuery.account_type,
-                    toAccountId: tempOtherUserSpecificQuery.id,
-                    oldToDisplay: element.toDisplay,
-                    firebaseToId: tempOtherUserSpecificQuery.id,
+                    toAccountType: "contractAddress",
+                    toAthleteId: AllSofanCollectionBackend[i].athlete_id,
+                    toCollectionName:
+                      AllSofanCollectionBackend[i].collection_title,
                   };
-              // handle string display
-              tempObj.toDisplay = tempOtherUserSpecificQuery.display_name;
-              tempNewObject = tempObj;
+
+                  // handle string display
+                  tempObj.nftContract = AllSofanCollectionElement;
+                  tempNewObject = tempObj;
+                }
+              }
             }
+
+            // if (tempOtherUserSpecificQuery) {
+            //   let tempObj = tempNewObject
+            //     ? {
+            //         ...tempNewObject,
+            //         toAccountType: tempOtherUserSpecificQuery.account_type,
+            //         toAccountId: tempOtherUserSpecificQuery.id,
+            //         oldToDisplay: element.toDisplay,
+            //         firebaseToId: tempOtherUserSpecificQuery.id,
+            //       }
+            //     : {
+            //         ...element,
+            //         toAccountType: tempOtherUserSpecificQuery.account_type,
+            //         toAccountId: tempOtherUserSpecificQuery.id,
+            //         oldToDisplay: element.toDisplay,
+            //         firebaseToId: tempOtherUserSpecificQuery.id,
+            //       };
+            //   // handle string display
+            //   tempObj.toDisplay = tempOtherUserSpecificQuery.display_name;
+            //   tempNewObject = tempObj;
+            // }
             if (tempNewObject) {
               finalCopy[i] = tempNewObject;
             }
@@ -914,7 +944,49 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                       />
                     </div>
                   )}
-                  {tx.toDisplay.slice(0, 2) != "0x" ? (
+                  {tx.toAccountType === "contractAddress" ? (
+                    <div>
+                      {tx.firebaseToId === userProfileSpecificData.id ? (
+                        <span>{tx.toDisplay}</span>
+                      ) : (
+                        <Link
+                          style={{ textDecoration: "none" }}
+                          to={`/collectionlive/${tx.toAthleteId}/${tx.nftContract}`}
+                          target="_blank"
+                        >
+                          {tx.toCollectionName}
+                        </Link>
+                      )}
+                      <div>
+                        <span
+                          about={tx.to}
+                          style={{ opacity: "0.7", fontSize: "11px" }}
+                        >
+                          {tx.toDisplay}
+                        </span>
+                        <img
+                          // className="useractivitytab-content-container-clipboardlogo"
+                          onClick={handleClickCopyConfirmWallet}
+                          src={copyLogo}
+                          alt="copy logo"
+                          name={2 * index + 1}
+                          style={{ width: 10, heigth: 10, marginLeft: 4 }}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="useractivitytab-content-container-address-wrap">
+                      <span about={tx.to}>{tx.toDisplay}</span>
+                      <img
+                        className="useractivitytab-content-container-clipboardlogo"
+                        onClick={handleClickCopyConfirmWallet}
+                        src={copyLogo}
+                        alt="copy logo"
+                        name={2 * index + 1}
+                      />
+                    </div>
+                  )}
+                  {/* {tx.toDisplay.slice(0, 2) != "0x" ? (
                     <div>
                       {tx.firebaseToId === userProfileSpecificData.id ? (
                         <span>{tx.toDisplay}</span>
@@ -946,9 +1018,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     </div>
                   ) : (
                     <div className="useractivitytab-content-container-address-wrap">
-                      {/* tout le contenu n'est display que si l'adresse n'appartient pas à un compte Sofan
-                    Si l'adresse appartient à un compte Sofan alors il faut display le nom + redirection vers le profil.
-                    */}
                       <span about={tx.to}>{tx.toDisplay}</span>
                       <img
                         className="useractivitytab-content-container-clipboardlogo"
@@ -958,7 +1027,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                         name={2 * index + 1}
                       />
                     </div>
-                  )}
+                  )} */}
                   {/* <div></div> */}
                   <div>
                     {/* TODO: convert to date */}
