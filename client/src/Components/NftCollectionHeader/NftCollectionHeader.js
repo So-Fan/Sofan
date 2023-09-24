@@ -79,7 +79,13 @@ function NftCollectionHeader({
             </a>
           </>
         )}
-        <img src={nftPicture} alt="IMAGE NFT" />
+        {nftPicture ? (
+          <>
+            <img src={nftPicture} alt="IMAGE NFT" />
+          </>
+        ) : (
+          <div className="nft-collection-header-div-no-img">PAS D'IMAGE</div>
+        )}
       </div>
       {launchpadCollectionLiveHeader ? (
         <>

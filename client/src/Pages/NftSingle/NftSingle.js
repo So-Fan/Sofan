@@ -1073,7 +1073,7 @@ const NftSingle = () => {
             currentNftCollectionInfoFromBackend?.collection_title
           }
           nftIdApi={currentNFTCollectionInfo?.tokenId}
-          nftPicture={currentNFTCollectionInfo?.media[0].raw}
+          nftPicture={currentNFTCollectionInfo?.media[0]?.raw}
           // Api CoinGecko
           ethPrice={ethPrice}
           //

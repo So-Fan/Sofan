@@ -20,6 +20,23 @@
   border-radius: 20px;
   object-fit: cover;
 }
+.nft-collection-header-div-no-img {
+  min-width: 100%;
+  min-height: 100%;
+  width: 620px;
+  height: 620px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  object-fit: cover;
+  background-color: #f6d463;
+  opacity: 0.5;
+  font-style: italic;
+  font-size: 22px;
+  font-family: "britanica-heavy";
+  color: black;
+}
 .nft-collection-header-data-and-buy-module-container {
   height: 100%;
   width: 100%;
@@ -409,7 +426,7 @@
 }
 .launchpad-collection-live-button-container:hover {
   /* background-color: #0000008f; */
-background-color: #e0d4d4e0;
+  background-color: #e0d4d4e0;
   /* background: #f7c520; */
   /* color: white; */
   transition-duration: 300ms !important;
