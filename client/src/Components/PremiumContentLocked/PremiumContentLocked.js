@@ -34,7 +34,6 @@ function PremiumContentLocked({ postCreatorId }) {
   
     fetchDisplayName();
   }, [postCreatorId]);
-  console.log(displayName)
   return (
     <div className="premium-content-locked-container">
       <div className="premium-content-locked-locker-logo">

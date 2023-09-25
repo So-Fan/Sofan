@@ -65,7 +65,11 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
   };
 
   const style = {
-    transform: `translateX(${counter + 60 - userFanAthlete.length * 5}px)`,
+    transform: `translateX(${
+      counter +
+      10 -
+      (athletesFollowing.length + athletesSupportingData.length) * 5
+    }px)`,
     transition: "all .5s ease-in-out",
   };
   const style2 = {
@@ -100,6 +104,11 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
     (athletesFollowing.length + athletesSupportingData.length - 1) *
     120
   );
+  athletesFollowing = athletesFollowing.filter((athleteFollowing) => {
+    return !athletesSupportingData.some((athleteSupporting) => {
+      return athleteFollowing.athleteId === athleteSupporting.athlete_id;
+    });
+  });
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">
@@ -135,7 +144,7 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
                 <AthleteTemplate
                   href={`/athleteprofile/${athlete.athleteId}`}
                   src={athlete.profile_avatar}
-                  athleteName={athlete.username}
+                  athleteName={athlete.display_name}
                   // isFan={athlete.isFan}
                 />
               </div>
