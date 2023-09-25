@@ -152,7 +152,7 @@ function PostsComments({
               >
                 {displayName}
               </span>
-              {postCreatorId === userId && (
+              {postCreatorId === userId ? (
                 <>
                   <span
                     onClick={redirectToProfileFromComment}
@@ -161,6 +161,18 @@ function PostsComments({
                     Auteur
                   </span>
                 </>
+              ) : userType === "athlete" ? (
+                <>
+                  <span
+                    // style={{ opacity: "0.5" }}
+                    onClick={redirectToProfileFromComment}
+                    className="posts-comments-component-creator-badge"
+                  >
+                    Athlete
+                  </span>
+                </>
+              ) : (
+                <></>
               )}
             </div>
             <div

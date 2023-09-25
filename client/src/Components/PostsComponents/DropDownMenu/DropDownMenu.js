@@ -138,6 +138,8 @@ function DropDownMenu({
             href={
               isHeadOfPostDisplay
                 ? `/athleteprofile/${postCreatorId}`
+                : userType === "athlete"
+                ? `/athleteprofile/${userId}`
                 : `/userprofile/${userId}`
             }
           >
