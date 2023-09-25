@@ -96,6 +96,10 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
     }
   }, [athletesFollowing, athletesSupportingData]);
   // console.log(athletesFollowing)
+  const maxTranslateX = -(
+    (athletesFollowing.length + athletesSupportingData.length - 1) *
+    120
+  );
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">
@@ -105,7 +109,10 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
             ...(athletesSupportingData.length + athletesFollowing.length === 2
               ? {}
               : { justifyContent: "space-between" }),
-            ...(counter !== (filteredArray.length - 2) * 120 * -1
+            ...(counter !==
+            (athletesSupportingData.length + athletesFollowing.length - 2) *
+              120 *
+              -1
               ? style2
               : style),
           }}
@@ -168,7 +175,7 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
         <></>
       ) : (
         <>
-          {counter !== (arrayLength - 2) * 120 * -1 && (
+          {counter !== maxTranslateX && (
             <div
               onClick={handleRightArrowClicked}
               className="carroussel-right-arrow-wrap"
