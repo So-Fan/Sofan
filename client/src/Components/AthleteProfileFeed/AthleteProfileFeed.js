@@ -29,46 +29,48 @@ function AthleteProfileFeed({
   const [commentCounts, setCommentCounts] = useState({});
   const [commentCounterIncrementLocal, setCommentCounterIncrementLocal] =
     useState(0);
+  const [likesCounterIncrementLocal, setLikesCounterIncrementLocal] = useState(
+    parseInt(0)
+  );
   const { loggedInUser } = useUserCollection();
 
-  useEffect(() => {
-    setIsLoading(true);
+  // useEffect(() => {
+  //   setIsLoading(true);
 
-    const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
+  //   const feedPostCollectionRef = collection(db, "feed_post"); // Make sure to set your collection name
+  //   // Add a condition to filter posts by user ID (assuming user's ID is stored in a 'userId' field)
+  //   const userSpecificQuery = query(
+  //     feedPostCollectionRef,
+  //     where("userId", "==", athleteUserId), // Replace with the actual user ID or prop
+  //     where("status", "==", true),
+  //     orderBy("createdAt", "desc")
+  //   );
 
-    // Add a condition to filter posts by user ID (assuming user's ID is stored in a 'userId' field)
-    const userSpecificQuery = query(
-      feedPostCollectionRef,
-      where("userId", "==", athleteUserId), // Replace with the actual user ID or prop
-      where("status", "==", true),
-      orderBy("createdAt", "desc")
-    );
+  //   const unsubscribe = onSnapshot(userSpecificQuery, (querySnapshot) => {
+  //     const freeData = [];
+  //     const premiumData = [];
 
-    const unsubscribe = onSnapshot(userSpecificQuery, (querySnapshot) => {
-      const freeData = [];
-      const premiumData = [];
+  //     querySnapshot.forEach((doc) => {
+  //       const postData = {
+  //         ...doc.data(),
+  //         id: doc.id,
+  //         isDropdownClicked: false,
+  //       };
 
-      querySnapshot.forEach((doc) => {
-        const postData = {
-          ...doc.data(),
-          id: doc.id,
-          isDropdownClicked: false,
-        };
+  //       if (postData.visibility) {
+  //         freeData.push(postData);
+  //       } else {
+  //         premiumData.push(postData);
+  //       }
+  //     });
 
-        if (postData.visibility) {
-          freeData.push(postData);
-        } else {
-          premiumData.push(postData);
-        }
-      });
+  //     setFreePosts(freeData);
+  //     setPremiumPosts(premiumData);
+  //     setIsLoading(false);
+  //   });
 
-      setFreePosts(freeData);
-      setPremiumPosts(premiumData);
-      setIsLoading(false);
-    });
-
-    return () => unsubscribe(); // Cleanup on component unmount
-  }, []);
+  //   return () => unsubscribe(); // Cleanup on component unmount
+  // }, [athleteUserId]);
   useEffect(() => {
     setIsLoading(true);
     const feedPostCollectionRef = collection(db, "feed_post");
@@ -76,6 +78,7 @@ function AthleteProfileFeed({
       feedPostCollectionRef,
       where("status", "==", true),
       where("visibility", "==", true),
+      where("userId", "==", athleteUserId),
       orderBy("createdAt", "desc")
     );
     const unsubscribeFreePosts = onSnapshot(q, (querySnapshot) => {
@@ -98,6 +101,7 @@ function AthleteProfileFeed({
       feedPostCollectionRef,
       where("status", "==", true),
       where("visibility", "==", false),
+      where("userId", "==", athleteUserId),
       orderBy("createdAt", "desc")
     );
     const unsubscribePremiumPosts = onSnapshot(qPremium, (querySnapshot) => {
@@ -204,6 +208,8 @@ function AthleteProfileFeed({
               setCommentCounterIncrementLocal={setCommentCounterIncrementLocal}
               commentCounterIncrementLocal={commentCounterIncrementLocal}
               pixelScrolledAthleteProfilePage={pixelScrolledAthleteProfilePage}
+              setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
+              likesCounterIncrementLocal={likesCounterIncrementLocal}
               //setIsPostClicked={setIsPostClicked}
               //lockPremiumContent={handleDisplayPremiumContent(index)}
               //handleDropdownPostFeedClick={handleDropdownPostFeedClick}
@@ -234,12 +240,17 @@ function AthleteProfileFeed({
               postDate={post.createdAt.seconds}
               postDescription={post.text}
               postLikes={post.likes ? post.likes.length : 0}
-              postCommentNumber={post?.comments?.length}
+              postCommentNumber={commentCounts[post.id] || 0}
               postType={post.visibility}
               postPicture={post.imagePath}
               postCreatorId={post.userId}
               loggedInUser={loggedInUser}
+              polldata={post.pollData}
               lockPremiumContent={handleDisplayPremiumContent(index)}
+              setCommentCounterIncrementLocal={setCommentCounterIncrementLocal}
+              commentCounterIncrementLocal={commentCounterIncrementLocal}
+              setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
+              likesCounterIncrementLocal={likesCounterIncrementLocal}
               //setIsPostClicked={setIsPostClicked}
               //lockPremiumContent={handleDisplayPremiumContent(index)}
               //handleDropdownPostFeedClick={handleDropdownPostFeedClick}

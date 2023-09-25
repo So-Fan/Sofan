@@ -222,6 +222,7 @@ function HeadOfPost({
               dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
               fullPagePostModalStyle={fullPagePostModalStyle} // à voir si ça créer des conflits de css
               userType={userType}
+              isHeadOfPostDisplay={true}
             />
           </>
         )}
@@ -236,6 +237,7 @@ function HeadOfPost({
               dropDownStatesFullPagePostModal={dropDownStatesFullPagePostModal}
               fullPagePostModalStyle={fullPagePostModalStyle}
               userType={userType}
+              isHeadOfPostDisplay={true}
             />
           </>
         )}

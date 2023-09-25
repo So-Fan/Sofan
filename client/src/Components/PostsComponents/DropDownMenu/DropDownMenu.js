@@ -16,6 +16,7 @@ function DropDownMenu({
   isPostsCommentsDisplay,
   commentId,
   postId,
+  isHeadOfPostDisplay
 }) {
   async function handleDeleteComments(e) {
     try {
@@ -50,6 +51,7 @@ function DropDownMenu({
       console.error("Erreur lors de la mise à jour du statut:", error);
     }
   }
+  console.log(userType)
   return (
     <>
       <section
@@ -112,7 +114,7 @@ function DropDownMenu({
           <a
             target="blank"
             href={
-              userType === "athlete"
+              isHeadOfPostDisplay
                 ? `/athleteprofile/${postCreatorId}`
                 : `/userprofile/${userId}`
             }

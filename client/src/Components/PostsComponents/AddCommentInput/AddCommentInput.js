@@ -51,7 +51,7 @@ function AddCommentInput({
       await addDoc(commentRef, commentData);
       console.log("Comment successfully added!");
       // state here
-      setCommentCounterIncrementLocal(prevState => prevState + 1);
+      // setCommentCounterIncrementLocal(prevState => prevState + 1);
       console.log("compteur depis AddCommentInput --> ",commentCounterIncrementLocal)
     } catch (e) {
       console.error("Error adding comment: ", e);

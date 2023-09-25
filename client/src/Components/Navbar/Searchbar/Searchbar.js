@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Searchbar.css";
 import magnifyingGlass from "../../../Assets/Image/magnifying_glass.svg";
-const Searchbar = () => {
+const Searchbar = ({handleSearchBarClick}) => {
   return (
     <div className="searchbar-container">
       <img
@@ -10,6 +10,8 @@ const Searchbar = () => {
         alt="magnifying glass"
       />
       <input
+      onFocus={handleSearchBarClick}
+      onBlur={handleSearchBarClick}
         className="searchbar-input"
         type="text"
         placeholder="Search an athlete, collection or an item"
