@@ -72,14 +72,20 @@ function NftCollectionHeader({
       <div className="nft-collection-header-picture">
         {launchpadCollectionLiveHeader && (
           <>
-            <a href={`/nftcollection/${collectionAddress}`}>
+            <Link to={`/nftcollection/${collectionAddress}`}>
               <button className="launchpad-collection-live-button-container">
                 Explorer la collection
               </button>
-            </a>
+            </Link>
           </>
         )}
-        <img src={nftPicture} alt="IMAGE NFT" />
+        {nftPicture ? (
+          <>
+            <img src={nftPicture} alt="IMAGE NFT" />
+          </>
+        ) : (
+          <div className="nft-collection-header-div-no-img">PAS D'IMAGE</div>
+        )}
       </div>
       {launchpadCollectionLiveHeader ? (
         <>

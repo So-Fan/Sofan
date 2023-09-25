@@ -140,7 +140,9 @@ function PostsFeed({
           <>
             {lockPremiumContent && (
               <>
-                <PremiumContentLocked />
+                <PremiumContentLocked 
+                postCreatorId={postCreatorId}
+                />
               </>
             )}
           </>

@@ -127,7 +127,7 @@ const NftSingle = () => {
     const currentOwnerAddress = await contractInfura.methods
       .ownerOf(tokenId)
       .call();
-    console.log(currentOwnerAddress);
+    // console.log(currentOwnerAddress);
     const q = query(
       collection(db, "users"),
       where("metamask", "==", currentOwnerAddress)
@@ -215,10 +215,10 @@ const NftSingle = () => {
         }
       }
       setCurrentNftCollectionInfoFromBackend(currentNftCollectionInfo);
-      console.log(currentNftCollectionInfo);
+      // console.log(currentNftCollectionInfo);
       const q2 = query(
         collection(db, "users"),
-        where("id", "==", currentNftCollectionInfo.athlete_id)
+        where("id", "==", currentNftCollectionInfo?.athlete_id)
       );
       const querySnapshot2 = await getDocs(q2);
 
@@ -1073,7 +1073,7 @@ const NftSingle = () => {
             currentNftCollectionInfoFromBackend?.collection_title
           }
           nftIdApi={currentNFTCollectionInfo?.tokenId}
-          nftPicture={currentNFTCollectionInfo?.media[0].raw}
+          nftPicture={currentNFTCollectionInfo?.media[0]?.raw}
           // Api CoinGecko
           ethPrice={ethPrice}
           //

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./NftCardTemplate.css";
+import Web3 from "web3";
 const NftCardTemplate = ({
   to,
   athleteName,
@@ -17,7 +18,7 @@ const NftCardTemplate = ({
   nftsFromOwnerTotalSupply,
   hidePrice,
 }) => {
-  // console.log(nftsFromOwner)
+
   return (
     <Link
       to={to}
@@ -25,7 +26,11 @@ const NftCardTemplate = ({
       style={isTransparent && { visibility: "hidden" }}
     >
       <div className="nftcardtemplate-image-wrap">
-        {nftsFromOwnerImage ? <img src={nftsFromOwnerImage} alt="NFT" />: <div className="nftcardtemplate-when-no-image">PAS D'IMAGE</div>}
+        {nftsFromOwnerImage ? (
+          <img src={nftsFromOwnerImage} alt="NFT" />
+        ) : (
+          <div className="nftcardtemplate-when-no-image">PAS D'IMAGE</div>
+        )}
       </div>
       <div className="nftcardtemplate-container-content">
         <span className="nftcardtemplate-container-content-athletename">

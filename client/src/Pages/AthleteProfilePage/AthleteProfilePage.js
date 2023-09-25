@@ -221,6 +221,12 @@ const AthleteProfilePage = ({
               nftsFromOwner.ownedNfts[i] = {
                 ...nftsFromOwner.ownedNfts[i],
                 athleteName: elementFromUserData.display_name,
+                contract: {
+                  ...nftsFromOwner.ownedNfts[i]?.contract,
+                  address: Web3.utils.toChecksumAddress(
+                    nftsFromOwner.ownedNfts[i]?.contract?.address
+                  ),
+                },
               };
             }
           }

@@ -106,6 +106,8 @@ function NftCollectionMoreAboutNft({
   //
   // function NftCollectionMoreAboutNft({ nftCard }) {
   // console.log(nftsFromContract);
+  nftsFromContract = nftsFromContract.slice(0, 4);
+  // console.log(nftsFromContract.length)
   return (
     <section className="nft-collection-more-about-nft-container">
       <div className="nft-collection-more-about-nft-wrap">
@@ -152,20 +154,20 @@ function NftCollectionMoreAboutNft({
             />
           ))}
 
-          {dataBackendNftCollectionMoreAboutNft.nftCard?.length % 4 === 1 && (
+          {nftsFromContract.length % 4 === 1 && (
             <>
               <NftCardTemplate isTransparent={true} />
               <NftCardTemplate isTransparent={true} />
               <NftCardTemplate isTransparent={true} />
             </>
           )}
-          {dataBackendNftCollectionMoreAboutNft.nftCard?.length % 4 === 2 && (
+          {nftsFromContract.length % 4 === 2 && (
             <>
               <NftCardTemplate isTransparent={true} />
               <NftCardTemplate isTransparent={true} />
             </>
           )}
-          {dataBackendNftCollectionMoreAboutNft.nftCard?.length % 4 === 3 && (
+          {nftsFromContract.length % 4 === 3 && (
             <NftCardTemplate isTransparent={true} />
           )}
         </div>

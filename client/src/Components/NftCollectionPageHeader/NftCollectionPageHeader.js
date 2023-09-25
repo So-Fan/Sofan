@@ -16,7 +16,7 @@ const NftCollectionPageHeader = ({
   collectionBackendData,
   athleteDisplayName,
   totalOwnersForContract,
-  collectionAddress
+  collectionAddress,
 }) => {
   // let floorPriceEur = collectionFloorPriceApiData * ethPrice
   let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString(
@@ -27,12 +27,32 @@ const NftCollectionPageHeader = ({
   return (
     <div className="nftcollectionheader-component">
       <div className="nftcollectionheader-bannerandprofilepicture-wrap">
-        <img src={collectionBackendData[0]?.collection_banner} alt="banner" />
-        <div className="nftcollectionheader-profilepciture-wrap">
-          <img
-            src={collectionBackendData[0]?.collection_avatar}
-            alt="profile"
-          />
+        {collectionBackendData[0]?.collection_banner ? (
+          <>
+            <img
+              src={collectionBackendData[0]?.collection_banner}
+              alt="banner"
+            />
+          </>
+        ) : (
+          <>
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/user_profile%2Fdefault_banner%2FbannerUserProfile.png?alt=media&token=5e614810-d6e1-49c1-bb42-e1905f068a1a"
+              alt="banner"
+            />
+          </>
+        )}
+        <div className="nftcollectionheader-profilepicture-wrap">
+          {collectionBackendData[0]?.collection_avatar ? (
+            <>
+              <img
+                src={collectionBackendData[0]?.collection_avatar}
+                alt="profile"
+              />
+            </>
+          ) : (
+            <div className="nftcollectionheader-profilepicture-no-img"></div>
+          )}
         </div>
       </div>
       <div className="nftcollectionheader-content-container">

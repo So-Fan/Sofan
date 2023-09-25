@@ -56,6 +56,7 @@ function NftList({
   receivedFrom = "DonOfSomething";
   // receivedTo = "DonOfSomething";
   // console.log(transferNftDataApi.to)
+  console.log(nftsFromOwnerImage)
   return (
     // Backend here
     <div className="user-nft-transfer-container">
@@ -63,7 +64,14 @@ function NftList({
         {func}
       </div>
       <Link className={`user-nft-picture-and-title ${offersNftContentClass}`}>
-        <img src={nftsFromOwnerImage} alt="nft picture" />
+        {nftsFromOwnerImage ? (
+          <>
+            <img src={nftsFromOwnerImage} alt="nft picture" />
+          </>
+        ) : (
+          <>cs</>
+        )}
+
         <div className="collection-name-nft-id-user-activity">
           <span>{nftsFromOwnerNameCollection}</span>
           <span>#{nftsFromOwnerIdNft}</span>
