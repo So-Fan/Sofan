@@ -5,189 +5,131 @@ import DashboardSubMenu from "../../Components/DashboardSubMenu/DashboardSubMenu
 import DashboardMyCalendar from "../../Components/DashboardMyCalendar/DashboardMyCalendar";
 import { Network, Alchemy } from "alchemy-sdk";
 import "./Dashboard.css";
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
+import Web3 from "web3";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../Configs/firebase";
+import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 function Dashboard() {
+  const { loggedInUser } = useUserCollection();
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
     true,
     false,
     false,
   ]);
   const [ethPrice, setEthPrice] = useState();
-  const [nftsFromOwner, setNftsFromOwner] = useState([]);
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-  const alchemy = new Alchemy(settings);
-  // get Nfts from Owner and Contracts
-  async function getNftsForOwner() {
-    // we select all the nfts hold by an address for a specific collection
-    const nftsFromOwner = await alchemy.nft.getNftsForOwner(
-      "0xf2018871debce291588B4034DBf6b08dfB0EE0DC",
-      {
-        contractAddresses: [
-          "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258", // Otherdead collection
-          "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", // BAYC collection
-        ],
-      } // filter
-    );
-    // const nftsSale = await alchemy.nft.getFloorPrice(
-    //   "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d" // BAYC collection
-    // );
-    setNftsFromOwner(nftsFromOwner?.ownedNfts);
-    // console.log(nftsFromOwner)
-  }
-  // API Coingecko --> Get ETH price
+  const [data, setData] = useState();
+
   useEffect(() => {
-    getNftsForOwner();
-    fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
-    )
-      .then((response) => response.json())
-      .then((data) => setEthPrice(data.ethereum.eur))
-      .catch((error) => console.log(error));
-  }, []);
-  const dataBackend = {
-    collections: [
-      {
-        banner: "https://i.imgur.com/2ybztrG.png",
-        profilePicture: "https://i.imgur.com/zH10SHj.png",
-        title: "THE VENDEE GLOBE 2022",
-        nftNumber: "5405",
-        nftPriceEth: "0.01",
-      },
-      {
-        banner: "https://i.imgur.com/2ybztrG.png",
-        profilePicture: "https://i.imgur.com/zH10SHj.png",
-        title: "THE VENDEE GLOBE 2022",
-        nftNumber: "5405",
-        nftPriceEth: "0.01",
-      },
-      {
-        banner: "https://i.imgur.com/2ybztrG.png",
-        profilePicture: "https://i.imgur.com/zH10SHj.png",
-        title: "THE VENDEE GLOBE 2022",
-        nftNumber: "5405",
-        nftPriceEth: "0.01",
-      },
-      {
-        banner: "https://i.imgur.com/2ybztrG.png",
-        profilePicture: "https://i.imgur.com/zH10SHj.png",
-        title: "THE VENDEE GLOBE 2022",
-        nftNumber: "5405",
-        nftPriceEth: "0.01",
-      },
-      {
-        banner: "https://i.imgur.com/2ybztrG.png",
-        profilePicture: "https://i.imgur.com/zH10SHj.png",
-        title: "THE VENDEE GLOBE 2022",
-        nftNumber: "5405",
-        nftPriceEth: "0.01",
-      },
-    ],
-    events: [
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/I66BDmh.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-      {
-        background: "https://i.imgur.com/2ybztrG.png",
-        title: "VIP MEETING WITH 1200 HOLDERS ",
-        location: "Paris, France",
-        date: "14 dec. 2022 - 9:00pm",
-      },
-    ],
-  };
-  const dataApi = {
-    stats: [
-      {
-        nftSoldLastMonth: 18,
-        nftSold: 19,
-        totalNftSold: 40,
-      },
-      {
-        revenueEthLastMonth: 2.29,
-        revenueEurLastMonth: 2498.32,
-        revenueEth: 3.02,
-        totaRevenueEth: 8.59,
-        revenueEur: 4542.19,
-        totalRevenueEur: 12987.9,
-      },
-    ],
-  };
-  // console.log(ethPrice)
+    console.log("yes");
+    const loadData = async () => {
+      console.log(loggedInUser);
+
+      if (loggedInUser?.fund_receipt_wallet) {
+        const web3Instance = new Web3(
+          new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
+        );
+        const { abi } = require("../../contracts/SofanNft.json");
+
+        const allERC20Tx = await fetch(
+          `https://api-goerli.etherscan.io/api?module=account&action=tokentx&contractaddress=${process.env.REACT_APP_USDC_ADDRESS}&address=${loggedInUser.fund_receipt_wallet}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+        );
+        const dataAllErc20TransferEvent = await allERC20Tx.json();
+
+        console.log(dataAllErc20TransferEvent);
+
+        // Requestion nft collection from backend
+
+        const q = query(
+          collection(db, "nft_collections"),
+          where("athlete_id", "==", loggedInUser.id)
+        );
+        const querySnapshot = await getDocs(q);
+
+        let tempAllAthleteCollectionBackend = [];
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            const tempNftcollectionInfo = doc.data();
+            tempAllAthleteCollectionBackend.push(tempNftcollectionInfo);
+          });
+        } else {
+          console.log("no collection found");
+        }
+
+        let sum = 0;
+        let SumOfNft = 0;
+        if (dataAllErc20TransferEvent.message === "OK") {
+          for (let i = 0; i < tempAllAthleteCollectionBackend.length; i++) {
+            const collectionElement = tempAllAthleteCollectionBackend[i];
+
+            const contractInfura = new web3Instance.eth.Contract(
+              abi,
+              `${collectionElement.collection_address}`
+            );
+            const currentSupply = await contractInfura.methods
+              .totalSupply()
+              .call();
+            SumOfNft = SumOfNft + parseInt(currentSupply);
+
+            for (let i = 0; i < dataAllErc20TransferEvent.result.length; i++) {
+              const erc20Element = dataAllErc20TransferEvent.result[i];
+
+              // for into all nft collection element
+
+              // if match => add to sum
+              if (
+                erc20Element.from.toLowerCase() ===
+                collectionElement.collection_address.toLowerCase()
+              ) {
+                console.log("enter", erc20Element);
+                sum = sum + parseInt(erc20Element.value);
+              }
+            }
+          }
+        }
+
+        const formattedSum = formatCurrentBalance(sum).slice(0, 4);
+        let ethPrice;
+
+        await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+        )
+          .then((response) => response.json())
+          .then((data) => (ethPrice = data.ethereum.usd))
+          .catch((error) => console.log(error));
+
+        const formattedSumToEth = parseInt(formattedSum) / parseInt(ethPrice);
+        console.log(formattedSum);
+        console.log(SumOfNft);
+        console.log(formattedSumToEth);
+        // number of nft minted for each collection
+
+        setData({
+          totalNftSaled: SumOfNft,
+          totalUsdcFormatted: formattedSum,
+          totalEthFormatted: formattedSumToEth.toString().slice(0, 8),
+        });
+      }
+    };
+    loadData();
+  }, [loggedInUser]);
 
   return (
     <section className="dashboard-page-container">
-      <div className="dashboard-page-wrap">
-        <DashboardSubMenu
-          setIsSubMenuClicked={setIsSubMenuClicked}
-          isSubMenuClicked={isSubMenuClicked}
-        />
-        {isSubMenuClicked[0] && (
-          <>
-            <div className="dashboard-page-stats-container">
-              <DashboardStats dataApi={dataApi} ethPrice={ethPrice} />
-            </div>
-          </>
-        )}
-        {isSubMenuClicked[1] && (
+      {loggedInUser ? (
+        <div className="dashboard-page-wrap">
+          <DashboardSubMenu
+            setIsSubMenuClicked={setIsSubMenuClicked}
+            isSubMenuClicked={isSubMenuClicked}
+          />
+          {isSubMenuClicked[0] && (
+            <>
+              <div className="dashboard-page-stats-container">
+                <DashboardStats data={data} />
+              </div>
+            </>
+          )}
+          {/* {isSubMenuClicked[1] && (
           <div className="dashboard-page-my-collections-container">
             <DashboardMyCollections
               dashBoardPageMarginDelete={true}
@@ -196,10 +138,10 @@ function Dashboard() {
               nftsFromOwner={nftsFromOwner}
             />
           </div>
-        )}
-        <div></div>
+        )} */}
+          <div></div>
 
-        {isSubMenuClicked[2] && (
+          {/* {isSubMenuClicked[2] && (
           <>
             <div className="dashboard-page-my-calendar-container">
               <DashboardMyCalendar
@@ -208,8 +150,11 @@ function Dashboard() {
               />
             </div>
           </>
-        )}
-      </div>
+        )} */}
+        </div>
+      ) : (
+        <>Not an athlete</>
+      )}
     </section>
   );
 }

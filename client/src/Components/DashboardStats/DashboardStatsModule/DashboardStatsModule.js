@@ -1,47 +1,20 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./DashboardStatsModule.css";
 function DashboardStatsModule({
-  nftsSoldThisMonth,
-  nftsSoldPercent,
-  totalNftSold,
-  arrowDisplay,
-  toggleColor,
-  displayPlus,
-  //
   moduleRevenueEth,
-  revenueEthLastMonth,
-  revenueEurLastMonth,
-  revenueEth,
-  totaRevenueEth,
-  revenueEthPercent,
-  //
   moduleRevenueEur,
-  revenueEur,
-  totalRevenueEur,
-  revenueEurPercent,
-  ethPrice,
-  ethPricePriceConverted,
-  tooltipText
+  totalNftSaled,
+  totalEthFormatted,
+  totalUsdcFormatted,
+  tooltipText,
 }) {
-  // console.log(ethPricePriceConverted)
-    // let calcul = totaRevenueEth * 2;
-    // // console.log(calcul)
-    // const [priceCalculated, setPriceCalculated]= useState()
-    
-    // useEffect(() => {
-    //   let ethPriceConverted = (ethPrice * totaRevenueEth).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
-    //   setPriceCalculated(ethPriceConverted)
-    //   // console.log(ethPriceConverted)
-    // }, [])
-    // console.log(priceCalculated)
-  
   return (
     <div className="dashboard-stats-module">
       <div className="dashboard-stats-module-number-and-square">
         <div
           style={
             moduleRevenueEth
-              ? { fontSize: "30px" }
+              ? { fontSize: "30px", marginTop: "10px" }
               : moduleRevenueEur
               ? { fontSize: "30px" }
               : {}
@@ -49,13 +22,13 @@ function DashboardStatsModule({
           className="dashboard-stats-module-number"
         >
           {moduleRevenueEth ? (
-            <>{totaRevenueEth} ETH</>
+            <>{totalEthFormatted} ETH</>
           ) : (
             <>
               {moduleRevenueEur ? (
-                <>{ethPricePriceConverted} €</>
+                <>{totalUsdcFormatted} €</>
               ) : (
-                <>{totalNftSold}</>
+                <>{totalNftSaled}</>
               )}
             </>
           )}
@@ -63,7 +36,10 @@ function DashboardStatsModule({
         <div className="dashboard-stats-module-square"></div>
       </div>
       <div className="dashboard-stats-module-title-and-logo">
-        <div className="dashboard-stats-module-title">
+        <div
+          style={moduleRevenueEth && { marginTop: "35px" }}
+          className="dashboard-stats-module-title"
+        >
           {moduleRevenueEth ? (
             <>CA réalisé</>
           ) : moduleRevenueEur ? (
@@ -72,11 +48,15 @@ function DashboardStatsModule({
             <>NFTs vendus</>
           )}
         </div>
-        <div title={tooltipText} className="dashboard-stats-module-logo">
+        <div
+          title={tooltipText}
+          style={moduleRevenueEth && { marginTop: "35px" }}
+          className="dashboard-stats-module-logo"
+        >
           <p>?</p>
         </div>
       </div>
-      <div className="dashboard-stats-module-progress-container">
+      {/* <div className="dashboard-stats-module-progress-container">
         <div className="dashboard-stats-module-progress-arrow-logo">
           <img src={arrowDisplay} alt="FLÊCHE VERTE" />
         </div>
@@ -106,7 +86,7 @@ function DashboardStatsModule({
           )}
           % ce mois
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
