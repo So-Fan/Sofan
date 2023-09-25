@@ -426,7 +426,12 @@ const NftCollection = ({
         </div>
       );
     } else if (isProfileSubMenuButtonClicked[1] === true) {
-      return <CollectionActivityTab ethPrice={ethPrice} />;
+      return (
+        <CollectionActivityTab
+          currentCollectionAddress={collectionAddress}
+          ethPrice={ethPrice}
+        />
+      );
     }
   };
   useEffect(() => {}, []);
