@@ -65,7 +65,11 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
   };
 
   const style = {
-    transform: `translateX(${counter + 60 - userFanAthlete.length * 5}px)`,
+    transform: `translateX(${
+      counter +
+      10 -
+      (athletesFollowing.length + athletesSupportingData.length) * 5
+    }px)`,
     transition: "all .5s ease-in-out",
   };
   const style2 = {
@@ -96,14 +100,31 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
     }
   }, [athletesFollowing, athletesSupportingData]);
   // console.log(athletesFollowing)
+  const maxTranslateX = -(
+    (athletesFollowing.length + athletesSupportingData.length - 1) *
+    120
+  );
+  athletesFollowing = athletesFollowing.filter((athleteFollowing) => {
+    return !athletesSupportingData.some((athleteSupporting) => {
+      return athleteFollowing.athleteId === athleteSupporting.athlete_id;
+    });
+  });
   return (
     <div className="carroussel-section">
       <div className="carroussel-athlete-wrap">
         <div
           className="carroussel-athlete-subwrap"
-          style={
-            counter !== (filteredArray.length - 2) * 120 * -1 ? style2 : style
-          }
+          style={{
+            ...(athletesSupportingData.length + athletesFollowing.length === 2
+              ? {}
+              : { justifyContent: "space-between" }),
+            ...(counter !==
+            (athletesSupportingData.length + athletesFollowing.length - 2) *
+              120 *
+              -1
+              ? style2
+              : style),
+          }}
         >
           {athletesSupportingData.map((athleteSupporting) => {
             return (
@@ -123,7 +144,7 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
                 <AthleteTemplate
                   href={`/athleteprofile/${athlete.athleteId}`}
                   src={athlete.profile_avatar}
-                  athleteName={athlete.username}
+                  athleteName={athlete.display_name}
                   // isFan={athlete.isFan}
                 />
               </div>
@@ -159,13 +180,19 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
           )} */}
         </div>
       </div>
-      {counter !== (arrayLength - 2) * 120 * -1 && (
-        <div
-          onClick={handleRightArrowClicked}
-          className="carroussel-right-arrow-wrap"
-        >
-          <img src={RightArrow} alt="right arrow" />
-        </div>
+      {athletesSupportingData.length + athletesFollowing.length <= 2 ? (
+        <></>
+      ) : (
+        <>
+          {counter !== maxTranslateX && (
+            <div
+              onClick={handleRightArrowClicked}
+              className="carroussel-right-arrow-wrap"
+            >
+              <img src={RightArrow} alt="right arrow" />
+            </div>
+          )}
+        </>
       )}
       {counter <= -120 && (
         <div

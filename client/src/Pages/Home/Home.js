@@ -304,7 +304,7 @@ function Home({
               foundAthletes.push({
                 athleteId,
                 profile_avatar: userData.profile_avatar,
-                username: userData.username,
+                display_name: userData.display_name,
               });
             }
           }

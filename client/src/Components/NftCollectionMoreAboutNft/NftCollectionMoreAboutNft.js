@@ -9,6 +9,7 @@ function NftCollectionMoreAboutNft({
   hidePrice,
   currentAthleteCollectionOwner,
 }) {
+  console.log(window.location.pathname.split("/")[2])
   // console.log(adaptTitleToNftCollectionPageItems);
   // console.log(nftsFromOwner)
   const dataBackendNftCollectionMoreAboutNft = {
@@ -136,7 +137,7 @@ function NftCollectionMoreAboutNft({
               id={element.tokenId}
               price={element.ethPrice}
               bid={element.highestBidEth}
-              to={`/nftsingle/${element.contract.address}/${element.tokenId}`}
+              to={`/nftsingle/${window.location.pathname.split("/")[2]}/${element.tokenId}`}
               //
               nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
               nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}

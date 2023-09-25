@@ -180,6 +180,7 @@ function PostsFeed({
               handleClickCopyPostLink={handleClickCopyPostLink}
               loggedInUserId={loggedInUser?.id}
               userType={userType}
+              lockPremiumContent={lockPremiumContent}
             />
           </div>
           <MemoDescription
@@ -247,6 +248,7 @@ function PostsFeed({
           setState={setIsPostClicked}
           style={{ top: "-44px", right: "2px" }}
           color="white"
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
         >
           {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
           <FullPagePost

@@ -32,6 +32,10 @@ function AddCommentInput({
     if (!loggedInUser && !commentText){
       return;
     }
+    if (commentText.trim() === "") {
+      console.log("Comment text is empty. Comment not published.");
+      return;
+    }
     const commentData = {
       createdAt: serverTimestamp(),
       userId: loggedInUser.id,

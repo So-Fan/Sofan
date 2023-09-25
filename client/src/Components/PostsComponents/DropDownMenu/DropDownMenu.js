@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./DropDownMenu.css";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../../../Configs/firebase";
+import useUserCollection from "../../../contexts/UserContext/useUserCollection";
 function DropDownMenu({
   dropdownStates,
   id,
@@ -16,9 +17,12 @@ function DropDownMenu({
   isPostsCommentsDisplay,
   commentId,
   postId,
-  isHeadOfPostDisplay
+  isHeadOfPostDisplay,
 }) {
-  async function handleDeleteComments(e) {
+  const { loggedInUser } = useUserCollection();
+  // console.log(loggedInUser, "loggedInUser")
+  // const { loggedInUser } = useUserCollection();
+  async function handleDeleteComments() {
     try {
       // Créer une référence vers le commentaire que vous souhaitez supprimer
       const commentRef = doc(
@@ -51,7 +55,8 @@ function DropDownMenu({
       console.error("Erreur lors de la mise à jour du statut:", error);
     }
   }
-  console.log(userType)
+  // console.log(loggedInUser?.account_type, "loggedInUser");
+  console.log(postCreatorId, "postCreatorId");
   return (
     <>
       <section
@@ -80,21 +85,38 @@ function DropDownMenu({
         <ul id={id}>
           {isPostsCommentsDisplay ? (
             <>
-              {userId === loggedInUserId && (
-                <>
-                  <li onClick={handleDeleteComments}>Supprimer</li>
-                  <div className="separation-line-dropdown-menu"></div>
-                </>
-              )}
+              {(() => {
+                console.log(userId, "userId");
+                console.log(loggedInUserId, "loggedInUserId");
+                if (
+                  userId === loggedInUserId ||
+                  loggedInUser?.account_type === "admin" ||
+                  postCreatorId === loggedInUserId
+                ) {
+                  return (
+                    <>
+                      <li onClick={handleDeleteComments}>Supprimer</li>
+                      <div className="separation-line-dropdown-menu"></div>
+                    </>
+                  );
+                }
+              })()}
             </>
           ) : (
             <>
-              {postCreatorId === loggedInUserId && (
-                <>
-                  <li onClick={handleDeletePosts}>Supprimer</li>
-                  <div className="separation-line-dropdown-menu"></div>
-                </>
-              )}
+              {(() => {
+                if (
+                  postCreatorId === loggedInUserId ||
+                  loggedInUser?.account_type === "admin"
+                ) {
+                  return (
+                    <>
+                      <li onClick={handleDeletePosts}>Supprimer</li>
+                      <div className="separation-line-dropdown-menu"></div>
+                    </>
+                  );
+                }
+              })()}
             </>
           )}
           {isPostsCommentsDisplay ? (
@@ -116,6 +138,8 @@ function DropDownMenu({
             href={
               isHeadOfPostDisplay
                 ? `/athleteprofile/${postCreatorId}`
+                : userType === "athlete"
+                ? `/athleteprofile/${userId}`
                 : `/userprofile/${userId}`
             }
           >
