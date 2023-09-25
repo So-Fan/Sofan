@@ -343,14 +343,18 @@ const AthleteProfilePage = ({
           abi,
           `${element.collection_address}`
         );
-        const tempCollectionLimit = await contractInfura.methods
-          .collectionLimit()
-          .call();
-        const tempTotalSupply = await contractInfura.methods
-          .totalSupply()
-          .call();
-        console.log(tempCollectionLimit, tempTotalSupply);
-        tempAvailableNftCount += tempCollectionLimit - tempTotalSupply;
+        try {
+          const tempCollectionLimit = await contractInfura.methods
+            .collectionLimit()
+            .call();
+          const tempTotalSupply = await contractInfura.methods
+            .totalSupply()
+            .call();
+          console.log(tempCollectionLimit, tempTotalSupply);
+          tempAvailableNftCount += tempCollectionLimit - tempTotalSupply;
+        } catch (error) {
+          console.error(error);
+        }
       }
 
       setAvailableNftCount(tempAvailableNftCount);
