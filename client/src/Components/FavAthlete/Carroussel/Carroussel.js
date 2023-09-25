@@ -101,9 +101,14 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
       <div className="carroussel-athlete-wrap">
         <div
           className="carroussel-athlete-subwrap"
-          style={
-            counter !== (filteredArray.length - 2) * 120 * -1 ? style2 : style
-          }
+          style={{
+            ...(athletesSupportingData.length + athletesFollowing.length === 2
+              ? {}
+              : { justifyContent: "space-between" }),
+            ...(counter !== (filteredArray.length - 2) * 120 * -1
+              ? style2
+              : style),
+          }}
         >
           {athletesSupportingData.map((athleteSupporting) => {
             return (
@@ -159,13 +164,19 @@ const Carroussel = ({ athletesFollowing, athletesSupportingData }) => {
           )} */}
         </div>
       </div>
-      {counter !== (arrayLength - 2) * 120 * -1 && (
-        <div
-          onClick={handleRightArrowClicked}
-          className="carroussel-right-arrow-wrap"
-        >
-          <img src={RightArrow} alt="right arrow" />
-        </div>
+      {athletesSupportingData.length + athletesFollowing.length <= 2 ? (
+        <></>
+      ) : (
+        <>
+          {counter !== (arrayLength - 2) * 120 * -1 && (
+            <div
+              onClick={handleRightArrowClicked}
+              className="carroussel-right-arrow-wrap"
+            >
+              <img src={RightArrow} alt="right arrow" />
+            </div>
+          )}
+        </>
       )}
       {counter <= -120 && (
         <div
