@@ -21,7 +21,7 @@
 }
 
 .nft-collection-more-about-nft-card-container {
-  width: 100%;
+  width: 104% !important;
   /* height: 100%; */
   display: flex;
   flex-wrap: wrap;
@@ -71,4 +71,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
+}
+.nft-collection-more-about-title-button a:hover {
+  background-color: #f7c520;
+  transition-duration: 300ms !important;
+}
+.nft-collection-more-about-title-button a:active {
+  transform: scale(0.85);
 }

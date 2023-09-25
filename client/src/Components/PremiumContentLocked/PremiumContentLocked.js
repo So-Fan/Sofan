@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./PremiumContentLocked.css";
 import lockerLogo from "../../Assets/Image/lockerlogo.svg";
-function PremiumContentLocked() {
+function PremiumContentLocked({postCreatorId}) {
   return (
     <div className="premium-content-locked-container">
       <div className="premium-content-locked-locker-logo">
@@ -10,9 +11,9 @@ function PremiumContentLocked() {
       <div className="premium-content-locked-cta-premium-content">
         Acheter le NFT pour débloquer le contenu premium de cet athlète.
       </div>
-      <a href="/nftsingle">
+        <Link to={`/nftsingle/${postCreatorId}`}>
         <button className="premium-content-locked-button">Voir le NFT</button>
-      </a>
+        </Link>
     </div>
   );
 }

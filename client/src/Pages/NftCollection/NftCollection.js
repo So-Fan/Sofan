@@ -429,7 +429,6 @@ const NftCollection = ({
       return <CollectionActivityTab ethPrice={ethPrice} />;
     }
   };
-  useEffect(() => {}, []);
 
   return (
     <div className="nftcollection-page">

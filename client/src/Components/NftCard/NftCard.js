@@ -12,6 +12,7 @@ const NftCard = ({
   nftsFromCollection
 }) => {
   // console.log(userFrom?.length % 4);
+  console.log(userFrom)
   console.log("nftsFromCollection --> ",nftsFromCollection)
   return (
     <>
@@ -103,20 +104,20 @@ const NftCard = ({
                 )}
               </>
             ))}
-            {userFrom?.length % 4 === 1 && (
+            {nftsFromCollection?.length % 4 === 1 && (
               <>
                 <NftCardTemplate isTransparent={true} />
                 <NftCardTemplate isTransparent={true} />
                 <NftCardTemplate isTransparent={true} />
               </>
             )}
-            {userFrom?.length % 4 === 2 && (
+            {nftsFromCollection?.length % 4 === 2 && (
               <>
                 <NftCardTemplate isTransparent={true} />
                 <NftCardTemplate isTransparent={true} />
               </>
             )}
-            {userFrom?.length % 4 === 3 && (
+            {nftsFromCollection?.length % 4 === 3 && (
               <NftCardTemplate isTransparent={true} />
             )}
           </div>

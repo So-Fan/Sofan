@@ -26,6 +26,7 @@ import UserActivityTab from "../../Components/UserActivityTab/UserActivityTab";
 import UserOffersReceived from "../../Components/UserOffersReceived/UserOffersReceived";
 import UserOffersMade from "../../Components/UserOffersMade/UserOffersMade";
 import useEth from "../../contexts/EthContext/useEth";
+import Web3 from "web3";
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -147,6 +148,7 @@ function UserProfilePage({
         );
         let tempAtheleteSupportingCounter = [];
         for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
+          // console.log(Web3.utils.toChecksumAddress(nftsFromOwner.ownedNfts[i]?.contract?.address))
           const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
           for (let a = 0; a < nftCollectionInfo.length; a++) {
             const elementFromNftCollectionInfo = nftCollectionInfo[a];
@@ -161,7 +163,14 @@ function UserProfilePage({
                 nftsFromOwner.ownedNfts[i] = {
                   ...nftsFromOwner.ownedNfts[i],
                   athleteName: elementFromUserData.display_name,
+                  contract: {
+                    ...nftsFromOwner.ownedNfts[i]?.contract,
+                    address: Web3.utils.toChecksumAddress(
+                      nftsFromOwner.ownedNfts[i]?.contract?.address
+                    ),
+                  },
                 };
+                // console.log(nftsFromOwner.ownedNfts[i]?.contract?.address)
                 if (
                   !tempAtheleteSupportingCounter.includes(
                     elementFromUserData.display_name
@@ -487,7 +496,7 @@ function UserProfilePage({
         <Modal
           dynamicPositionPopUpMargin={`${window.scrollY}px`}
           setState={setSettingsUserPageClicked}
-          style={{display: "none" }}
+          style={{ display: "none" }}
         >
           <PopUpEditProfile
             allUserInfo={allUserInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
