@@ -180,6 +180,7 @@ function PostsFeed({
               handleClickCopyPostLink={handleClickCopyPostLink}
               loggedInUserId={loggedInUser?.id}
               userType={userType}
+              lockPremiumContent={lockPremiumContent}
             />
           </div>
           <MemoDescription

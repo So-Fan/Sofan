@@ -34,6 +34,7 @@ function HeadOfPost({
   isFullPagePostModalDisplay,
   fullPagePostModalStyle,
   userType,
+  lockPremiumContent
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
