@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { ProfileClickedContext } from "../../../contexts/ProfileClickedContext/ProfileClickedContext";
 
 const NavProfile = ({ web3auth, src, userInfo = null }) => {
-  const { setLoggedInUser, setLocalWeb3authProvider } = useContext(UserContext);
+  const { setLoggedInUser, setLocalWeb3authProvider, loggedInUser } =
+    useContext(UserContext);
   const { isProfileClicked, setIsProfileClicked } = useContext(
     ProfileClickedContext
   );
@@ -47,7 +48,15 @@ const NavProfile = ({ web3auth, src, userInfo = null }) => {
         />
       </div>
       {isProfileClicked && (
-        <div className="navbar-dropdown">
+        <div
+          className="navbar-dropdown"
+          style={
+            loggedInUser?.account_type === "athlete" ||
+            loggedInUser?.account_type === "admin"
+              ? { height: "140px" }
+              : {}
+          }
+        >
           <Link
             to={
               userInfo.account_type !== "free"
@@ -57,6 +66,18 @@ const NavProfile = ({ web3auth, src, userInfo = null }) => {
           >
             Voir profil
           </Link>
+          {loggedInUser?.account_type === "athlete" && (
+            <>
+              <div className="navbar-dropdown-separation-line"></div>
+              <Link to="/settings">Dashboard</Link>
+            </>
+          )}
+          {loggedInUser?.account_type === "admin" && (
+            <>
+              <div className="navbar-dropdown-separation-line"></div>
+              <Link to="/settings">Dashboard</Link>
+            </>
+          )}
           <div className="navbar-dropdown-separation-line"></div>
           <Link to="/settings">Settings</Link>
           <div className="navbar-dropdown-separation-line"></div>
