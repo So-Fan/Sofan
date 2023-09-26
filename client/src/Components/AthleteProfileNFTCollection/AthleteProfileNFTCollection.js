@@ -43,7 +43,7 @@ const AthleteProfileNFTCollection = ({
             querySnapshot.forEach((doc) => {
               data.push(doc.data());
             });
-            console.log(data);
+            // console.log(data);
             setAthleteProfilePageNftCollectionsData(data);
             // Now you have the filtered data
           })

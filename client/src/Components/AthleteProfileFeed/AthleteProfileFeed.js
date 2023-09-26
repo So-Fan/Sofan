@@ -18,7 +18,7 @@ function AthleteProfileFeed({
   pixelScrolledAthleteProfilePage,
   isUserFan,
 }) {
-  console.log(isUserFan);
+  // console.log(isUserFan);
   // console.log(dataPosts);
   // console.log(athleteProfileFeedPageStyling)
   // const [isUserFan, setIsUserFan] = useState(false);

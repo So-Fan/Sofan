@@ -57,8 +57,8 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       allErc721Event.length != 0 &&
       allErc20Event.length != 0
     ) {
-      console.log("Alltx", AllTx);
-      console.log("all Sofan Collection", AllSofanCollection);
+      // console.log("Alltx", AllTx);
+      // console.log("all Sofan Collection", AllSofanCollection);
       let tempConcatArray = [];
       let tempAlchemyArray = [];
       for (let i = 0; i < AllTx.result.length; i++) {
@@ -371,7 +371,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           tempConcatArray[i] = tempObj;
         }
       }
-      console.log("after first useEffect", tempConcatArray);
+      // console.log("after first useEffect", tempConcatArray);
       setConcatArray(tempConcatArray);
       setAlchemyArray(tempAlchemyArray);
     }
@@ -380,12 +380,12 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   useMemo(() => {
     const tryMe = async () => {
       if (alchemyArray.length != 0) {
-        console.log("Lachemy Array to get metadata", alchemyArray);
+        // console.log("Lachemy Array to get metadata", alchemyArray);
         try {
           const res = await alchemy.nft.getNftMetadataBatch(alchemyArray, {
             refreshCache: false,
           });
-          console.log("getNftMetadata response", res);
+          // console.log("getNftMetadata response", res);
           // console.log("should be the same as after first useEffect", concatArray);
           var tempConcatArray = [...concatArray];
           // console.log(tempConcatArray);
@@ -415,7 +415,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               }
             }
           }
-          console.log("after added image", tempConcatArray);
+          // console.log("after added image", tempConcatArray);
           for (let i = 0; i < tempConcatArray.length; i++) {
             const tempConcatArrayElement = tempConcatArray[i];
             const tempArray = [];
@@ -488,7 +488,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             }
           }
           setFinal(tempConcatArray);
-          console.log("final array mapped", tempConcatArray);
+          // console.log("final array mapped", tempConcatArray);
 
           //
           let tempTempClipboard = [];
@@ -558,7 +558,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       );
       const dataAllErc721TransferEvent =
         await fetchAllErc721TransferEvent.json();
-      console.log("ERC721", dataAllErc721TransferEvent);
+      // console.log("ERC721", dataAllErc721TransferEvent);
       setAllErc721Event(dataAllErc721TransferEvent);
 
       const fetchAllErc20TransferEvent = await fetch(
@@ -566,7 +566,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       );
       const dataAllErc20TransferEvent = await fetchAllErc20TransferEvent.json();
       setAllErc20Event(dataAllErc20TransferEvent);
-      console.log("ERC20", dataAllErc20TransferEvent);
+      // console.log("ERC20", dataAllErc20TransferEvent);
     };
     load();
   }, []);
@@ -636,7 +636,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
             querySnapshot.forEach((doc) => {
               const userInfo = doc.data();
               userSpecificData = userInfo;
-              console.log(userInfo);
+              // console.log(userInfo);
             });
           } else {
             // try web3auth

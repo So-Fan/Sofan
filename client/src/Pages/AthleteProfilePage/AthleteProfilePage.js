@@ -196,7 +196,7 @@ const AthleteProfilePage = ({
       currentProfileWalletAddresses = userInfo.web3auth;
       setCurrentProfileUserWallet(userInfo.web3auth);
     }
-    console.log(currentProfileWalletAddresses);
+    // console.log(currentProfileWalletAddresses);
 
     try {
       const nftsFromOwner = await alchemy.nft.getNftsForOwner(
@@ -301,7 +301,7 @@ const AthleteProfilePage = ({
           querySnapshot.forEach((doc) => {
             data.push(doc.data());
           });
-          console.log(data);
+          // console.log(data);
           setArrayAthleteCollection(data);
         })
         .catch((error) => {
@@ -350,7 +350,7 @@ const AthleteProfilePage = ({
           const tempTotalSupply = await contractInfura.methods
             .totalSupply()
             .call();
-          console.log(tempCollectionLimit, tempTotalSupply);
+          // console.log(tempCollectionLimit, tempTotalSupply);
           tempAvailableNftCount += tempCollectionLimit - tempTotalSupply;
         } catch (error) {
           console.error(error);
@@ -505,7 +505,7 @@ const AthleteProfilePage = ({
   // retirer le scroll lock lorsque le modal n'est plus la
   document.querySelector("body").classList.remove("scroll-lock");
 
-  console.log("Triggered from athletePage");
+  // console.log("Triggered from athletePage");
 
   const {
     state: { web3, accounts },
@@ -669,7 +669,7 @@ const AthleteProfilePage = ({
         ) : isAthleteProfileSubMenuClicked[6] === true ? (
           <AthleteProfileEvent dataEvents={dataConcat?.events} />
         ) : isAthleteProfileSubMenuClicked[0] === true ? (
-          <div>
+          <>
             {/* <SortBySelector
                   setIsUSerProfileSeortBySelectorClicked={
                     setIsUSerProfileSeortBySelectorClicked
@@ -685,7 +685,7 @@ const AthleteProfilePage = ({
               isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
               // nftCardRef={nftCardRef}
             />
-          </div>
+          </>
         ) : isAthleteProfileSubMenuClicked[1] === true ? (
           <UserActivityTab
             currentProfileUserWallet={currentProfileUserWallet}
