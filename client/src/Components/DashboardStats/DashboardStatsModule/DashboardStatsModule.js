@@ -8,6 +8,7 @@ function DashboardStatsModule({
   totalUsdcFormatted,
   tooltipText,
 }) {
+  console.log(totalUsdcFormatted != undefined);
   return (
     <div className="dashboard-stats-module">
       <div className="dashboard-stats-module-number-and-square">
@@ -22,13 +23,15 @@ function DashboardStatsModule({
           className="dashboard-stats-module-number"
         >
           {moduleRevenueEth ? (
-            <>{totalEthFormatted ? totalEthFormatted : "0"} ETH</>
+            <>{totalEthFormatted != undefined ? totalEthFormatted : "0"} ETH</>
           ) : (
             <>
               {moduleRevenueEur ? (
-                <>{totalUsdcFormatted ? totalUsdcFormatted : "0"} €</>
+                <>
+                  {totalUsdcFormatted != undefined ? totalUsdcFormatted : "0"} €
+                </>
               ) : (
-                <>{totalNftSaled ? totalNftSaled : "0"}</>
+                <>{totalNftSaled != undefined ? totalNftSaled : "0"}</>
               )}
             </>
           )}
