@@ -1,6 +1,7 @@
 .useractivitytab-component {
   display: flex;
   flex-direction: column;
+  max-width: 1240px;
 }
 .useractivitytab-table-container {
   width: 100%;
