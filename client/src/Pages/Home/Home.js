@@ -214,9 +214,14 @@ function Home({
               abi,
               `${collectionElement.collection_address}`
             );
-            const balanceOf = await contractInfura.methods
-              .balanceOf(currentUserWallet)
-              .call();
+            let balanceOf;
+            try {
+              balanceOf = await contractInfura.methods
+                .balanceOf(currentUserWallet)
+                .call();
+            } catch (error) {
+              console.error();
+            }
 
             if (balanceOf > 0) {
               // console.log("balance of nft from user");
