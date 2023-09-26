@@ -22,13 +22,13 @@ function DashboardStatsModule({
           className="dashboard-stats-module-number"
         >
           {moduleRevenueEth ? (
-            <>{totalEthFormatted} ETH</>
+            <>{totalEthFormatted ? totalEthFormatted : "0"} ETH</>
           ) : (
             <>
               {moduleRevenueEur ? (
-                <>{totalUsdcFormatted} €</>
+                <>{totalUsdcFormatted ? totalUsdcFormatted : "0"} €</>
               ) : (
-                <>{totalNftSaled}</>
+                <>{totalNftSaled ? totalNftSaled : "0"}</>
               )}
             </>
           )}

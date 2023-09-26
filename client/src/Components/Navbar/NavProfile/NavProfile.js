@@ -69,13 +69,13 @@ const NavProfile = ({ web3auth, src, userInfo = null }) => {
           {loggedInUser?.account_type === "athlete" && (
             <>
               <div className="navbar-dropdown-separation-line"></div>
-              <Link to="/settings">Dashboard</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </>
           )}
           {loggedInUser?.account_type === "admin" && (
             <>
               <div className="navbar-dropdown-separation-line"></div>
-              <Link to="/settings">Dashboard</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </>
           )}
           <div className="navbar-dropdown-separation-line"></div>
