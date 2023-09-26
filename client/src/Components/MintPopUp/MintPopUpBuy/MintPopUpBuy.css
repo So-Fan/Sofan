@@ -1,6 +1,6 @@
 .mint-pop-up-buy-container {
   width: 100%;
-  height: 100%;
+  height: 102% ;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@
 }
 .mint-pop-up-buy-wrap {
   width: 410px;
-  height: 453px;
+  height: 473px;
   display: flex;
   flex-direction: column;
   /* background-color: violet; */
@@ -141,4 +141,16 @@
   font-family: "britanica-heavy";
   cursor: pointer;
   margin-top: 20px;
+}
+.mint-pop-up-mint-button:hover{
+  background-color: #f7c520 !important;
+  transition-duration: 300ms !important;
+}
+button.xmint-btn {
+  padding: 0 ;
+  width: 100%;
+  height: 56px;
+  /* background-color: blueviolet; */
+  font-family: "britanica-heavy";
+  font-size: 20px;
 }
