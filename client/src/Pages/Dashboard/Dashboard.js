@@ -231,7 +231,10 @@ function Dashboard() {
           setData({
             totalNftSaled: SumOfNft,
             totalUsdcFormatted: formattedSum,
-            totalEthFormatted: formattedSumToEth?.toString()?.slice(0, 8),
+            totalEthFormatted:
+              formattedSumToEth === NaN
+                ? "0"
+                : formattedSumToEth?.toString()?.slice(0, 8),
           });
         }
       }

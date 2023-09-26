@@ -220,7 +220,7 @@ const LaunchpadAllLiveLaunches = ({
       <div
         className="launchpadalllivelaunches-bottom-wrap"
         style={respMaxWidth}
-        ref={scrollRef}
+        // ref={scrollRef}
       >
         <div
           className="launchpadalllivelaunches-bottom-subwrap"
