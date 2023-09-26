@@ -138,7 +138,7 @@ const LaunchpadAllLiveLaunches = ({
     const launchDateSeconds = launch?.launchpad?.launch_date?.seconds;
     return launchDateSeconds ? launchDateSeconds * 1000 < Date.now() : false;
   });
-  
+
   return (
     <div className="launchpadalllivelaunches-component">
       <div
@@ -155,7 +155,10 @@ const LaunchpadAllLiveLaunches = ({
               ? "launchpadalllivelaunches-top-wrap-dropdown launchpadalllivelaunches-top-wrap-dropdown-clicked"
               : "launchpadalllivelaunches-top-wrap-dropdown"
           }
-          style={launchpadalllivelaunchesTopWrapDropdown}
+          style={{
+            ...launchpadalllivelaunchesTopWrapDropdown,
+            visibility: "hidden",
+          }}
         >
           <span
             id="launchpadalllivelaunches-dropdown-span"
@@ -223,22 +226,29 @@ const LaunchpadAllLiveLaunches = ({
           className="launchpadalllivelaunches-bottom-subwrap"
           style={launchpadAllLiveLaunchesDynamicWidth}
         >
-          {liveLaunches?.map((launchpadlive, i) => (
-            <div key={uuidv4()} style={responsiveWidth}>
-              <LaunchpadAllLiveLaunchesTemplate
-                key={uuidv4()}
-                profilePicture={launchpadlive?.user?.profile_avatar}
-                hidePrice={hidePrice}
-                background={launchpadlive?.nftCollection?.collection_avatar}
-                athleteName={launchpadlive?.user?.display_name}
-                title={launchpadlive?.nftCollection?.collection_title}
-                nftLength={launchpadlive?.nftCollection?.nft_collection_limit}
-                launchDate={launchpadlive?.launch_date}
-                // nftPrice={launchpadlive[i].nftPrice}
-                dim={dim}
-              />
-            </div>
-          ))}
+          {liveLaunches?.map((launchpadlive, i) => {
+            if (i === 0) {
+              console.log(launchpadlive);
+              return;
+            }
+            return (
+              <div key={uuidv4()} style={responsiveWidth}>
+                <LaunchpadAllLiveLaunchesTemplate
+                  key={uuidv4()}
+                  profilePicture={launchpadlive?.user?.profile_avatar}
+                  hidePrice={hidePrice}
+                  background={launchpadlive?.nftCollection?.collection_avatar}
+                  athleteName={launchpadlive?.user?.display_name}
+                  title={launchpadlive?.nftCollection?.collection_title}
+                  nftLength={launchpadlive?.nftCollection?.nft_collection_limit}
+                  launchDate={launchpadlive?.launch_date}
+                  // nftPrice={launchpadlive[i].nftPrice}
+                  dim={dim}
+                  launchpadlive={launchpadlive}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

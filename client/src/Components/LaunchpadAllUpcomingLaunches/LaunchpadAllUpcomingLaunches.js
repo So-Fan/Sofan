@@ -38,6 +38,15 @@ const LaunchpadAllUpcomingLaunches = ({
   let launchpadallUpcominglaunchesTopWrapDropdownImg;
   let launchpadallUpcominglaunchesTopWrapDropdownChoiceWrap;
   let launchpadallUpcominglaunchesTopWrapDropdownChoiceWrapUlLiChild1;
+  const [upcomingLaunches, setUpcomingLaunches] = useState([]);
+  useEffect(() => {
+    const tempUpcomingLaunches = data?.filter((launch, index) => {
+      const launchDateSeconds = launch?.launchpad?.launch_date?.seconds;
+      return launchDateSeconds ? launchDateSeconds * 1000 > Date.now() : false;
+    });
+    setUpcomingLaunches(tempUpcomingLaunches);
+  }, [data]);
+
   const LaunchpadAllUpcomingLaunchesCalcProportional = (obj, totalPx) => {
     let Obj = {};
     for (let key in obj) {
@@ -50,7 +59,7 @@ const LaunchpadAllUpcomingLaunches = ({
     }
     return Obj;
   };
-
+  console.log(data);
   if (dimLaunchpadAllUpcomingLaunches > 1337) {
     launchpadAllUpcomingLaunchesDynamicWidth = {
       minWidth: `${data?.length * 520}px`,
@@ -133,116 +142,130 @@ const LaunchpadAllUpcomingLaunches = ({
   // const upcomingLaunches = data?.filter(
   //   (launchpadUpcoming) => launchpadUpcoming?.launch_date * 1000 > Date.now()
   // );
-  const upcomingLaunches = data?.filter((launch, index) => {
-    const launchDateSeconds = launch?.launchpad?.launch_date?.seconds;
-    return launchDateSeconds ? launchDateSeconds * 1000 > Date.now() : false;
-  });
+
   // console.log(data[0]?.launchpad?.launch_date?.seconds)
   return (
-    <div className="launchpadallupcominglaunches-component">
-      <div
-        // onClick={handleUpcomingLaunchesSportDropdownClicked}
-        className="launchpadallupcominglaunches-top-wrap"
-        style={respWidthTopLaunchpadAllUpcomingLaunches}
-      >
-        <span style={launchpadallUpcominglaunchesTopWrapSpan}>
-          Upcoming launches
-        </span>
-        <div
-          className={
-            isUpcomingLaunchSportDropdownClicked
-              ? "launchpadallupcominglaunches-top-wrap-dropdown launchpadallupcominglaunches-top-wrap-dropdown-clicked"
-              : "launchpadallupcominglaunches-top-wrap-dropdown"
-          }
-          style={launchpadallUpcominglaunchesTopWrapDropdown}
-          id="launchpadallupcominglaunches-dropdown-main"
-        >
-          <span
-            id="launchpadallupcominglaunches-dropdown-span"
-            style={launchpadallUpcominglaunchesTopWrapDropdownSpan}
+    <>
+      {upcomingLaunches?.length > 0 ? (
+        <div className="launchpadallupcominglaunches-component">
+          <div
+            // onClick={handleUpcomingLaunchesSportDropdownClicked}
+            className="launchpadallupcominglaunches-top-wrap"
+            style={respWidthTopLaunchpadAllUpcomingLaunches}
           >
-            {currentUpcomingLaunchesSportSelectorSelected}
-          </span>
-          <img
-            id="launchpadallupcominglaunches-dropdown-img"
-            src={Arrow}
-            alt="dropdown"
-            style={launchpadallUpcominglaunchesTopWrapDropdownImg}
-          />
-          {isUpcomingLaunchSportDropdownClicked && (
-            <>
-              <div
-                className="launchpadallupcominglaunches-top-wrap-dropdown-choice-wrap"
-                style={launchpadallUpcominglaunchesTopWrapDropdownChoiceWrap}
+            <span style={launchpadallUpcominglaunchesTopWrapSpan}>
+              Upcoming launches
+            </span>
+            <div
+              className={
+                isUpcomingLaunchSportDropdownClicked
+                  ? "launchpadallupcominglaunches-top-wrap-dropdown launchpadallupcominglaunches-top-wrap-dropdown-clicked"
+                  : "launchpadallupcominglaunches-top-wrap-dropdown"
+              }
+              style={{
+                ...launchpadallUpcominglaunchesTopWrapDropdown,
+                visibility: "hidden",
+              }}
+              id="launchpadallupcominglaunches-dropdown-main"
+            >
+              <span
+                id="launchpadallupcominglaunches-dropdown-span"
+                style={launchpadallUpcominglaunchesTopWrapDropdownSpan}
               >
-                <ul>
-                  {currentUpcomingLaunchesSportSelectorSelected !== "Voile" && (
-                    <li
-                      onClick={handleUpcomingLaunchesSportChoiceClicked}
-                      style={
-                        launchpadallUpcominglaunchesTopWrapDropdownChoiceWrapUlLiChild1
-                      }
-                    >
-                      Voile
-                    </li>
-                  )}
-                  {currentUpcomingLaunchesSportSelectorSelected !==
-                    "Tennis" && (
-                    <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
-                      Tennis
-                    </li>
-                  )}
-                  {currentUpcomingLaunchesSportSelectorSelected !==
-                    "Football" && (
-                    <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
-                      Football
-                    </li>
-                  )}
-                  {currentUpcomingLaunchesSportSelectorSelected !==
-                    "Esport" && (
-                    <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
-                      Esport
-                    </li>
-                  )}
-                  {currentUpcomingLaunchesSportSelectorSelected !==
-                    "All sports" && (
-                    <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
-                      All sports
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-      <div
-        className="launchpadallupcominglaunches-bottom-wrap"
-        style={respMaxWidthLaunchpadAllUpcomingLaunches}
-        ref={scrollRef}
-      >
-        <div style={launchpadAllUpcomingLaunchesDynamicWidth}>
-          {upcomingLaunches?.map((launchpadUpcoming) => (
-            <div style={responsiveWidthLanchpadAllUpcomingLaunches}>
-              <LaunchpadAllUpcomingLaunchesTemplate
-                key={uuidv4()}
-                profilePicture={launchpadUpcoming?.user?.profile_avatar}
-                hidePrice={hidePrice}
-                background={launchpadUpcoming?.nftCollection?.collection_avatar}
-                athleteName={launchpadUpcoming?.user?.display_name}
-                title={launchpadUpcoming?.nftCollection?.collection_title}
-                nftLength={
-                  launchpadUpcoming?.nftCollection?.nft_collection_limit
-                }
-                nftPrice={launchpadUpcoming.nftPrice}
-                date={launchpadUpcoming?.launchpad?.launch_date?.seconds}
-                dim={dimLaunchpadAllUpcomingLaunches}
+                {currentUpcomingLaunchesSportSelectorSelected}
+              </span>
+              <img
+                id="launchpadallupcominglaunches-dropdown-img"
+                src={Arrow}
+                alt="dropdown"
+                style={launchpadallUpcominglaunchesTopWrapDropdownImg}
               />
+              {isUpcomingLaunchSportDropdownClicked && (
+                <>
+                  <div
+                    className="launchpadallupcominglaunches-top-wrap-dropdown-choice-wrap"
+                    style={
+                      launchpadallUpcominglaunchesTopWrapDropdownChoiceWrap
+                    }
+                  >
+                    <ul>
+                      {currentUpcomingLaunchesSportSelectorSelected !==
+                        "Voile" && (
+                        <li
+                          onClick={handleUpcomingLaunchesSportChoiceClicked}
+                          style={
+                            launchpadallUpcominglaunchesTopWrapDropdownChoiceWrapUlLiChild1
+                          }
+                        >
+                          Voile
+                        </li>
+                      )}
+                      {currentUpcomingLaunchesSportSelectorSelected !==
+                        "Tennis" && (
+                        <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
+                          Tennis
+                        </li>
+                      )}
+                      {currentUpcomingLaunchesSportSelectorSelected !==
+                        "Football" && (
+                        <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
+                          Football
+                        </li>
+                      )}
+                      {currentUpcomingLaunchesSportSelectorSelected !==
+                        "Esport" && (
+                        <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
+                          Esport
+                        </li>
+                      )}
+                      {currentUpcomingLaunchesSportSelectorSelected !==
+                        "All sports" && (
+                        <li onClick={handleUpcomingLaunchesSportChoiceClicked}>
+                          All sports
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                </>
+              )}
             </div>
-          ))}
+          </div>
+          <div
+            className="launchpadallupcominglaunches-bottom-wrap"
+            style={respMaxWidthLaunchpadAllUpcomingLaunches}
+            ref={scrollRef}
+          >
+            <div style={launchpadAllUpcomingLaunchesDynamicWidth}>
+              {upcomingLaunches?.map((launchpadUpcoming) => (
+                <div
+                  key={uuidv4()}
+                  style={responsiveWidthLanchpadAllUpcomingLaunches}
+                >
+                  <LaunchpadAllUpcomingLaunchesTemplate
+                    profilePicture={launchpadUpcoming?.user?.profile_avatar}
+                    hidePrice={hidePrice}
+                    background={
+                      launchpadUpcoming?.nftCollection?.collection_avatar
+                    }
+                    athleteName={launchpadUpcoming?.user?.display_name}
+                    title={launchpadUpcoming?.nftCollection?.collection_title}
+                    nftLength={
+                      launchpadUpcoming?.nftCollection?.nft_collection_limit
+                    }
+                    nftPrice={launchpadUpcoming.nftPrice}
+                    date={launchpadUpcoming?.launchpad?.launch_date?.seconds}
+                    dim={dimLaunchpadAllUpcomingLaunches}
+                    launchpadUpcoming={launchpadUpcoming}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

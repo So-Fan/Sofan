@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import "./LaunchpadAllHeader.css";
+import { Link } from "react-router-dom";
 const LaunchpadAllHeader = ({ data, dataAthlete, hidePrice }) => {
   const [dimLaunchpadHeader, setDimLaunchpadHeader] = useState(
     window.innerWidth
@@ -82,8 +83,11 @@ const LaunchpadAllHeader = ({ data, dataAthlete, hidePrice }) => {
     window.addEventListener("resize", handleDimLaunchpadHeader, false);
   }, []);
   function redirectTo() {
-    window.location.href = "/collectionlive";
+    window.location.href = `/collectionlive/${data.athlete_id}/${data.collection_address}`;
   }
+  // console.log(data);
+  // console.log(dataAthlete);
+
   return (
     <div className="launchpadallheader-component">
       <img
@@ -99,8 +103,8 @@ const LaunchpadAllHeader = ({ data, dataAthlete, hidePrice }) => {
           className="launchpadallheader-data-wrap"
           style={launchpadallheaderDataWrap}
         >
-          <a
-            href={`/athleteprofile/${dataAthlete?.id}`}
+          <Link
+            to={`/athleteprofile/${dataAthlete?.id}`}
             className="launchpadallheader-data-wrap-img-and-name"
           >
             <div
@@ -119,7 +123,7 @@ const LaunchpadAllHeader = ({ data, dataAthlete, hidePrice }) => {
             >
               by {dataAthlete?.display_name}
             </span>
-          </a>
+          </Link>
           <span
             className="launchpadallheader-data-wrap-title"
             style={launchpadallheaderDataWrapTitle}

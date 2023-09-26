@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./LaunchpadAllLiveLaunchesTemplate.css";
 import Button from "../../Button/Button";
+import { Link } from "react-router-dom";
 const LaunchpadAllLiveLaunchesTemplate = ({
   background,
   profilePicture,
@@ -10,7 +11,8 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   // nftPrice,
   dim,
   hidePrice,
-  launchDate
+  launchDate,
+  launchpadlive,
 }) => {
   const [isComponentActive, setIsComponentActive] = useState(true);
 
@@ -120,17 +122,20 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   useEffect(() => {
     const currentTime = Date.now();
     // console.log(launchDate)
-    
-  }, [])
+  }, []);
+
+  function redirectTo() {
+    window.location.href = `/collectionlive/${launchpadlive.nftCollection.athlete_id}/${launchpadlive.nftCollection.collection_address}`;
+  }
   return (
     <div
       className={`launchpadalllivelaunchestemplate-component ${
         isComponentActive ? "" : "no-active-effect"
       }`}
     >
-      <a
+      <Link
+        to={`/collectionlive/${launchpadlive.nftCollection.athlete_id}/${launchpadlive.nftCollection.collection_address}`}
         className="launchpadalllivelaunchestemplate-link"
-        href="/nftcollection"
       >
         <img
           src={background}
@@ -158,10 +163,10 @@ const LaunchpadAllLiveLaunchesTemplate = ({
             className="launchpadalllivelaunchestemplate-data-wrap"
             style={launchpadalllivelaunchestemplateDataWrap}
           >
-            <a
+            <Link
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
-              href="/athleteprofile"
+              to={`/athleteprofile/${launchpadlive.nftCollection.athlete_id}`}
               className="launchpadalllivelaunchestemplate-data-image-and-name"
             >
               <div
@@ -180,7 +185,7 @@ const LaunchpadAllLiveLaunchesTemplate = ({
               >
                 by {athleteName}
               </span>
-            </a>
+            </Link>
             <span
               className="launchpadalllivelaunchestemplate-data-wrap-title"
               style={launchpadalllivelaunchestemplateDataWrapTitle}
@@ -195,12 +200,13 @@ const LaunchpadAllLiveLaunchesTemplate = ({
               {/* {hidePrice ? <></> : <>- {nftPrice} ETH</>} */}
             </span>
             <Button
+              onClick={redirectTo}
               text="Découvrir"
               style={launchpadalllivelaunchestemplateDataWrapButton}
             />
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

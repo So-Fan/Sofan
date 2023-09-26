@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./LaunchpadAllUpcomingLaunchesTemplate.css";
+import { Link } from "react-router-dom";
 const LaunchpadAllUpcomingLaunchesTemplate = ({
   background,
   profilePicture,
@@ -10,6 +11,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
   date,
   dim,
   hidePrice,
+  launchpadUpcoming,
 }) => {
   const [isComponentActive, setIsComponentActive] = useState(true);
   const [isSecondPlural, setIsSecondPlural] = useState(false);
@@ -158,15 +160,18 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
     return () => clearInterval(intervalId);
   }, [date]); // Dépendance à 'date' pour recalculer si la date change
   // console.log(date);
+  // function redirectTo() {
+  //   window.location.href = `/collectionlive/${launchpadUpcoming.nftCollection.athlete_id}/${launchpadUpcoming.nftCollection.collection_address}`;
+  // }
   return (
     <div
       className={`launchpadallupcominglaunchesTemplate-component ${
         isComponentActive ? "" : "no-active-effect"
       }`}
     >
-      <a
+      <Link
         className="launchpadallupcominglaunchesTemplate-link"
-        href="/nftcollection"
+        to={`/collectionlive/${launchpadUpcoming.nftCollection.athlete_id}/${launchpadUpcoming.nftCollection.collection_address}`}
       >
         <img
           src={background}
@@ -181,10 +186,10 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
             className="launchpadallupcominglaunchesTemplate-data-wrap"
             style={launchpadallUpcominglaunchestemplateDataWrap}
           >
-            <a
+            <Link
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
-              href="/athleteprofile"
+              to={`/athleteprofile/${launchpadUpcoming.nftCollection.athlete_id}`}
               className="launchpadallupcominglaunchesTemplate-data-img-and-name"
             >
               <div
@@ -203,7 +208,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
               >
                 by {athleteName}
               </span>
-            </a>
+            </Link>
             <span
               className="launchpadallupcominglaunchesTemplate-data-wrap-title"
               style={launchpadallUpcominglaunchestemplateDataWrapTitle}
@@ -296,7 +301,7 @@ const LaunchpadAllUpcomingLaunchesTemplate = ({
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };
