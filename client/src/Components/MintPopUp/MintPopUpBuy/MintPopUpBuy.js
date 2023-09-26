@@ -83,14 +83,14 @@ function MintPopUpBuy({
   }, [currentNumberOfNftOwned]);
 
   function handleClick(e) {
-    console.log("before click");
+    // console.log("before click");
     if (
       copyLimitByWalletInfo.limitByWallet != 0 &&
       e.target.className ===
         "mint-pop-up-buy-quantity-selector-increase-button" &&
       mintCounter < copyLimitByWalletInfo.limitByWallet
     ) {
-      console.log("increment click");
+      // console.log("increment click");
       setMintCounter(mintCounter + 1);
       setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter + 1));
       setTotalPriceInETH(nftMintPriceInETH * (mintCounter + 1));
@@ -100,7 +100,7 @@ function MintPopUpBuy({
         "mint-pop-up-buy-quantity-selector-decrease-button" &&
       mintCounter > 1
     ) {
-      console.log("decrement click");
+      // console.log("decrement click");
       setMintCounter(mintCounter - 1);
       setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
       setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
@@ -108,7 +108,7 @@ function MintPopUpBuy({
       copyLimitByWalletInfo.limitByWallet === 0 &&
       e.target.className === "mint-pop-up-buy-quantity-selector-increase-button"
     ) {
-      console.log("increment click from second");
+      // console.log("increment click from second");
       setMintCounter(mintCounter + 1);
       setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter + 1));
       setTotalPriceInETH(nftMintPriceInETH * (mintCounter + 1));
@@ -118,7 +118,7 @@ function MintPopUpBuy({
         "mint-pop-up-buy-quantity-selector-decrease-button" &&
       mintCounter > 1
     ) {
-      console.log("decrement click");
+      // console.log("decrement click");
       setMintCounter(mintCounter - 1);
       setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
       setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
@@ -130,7 +130,7 @@ function MintPopUpBuy({
   }, []);
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
-  console.log(loggedInUserInfo);
+  // console.log(loggedInUserInfo);
   return (
     <>
       <div className="mint-pop-up-buy-container">
@@ -193,6 +193,8 @@ function MintPopUpBuy({
             Mint maintenant
           </button>
           <CrossmintPayButton
+          getButtonText={(connecting, paymentMethod) =>
+            connecting ? "Connection..." : `Payer par carte bancaire`}
             collectionId={`${launchpadCollectionLiveAthleteDataBackend[0].crossmint_collection_id}`}
             projectId={`${launchpadCollectionLiveAthleteDataBackend[0].crossmint_project_id}`}
             mintConfig={{
@@ -210,6 +212,7 @@ function MintPopUpBuy({
                 ? `${loggedInUserInfo.loggedInUser.web3auth}`
                 : null
             }
+            className="xmint-btn"
           />
           <div className="mint-pop-up-progress-bar-and-total-minted">
             <LaunchPadMintProgressBar
