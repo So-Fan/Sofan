@@ -31,7 +31,7 @@ function PremiumContentLocked({ postCreatorId }) {
       const name = await getPostCreatorDisplayName(postCreatorId);
       setDisplayName(name);
     };
-  
+
     fetchDisplayName();
   }, [postCreatorId]);
   return (
@@ -42,7 +42,7 @@ function PremiumContentLocked({ postCreatorId }) {
       <div className="premium-content-locked-cta-premium-content">
         Acheter le NFT pour débloquer le contenu premium de {displayName} .
       </div>
-      <Link to={`/nftsingle/${postCreatorId}`}>
+      <Link to={`/athleteprofile/${postCreatorId}/#nftcollections`}>
         <button className="premium-content-locked-button">Voir le NFT</button>
       </Link>
     </div>
