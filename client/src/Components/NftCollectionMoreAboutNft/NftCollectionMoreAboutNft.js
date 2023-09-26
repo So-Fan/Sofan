@@ -9,7 +9,7 @@ function NftCollectionMoreAboutNft({
   hidePrice,
   currentAthleteCollectionOwner,
 }) {
-  console.log(window.location.pathname.split("/")[2])
+  // console.log(window.location.pathname.split("/")[2])
   // console.log(adaptTitleToNftCollectionPageItems);
   // console.log(nftsFromOwner)
   const dataBackendNftCollectionMoreAboutNft = {
@@ -108,6 +108,7 @@ function NftCollectionMoreAboutNft({
   // function NftCollectionMoreAboutNft({ nftCard }) {
   // console.log(nftsFromContract);
   nftsFromContract = nftsFromContract.slice(0, 4);
+  const nftCollectionUrl = window.location.pathname.split("/")[2];
   // console.log(nftsFromContract.length)
   return (
     <section className="nft-collection-more-about-nft-container">
@@ -120,11 +121,7 @@ function NftCollectionMoreAboutNft({
               En savoir + sur la collection
             </div>
             <div className="nft-collection-more-about-title-button">
-              <Link
-                to={`/nftcollection/${nftsFromContract[0]?.contract.address}`}
-              >
-                Voir tout
-              </Link>
+              <Link to={`/nftcollection/${nftCollectionUrl}`}>Voir tout</Link>
             </div>
           </div>
         )}
@@ -137,7 +134,9 @@ function NftCollectionMoreAboutNft({
               id={element.tokenId}
               price={element.ethPrice}
               bid={element.highestBidEth}
-              to={`/nftsingle/${window.location.pathname.split("/")[2]}/${element.tokenId}`}
+              to={`/nftsingle/${window.location.pathname.split("/")[2]}/${
+                element.tokenId
+              }`}
               //
               nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
               nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
