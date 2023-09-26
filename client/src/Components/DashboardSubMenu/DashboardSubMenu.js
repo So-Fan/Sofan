@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./DashboardSubMenu.css";
 
-function DashboardSubMenu({setIsSubMenuClicked, isSubMenuClicked}) {
-  
-
+function DashboardSubMenu({ setIsSubMenuClicked, isSubMenuClicked }) {
   function handleClick(index) {
     setIsSubMenuClicked(
       isSubMenuClicked.map((value, i) => (i === index ? true : false))
@@ -21,7 +19,7 @@ function DashboardSubMenu({setIsSubMenuClicked, isSubMenuClicked}) {
           >
             <span>Statistiques</span>
           </div>
-          <div
+          {/* <div
             style={isSubMenuClicked[1] ? { backgroundColor: "#f6d463" } : {}}
             onClick={() => handleClick(1)}
             className="dashboard-submenu-my-collections-button"
@@ -34,9 +32,9 @@ function DashboardSubMenu({setIsSubMenuClicked, isSubMenuClicked}) {
             className="dashboard-submenu-my-calendar-button"
           >
             <span>Mon calendrier</span>
-          </div>
+          </div> */}
         </div>
-      <div className="dashboard-submenu-line-separation"></div>
+        <div className="dashboard-submenu-line-separation"></div>
       </div>
     </>
   );
