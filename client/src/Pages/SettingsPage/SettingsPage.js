@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SettingsPage.css";
 import validationLogo from "../../Assets/Image/cross-validation-black.svg";
 import Button from "../../Components/Button/Button";
 import PhoneInput from "react-phone-number-input";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import useUserCollection from "../../contexts/UserContext/useUserCollection";
+import { db } from "../../Configs/firebase";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+  limit,
+  getDocs,
+  getDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 function SettingsPage() {
   const [isFocusDisplayName, setIsFocusDisplayName] = useState(false);
@@ -33,13 +47,65 @@ function SettingsPage() {
   const [showError, setShowError] = useState(false);
   const [phone, setPhone] = useState("");
   const [phoneRegexError, setPhoneRegexError] = useState(false);
+  const [displayName, setDisplayname] = useState();
+  const [isDisplayNameChangeLoading, setIsDisplayNameChangeLoading] =
+    useState();
+  const [isDisplayNameChangeError, setIsDisplayNameChangeError] = useState();
+  const [isDisplayNameChanged, setIsDisplayNameChanged] = useState();
+  const { loggedInUser } = useUserCollection();
+  const usersCollection = collection(db, "users");
+  console.log(loggedInUser?.id);
+  async function getDisplayName() {
+    try {
+      const q = query(
+        usersCollection,
+        where("id", "==", `${loggedInUser?.id}`)
+      );
+      const data = await getDocs(q);
+      // setDisplayname(
+      const displayNameObject = data.docs.map((doc) => {
+        const docData = doc.data();
+        return {
+          display_name: docData.display_name,
+        };
+      });
+      // )
+      setDisplayname(displayNameObject[0]?.display_name);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function handleChangeDisplayName() {
+    if (usernameRegexError === false && valueInputDisplayName !== displayName) {
+      setIsDisplayNameChangeLoading(true);
+      try {
+        const usersCollectionRef = doc(db, `users/${loggedInUser?.id}`);
+        await updateDoc(usersCollectionRef, {
+          display_name: valueInputDisplayName,
+        });
+        setIsDisplayNameChangeError(false);
+        setIsDisplayNameChangeLoading(false);
+        setIsDisplayNameChanged(true);
+        getDisplayName();
+        console.log("pseudo changé");
+      } catch (error) {
+        console.error(error);
+        setIsDisplayNameChangeLoading(false);
+        setIsDisplayNameChangeError(true);
+        setIsDisplayNameChanged(false);
+      }
+    }
+  }
+  useEffect(() => {
+    getDisplayName();
+    setValueInputDisplayName(displayName)
 
-  let displayName = "ramiabdou";
-
+  }, [loggedInUser, displayName]);
+  // let displayName = "ramiabdou";
   function handleFocusDisplayName() {
     setIsFocusDisplayName(true);
   }
-  function handleBlurDisplayName(e) {
+  function handleBlurDisplayName() {
     if (valueInputDisplayName === displayName) {
       setIsFocusDisplayName(false);
     }
@@ -129,6 +195,7 @@ function SettingsPage() {
     setPhone(value);
     setPhoneRegexError(value && !isValidPhoneNumber(value));
   }
+  console.log("valueInputDisplayName -> ",valueInputDisplayName,"displayName -> ",displayName)
   return (
     <div className="settings-page-container">
       <div className="setting-page-wrap">
@@ -147,7 +214,7 @@ function SettingsPage() {
                 onBlur={handleBlurDisplayName}
                 type="text"
                 // value={username}
-                defaultValue="ramiabdou"
+                defaultValue={displayName}
                 // onChange={handleUsernameChange}
               />
               {usernameRegexError && (
@@ -156,15 +223,60 @@ function SettingsPage() {
                   à 29 caractères alphanumérique.
                 </p>
               )}
+              {isDisplayNameChangeError && (
+                <p className="settings-page-error-display-name">
+                  Oops quelque chose s'est mal passé. Veuillez réessayer ou
+                  raffraîchir la page.
+                </p>
+              )}
+              {isDisplayNameChanged && (
+                <p className="settings-page-error-display-name">
+                  Votre pseudo a bien été changé !
+                </p>
+              )}
               {/* <img src={validationLogo} alt="" /> */}
             </div>
             {/* <button className="settings-page-validation-button">Changer pseudo</button> */}
             <div className="settings-page-validation-button-container">
-              <Button
-                text={"Changer nom d'affichage"}
-                hover="button-hover-props"
-                active="button-active-props"
-              />
+              {isDisplayNameChangeLoading ? (
+                <Button
+                  text={
+                    isDisplayNameChangeLoading
+                      ? "Chargement"
+                      : "Changer nom d'affichage"
+                  }
+                  style={
+                    valueInputDisplayName === displayName
+                      ? { opacity: "0.5" }
+                      : isDisplayNameChangeLoading
+                      ? {
+                          backgroundColor: "#f6d46349",
+                          border: "#f6d463 1px solid",
+                          pointerEvents: "none",
+                        }
+                      : { opacity: 1 }
+                  }
+                  hover="button-hover-props"
+                  active="button-active-props"
+                  onClick={handleChangeDisplayName}
+                  disabled={valueInputDisplayName === displayName}
+                  loading={true}
+                  settingsPage={true}
+                />
+              ) : (
+                <Button
+                  text={"Changer nom d'affichage"}
+                  style={
+                    valueInputDisplayName === displayName
+                      ? { opacity: 0.5 }
+                      : { opacity: 1 }
+                  }
+                  hover="button-hover-props"
+                  active="button-active-props"
+                  onClick={handleChangeDisplayName}
+                  disabled={ valueInputDisplayName === displayName}
+                />
+              )}
             </div>
           </div>
         </div>
