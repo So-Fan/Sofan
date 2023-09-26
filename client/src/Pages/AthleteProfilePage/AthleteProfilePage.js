@@ -94,7 +94,28 @@ const AthleteProfilePage = ({
   const location = useLocation();
   const segments = location.pathname.split("/");
   const athleteId = segments[2];
+  const [anchor, setAnchor] = useState();
   const { loggedInUser } = useUserCollection();
+
+  useEffect(() => {
+    if (segments.length > 3) {
+      setAnchor(location.hash);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (anchor === "#nftcollections") {
+      setIsAthleteProfileSubMenuClicked([
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+      ]);
+    }
+  }, [anchor]);
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "users"), where("id", "==", athleteId)); // Use the correct parameter name here
