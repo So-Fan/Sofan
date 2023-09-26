@@ -6,22 +6,25 @@ import "./Button.css";
 const Button = ({
   isLink,
   to,
- style,
- customMediaQueries,
+  style,
+  customMediaQueries,
   text,
   onClick,
   id,
   createPostButtonClass,
   hover,
-  active
+  active,
+  disabled,
+  loading,
+  settingsPage,
 }) => {
   return (
     <>
-    <style>
-    {`
+      <style>
+        {`
     ${customMediaQueries}
     `}
-  </style>
+      </style>
       {isLink ? (
         <Link
           className={`button-component ${createPostButtonClass} ${hover} ${active}`}
@@ -38,8 +41,24 @@ const Button = ({
           style={style}
           onClick={onClick}
           id={id}
+          disabled={disabled}
         >
-          {text}
+          {loading ? (
+            <div
+              className={
+                settingsPage
+                  ? "lds-ellipsis lds-ellipsis-settings-page"
+                  : "lds-ellipsis"
+              }
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          ) : (
+            text
+          )}
         </button>
       )}
     </>

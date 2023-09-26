@@ -60,6 +60,7 @@ const NftCard = ({
         </>
       ) : (
         <>
+        
           <div
             key={uuidv4()}
             ref={nftCardRef}

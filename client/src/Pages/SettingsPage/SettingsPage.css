@@ -59,6 +59,12 @@
   font-weight: 900;
   margin-top: 5px;
 }
+.settings-page-error-display-name {
+  color: #85d87e;
+  font-size: 12px;
+  font-weight: 900;
+  margin-top: 5px;
+}
 .settings-page-display-name-input img {
   /* background-color: red; */
   margin-left: 15px;
@@ -207,7 +213,7 @@
   border: none;
   opacity: 0.5;
 }
-.PhoneInputCountryIcon{
+.PhoneInputCountryIcon {
   /* width: 25px ; */
   border: none;
   /* height: 25px ; */
