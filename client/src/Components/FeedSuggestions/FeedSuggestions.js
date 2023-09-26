@@ -10,13 +10,18 @@ import { v4 as uuidv4 } from "uuid";
 const FeedSuggestions = ({
   handleAthleteSuggestionClick,
   suggestionsAthletes,
+  loggedInUser,
 }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [displaySuggestComponent, setDisplaySuggestComponent] = useState("");
 
   return (
     <div
-      style={{ display: displaySuggestComponent }}
+      style={
+        loggedInUser?.account_type === "athlete"
+          ? { display: displaySuggestComponent, marginTop: "-60px" }
+          : { display: displaySuggestComponent }
+      }
       className="feedsuggestions-component"
     >
       <div className="feedlaunchpad-header-container">

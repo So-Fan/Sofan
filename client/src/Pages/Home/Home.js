@@ -611,6 +611,7 @@ function Home({
             handleAthleteSuggestionClick={handleAthleteSuggestionClick}
             suggestionsAthletes={suggestionsAthletes}
             athletesSupportingData={athletesSupportingData}
+            loggedInUser={loggedInUser}
           />
           <div
             style={
