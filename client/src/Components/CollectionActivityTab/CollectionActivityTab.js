@@ -348,9 +348,9 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
       console.log("ERC721", dataAllErc721TransferEvent);
       setAllErc721Event(dataAllErc721TransferEvent);
 
-      const fetchAllErc20TransferEvent = await fetch(
-        `https://api-goerli.etherscan.io/api?module=account&action=tokentx&contractaddress=${currentCollectionAddress}&page=1&offset=100&startblock=9458446&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
-      );
+      // const fetchAllErc20TransferEvent = await fetch(
+      //   `https://api-goerli.etherscan.io/api?module=account&action=tokentx&contractaddress=${currentCollectionAddress}&page=1&offset=100&startblock=9458446&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+      // );
       //   const dataAllErc20TransferEvent = await fetchAllErc20TransferEvent.json();
       //   setAllErc20Event(dataAllErc20TransferEvent);
       //   console.log("ERC20", dataAllErc20TransferEvent);

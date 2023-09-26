@@ -25,6 +25,6 @@ export const formatCurrentBalance = (balance, setter) => {
     }
     return concat;
   } else {
-    return;
+    return false;
   }
 };

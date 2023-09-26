@@ -547,7 +547,7 @@ function Home({
               : athletesFollowing.length === 0 &&
                 athletesSupportingData.length === 0
               ? { height: "398px" }
-              : { maxHeight: "552px" }
+              : { maxHeight: "580px" }
             // athletesFollowing.length === 0 ? {}: {}
           }
         >
@@ -670,7 +670,9 @@ function Home({
                         setCommentCounterIncrementLocal
                       }
                       likesCounterIncrementLocal={likesCounterIncrementLocal}
-                      setLikesCounterIncrementLocal={setLikesCounterIncrementLocal}
+                      setLikesCounterIncrementLocal={
+                        setLikesCounterIncrementLocal
+                      }
                     />
                   );
                 })}
