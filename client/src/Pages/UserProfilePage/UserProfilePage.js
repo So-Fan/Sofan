@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import BannerAndProfilePic from "../../Components/BannerAndProfilePic/BannerAndProfilePic";
 import NftCard from "../../Components/NftCard/NftCard";
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
@@ -315,6 +316,7 @@ function UserProfilePage({
             }
           /> */}
           <NftCard
+            key={uuidv4()}
             hidePrice={true}
             nftsFromOwner={nftsFromOwner}
             userFrom={dataConcat?.collected}

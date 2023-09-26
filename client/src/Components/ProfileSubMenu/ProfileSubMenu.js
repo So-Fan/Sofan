@@ -29,7 +29,7 @@ const ProfileSubMenu = ({
       window.addEventListener("click", handleOutsideProfileSubMenuClick);
     }
     if (!profileSubMenuOffresClicked) {
-      console.log("remove Listener");
+      // console.log("remove Listener");
       window.removeEventListener("click", handleOutsideProfileSubMenuClick);
     }
 
