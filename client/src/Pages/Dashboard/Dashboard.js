@@ -135,7 +135,7 @@ function Dashboard() {
           setData({
             totalNftSaled: SumOfNft,
             totalUsdcFormatted: formattedSum,
-            totalEthFormatted: formattedSumToEth.toString().slice(0, 8),
+            totalEthFormatted: formattedSumToEth?.toString()?.slice(0, 8),
           });
         } else {
           console.log("please add a fund_receipt_wallet into firebase");
@@ -212,7 +212,7 @@ function Dashboard() {
             }
           }
 
-          const formattedSum = formatCurrentBalance(sum).slice(0, 4);
+          const formattedSum = formatCurrentBalance(sum)?.slice(0, 4);
           let ethPrice;
 
           await fetch(
@@ -231,7 +231,7 @@ function Dashboard() {
           setData({
             totalNftSaled: SumOfNft,
             totalUsdcFormatted: formattedSum,
-            totalEthFormatted: formattedSumToEth.toString().slice(0, 8),
+            totalEthFormatted: formattedSumToEth?.toString()?.slice(0, 8),
           });
         }
       }

@@ -34,7 +34,7 @@ function HeadOfPost({
   isFullPagePostModalDisplay,
   fullPagePostModalStyle,
   userType,
-  lockPremiumContent
+  lockPremiumContent,
 }) {
   // const [isPostTypePremium, setIsPostTypePremium] = useState([
   //   postType
@@ -201,7 +201,11 @@ function HeadOfPost({
       >
         {/* Backend here si contenu PREMIUM ou FREE */}
         <div
-          style={!postType ? {} : { visibility: "hidden" }}
+          style={
+            !postType
+              ? { userSelect: "none" }
+              : { visibility: "hidden", userSelect: "none" }
+          }
           className={`publication-type ${publicationTypeHeadOfPostPollPost}`}
         >
           {postType ? <></> : <>Premium</>}
