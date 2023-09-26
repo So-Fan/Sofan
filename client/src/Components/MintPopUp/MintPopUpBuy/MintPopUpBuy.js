@@ -140,7 +140,7 @@ function MintPopUpBuy({
               ? "mint-pop-up-buy-wrap mint-pop-up-buy-wrap-hidden"
               : "mint-pop-up-buy-wrap"
           }
-          style={{ marginBottom: "49px" }}
+          style={{ marginBottom: "29px" }}
         >
           <div className="mint-pop-up-buy-title-and-cancel-button">
             <div>Acheter NFT</div>
@@ -207,7 +207,7 @@ function MintPopUpBuy({
               loggedInUserInfo.loggedInUser?.metamask
                 ? `${loggedInUserInfo.loggedInUser.metamask}`
                 : loggedInUserInfo.loggedInUser?.web3auth
-                ? `${loggedInUserInfo.loggedInUser.metamask}`
+                ? `${loggedInUserInfo.loggedInUser.web3auth}`
                 : null
             }
           />
