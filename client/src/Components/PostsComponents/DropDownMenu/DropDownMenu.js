@@ -56,7 +56,8 @@ function DropDownMenu({
     }
   }
   // console.log(loggedInUser?.account_type, "loggedInUser");
-  console.log(postCreatorId, "postCreatorId");
+  // console.log(postCreatorId, "postCreatorId");
+  
   return (
     <>
       <section

@@ -72,6 +72,7 @@
 }
 .settings-page-validation-button-container {
   width: 100%;
+  max-width: 250px;
   /* background-color: turquoise; */
   display: flex;
 }
@@ -80,7 +81,7 @@
   margin: none;
   margin-top: 10px !important;
   outline: none;
-  width: 180px;
+  width: 250px !important;
   height: 30px;
   border-radius: 10px;
   background: var(--yellow, #f6d463);
