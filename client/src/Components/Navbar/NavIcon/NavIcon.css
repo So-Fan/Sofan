@@ -5,6 +5,7 @@
   padding-right: 10px;
   /* padding: 8px; */
   position: relative;
+  cursor: pointer;
 }
 .navbar-icon-container:hover {
   background-color: #00000015;
@@ -15,7 +16,7 @@
   width: 20px;
   cursor: pointer;
 }
-.navbar-icon-notifications-red-round{
+.navbar-icon-notifications-red-round {
   background-color: red;
   border-radius: 50%;
   width: 7px;

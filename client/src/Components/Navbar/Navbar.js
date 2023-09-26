@@ -203,7 +203,7 @@ const Navbar = ({
                       <div className="navbar-vertical"></div>
                       <NavIcon
                         isNotificationsRead={isNotificationsRead}
-                        handleNotificationPopup={handleNotificationPopup}
+                        // handleNotificationPopup={handleNotificationPopup}
                         src={notification}
                       />
                       <div className="navbar-vertical"></div>

@@ -3,7 +3,11 @@ import "./NavIcon.css";
 
 const NavIcon = ({ src, handleNotificationPopup, isNotificationsRead }) => {
   return (
-    <div onClick={handleNotificationPopup} className="navbar-icon-container">
+    <div
+      onClick={handleNotificationPopup}
+      className="navbar-icon-container"
+      title="Coming soon.."
+    >
       <img
         className="navbar-icon"
         src={src}

@@ -32,7 +32,7 @@ function DropDownMenu({
 
       // Mettre à jour le champ 'status' en le mettant à false
       await updateDoc(commentRef, {
-        stdiatus: false,
+        status: false,
       });
 
       console.log("Le status a bien été passé à false");
