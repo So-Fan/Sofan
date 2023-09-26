@@ -2,8 +2,7 @@
 .cgu-page-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
   margin-top: 95px;
   width: 90vw;
 }
@@ -12,6 +11,8 @@
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 30px;
+  width: 100%;
+  text-align: center;
 }
 
 .cgu-section-title {
