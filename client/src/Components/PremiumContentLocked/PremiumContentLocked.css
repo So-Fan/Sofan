@@ -37,6 +37,14 @@
   text-align: center;
   padding-top: 15px;
 }
+.premium-content-locked-cta-premium-content-display-name{
+  color: #f6d463;
+  font-style: italic;
+  cursor: pointer;
+}
+.premium-content-locked-cta-premium-content-display-name:hover{
+  color: #f7c520;
+}
 .premium-content-locked-button {
   outline: none;
   margin: 0;
