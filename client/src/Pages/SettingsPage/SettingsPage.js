@@ -6,6 +6,7 @@ import PhoneInput from "react-phone-number-input";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import { db } from "../../Configs/firebase";
+import useEth from "../../contexts/EthContext/useEth";
 import {
   collection,
   query,
@@ -18,6 +19,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 function SettingsPage() {
   const [isFocusDisplayName, setIsFocusDisplayName] = useState(false);
@@ -52,9 +54,14 @@ function SettingsPage() {
     useState();
   const [isDisplayNameChangeError, setIsDisplayNameChangeError] = useState();
   const [isDisplayNameChanged, setIsDisplayNameChanged] = useState();
+  const [displayWalletAddress, setDisplayWalletAddress] = useState();
   const { loggedInUser } = useUserCollection();
   const usersCollection = collection(db, "users");
-  console.log(loggedInUser?.id);
+  // console.log(loggedInUser?.id);
+  // const {state: {accounts}} = useEth()
+  const {
+    state: { accounts },
+  } = useEth();
   async function getDisplayName() {
     try {
       const q = query(
@@ -87,7 +94,7 @@ function SettingsPage() {
         setIsDisplayNameChangeLoading(false);
         setIsDisplayNameChanged(true);
         getDisplayName();
-        console.log("pseudo changé");
+        // console.log("pseudo changé");
       } catch (error) {
         console.error(error);
         setIsDisplayNameChangeLoading(false);
@@ -98,8 +105,14 @@ function SettingsPage() {
   }
   useEffect(() => {
     getDisplayName();
-    setValueInputDisplayName(displayName)
-
+    setValueInputDisplayName(displayName);
+    if (loggedInUser?.metamask) {
+      setDisplayWalletAddress(loggedInUser?.metamask);
+    } else if (loggedInUser?.web3auth) {
+      setDisplayWalletAddress(loggedInUser?.web3auth);
+    } else {
+      setDisplayWalletAddress("Pas de wallet enregistré");
+    }
   }, [loggedInUser, displayName]);
   // let displayName = "ramiabdou";
   function handleFocusDisplayName() {
@@ -195,7 +208,7 @@ function SettingsPage() {
     setPhone(value);
     setPhoneRegexError(value && !isValidPhoneNumber(value));
   }
-  console.log("valueInputDisplayName -> ",valueInputDisplayName,"displayName -> ",displayName)
+  console.log(loggedInUser);
   return (
     <div className="settings-page-container">
       <div className="setting-page-wrap">
@@ -274,7 +287,7 @@ function SettingsPage() {
                   hover="button-hover-props"
                   active="button-active-props"
                   onClick={handleChangeDisplayName}
-                  disabled={ valueInputDisplayName === displayName}
+                  disabled={valueInputDisplayName === displayName}
                 />
               )}
             </div>
@@ -447,15 +460,23 @@ function SettingsPage() {
               <div className="settings-page-wallet-change-wrap">
                 <div className="settings-page-wallet-change-title">Wallet</div>
                 <div className="settings-page-wallet-change-current-wallet">
-                  0x6Bde457Df68E2c4Ec1b2d8CFb951324195E6a7Be
+                  {displayWalletAddress}
                 </div>
 
                 <div className="settings-page-validation-button-container">
-                  <Button
-                    text={"Changer de wallet"}
-                    hover="button-hover-props"
-                    active="button-active-props"
-                  />
+                  {/* <Link style={{textDecoration:"none"}}> */}
+                  <a
+                    href={`https://etherscan.io/address/${displayWalletAddress}`}
+                    target="_blank"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button
+                      text={"Voir les transaction de mon wallet"}
+                      hover="button-hover-props"
+                      active="button-active-props"
+                    />
+                  </a>
+                  {/* </Link> */}
                 </div>
               </div>
               <div className="settings-page-line-separation"></div>
