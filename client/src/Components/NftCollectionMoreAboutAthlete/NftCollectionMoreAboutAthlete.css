@@ -67,6 +67,8 @@
   left: 6.9591%;
   bottom: 46.25623%;
   position: absolute;
+  text-align: justify;
+  padding-right: 15px;
 }
 .nft-collection-more-about-athlete-fans-count {
   height: 31px;

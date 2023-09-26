@@ -287,7 +287,7 @@ function AthleteProfileHeader({
                 />
                 <Button
                   className="athleteprofileheader-content-container-second-button"
-                  text={isFollowing ? "Unfollow" : "Follow"}
+                  text={isFollowing ? "Ne plus suivre" : "Suivre"}
                   style={AthleteProfileHeaderFollowButton}
                   onClick={(e) => handleFollowClick(e)}
                 />
