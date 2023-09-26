@@ -40,13 +40,13 @@
     "absolutePath": "project:/contracts/DefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        7547
+        4388
       ],
       "DefaultOperatorFilterer": [
         2773
       ],
       "OperatorFilterer": [
-        6498
+        3132
       ]
     },
     "id": 2774,
@@ -71,7 +71,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 2774,
-        "sourceUnit": 6499,
+        "sourceUnit": 3133,
         "src": "61:56:12",
         "symbolAliases": [
           {
@@ -80,7 +80,7 @@
               "name": "OperatorFilterer",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6498,
+              "referencedDeclaration": 3132,
               "src": "69:16:12",
               "typeDescriptions": {}
             },
@@ -96,7 +96,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 2774,
-        "sourceUnit": 7548,
+        "sourceUnit": 4389,
         "src": "119:64:12",
         "symbolAliases": [
           {
@@ -105,7 +105,7 @@
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 7547,
+              "referencedDeclaration": 4388,
               "src": "127:27:12",
               "typeDescriptions": {}
             },
@@ -125,7 +125,7 @@
                 "677:16:12"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 6498,
+              "referencedDeclaration": 3132,
               "src": "677:16:12"
             },
             "id": 2763,
@@ -146,7 +146,7 @@
         "id": 2773,
         "linearizedBaseContracts": [
           2773,
-          6498
+          3132
         ],
         "name": "DefaultOperatorFilterer",
         "nameLocation": "650:23:12",
@@ -176,7 +176,7 @@
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 7547,
+                    "referencedDeclaration": 4388,
                     "src": "814:27:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -209,7 +209,7 @@
                     "797:16:12"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 6498,
+                  "referencedDeclaration": 3132,
                   "src": "797:16:12"
                 },
                 "nodeType": "ModifierInvocation",
@@ -241,7 +241,7 @@
         "scope": 2774,
         "src": "632:222:12",
         "usedErrors": [
-          6369
+          3003
         ]
       }
     ],
@@ -251,13 +251,13 @@
     "absolutePath": "project:/contracts/DefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        7547
+        4388
       ],
       "DefaultOperatorFilterer": [
         2773
       ],
       "OperatorFilterer": [
-        6498
+        3132
       ]
     },
     "id": 2774,
@@ -282,7 +282,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 2774,
-        "sourceUnit": 6499,
+        "sourceUnit": 3133,
         "src": "61:56:12",
         "symbolAliases": [
           {
@@ -291,7 +291,7 @@
               "name": "OperatorFilterer",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6498,
+              "referencedDeclaration": 3132,
               "src": "69:16:12",
               "typeDescriptions": {}
             },
@@ -307,7 +307,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 2774,
-        "sourceUnit": 7548,
+        "sourceUnit": 4389,
         "src": "119:64:12",
         "symbolAliases": [
           {
@@ -316,7 +316,7 @@
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 7547,
+              "referencedDeclaration": 4388,
               "src": "127:27:12",
               "typeDescriptions": {}
             },
@@ -336,7 +336,7 @@
                 "677:16:12"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 6498,
+              "referencedDeclaration": 3132,
               "src": "677:16:12"
             },
             "id": 2763,
@@ -357,7 +357,7 @@
         "id": 2773,
         "linearizedBaseContracts": [
           2773,
-          6498
+          3132
         ],
         "name": "DefaultOperatorFilterer",
         "nameLocation": "650:23:12",
@@ -387,7 +387,7 @@
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 7547,
+                    "referencedDeclaration": 4388,
                     "src": "814:27:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -420,7 +420,7 @@
                     "797:16:12"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 6498,
+                  "referencedDeclaration": 3132,
                   "src": "797:16:12"
                 },
                 "nodeType": "ModifierInvocation",
@@ -452,7 +452,7 @@
         "scope": 2774,
         "src": "632:222:12",
         "usedErrors": [
-          6369
+          3003
         ]
       }
     ],
@@ -464,7 +464,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-09-19T19:13:34.805Z",
+  "updatedAt": "2023-09-26T13:25:17.993Z",
   "devdoc": {
     "details": "Please note that if your token contract does not provide an owner with EIP-173, it must provide         administration methods on the contract itself to interact with the registry otherwise the subscription         will be locked to the options set during construction.",
     "errors": {

@@ -120,24 +120,24 @@
     "absolutePath": "project:/contracts/RevokableDefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        7547
+        4388
       ],
       "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS": [
-        7544
+        4385
       ],
       "RevokableDefaultOperatorFilterer": [
-        6552
+        3393
       ],
       "RevokableOperatorFilterer": [
-        6670
+        3511
       ]
     },
-    "id": 6553,
+    "id": 3394,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6533,
+        "id": 3374,
         "literals": [
           "solidity",
           "^",
@@ -145,26 +145,26 @@
           ".13"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:24:18"
+        "src": "33:24:17"
       },
       {
         "absolutePath": "project:/contracts/RevokableOperatorFilterer.sol",
         "file": "./RevokableOperatorFilterer.sol",
-        "id": 6535,
+        "id": 3376,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 6553,
-        "sourceUnit": 6671,
-        "src": "61:74:18",
+        "scope": 3394,
+        "sourceUnit": 3512,
+        "src": "61:74:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 6534,
+              "id": 3375,
               "name": "RevokableOperatorFilterer",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6670,
-              "src": "69:25:18",
+              "referencedDeclaration": 3511,
+              "src": "69:25:17",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -175,33 +175,33 @@
       {
         "absolutePath": "project:/contracts/lib/Constants.sol",
         "file": "./lib/Constants.sol",
-        "id": 6538,
+        "id": 3379,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 6553,
-        "sourceUnit": 7548,
-        "src": "137:108:18",
+        "scope": 3394,
+        "sourceUnit": 4389,
+        "src": "137:108:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 6536,
+              "id": 3377,
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 7547,
-              "src": "145:27:18",
+              "referencedDeclaration": 4388,
+              "src": "145:27:17",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
           },
           {
             "foreign": {
-              "id": 6537,
+              "id": 3378,
               "name": "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 7544,
-              "src": "174:42:18",
+              "referencedDeclaration": 4385,
+              "src": "174:42:17",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -214,78 +214,78 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 6540,
+              "id": 3381,
               "name": "RevokableOperatorFilterer",
               "nameLocations": [
-                "660:25:18"
+                "660:25:17"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 6670,
-              "src": "660:25:18"
+              "referencedDeclaration": 3511,
+              "src": "660:25:17"
             },
-            "id": 6541,
+            "id": 3382,
             "nodeType": "InheritanceSpecifier",
-            "src": "660:25:18"
+            "src": "660:25:17"
           }
         ],
         "canonicalName": "RevokableDefaultOperatorFilterer",
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 6539,
+          "id": 3380,
           "nodeType": "StructuredDocumentation",
-          "src": "247:355:18",
+          "src": "247:355:17",
           "text": " @title  RevokableDefaultOperatorFilterer\n @notice Inherits from RevokableOperatorFilterer and automatically subscribes to the default OpenSea subscription.\n         Note that OpenSea will disable creator earnings enforcement if filtered operators begin fulfilling orders\n         on-chain, eg, if the registry is revoked or bypassed."
         },
         "fullyImplemented": false,
-        "id": 6552,
+        "id": 3393,
         "linearizedBaseContracts": [
-          6552,
-          6670,
-          7539
+          3393,
+          3511,
+          4380
         ],
         "name": "RevokableDefaultOperatorFilterer",
-        "nameLocation": "624:32:18",
+        "nameLocation": "624:32:17",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 6550,
+              "id": 3391,
               "nodeType": "Block",
-              "src": "908:2:18",
+              "src": "908:2:17",
               "statements": []
             },
             "documentation": {
-              "id": 6542,
+              "id": 3383,
               "nodeType": "StructuredDocumentation",
-              "src": "693:76:18",
+              "src": "693:76:17",
               "text": "@dev The constructor that is called when the contract is being deployed."
             },
-            "id": 6551,
+            "id": 3392,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
               {
                 "arguments": [
                   {
-                    "id": 6545,
+                    "id": 3386,
                     "name": "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 7544,
-                    "src": "824:42:18",
+                    "referencedDeclaration": 4385,
+                    "src": "824:42:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
                   {
-                    "id": 6546,
+                    "id": 3387,
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 7547,
-                    "src": "868:27:18",
+                    "referencedDeclaration": 4388,
+                    "src": "868:27:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -293,14 +293,14 @@
                   },
                   {
                     "hexValue": "74727565",
-                    "id": 6547,
+                    "id": 3388,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "897:4:18",
+                    "src": "897:4:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -308,78 +308,78 @@
                     "value": "true"
                   }
                 ],
-                "id": 6548,
+                "id": 3389,
                 "kind": "baseConstructorSpecifier",
                 "modifierName": {
-                  "id": 6544,
+                  "id": 3385,
                   "name": "RevokableOperatorFilterer",
                   "nameLocations": [
-                    "798:25:18"
+                    "798:25:17"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 6670,
-                  "src": "798:25:18"
+                  "referencedDeclaration": 3511,
+                  "src": "798:25:17"
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "798:104:18"
+                "src": "798:104:17"
               }
             ],
             "name": "",
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6543,
+              "id": 3384,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "786:2:18"
+              "src": "786:2:17"
             },
             "returnParameters": {
-              "id": 6549,
+              "id": 3390,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "908:0:18"
+              "src": "908:0:17"
             },
-            "scope": 6552,
-            "src": "775:135:18",
+            "scope": 3393,
+            "src": "775:135:17",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 6553,
-        "src": "606:307:18",
+        "scope": 3394,
+        "src": "606:307:17",
         "usedErrors": [
-          6564,
-          6567,
-          7345,
-          7348
+          3405,
+          3408,
+          4186,
+          4189
         ]
       }
     ],
-    "src": "33:882:18"
+    "src": "33:882:17"
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/RevokableDefaultOperatorFilterer.sol",
     "exportedSymbols": {
       "CANONICAL_CORI_SUBSCRIPTION": [
-        7547
+        4388
       ],
       "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS": [
-        7544
+        4385
       ],
       "RevokableDefaultOperatorFilterer": [
-        6552
+        3393
       ],
       "RevokableOperatorFilterer": [
-        6670
+        3511
       ]
     },
-    "id": 6553,
+    "id": 3394,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6533,
+        "id": 3374,
         "literals": [
           "solidity",
           "^",
@@ -387,26 +387,26 @@
           ".13"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:24:18"
+        "src": "33:24:17"
       },
       {
         "absolutePath": "project:/contracts/RevokableOperatorFilterer.sol",
         "file": "./RevokableOperatorFilterer.sol",
-        "id": 6535,
+        "id": 3376,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 6553,
-        "sourceUnit": 6671,
-        "src": "61:74:18",
+        "scope": 3394,
+        "sourceUnit": 3512,
+        "src": "61:74:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 6534,
+              "id": 3375,
               "name": "RevokableOperatorFilterer",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 6670,
-              "src": "69:25:18",
+              "referencedDeclaration": 3511,
+              "src": "69:25:17",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -417,33 +417,33 @@
       {
         "absolutePath": "project:/contracts/lib/Constants.sol",
         "file": "./lib/Constants.sol",
-        "id": 6538,
+        "id": 3379,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 6553,
-        "sourceUnit": 7548,
-        "src": "137:108:18",
+        "scope": 3394,
+        "sourceUnit": 4389,
+        "src": "137:108:17",
         "symbolAliases": [
           {
             "foreign": {
-              "id": 6536,
+              "id": 3377,
               "name": "CANONICAL_CORI_SUBSCRIPTION",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 7547,
-              "src": "145:27:18",
+              "referencedDeclaration": 4388,
+              "src": "145:27:17",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
           },
           {
             "foreign": {
-              "id": 6537,
+              "id": 3378,
               "name": "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 7544,
-              "src": "174:42:18",
+              "referencedDeclaration": 4385,
+              "src": "174:42:17",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -456,78 +456,78 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 6540,
+              "id": 3381,
               "name": "RevokableOperatorFilterer",
               "nameLocations": [
-                "660:25:18"
+                "660:25:17"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 6670,
-              "src": "660:25:18"
+              "referencedDeclaration": 3511,
+              "src": "660:25:17"
             },
-            "id": 6541,
+            "id": 3382,
             "nodeType": "InheritanceSpecifier",
-            "src": "660:25:18"
+            "src": "660:25:17"
           }
         ],
         "canonicalName": "RevokableDefaultOperatorFilterer",
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 6539,
+          "id": 3380,
           "nodeType": "StructuredDocumentation",
-          "src": "247:355:18",
+          "src": "247:355:17",
           "text": " @title  RevokableDefaultOperatorFilterer\n @notice Inherits from RevokableOperatorFilterer and automatically subscribes to the default OpenSea subscription.\n         Note that OpenSea will disable creator earnings enforcement if filtered operators begin fulfilling orders\n         on-chain, eg, if the registry is revoked or bypassed."
         },
         "fullyImplemented": false,
-        "id": 6552,
+        "id": 3393,
         "linearizedBaseContracts": [
-          6552,
-          6670,
-          7539
+          3393,
+          3511,
+          4380
         ],
         "name": "RevokableDefaultOperatorFilterer",
-        "nameLocation": "624:32:18",
+        "nameLocation": "624:32:17",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 6550,
+              "id": 3391,
               "nodeType": "Block",
-              "src": "908:2:18",
+              "src": "908:2:17",
               "statements": []
             },
             "documentation": {
-              "id": 6542,
+              "id": 3383,
               "nodeType": "StructuredDocumentation",
-              "src": "693:76:18",
+              "src": "693:76:17",
               "text": "@dev The constructor that is called when the contract is being deployed."
             },
-            "id": 6551,
+            "id": 3392,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
               {
                 "arguments": [
                   {
-                    "id": 6545,
+                    "id": 3386,
                     "name": "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 7544,
-                    "src": "824:42:18",
+                    "referencedDeclaration": 4385,
+                    "src": "824:42:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
                   {
-                    "id": 6546,
+                    "id": 3387,
                     "name": "CANONICAL_CORI_SUBSCRIPTION",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 7547,
-                    "src": "868:27:18",
+                    "referencedDeclaration": 4388,
+                    "src": "868:27:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -535,14 +535,14 @@
                   },
                   {
                     "hexValue": "74727565",
-                    "id": 6547,
+                    "id": 3388,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "897:4:18",
+                    "src": "897:4:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -550,55 +550,55 @@
                     "value": "true"
                   }
                 ],
-                "id": 6548,
+                "id": 3389,
                 "kind": "baseConstructorSpecifier",
                 "modifierName": {
-                  "id": 6544,
+                  "id": 3385,
                   "name": "RevokableOperatorFilterer",
                   "nameLocations": [
-                    "798:25:18"
+                    "798:25:17"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 6670,
-                  "src": "798:25:18"
+                  "referencedDeclaration": 3511,
+                  "src": "798:25:17"
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "798:104:18"
+                "src": "798:104:17"
               }
             ],
             "name": "",
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6543,
+              "id": 3384,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "786:2:18"
+              "src": "786:2:17"
             },
             "returnParameters": {
-              "id": 6549,
+              "id": 3390,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "908:0:18"
+              "src": "908:0:17"
             },
-            "scope": 6552,
-            "src": "775:135:18",
+            "scope": 3393,
+            "src": "775:135:17",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 6553,
-        "src": "606:307:18",
+        "scope": 3394,
+        "src": "606:307:17",
         "usedErrors": [
-          6564,
-          6567,
-          7345,
-          7348
+          3405,
+          3408,
+          4186,
+          4189
         ]
       }
     ],
-    "src": "33:882:18"
+    "src": "33:882:17"
   },
   "compiler": {
     "name": "solc",
@@ -606,7 +606,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2023-09-19T19:13:36.445Z",
+  "updatedAt": "2023-09-26T13:25:18.151Z",
   "devdoc": {
     "errors": {
       "InitialRegistryAddressCannotBeZeroAddress()": [

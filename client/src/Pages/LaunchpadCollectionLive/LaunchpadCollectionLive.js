@@ -415,6 +415,8 @@ function LaunchpadCollectionLive(isLogged) {
                 docData.know_more_athlete_description,
               nft_collection_limit: docData.nft_collection_limit,
               id: doc.id,
+              crossmint_collection_id: docData.crossmint_collection_id,
+              crossmint_project_id: docData.crossmint_project_id,
             };
           })
         );
@@ -575,6 +577,9 @@ function LaunchpadCollectionLive(isLogged) {
               setTotalPriceInUSDC={setTotalPriceInUSDC}
               mintCounter={mintCounter}
               setMintCounter={setMintCounter}
+              launchpadCollectionLiveAthleteDataBackend={
+                launchpadCollectionLiveAthleteDataBackend
+              }
             />
           )}
         </Modal>

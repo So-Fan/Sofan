@@ -22,7 +22,7 @@ contract SofanNft is
     DefaultOperatorFilterer
 {
     string public uri; // not pub
-    bool public isLimitByWallet; 
+    bool public isLimitByWallet;
     uint256 public limitByWallet;
     //TODO: Add bool for collection Limit or if == 0 then can mint + add a func to change Collection Limit
     uint256 public collectionLimit;
@@ -38,6 +38,7 @@ contract SofanNft is
     // address public SofanSplitter;
     // 0x07865c6E87B9F70255377e024ace6630C1Eaa37F 0x98339D8C260052B7ad81c28c16C0b98420f2B46a
     IERC20 public usdc;
+
     // Check if can put 0x07865c6E87B9F70255377e024ace6630C1Eaa37F into an address var and try to change var
     constructor(
         string[3] memory _collectionData2,
@@ -70,21 +71,25 @@ contract SofanNft is
         // SofanSplitter = _splitterAddress;
         setRoyaltyInfo(_splitterAddress, _percentInBips);
     }
-    function setUsdcAddress(address _newUSDCAddress) external onlyOwner{
+
+    function setUsdcAddress(address _newUSDCAddress) external onlyOwner {
         usdc = IERC20(_newUSDCAddress);
     }
-    function setAthleteWallet(address _newAthleteWallet) external onlyOwner{
+
+    function setAthleteWallet(address _newAthleteWallet) external onlyOwner {
         AthleteWallet = _newAthleteWallet;
     }
-    function setSofanWallet(address _newSofanWallet) external onlyOwner{
+
+    function setSofanWallet(address _newSofanWallet) external onlyOwner {
         SofanWallet = _newSofanWallet;
     }
+
     // _amount is a useless parameter but a helper for our front end as no event
     function mint(
         address _to,
         uint256 _quantity,
         uint256 _amount
-    ) external payable nonReentrant {
+    ) external nonReentrant {
         require(
             ERC721A._nextTokenId() + _quantity <= collectionLimit,
             "Limit of collection NFT reached or too much NFTs asked"
@@ -112,20 +117,24 @@ contract SofanNft is
             "Not enough USDC sent; check price!"
         );
         // transfer only if price > 0. What if price = 1
-        if(price !=0){
-        bool success = usdc.transferFrom(msg.sender, address(this), _amount);
-        require(success, "Transction was not successful");
+        if (price != 0) {
+            bool success = usdc.transferFrom(
+                msg.sender,
+                address(this),
+                _amount
+            );
+            require(success, "Transction was not successful");
 
-        uint256 toAthleteTemp = SafeMath.mul(_amount, 80);
-        uint256 toAthlete = SafeMath.div(toAthleteTemp, 100);
-        bool success2 = usdc.transfer(AthleteWallet, toAthlete);
-        require(success2, "Transaction was not successful");
+            uint256 toAthleteTemp = SafeMath.mul(_amount, 80);
+            uint256 toAthlete = SafeMath.div(toAthleteTemp, 100);
+            bool success2 = usdc.transfer(AthleteWallet, toAthlete);
+            require(success2, "Transaction was not successful");
 
-        uint256 toSofanTemp = SafeMath.mul(_amount, 20);
-        uint256 toSofan = SafeMath.div(toSofanTemp, 100);
-        bool success3 = usdc.transfer(SofanWallet, toSofan);
-        require(success3, "Transaction was not successful");
-        // NftOwned[_to] = NftOwned[_to] + _quantity;
+            uint256 toSofanTemp = SafeMath.mul(_amount, 20);
+            uint256 toSofan = SafeMath.div(toSofanTemp, 100);
+            bool success3 = usdc.transfer(SofanWallet, toSofan);
+            require(success3, "Transaction was not successful");
+            // NftOwned[_to] = NftOwned[_to] + _quantity;
         }
         _mint(_to, _quantity);
     }
@@ -159,7 +168,7 @@ contract SofanNft is
      * @dev set a new base uri.
      * example : https://website.com/ipfs/CID/
      */
-    function setBaseURI(string memory _uri) external onlyOwner{
+    function setBaseURI(string memory _uri) external onlyOwner {
         require(
             keccak256(abi.encodePacked(_uri)) !=
                 keccak256(abi.encodePacked(uri)),

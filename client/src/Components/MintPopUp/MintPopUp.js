@@ -16,6 +16,7 @@ function MintPopUpTemplate({
   totalPriceInUSDC,
   setMintCounter,
   mintCounter,
+  launchpadCollectionLiveAthleteDataBackend,
 }) {
   // change those state for passing to buy module to processing
 
@@ -80,6 +81,9 @@ function MintPopUpTemplate({
         nftCollectionAddress={nftCollectionAddress}
         setTotalPriceInUSDC={setTotalPriceInUSDC}
         totalPriceInUSDC={totalPriceInUSDC}
+        launchpadCollectionLiveAthleteDataBackend={
+          launchpadCollectionLiveAthleteDataBackend
+        }
       />
     </section>
   );

@@ -9,6 +9,7 @@ import Modal from "../../Modal/Modal";
 import PopUpAddFundToWallet from "../../PopUpAddFundToWallet/PopUpAddFundToWallet";
 import { Alchemy, Network } from "alchemy-sdk";
 import useUserCollection from "../../../contexts/UserContext/useUserCollection";
+import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 function MintPopUpBuy({
   maxMint,
   mintCounter,
@@ -27,6 +28,7 @@ function MintPopUpBuy({
   nftCollectionAddress,
   setTotalPriceInUSDC,
   totalPriceInUSDC,
+  launchpadCollectionLiveAthleteDataBackend,
 }) {
   const [currentNumberOfNftOwned, setCurrentNumberOfNftOwned] = useState(0);
   const [copyLimitByWalletInfo, setCopyLimitByWalletInfo] = useState();
@@ -128,7 +130,7 @@ function MintPopUpBuy({
   }, []);
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
-
+  console.log(loggedInUserInfo);
   return (
     <>
       <div className="mint-pop-up-buy-container">
@@ -138,6 +140,7 @@ function MintPopUpBuy({
               ? "mint-pop-up-buy-wrap mint-pop-up-buy-wrap-hidden"
               : "mint-pop-up-buy-wrap"
           }
+          style={{ marginBottom: "49px" }}
         >
           <div className="mint-pop-up-buy-title-and-cancel-button">
             <div>Acheter NFT</div>
@@ -182,9 +185,32 @@ function MintPopUpBuy({
             </div>
           </div>
           <div className="mint-pop-up-line-separation-second"></div>
-          <button className="mint-pop-up-mint-button" onClick={approve}>
+          <button
+            className="mint-pop-up-mint-button"
+            style={{ marginBottom: "19px", height: "35px" }}
+            onClick={approve}
+          >
             Mint maintenant
           </button>
+          <CrossmintPayButton
+            collectionId={`${launchpadCollectionLiveAthleteDataBackend[0].crossmint_collection_id}`}
+            projectId={`${launchpadCollectionLiveAthleteDataBackend[0].crossmint_project_id}`}
+            mintConfig={{
+              type: "erc-721",
+              totalPrice: `${formatCurrentBalance(totalPriceInUSDC)}`,
+              _quantity: `${mintCounter}`,
+              _amount: `${totalPriceInUSDC}`,
+              quantity: `${mintCounter}`,
+            }}
+            environment="staging"
+            mintTo={
+              loggedInUserInfo.loggedInUser?.metamask
+                ? `${loggedInUserInfo.loggedInUser.metamask}`
+                : loggedInUserInfo.loggedInUser?.web3auth
+                ? `${loggedInUserInfo.loggedInUser.metamask}`
+                : null
+            }
+          />
           <div className="mint-pop-up-progress-bar-and-total-minted">
             <LaunchPadMintProgressBar
               nftMintedCalculated={nftMintedCalculated}

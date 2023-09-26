@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@crossmint/client-sdk-react-ui": "^1.1.0",
     "@openzeppelin/contracts": "^4.9.3",
     "@react-spring/web": "^9.7.3",
     "@testing-library/jest-dom": "^5.16.5",
