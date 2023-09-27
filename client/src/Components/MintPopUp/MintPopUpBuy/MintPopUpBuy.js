@@ -157,7 +157,7 @@ function MintPopUpBuy({
               onClick={handleClick}
               className="mint-pop-up-buy-quantity-selector-decrease-button"
             >
-              -
+              <span>-</span>
             </div>
             <div className="mint-pop-up-buy-quantity-selector-counter">
               {mintCounter}
@@ -166,7 +166,7 @@ function MintPopUpBuy({
               onClick={handleClick}
               className="mint-pop-up-buy-quantity-selector-increase-button"
             >
-              +
+              <span>+</span>
             </div>
           </div>
           <div className="mint-pop-up-line-separation-first"></div>
@@ -193,8 +193,9 @@ function MintPopUpBuy({
             Mint maintenant
           </button>
           <CrossmintPayButton
-          getButtonText={(connecting, paymentMethod) =>
-            connecting ? "Connection..." : `Payer par carte bancaire`}
+            getButtonText={(connecting, paymentMethod) =>
+              connecting ? "Connection..." : `Payer par carte bancaire`
+            }
             collectionId={`${launchpadCollectionLiveAthleteDataBackend[0].crossmint_collection_id}`}
             projectId={`${launchpadCollectionLiveAthleteDataBackend[0].crossmint_project_id}`}
             mintConfig={{
