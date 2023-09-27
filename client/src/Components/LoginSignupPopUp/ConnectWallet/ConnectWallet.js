@@ -42,7 +42,7 @@ function ConnectWallet({
     useState(false);
   const [metamaskError, setMetamaskError] = useState(false);
   const [web3AuthError, setWeb3AuthError] = useState(false);
-  const { setLoggedInUser, loggedInUser } = UserContext(UserContext);
+  const { setLoggedInUser, loggedInUser } = useContext(UserContext);
   const handleCreateWallet = async (e) => {
     e.preventDefault();
     setIsWeb3authConnectLoading(true);
@@ -98,7 +98,8 @@ function ConnectWallet({
       web3auth: accountWallet,
     };
     console.log(loggedInUser);
-    setLoggedInUser({ ...loggedInUser, web3auth: accountWallet });
+    console.log({ ...loggedInUser, web3auth: accountWallet[0] });
+    setLoggedInUser({ ...loggedInUser, web3auth: accountWallet[0] });
     if (userData.id) {
       try {
         const usersRef = collection(db, "users");
@@ -109,7 +110,7 @@ function ConnectWallet({
           const existingUserData = userDoc.data();
           const updatedUserData = {
             ...existingUserData,
-            web3auth: accountWallet,
+            web3auth: accountWallet[0],
           };
           await setDoc(userDocRef, updatedUserData);
           console.log("Update successful");

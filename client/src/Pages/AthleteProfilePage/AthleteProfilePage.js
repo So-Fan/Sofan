@@ -336,13 +336,13 @@ const AthleteProfilePage = ({
 
   useEffect(() => {
     if (fansCounterApi && loggedInUser) {
-      if (loggedInUser.metamask) {
-        const temp = loggedInUser.metamask.toLowerCase();
+      if (loggedInUser?.metamask) {
+        const temp = loggedInUser.metamask?.toLowerCase();
         fansCounterApi.includes(temp) === true
           ? setIsUserFan(true)
           : setIsUserFan(false);
-      } else if (loggedInUser.web3auth) {
-        const temp = loggedInUser.web3auth.toLowerCase();
+      } else if (loggedInUser?.web3auth) {
+        const temp = loggedInUser?.web3auth?.toLowerCase();
         fansCounterApi.includes(temp) === true
           ? setIsUserFan(true)
           : setIsUserFan(false);
