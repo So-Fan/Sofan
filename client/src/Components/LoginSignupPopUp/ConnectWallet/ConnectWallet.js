@@ -97,8 +97,8 @@ function ConnectWallet({
     const newWallet = {
       web3auth: accountWallet,
     };
-    console.log(loggedInUser);
-    console.log({ ...loggedInUser, web3auth: accountWallet[0] });
+    // console.log(loggedInUser);
+    // console.log({ ...loggedInUser, web3auth: accountWallet[0] });
     setLoggedInUser({ ...loggedInUser, web3auth: accountWallet[0] });
     if (userData.id) {
       try {
