@@ -11,7 +11,7 @@
 .nftcollectionheader-bannerandprofilepicture-wrap > img {
   width: 100%;
 }
-.nftcollectionheader-bannerandprofilepicture-no-img{
+.nftcollectionheader-bannerandprofilepicture-no-img {
   width: 100%;
   height: 100%;
   background-color: #f6d463;
@@ -34,7 +34,7 @@
   height: 93%;
   border-radius: 15px;
 }
-.nftcollectionheader-profilepicture-no-img{
+.nftcollectionheader-profilepicture-no-img {
   width: 93%;
   height: 93%;
   border-radius: 15px;
@@ -54,6 +54,29 @@
   align-items: flex-start;
   /* height: 143px; */
   width: 100%;
+  position: relative;
+}
+.nftcollectionheader-content-wrap-redirection-button {
+  width: 150px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6d463;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+  font-family: "britanica-heavy";
+  position: absolute;
+  right: 0;
+}
+.nftcollectionheader-content-wrap-redirection-button:hover {
+  background-color: #f7c520;
+  transition-duration: 300ms;
+}
+.nftcollectionheader-content-wrap-redirection-button:active {
+  transform: scale(0.85);
+  transition-duration: 300ms;
 }
 .nftcollectionheader-content-wrap-sport {
   font-family: "Britanica-Black";

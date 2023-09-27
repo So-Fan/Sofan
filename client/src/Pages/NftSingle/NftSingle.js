@@ -189,74 +189,80 @@ const NftSingle = () => {
 
   useEffect(() => {
     const getAthleteInfo = async () => {
-      let nftCollectionInfo = [];
-      const q = query(collection(db, "nft_collections"));
-      const querySnapshot = await getDocs(q);
+      try {
+        let nftCollectionInfo = [];
+        const q = query(collection(db, "nft_collections"));
+        const querySnapshot = await getDocs(q);
 
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const tempNftcollectionInfo = doc.data();
-          nftCollectionInfo.push(tempNftcollectionInfo);
-        });
-      } else {
-        console.log("No collection found");
-      }
-      // console.log(nftCollectionInfo);
-      let currentNftCollectionInfo;
-      for (let i = 0; i < nftCollectionInfo.length; i++) {
-        const element = nftCollectionInfo[i];
-        if (
-          element.collection_address.toLowerCase() ===
-          collectionAddress.toLowerCase()
-        ) {
-          currentNftCollectionInfo = element;
-          // break car une adresse n'est censé n'être liée qu'à un seul document firebase ie une seule table de collection
-          break;
+        if (!querySnapshot.empty) {
+          querySnapshot.forEach((doc) => {
+            const tempNftcollectionInfo = doc.data();
+            nftCollectionInfo.push(tempNftcollectionInfo);
+          });
+        } else {
+          console.log("No collection found");
         }
-      }
-      setCurrentNftCollectionInfoFromBackend(currentNftCollectionInfo);
-      // console.log(currentNftCollectionInfo);
-      const q2 = query(
-        collection(db, "users"),
-        where("id", "==", currentNftCollectionInfo?.athlete_id)
-      );
-      const querySnapshot2 = await getDocs(q2);
-
-      if (!querySnapshot2.empty) {
-        querySnapshot2.forEach((doc) => {
-          const userInfo = doc.data();
-          const AllUserInfo = {
-            ...userInfo,
-          };
-          setCurrentAthleteCollectionCreator(AllUserInfo);
-          // console.log(AllUserInfo);
-        });
-      } else {
-        console.log("No user found");
-      }
-
-      // Get all collection for the owner => get the fan amount
-      let tempAllAthleteCollection = [];
-      for (let i = 0; i < nftCollectionInfo.length; i++) {
-        const element = nftCollectionInfo[i];
-        // console.log(element);
-        if (element.athlete_id === currentNftCollectionInfo.athlete_id) {
-          // console.log("i'm in");
-          const allAthleteCollectionOwners =
-            await alchemy.nft.getOwnersForContract(element.collection_address);
-          // console.log(allAthleteCollectionOwners.owners);
-          for (let i = 0; i < allAthleteCollectionOwners.owners.length; i++) {
-            const elementFromAlchemy = allAthleteCollectionOwners.owners[i];
-            tempAllAthleteCollection.push(elementFromAlchemy);
+        // console.log(nftCollectionInfo);
+        let currentNftCollectionInfo;
+        for (let i = 0; i < nftCollectionInfo.length; i++) {
+          const element = nftCollectionInfo[i];
+          if (
+            element.collection_address.toLowerCase() ===
+            collectionAddress.toLowerCase()
+          ) {
+            currentNftCollectionInfo = element;
+            // break car une adresse n'est censé n'être liée qu'à un seul document firebase ie une seule table de collection
+            break;
           }
         }
+        setCurrentNftCollectionInfoFromBackend(currentNftCollectionInfo);
+        // console.log(currentNftCollectionInfo);
+        const q2 = query(
+          collection(db, "users"),
+          where("id", "==", currentNftCollectionInfo?.athlete_id)
+        );
+        const querySnapshot2 = await getDocs(q2);
+
+        if (!querySnapshot2.empty) {
+          querySnapshot2.forEach((doc) => {
+            const userInfo = doc.data();
+            const AllUserInfo = {
+              ...userInfo,
+            };
+            setCurrentAthleteCollectionCreator(AllUserInfo);
+            // console.log(AllUserInfo);
+          });
+        } else {
+          console.log("No user found");
+        }
+
+        // Get all collection for the owner => get the fan amount
+        let tempAllAthleteCollection = [];
+        for (let i = 0; i < nftCollectionInfo.length; i++) {
+          const element = nftCollectionInfo[i];
+          // console.log(element);
+          if (element.athlete_id === currentNftCollectionInfo.athlete_id) {
+            // console.log("i'm in");
+            const allAthleteCollectionOwners =
+              await alchemy.nft.getOwnersForContract(
+                element.collection_address
+              );
+            // console.log(allAthleteCollectionOwners.owners);
+            for (let i = 0; i < allAthleteCollectionOwners.owners.length; i++) {
+              const elementFromAlchemy = allAthleteCollectionOwners.owners[i];
+              tempAllAthleteCollection.push(elementFromAlchemy);
+            }
+          }
+        }
+        // console.log(tempAllAthleteCollection);
+        const allAthleteCollection = removeDuplicatesFromArray(
+          tempAllAthleteCollection
+        );
+        // console.log(allAthleteCollection);
+        setAthleteFanNumber(allAthleteCollection.length);
+      } catch (error) {
+        console.error(error);
       }
-      // console.log(tempAllAthleteCollection);
-      const allAthleteCollection = removeDuplicatesFromArray(
-        tempAllAthleteCollection
-      );
-      // console.log(allAthleteCollection);
-      setAthleteFanNumber(allAthleteCollection.length);
     };
     getAthleteInfo();
   }, []);

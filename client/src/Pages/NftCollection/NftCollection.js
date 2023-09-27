@@ -111,17 +111,28 @@ const NftCollection = ({
     // console.log(nftsTransferData.pageKey )
   }
   async function getOwnersForContractFunction() {
-    const address = collectionAddress;
-    const response = await alchemy.nft.getOwnersForContract(address);
-    console.log(response);
-    setTotalOwnersForContract(response);
+    try {
+      const response = await alchemy.nft.getOwnersForContract(
+        collectionAddress
+      );
+      console.log(response);
+      setTotalOwnersForContract(response);
+    } catch (error) {
+      // TODO: faire afficher une erreur dans le frontend
+      console.error(error);
+    }
   }
   async function getNftsForContractFunction() {
-    const response = await alchemy.nft.getNftsForContract(collectionAddress);
+    try {
+      const response = await alchemy.nft.getNftsForContract(collectionAddress);
 
-    //Logging the response to the console
-    // console.log("response ---> ",response?.nfts);
-    setNftsFromCollection(response?.nfts);
+      //Logging the response to the console
+      // console.log("response ---> ",response?.nfts);
+      setNftsFromCollection(response?.nfts);
+    } catch (error) {
+      // TODO: faire afficher une erreur dans le frontend
+      console.error(error);
+    }
   }
   useEffect(() => {
     // getNft();
@@ -362,43 +373,50 @@ const NftCollection = ({
   // }, []);
   useEffect(() => {
     const fetchData = async () => {
-      // Première requête pour obtenir les données de nft_collections
-      const nftCollections = collection(db, "nft_collections");
-      const nftQuery = query(
-        nftCollections,
-        where("collection_address", "==", collectionAddress)
-      );
+      try {
+        // Première requête pour obtenir les données de nft_collections
+        const nftCollections = collection(db, "nft_collections");
+        const nftQuery = query(
+          nftCollections,
+          where("collection_address", "==", collectionAddress)
+        );
 
-      const nftQuerySnapshot = await getDocs(nftQuery);
+        const nftQuerySnapshot = await getDocs(nftQuery);
 
-      const nftData = nftQuerySnapshot.docs.map((doc) => {
-        return {
-          collection_avatar: doc.data().collection_avatar,
-          collection_banner: doc.data().collection_banner,
-          collection_title: doc.data().collection_title,
-          collection_description: doc.data().collection_description,
-          athlete_id: doc.data().athlete_id, // Supposons que chaque doc ait un champ athlete_id
-        };
-      });
+        const nftData = nftQuerySnapshot.docs.map((doc) => {
+          return {
+            collection_avatar: doc.data().collection_avatar,
+            collection_banner: doc.data().collection_banner,
+            collection_title: doc.data().collection_title,
+            collection_description: doc.data().collection_description,
+            athlete_id: doc.data().athlete_id, // Supposons que chaque doc ait un champ athlete_id
+          };
+        });
 
-      setCollectionBackendData(nftData);
+        setCollectionBackendData(nftData);
 
-      // Deuxième requête pour obtenir les données de users
-      const usersCollection = collection(db, "users");
-      const userQueries = nftData.map(({ athlete_id }) => {
-        const userQuery = query(usersCollection, where("id", "==", athlete_id));
-        return getDocs(userQuery);
-      });
+        // Deuxième requête pour obtenir les données de users
+        const usersCollection = collection(db, "users");
+        const userQueries = nftData.map(({ athlete_id }) => {
+          const userQuery = query(
+            usersCollection,
+            where("id", "==", athlete_id)
+          );
+          return getDocs(userQuery);
+        });
 
-      const userQuerySnapshots = await Promise.all(userQueries);
+        const userQuerySnapshots = await Promise.all(userQueries);
 
-      const userData = userQuerySnapshots.map((snapshot) => {
-        return snapshot.docs.map((doc) => {
-          return { display_name: doc.data().display_name };
-        })[0]; // On prend le premier élément car id est unique
-      });
-
-      setAthleteDisplayName(userData);
+        const userData = userQuerySnapshots.map((snapshot) => {
+          return snapshot.docs.map((doc) => {
+            return { display_name: doc.data().display_name, id: doc.data().id };
+          })[0]; // On prend le premier élément car id est unique
+        });
+console.log(userData)
+        setAthleteDisplayName(userData);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchData();
@@ -446,6 +464,7 @@ const NftCollection = ({
           collectionBackendData={collectionBackendData}
           athleteDisplayName={athleteDisplayName}
           totalOwnersForContract={totalOwnersForContract}
+          collectionAddress={collectionAddress}
         />
         <ProfileSubMenu
           isProfileSubMenuButtonClicked={isProfileSubMenuButtonClicked}

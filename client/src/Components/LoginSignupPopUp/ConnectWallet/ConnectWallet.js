@@ -69,23 +69,28 @@ function ConnectWallet({
           console.error("Error getting ID token:", error);
         });
     }
-
-    const web3authProvider = await web3auth.connectTo(
-      WALLET_ADAPTERS.OPENLOGIN,
-      {
+    let web3authProvider;
+    try {
+      web3authProvider = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
         loginProvider: "jwt",
         extraLoginOptions: {
           id_token: collectedIdToken ? collectedIdToken : newFirebaseIdToken,
           verifierIdField: "sub",
           domain: process.env.REACT_APP_DOMAIN_TOKEN_ID,
         },
-      }
-    );
+      });
+    } catch (error) {
+      console.error(error);
+    }
     setWeb3authProvider(web3authProvider);
 
     const web3 = new Web3(web3authProvider);
-
-    const accountWallet = await web3.eth.getAccounts();
+    let accountWallet;
+    try {
+      accountWallet = await web3.eth.getAccounts();
+    } catch (error) {
+      console.error(error);
+    }
     // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
 
     const newWallet = {
@@ -125,7 +130,7 @@ function ConnectWallet({
     setIsMetamaskConnectWalletLoading(true);
   };
   useEffect(() => {
-    console.log(accounts);
+    // console.log(accounts);
     if (!localStorage.getItem("Web3Auth-cachedAdapter") && accounts) {
       // Si Metamask est connecté alors on passe à l'étape suivante
       // setIsMetamaskConnectWalletLoading(false);
@@ -228,7 +233,10 @@ function ConnectWallet({
                   Metamask
                 </div>
               </div>
-              <div style={{opacity:"0.5"}} className="signup-user-connect-wallet-list-wrap">
+              <div
+                style={{ opacity: "0.5" }}
+                className="signup-user-connect-wallet-list-wrap"
+              >
                 <div className="signup-user-connect-wallet-list-logo">
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/coinbase-wallet.png?alt=media&token=a73e7567-60ea-40d1-8723-cbdd6dadc00b"
@@ -239,7 +247,10 @@ function ConnectWallet({
                   Coinbase Wallet (soon)
                 </div>
               </div>
-              <div style={{opacity:"0.5"}} className="signup-user-connect-wallet-list-wrap">
+              <div
+                style={{ opacity: "0.5" }}
+                className="signup-user-connect-wallet-list-wrap"
+              >
                 <div className="signup-user-connect-wallet-list-logo">
                   <img
                     src="https://firebasestorage.googleapis.com/v0/b/sofan-app.appspot.com/o/wallet-connect.png?alt=media&token=bf327435-99d9-443b-94cd-56f8db3d1dbc"
