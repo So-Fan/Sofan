@@ -130,6 +130,8 @@ function Signup({
   const [firebaseIdToken, setFirebaseIdToken] = useState();
   const {
     setWeb3authProvider,
+    setIsWalletConnectClicked,
+    setIsWeb3authConnectClicked,
     state: { accounts },
   } = useEth();
 
@@ -996,13 +998,17 @@ function Signup({
     setDisplaySetupProfile(true);
   }
   function handlePreviousStepConfirmWallet(e) {
+    // setIsWalletConnectClicked();
+    setIsWeb3authConnectClicked([false, null]);
+    //
     setDisplayConfirmWallet(false);
     setDisplayConnectWallet(true);
+
     // delete accounts[0]
     if (accounts.length > 0) {
       accounts.splice(0, 1); // Cela supprime l'élément à l'index 0
     }
-    
+    console.log(accounts);
   }
   //
   function handlePreviousStepErrorGoogleAlreadyExist(e) {

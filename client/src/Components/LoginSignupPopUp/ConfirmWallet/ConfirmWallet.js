@@ -14,12 +14,21 @@ function ConfirmWallet({
     setIsCopyClipboardAddressConfirmWalletClicked,
   ] = useState(false);
 
-  const {state: {accounts}} = useEth()
+  const {
+    state: { accounts },
+  } = useEth();
   // console.log(accounts[0])
   // const accounts = ["0x8451e365cC9f3034fc35F9e4F9D62Fc1C8D610e1"];
-  const calcul = accounts[0].slice(0, 4);
-  const result = accounts[0].slice(accounts[0].length - 4, accounts[0].length);
-  const walletAdressShortVersion = `${calcul}...${result}`;
+
+  let walletAdressShortVersion;
+  if (accounts?.length) {
+    const calcul = accounts[0].slice(0, 4);
+    const result = accounts[0].slice(
+      accounts[0].length - 4,
+      accounts[0].length
+    );
+    walletAdressShortVersion = `${calcul}...${result}`;
+  }
   useEffect(() => {
     if (localStorage.getItem("Web3Auth-cachedAdapter")) {
       setIsWalletProviderWeb3Auth(true);
@@ -40,13 +49,15 @@ function ConfirmWallet({
 
   return (
     <div className="signup-user-confirm-wallet-wrap">
-      <div className="signup-user-confirm-wallet-title">Confirmez votre wallet</div>
-      <div
+      <div className="signup-user-confirm-wallet-title">
+        Confirmez votre wallet
+      </div>
+      {/* <div
         onClick={handlePreviousStepConfirmWallet}
         className="signup-user-confirm-wallet-previous-step"
       >
         <img src={previousArrow} alt="FLÈCHE ÉTAPE PRÉCÉDENTE" />
-      </div>
+      </div> */}
       {/* <div className="signup-user-confirm-wallet-message">
       </div> */}
       <div className="signup-user-confirm-wallet-address-container">
@@ -84,7 +95,9 @@ function ConfirmWallet({
         />
         {isCopyClipboardAddressConfirmWalletClicked && (
           <>
-            <div className="signup-user-confirm-wallet-copy-message-confirm">Copié !</div>
+            <div className="signup-user-confirm-wallet-copy-message-confirm">
+              Copié !
+            </div>
           </>
         )}
       </div>
@@ -94,8 +107,13 @@ function ConfirmWallet({
       >
         Confirmer
       </button>
-      <button onClick={handlePreviousStepConfirmWallet} className="signup-user-confirm-wallet-change-wallet-button">
-        Changer de wallet
+      <button
+        // style={{opacity:"0.5"}}
+        disabled={true}
+        onClick={handlePreviousStepConfirmWallet}
+        className="signup-user-confirm-wallet-change-wallet-button"
+      >
+        Changer de wallet (bientôt...)
       </button>
       <div className="signup-user-confirm-wallet-progress-bar-container">
         <div

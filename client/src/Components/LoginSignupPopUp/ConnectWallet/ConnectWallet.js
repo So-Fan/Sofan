@@ -98,36 +98,42 @@ function ConnectWallet({
       web3auth: accountWallet,
     };
     console.log(loggedInUser);
-    console.log({ ...loggedInUser, web3auth: accountWallet[0] });
-    setLoggedInUser({ ...loggedInUser, web3auth: accountWallet[0] });
-    if (userData.id) {
-      try {
-        const usersRef = collection(db, "users");
-        const userDocRef = doc(usersRef, userData.id);
-        const userDoc = await getDoc(userDocRef);
+    // console.log({ ...loggedInUser, web3auth: accountWallet[0] });
+    // if (accountWallet?.length > 0) {
+      setLoggedInUser({ ...loggedInUser, web3auth: accountWallet[0] });
+      if (userData.id) {
+        try {
+          const usersRef = collection(db, "users");
+          const userDocRef = doc(usersRef, userData.id);
+          const userDoc = await getDoc(userDocRef);
 
-        if (userDoc.exists()) {
-          const existingUserData = userDoc.data();
-          const updatedUserData = {
-            ...existingUserData,
-            web3auth: accountWallet[0],
-          };
-          await setDoc(userDocRef, updatedUserData);
-          console.log("Update successful");
+          if (userDoc.exists()) {
+            const existingUserData = userDoc.data();
+            const updatedUserData = {
+              ...existingUserData,
+              web3auth: accountWallet[0],
+            };
+            await setDoc(userDocRef, updatedUserData);
+            console.log("Update successful");
+            setIsWeb3authConnectLoading(false);
+            handleConnectWalletClick();
+          } else {
+            setIsWeb3authConnectLoading(false);
+            console.log(`No user found with ID: ${userData.id}`);
+          }
+        } catch (err) {
           setIsWeb3authConnectLoading(false);
-          handleConnectWalletClick();
-        } else {
-          setIsWeb3authConnectLoading(false);
-          console.log(`No user found with ID: ${userData.id}`);
+          console.log("Error updating document:", err);
         }
-      } catch (err) {
+      } else {
         setIsWeb3authConnectLoading(false);
-        console.log("Error updating document:", err);
+        console.log("userData.id is not defined");
       }
-    } else {
-      setIsWeb3authConnectLoading(false);
-      console.log("userData.id is not defined");
-    }
+    // } else {
+      // setIsWeb3authConnectLoading(false);
+      // console.log("userData.id is not defined");
+      // return;
+    // }
     setIsWeb3authConnectClicked([true, web3authProvider]);
   };
 
