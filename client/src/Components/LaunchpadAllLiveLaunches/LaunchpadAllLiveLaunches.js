@@ -13,7 +13,6 @@ const LaunchpadAllLiveLaunches = ({
   hidePrice,
   handleLiveLaunchesSportDropdownClicked,
 }) => {
-  const scrollRef = useHorizontalScroll();
   const [dim, setDim] = useState(window.innerWidth);
   const [
     currentLiveLaunchesSportSelectorSelected,
@@ -138,7 +137,22 @@ const LaunchpadAllLiveLaunches = ({
     const launchDateSeconds = launch?.launchpad?.launch_date?.seconds;
     return launchDateSeconds ? launchDateSeconds * 1000 < Date.now() : false;
   });
+  const [allowHorizontalScroll, setAllowHorizontalScroll] = useState(false);
+  const [horizontalScrollTimeout, setHorizontalScrollTimeout] = useState();
+  const handleMouseOver = (e) => {
+    console.log(e);
+    const timeout = setTimeout(() => {
+      setAllowHorizontalScroll(true);
+    }, 300);
 
+    setHorizontalScrollTimeout(timeout);
+  };
+
+  const handleMouseQuit = (e) => {
+    setAllowHorizontalScroll(false);
+    clearTimeout(horizontalScrollTimeout);
+  };
+  const scrollRef = useHorizontalScroll(allowHorizontalScroll);
   return (
     <div className="launchpadalllivelaunches-component">
       <div
@@ -220,7 +234,9 @@ const LaunchpadAllLiveLaunches = ({
       <div
         className="launchpadalllivelaunches-bottom-wrap"
         style={respMaxWidth}
-        // ref={scrollRef}
+        onMouseEnter={handleMouseOver}
+        onMouseLeave={handleMouseQuit}
+        ref={scrollRef}
       >
         <div
           className="launchpadalllivelaunches-bottom-subwrap"
