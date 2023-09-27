@@ -128,6 +128,11 @@ function ConnectWallet({
       setIsWeb3authConnectLoading(false);
       console.log("userData.id is not defined");
     }
+    // } else {
+    // setIsWeb3authConnectLoading(false);
+    // console.log("userData.id is not defined");
+    // return;
+    // }
     setIsWeb3authConnectClicked([true, web3authProvider]);
   };
 

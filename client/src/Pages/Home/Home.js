@@ -247,7 +247,7 @@ function Home({
 
           tempIsUserFanArray.push(judgement);
         }
-        console.log(tempIsUserFanArray);
+        // console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
 

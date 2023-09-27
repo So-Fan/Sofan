@@ -53,7 +53,8 @@ function NftCollectionHeader({
   const [styleChangeButton, setStyleChangeButton] = useState("");
   const location = useLocation();
   const segments = location.pathname.split("/");
-  const collectionAddress = segments[2];
+  const currentPage = segments[1];
+  const collectionAddress = segments[3];
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   function handleStyleButton() {
     // if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
@@ -69,10 +70,17 @@ function NftCollectionHeader({
   let ethBidPriceConverted = (nftBidEth * ethPrice).toLocaleString("fr-FR", {
     maximumFractionDigits: 2,
   });
+  console.log(segments)
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
-        <Link to={`/nftcollection/${collectionAddress}`}>
+        <Link
+          to={
+            currentPage === "nftsingle"
+              ? `/nftcollection/${segments[2]}`
+              : `/nftcollection/${segments[3]}`
+          }
+        >
           <button className="launchpad-collection-live-button-container">
             Explorer la collection
           </button>
