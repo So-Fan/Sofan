@@ -122,6 +122,45 @@ function MintPopUpBuy({
       setMintCounter(mintCounter - 1);
       setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
       setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
+    } else if (
+      copyLimitByWalletInfo.limitByWallet != 0 &&
+      e.target.className ===
+        "mint-pop-up-buy-quantity-selector-increase-button-icon" &&
+      mintCounter < copyLimitByWalletInfo.limitByWallet
+    ) {
+      // console.log("increment click");
+      setMintCounter(mintCounter + 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter + 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter + 1));
+    } else if (
+      copyLimitByWalletInfo.limitByWallet != 0 &&
+      e.target.className ===
+        "mint-pop-up-buy-quantity-selector-decrease-button-icon" &&
+      mintCounter > 1
+    ) {
+      // console.log("decrement click");
+      setMintCounter(mintCounter - 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
+    } else if (
+      copyLimitByWalletInfo.limitByWallet === 0 &&
+      e.target.className ===
+        "mint-pop-up-buy-quantity-selector-increase-button-icon"
+    ) {
+      // console.log("increment click from second");
+      setMintCounter(mintCounter + 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter + 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter + 1));
+    } else if (
+      copyLimitByWalletInfo.limitByWallet === 0 &&
+      e.target.className ===
+        "mint-pop-up-buy-quantity-selector-decrease-button-icon" &&
+      mintCounter > 1
+    ) {
+      // console.log("decrement click");
+      setMintCounter(mintCounter - 1);
+      setTotalPriceInUSDC(nftMintPriceInUSDC * (mintCounter - 1));
+      setTotalPriceInETH(nftMintPriceInETH * (mintCounter - 1));
     }
   }
   useEffect(() => {
@@ -157,7 +196,12 @@ function MintPopUpBuy({
               onClick={handleClick}
               className="mint-pop-up-buy-quantity-selector-decrease-button"
             >
-              <span>-</span>
+              <span
+                onClick={handleClick}
+                className="mint-pop-up-buy-quantity-selector-decrease-button-icon"
+              >
+                -
+              </span>
             </div>
             <div className="mint-pop-up-buy-quantity-selector-counter">
               {mintCounter}
@@ -166,7 +210,12 @@ function MintPopUpBuy({
               onClick={handleClick}
               className="mint-pop-up-buy-quantity-selector-increase-button"
             >
-              <span>+</span>
+              <span
+                onClick={handleClick}
+                className="mint-pop-up-buy-quantity-selector-increase-button-icon"
+              >
+                +
+              </span>
             </div>
           </div>
           <div className="mint-pop-up-line-separation-first"></div>
