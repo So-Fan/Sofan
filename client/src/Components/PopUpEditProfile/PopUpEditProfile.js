@@ -85,60 +85,7 @@ const PopUpEditProfile = ({
     setCurrentlyCroppingAvatar(false);
     setCurrentlyCroppingBanner(false);
   }
-  // const updateBannerPath = async (uid, path) => {
-  //   try {
-  //     const q = query(collection(db, "users"), where("id", "==", uid));
-  //     const querySnapshot = await getDocs(q);
-
-  //     if (!querySnapshot.empty) {
-  //       querySnapshot.forEach((doc) => {
-  //         const userRef = doc.ref;
-  //         const updatedData = { profile_banner: path };
-
-  //         updateDoc(userRef, updatedData)
-  //           .then(() => {
-  //             console.log("Banner path updated successfully!");
-  //           })
-  //           .catch((error) => {
-  //             console.error("Error updating banner path:", error);
-  //           });
-  //       });
-  //     } else {
-  //       console.log("No user found");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     throw err;
-  //   }
-  // };
-
-  // const updateAvatarPath = async (uid, path) => {
-  //   try {
-  //     const q = query(collection(db, "users"), where("id", "==", uid));
-  //     const querySnapshot = await getDocs(q);
-
-  //     if (!querySnapshot.empty) {
-  //       querySnapshot.forEach((doc) => {
-  //         const userRef = doc.ref;
-  //         const updatedData = { profile_avatar: path };
-
-  //         updateDoc(userRef, updatedData)
-  //           .then(() => {
-  //             console.log("Avatar path updated successfully!");
-  //           })
-  //           .catch((error) => {
-  //             console.error("Error updating Avatar path:", error);
-  //           });
-  //       });
-  //     } else {
-  //       console.log("No user found");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     throw err;
-  //   }
-  // };
-
+ 
   const handleBannerUpload = async (event) => {
     const file = event.target.files[0];
     console.log(file);
@@ -260,63 +207,12 @@ const PopUpEditProfile = ({
     }
   }, [previewProfile, croppedAreaPixels]);
 
-
-  const updateBannerPath = async (uid, path) => {
-    try {
-      const q = query(collection(db, "users"), where("id", "==", uid));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const userRef = doc.ref;
-          const updatedData = { profile_banner: path };
-
-          updateDoc(userRef, updatedData)
-            .then(() => {
-              console.log("Banner path updated successfully!");
-            })
-            .catch((error) => {
-              console.error("Error updating banner path:", error);
-            });
-        });
-      } else {
-        console.log("No user found");
-      }
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
-
-  const updateAvatarPath = async (uid, path) => {
-    try {
-      const q = query(collection(db, "users"), where("id", "==", uid));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          const userRef = doc.ref;
-          const updatedData = { profile_avatar: path };
-
-          updateDoc(userRef, updatedData)
-            .then(() => {
-              console.log("Avatar path updated successfully!");
-            })
-            .catch((error) => {
-              console.error("Error updating Avatar path:", error);
-            });
-        });
-      } else {
-        console.log("No user found");
-      }
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
-  };
+  
 
   function handleSaveProfile() {
     console.log('Updated');
+    handleBannerUpload(retrievedBanner, croppedBanner);
+    handleAvatarUpload(retrievedAvatar, croppedAvatar);
     //setLoadingEditProfile(true);
   }
   useEffect(() => {

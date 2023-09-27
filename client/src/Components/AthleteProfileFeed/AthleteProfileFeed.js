@@ -92,8 +92,8 @@ function AthleteProfileFeed({ athleteProfilePageStyling, athleteUserId, pixelScr
 
     const qPremium = query(
       feedPostCollectionRef,
-      where("status", "==", true),
       where("visibility", "==", false),
+      where("status", "==", true),
       orderBy("createdAt", "desc")
     );
     const unsubscribePremiumPosts = onSnapshot(qPremium, (querySnapshot) => {
