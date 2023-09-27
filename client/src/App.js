@@ -263,7 +263,7 @@ function App() {
             <>
               {isUserLogged === false || isUserLogged === undefined ? (
                 <>
-                  <div className="app-sofan-block-access-container">
+                  <div style={{overflow:"hidden"}} className="app-sofan-block-access-container">
                     <div className="app-sofan-block-access-wrap">
                       <div className="app-sofan-block-access-subwrap">
                         <div className="app-sofan-block-access-sofan-logo-container">

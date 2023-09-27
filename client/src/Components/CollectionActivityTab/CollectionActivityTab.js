@@ -656,10 +656,16 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
                     <span>{tx.functionName}</span>
                   </div>
                   <div className="useractivitytab-content-container-nft-wrap">
-                    <img
-                      src={tx?.image ? tx.image : "template image"}
-                      alt="nft"
-                    />
+                    {tx?.image ? (
+                      <img
+                        src={tx?.image ? tx.image : "template image"}
+                        alt="nft"
+                      />
+                    ) : (
+                      <div className="useractivitytab-content-no-img-div">
+                        NO IMG
+                      </div>
+                    )}
                     <div className="useractivitytab-content-container-nft-wrap-info-wrap">
                       <span>{"CollectionName"}</span>
                       <span>#{tx.tokenId}</span>

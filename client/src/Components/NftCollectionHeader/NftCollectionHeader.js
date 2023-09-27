@@ -9,6 +9,7 @@ import PopupListNFT from "../PopupListNFT/PopupListNFT";
 import { Link } from "react-router-dom";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import { useLocation } from "react-router-dom";
+import MoreAboutThisCollection from "../MoreAboutThisCollection/MoreAboutThisCollection";
 function NftCollectionHeader({
   collectionName,
   nftNumber,
@@ -47,11 +48,12 @@ function NftCollectionHeader({
   listingPrice,
   athleteId,
   currentOwnerInfo,
+  knowMoreAboutCollection,
 }) {
   const [styleChangeButton, setStyleChangeButton] = useState("");
   const location = useLocation();
   const segments = location.pathname.split("/");
-  const collectionAddress = segments[3];
+  const collectionAddress = segments[2];
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   function handleStyleButton() {
     // if (nftMintedCalculated === 0 || nftMintedCalculated === 100) {
@@ -230,6 +232,17 @@ function NftCollectionHeader({
               </div>
             </div>
             <div className="nft-collection-header-line-separation"></div>
+            <MoreAboutThisCollection
+              isNftSinglePageDisplayHeader={true}
+              knowMoreAboutCollection={knowMoreAboutCollection}
+            />
+            <Link
+              to={`/collectionlive/${athleteId}/${collectionAddress}`}
+              className="nft-collection-header-mint-button-redirection"
+            >
+              Aller sur la page de mint
+              {/* <div></div> */}
+            </Link>
             {/* <div
               className={
                 isNFTOwner

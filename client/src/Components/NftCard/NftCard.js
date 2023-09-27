@@ -10,6 +10,7 @@ const NftCard = ({
   hidePrice,
   isNftCollectionPage,
   nftsFromCollection,
+  collectionAddress
 }) => {
   // console.log(userFrom?.length % 4);
   // console.log(userFrom)
@@ -28,7 +29,7 @@ const NftCard = ({
               <NftCardTemplate
                 key={uuidv4()}
                 hidePrice={hidePrice}
-                to={`/nftsingle/${nft.contract.address}/${nft.tokenId}`}
+                to={`/nftsingle/${collectionAddress}/${nft.tokenId}`}
                 athleteName={nft.athleteName}
                 // nftsFromOwner={nftsFromOwner[i]}
                 nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}

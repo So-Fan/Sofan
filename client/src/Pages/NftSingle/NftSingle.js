@@ -1069,6 +1069,10 @@ const NftSingle = () => {
                 )
           }
           ownerProfilePic={currentTokenIdOwner?.profile_avatar}
+          knowMoreAboutCollection={
+            currentNftCollectionInfoFromBackend?.know_more_collection
+          }
+          collectionAddress={collectionAddress}
           //
           // nftPriceEth={apiOpenSea[0].nftPriceEth}
           // nftPriceEur={apiOpenSea[0].nftPriceEur}

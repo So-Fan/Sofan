@@ -18,7 +18,7 @@ const NftCollectionPageHeader = ({
   totalOwnersForContract,
   collectionAddress,
 }) => {
-  console.log("collectionAddress --> ", collectionAddress);
+  // console.log("collectionAddress --> ", collectionAddress);
   // let floorPriceEur = collectionFloorPriceApiData * ethPrice
   let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString(
     "fr-FR",

@@ -440,6 +440,7 @@ console.log(userData)
             isNftSpam={nftsFromOwner?.spamInfo?.isSpam}
             nftsFromCollection={nftsFromCollection}
             isNftCollectionPage={true}
+            collectionAddress={collectionAddress}
           />
         </div>
       );
