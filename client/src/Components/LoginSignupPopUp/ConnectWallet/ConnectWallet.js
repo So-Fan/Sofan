@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ConnectWallet.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import {
@@ -19,6 +19,7 @@ import {
   getDoc,
   QuerySnapshot,
 } from "firebase/firestore";
+import UserContext from "../../../contexts/UserContext/UserContext";
 
 function ConnectWallet({
   handleConnectWalletClick,
@@ -41,7 +42,7 @@ function ConnectWallet({
     useState(false);
   const [metamaskError, setMetamaskError] = useState(false);
   const [web3AuthError, setWeb3AuthError] = useState(false);
-
+  const { setLoggedInUser, loggedInUser } = useContext(UserContext);
   const handleCreateWallet = async (e) => {
     e.preventDefault();
     setIsWeb3authConnectLoading(true);
@@ -94,8 +95,11 @@ function ConnectWallet({
     // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
 
     const newWallet = {
-      web3AuthWallet: accountWallet,
+      web3auth: accountWallet,
     };
+    console.log(loggedInUser);
+    console.log({ ...loggedInUser, web3auth: accountWallet[0] });
+    setLoggedInUser({ ...loggedInUser, web3auth: accountWallet[0] });
     if (userData.id) {
       try {
         const usersRef = collection(db, "users");
@@ -104,7 +108,10 @@ function ConnectWallet({
 
         if (userDoc.exists()) {
           const existingUserData = userDoc.data();
-          const updatedUserData = { ...existingUserData, ...newWallet };
+          const updatedUserData = {
+            ...existingUserData,
+            web3auth: accountWallet[0],
+          };
           await setDoc(userDocRef, updatedUserData);
           console.log("Update successful");
           setIsWeb3authConnectLoading(false);
@@ -151,7 +158,10 @@ function ConnectWallet({
 
             if (userDoc.exists()) {
               const existingUserData = userDoc.data();
-              const updatedUserData = { ...existingUserData, ...newWallet };
+              const updatedUserData = {
+                ...existingUserData,
+                metamask: accounts[0],
+              };
               await setDoc(userDocRef, updatedUserData);
               console.log("Update successful");
               setIsMetamaskConnectWalletLoading(false);

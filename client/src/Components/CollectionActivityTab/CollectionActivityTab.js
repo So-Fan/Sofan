@@ -384,6 +384,7 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
   useEffect(() => {
     const displayInfoFromBackend = async () => {
       if (final.length != 0 && displayInfoFromBackendAvailable === true) {
+        console.log("final use Effect");
         /*
                 1. get current collection info 
                 2. extract the "real address", "title" and athleteId
@@ -434,7 +435,7 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
           }
 
           if (isAlreadyQueriedUser === false) {
-            console.log(web3Instance.utils.toChecksumAddress(element.from));
+            // console.log(web3Instance.utils.toChecksumAddress(element.from));
             try {
               const tempUserSpecificQueryMetamask = query(
                 feedPostCollectionRef,
@@ -452,11 +453,11 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
                   const userInfo = doc.data();
                   userSpecificData = userInfo;
                   alreadyQueriedUser.push(userInfo);
-                  //   console.log(userInfo);
+                  console.log(userInfo);
                 });
               } else {
                 // try web3auth
-                console.log("No metamask found");
+                // console.log("No metamask found");
                 const tempUserSpecificQueryWeb3auth = query(
                   feedPostCollectionRef,
                   where(
@@ -476,14 +477,14 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
                     // console.log(userInfo);
                   });
                 } else {
-                  console.log("No metamask or web3auth found");
+                  // console.log("No metamask or web3auth found");
                 }
               }
             } catch (error) {
               console.error(error);
             }
           }
-          console.log(userSpecificData);
+          // console.log(userSpecificData);
 
           let tempNewObject;
           if (userSpecificData) {
@@ -500,12 +501,19 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
           }
 
           if (currentCollectionInfo) {
-            let tempObj = {
-              ...tempNewObject,
-              toAccountType: "contractAddress",
-              toAthleteId: currentCollectionInfo.athlete_id,
-              toCollectionName: currentCollectionInfo.collection_title,
-            };
+            let tempObj = tempNewObject
+              ? {
+                  ...tempNewObject,
+                  toAccountType: "contractAddress",
+                  toAthleteId: currentCollectionInfo.athlete_id,
+                  toCollectionName: currentCollectionInfo.collection_title,
+                }
+              : {
+                  ...element,
+                  toAccountType: "contractAddress",
+                  toAthleteId: currentCollectionInfo.athlete_id,
+                  toCollectionName: currentCollectionInfo.collection_title,
+                };
             // handle string display
             tempObj.nftContract = currentCollectionInfo.collection_address;
             tempNewObject = tempObj;
@@ -518,12 +526,17 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
         // console.log(finalCopy);
         // setUserProfileSpecificData(userSpecificData);
         setDisplayInfoFromBackendAvailable(false);
+        console.log("realFinal", finalCopy);
         setFinal(finalCopy);
       }
     };
     displayInfoFromBackend();
   }, [final]);
-
+  useEffect(() => {
+    if (!displayInfoFromBackendAvailable) {
+      setDisplayInfoFromBackendAvailable(true);
+    }
+  }, [displayInfoFromBackendAvailable]);
   return (
     <>
       <div className="useractivitytab-component">
@@ -539,7 +552,7 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
         </div>
         <div className="useractivitytab-content-container">
           {final.length != 0
-            ? final.length != 0 &&
+            ? // final.length != 0 &&
               final?.map((tx, index, apiNftData) => (
                 <div
                   key={uuidv4()}
@@ -575,8 +588,12 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
                   {tx?.fromDisplay?.slice(0, 2) != "0x" ? (
                     <div>
                       <Link
-                        style={{ textDecoration: "none" }}
-                        to={`/userprofile/${tx.fromAccountId}`}
+                        style={{ textDecoration: "none", color: "black" }}
+                        to={
+                          tx.fromAccountType === "athlete"
+                            ? `/athleteprofile/${tx.fromAccountId}`
+                            : `/userprofile/${tx.fromAccountId}`
+                        }
                         target="_blank"
                       >
                         {tx.fromDisplay}
