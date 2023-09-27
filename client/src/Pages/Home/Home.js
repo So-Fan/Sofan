@@ -156,7 +156,11 @@ function Home({
     }
   }
   const [isUserFanArray, setIsUserFanArray] = useState([]);
+
   useEffect(() => {
+    console.log("Hello");
+    console.log(dataPost);
+    console.log(loggedInUser);
     if (
       dataPost &&
       loggedInUser &&
@@ -172,7 +176,6 @@ function Home({
       // on push dans le tableau un objet
       // A la toute fin on set un state
       // dans le mapping de data post on change pour si etat exist alors etat[i]
-
       const feedDataFromAlchemyAndFirebase = async () => {
         let tempIsUserFanArray = [];
         for (let i = 0; i < dataPost.length; i++) {
@@ -244,7 +247,7 @@ function Home({
 
           tempIsUserFanArray.push(judgement);
         }
-        // console.log(tempIsUserFanArray);
+        console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
 
@@ -262,7 +265,7 @@ function Home({
       //     : setIsUserFan(false);
       // }
     }
-  }, [dataPost]);
+  }, [dataPost, loggedInUser]);
 
   const getCommentCount = async (postId) => {
     const commentsRef = collection(db, `feed_post/${postId}/post_comments`);
