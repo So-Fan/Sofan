@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./MintPopUpBuy.css";
 import crossButton from "../../../Assets/Image/cross.svg";
 import LaunchPadMintProgressBar from "../../LaunchPadMintProgressBar/LaunchPadMintProgressBar";
@@ -170,6 +171,57 @@ function MintPopUpBuy({
 
   const nftMintedCalculated = (counterNftMinted / totalNftMintable) * 100;
   // console.log(loggedInUserInfo);
+  // console.log(loggedInUserInfo?.loggedInUser?.id);
+  const location = useLocation();
+  const [mintingSuccess, setMintingSuccess] = useState(false);
+
+  useEffect(() => {
+    // Check if the URL contains a 'p' query parameter
+    const params = new URLSearchParams(location.search);
+    const pParam = params.get("p");
+
+    if (pParam) {
+      // Decode the JSON string from the 'p' parameter
+      const decodedData = JSON.parse(decodeURIComponent(pParam));
+      console.log("decodedData -> ", decodedData);
+      // Check if the transaction was successful
+      if (
+        decodedData.payload &&
+        decodedData.payload.length > 0 &&
+        decodedData.payload[0].status === "success"
+      ) {
+        setMintingSuccess(true);
+      }
+    }
+    console.log("mintingSuccess -> ", mintingSuccess);
+  }, [location.search]);
+  // useEffect(() => {
+  //   const handleMessage = (event) => {
+  //     if (event.data && event.data.type === "purchase.succeeded" && event.data.status === "success") {
+  //       setMintingSuccess(true);
+  //     }
+  //   };
+  
+  //   window.addEventListener("message", handleMessage);
+  
+  //   return () => {
+  //     window.removeEventListener("message", handleMessage);
+  //   };
+  // }, []);
+  // let childWindow = window.open('https://staging.crossmint.com/checkout/order/139ecb30-e774-4f91-a8be-9ab439e498eb', '_blank');
+  // useEffect(() => {
+  //   const checkChildWindow = () => {
+  //     let childWindow = window.open('', 'childWindow'); // Remplacez 'childWindow' par le nom de la fenêtre si vous le connaissez.
+  //     if (childWindow && !childWindow.closed) {
+  //       console.log(childWindow.location.href); // ceci va échouer si la fenêtre est sur un domaine différent
+  //     }
+  //   };
+    
+  //   const intervalId = setInterval(checkChildWindow, 1000); // Vérifier chaque seconde
+    
+  //   return () => clearInterval(intervalId); // Nettoyage
+  // }, []);
+  
   return (
     <>
       <div className="mint-pop-up-buy-container">
@@ -261,6 +313,11 @@ function MintPopUpBuy({
                 : loggedInUserInfo.loggedInUser?.web3auth
                 ? `${loggedInUserInfo.loggedInUser.web3auth}`
                 : null
+            }
+            successCallbackURL={
+              loggedInUserInfo?.loggedInUser?.account_type === "athlete"
+                ? `http://staging.sofan.app/athleteprofile/${loggedInUserInfo?.loggedInUser?.id}`
+                : `http://staging.sofan.app/userprofile/${loggedInUserInfo?.loggedInUser?.id}`
             }
             className="xmint-btn"
           />

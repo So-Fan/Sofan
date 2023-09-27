@@ -44,6 +44,15 @@
   font-size: 14px;
   line-height: normal;
 }
+.useractivitytab-content-container-wrap div:nth-child(6) a:hover {
+  color: #f7c520 !important;
+  transition-duration: 300ms !important;
+}
+.useractivitytab-content-container-wrap div:nth-child(7) span:hover {
+  color: #f7c520 !important;
+  transition-duration: 300ms !important;
+cursor: pointer;
+}
 .useractivitytab-content-container-wrap:nth-child(1n) {
   margin-top: 20px;
 }

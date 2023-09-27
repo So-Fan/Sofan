@@ -70,7 +70,7 @@ function NftCollectionHeader({
   let ethBidPriceConverted = (nftBidEth * ethPrice).toLocaleString("fr-FR", {
     maximumFractionDigits: 2,
   });
-  console.log(segments)
+  // console.log(segments)
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">
@@ -245,7 +245,7 @@ function NftCollectionHeader({
               knowMoreAboutCollection={knowMoreAboutCollection}
             />
             <Link
-              to={`/collectionlive/${athleteId}/${collectionAddress}`}
+              to={`/collectionlive/${athleteId}/${segments[2]}`}
               className="nft-collection-header-mint-button-redirection"
             >
               Aller sur la page de mint

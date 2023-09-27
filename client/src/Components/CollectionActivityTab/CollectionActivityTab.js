@@ -634,7 +634,16 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
                   )}
                   {tx.toAccountType === "contractAddress" ? (
                     <div>
-                      <span>{tx.toCollectionName}</span>
+                      <span
+                        onClick={() => {
+                          window.scrollTo({
+                            top: 0,
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        {tx.toCollectionName}
+                      </span>
                       <div>
                         <span
                           about={tx.to}
