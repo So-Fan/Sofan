@@ -94,7 +94,7 @@ function ConnectWallet({
     // construct backend here to add wallet into his profile in database. The wallet is in `accounts` line 40 of this file
 
     const newWallet = {
-      web3AuthWallet: accountWallet,
+      web3auth: accountWallet,
     };
     if (userData.id) {
       try {
