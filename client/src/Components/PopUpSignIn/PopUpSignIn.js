@@ -373,7 +373,9 @@ const PopUpSignIn = ({
     // switch case pour chaque Signin
     const loginRes = await handleGoogleSignIn(e);
     console.log(loginRes);
-    setGoogleIdToken(loginRes[0].user.accessToken);
+    if (loginRes.length > 0) {
+      setGoogleIdToken(loginRes[0].user.accessToken);
+    }
     if (checkWalletProvider(loginRes[1]) === "web3auth") {
       // console.log("login details", loginRes);
       const idToken = await loginRes[0].user.getIdToken(true);
