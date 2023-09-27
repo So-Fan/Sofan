@@ -501,12 +501,19 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
           }
 
           if (currentCollectionInfo) {
-            let tempObj = {
-              ...tempNewObject,
-              toAccountType: "contractAddress",
-              toAthleteId: currentCollectionInfo.athlete_id,
-              toCollectionName: currentCollectionInfo.collection_title,
-            };
+            let tempObj = tempNewObject
+              ? {
+                  ...tempNewObject,
+                  toAccountType: "contractAddress",
+                  toAthleteId: currentCollectionInfo.athlete_id,
+                  toCollectionName: currentCollectionInfo.collection_title,
+                }
+              : {
+                  ...element,
+                  toAccountType: "contractAddress",
+                  toAthleteId: currentCollectionInfo.athlete_id,
+                  toCollectionName: currentCollectionInfo.collection_title,
+                };
             // handle string display
             tempObj.nftContract = currentCollectionInfo.collection_address;
             tempNewObject = tempObj;
