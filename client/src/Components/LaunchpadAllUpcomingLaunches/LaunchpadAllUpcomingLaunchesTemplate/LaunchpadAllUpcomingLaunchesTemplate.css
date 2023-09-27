@@ -38,6 +38,7 @@
   display: flex;
   align-items: center;
   border-radius: 20px !important;
+  min-height: 500px !important;
 }
 .launchpadallupcominglaunchesTemplate-data-container {
   display: flex;
@@ -86,7 +87,7 @@
 }
 .launchpadallupcominglaunchesTemplate-data-wrap-img > img {
   max-width: 46px;
-  max-height: 46px;
+  max-height: 46px !important;
   width: 46px !important;
   height: 46px;
   border-radius: 5px;
