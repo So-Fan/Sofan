@@ -532,7 +532,11 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
     };
     displayInfoFromBackend();
   }, [final]);
-
+  useEffect(() => {
+    if (!displayInfoFromBackendAvailable) {
+      setDisplayInfoFromBackendAvailable(true);
+    }
+  }, [displayInfoFromBackendAvailable]);
   return (
     <>
       <div className="useractivitytab-component">
@@ -584,8 +588,12 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
                   {tx?.fromDisplay?.slice(0, 2) != "0x" ? (
                     <div>
                       <Link
-                        style={{ textDecoration: "none" }}
-                        to={`/userprofile/${tx.fromAccountId}`}
+                        style={{ textDecoration: "none", color: "black" }}
+                        to={
+                          tx.fromAccountType === "athlete"
+                            ? `/athleteprofile/${tx.fromAccountId}`
+                            : `/userprofile/${tx.fromAccountId}`
+                        }
                         target="_blank"
                       >
                         {tx.fromDisplay}
