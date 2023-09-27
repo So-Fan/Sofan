@@ -98,7 +98,7 @@ function EthProvider({ children, setWeb3auth }) {
       try {
         if (
           tempIsWeb3authConnectClicked[1] != null &&
-          tempIsWeb3authConnectClicked[0] == true
+          tempIsWeb3authConnectClicked[0]
         ) {
           web3 = new Web3(tempIsWeb3authConnectClicked[1]); // come from web3auth check Login.js
           accounts = await web3.eth.getAccounts();
@@ -147,7 +147,7 @@ function EthProvider({ children, setWeb3auth }) {
         .request({ method: "eth_accounts" })
         .then((res) => {
           // console.log(res.length);
-          if (res.length != 0) {
+          if (res.length !== 0) {
             const tryInit = async () => {
               const web3 = new Web3(
                 Web3.givenProvider || "ws://localhost:8545"
