@@ -40,7 +40,13 @@ function PremiumContentLocked({ postCreatorId }) {
         <img src={lockerLogo} alt="locker logo premium content" />
       </div>
       <div className="premium-content-locked-cta-premium-content">
-        Acheter le NFT pour débloquer le contenu premium de {displayName} .
+        Acheter le NFT pour débloquer le contenu premium de{" "}
+        <Link style={{textDecoration:"none"}} to={`/athleteprofile/${postCreatorId}/#nftcollections`}>
+          <span className="premium-content-locked-cta-premium-content-display-name">
+            {displayName}
+          </span>
+          
+        </Link>
       </div>
       <Link to={`/athleteprofile/${postCreatorId}/#nftcollections`}>
         <button className="premium-content-locked-button">Voir le NFT</button>
