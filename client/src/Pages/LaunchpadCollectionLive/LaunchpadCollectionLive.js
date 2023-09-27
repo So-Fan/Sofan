@@ -68,6 +68,9 @@ function LaunchpadCollectionLive(isLogged) {
   const collectionAddress = segments[3];
   const loggedInUserInfo = useUserCollection();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
     )

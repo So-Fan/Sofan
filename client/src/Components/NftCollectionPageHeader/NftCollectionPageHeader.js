@@ -18,12 +18,14 @@ const NftCollectionPageHeader = ({
   totalOwnersForContract,
   collectionAddress,
 }) => {
+  console.log("collectionAddress --> ", collectionAddress);
   // let floorPriceEur = collectionFloorPriceApiData * ethPrice
   let floorPriceEur = (collectionFloorPriceApiData * ethPrice).toLocaleString(
     "fr-FR",
     { maximumFractionDigits: 2 }
   );
   // console.log("totalOwnersForContract --> ",totalOwnersForContract?.owners.length)
+  // to={`/collectionlive/${collectionBackendData[0]?.athlete_id}/${collectionAddress}`}
   return (
     <div className="nftcollectionheader-component">
       <div className="nftcollectionheader-bannerandprofilepicture-wrap">
@@ -57,6 +59,12 @@ const NftCollectionPageHeader = ({
       </div>
       <div className="nftcollectionheader-content-container">
         <div className="nftcollectionheader-content-wrap">
+          <Link
+            className="nftcollectionheader-content-wrap-redirection-button"
+            to={`/collectionlive/${collectionBackendData[0]?.athlete_id}/${collectionAddress}`}
+          >
+            Mint un item !
+          </Link>
           <Link
             to={`/athleteprofile/${collectionBackendData[0]?.athlete_id}`}
             style={{ textDecoration: "none" }}
