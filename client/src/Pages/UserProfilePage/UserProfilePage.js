@@ -11,7 +11,7 @@ import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
 import Modal from "../../Components/Modal/Modal";
 import PopUpConfirmationOffer from "../../Components/PopUpConfirmationOffer/PopUpConfirmationOffer";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   collection,
   query,
@@ -64,6 +64,14 @@ function UserProfilePage({
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
   const [athletesFollowedCount, setAthletesFollowedCount] = useState(0);
   const [athletesSupportingCount, setAthletesSupportingCount] = useState(0);
+  const [anchor, setAnchor] = useState();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#nftcollected") {
+      setIsProfileSubMenuButtonClicked([true, false, false, false]);
+    }
+  }, [location]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,7 +86,7 @@ function UserProfilePage({
           };
           // Do something with the user info
           setAllUserInfo(AllUserInfo);
-          // console.log(AllUserInfo);
+          console.log(AllUserInfo);
         });
       } else {
         // Handle case when no user is found with the given ID
@@ -98,6 +106,7 @@ function UserProfilePage({
   const alchemy = new Alchemy(settings);
 
   useEffect(() => {
+    console.log(allUserInfo);
     // get Nfts from Owner and Contracts
     async function getNftsForOwner() {
       let arraySofanCollection = [];
@@ -187,12 +196,15 @@ function UserProfilePage({
         }
         setAthletesSupportingCount(tempAtheleteSupportingCounter.length);
         setNftsFromOwner(nftsFromOwner?.ownedNfts);
+        console.log(currentProfileWalletAddresses);
         // console.log("yess", nftsFromOwner);
       } catch (error) {
         console.error(error);
       }
     }
-    getNftsForOwner();
+    if (allUserInfo) {
+      getNftsForOwner();
+    }
   }, [allUserInfo]);
 
   // API Coingecko --> Get ETH price
@@ -500,9 +512,7 @@ function UserProfilePage({
           setState={setSettingsUserPageClicked}
           style={{ display: "none" }}
         >
-          <PopUpEditProfile
-            allUserInfo={allUserInfo}
-          />
+          <PopUpEditProfile allUserInfo={allUserInfo} />
         </Modal>
       )}
     </>

@@ -373,6 +373,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       }
       // console.log("after first useEffect", tempConcatArray);
       setConcatArray(tempConcatArray);
+      console.log(tempConcatArray);
       setAlchemyArray(tempAlchemyArray);
     }
   }, [AllTx, AllSofanCollection, allErc721Event, allErc20Event]);
@@ -509,7 +510,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     };
     tryMe();
   }, [alchemyArray]);
-
+  console.log("je charge depuis userActivitytab");
   useEffect(() => {
     const web3Instance = new Web3(
       new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
@@ -521,6 +522,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     //   // Replace this with the address of your deployed contract
     //   marketplaceAddress
     // );
+    console.log("je charge dans le use effect", currentProfileUserWallet);
     const load = async () => {
       // TODO: V2 Can be optimizied be querying NFT contract that user historically interact with. Meaning the upper for loop will loop through less adresses (we can assume that nb of contract interacted with << all Sofan collection)
       // const tempAllSofanCollectionArray = await contract.methods
@@ -546,7 +548,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       }
       setAllSofanCollectionBackend(tempAllAthleteCollectionBackend);
       setAllSofanCollection(tempAllAthleteCollection);
-      // console.log("je suis", tempAllSofanCollectionArray);
+      console.log("je suis", tempAllAthleteCollectionBackend);
       const fetchAllTx = await fetch(
         `https://api-goerli.etherscan.io/api?module=account&action=txlist&address=${currentProfileUserWallet}&startblock=9458446&endblock=99999999&page=1&offset=25&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       );
@@ -558,7 +560,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       );
       const dataAllErc721TransferEvent =
         await fetchAllErc721TransferEvent.json();
-      // console.log("ERC721", dataAllErc721TransferEvent);
+      console.log("ERC721", dataAllErc721TransferEvent);
       setAllErc721Event(dataAllErc721TransferEvent);
 
       const fetchAllErc20TransferEvent = await fetch(
@@ -566,7 +568,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
       );
       const dataAllErc20TransferEvent = await fetchAllErc20TransferEvent.json();
       setAllErc20Event(dataAllErc20TransferEvent);
-      // console.log("ERC20", dataAllErc20TransferEvent);
+      console.log("ERC20", dataAllErc20TransferEvent);
     };
     load();
   }, []);
@@ -857,7 +859,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
         </div>
         <div className="useractivitytab-content-container">
           {final.length != 0
-            ? final.length != 0 &&
+            ? // final.length != 0 &&
               final?.map((tx, index, apiNftData) => (
                 <div
                   key={uuidv4()}
@@ -881,7 +883,9 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                       </>
                     ) : (
                       <>
-                        <div className="useractivitytab-content-no-img-div">NO IMG</div>
+                        <div className="useractivitytab-content-no-img-div">
+                          NO IMG
+                        </div>
                       </>
                     )}
                     <div className="useractivitytab-content-container-nft-wrap-info-wrap">
@@ -945,7 +949,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                     */}
                       <span about={tx.from}>{tx.fromDisplay}</span>
                       <img
-                      title="Copier l'adresse"
+                        title="Copier l'adresse"
                         className="useractivitytab-content-container-clipboardlogo"
                         onClick={handleClickCopyConfirmWallet}
                         src={copyLogo}
@@ -1098,6 +1102,12 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   </div>
                 </div>
               ))}
+        </div>
+        <div className="useractivitytab-no-crossmint-container">
+          <span>
+            Les NFTs acquis via crossmint sont visible via l'onglet{" "}
+            <Link to={"#nftcollected"}>NFT collecté</Link>
+          </span>
         </div>
       </div>
       {isAddressCopiedClicked && (
