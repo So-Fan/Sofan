@@ -17,6 +17,7 @@ function MintPopUpTemplate({
   setMintCounter,
   mintCounter,
   launchpadCollectionLiveAthleteDataBackend,
+  setIsMintingProcessBegan,
 }) {
   // change those state for passing to buy module to processing
 
@@ -84,6 +85,7 @@ function MintPopUpTemplate({
         launchpadCollectionLiveAthleteDataBackend={
           launchpadCollectionLiveAthleteDataBackend
         }
+        setIsMintingProcessBegan={setIsMintingProcessBegan}
       />
     </section>
   );

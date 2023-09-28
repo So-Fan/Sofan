@@ -30,6 +30,7 @@ function MintPopUpBuy({
   setTotalPriceInUSDC,
   totalPriceInUSDC,
   launchpadCollectionLiveAthleteDataBackend,
+  setIsMintingProcessBegan,
 }) {
   const [currentNumberOfNftOwned, setCurrentNumberOfNftOwned] = useState(0);
   const [copyLimitByWalletInfo, setCopyLimitByWalletInfo] = useState();
@@ -201,9 +202,9 @@ function MintPopUpBuy({
   //       setMintingSuccess(true);
   //     }
   //   };
-  
+
   //   window.addEventListener("message", handleMessage);
-  
+
   //   return () => {
   //     window.removeEventListener("message", handleMessage);
   //   };
@@ -216,12 +217,20 @@ function MintPopUpBuy({
   //       console.log(childWindow.location.href); // ceci va échouer si la fenêtre est sur un domaine différent
   //     }
   //   };
-    
+
   //   const intervalId = setInterval(checkChildWindow, 1000); // Vérifier chaque seconde
-    
+
   //   return () => clearInterval(intervalId); // Nettoyage
   // }, []);
-  
+  // useEffect(() => {
+  //   let crossmintButton = document.getElementById("crossmint-button-react");
+  //   if (crossmintButton) {
+  //     crossmintButton.addEventListener("click", () => {
+  //       console.log("ezfedfedf");
+  //       setIsMintingProcessBegan(true);
+  //     });
+  //   }
+  // }, []);
   return (
     <>
       <div className="mint-pop-up-buy-container">
@@ -314,12 +323,14 @@ function MintPopUpBuy({
                 ? `${loggedInUserInfo.loggedInUser.web3auth}`
                 : null
             }
-            successCallbackURL={
-              loggedInUserInfo?.loggedInUser?.account_type === "athlete"
-                ? `http://staging.sofan.app/athleteprofile/${loggedInUserInfo?.loggedInUser?.id}`
-                : `http://staging.sofan.app/userprofile/${loggedInUserInfo?.loggedInUser?.id}`
-            }
+            successCallbackURL={"https://staging.sofan.app/crossmintpayload"}
+            // successCallbackURL={
+            //   loggedInUserInfo?.loggedInUser?.account_type === "athlete"
+            //     ? `http://staging.sofan.app/athleteprofile/${loggedInUserInfo?.loggedInUser?.id}`
+            //     : `http://staging.sofan.app/userprofile/${loggedInUserInfo?.loggedInUser?.id}`
+            // }
             className="xmint-btn"
+            // onClick={setIsMintingProcessBegan(true)}
           />
           <div className="mint-pop-up-progress-bar-and-total-minted">
             <LaunchPadMintProgressBar

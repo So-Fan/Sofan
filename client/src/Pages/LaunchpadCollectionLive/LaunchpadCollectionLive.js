@@ -28,6 +28,7 @@ import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAdd
 import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpStatus/MintPopUpStatus";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
+import useCrossmintPayloadContext from "../../contexts/CrossmintPayloadContext/useCrossmintPayload";
 function LaunchpadCollectionLive(isLogged) {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
@@ -67,6 +68,25 @@ function LaunchpadCollectionLive(isLogged) {
   const athleteId = segments[2];
   const collectionAddress = segments[3];
   const loggedInUserInfo = useUserCollection();
+  const [crossmintPayLoadLocalStorage, setCrossmintPayLoadLocalStorage] =
+    useState(null);
+
+  useEffect(() => {
+    window.addEventListener(
+      "storage",
+      () => {
+        console.log("event listener declenched");
+        const storedPayload = localStorage.getItem("crossmintPayload");
+        console.log("get Item");
+        if (storedPayload) {
+          console.log("before setState to JSON.parse(storedPayload)");
+          setCrossmintPayLoadLocalStorage(JSON.parse(storedPayload));
+          console.log("after setState to JSON.parse(storedPayload)");
+        }
+      },
+      false
+    );
+  }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -467,6 +487,25 @@ function LaunchpadCollectionLive(isLogged) {
     getAthleteInfoCollectionLive();
     getCollectionLiveAthleteData();
   }, []);
+
+  useEffect(() => {
+    console.log("enter second useEffect when crossmintPayLoadLocalStorage");
+    if (crossmintPayLoadLocalStorage != null && crossmintPayLoadLocalStorage) {
+      console.log(
+        "enter second useEffect when crossmintPayLoadLocalStorage crossmintPayLoadLocalStorage != null && crossmintPayLoadLocalStorage"
+      );
+      if (crossmintPayLoadLocalStorage.status === "success") {
+        console.log("success", crossmintPayLoadLocalStorage);
+        setIsMintingProcessBegan(true);
+        setMintingProcessStatus(false);
+        setIsMintingProcessEndedSuccessfully(true);
+      } else {
+        console.log("not success");
+        setMintingProcessStatus(false);
+        setIsMintingProcessEndedSuccessfully(false);
+      }
+    }
+  }, [crossmintPayLoadLocalStorage]);
   return (
     <>
       <section className="launchpad-collection-live-page-container">
@@ -504,6 +543,7 @@ function LaunchpadCollectionLive(isLogged) {
           nftCollectionMaxItems={nftCollectionMaxItems}
         />
         <div className="launchpad-collection-live-page-left-container">
+          {crossmintPayLoadLocalStorage ? "sqhdddddddddddsqdhhhhhhhhh" : ""}
           <LaunchpadCollectionLiveUtilities
             utilitiesArray={dataBackend.utilities}
           />
@@ -539,6 +579,7 @@ function LaunchpadCollectionLive(isLogged) {
         <Modal
           dynamicPositionPopUpMargin={pixelScrolledAthleteProfilePage}
           setState={setIsMintButtonClicked}
+          setState2={!mintingProcessStatus ? setIsMintingProcessBegan : null}
           // style={{marginTop: pixelScrolledAthleteProfilePage}}
           style={{ top: "25px", right: "26px" }}
         >
@@ -583,6 +624,7 @@ function LaunchpadCollectionLive(isLogged) {
               launchpadCollectionLiveAthleteDataBackend={
                 launchpadCollectionLiveAthleteDataBackend
               }
+              setIsMintingProcessBegan={setIsMintingProcessBegan}
             />
           )}
         </Modal>
