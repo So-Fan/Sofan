@@ -126,35 +126,39 @@ function NftCollectionMoreAboutNft({
           </div>
         )}
         <div className="nft-collection-more-about-nft-card-container">
-          {nftsFromContract?.map((element, i, apiNftData) => (
-            <NftCardTemplate
-              fontStyle="nftcardtemplate-container-content-title-props"
-              img={element.nftImage}
-              title={element.collectionName}
-              id={element.tokenId}
-              price={element.ethPrice}
-              bid={element.highestBidEth}
-              to={`/nftsingle/${window.location.pathname.split("/")[2]}/${
-                element.tokenId
-              }`}
-              //
-              nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
-              nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
-              nftsFromOwnerFloorPrice={
-                apiNftData[i]?.contract?.openSea?.floorPrice
-              }
-              nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
-              athleteName={currentAthleteCollectionOwner}
-              // mettre le nombre de nft de la collection correspondante
-              key={uuidv4()}
-              // collectionFloorPriceApiData={collectionFloorPriceApiData}
-              // nftDataApi={nftDataApi?.ownedNfts[i]}
-              // collectionData={collection}
-              hidePrice={hidePrice}
-            />
-          ))}
+          {nftsFromContract?.map((element, i, apiNftData) => {
+            if (i <= 2) {
+              return (
+                <NftCardTemplate
+                  fontStyle="nftcardtemplate-container-content-title-props"
+                  img={element.nftImage}
+                  title={element.collectionName}
+                  id={element.tokenId}
+                  price={element.ethPrice}
+                  bid={element.highestBidEth}
+                  to={`/nftsingle/${window.location.pathname.split("/")[2]}/${
+                    element.tokenId
+                  }`}
+                  //
+                  nftsFromOwnerImage={apiNftData[i]?.media[0]?.gateway}
+                  nftsFromOwnerNameCollection={apiNftData[i]?.contract?.name}
+                  nftsFromOwnerFloorPrice={
+                    apiNftData[i]?.contract?.openSea?.floorPrice
+                  }
+                  nftsFromOwnerIdNft={apiNftData[i]?.tokenId}
+                  athleteName={currentAthleteCollectionOwner}
+                  // mettre le nombre de nft de la collection correspondante
+                  key={uuidv4()}
+                  // collectionFloorPriceApiData={collectionFloorPriceApiData}
+                  // nftDataApi={nftDataApi?.ownedNfts[i]}
+                  // collectionData={collection}
+                  hidePrice={hidePrice}
+                />
+              );
+            }
+          })}
 
-          {nftsFromContract.length % 4 === 1 && (
+          {/* {nftsFromContract.length % 4 === 1 && (
             <>
               <NftCardTemplate isTransparent={true} />
               <NftCardTemplate isTransparent={true} />
@@ -169,7 +173,7 @@ function NftCollectionMoreAboutNft({
           )}
           {nftsFromContract.length % 4 === 3 && (
             <NftCardTemplate isTransparent={true} />
-          )}
+          )} */}
         </div>
       </div>
     </section>
