@@ -233,18 +233,48 @@
   height: 589px;
   position: relative;
 }
-.signup-user-setup-profile-cropeasy-container-wrap{
+.signup-user-setup-profile-cropeasy-container-wrap {
   position: relative;
   width: 460px;
   height: 489px;
 }
 
-.controls {
-  width: 50%;
-  background-color: red;
+.controls-setup-profile {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 20px;
+}
+.signup-user-setup-profile-cropeasy-container input[type="range"] {
+  accent-color: #f7c520;
+  cursor: ew-resize;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.controls-setup-profile button {
+  background-color: #f6d463;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  width: 90%;
+  height: 46px;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  cursor: pointer;
+}
+.controls-setup-profile button:hover {
+  background-color: #f7c520;
+  transition-duration: 300ms;
+}
+.controls-setup-profile button:active {
+  transition-duration: 300ms;
+  transform: scale(0.85);
 }
 
-.result{
+.result {
   position: absolute;
   /* background-color: dimgray; */
   top: 95px;

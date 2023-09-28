@@ -545,26 +545,46 @@ function Home({
   return (
     <>
       <section className="home-component">
+        {/* {isLogged?.account_type === "admin" ? <></>: <></>} */}
         <div
           className="home-left-container"
           style={
-            isLogged?.account_type === "athlete"
-              ? windowWidth < 950
-                ? { height: "500px" }
-                : { height: "726px", maxHeight: "726px" }
-              : athletesFollowing.length === 0 &&
+            (() => {
+              if (
+                isLogged?.account_type === "admin" ||
+                isLogged?.account_type === "athlete"
+              ) {
+                if (windowWidth < 950) {
+                  return { height: "500px" };
+                } else {
+                  return { height: "726px", maxHeight: "726px" };
+                }
+              } else if (
+                athletesFollowing.length === 0 &&
                 athletesSupportingData.length === 0
-              ? { height: "398px" }
-              : { maxHeight: "580px" }
-            // athletesFollowing.length === 0 ? {}: {}
+              ) {
+                return { height: "398px" };
+              } else {
+                return { maxHeight: "580px" };
+              }
+            })()
+            // isLogged?.account_type === "athlete"
+            //   ? windowWidth < 950
+            //     ? { height: "500px" }
+            //     : { height: "726px", maxHeight: "726px" }
+            //   : athletesFollowing.length === 0 &&
+            //     athletesSupportingData.length === 0
+            //   ? { height: "398px" }
+            //   : { maxHeight: "580px" }
           }
         >
           <div
             className="home-navlink-create-post-wrap"
             style={
-              isLogged?.account_type === "athlete"
-                ? { height: "0px" }
-                : { height: "0px" }
+              { height: "0px" }
+              // isLogged?.account_type === "athlete"
+              //   ? { height: "0px" }
+              //   : { height: "0px" }
             }
           >
             {/* <div className="home-feedsidenavlink-wrap">
@@ -585,21 +605,39 @@ function Home({
                 gap="8.59px"
               />
             </div> */}
-            {
-              // isLogged === true &&
-              // isLogged !== undefined &&
-              isLogged?.account_type === "athlete" && (
-                <Button
-                  createPostButtonclassName="button-component-create-post"
-                  style={CreatePostButtonStyle.inlineStyle}
-                  customMediaQueries={CreatePostButtonStyle.customMediaQueries}
-                  text="Créer une publication"
-                  onClick={handleCreatePostClick}
-                  hover="button-hover-props"
-                  active="button-active-props"
-                />
-              )
-            }
+            {/* {isLogged?.account_type === "athlete" && (
+              <Button
+                createPostButtonclassName="button-component-create-post"
+                style={CreatePostButtonStyle.inlineStyle}
+                customMediaQueries={CreatePostButtonStyle.customMediaQueries}
+                text="Créer une publication"
+                onClick={handleCreatePostClick}
+                hover="button-hover-props"
+                active="button-active-props"
+              />
+            )} */}
+            {(() => {
+              if (
+                isLogged?.account_type === "admin" ||
+                isLogged?.account_type === "athlete"
+              ) {
+                return (
+                  <>
+                    <Button
+                      createPostButtonclassName="button-component-create-post"
+                      style={CreatePostButtonStyle.inlineStyle}
+                      customMediaQueries={
+                        CreatePostButtonStyle.customMediaQueries
+                      }
+                      text="Créer une publication"
+                      onClick={handleCreatePostClick}
+                      hover="button-hover-props"
+                      active="button-active-props"
+                    />
+                  </>
+                );
+              }
+            })()}
           </div>
           {/* {isSupportingOrFollowingAthlete && (
             <>
