@@ -4,7 +4,7 @@ import NftCollectionPageHeader from "../../Components/NftCollectionPageHeader/Nf
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
 import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
-import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+import alchemy from "../../Configs/alchemy";
 import { useLocation } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
@@ -35,12 +35,7 @@ const NftCollection = ({
   const segments = location.pathname.split("/");
   const collectionAddress = segments[2];
   // Api Alchemy setup
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-  const alchemy = new Alchemy(settings);
+
   async function getNft() {
     // const metadata = await alchemy.nft.getContractMetadata(
     //   "0x5180db8F5c931aaE63c74266b211F580155ecac8"
@@ -412,7 +407,7 @@ const NftCollection = ({
             return { display_name: doc.data().display_name, id: doc.data().id };
           })[0]; // On prend le premier élément car id est unique
         });
-console.log(userData)
+        console.log(userData);
         setAthleteDisplayName(userData);
       } catch (error) {
         console.error(error);

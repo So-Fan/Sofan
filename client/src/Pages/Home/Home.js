@@ -27,7 +27,8 @@ import {
   where,
   limit,
 } from "firebase/firestore";
-import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+// import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+import alchemy from "../../Configs/alchemy"
 import Web3 from "web3";
 const MemoPostsFeed = memo(PostsFeed, (prevProps, nextProps) => {
   // si les props ont changés
@@ -411,13 +412,6 @@ function Home({
     }, 5700);
     // clearTimeout(timeOutHideCopyClicked);
   }
-  // Api Alchemy setup
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-  const alchemy = new Alchemy(settings);
   useEffect(() => {
     // get Nfts from Owner and Contracts
     async function getNftsForOwner() {
@@ -468,6 +462,7 @@ function Home({
             contractAddresses: arraySofanCollection,
           }
         );
+        console.log("nftsFromOwner --> ",nftsFromOwner)
         let athletesSupportingArray = [];
         for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
           const elementFromAlchemy = nftsFromOwner.ownedNfts[i];

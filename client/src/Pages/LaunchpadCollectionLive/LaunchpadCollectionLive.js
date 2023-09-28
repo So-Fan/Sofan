@@ -18,7 +18,8 @@ import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollecti
 import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
 import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/LaunchpadCollectionLiveMoreAboutCollection/LaunchpadCollectionLiveMoreAboutCollection";
 import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
-import { Network, Alchemy } from "alchemy-sdk";
+// import { Network, Alchemy } from "alchemy-sdk";
+import alchemy from "../../Configs/alchemy";
 import MintPopUpBuy from "../../Components/MintPopUp/MintPopUpBuy/MintPopUpBuy";
 import Modal from "../../Components/Modal/Modal";
 import MintPopUp from "../../Components/MintPopUp/MintPopUp";
@@ -98,14 +99,7 @@ function LaunchpadCollectionLive(isLogged) {
       .then((data) => setEthPrice(data.ethereum.eur))
       .catch((error) => console.log(error));
   }, []);
-  // Api Alchemy setup
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
 
-  const alchemy = new Alchemy(settings);
   async function getNftsData() {
     try {
       const nftsData = await alchemy.nft.getContractMetadata(

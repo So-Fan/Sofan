@@ -5,7 +5,7 @@ import NftCard from "../../Components/NftCard/NftCard";
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
 import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAndStats/UserNameAndStats";
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
-import { Network, Alchemy, NftFilters } from "alchemy-sdk";
+import alchemy from "../../Configs/alchemy";
 import "./UserProfilePage.css";
 import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
@@ -89,13 +89,6 @@ function UserProfilePage({
     fetchData();
   }, [id]);
   // console.log(allUserInfo);
-  // Api Alchemy setup
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-  const alchemy = new Alchemy(settings);
 
   useEffect(() => {
     // get Nfts from Owner and Contracts

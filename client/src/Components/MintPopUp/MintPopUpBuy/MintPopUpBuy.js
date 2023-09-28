@@ -8,7 +8,8 @@ import MintPopUpStatus from "../MintPopUpStatus/MintPopUpStatus";
 import { formatCurrentBalance } from "../../../Utils/formatCurrentBalance";
 import Modal from "../../Modal/Modal";
 import PopUpAddFundToWallet from "../../PopUpAddFundToWallet/PopUpAddFundToWallet";
-import { Alchemy, Network } from "alchemy-sdk";
+// import { Alchemy, Network } from "alchemy-sdk";
+import alchemy from "../../../Configs/alchemy";
 import useUserCollection from "../../../contexts/UserContext/useUserCollection";
 import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 function MintPopUpBuy({
@@ -37,13 +38,6 @@ function MintPopUpBuy({
 
   const [totalPriceInETH, setTotalPriceInETH] = useState();
   const loggedInUserInfo = useUserCollection();
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-
-  const alchemy = new Alchemy(settings);
 
   useEffect(() => {
     if (limitByWalletInfo) {
