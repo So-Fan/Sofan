@@ -501,7 +501,7 @@ function UserProfilePage({
           style={{ display: "none" }}
         >
           <PopUpEditProfile
-            allUserInfo={allUserInfo} // c'est mathéo qui a set ça à toi de vérifier Saajeed
+            allUserInfo={allUserInfo}
           />
         </Modal>
       )}

@@ -215,7 +215,6 @@
 .popup-edit-profile-next-button:hover {
   background-color: #f7c520 !important;
   transition-duration: 300ms;
-  
 }
 .popup-edit-profile-next-button:active {
   transform: scale(0.85);
@@ -273,7 +272,7 @@
 }
 .controls {
   width: 50%;
-  background-color: red;
+  /* background-color: red; */
 }
 .popup-edit-profile-cropeasy-input-and-button-container {
   width: 90%;
@@ -288,7 +287,7 @@
   accent-color: #f7c520;
   cursor: ew-resize;
   width: 50%;
-  margin-bottom: 15px ;
+  margin-bottom: 15px;
 }
 .popup-edit-profile-cropeasy-input-and-button-container button {
   background-color: #f6d463;

@@ -142,7 +142,7 @@ function SetupProfile({
                 onCropComplete={onCropComplete}
               />
             </div>
-            <div className="controls">
+            <div className="controls-setup-profile">
               <input
                 type="range"
                 value={zoom}
@@ -155,7 +155,7 @@ function SetupProfile({
                 }}
                 className="zoom-range"
               />
-              <button onClick={showCroppedBanner}>Show results</button>
+              <button onClick={showCroppedBanner}>Valider la bannière</button>
             </div>
             {/* <div className="result"><img src={croppedBanner} alt="" /></div> */}
           </div>
@@ -176,7 +176,7 @@ function SetupProfile({
                 onCropComplete={onCropComplete}
               />
             </div>
-            <div className="controls">
+            <div className="controls-setup-profile">
               <input
                 type="range"
                 value={zoom}
@@ -189,7 +189,7 @@ function SetupProfile({
                 }}
                 className="zoom-range"
               />
-              <button onClick={showCroppedAvatar}>Show results</button>
+              <button onClick={showCroppedAvatar}>Valider</button>
             </div>
             {/* <div className="result"><img src={croppedAvatar} alt="" /></div> */}
           </div>
