@@ -10,6 +10,7 @@ import Web3 from "web3";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
+import { etherscanBaseURI } from "../../Configs/etherscan";
 function Dashboard() {
   const { loggedInUser } = useUserCollection();
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -33,7 +34,7 @@ function Dashboard() {
         */
         if (loggedInUser?.fund_receipt_wallet) {
           const allERC20Tx = await fetch(
-            `https://api-goerli.etherscan.io/api?module=account&action=tokentx&contractaddress=${process.env.REACT_APP_USDC_ADDRESS}&address=${loggedInUser.fund_receipt_wallet}&page=1&offset=500&startblock=0&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+            `https://${etherscanBaseURI}/api?module=account&action=tokentx&contractaddress=${process.env.REACT_APP_USDC_ADDRESS}&address=${loggedInUser.fund_receipt_wallet}&page=1&offset=500&startblock=0&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
           );
           const dataAllErc20TransferEvent = await allERC20Tx.json();
 
@@ -148,7 +149,7 @@ function Dashboard() {
           const { abi } = require("../../contracts/SofanNft.json");
 
           const allERC20Tx = await fetch(
-            `https://api-goerli.etherscan.io/api?module=account&action=tokentx&contractaddress=${process.env.REACT_APP_USDC_ADDRESS}&address=${loggedInUser.fund_receipt_wallet}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+            `https://${etherscanBaseURI}/api?module=account&action=tokentx&contractaddress=${process.env.REACT_APP_USDC_ADDRESS}&address=${loggedInUser.fund_receipt_wallet}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
           );
           const dataAllErc20TransferEvent = await allERC20Tx.json();
 
