@@ -25,6 +25,22 @@
   max-height: 133px;
   overflow-y: scroll;
 }
+.nft-collection-overview-more-about-collection-description::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+  border-radius: 10px;
+}
+.nft-collection-overview-more-about-collection-description::-webkit-track {
+  background: transparent; /* Set the track background */
+}
+.nft-collection-overview-more-about-collection-description::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar */
+  border-radius: 10px; /* Set the border-radius */
+}
+
+.nft-collection-overview-more-about-collection-description::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color when hovered */
+}
+
 /* Conditionnal Rendering */
 .nft-collection-overview-more-about-collection-container-nft-single-page-header {
   /* background-color: rgb(31, 139, 64); */
@@ -41,6 +57,21 @@
   max-height: 100%;
   overflow-y: scroll;
 }
+.nft-collection-overview-more-about-collection-description-nft-single-page-header::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+  border-radius: 10px;
+}
+.nft-collection-overview-more-about-collection-description-nft-single-page-header::-webkit-track {
+  background: transparent; /* Set the track background */
+}
+.nft-collection-overview-more-about-collection-description-nft-single-page-header::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar */
+  border-radius: 10px; /* Set the border-radius */
+}
+
+.nft-collection-overview-more-about-collection-description-nft-single-page-header::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color when hovered */
+}
 @media (max-width: 1280px) {
   .nft-collection-overview-more-about-collection-container-nft-single-page-header {
     margin-left: 0px;
@@ -49,10 +80,10 @@
   }
 }
 @media (max-width: 1080px) {
-    .nft-collection-overview-more-about-collection-container-nft-single-page-header {
-      margin-top: 10px;
-    }
-    .nft-collection-overview-more-about-collection-description-nft-single-page-header {
+  .nft-collection-overview-more-about-collection-container-nft-single-page-header {
+    margin-top: 10px;
+  }
+  .nft-collection-overview-more-about-collection-description-nft-single-page-header {
     height: 80px;
   }
 }
