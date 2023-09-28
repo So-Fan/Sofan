@@ -49,6 +49,7 @@ import useEth from "../../contexts/EthContext/useEth";
 import Button from "../Button/Button";
 import LoadingAnimation from "../LoadingEllipsisAnimation/LoadingEllipsisAnimation";
 import { ImageUrlToFile } from "../../Utils/fileFunctions";
+import { chainConfig } from "../../../../client/src/Configs/web3auth";
 // fin mathéo
 
 function Signup({
@@ -133,15 +134,6 @@ function Signup({
     const init = async () => {
       try {
         let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
-        const chainConfig = {
-          chainNamespace: CHAIN_NAMESPACES.EIP155,
-          chainId: "0x5", // Please use 0x1 for Mainnet
-          rpcTarget: "https://rpc.ankr.com/eth_goerli",
-          displayName: "Goerli Testnet",
-          blockExplorer: "https://goerli.etherscan.io/",
-          ticker: "ETH",
-          tickerName: "Ethereum",
-        };
         const web3auth = new Web3AuthNoModal({
           clientId,
           chainConfig,

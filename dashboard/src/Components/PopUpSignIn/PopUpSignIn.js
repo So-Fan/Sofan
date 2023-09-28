@@ -45,6 +45,7 @@ import ConnectWallet from "../LoginSignupPopUp/ConnectWallet/ConnectWallet";
 import ConfirmWallet from "../LoginSignupPopUp/ConfirmWallet/ConfirmWallet";
 import ValidationSignup from "../LoginSignupPopUp/ValidationSignup/ValidationSignup";
 import { ImageUrlToFile } from "../../Utils/fileFunctions";
+import { chainConfig } from "../../../../client/src/Configs/web3auth";
 
 const PopUpSignIn = ({
   web3auth,
@@ -148,14 +149,6 @@ const PopUpSignIn = ({
     const init = async () => {
       try {
         let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
-        const chainConfig = {
-          chainNamespace: CHAIN_NAMESPACES.EIP155,
-          chainId: "0x5", // Please use 0x1 for Mainnet
-          rpcTarget: process.env.REACT_APP_INFURA_ID,
-          blockExplorer: "https://goerli.etherscan.io/",
-          ticker: "ETH",
-          tickerName: "Ethereum",
-        };
         const web3auth = new Web3AuthNoModal({
           clientId,
           chainConfig,

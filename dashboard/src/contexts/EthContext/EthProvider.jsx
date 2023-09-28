@@ -12,6 +12,7 @@ import {
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import { chainConfig } from "../../../../client/src/Configs/web3auth";
 
 function EthProvider({ children, setWeb3auth }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -32,15 +33,6 @@ function EthProvider({ children, setWeb3auth }) {
       const init = async () => {
         try {
           let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
-          const chainConfig = {
-            chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: "0x5", // Please use 0x1 for Mainnet
-            rpcTarget: "https://rpc.ankr.com/eth_goerli",
-            displayName: "Goerli Testnet",
-            blockExplorer: "https://goerli.etherscan.io/",
-            ticker: "ETH",
-            tickerName: "Ethereum",
-          };
           const web3auth = new Web3AuthNoModal({
             clientId,
             chainConfig,
@@ -101,7 +93,7 @@ function EthProvider({ children, setWeb3auth }) {
       ) {
         web3 = new Web3(tempIsWeb3authConnectClicked[1]); // come from web3auth check Login.js
         accounts = await web3.eth.getAccounts();
-        console.log("je suis passé par là");
+        console.log("je suis passé par là", accounts);
       } else {
         web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 

@@ -41,6 +41,10 @@
     "test": "react-app-rewired test",
     "start:staging": "env-cmd -f staging.env npm start",
     "build:staging": "env-cmd -f staging.env npm run build",
+    "start:staging.mainnet": "env-cmd -f staging.mainnet.env npm start",
+    "build:staging.mainnet": "env-cmd -f staging.mainnet.env npm run build",
+    "start:sofan": "env-cmd -f sofan.env npm start",
+    "build:sofan": "env-cmd -f sofan.env npm run build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
