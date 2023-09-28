@@ -12,6 +12,7 @@ import PopUpAddFundToWallet from "../../PopUpAddFundToWallet/PopUpAddFundToWalle
 import alchemy from "../../../Configs/alchemy";
 import useUserCollection from "../../../contexts/UserContext/useUserCollection";
 import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
+import { crossmintpayloadURI, environment } from "../../../Configs/crossmint";
 function MintPopUpBuy({
   maxMint,
   mintCounter,
@@ -309,7 +310,7 @@ function MintPopUpBuy({
               _amount: `${totalPriceInUSDC}`,
               quantity: `${mintCounter}`,
             }}
-            environment="staging"
+            environment={`${environment}`}
             mintTo={
               loggedInUserInfo.loggedInUser?.metamask
                 ? `${loggedInUserInfo.loggedInUser.metamask}`
@@ -317,7 +318,7 @@ function MintPopUpBuy({
                 ? `${loggedInUserInfo.loggedInUser.web3auth}`
                 : null
             }
-            successCallbackURL={"https://staging.sofan.app/crossmintpayload"}
+            successCallbackURL={`${crossmintpayloadURI}`}
             // successCallbackURL={
             //   loggedInUserInfo?.loggedInUser?.account_type === "athlete"
             //     ? `http://staging.sofan.app/athleteprofile/${loggedInUserInfo?.loggedInUser?.id}`
