@@ -19,6 +19,7 @@ import {
 } from "@firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { Link } from "react-router-dom";
+import { etherscanBaseURI } from "../../Configs/etherscan";
 const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
@@ -316,6 +317,7 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
       new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
     );
     setWeb3Instance(web3Instance);
+    console.log(etherscanBaseURI);
     const load = async () => {
       const q = query(collection(db, "nft_collections"));
       const querySnapshot = await getDocs(q);
@@ -335,13 +337,13 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
       setAllSofanCollectionBackend(tempAllAthleteCollectionBackend);
       setAllSofanCollection(tempAllAthleteCollection);
       const fetchAllTx = await fetch(
-        `https://api-goerli.etherscan.io/api?module=account&action=txlist&address=${currentCollectionAddress}&startblock=9458446&endblock=99999999&page=1&offset=25&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+        `https://${etherscanBaseURI}/api?module=account&action=txlist&address=${currentCollectionAddress}&startblock=9458446&endblock=99999999&page=1&offset=25&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       );
       const dataAllTx = await fetchAllTx.json();
       setAllTx(dataAllTx);
       console.log(dataAllTx);
       const fetchAllErc721TransferEvent = await fetch(
-        `https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&contractaddress=${currentCollectionAddress}&page=1&offset=25&startblock=9458446&endblock=99999999&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+        `https://${etherscanBaseURI}/api?module=account&action=tokennfttx&contractaddress=${currentCollectionAddress}&page=1&offset=25&startblock=9458446&endblock=99999999&sort=desc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       );
       const dataAllErc721TransferEvent =
         await fetchAllErc721TransferEvent.json();
@@ -349,7 +351,7 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
       setAllErc721Event(dataAllErc721TransferEvent);
 
       // const fetchAllErc20TransferEvent = await fetch(
-      //   `https://api-goerli.etherscan.io/api?module=account&action=tokentx&contractaddress=${currentCollectionAddress}&page=1&offset=100&startblock=9458446&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
+      //   `https://${etherscanBaseURI}/api?module=account&action=tokentx&contractaddress=${currentCollectionAddress}&page=1&offset=100&startblock=9458446&endblock=27025780&sort=asc&apikey=${process.env.REACT_APP_ETHERSCAN_ID}`
       // );
       //   const dataAllErc20TransferEvent = await fetchAllErc20TransferEvent.json();
       //   setAllErc20Event(dataAllErc20TransferEvent);
