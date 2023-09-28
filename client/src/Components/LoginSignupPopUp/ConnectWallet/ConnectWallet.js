@@ -154,9 +154,10 @@ function ConnectWallet({
         const newWallet = {
           metamask: accounts[0],
         };
-
+        console.log(accounts[0]);
         if (userData.id) {
           try {
+            setLoggedInUser({ ...loggedInUser, metamask: accounts[0] });
             const usersRef = collection(db, "users");
             const userDocRef = doc(usersRef, userData.id);
             const userDoc = await getDoc(userDocRef);
