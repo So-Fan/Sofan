@@ -6,7 +6,7 @@ export function concatStringFromTo(
   isEnd,
   from_NUMBER_ToEnd
 ) {
-  if (string.length > maxLentgth) {
+  if (string?.length > maxLentgth) {
     const stringBegin = string.slice(0, from0To_NUMBER_);
     const dotDotDot = "...";
     const stringEnd = string.slice(

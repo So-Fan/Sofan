@@ -1057,7 +1057,7 @@ const NftSingle = () => {
           creatorName={currentAthleteCollectionCreator?.display_name}
           creatorProfilePic={currentAthleteCollectionCreator?.profile_avatar}
           ownerName={
-            currentTokenIdOwner?.display_name != ""
+            currentTokenIdOwner?.display_name
               ? currentTokenIdOwner?.display_name
               : concatStringFromTo(
                   currentTokenIdOwner?.externalWallet,
