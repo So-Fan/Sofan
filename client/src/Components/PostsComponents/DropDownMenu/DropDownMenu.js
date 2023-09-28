@@ -87,8 +87,8 @@ function DropDownMenu({
           {isPostsCommentsDisplay ? (
             <>
               {(() => {
-                console.log(userId, "userId");
-                console.log(loggedInUserId, "loggedInUserId");
+                // console.log(userId, "userId");
+                // console.log(loggedInUserId, "loggedInUserId");
                 if (
                   userId === loggedInUserId ||
                   loggedInUser?.account_type === "admin" ||

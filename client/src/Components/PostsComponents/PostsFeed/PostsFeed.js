@@ -140,9 +140,7 @@ function PostsFeed({
           <>
             {lockPremiumContent && (
               <>
-                <PremiumContentLocked 
-                postCreatorId={postCreatorId}
-                />
+                <PremiumContentLocked postCreatorId={postCreatorId} />
               </>
             )}
           </>
@@ -252,6 +250,7 @@ function PostsFeed({
         >
           {/* Faire passer les infos du post mais problème de timing avec un rendu d'etat trop rapide*/}
           <FullPagePost
+            key={id}
             id={id}
             postType={postType}
             postDate={postDate}

@@ -288,6 +288,7 @@ function FullPagePost({
                   return (
                     <>
                       <PostsComments
+                      key={comment.commentId}
                         userId={comment.userId}
                         userType={comment.userType}
                         postCreatorId={postCreatorId}
