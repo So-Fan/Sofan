@@ -51,11 +51,7 @@ function App() {
   useEffect(() => {
     // met dans le storage l'etat de connexion ou non pour gerer l'acces du site
     // si l'utilisateur lis le code et cahnge le storage manuellement il peut avoir acces à sofan sans compte
-    const storedUser = localStorage.getItem("isUserLogged");
-    if (storedUser) {
-      localStorage.setItem("isUserLogged", JSON.stringify(isUserLogged));
-      // setLoggedInUser(true);
-    }
+    localStorage.setItem("isUserLogged", JSON.stringify(isUserLogged));
   }, [isUserLogged]);
 
   useEffect(() => {
