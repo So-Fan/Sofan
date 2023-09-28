@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, db } from "../../Configs/firebase";
+import { auth, googleProvider, db } from "../../../Configs/firebase";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../../contexts/UserContext/UserContext";
+import UserContext from "../../../contexts/UserContext/UserContext";
 
 // mathéo
 import {
@@ -13,7 +13,7 @@ import {
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
-import useEth from "../../contexts/EthContext/useEth";
+import useEth from "../../../contexts/EthContext/useEth";
 import Web3 from "web3";
 // fin mathéo
 import {

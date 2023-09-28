@@ -68,9 +68,9 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
           const collectionAddressElement = AllSofanCollection[i];
           // Check if Mint
           if (
-            collectionAddressElement.toLowerCase() ===
-              txElement.to.toLowerCase() &&
-            txElement.functionName.split("(")[0] === "mint" &&
+            collectionAddressElement?.toLowerCase() ===
+              txElement?.to?.toLowerCase() &&
+            txElement?.functionName.split("(")[0] === "mint" &&
             txElement.isError === "0"
           ) {
             // Add tx to mint array
@@ -125,10 +125,10 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
               }
             }
           } else if (
-            collectionAddressElement.toLowerCase() ===
-              txElement.to.toLowerCase() &&
-            txElement.functionName.split("(")[0] === "transferFrom" &&
-            txElement.isError === "0"
+            collectionAddressElement?.toLowerCase() ===
+              txElement?.to?.toLowerCase() &&
+            txElement?.functionName.split("(")[0] === "transferFrom" &&
+            txElement?.isError === "0"
           ) {
             // transfer
             const decodedParams = web3Instance.eth.abi.decodeParameters(
