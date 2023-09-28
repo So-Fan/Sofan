@@ -25,6 +25,7 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
+import { chainConfig } from "../../../Configs/web3auth";
 
 function Login({ web3auth, setWeb3auth }) {
   const { setLoggedInUser } = useContext(UserContext);
@@ -45,15 +46,7 @@ function Login({ web3auth, setWeb3auth }) {
     const init = async () => {
       try {
         let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
-        const chainConfig = {
-          chainNamespace: CHAIN_NAMESPACES.EIP155,
-          chainId: "0x5", // Please use 0x1 for Mainnet
-          rpcTarget: "https://rpc.ankr.com/eth_goerli",
-          displayName: "Goerli Testnet",
-          blockExplorer: "https://goerli.etherscan.io/",
-          ticker: "ETH",
-          tickerName: "Ethereum",
-        };
+        console.log(chainConfig);
         const web3auth = new Web3AuthNoModal({
           clientId,
           chainConfig,
