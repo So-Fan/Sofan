@@ -93,6 +93,18 @@ function SettingsPage() {
         setIsDisplayNameChangeError(false);
         setIsDisplayNameChangeLoading(false);
         setIsDisplayNameChanged(true);
+
+        const storedUser = localStorage.getItem("loggedInUser");
+        if (storedUser) {
+          let actualLoggedInUser = JSON.parse(storedUser);
+          console.log("actualLoggedInUser -> ", actualLoggedInUser);
+          actualLoggedInUser.display_name = valueInputDisplayName;
+          actualLoggedInUser.displayName = valueInputDisplayName;
+          localStorage.setItem(
+            "loggedInUser",
+            JSON.stringify(actualLoggedInUser)
+          );
+        }
         getDisplayName();
         // console.log("pseudo changé");
       } catch (error) {
@@ -208,7 +220,7 @@ function SettingsPage() {
     setPhone(value);
     setPhoneRegexError(value && !isValidPhoneNumber(value));
   }
-  console.log(loggedInUser);
+  // console.log(loggedInUser);
   return (
     <div className="settings-page-container">
       <div className="setting-page-wrap">

@@ -34,7 +34,7 @@ function UserNameAndStats({
 
   return (
     <div className="username-and-stats-container">
-      <div className="username-container-userpage">{allUserInfo?.username}</div>
+      <div className="username-container-userpage">{allUserInfo?.display_name}</div>
       <div className="stats-user-container">
         <div className="line-separation-userprofile"></div>
         <div
