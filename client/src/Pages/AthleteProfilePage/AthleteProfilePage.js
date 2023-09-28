@@ -9,7 +9,8 @@ import FormulatedOffers from "../../Components/UserProfileComponents/FormulatedO
 import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffers/ReceivedOffers";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
-import { Network, Alchemy } from "alchemy-sdk";
+// import { Network, Alchemy } from "alchemy-sdk";
+import alchemy from "../../Configs/alchemy";
 import "./AthleteProfilePage.css";
 import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import Modal from "../../Components/Modal/Modal";
@@ -139,12 +140,7 @@ const AthleteProfilePage = ({
     fetchData();
   }, [id]);
   // Api Alchemy setup
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-  const alchemy = new Alchemy(settings);
+  
 
   // async function getNft() {
   //   const metadata = await alchemy.nft.getContractMetadata(

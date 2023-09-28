@@ -3,7 +3,8 @@ import "./UserActivityTab.css";
 import { v4 as uuidv4 } from "uuid";
 import Web3 from "web3";
 import useEth from "../../contexts/EthContext/useEth";
-import { Alchemy, Network } from "alchemy-sdk";
+// import { Alchemy, Network } from "alchemy-sdk";
+import alchemy from "../../Configs/alchemy";
 import { concatStringFromTo } from "../../Utils/concatString";
 import { fr } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
@@ -45,12 +46,6 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [userProfileSpecificData, setUserProfileSpecificData] = useState();
   const { marketplaceAddress } = useEth();
 
-  const settings = {
-    apiKey: "34lcNFh-vbBqL9ignec_nN40qLHVOfSo",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-  const alchemy = new Alchemy(settings);
   useMemo(() => {
     if (
       AllTx.length != 0 &&

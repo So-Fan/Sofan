@@ -22,10 +22,9 @@ function Dashboard() {
   const [data, setData] = useState();
 
   useEffect(() => {
-    console.log("yes");
+    // console.log("yes");
     const loadData = async () => {
-      console.log(loggedInUser);
-
+      // console.log(loggedInUser);
       if (loggedInUser?.account_type === "admin") {
         /* 
           1. get all nft collection
