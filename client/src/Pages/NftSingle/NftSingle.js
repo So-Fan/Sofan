@@ -24,6 +24,7 @@ import { db } from "../../Configs/firebase";
 import Web3 from "web3";
 import { concatStringFromTo } from "../../Utils/concatString";
 import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 const NftSingle = () => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -82,6 +83,7 @@ const NftSingle = () => {
   const segments = location.pathname.split("/");
   const collectionAddress = segments[2];
   const tokenId = segments[3];
+  const { alchemy } = useToggleNetwork();
   // console.log(typeof collectionAddress);
   const {
     setContractAddress,
@@ -90,15 +92,15 @@ const NftSingle = () => {
   } = useEth();
 
   // Api Alchemy setup
-  const settings = {
-    apiKey: "8Q5rQrlFWbV8Gg29S9DWYG2RStuOfANJ",
-    network: Network.ETH_GOERLI,
-    maxRetries: 10,
-  };
-  const alchemy = new Alchemy(settings);
+  // const settings = {
+  //   apiKey: "8Q5rQrlFWbV8Gg29S9DWYG2RStuOfANJ",
+  //   network: Network.ETH_GOERLI,
+  //   maxRetries: 10,
+  // };
+  // const alchemy = new Alchemy(settings);
 
   async function getNftsFromContract() {
-    const nftsFromContract = await alchemy.nft.getNftsForContract(
+    const nftsFromContract = await alchemy?.nft.getNftsForContract(
       collectionAddress
     );
     console.log(nftsFromContract);
@@ -106,7 +108,7 @@ const NftSingle = () => {
   }
 
   async function getNftMetadata() {
-    const currentNftMetadata = await alchemy.nft.getNftMetadata(
+    const currentNftMetadata = await alchemy?.nft.getNftMetadata(
       collectionAddress,
       tokenId
     );
@@ -166,7 +168,7 @@ const NftSingle = () => {
 
   // useless ?
   async function getNftPicture() {
-    const nftsFromContract = await alchemy.nft.getNftMetadata(
+    const nftsFromContract = await alchemy?.nft.getNftMetadata(
       "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
       "15"
     );
@@ -175,10 +177,15 @@ const NftSingle = () => {
   }
 
   useEffect(() => {
-    getCurrentOwnerInfo();
-    getNftMetadata();
-    getNftsFromContract();
-    getNftPicture();
+    if (alchemy) {
+      getCurrentOwnerInfo();
+      getNftMetadata();
+      getNftsFromContract();
+      getNftPicture();
+    }
+  }, [alchemy]);
+
+  useEffect(() => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=eur"
     )
@@ -186,7 +193,6 @@ const NftSingle = () => {
       .then((data) => setEthPrice(data.ethereum.eur))
       .catch((error) => console.log(error));
   }, []);
-
   useEffect(() => {
     const getAthleteInfo = async () => {
       try {
@@ -264,8 +270,10 @@ const NftSingle = () => {
         console.error(error);
       }
     };
-    getAthleteInfo();
-  }, []);
+    if (alchemy) {
+      getAthleteInfo();
+    }
+  }, [alchemy]);
   // Faire afficher le pop up dynamiquement en récupérent le nb de pixel scrollé
   // const handlePixelScrolledAthleteProfilePage = () => {
   //   setPixelScrolledAthleteProfilePage(window.scrollY);

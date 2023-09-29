@@ -4,13 +4,14 @@ import NftCollectionPageHeader from "../../Components/NftCollectionPageHeader/Nf
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
 import SortBySelector from "../../Components/SortBySelector/SortBySelector";
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
-import alchemy from "../../Configs/alchemy";
+// import alchemy from "../../Configs/alchemy";
 import { useLocation } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 // import { Alchemy, Network } from "alchemy-sdk";
 import "./NftCollection.css";
 import CollectionActivityTab from "../../Components/CollectionActivityTab/CollectionActivityTab";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 const NftCollection = ({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -35,7 +36,7 @@ const NftCollection = ({
   const segments = location.pathname.split("/");
   const collectionAddress = segments[2];
   // Api Alchemy setup
-
+  const { alchemy } = useToggleNetwork();
   async function getNft() {
     // const metadata = await alchemy.nft.getContractMetadata(
     //   "0x5180db8F5c931aaE63c74266b211F580155ecac8"
@@ -137,9 +138,11 @@ const NftCollection = ({
     // console.log(nftsFromOwner[0]?.contract?.totalSupply);
     // console.log(nftsFromOwner.length)
     // getNftMinted();
-    getOwnersForContractFunction();
-    getNftsForContractFunction();
-  }, []);
+    if (alchemy) {
+      getOwnersForContractFunction();
+      getNftsForContractFunction();
+    }
+  }, [alchemy]);
 
   // API Coingecko --> Get ETH price
   useEffect(() => {

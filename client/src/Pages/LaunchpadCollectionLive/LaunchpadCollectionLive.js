@@ -19,7 +19,7 @@ import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/Mo
 import LaunchpadCollectionLiveMoreAboutCollection from "../../Components/LaunchpadCollectionLiveMoreAboutCollection/LaunchpadCollectionLiveMoreAboutCollection";
 import NftCollectionMoreAboutAthlete from "../../Components/NftCollectionMoreAboutAthlete/NftCollectionMoreAboutAthlete";
 // import { Network, Alchemy } from "alchemy-sdk";
-import alchemy from "../../Configs/alchemy";
+// import alchemy from "../../Configs/alchemy";
 import MintPopUpBuy from "../../Components/MintPopUp/MintPopUpBuy/MintPopUpBuy";
 import Modal from "../../Components/Modal/Modal";
 import MintPopUp from "../../Components/MintPopUp/MintPopUp";
@@ -30,6 +30,7 @@ import MintPopUpStatus from "../../Components/MintPopUp/MintPopUpStatus/MintPopU
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
 import useCrossmintPayloadContext from "../../contexts/CrossmintPayloadContext/useCrossmintPayload";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 function LaunchpadCollectionLive(isLogged) {
   // functionnal states
   const [pixelScrolledAthleteProfilePage, setPixelScrolledAthleteProfilePage] =
@@ -49,7 +50,7 @@ function LaunchpadCollectionLive(isLogged) {
   const [mintCounter, setMintCounter] = useState(1);
 
   const [athleteFanNumber, setAthleteFanNumber] = useState();
-
+  const { alchemy } = useToggleNetwork();
   const [
     launchpadCollectionLiveAthleteDataBackend,
     setLaunchpadCollectionLiveAthleteDataBackend,
@@ -199,12 +200,14 @@ function LaunchpadCollectionLive(isLogged) {
   }
   // -------------------------------
   useEffect(() => {
-    getNftsData();
-    getNftPicture();
-    getCollectionLimit();
-    getNftLimitByWalletInfo();
-    getPrice();
-  }, []);
+    if (alchemy) {
+      getNftsData();
+      getNftPicture();
+      getCollectionLimit();
+      getNftLimitByWalletInfo();
+      getPrice();
+    }
+  }, [alchemy]);
   const dataBackend = {
     header: [
       {
@@ -477,10 +480,12 @@ function LaunchpadCollectionLive(isLogged) {
       // console.log(allAthleteCollection);
       setAthleteFanNumber(athletefans.length);
     };
-    getAthleteInfo();
-    getAthleteInfoCollectionLive();
-    getCollectionLiveAthleteData();
-  }, []);
+    if (alchemy) {
+      getAthleteInfo();
+      getAthleteInfoCollectionLive();
+      getCollectionLiveAthleteData();
+    }
+  }, [alchemy]);
 
   useEffect(() => {
     console.log("enter second useEffect when crossmintPayLoadLocalStorage");

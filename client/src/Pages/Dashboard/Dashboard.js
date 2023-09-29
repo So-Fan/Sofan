@@ -3,14 +3,15 @@ import DashboardMyCollections from "../../Components/DashboardMyCollections/Dash
 import DashboardStats from "../../Components/DashboardStats/DashboardStats";
 import DashboardSubMenu from "../../Components/DashboardSubMenu/DashboardSubMenu";
 import DashboardMyCalendar from "../../Components/DashboardMyCalendar/DashboardMyCalendar";
-import { Network, Alchemy } from "alchemy-sdk";
+// import { Network, Alchemy } from "alchemy-sdk";
 import "./Dashboard.css";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import Web3 from "web3";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
-import { etherscanBaseURI } from "../../Configs/etherscan";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
+// import { etherscanBaseURI } from "../../Configs/etherscan";
 function Dashboard() {
   const { loggedInUser } = useUserCollection();
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
@@ -20,7 +21,8 @@ function Dashboard() {
   ]);
   const [ethPrice, setEthPrice] = useState();
   const [data, setData] = useState();
-
+  // const { alchemy } = useToggleNetwork();
+  const { etherscanBaseURI, alchemy } = useToggleNetwork();
   useEffect(() => {
     // console.log("yes");
     const loadData = async () => {

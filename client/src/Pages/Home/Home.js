@@ -28,8 +28,9 @@ import {
   limit,
 } from "firebase/firestore";
 // import { Network, Alchemy, NftFilters } from "alchemy-sdk";
-import alchemy from "../../Configs/alchemy"
+
 import Web3 from "web3";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 const MemoPostsFeed = memo(PostsFeed, (prevProps, nextProps) => {
   // si les props ont changés
   if (prevProps === nextProps) {
@@ -76,7 +77,7 @@ function Home({
   const [nftsFromOwner, setNftsFromOwner] = useState([]);
   const [currentProfileUserWallet, setCurrentProfileUserWallet] = useState("");
   const [athletesSupportingData, setAthletesSupportingData] = useState([]);
-
+  const { alchemy } = useToggleNetwork();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isAthleteAlreadyTested, setIsAthleteAlreadyTested] = useState([]);
   async function handleDisplayPremiumContent(i) {
@@ -462,7 +463,7 @@ function Home({
             contractAddresses: arraySofanCollection,
           }
         );
-        console.log("nftsFromOwner --> ",nftsFromOwner)
+        console.log("nftsFromOwner --> ", nftsFromOwner);
         let athletesSupportingArray = [];
         for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
           const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
@@ -518,8 +519,10 @@ function Home({
         console.error(error);
       }
     }
-    getNftsForOwner();
-  }, [isLogged]);
+    if (isLogged && alchemy) {
+      getNftsForOwner();
+    }
+  }, [isLogged, alchemy]);
   // console.log("nftsFromOwner --> ",nftsFromOwner, "athletesSupportingData --> ",athletesSupportingData)
   // console.log(athletesSupportingData);
   useEffect(() => {

@@ -9,9 +9,10 @@ import { formatCurrentBalance } from "../../../Utils/formatCurrentBalance";
 import Modal from "../../Modal/Modal";
 import PopUpAddFundToWallet from "../../PopUpAddFundToWallet/PopUpAddFundToWallet";
 // import { Alchemy, Network } from "alchemy-sdk";
-import alchemy from "../../../Configs/alchemy";
+
 import useUserCollection from "../../../contexts/UserContext/useUserCollection";
 import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
+import useToggleNetwork from "../../../contexts/ToggleNetwork/useToggleNetwork";
 function MintPopUpBuy({
   maxMint,
   mintCounter,
@@ -38,7 +39,7 @@ function MintPopUpBuy({
 
   const [totalPriceInETH, setTotalPriceInETH] = useState();
   const loggedInUserInfo = useUserCollection();
-
+  const { alchemy } = useToggleNetwork();
   useEffect(() => {
     if (limitByWalletInfo) {
       const loadData = async () => {
@@ -65,9 +66,11 @@ function MintPopUpBuy({
           }
         }
       };
-      loadData();
+      if (alchemy) {
+        loadData();
+      }
     }
-  }, [limitByWalletInfo]);
+  }, [limitByWalletInfo, alchemy]);
 
   useEffect(() => {
     const tempObj = {

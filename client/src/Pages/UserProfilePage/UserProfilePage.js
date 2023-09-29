@@ -5,7 +5,7 @@ import NftCard from "../../Components/NftCard/NftCard";
 import ProfileSubMenu from "../../Components/ProfileSubMenu/ProfileSubMenu";
 import UserNameAndStats from "../../Components/UserProfileComponents/UserNameAndStats/UserNameAndStats";
 import UserProfileDescription from "../../Components/UserProfileComponents/UserProfileDescription/UserProfileDescription";
-import alchemy from "../../Configs/alchemy";
+// import alchemy from "../../Configs/alchemy";
 import "./UserProfilePage.css";
 import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import AthleteFollowingSupportingPopUp from "../../Components/TemplatePopUp/AthleteFollowingSupportingPopUp/AthleteFollowingSupportingPopUp";
@@ -28,6 +28,7 @@ import UserOffersReceived from "../../Components/UserOffersReceived/UserOffersRe
 import UserOffersMade from "../../Components/UserOffersMade/UserOffersMade";
 import useEth from "../../contexts/EthContext/useEth";
 import Web3 from "web3";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 function UserProfilePage({
   setIsUSerProfileSeortBySelectorClicked,
   isUSerProfileSeortBySelectorClicked,
@@ -66,7 +67,7 @@ function UserProfilePage({
   const [athletesSupportingCount, setAthletesSupportingCount] = useState(0);
   const [anchor, setAnchor] = useState();
   const location = useLocation();
-
+  const { alchemy } = useToggleNetwork();
   useEffect(() => {
     if (location.hash === "#nftcollected") {
       setIsProfileSubMenuButtonClicked([true, false, false, false]);

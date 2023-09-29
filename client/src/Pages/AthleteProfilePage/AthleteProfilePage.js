@@ -10,7 +10,7 @@ import ReceivedOffers from "../../Components/UserProfileComponents/ReceivedOffer
 import UserActivity from "../../Components/UserProfileComponents/UserActivity/UserActivity";
 import AthleteProfileFeed from "../../Components/AthleteProfileFeed/AthleteProfileFeed";
 // import { Network, Alchemy } from "alchemy-sdk";
-import alchemy from "../../Configs/alchemy";
+
 import "./AthleteProfilePage.css";
 import settingsLogo from "../../Assets/Image/settings-logo.svg";
 import Modal from "../../Components/Modal/Modal";
@@ -37,6 +37,7 @@ import Web3 from "web3";
 import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import UserActivityTab from "../../Components/UserActivityTab/UserActivityTab";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 const MemoProfileSubMenu = memo(ProfileSubMenu);
 const MemoAthleteProfileHeader = memo(AthleteProfileHeader);
 const MemoAthleteProfileFeed = memo(
@@ -97,7 +98,7 @@ const AthleteProfilePage = ({
   const athleteId = segments[2];
   const [anchor, setAnchor] = useState();
   const { loggedInUser } = useUserCollection();
-
+  const { alchemy } = useToggleNetwork();
   useEffect(() => {
     if (segments.length > 3) {
       setAnchor(location.hash);
@@ -140,7 +141,6 @@ const AthleteProfilePage = ({
     fetchData();
   }, [id]);
   // Api Alchemy setup
-  
 
   // async function getNft() {
   //   const metadata = await alchemy.nft.getContractMetadata(
@@ -382,21 +382,23 @@ const AthleteProfilePage = ({
   }, [arrayAthleteCollection]);
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && alchemy) {
       getNftsFromOwner();
     }
-  }, [userInfo]);
+  }, [userInfo, alchemy]);
   useEffect(() => {
-    try {
-      // getNft();
-      // getCollectionFloorPrice();
-      getFansData();
-      availableNft();
-      getTransferData();
-    } catch (err) {
-      console.log(err);
+    if (alchemy) {
+      try {
+        // getNft();
+        // getCollectionFloorPrice();
+        getFansData();
+        availableNft();
+        getTransferData();
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }, []);
+  }, [alchemy]);
   // api NFT Scan YE9mfre8aVCBFPjA3Ia0JIXA
   // API Coingecko --> Get ETH price
   useEffect(() => {

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Web3 from "web3";
 import useEth from "../../contexts/EthContext/useEth";
 // import { Alchemy, Network } from "alchemy-sdk";
-import alchemy from "../../Configs/alchemy";
+// import alchemy from "../../Configs/alchemy";
 import { concatStringFromTo } from "../../Utils/concatString";
 import { fr } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
@@ -22,6 +22,7 @@ import { db } from "../../Configs/firebase";
 import { Link } from "react-router-dom";
 // import { etherscanBaseURI } from "../../Configs/etherscan";
 import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
+
 const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
@@ -46,7 +47,8 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
     useState(true);
   const [userProfileSpecificData, setUserProfileSpecificData] = useState();
   const { marketplaceAddress } = useEth();
-  const { etherscanBaseURI } = useToggleNetwork();
+  const { etherscanBaseURI, alchemy } = useToggleNetwork();
+
   useMemo(() => {
     if (AllTx.length != 0 && allErc721Event.length != 0) {
       console.log("Alltx", AllTx);
@@ -305,8 +307,10 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
         }
       }
     };
-    tryMe();
-  }, [alchemyArray]);
+    if (alchemy && alchemyArray) {
+      tryMe();
+    }
+  }, [alchemyArray, alchemy]);
 
   useEffect(() => {
     const web3Instance = new Web3(

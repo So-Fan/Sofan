@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Web3 from "web3";
 import useEth from "../../contexts/EthContext/useEth";
 // import { Alchemy, Network } from "alchemy-sdk";
-import alchemy from "../../Configs/alchemy";
+
 import { concatStringFromTo } from "../../Utils/concatString";
 import { fr } from "date-fns/locale";
 import { formatDistanceToNow } from "date-fns";
@@ -31,6 +31,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [AllSofanCollectionBackend, setAllSofanCollectionBackend] = useState(
     []
   );
+  const { alchemy } = useToggleNetwork();
   const [allErc721Event, setAllErc721Event] = useState([]);
   const [allErc20Event, setAllErc20Event] = useState([]);
   const [web3Instance, setWeb3Instance] = useState();
@@ -505,8 +506,10 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
         }
       }
     };
-    tryMe();
-  }, [alchemyArray]);
+    if (alchemyArray && alchemy) {
+      tryMe();
+    }
+  }, [alchemyArray, alchemy]);
   console.log("je charge depuis userActivitytab");
   useEffect(() => {
     const web3Instance = new Web3(
