@@ -20,7 +20,8 @@ import {
 } from "@firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { Link } from "react-router-dom";
-import { etherscanBaseURI } from "../../Configs/etherscan";
+// import { etherscanBaseURI } from "../../Configs/etherscan";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
@@ -45,7 +46,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
     useState(true);
   const [userProfileSpecificData, setUserProfileSpecificData] = useState();
   const { marketplaceAddress } = useEth();
-
+  const { etherscanBaseURI } = useToggleNetwork();
   useMemo(() => {
     if (
       AllTx.length != 0 &&

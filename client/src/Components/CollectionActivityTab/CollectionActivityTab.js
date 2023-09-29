@@ -20,7 +20,8 @@ import {
 } from "@firebase/firestore";
 import { db } from "../../Configs/firebase";
 import { Link } from "react-router-dom";
-import { etherscanBaseURI } from "../../Configs/etherscan";
+// import { etherscanBaseURI } from "../../Configs/etherscan";
+import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
   const [concatArray, setConcatArray] = useState([]);
   const [alchemyArray, setAlchemyArray] = useState([]);
@@ -45,7 +46,7 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
     useState(true);
   const [userProfileSpecificData, setUserProfileSpecificData] = useState();
   const { marketplaceAddress } = useEth();
-
+  const { etherscanBaseURI } = useToggleNetwork();
   useMemo(() => {
     if (AllTx.length != 0 && allErc721Event.length != 0) {
       console.log("Alltx", AllTx);
@@ -312,7 +313,7 @@ const CollectionActivityTab = ({ ethPrice, currentCollectionAddress }) => {
       new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
     );
     setWeb3Instance(web3Instance);
-    console.log(etherscanBaseURI);
+    // console.log(etherscanBaseURI);
     const load = async () => {
       const q = query(collection(db, "nft_collections"));
       const querySnapshot = await getDocs(q);
