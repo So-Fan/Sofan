@@ -12,6 +12,7 @@ import {
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import useToggleNetwork from "../ToggleNetwork/useToggleNetwork";
 
 function EthProvider({ children, setWeb3auth }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,21 +27,22 @@ function EthProvider({ children, setWeb3auth }) {
     useState(false);
   const [contractAddress, setContractAddress] = useState(null); // declencher useEffect quand contractAddress change
   const marketplaceAddress = "0x3d273016D59f58b509C52970B128134b5DDc8e18";
+  const { chainConfig } = useToggleNetwork();
   //  "0x7082cc65E582DE32A7caD11fDC396b02490b97DD"
   useEffect(() => {
     if (localStorage.getItem("Web3Auth-cachedAdapter")) {
       const init = async () => {
         try {
           let clientId = process.env.REACT_APP_WEB3AUTH_TOKEN_ID;
-          const chainConfig = {
-            chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: "0x5", // Please use 0x1 for Mainnet
-            rpcTarget: "https://rpc.ankr.com/eth_goerli",
-            displayName: "Goerli Testnet",
-            blockExplorer: "https://goerli.etherscan.io/",
-            ticker: "ETH",
-            tickerName: "Ethereum",
-          };
+          // const chainConfig = {
+          //   chainNamespace: CHAIN_NAMESPACES.EIP155,
+          //   chainId: "0x5", // Please use 0x1 for Mainnet
+          //   rpcTarget: "https://rpc.ankr.com/eth_goerli",
+          //   displayName: "Goerli Testnet",
+          //   blockExplorer: "https://goerli.etherscan.io/",
+          //   ticker: "ETH",
+          //   tickerName: "Ethereum",
+          // };
           const web3auth = new Web3AuthNoModal({
             clientId,
             chainConfig,
@@ -76,11 +78,13 @@ function EthProvider({ children, setWeb3auth }) {
         }
       };
 
-      init();
+      if (chainConfig) {
+        init();
+      }
     } else {
       console.log("not init web3auth on load");
     }
-  }, []);
+  }, [chainConfig]);
 
   const init = useCallback(async (artifact, tempIsWeb3authConnectClicked) => {
     if (artifact) {

@@ -188,7 +188,7 @@ function App() {
   }, []);
 
   const checkWalletProvider = (userData) => {
-    if (userData.web3AuthWallet) {
+    if (userData.web3auth) {
       return "web3auth";
     } else if (userData.metamask) {
       return "metamask";

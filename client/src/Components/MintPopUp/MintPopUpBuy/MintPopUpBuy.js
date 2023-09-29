@@ -39,7 +39,7 @@ function MintPopUpBuy({
 
   const [totalPriceInETH, setTotalPriceInETH] = useState();
   const loggedInUserInfo = useUserCollection();
-  const { alchemy } = useToggleNetwork();
+  const { alchemy, crossmintpayloadURI, environment } = useToggleNetwork();
   useEffect(() => {
     if (limitByWalletInfo) {
       const loadData = async () => {
@@ -312,7 +312,7 @@ function MintPopUpBuy({
               _amount: `${totalPriceInUSDC}`,
               quantity: `${mintCounter}`,
             }}
-            environment="staging"
+            environment={`${environment}`}
             mintTo={
               loggedInUserInfo.loggedInUser?.metamask
                 ? `${loggedInUserInfo.loggedInUser.metamask}`
@@ -320,7 +320,7 @@ function MintPopUpBuy({
                 ? `${loggedInUserInfo.loggedInUser.web3auth}`
                 : null
             }
-            successCallbackURL={"https://staging.sofan.app/crossmintpayload"}
+            successCallbackURL={`${crossmintpayloadURI}`}
             // successCallbackURL={
             //   loggedInUserInfo?.loggedInUser?.account_type === "athlete"
             //     ? `http://staging.sofan.app/athleteprofile/${loggedInUserInfo?.loggedInUser?.id}`
