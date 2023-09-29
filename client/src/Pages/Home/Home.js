@@ -28,7 +28,7 @@ import {
   limit,
 } from "firebase/firestore";
 // import { Network, Alchemy, NftFilters } from "alchemy-sdk";
-import alchemy from "../../Configs/alchemy"
+import alchemy from "../../Configs/alchemy";
 import Web3 from "web3";
 const MemoPostsFeed = memo(PostsFeed, (prevProps, nextProps) => {
   // si les props ont changés
@@ -206,25 +206,30 @@ function Home({
           } else if (loggedInUser.web3auth) {
             currentUserWallet = loggedInUser.web3auth;
           }
-
+          console.log("currentUserWallet -> ",currentUserWallet);
+          let processEnvInfura = "https://goerli.infura.io/v3/332f1d397651470082f0671778cb7713";
+          console.log("processEnvInfura --> ",processEnvInfura)
           const web3Instance = new Web3(
             new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ID)
           );
           const { abi } = require("../../contracts/SofanNft.json");
-
+          console.log("web3Instance --> ", web3Instance)
           for (let a = 0; a < tempAllAthleteCollection.length; a++) {
             const collectionElement = tempAllAthleteCollection[a];
             const contractInfura = new web3Instance.eth.Contract(
               abi,
               `${collectionElement.collection_address}`
-            );
-            let balanceOf;
+              );
+              let balanceOf;
+              console.log("contractInfura --> ", contractInfura)
             try {
               balanceOf = await contractInfura.methods
                 .balanceOf(currentUserWallet)
                 .call();
+                console.log("balanceOf -> ",balanceOf)
             } catch (error) {
-              console.error();
+              console.error(error);
+              console.log("omg il y a une erreur vraiment mot à mot")
             }
 
             if (balanceOf > 0) {
@@ -462,7 +467,7 @@ function Home({
             contractAddresses: arraySofanCollection,
           }
         );
-        console.log("nftsFromOwner --> ",nftsFromOwner)
+        console.log("nftsFromOwner --> ", nftsFromOwner);
         let athletesSupportingArray = [];
         for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
           const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
