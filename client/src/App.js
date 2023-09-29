@@ -29,6 +29,7 @@ import LegalsMentions from "./Pages/LegalsMentions/LegalsMentions";
 import { ProfileClickedContext } from "./contexts/ProfileClickedContext/ProfileClickedContext";
 import CrossmintPayload from "./Components/CrossmintPayload/CrossmintPayload";
 import CrossmintPayloadContext from "./contexts/CrossmintPayloadContext/CrossmintPayloadContext";
+import PasswordReset from "./Components/LoginSignupPopUp/PasswordReset/PasswordReset";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -277,7 +278,7 @@ function App() {
           <EthProvider setWeb3auth={setWeb3auth}>
             {urlFirstSegment === "mentions-legales" ? (
               <></>
-            ) : (
+            ) : urlFirstSegment === "password-reset" ? <></> : (
               <>
                 {isUserLogged === false || isUserLogged === undefined ? (
                   <>
@@ -541,6 +542,7 @@ function App() {
                 <Route path="signupathlete" element={<SignUpAthletePage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/test" element={<Test />} />
+                <Route path="/password-reset" element={<PasswordReset />} />
                 <Route path="/testsecondary" element={<TestSecondary />} />
                 <Route
                   path="/login"

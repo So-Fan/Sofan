@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./ForgotPassword.css";
 import previousArrow from "../../../Assets/Image/arrow-previous.svg";
 import greenCross from "../../../Assets/Image/greencross-offers.svg";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../../Configs/firebase";
 function ForgotPassword({ setIsForgotPasswordClicked }) {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
@@ -32,24 +34,37 @@ function ForgotPassword({ setIsForgotPasswordClicked }) {
     const isValid = emailRegex.test(emailValue);
     setIsValidEmail(isValid);
   }
-  function handleClickSendResetPasswordLink() {
+  
+  async function handleClickSendResetPasswordLink() {
     if (isValidEmail === true) {
       setIsForgotPasswordFirstSendMailLoading(true);
-      setTimeout(() => {
+      try {
+        await sendPasswordResetEmail(auth, email);
         setIsForgotPasswordFirstSendMailLoading(false);
         setIsMailValidAndButtonClicked(true);
-      }, 2000);
+      } catch (error) {
+        console.error("Error sending password reset email: ", error);
+        setIsForgotPasswordFirstSendMailLoading(false);
+        setIsMailValidAndButtonClicked(false);
+      }
     } else {
       setIsMailValidAndButtonClicked(false);
     }
   }
-  function handleForgotPasswordResendMailClick() {
+  
+  async function handleForgotPasswordResendMailClick() {
     setIsForgotPasswordResendMailLoading(true);
-    setTimeout(() => {
+    try {
+      await sendPasswordResetEmail(auth, email);
       setIsForgotPasswordResendMailLoading(false);
       setForgotPasswordDisplayMessageResend(true);
-    }, 2000);
+    } catch (error) {
+      console.error("Error resending password reset email: ", error);
+      setIsForgotPasswordResendMailLoading(false);
+      setForgotPasswordDisplayMessageResend(false);
+    }
   }
+  
   return (
     <>
       <>
