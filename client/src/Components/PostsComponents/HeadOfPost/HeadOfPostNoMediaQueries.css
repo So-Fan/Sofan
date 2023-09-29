@@ -1,0 +1,86 @@
+.publication-head-container-fullpagepost-no-media-queries {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: chocolate; */
+}
+.publication-head-left-container-no-media-queries {
+  max-height: 40px;
+  height: 40px;
+  padding-right: 15px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.publication-head-left-container-no-media-queries:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.publication-head-left-container-no-media-queries:active {
+  transform: scale(0.8);
+}
+
+.profile-side-info-container-no-media-queries {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.athlete-name-publication-no-media-queries {
+  font-size: 16px;
+  font-family: "britanica-heavy";
+}
+
+.profilepic-athlete-publication-no-media-queries {
+  height: 40px;
+  width: 40px;
+  background-color: rgb(187, 204, 204);
+  /* color: white; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.profilepic-athlete-publication-no-media-queries img {
+  width: 100%;
+  height: 100%;
+}
+
+.age-publication-no-media-queries {
+  font-size: 14px;
+  /* font-family: 'Montserrat'; */
+  line-height: 17px;
+  opacity: 0.5;
+}
+
+.publication-head-right-container-no-media-queries {
+  height: 25px;
+  width: 100%;
+  /* background-color: blue; */
+  max-width: 150px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.publication-type-no-media-queries {
+  border-radius: 10px;
+  background-color: #f6d463;
+  width: 84px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "britanica-regular";
+  font-size: 14px;
+  cursor: pointer;
+}
+.publication-type-no-media-queries:hover {
+  background-color: #f7c520;
+  transition: 500ms;
+}

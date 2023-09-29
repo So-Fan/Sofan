@@ -1,0 +1,40 @@
+/* CGU Page Styles */
+.cgu-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 95px;
+  width: 90vw;
+}
+
+.cgu-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+.cgu-section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.cgu-subsection-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.cgu-paragraph {
+  text-align: justify;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.cgu-section {
+  margin-bottom: 30px;
+}

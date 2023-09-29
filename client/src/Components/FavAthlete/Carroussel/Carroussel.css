@@ -1,0 +1,64 @@
+.carroussel-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.carroussel-athlete-wrap {
+  width: 288px;
+  overflow: hidden;
+}
+.carroussel-athlete-subwrap {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: flex-end;
+  height: 170px; 
+  animation: 1s ease-in-out;
+}
+.athlete-template-container {
+  padding-right: 10px;
+  transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
+
+}
+.athlete-template-container:hover {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+  transform: translate(0px, -10px) ;
+  transition-duration: 300ms;
+}
+.carroussel-right-arrow-wrap {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  top: calc((100% - 25px) / 2);
+  right: -12.5px;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.carroussel-left-arrow-wrap {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  top: calc((100% - 25px) / 2);
+  left: -12.5px;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.carroussel-left-arrow-wrap > img {
+  transform: rotate(180deg);
+  background-repeat: no-repeat;
+  
+}
+@media (max-width: 950px) {
+  .carroussel-section{
+    display: none;
+  }
+}

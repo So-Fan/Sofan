@@ -1,0 +1,176 @@
+.input-comment-container-publication {
+  min-height: 80px;
+  /* background-color: red; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: bisque; */
+}
+
+.input-comment-elements {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* flex-direction: column; */
+  background: rgba(60, 64, 69, 0.04);
+  border-radius: 10px;
+  min-height: 50px;
+  /* max-height: 50px; */
+  width: 100%;
+  height: auto;
+  /* background-color: aqua; */
+}
+.input-comment-elements-home-responsive {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* flex-direction: column; */
+  background: rgba(60, 64, 69, 0.04);
+  border-radius: 10px;
+  min-height: 50px;
+  /* max-height: 50px; */
+  width: 100%;
+  height: auto;
+  position: relative;
+  /* background-color: aqua; */
+}
+
+.input-comment-publication {
+  width: 70%;
+  /* max-height: 70%; */
+  /* height: auto !important; */
+  /* max-height: 150px !important; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  /* height: 100%; */
+  font-family: "britanica-regular";
+  font-size: 16px;
+  resize: none;
+  padding-top: 20px;
+
+  /* background-color: rgba(255, 0, 0, 0.223); */
+}
+
+.input-comment-publication:focus {
+  border: none;
+  outline: none;
+}
+.input-comment-publication::placeholder {
+  font-family: "britanica-regular";
+  color: #9b9b9b;
+  font-size: 16px;
+}
+
+.publish-comments-button-container-publication > a > button {
+  border: none;
+  background: none;
+  font-family: "britanica-black";
+  cursor: pointer;
+  font-size: 16px;
+}
+
+@media (max-width: 1350px) {
+  .input-comment-container-publication {
+    height: 50px;
+  }
+}
+@media (max-width: 1050px) {
+  .emoji-comment-publication svg {
+    width: 18px;
+    position: relative;
+    /* left: -70% !important; */
+  }
+  .emoji-comment-publication-pollpost svg {
+    width: 25px;
+  }
+  .publish-comments-button-container-publication {
+    width: 20%;
+    padding-right: 15px;
+  }
+  .publish-comments-button-container-publication button {
+    margin-right: 15px !important;
+  }
+  .input-comment-publication {
+    width: 90%;
+    padding-top: 18px;
+    padding-left: 18px;
+    font-size: 14px !important;
+  }
+  .input-comment-publication::placeholder {
+    font-size: 14px;
+  }
+  .publish-comments-button-container-publication-pollpost {
+    width: auto;
+  }
+  .publish-comments-button-container-publication button {
+    font-size: 14px !important;
+  }
+  .publish-comments-button-container-publication-pollpost button {
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 900px) {
+  .input-comment-container-publication {
+    height: 40px;
+    width: 95%;
+  }
+  .input-comment-container-publication-pollpost {
+    height: 80px;
+    width: 100%;
+  }
+  .input-comment-elements {
+    height: 40px;
+  }
+  .input-comment-elements-home-responsive {
+    display: flex;
+    justify-content: unset !important;
+  }
+  .input-comment-elements-home-responsive button {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+  }
+  .input-comment-elements-pollpost {
+    height: 50px;
+  }
+  .input-comment-publication {
+    width: 90%;
+    padding-top: 14px;
+    padding-left: 5px;
+    font-size: 12px !important;
+  }
+  .input-comment-publication-home-responsive {
+    padding-left: 30px;
+  }
+  .input-comment-publication-pollpost {
+    width: 60%;
+    font-size: 14px !important;
+  }
+  .input-comment-publication::placeholder {
+    font-size: 12px;
+  }
+  .emoji-comment-publication svg {
+    width: 16px;
+    position: relative;
+  }
+  .emoji-comment-publication-pollpost svg {
+    width: 25px;
+  }
+  .publish-comments-button-container-publication {
+    width: 40%;
+    padding-right: 0px;
+  }
+  .publish-comments-button-container-publication-pollpost {
+    width: auto;
+  }
+  .publish-comments-button-container-publication button {
+    font-size: 14px !important;
+  }
+  .publish-comments-button-container-publication-pollpost button {
+    font-size: 16px !important;
+  }
+}
