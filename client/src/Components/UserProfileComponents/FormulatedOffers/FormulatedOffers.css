@@ -1,0 +1,43 @@
+.formulated-offers-user-container {
+width: 100%;
+}
+.nft-list-formulated-offer-container{
+    max-height: 440px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.nft-list-formulated-offer-container::-webkit-scrollbar{
+    display: none;
+}
+.formulated-offers-status-validate {
+  background: #85d87e;
+  width: 5px;
+  height: 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: 28%;
+  left: -10%;
+}
+.formulated-offers-status-cancelled {
+  background: #ee4d4d;
+  width: 5px;
+  height: 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: 28%;
+  left: -10%;
+}
+.formulated-offers-status-pending {
+  background: #f6d463;
+  width: 5px;
+  height: 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: 28%;
+  left: -10%;
+}
+@media (max-width: 1200px) {
+    .formulated-offers-user-container{
+        /* max-width: 1080px; */
+    }
+}

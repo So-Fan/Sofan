@@ -1,0 +1,15 @@
+.nftcollection-page{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 95px;
+}
+.nftcollection-page > div{
+    width: 100%;
+    max-width: 1246px;
+}
+@media (max-width: 1300px) {
+    .nftcollection-page > div{
+        width: 94%;
+    }
+}

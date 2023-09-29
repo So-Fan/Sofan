@@ -1,0 +1,100 @@
+/* NEW CSS */
+.posts-comments-component-container-no-media-queries {
+  /* background-color: red; */
+  width: 100%;
+  height: 100% !important;
+  max-width: 496px;
+  min-height: 81px;
+  /* max-height: 81px; */
+  display: flex;
+}
+.posts-comments-component-profile-pic-container-no-media-queries {
+  height: 81px;
+  /* width: 40px; */
+  margin-right: 10px;
+  /* background-color: aquamarine; */
+}
+.posts-comments-component-profile-pic-container-no-media-queries img {
+  width: 30px;
+  height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  border-radius: 30px;
+  border: solid 2px white;
+}
+.posts-comments-component-profile-pic-container-no-media-queries img:hover {
+  border: solid 2px rgba(0, 0, 0, 0.466);
+  cursor: pointer;
+  transition-duration: 500ms;
+}
+.posts-comments-component-right-container-no-media-queries {
+  width: 100%;
+  height: 100%;
+  /* background-color: blueviolet; */
+}
+.posts-comments-component-username-no-media-queries {
+  font-size: 16px;
+  font-family: "britanica-heavy";
+}
+.posts-comments-component-username-no-media-queries:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.posts-comments-component-comments-no-media-queries {
+  font-size: 14px;
+  margin-top: 5px;
+  font-family: "britanica-regular";
+}
+.posts-comments-component-comments-like-and-timestamp-no-media-queries {
+  padding-top: 10px;
+  display: flex;
+  width: 100%;
+  height: 13px;
+  font-size: 12px;
+  /* background-color: bisque; */
+}
+.posts-comments-component-comments-like-counter-no-media-queries {
+  font-family: "britanica-black";
+}
+.posts-comments-component-comments-timestamp-no-media-queries {
+  font-family: "britanica-regular";
+  padding-left: 15px;
+  color: #555555;
+}
+.posts-comments-component-comments-like-button-and-dropdown-no-media-queries {
+  width: 40px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 12px;
+  /* background-color: yellow; */
+}
+.posts-comments-component-comments-dropdown-no-media-queries {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  /* background-color: brown; */
+  position: relative;
+}
+.posts-comments-component-comments-like-button-and-dropdown-no-media-queries
+  img {
+  cursor: pointer;
+  padding: 5px;
+  width: 10px;
+  /* height: 15px; */
+}
+.posts-comments-component-comments-like-button-and-dropdown-no-media-queries
+  img:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+  border-radius: 50% !important;
+}
+.posts-comments-component-comments-like-button-no-media-queries {
+  width: 30px;
+  height: 20px;
+  padding-left: 3px;
+  /* background-color: burlywood; */
+}
