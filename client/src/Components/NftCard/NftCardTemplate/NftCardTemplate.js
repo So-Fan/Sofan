@@ -18,10 +18,10 @@ const NftCardTemplate = ({
   nftsFromOwnerTotalSupply,
   hidePrice,
 }) => {
-
   return (
     <Link
       to={to}
+      target="_blank"
       className="nftcardtemplate-component"
       style={isTransparent && { visibility: "hidden" }}
     >
