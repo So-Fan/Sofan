@@ -74,9 +74,9 @@ const ProfileSubMenu = ({
 
   const handleProfileSubMenuButtonClicked = (e) => {
     if (isPageAthlete === false) {
-      if (e.target.innerHTML === "Collected NFT") {
+      if (e.target.innerHTML === "NFT détenus") {
         setIsProfileSubMenuButtonClicked([true, false, false, false]);
-      } else if (e.target.innerHTML === "Activity") {
+      } else if (e.target.innerHTML === "Activité") {
         setIsProfileSubMenuButtonClicked([false, true, false, false]);
       } else if (e.target.innerHTML === "Offres formulées") {
         setIsProfileSubMenuButtonClicked([false, false, true, false]);
@@ -85,8 +85,8 @@ const ProfileSubMenu = ({
       }
     } else {
       if (
-        (e.target.innerHTML === "Collected NFT" ||
-          e.target.innerHTML === "Items") &&
+        (e.target.innerHTML === "NFT détenus" ||
+          e.target.innerHTML === "NFT") &&
         isProfileSubMenuButtonClicked[0] !== true
       ) {
         setIsProfileSubMenuButtonClicked([
@@ -99,7 +99,7 @@ const ProfileSubMenu = ({
           false,
         ]);
       } else if (
-        e.target.innerHTML === "Activity" &&
+        e.target.innerHTML === "Activité" &&
         isProfileSubMenuButtonClicked[1] !== true
       ) {
         setIsProfileSubMenuButtonClicked([
@@ -251,7 +251,7 @@ const ProfileSubMenu = ({
       >
         <Button
           onClick={handleProfileSubMenuButtonClicked}
-          text={isNftCollectionPage ? "Items" : "Collected NFT"}
+          text={isNftCollectionPage ? "NFT" : "NFT détenus"}
           style={
             isProfileSubMenuButtonClicked[0]
               ? ProfileSubMenuButtonStyle.stylingClicked
@@ -268,7 +268,7 @@ const ProfileSubMenu = ({
       >
         <Button
           onClick={handleProfileSubMenuButtonClicked}
-          text="Activity"
+          text="Activité"
           style={
             isProfileSubMenuButtonClicked[1]
               ? ProfileSubMenuButtonStyle.stylingClicked

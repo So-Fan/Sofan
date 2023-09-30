@@ -154,7 +154,7 @@ const LaunchpadAllUpcomingLaunches = ({
             style={respWidthTopLaunchpadAllUpcomingLaunches}
           >
             <span style={launchpadallUpcominglaunchesTopWrapSpan}>
-              Upcoming launches
+              Collections à venir
             </span>
             <div
               className={

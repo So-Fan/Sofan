@@ -63,7 +63,7 @@ const NftCollectionPageHeader = ({
             className="nftcollectionheader-content-wrap-redirection-button"
             to={`/collectionlive/${collectionBackendData[0]?.athlete_id}/${collectionAddress}`}
           >
-            Mint un item !
+            Mint un NFT !
           </Link>
           <Link
             to={`/athleteprofile/${collectionBackendData[0]?.athlete_id}`}
@@ -71,7 +71,7 @@ const NftCollectionPageHeader = ({
             className="nftcollectionheader-content-subwrap"
           >
             <span className="nftcollectionheader-content-wrap-sport">
-              by {athleteDisplayName[0]?.display_name}
+              par {athleteDisplayName[0]?.display_name}
             </span>
           </Link>
           <div className="nftcollectionheader-content-wrap-namestatssocial-wrap">
@@ -136,7 +136,7 @@ const NftCollectionPageHeader = ({
                 {totalOwnersForContract?.owners.length}
               </span>
               <span className="nftcollectionheader-content-wrap-stats-wrap-name">
-                Owners
+                Détenteurs
               </span>
             </div>
             {hidePrice ? (
