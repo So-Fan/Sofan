@@ -254,7 +254,7 @@ function SettingsPage() {
                 </p>
               )}
               {isDisplayNameChanged && (
-                <p className="settings-page-error-display-name">
+                <p className="settings-page-validation-display-name">
                   Votre pseudo a bien été changé !
                 </p>
               )}
