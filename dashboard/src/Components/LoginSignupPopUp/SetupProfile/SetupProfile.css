@@ -1,0 +1,253 @@
+.signup-user-setup-profile-wrap {
+  height: 589px;
+  width: 460px;
+  /* background-color: yellow; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-user-setup-profile-title {
+  height: 30px;
+  width: 100%;
+  font-size: 25px;
+  font-family: "britanica-heavy";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signup-user-setup-profile-previous-step {
+  position: absolute;
+  top: 2.85px;
+  left: 0px;
+  cursor: pointer;
+}
+.signup-user-setup-profile-banner-and-profile-pic {
+  height: 180.75px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  /* background-color: wheat; */
+}
+.signup-user-setup-profile-banner-container {
+  width: 100%;
+  min-height: 110.75px;
+  max-width: 100%;
+  max-height: 110.75px;
+  border-radius: 10px;
+  background: #d9d9d9;
+  position: relative;
+}
+.signup-user-setup-profile-banner-container > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.signup-user-setup-profile-banner-add-button {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 6px;
+  right: 9px;
+  border-radius: 50%;
+  background: #f6d463;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  border: none;
+}
+.signup-user-setup-profile-banner-add-button:hover {
+  background-color: #f7c520 !important;
+  transition-duration: 300ms;
+}
+.signup-user-setup-profile-banner-add-button:active {
+  transform: scale(0.85);
+}
+
+.signup-user-setup-profile-profile-pic-container {
+  min-width: 100px;
+  min-height: 100px;
+  width: 100px;
+  height: 100px;
+  /* overflow: hidden; */
+  max-width: 100px;
+  max-height: 100px;
+  /* display: flex;
+  justify-content: center;
+  align-content: center; */
+  border-radius: 50%;
+  background: #d9d9d9;
+  transform: translateY(-40px);
+  border: 3px solid #ffffff;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+.signup-user-setup-profile-profile-pic {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.signup-user-setup-profile-profile-pic-add-button {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 67.25px;
+  left: 70px;
+  border-radius: 50%;
+  background: #f6d463;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  border: none;
+  user-select: none;
+}
+.signup-user-setup-profile-profile-pic-add-button:hover {
+  background-color: #f7c520 !important;
+  transition-duration: 300ms;
+}
+.signup-user-setup-profile-profile-pic-add-button:active {
+  transform: scale(0.75);
+}
+.signup-user-setup-profile-bio-title-and-length-limit {
+  width: 100%;
+  height: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  /* background-color: violet; */
+}
+.signup-user-setup-profile-bio-title {
+  font-size: 14px;
+  font-family: "britanica-heavy";
+}
+.signup-user-setup-profile-length-limit {
+  font-size: 14px;
+}
+.signup-user-setup-profile-bio {
+  width: calc(100% - 10px);
+  height: 94px;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
+  padding-top: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  resize: none;
+  font-family: "britanica-regular";
+  /* overflow-y: scroll; */
+}
+.signup-user-setup-profile-bio-container {
+  position: relative;
+}
+.signup-user-setup-profile-wrap textarea {
+  font-family: "britanica-regular" !important;
+  font-size: 15px;
+  font-weight: 900;
+  /* border-color: red; */
+}
+
+.signup-user-setup-profile-bio-error {
+  position: absolute;
+  color: red;
+  font-size: 12px;
+  font-weight: 900;
+}
+.signup-user-setup-profile-next-button {
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 56px;
+  width: 100%;
+  border-radius: 10px;
+  background: #f6d463;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.signup-user-setup-profile-next-button:hover {
+  background-color: #f7c520 !important;
+  transition-duration: 300ms;
+}
+.signup-user-setup-profile-next-button:active {
+  transform: scale(0.85);
+}
+.signup-user-setup-profile-add-later-button {
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 56px;
+  width: 100%;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #000000;
+  font-size: 20px;
+  font-family: "britanica-heavy";
+  margin-top: 20px;
+  cursor: pointer;
+}
+.signup-user-setup-profile-add-later-button:hover {
+  background-color: #00000015;
+  transition-duration: 300ms !important;
+}
+.signup-user-setup-profile-add-later-button:active {
+  transform: scale(0.85);
+}
+.signup-user-setup-profile-next-button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.signup-user-setup-profile-progress-bar-container {
+  width: 100%;
+  height: 10px;
+  /* opacity: 0.2; */
+  border-radius: 40px;
+  margin-top: 20px;
+  background: #85d87e67;
+  z-index: 2 !important;
+}
+.signup-user-setup-profile-progress-bar {
+  height: 100%;
+  /* width: 25%; */
+  border-radius: 40px;
+  background: #85d87e;
+  z-index: 10 !important;
+  /* opacity: 1 !important; */
+}
+
+.signup-user-setup-profile-cropeasy-container {
+  width: 460px;
+  height: 589px;
+  position: relative;
+}
+.signup-user-setup-profile-cropeasy-container-wrap{
+  position: relative;
+  width: 460px;
+  height: 489px;
+}
+
+.controls {
+  width: 50%;
+  background-color: red;
+}
+
+.result{
+  position: absolute;
+  /* background-color: dimgray; */
+  top: 95px;
+  width: 400px;
+  height: 300px;
+}

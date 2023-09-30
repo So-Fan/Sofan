@@ -1,0 +1,30 @@
+.mint-pop-up-processing-image {
+  position: absolute;
+  top: 76px;
+  right: 128px;
+  width: 211px;
+  height: 211px;
+}
+.mint-pop-up-processing-text-title {
+  font-size: 25px;
+  font-family: "britanica-heavy";
+  position: absolute;
+  height: 30px;
+  width: 400px;
+  /* width: 324px; */
+  top: 320px;
+  right: 64px;
+  text-align: center;
+}
+.mint-pop-up-processing-text {
+  position: absolute;
+  top: 380px;
+  right: 118px;
+  width: 213px;
+  height: 19px;
+}
+.mint-pop-up-processing-animation {
+  position: absolute;
+  bottom: 12px;
+  right: 195px;
+}

@@ -1,0 +1,141 @@
+.launchpadalllivelaunchestemplate-component {
+  width: 100%;
+  height: 100%;
+  max-height: 550px;
+  position: relative;
+  cursor: pointer;
+  z-index: 10;
+  transition: box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s;
+}
+.launchpadalllivelaunchestemplate-component:hover {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+  transform: translate(0px, -10px);
+  transition-duration: 300ms;
+}
+.launchpadalllivelaunchestemplate-component:active {
+  transform: scale(0.8);
+}
+.launchpadalllivelaunchestemplate-component > img {
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  border-radius: 20px;
+}
+.launchpadalllivelaunchestemplate-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.launchpadalllivelaunchestemplate-link > img {
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+}
+.launchpadalllivelaunchestemplate-data-container {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  max-width: 500px;
+  top: 0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, #000000 100%);
+}
+.launchpadalllivelaunchestemplate-data-container-live-wrap {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  left: 20px;
+  width: 86.05px;
+  height: 34.68px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(3.68421px);
+  border-radius: 7.36842px;
+}
+.launchpadalllivelaunchestemplate-data-container-live-wrap > div {
+  width: 9.21px;
+  height: 9.21px;
+  background: #62e434;
+  border-radius: 999px;
+  margin-right: 9.21px;
+}
+.launchpadalllivelaunchestemplate-data-container-live-wrap > span {
+  font-family: "Britanica-Heavy";
+  font-size: 25.7895px;
+  color: #ffffff;
+}
+.launchpadalllivelaunchestemplate-data-wrap {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.launchpadalllivelaunchestemplate-data-image-and-name {
+  cursor: pointer;
+  text-decoration: none;
+}
+.launchpadalllivelaunchestemplate-data-image-and-name:hover {
+  background-color: #ddc3c385;
+  transition-duration: 300ms !important;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: underline;
+  text-decoration-color: #fffcfc;
+  text-underline-offset: 4px;
+}
+.launchpadalllivelaunchestemplate-data-image-and-name:active {
+  transform: scale(0.8);
+}
+.launchpadalllivelaunchestemplate-data-wrap-img {
+  background-color: white;
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.launchpadalllivelaunchestemplate-data-wrap-img > img {
+  width: 46px;
+  height: 46px;
+  border-radius: 5px;
+}
+.launchpadalllivelaunchestemplate-data-wrap-athletename {
+  font-family: "Britanica-Regular";
+  line-height: 19px;
+  color: #ffffff;
+}
+.launchpadalllivelaunchestemplate-data-wrap-title {
+  font-family: "Britanica-Heavy";
+  font-size: 35px;
+  line-height: 42px;
+  color: #ffffff;
+  margin-top: 6px;
+}
+.launchpadalllivelaunchestemplate-data-wrap-nft {
+  font-family: "Britanica-Heavy";
+  line-height: 19px;
+  color: #ffffff;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.launchpadalllivelaunchestemplate-data-wrap > button {
+  margin-bottom: 30px;
+  width: 117px;
+  height: 44px;
+  background-color: #f6d463;
+  border-radius: 5px;
+  border: transparent;
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+}
+.launchpadalllivelaunchestemplate-data-wrap > button:active {
+  transform: scale(0.8);
+  transition-duration: 300ms;
+}

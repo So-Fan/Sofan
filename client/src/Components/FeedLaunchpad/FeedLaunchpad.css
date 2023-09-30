@@ -1,0 +1,36 @@
+.feedlaunchpad-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 249px;
+  min-height: 320px;
+  opacity: 0;
+  animation-delay: 1.5s !important;
+  animation: fadeInUp 500ms ease-in-out forwards;
+}
+.feedlaunchpad-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.feedlaunchpad-header-title {
+  font-family: "Britanica-Heavy";
+  font-size: 20px;
+}
+.feedlaunchpad-header-button {
+  font-family: "Britanica-Regular";
+  text-decoration: none;
+  color: black;
+}
+.feedlaunchpad-header-button:hover {
+  text-decoration: underline;
+}
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(-300px);
+  }
+  to {
+      opacity: 1;
+  }
+}
