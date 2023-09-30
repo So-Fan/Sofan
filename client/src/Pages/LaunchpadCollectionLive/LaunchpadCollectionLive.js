@@ -77,13 +77,13 @@ function LaunchpadCollectionLive(isLogged) {
     window.addEventListener(
       "storage",
       () => {
-        console.log("event listener declenched");
+        // console.log("event listener declenched");
         const storedPayload = localStorage.getItem("crossmintPayload");
-        console.log("get Item");
+        // console.log("get Item");
         if (storedPayload) {
-          console.log("before setState to JSON.parse(storedPayload)");
+          // console.log("before setState to JSON.parse(storedPayload)");
           setCrossmintPayLoadLocalStorage(JSON.parse(storedPayload));
-          console.log("after setState to JSON.parse(storedPayload)");
+          // console.log("after setState to JSON.parse(storedPayload)");
         }
       },
       false

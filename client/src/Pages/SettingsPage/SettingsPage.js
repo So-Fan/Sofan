@@ -57,11 +57,10 @@ function SettingsPage() {
   const [displayWalletAddress, setDisplayWalletAddress] = useState();
   const { loggedInUser } = useUserCollection();
   const usersCollection = collection(db, "users");
-  // console.log(loggedInUser?.id);
-  // const {state: {accounts}} = useEth()
-  const {
-    state: { accounts },
-  } = useEth();
+  useEffect(() => {
+    // Désactiver le scroll au chargement
+      window.scrollTo(0, 0);
+  }, []);
   async function getDisplayName() {
     try {
       const q = query(
@@ -97,7 +96,7 @@ function SettingsPage() {
         const storedUser = localStorage.getItem("loggedInUser");
         if (storedUser) {
           let actualLoggedInUser = JSON.parse(storedUser);
-          console.log("actualLoggedInUser -> ", actualLoggedInUser);
+          // console.log("actualLoggedInUser -> ", actualLoggedInUser);
           actualLoggedInUser.display_name = valueInputDisplayName;
           actualLoggedInUser.displayName = valueInputDisplayName;
           localStorage.setItem(

@@ -55,8 +55,19 @@ function App() {
     // met dans le storage l'etat de connexion ou non pour gerer l'acces du site
     // si l'utilisateur lis le code et cahnge le storage manuellement il peut avoir acces à sofan sans compte
     localStorage.setItem("isUserLogged", JSON.stringify(isUserLogged));
+    // ==========================
   }, [isUserLogged]);
-
+  useEffect(() => {
+    // Désactiver le scroll au chargement
+    if (isUserLogged === false || isUserLogged === undefined) {
+      window.scrollTo(0, 0);
+      document.body.style.overflow = "hidden";
+      // Réactiver le scroll
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isUserLogged]);
   useEffect(() => {
     // Save loggedInUser to localStorage when it changes
     if (loggedInUser) {

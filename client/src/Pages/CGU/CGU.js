@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./CGU.css";
 
 function CGU() {
+  useEffect(() => {
+    // Désactiver le scroll au chargement
+    window.scrollTo(0, 0);
+    // Réactiver le scroll
+  }, []);
   return (
     <div className="cgu-page-container">
       {/* <div className="cgu-title">Conditions Générales d'Utilisation</div> */}

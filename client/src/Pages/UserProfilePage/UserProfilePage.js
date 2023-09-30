@@ -73,7 +73,10 @@ function UserProfilePage({
       setIsProfileSubMenuButtonClicked([true, false, false, false]);
     }
   }, [location]);
-
+  useEffect(() => {
+    // Désactiver le scroll au chargement
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "users"), where("id", "==", id)); // Use the correct parameter name here

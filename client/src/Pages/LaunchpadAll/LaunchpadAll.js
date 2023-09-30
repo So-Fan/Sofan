@@ -29,7 +29,11 @@ function LaunchpadAll({
   const [launchpadAllDatBackend, setLaunchpadAllDataBackend] = useState([]);
   const [launchpadItems, setLaunchpadItems] = useState([]);
   const launchpadAllCollection = collection(db, "feed_launchpad");
-
+  useEffect(() => {
+    // Désactiver le scroll au chargement
+    window.scrollTo(0, 0);
+    // Réactiver le scroll
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {

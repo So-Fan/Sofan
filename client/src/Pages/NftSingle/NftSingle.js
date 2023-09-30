@@ -91,19 +91,17 @@ const NftSingle = () => {
     marketplaceAddress,
   } = useEth();
 
-  // Api Alchemy setup
-  // const settings = {
-  //   apiKey: "8Q5rQrlFWbV8Gg29S9DWYG2RStuOfANJ",
-  //   network: Network.ETH_GOERLI,
-  //   maxRetries: 10,
-  // };
-  // const alchemy = new Alchemy(settings);
+  useEffect(() => {
+    // Désactiver le scroll au chargement
+      window.scrollTo(0, 0);
+      // Réactiver le scroll
+  }, []);
 
   async function getNftsFromContract() {
     const nftsFromContract = await alchemy?.nft.getNftsForContract(
       collectionAddress
     );
-    console.log(nftsFromContract);
+    // console.log(nftsFromContract);
     setNftsFromContract(nftsFromContract?.nfts);
   }
 
@@ -112,7 +110,7 @@ const NftSingle = () => {
       collectionAddress,
       tokenId
     );
-    console.log(currentNftMetadata);
+    // console.log(currentNftMetadata);
     setCurrentNFTCollectionInfo(currentNftMetadata);
   }
 
@@ -567,7 +565,7 @@ const NftSingle = () => {
       const result = await contractUSDCInstance.methods
         .balanceOf(accounts[0])
         .call({ from: accounts[0] });
-      console.log("Je suis result", result);
+      // console.log("Je suis result", result);
       formatCurrentBalance(result, setCurrentBalance);
       if (result > 0 && result < parseInt(currentNftListingFromMarketplace)) {
         // setIsBidNftButtonClicked(false);
@@ -622,7 +620,7 @@ const NftSingle = () => {
         )
         .send({ from: accounts[0] });
       if (result.status) {
-        console.log("buy listing success");
+        // console.log("buy listing success");
         setMintPopUpProccesing(false);
         setIsListingBuyed(true);
         setIsNFTListed(false);
@@ -635,7 +633,7 @@ const NftSingle = () => {
         setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setListingBlockchainError(error.message);
       setMintPopUpProccesing(false);
       setBlockchainError(true);
@@ -694,16 +692,16 @@ const NftSingle = () => {
   };
 
   const handlePlaceBidPopup = async () => {
-    console.log("proceed to place a BID clicked");
+    // console.log("proceed to place a BID clicked");
 
     var tempBidPrice;
     let tempDecimalUDC = "000000";
     if (!bidPrice) {
-      console.log("Invalid price.");
+      // console.log("Invalid price.");
       return;
     } else if (bidPrice.indexOf(".") === -1) {
       tempBidPrice = `${bidPrice}${tempDecimalUDC}`;
-      console.log(tempBidPrice);
+      // console.log(tempBidPrice);
     } else if (bidPrice.indexOf(".") === 0) {
       tempBidPrice = `${bidPrice.slice(
         1,
@@ -715,9 +713,9 @@ const NftSingle = () => {
       tempBidPrice = temp1[0]
         .concat(temp1[1])
         .concat(tempDecimalUDC.slice(temp1[1].length, tempDecimalUDC.length));
-      console.log(tempBidPrice);
+      // console.log(tempBidPrice);
     }
-    console.log(contract._address, " ", parseInt(tempBidPrice));
+    // console.log(contract._address, " ", parseInt(tempBidPrice));
     const artifact = require("../../Pages/Test/USDC.json");
     const { abi: usdcAbi } = artifact;
     // TODO: Call Sofan marketplace to get the addressUSDC
@@ -736,7 +734,7 @@ const NftSingle = () => {
       const result = await contractUSDCInstance.methods
         .balanceOf(accounts[0])
         .call({ from: accounts[0] });
-      console.log("Je suis result", result);
+      // console.log("Je suis result", result);
       formatCurrentBalance(result, setCurrentBalance);
       if (result > 0 && result < parseInt(tempBidPrice)) {
         // setIsBidNftButtonClicked(false);
@@ -756,7 +754,7 @@ const NftSingle = () => {
         .send({ from: accounts[0] });
 
       if (result.status) {
-        console.log("Approve successfuly");
+        // console.log("Approve successfuly");
       } else {
         console.log("failed to approve", result);
         setMintPopUpProccesing(false);
@@ -772,7 +770,7 @@ const NftSingle = () => {
       setBlockchainError(true);
       return;
     }
-    console.log("after approve");
+    // console.log("after approve");
 
     const artifacts = require("../../contracts/Sofan.json");
     const { abi } = artifacts;
@@ -791,7 +789,7 @@ const NftSingle = () => {
         )
         .send({ from: accounts[0] });
       if (result.status) {
-        console.log("Bid placed successfully");
+        // console.log("Bid placed successfully");
         setMintPopUpProccesing(false);
         setIsBidPlaced(true);
         setIsSubMenuClicked([false, false, true, false]); // Open Offers
@@ -823,16 +821,16 @@ const NftSingle = () => {
 
   const handleListingPopup = async () => {
     // TODO: Si pas connecté alors le bouton affiche un popup pour demander de sign up ou sign in
-    console.log("Bouton Vendre cliqué");
-    console.log(listingPriceOnChange);
+    // console.log("Bouton Vendre cliqué");
+    // console.log(listingPriceOnChange);
     var tempListingPrice;
     let tempDecimalUDC = "000000";
     if (!listingPriceOnChange) {
-      console.log("Invalid price.");
+      // console.log("Invalid price.");
       return;
     } else if (listingPriceOnChange.indexOf(".") === -1) {
       tempListingPrice = `${listingPriceOnChange}${tempDecimalUDC}`;
-      console.log(tempListingPrice);
+      // console.log(tempListingPrice);
     } else if (listingPriceOnChange.indexOf(".") === 0) {
       tempListingPrice = `${listingPriceOnChange.slice(
         1,
@@ -841,13 +839,13 @@ const NftSingle = () => {
         listingPriceOnChange.length - 1,
         tempDecimalUDC.length
       )}`;
-      console.log(tempListingPrice);
+      // console.log(tempListingPrice);
     } else if (listingPriceOnChange.indexOf(".") > 0) {
       let temp1 = listingPriceOnChange.split(".");
       tempListingPrice = temp1[0]
         .concat(temp1[1])
         .concat(tempDecimalUDC.slice(temp1[1].length, tempDecimalUDC.length));
-      console.log(tempListingPrice);
+      // console.log(tempListingPrice);
     }
 
     const artifacts = require("../../contracts/Sofan.json");
@@ -856,8 +854,8 @@ const NftSingle = () => {
       abi,
       marketplaceAddress
     );
-    console.log(web3MarketplaceInstance);
-    console.log(typeof contract._address);
+    // console.log(web3MarketplaceInstance);
+    // console.log(typeof contract._address);
     try {
       setMintPopUpProccesing(true);
       // param 1: address of nft contract 2: nft tokenId 3: price
@@ -865,7 +863,7 @@ const NftSingle = () => {
         .listToSell(contract._address, currentNftTokenId, tempListingPrice)
         .send({ from: accounts[0] });
       if (result.status) {
-        console.log("Successfully list token");
+        // console.log("Successfully list token");
         setMintPopUpProccesing(false);
         setIsListed(true);
         setIsNFTListed(true);
@@ -902,24 +900,24 @@ const NftSingle = () => {
   };
 
   const handleUnlistPopup = async () => {
-    console.log("Bouton Annuler cliqué");
+    // console.log("Bouton Annuler cliqué");
     const artifacts = require("../../contracts/Sofan.json");
     const { abi } = artifacts;
     const web3MarketplaceInstance = new web3.eth.Contract(
       abi,
       marketplaceAddress
     );
-    console.log(web3MarketplaceInstance);
-    console.log(typeof contract._address);
+    // console.log(web3MarketplaceInstance);
+    // console.log(typeof contract._address);
     try {
       setMintPopUpProccesing(true);
       // param 1: index
-      console.log(currentNftListingFromMarketplace);
+      // console.log(currentNftListingFromMarketplace);
       const result = await web3MarketplaceInstance.methods
         .cancelListing(parseInt(currentNftListingFromMarketplace))
         .send({ from: accounts[0] });
       if (result.status) {
-        console.log("Successfully unlist token");
+        // console.log("Successfully unlist token");
         setMintPopUpProccesing(false);
         setisUnlist(true);
         setIsNFTListed(false);
@@ -931,7 +929,7 @@ const NftSingle = () => {
         setListingBlockchainError(result.message); // TODO: A vérifier si la clé est bien nommée message
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setListingBlockchainError(error.message);
       setMintPopUpProccesing(false);
       setBlockchainError(true);

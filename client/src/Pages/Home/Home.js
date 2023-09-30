@@ -158,11 +158,15 @@ function Home({
     }
   }
   const [isUserFanArray, setIsUserFanArray] = useState([]);
-
   useEffect(() => {
-    console.log("Hello");
-    console.log(dataPost);
-    console.log(loggedInUser);
+    // Désactiver le scroll au chargement
+      window.scrollTo(0, 0);
+      // Réactiver le scroll
+  }, []);
+  useEffect(() => {
+    // console.log("Hello");
+    // console.log(dataPost);
+    // console.log(loggedInUser);
     if (
       dataPost &&
       loggedInUser &&

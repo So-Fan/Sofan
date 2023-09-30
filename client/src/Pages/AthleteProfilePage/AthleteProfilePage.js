@@ -140,39 +140,12 @@ const AthleteProfilePage = ({
 
     fetchData();
   }, [id]);
-  // Api Alchemy setup
 
-  // async function getNft() {
-  //   const metadata = await alchemy.nft.getContractMetadata(
-  //     "0x5180db8F5c931aaE63c74266b211F580155ecac8"
-  //   );
-  //   const dataCollection = await alchemy.nft.getNftsForContract(
-  //     "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
-  //   );
-  //   const contractFromOwners = await alchemy.nft.getContractsForOwner(
-  //     "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03"
-  //   ); // BoredApe creator adress (not the contract)
-  //   const nfts = await alchemy.nft.getNftsForOwner("nic.eth");
-  //   setNftDataApi(nfts);
-  // }
-
-  // getFloorprice for Bored Ape Yacht Club:
-  // async function getCollectionFloorPrice() {
-  //   try {
-  //     const alchemy = new Alchemy(settings);
-  //     const collectionFloorPriceOne = await alchemy.nft.getFloorPrice(
-  //       ["0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"]
-  //       // BAYC collection
-  //     );
-  //     setCollectionFloorPriceApiData(
-  //       collectionFloorPriceOne.openSea.floorPrice
-  //     );
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
-  // console.log(collectionFloorPriceApiData);
-  // get Nfts from Owner and Contracts
+  useEffect(() => {
+    // Désactiver le scroll au chargement
+      window.scrollTo(0, 0);
+      // Réactiver le scroll
+  }, []);
   async function getNftsFromOwner() {
     let arraySofanCollection = [];
     let nftCollectionInfo = [];
