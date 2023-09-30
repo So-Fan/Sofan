@@ -16,6 +16,9 @@ client/build
 # misc
 .DS_Store
 .env
+sofan.env
+staging.env
+staging.mainnet.env
 .env.local
 .env.development.local
 .env.test.local
