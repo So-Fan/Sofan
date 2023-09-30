@@ -576,6 +576,7 @@ function App() {
                       />
                     }
                   />
+                  <Route path="*" element={<ErrorPage />} />
                   <Route
                     path="/collectionlive/:id/:collectionAddress"
                     element={
@@ -603,7 +604,6 @@ function App() {
                   />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/cgu" element={<CGU />} />
-                  <Route path="/error" element={<ErrorPage />} />
                   <Route path="mentions-legales" element={<LegalsMentions />} />
                   <Route
                     path="/crossmintpayload"
