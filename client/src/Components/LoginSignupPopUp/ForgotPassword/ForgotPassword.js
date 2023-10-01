@@ -34,7 +34,7 @@ function ForgotPassword({ setIsForgotPasswordClicked }) {
     const isValid = emailRegex.test(emailValue);
     setIsValidEmail(isValid);
   }
-  
+
   async function handleClickSendResetPasswordLink() {
     if (isValidEmail === true) {
       setIsForgotPasswordFirstSendMailLoading(true);
@@ -51,7 +51,7 @@ function ForgotPassword({ setIsForgotPasswordClicked }) {
       setIsMailValidAndButtonClicked(false);
     }
   }
-  
+
   async function handleForgotPasswordResendMailClick() {
     setIsForgotPasswordResendMailLoading(true);
     try {
@@ -64,7 +64,7 @@ function ForgotPassword({ setIsForgotPasswordClicked }) {
       setForgotPasswordDisplayMessageResend(false);
     }
   }
-  
+
   return (
     <>
       <>
@@ -78,7 +78,10 @@ function ForgotPassword({ setIsForgotPasswordClicked }) {
                     <p>
                       Si vous avez déjà créer un compte vérifiez vos mails !
                       Vous devriez avoir reçu un courriel pour réinitialiser
-                      votre mot de passe.
+                      votre mot de passe à cette addresse:{" "}
+                      <div className="forgot-password-popup-validation-message-email-address">
+                        {email}
+                      </div>
                     </p>
                     <p className="forgot-password-popup-validation-message-resend">
                       Vous n'avez pas reçu de mail ? Cliquez{" "}
@@ -146,6 +149,11 @@ function ForgotPassword({ setIsForgotPasswordClicked }) {
                     value={email}
                     onChange={handleEmailVerificationRegex}
                     placeholder="Entrez votre mail"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleClickSendResetPasswordLink(e);
+                      }
+                    }}
                   />
 
                   {email && !isValidEmail && (
@@ -159,6 +167,7 @@ function ForgotPassword({ setIsForgotPasswordClicked }) {
                   onClick={handleClickSendResetPasswordLink}
                   className="forgot-password-popup-validation-button"
                   disabled={!isValidEmail}
+                  
                 >
                   Valider
                 </button>

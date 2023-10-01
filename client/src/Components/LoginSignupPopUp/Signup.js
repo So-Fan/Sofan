@@ -48,7 +48,7 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import useEth from "../../contexts/EthContext/useEth";
 // import Web3 from "web3";
 import Button from "../Button/Button";
-import LoadingAnimation from "../LoadingEllipsisAnimation/LoadingEllipsisAnimation";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 import { ImageUrlToFile } from "../../Utils/fileFunctions";
 import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
 // fin mathéo
