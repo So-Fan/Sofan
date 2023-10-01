@@ -16,7 +16,7 @@
 .env
 staging.env
 staging.mainnet.env
-sofan.env
+master.env
 .env.local
 .env.development.local
 .env.test.local
