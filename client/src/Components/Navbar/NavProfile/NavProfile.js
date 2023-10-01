@@ -26,7 +26,8 @@ const NavProfile = ({ web3auth, src, userInfo = null }) => {
         setLocalWeb3authProvider(null);
         localStorage.removeItem("loggedInUser");
         localStorage.removeItem("isUserLogged");
-        navigate("/");
+        window.location.href = '/'; // in order to show block access page
+        // navigate("/");
       })
       .catch((error) => {
         console.log(error);
