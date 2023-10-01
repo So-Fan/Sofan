@@ -5,6 +5,13 @@
   align-items: center;
   flex-direction: column;
 }
+.mail-contact-sofan{
+  color: black;
+  text-decoration:none ;
+}
+.mail-contact-sofan:visited{
+  color: black;
+}
 .app-sofan-block-access-container {
   /* background-color: red; */
   background-color: rgba(141, 107, 42, 0.363);

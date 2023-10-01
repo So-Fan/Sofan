@@ -850,11 +850,11 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
         <div className="useractivitytab-table-container">
           <div></div>
           <div>NFT</div>
-          <div className="useractivitytab-table-container-price">Price</div>
-          <div className="useractivitytab-table-container-qty">Quantity</div>
+          <div className="useractivitytab-table-container-price">Prix</div>
+          <div className="useractivitytab-table-container-qty">Quantité</div>
           <div></div>
-          <div>from</div>
-          <div>To</div>
+          <div>De</div>
+          <div>A</div>
           <div>Date</div>
         </div>
         <div className="useractivitytab-content-container">
@@ -1073,7 +1073,7 @@ const UserActivityTab = ({ ethPrice, currentProfileUserWallet }) => {
                   </div>
                   <div className="useractivitytab-content-container-price-container">
                     <div className="useractivitytab-content-container-price-wrap">
-                      <span>{"Price"} ETH</span>
+                      <span>{"Prix"} ETH</span>
                       <span>
                         {/* {(
                         apiNftData[index]?.contract?.openSea?.floorPrice *

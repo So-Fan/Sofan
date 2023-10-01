@@ -34,7 +34,9 @@ function UserNameAndStats({
 
   return (
     <div className="username-and-stats-container">
-      <div className="username-container-userpage">{allUserInfo?.display_name}</div>
+      <div className="username-container-userpage">
+        {allUserInfo?.display_name}
+      </div>
       <div className="stats-user-container">
         <div className="line-separation-userprofile"></div>
         <div
@@ -45,8 +47,8 @@ function UserNameAndStats({
             {athletesFollowedCount}
           </div>
           <div className="following-athlete-title">
-            <div id="athlete-title-userpage">Athletes</div>
-            <span>following</span>
+            <div id="athlete-title-userpage">Athlètes</div>
+            <span>suivis</span>
           </div>
         </div>
         <div className="line-separation-userprofile"></div>
@@ -58,8 +60,8 @@ function UserNameAndStats({
             {athletesSupportingCount}
           </div>
           <div className="athlete-supporting-title">
-            <div id="athlete-title-userpage">Athletes</div>
-            <span>supporting</span>
+            <div id="athlete-title-userpage">Athlètes</div>
+            <span>soutenus</span>
           </div>
         </div>
         <div className="line-separation-userprofile"></div>

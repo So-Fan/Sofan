@@ -121,7 +121,7 @@ const LaunchpadAllHeader = ({ data, dataAthlete, hidePrice }) => {
               className="launchpadallheader-data-wrap-athletename"
               style={launchpadallheaderDataWrapthletename}
             >
-              by {dataAthlete?.display_name}
+              par {dataAthlete?.display_name}
             </span>
           </Link>
           <span
@@ -140,7 +140,7 @@ const LaunchpadAllHeader = ({ data, dataAthlete, hidePrice }) => {
             className="launchpadallheader-data-wrap-nft"
             style={launchpadallheaderDataWrapNft}
           >
-            {data?.nft_collection_limit} items
+            {data?.nft_collection_limit} NFTs
             {hidePrice ? <></> : <>- {data?.item_number} ETH</>}
           </span>
           <Button

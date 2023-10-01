@@ -160,7 +160,9 @@ const LaunchpadAllLiveLaunches = ({
         className="launchpadalllivelaunches-top-wrap"
         style={respWidthTop}
       >
-        <span style={launchpadalllivelaunchesTopWrapSpan}>Live launches</span>
+        <span style={launchpadalllivelaunchesTopWrapSpan}>
+          Collections en cours
+        </span>
         {/* Filter */}
         <div
           id="launchpadalllivelaunches-dropdown-main"
