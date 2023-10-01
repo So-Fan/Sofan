@@ -22,7 +22,8 @@ import Img from "../../Assets/Image/img.svg";
 import "./PopUpEditProfile.css";
 import greenCross from "../../Assets/Image/greencross-offers.svg";
 import redCross from "../../Assets/Image/redcross-offers.svg";
-import LoadingEllipsisAnimation from "../LoadingEllipsisAnimation/LoadingEllipsisAnimation";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+// import LoadingAnimation from "../LoadingEllipsisAnimation/LoadingAnimation";
 
 // afficher les infos de la bdd en provenance de la page user/athlete + J'ai mis en commentaire les mêmes fonctions liés au backend que dans signup garde ce que tu as à garder et supprime le reste
 // handleSaveProfile sert à push croppedBanner et croppedAvatar sur la bdd
@@ -379,7 +380,7 @@ const PopUpEditProfile = ({
       ) : loadingEditProfile ? (
         <>
           <div className="popup-edit-profile-animation-wrap">
-            <LoadingEllipsisAnimation />
+            <LoadingAnimation />
           </div>
         </>
       ) : validationEditProfile ? (
