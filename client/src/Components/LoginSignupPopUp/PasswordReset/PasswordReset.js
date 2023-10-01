@@ -55,6 +55,9 @@ function PasswordReset() {
       setIsPasswordChanged(true);
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("isUserLogged");
+      setTimeout(()=> {
+        window.location.href = '/'; 
+      }, 2200)
       // }, 1300);
     } catch (error) {
       // setTimeout(() => {
