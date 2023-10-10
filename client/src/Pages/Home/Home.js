@@ -169,8 +169,8 @@ function Home({
     // console.log(loggedInUser);
     if (
       dataPost &&
-      loggedInUser &&
-      (loggedInUser?.metamask || loggedInUser?.web3auth)
+      loggedInUser 
+      // && (loggedInUser?.metamask || loggedInUser?.web3auth)
     ) {
       // 1 for loop de data post
       // Await nft collections where id === element.athlete id
@@ -205,11 +205,10 @@ function Home({
           }
 
           let currentUserWallet;
-
-          if (loggedInUser.metamask) {
-            currentUserWallet = loggedInUser.metamask;
-          } else if (loggedInUser.web3auth) {
-            currentUserWallet = loggedInUser.web3auth;
+          if (loggedInUser?.metamask) {
+            currentUserWallet = loggedInUser?.metamask;
+          } else if (loggedInUser?.web3auth) {
+            currentUserWallet = loggedInUser?.web3auth;
           }
 
           const web3Instance = new Web3(
@@ -241,13 +240,13 @@ function Home({
 
           let judgement;
           if (isUserFan === false && dataPost[i]?.visibility === false) {
-            // console.log("pas fan et post privé");
+            console.log("pas fan et post privé");
             judgement = true;
           } else if (isUserFan === true && dataPost[i]?.visibility === false) {
-            // console.log("Fan et post privé");
+            console.log("Fan et post privé");
             judgement = false;
           } else if (dataPost[i]?.visibility === true) {
-            // console.log("post public");
+            console.log("post public");
             judgement = false;
           }
 
@@ -256,7 +255,7 @@ function Home({
         // console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
-
+console.log("appel de la fontion feedDataFrom")
       feedDataFromAlchemyAndFirebase();
 
       // if (loggedInUser.metamask) {
