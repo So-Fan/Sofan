@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./SettingsPage.css";
-import validationLogo from "../../Assets/Image/cross-validation-black.svg";
+// import validationLogo from "../../Assets/Image/cross-validation-black.svg";
 import Button from "../../Components/Button/Button";
 import PhoneInput from "react-phone-number-input";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import useUserCollection from "../../contexts/UserContext/useUserCollection";
 import { db } from "../../Configs/firebase";
-import useEth from "../../contexts/EthContext/useEth";
+// import useEth from "../../contexts/EthContext/useEth";
 import {
   collection,
   query,
