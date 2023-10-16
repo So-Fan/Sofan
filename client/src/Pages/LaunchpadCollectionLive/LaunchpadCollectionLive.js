@@ -11,8 +11,11 @@ import {
   limit,
   getDocs,
   getDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
+import { useParams } from "react-router-dom";
+
 import LaunchpadCollectionLiveHeader from "../../Components/LaunchpadCollectionLiveHeader/LaunchpadCollectionLiveHeader";
 import LaunchpadCollectionLiveUtilities from "../../Components/LaunchpadCollectionLiveUtilities/LaunchpadCollectionLiveUtilities";
 import MoreAboutThisCollection from "../../Components/MoreAboutThisCollection/MoreAboutThisCollection";
@@ -48,6 +51,7 @@ function LaunchpadCollectionLive(isLogged) {
   const [nftLimitByWalletInfo, setNftLimitByWalletInfo] = useState();
   const [totalPriceInUSDC, setTotalPriceInUSDC] = useState();
   const [mintCounter, setMintCounter] = useState(1);
+  const [utilities, setUtilities] = useState([]);
 
   const [athleteFanNumber, setAthleteFanNumber] = useState();
   const { alchemy } = useToggleNetwork();
@@ -208,6 +212,37 @@ function LaunchpadCollectionLive(isLogged) {
       getPrice();
     }
   }, [alchemy]);
+
+  // ----------------------- Shajeed -------------------------
+
+  const { collectionAddressurl } = useParams();
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "nft_collections"),
+      where("collection_address", "==", collectionAddress)
+    );
+
+    getDocs(q).then((querySnapshot) => {
+      const docData = querySnapshot.docs[0];
+      if (docData) {
+        const docId = docData.id;
+        const unsub = onSnapshot(
+          collection(db, "nft_collections", docId, "utilities"),
+          (snapshot) => {
+            const utilitiesData = snapshot.docs.map((doc) => doc.data());
+            setUtilities(utilitiesData);
+          }
+        );
+
+        return () => {
+          unsub();
+        };
+      }
+    });
+  }, [collectionAddress]);
+
+  // ---------------------------------------------------------
   const dataBackend = {
     header: [
       {
@@ -229,7 +264,7 @@ function LaunchpadCollectionLive(isLogged) {
         date: "July 9th 2023",
       },
       {
-        title: "3 online VIP live ",
+        title: "3 online VIP live",
         status: "Disponible",
         description:
           "Have access with all other members to 3 live important events during the entire competition, at three key times.",
@@ -543,9 +578,7 @@ function LaunchpadCollectionLive(isLogged) {
         />
         <div className="launchpad-collection-live-page-left-container">
           {crossmintPayLoadLocalStorage ? "sqhdddddddddddsqdhhhhhhhhh" : ""}
-          <LaunchpadCollectionLiveUtilities
-            utilitiesArray={dataBackend.utilities}
-          />
+          <LaunchpadCollectionLiveUtilities utilitiesArray={utilities} />
           <div className="launchpad-collection-live-page-more-about-collection-container">
             <LaunchpadCollectionLiveMoreAboutCollection
               knowMoreAboutCollection={

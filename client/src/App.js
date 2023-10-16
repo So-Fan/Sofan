@@ -616,7 +616,7 @@ function App() {
                   />
                   <Route path="*" element={<ErrorPage />} />
                   <Route
-                    path="/collectionlive/:id/:collectionAddress"
+                    path="/collectionlive/:id/:collectionAddressurl"
                     element={
                       <LaunchpadCollectionLive isLogged={loggedInUser} />
                     }
