@@ -240,13 +240,13 @@ function Home({
 
           let judgement;
           if (isUserFan === false && dataPost[i]?.visibility === false) {
-            console.log("pas fan et post privé");
+            // console.log("pas fan et post privé");
             judgement = true;
           } else if (isUserFan === true && dataPost[i]?.visibility === false) {
-            console.log("Fan et post privé");
+            // console.log("Fan et post privé");
             judgement = false;
           } else if (dataPost[i]?.visibility === true) {
-            console.log("post public");
+            // console.log("post public");
             judgement = false;
           }
 
@@ -255,7 +255,7 @@ function Home({
         // console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
-console.log("appel de la fontion feedDataFrom")
+// console.log("appel de la fontion feedDataFrom")
       feedDataFromAlchemyAndFirebase();
 
       // if (loggedInUser.metamask) {
@@ -359,8 +359,8 @@ console.log("appel de la fontion feedDataFrom")
           e.currentTarget.id === dataPost[i].id &&
           dataPost[i].isDropdownClicked === false
         ) {
-          console.log(e.currentTarget.id);
-          console.log(dataPost[i].id);
+          // console.log(e.currentTarget.id);
+          // console.log(dataPost[i].id);
           const newData = [...dataPost];
           newData[i].isDropdownClicked = true;
           setPostData(newData);
@@ -402,7 +402,7 @@ console.log("appel de la fontion feedDataFrom")
   // console.log(isLogged)
   function handleClickCopyPostLink(postId) {
     navigator.clipboard.writeText(`https://staging.sofan.app/post/${postId}`);
-    console.log(postId);
+    // console.log(postId);
     setIsCopyPostLinkClicked(true);
     // const timeOutAnimationCopyClicked =
     setTimeout(() => {
@@ -466,7 +466,7 @@ console.log("appel de la fontion feedDataFrom")
             contractAddresses: arraySofanCollection,
           }
         );
-        console.log("nftsFromOwner --> ", nftsFromOwner);
+        // console.log("nftsFromOwner --> ", nftsFromOwner);
         let athletesSupportingArray = [];
         for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
           const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
