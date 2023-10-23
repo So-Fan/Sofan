@@ -70,12 +70,14 @@ function LaunchpadCollectionLive(isLogged) {
     setContractAddress,
   } = useEth();
   const location = useLocation();
-  const segments = location.pathname.split("/");
-  const athleteId = segments[2];
-  const collectionAddress = segments[3];
+  // const segments = location.pathname.split("/");
+  // const athleteId = segments[2];
+  // const collectionAddress = segments[3];
   const loggedInUserInfo = useUserCollection();
   const [crossmintPayLoadLocalStorage, setCrossmintPayLoadLocalStorage] =
     useState(null);
+  const { athleteId, collectionAddress } = useParams();
+  
 
   useEffect(() => {
     window.addEventListener(
@@ -215,7 +217,6 @@ function LaunchpadCollectionLive(isLogged) {
 
   // ----------------------- Shajeed -------------------------
 
-  const { collectionAddressurl } = useParams();
 
   useEffect(() => {
     const q = query(
@@ -230,7 +231,10 @@ function LaunchpadCollectionLive(isLogged) {
         const unsub = onSnapshot(
           collection(db, "nft_collections", docId, "utilities"),
           (snapshot) => {
-            const utilitiesData = snapshot.docs.map((doc) => doc.data());
+            const utilitiesData = snapshot.docs.map((doc) => ({
+              id: doc.id, // include the id here
+              ...doc.data()
+            }));
             setUtilities(utilitiesData);
           }
         );
@@ -330,6 +334,8 @@ function LaunchpadCollectionLive(isLogged) {
     setContractAddress(collectionAddress);
     setIsMintButtonClicked(true);
   }
+
+  
 
   const [isMintingProcessBegan, setIsMintingProcessBegan] = useState(false);
   const [mintingProcessStatus, setMintingProcessStatus] = useState(true);
@@ -578,7 +584,7 @@ function LaunchpadCollectionLive(isLogged) {
         />
         <div className="launchpad-collection-live-page-left-container">
           {crossmintPayLoadLocalStorage ? "sqhdddddddddddsqdhhhhhhhhh" : ""}
-          <LaunchpadCollectionLiveUtilities utilitiesArray={utilities} />
+          <LaunchpadCollectionLiveUtilities utilitiesArray={utilities} loggedInUser={isLogged} />
           <div className="launchpad-collection-live-page-more-about-collection-container">
             <LaunchpadCollectionLiveMoreAboutCollection
               knowMoreAboutCollection={

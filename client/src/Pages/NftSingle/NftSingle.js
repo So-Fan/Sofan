@@ -285,7 +285,7 @@ const NftSingle = () => {
   // }, []);
 
   // retirer le scroll lock lorsque le modal n'est plus la
-  document.querySelector("body").classList.remove("scroll-lock");
+  //document.querySelector("body").classList.remove("scroll-lock");
 
   //
   function handleClickSubMenuButton(e) {
