@@ -160,8 +160,8 @@ function Home({
   const [isUserFanArray, setIsUserFanArray] = useState([]);
   useEffect(() => {
     // Désactiver le scroll au chargement
-      window.scrollTo(0, 0);
-      // Réactiver le scroll
+    window.scrollTo(0, 0);
+    // Réactiver le scroll
   }, []);
   useEffect(() => {
     // console.log("Hello");
@@ -169,7 +169,7 @@ function Home({
     // console.log(loggedInUser);
     if (
       dataPost &&
-      loggedInUser 
+      loggedInUser
       // && (loggedInUser?.metamask || loggedInUser?.web3auth)
     ) {
       // 1 for loop de data post
@@ -255,7 +255,7 @@ function Home({
         // console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
-console.log("appel de la fontion feedDataFrom")
+      console.log("appel de la fontion feedDataFrom");
       feedDataFromAlchemyAndFirebase();
 
       // if (loggedInUser.metamask) {
@@ -272,30 +272,35 @@ console.log("appel de la fontion feedDataFrom")
     }
   }, [dataPost, loggedInUser]);
 
-  const getCommentCount = async (postId) => {
+  const getCommentCount = (postId) => {
     const commentsRef = collection(db, `feed_post/${postId}/post_comments`);
     const q = query(commentsRef, where("status", "==", true));
-
-    const querySnapshot = await getDocs(q);
-    const commentCount = querySnapshot.size;
-
-    setCommentCounts((prevState) => ({ ...prevState, [postId]: commentCount }));
+  
+    // Real-time listener for comments
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const commentCount = querySnapshot.size;
+      setCommentCounts((prevState) => ({ ...prevState, [postId]: commentCount }));
+    });
+  
+    // Save this unsubscribe somewhere so you can call it when you don't need it anymore.
+    return unsubscribe;
   };
+  
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-
+  
       const userIdToFind = loggedInUser?.id;
       const usersRef = collection(db, "users");
       const q1 = query(usersRef, where("account_type", "==", "athlete"));
-
+  
       const querySnapshot1 = await getDocs(q1);
       const foundAthletes = [];
       for (let doc of querySnapshot1.docs) {
         const athleteId = doc.id;
         const userData = doc.data();
-
+  
         // Accéder à la collection athlete_data pour l'athlète spécifique
         const athleteDataRef = collection(
           db,
@@ -303,7 +308,7 @@ console.log("appel de la fontion feedDataFrom")
           athleteId,
           "athlete_data"
         );
-
+  
         // Récupérer le document
         const athleteDataSnapshot = await getDocs(athleteDataRef);
         athleteDataSnapshot.forEach((doc) => {
@@ -324,32 +329,52 @@ console.log("appel de la fontion feedDataFrom")
         });
       }
       setAthletesFollowing(foundAthletes);
-
+  
+      const unsubscribes = []; // To keep track of all unsubscribe functions for comments
+  
       const feedPostCollectionRef = collection(db, "feed_post");
       const q2 = query(
         feedPostCollectionRef,
         where("status", "==", true),
         orderBy("createdAt", "desc")
       );
-
-      const querySnapshot2 = await getDocs(q2);
-      const feedData = [];
-      querySnapshot2.forEach((doc) => {
-        feedData.push({ ...doc.data(), id: doc.id, isDropdownClicked: false });
+  
+      // Real-time listener for feed posts
+      const unsubscribePosts = onSnapshot(q2, (querySnapshot) => {
+        const feedData = [];
+        querySnapshot.forEach((doc) => {
+          feedData.push({
+            ...doc.data(),
+            id: doc.id,
+            isDropdownClicked: false,
+          });
+        });
+        setPostData(feedData);
+        setIsLoading(false);
+  
+        unsubscribes.forEach(unsub => unsub()); // Unsubscribe previous comment listeners
+        unsubscribes.length = 0; // Reset unsubscribe array
+  
+        feedData.forEach((post) => {
+          const unsubscribeComments = getCommentCount(post.id);
+          unsubscribes.push(unsubscribeComments);
+        });
       });
-      setPostData(feedData);
-      setIsLoading(false);
-      feedData.forEach((post) => {
-        getCommentCount(post.id);
-      });
+  
+      return () => {
+        unsubscribePosts(); // Cleanup: unsubscribe from real-time posts listener
+        unsubscribes.forEach(unsub => unsub()); // Cleanup: unsubscribe from all real-time comment listeners
+      };
     };
-
+  
     fetchData();
-
+  
+    // Cleanup could also go here if needed for other async operations
     return () => {
-      // Cleanup code here if needed
+      // ...
     };
-  }, [loggedInUser]);
+  }, [loggedInUser]); // or whatever dependency array makes sense here
+  
   // retrouver les athlete supportés
 
   const handleDropdownPostFeedClick = useCallback(
