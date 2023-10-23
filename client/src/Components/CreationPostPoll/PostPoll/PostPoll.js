@@ -18,10 +18,10 @@ const PostPoll = ({
   handleTextChange,
   pollData,
   setPollData,
+  setDateTimeValue,
 }) => {
   const [addOption, setAddOption] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [dateTimeValue, setDateTimeValue] = useState();
   const [isProgrammedPostClicked, setIsProgrammedPostClicked] = useState();
   const ref = useRef();
   const handleAddPictureClick = () => {
