@@ -11,7 +11,7 @@ import {
   uploadBytes,
   getDownloadURL,
 } from "../../Configs/firebase";
-import { collection, addDoc, getDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDoc, doc, updateDoc, Timestamp } from "firebase/firestore";
 
 const CreationPostPoll = ({ userId }) => {
   const [file, setFile] = useState(null);
@@ -104,7 +104,7 @@ const CreationPostPoll = ({ userId }) => {
           pollData,
           likes: [],
           status: true,
-          ...(dateTimeValue && { publish_timestamp: dateTimeValue })
+          ...(dateTimeValue && { publish_timestamp: Timestamp.fromMillis(dateTimeValue * 1000) })
         };
       } else {
         const postType = "poll";
@@ -118,7 +118,7 @@ const CreationPostPoll = ({ userId }) => {
           pollData,
           likes: [],
           status: true,
-          ...(dateTimeValue && { publish_timestamp: dateTimeValue })
+          ...(dateTimeValue && { publish_timestamp: Timestamp.fromMillis(dateTimeValue * 1000) })
         };
       }
 
