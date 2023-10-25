@@ -64,6 +64,7 @@ const PopUpEditProfile = ({
     isProfileEditPopupHasModifications,
     setIsProfileEditPopupHasModifications,
   ] = useState(false);
+  
   useEffect(() => {
     if (!retrievedBanner) return;
     // setCurrentlyCropping(true);
@@ -71,7 +72,6 @@ const PopUpEditProfile = ({
     setPreviewBanner(tmp);
     setCurrentlyCroppingBanner(true);
     URL.revokeObjectURL(retrievedBanner);
-    setRetrievedBanner();
   }, [retrievedBanner]);
   // tambouriner le crop easy
   useEffect(() => {
@@ -80,13 +80,14 @@ const PopUpEditProfile = ({
     setPreviewProfile(tmp);
     setCurrentlyCroppingAvatar(true);
     URL.revokeObjectURL(retrievedAvatar);
-    setRetrievedAvatar();
   }, [retrievedAvatar]);
+
   function handlePreviousStepCroppClick() {
     setCurrentlyCroppingAvatar(false);
     setCurrentlyCroppingBanner(false);
   }
   const handleBannerUpload = async (file, croppedImage) => {
+    console.log(file);
     if (file && file.type.substr(0, 5) === "image") {
       try {
         let newFile = await ImageUrlToFile(croppedImage, file.name);
