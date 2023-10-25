@@ -18,7 +18,6 @@ import {
   deleteField,
 } from "firebase/firestore";
 
-
 function UtilitiesComponent({
   utility,
   loggedInUser,
@@ -50,40 +49,54 @@ function UtilitiesComponent({
   const handleClaimClick = async (e) => {
     e.preventDefault();
     //console.log(utility.id, "claimed by", loggedInUser.display_name);
-  
+
     // Query to find the document with the specific collectionAddress field
-    const querySnapshot = await getDocs(query(collection(db, 'nft_collections'), where('collection_address', '==', collectionAddress)));
-    
+    const querySnapshot = await getDocs(
+      query(
+        collection(db, "nft_collections"),
+        where("collection_address", "==", collectionAddress)
+      )
+    );
+
     if (querySnapshot.empty) {
       console.error("No matching documents.");
       return;
     }
-    
+
     let docId;
-    querySnapshot.forEach(documentSnapshot => {
+    querySnapshot.forEach((documentSnapshot) => {
       docId = documentSnapshot.id;
     });
-  
+
     // Now that we have the docId, we can update the sub-collection
-    const utilityDocRef = doc(db, "nft_collections", docId, "utilities", utility.id);
-  
+    const utilityDocRef = doc(
+      db,
+      "nft_collections",
+      docId,
+      "utilities",
+      utility.id
+    );
+
     // Fetch the document to check if it exists
     const docSnap = await getDoc(utilityDocRef);
-  
+
     if (docSnap.exists()) {
       try {
-        if (utility.claimed_status && utility.claimed_user_id === loggedInUser.id) {
+        if (
+          utility.claimed_status &&
+          utility.claimed_user_id === loggedInUser.id
+        ) {
           // Disclaim the utility if it is already claimed by the logged-in user
           await updateDoc(utilityDocRef, {
             claimed_status: false,
-            claimed_user_id: deleteField()
+            claimed_user_id: deleteField(),
           });
           console.log("Utility disclaimed successfully!");
         } else {
           // Claim the utility
           await updateDoc(utilityDocRef, {
             claimed_status: true,
-            claimed_user_id: loggedInUser.id
+            claimed_user_id: loggedInUser.id,
           });
           console.log("Utility claimed successfully!");
         }
@@ -93,9 +106,9 @@ function UtilitiesComponent({
     } else {
       console.error("No such document to update!");
     }
-  
+
     setIsUtiliyClicked(false);
-  };  
+  };
 
   const modalStyle = useMemo(() => ({ top: "20px", right: "20px" }), []);
 
@@ -145,7 +158,11 @@ function UtilitiesComponent({
         </div>
       </div>
       {isUtiliyClicked && (
-        <Modal style={modalStyle} setState={setIsUtiliyClicked}>
+        <Modal
+          style={modalStyle}
+          setState={setIsUtiliyClicked}
+          dynamicPositionPopUpMargin={`${window.scrollY}px`}
+        >
           <UtilityClaimModal
             utility={utility}
             loggedInUser={loggedInUser}
