@@ -65,23 +65,23 @@ const PopUpEditProfile = ({
     setIsProfileEditPopupHasModifications,
   ] = useState(false);
   useEffect(() => {
-    if (!banner) return;
+    if (!retrievedBanner) return;
     // setCurrentlyCropping(true);
-    let tmp = URL.createObjectURL(banner);
+    let tmp = URL.createObjectURL(retrievedBanner);
     setPreviewBanner(tmp);
     setCurrentlyCroppingBanner(true);
-    URL.revokeObjectURL(banner);
-    setBanner();
-  }, [banner]);
+    URL.revokeObjectURL(retrievedBanner);
+    setRetrievedBanner();
+  }, [retrievedBanner]);
   // tambouriner le crop easy
   useEffect(() => {
-    if (!profile) return;
-    let tmp = URL.createObjectURL(profile);
+    if (!retrievedAvatar) return;
+    let tmp = URL.createObjectURL(retrievedAvatar);
     setPreviewProfile(tmp);
     setCurrentlyCroppingAvatar(true);
-    URL.revokeObjectURL(profile);
-    setProfile();
-  }, [profile]);
+    URL.revokeObjectURL(retrievedAvatar);
+    setRetrievedAvatar();
+  }, [retrievedAvatar]);
   function handlePreviousStepCroppClick() {
     setCurrentlyCroppingAvatar(false);
     setCurrentlyCroppingBanner(false);
