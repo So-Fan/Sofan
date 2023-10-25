@@ -31,6 +31,10 @@ function UtilitiesComponent({
   const [status, setStatus] = useState();
   const [isUtiliyClicked, setIsUtiliyClicked] = useState(false);
   const { collectionAddress } = useParams();
+  // A changer pour un nft holder de l'athleth
+  const [isloggedUserNftHolder, setIsloggedUserNftHolder] = useState(true);
+  const [isClaimConfirmed, setIsClaimConfirmed] = useState(false);
+
 
   function displayStatusColor() {
     if (utilityStatus === "Disponible") {
@@ -106,8 +110,8 @@ function UtilitiesComponent({
     } else {
       console.error("No such document to update!");
     }
-
-    setIsUtiliyClicked(false);
+    setIsClaimConfirmed(true);
+    //setIsUtiliyClicked(false);
   };
 
   const modalStyle = useMemo(() => ({ top: "20px", right: "20px" }), []);
@@ -152,7 +156,11 @@ function UtilitiesComponent({
           <div className="nft-collection-overview-utilities-one-date">
             Date de l'utilité: {utilityDate}{" "}
             <span style={{ color: "red", marginLeft: 10 }}>
-              {utility.claimed_status ? "Réclamé" : ""}
+              {utility.claimed_status &&
+              utility.claimed_user_id &&
+              utility.claimed_user_id === loggedInUser.id
+                ? "Réclamé"
+                : ""}
             </span>
           </div>
         </div>
@@ -168,6 +176,10 @@ function UtilitiesComponent({
             loggedInUser={loggedInUser}
             isUtiliyClicked={isUtiliyClicked}
             handleClaimClick={handleClaimClick}
+            isloggedUserNftHolder={isloggedUserNftHolder}
+            setIsloggedUserNftHolder={setIsloggedUserNftHolder}
+            setIsClaimConfirmed={setIsClaimConfirmed}
+            isClaimConfirmed={isClaimConfirmed}
           />
         </Modal>
       )}

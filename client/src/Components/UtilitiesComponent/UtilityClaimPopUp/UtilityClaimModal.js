@@ -1,55 +1,95 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./UtilityClaimModal.css";
 import meetingsLogo from "../../../Assets/Image/meetings-logo.svg";
 import Button from "../../Button/Button";
+import validationLogo from "../../../Assets/Image/greencross-offers.svg";
 
 function UtilityClaimModal({
   isUtiliyClicked,
   utility,
   loggedInUser,
   handleClaimClick,
+  isloggedUserNftHolder,
+  setIsloggedUserNftHolder,
+  isClaimConfirmed,
 }) {
   return (
-    <div className="utility-pop-up-container">
-      <span
-        className="utility-pop-up-title"
-        style={utility.claimed_status ? { color: "red" } : {}}
-      >
-        {utility.claimed_status ? "Utilité déjå reclamé" : "Réclamer l'Uilité"}
-      </span>
-      <div className="utility-info-data">
-        <div className="utility-info-header">
-          <img src={meetingsLogo} alt="logo contrepartie rencontre fan" />
-          <span className="utility-info-title">{utility?.title}</span>
+    <>
+      {!isClaimConfirmed ? (
+        <div className="utility-pop-up-container">
+          <span
+            className="utility-pop-up-title"
+            style={
+              utility.claimed_status &&
+              utility.claimed_user_id === loggedInUser.id
+                ? { color: "red" }
+                : {}
+            }
+          >
+            {utility.claimed_status &&
+            utility.claimed_user_id === loggedInUser.id
+              ? "Utilité déjà réclamée"
+              : "Réclamer l'Utilité"}
+          </span>
+
+          <div className="utility-info-data">
+            <div className="utility-info-header">
+              <img src={meetingsLogo} alt="logo contrepartie rencontre fan" />
+              <span className="utility-info-title">{utility?.title}</span>
+            </div>
+            <p className="utility-info-description">{utility?.description}</p>
+            <div className="nft-collection-overview-utilities-one-date">
+              Date de l'utilité:{" "}
+              {utility?.date
+                ? new Date(utility.date.seconds * 1000).toDateString()
+                : "N/A"}
+            </div>
+            {
+              // If isloggedUserNftHolder is true, the user is logged in, and the utility is not claimed by the logged-in user
+              isloggedUserNftHolder &&
+              loggedInUser &&
+              !(
+                utility.claimed_status &&
+                utility.claimed_user_id === loggedInUser.id
+              ) ? (
+                <Button
+                  text={"Réclamer"}
+                  style={ClaimButtonStyle.inlineStyle}
+                  onClick={handleClaimClick}
+                />
+              ) : (
+                // If isloggedUserNftHolder is false or the user is not logged in, show the error message
+                (!isloggedUserNftHolder || !loggedInUser) && (
+                  <p
+                    style={{
+                      color: "red",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      border: "1px solid red",
+                      borderRadius: "5px",
+                      padding: "10px",
+                      marginTop: "20px",
+                    }}
+                  >
+                    Achetez un NFT ou une collection NFT pour réclamer cette
+                    utilité
+                  </p>
+                )
+              )
+            }
+          </div>
         </div>
-        <p className="utility-info-description">{utility?.description}</p>
-        <div className="nft-collection-overview-utilities-one-date">
-          Date de l'utilité:{" "}
-          {utility?.date
-            ? new Date(utility.date.seconds * 1000).toDateString()
-            : "N/A"}
+      ) : (
+        <div className="utility-pop-up-container">
+          <div>
+            <img src={validationLogo} alt="" />
+          </div>
+          <span className="utility-pop-up-title">
+            Utilié Reclamer en success
+          </span>
         </div>
-        {!utility.claimed_status && (
-          <Button
-            text={"Réclamer"}
-            style={ClaimButtonStyle.inlineStyle}
-            onClick={handleClaimClick}
-          />
-        )}
-        {
-          // If the utility is claimed and the logged-in user is the one who claimed it, show the "Disclaim" button
-          utility.claimed_status &&
-            loggedInUser &&
-            utility.claimed_user_id === loggedInUser.id && (
-              <Button
-                text={"Rétroclamer"}
-                style={ClaimButtonStyle.inlineStyle}
-                onClick={handleClaimClick}
-              />
-            )
-        }
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
