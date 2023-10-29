@@ -77,7 +77,6 @@ function LaunchpadCollectionLive(isLogged) {
   const [crossmintPayLoadLocalStorage, setCrossmintPayLoadLocalStorage] =
     useState(null);
   const { athleteId, collectionAddress } = useParams();
-  
 
   useEffect(() => {
     window.addEventListener(
@@ -217,7 +216,6 @@ function LaunchpadCollectionLive(isLogged) {
 
   // ----------------------- Shajeed -------------------------
 
-
   useEffect(() => {
     const q = query(
       collection(db, "nft_collections"),
@@ -233,7 +231,7 @@ function LaunchpadCollectionLive(isLogged) {
           (snapshot) => {
             const utilitiesData = snapshot.docs.map((doc) => ({
               id: doc.id, // include the id here
-              ...doc.data()
+              ...doc.data(),
             }));
             setUtilities(utilitiesData);
           }
@@ -334,8 +332,6 @@ function LaunchpadCollectionLive(isLogged) {
     setContractAddress(collectionAddress);
     setIsMintButtonClicked(true);
   }
-
-  
 
   const [isMintingProcessBegan, setIsMintingProcessBegan] = useState(false);
   const [mintingProcessStatus, setMintingProcessStatus] = useState(true);
@@ -583,8 +579,10 @@ function LaunchpadCollectionLive(isLogged) {
           nftCollectionMaxItems={nftCollectionMaxItems}
         />
         <div className="launchpad-collection-live-page-left-container">
-          {crossmintPayLoadLocalStorage ? "sqhdddddddddddsqdhhhhhhhhh" : ""}
-          <LaunchpadCollectionLiveUtilities utilitiesArray={utilities} loggedInUser={isLogged} />
+          <LaunchpadCollectionLiveUtilities
+            utilitiesArray={utilities}
+            loggedInUser={isLogged}
+          />
           <div className="launchpad-collection-live-page-more-about-collection-container">
             <LaunchpadCollectionLiveMoreAboutCollection
               knowMoreAboutCollection={

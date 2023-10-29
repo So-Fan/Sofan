@@ -35,7 +35,6 @@ function UtilitiesComponent({
   const [isloggedUserNftHolder, setIsloggedUserNftHolder] = useState(true);
   const [isClaimConfirmed, setIsClaimConfirmed] = useState(false);
 
-
   function displayStatusColor() {
     if (utilityStatus === "Disponible") {
       setStatus(true);
@@ -156,9 +155,9 @@ function UtilitiesComponent({
           <div className="nft-collection-overview-utilities-one-date">
             Date de l'utilité: {utilityDate}{" "}
             <span style={{ color: "red", marginLeft: 10 }}>
-              {utility.claimed_status &&
-              utility.claimed_user_id &&
-              utility.claimed_user_id === loggedInUser.id
+              {utility?.claimed_status &&
+              utility?.claimed_user_id &&
+              utility?.claimed_user_id === loggedInUser.id
                 ? "Réclamé"
                 : ""}
             </span>
