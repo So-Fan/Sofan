@@ -129,8 +129,8 @@ function PostsFeed({
       <div
         style={
           athleteProfilePageStyling
-            ? { marginBottom: "18px" }
-            : { marginTop: "60px" }
+            ? { marginBottom: "18px"}
+            : { marginTop: "60px"}
         }
         className="publication-container"
       >
@@ -187,9 +187,12 @@ function PostsFeed({
           />
           {displayVote()}
           {/* Backend here */}
-          <div className="publication-media">
+          <div
+            className="publication-media"
+            onClick={() => setIsPostClicked(true)}
+          >
             {/* <img src={attanasioBateau} alt="utilisateur" /> */}
-            {postPicture && <img src={postPicture} alt="" />}
+            {postPicture && <img src={postPicture} alt="post media" />}
           </div>
           {/* Backend here */}
           <MemoLikesCommentsCounter
