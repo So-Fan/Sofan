@@ -1,6 +1,6 @@
 const functions = require("firebase-functions/v1");
-const cors = require('cors')({ origin: ['http://localhost:3000', 'https://www.sofan.app', 'https://staging.sofan.app'] });
-//.const cors = require('cors')({ origin: true });
+//const cors = require('cors')({ origin: ['http://localhost:3000', 'https://www.sofan.app', 'https://staging.sofan.app'] });
+const cors = require('cors')({ origin: true });
 
 // // Create and deploy your first functions
 // // https://firebase.google.com/docs/functions/get-started
@@ -22,6 +22,8 @@ const transporter = nodemailer.createTransport({
 // functions.logger.log(functions.config().email.user);
 
 exports.sendVerificationEmail = functions.https.onRequest((req, res) => {
+   // Return 204 for OPTIONS method (preflight request)
+  
   cors(req, res, async () => {
     if (req.method !== "POST") {
       return res.status(405).send("Method Not Allowed");
