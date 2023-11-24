@@ -117,6 +117,7 @@ function AddCommentInput({
         </div>
         <textarea
           ref={textareaRef}
+          style={{fontFamily:"britanica-regular"}}
           placeholder="Publiez un commentaire..."
           className={
             isMediaQueriesFullPagePostDisabled
