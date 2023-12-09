@@ -577,7 +577,6 @@ function LaunchpadCollectionLive(isLogged) {
           nftCollectionMaxItems={nftCollectionMaxItems}
         />
         <div className="launchpad-collection-live-page-left-container">
-          {crossmintPayLoadLocalStorage ? "sqhdddddddddddsqdhhhhhhhhh" : ""}
           <LaunchpadCollectionLiveUtilities utilitiesArray={utilities} />
           <div className="launchpad-collection-live-page-more-about-collection-container">
             <LaunchpadCollectionLiveMoreAboutCollection
