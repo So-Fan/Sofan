@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import meetingsLogo from "../../Assets/Image/meetings-logo.svg";
 import liveLogo from "../../Assets/Image/live-logo.svg";
 import merchLogo from "../../Assets/Image/merch-logo.svg";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import "./UtilitiesComponent.css";
 import UtilityClaimModal from "./UtilityClaimPopUp/UtilityClaimModal";
@@ -31,6 +31,13 @@ function UtilitiesComponent({
   const [status, setStatus] = useState();
   const [isUtiliyClicked, setIsUtiliyClicked] = useState(false);
   const { collectionAddress } = useParams();
+
+  // Fetch url info
+  const location = useLocation();
+  const segments = location.pathname.split("/");
+  const pageName = segments[1];
+
+
   // A changer pour un nft holder de l'athleth
   const [isloggedUserNftHolder, setIsloggedUserNftHolder] = useState(true);
   const [isClaimConfirmed, setIsClaimConfirmed] = useState(false);
@@ -42,6 +49,8 @@ function UtilitiesComponent({
       setStatus(false);
     }
   }
+
+  console.log(utilityStatus);
 
   //   console.log(utilityStatus)
   useEffect(() => {
@@ -87,7 +96,7 @@ function UtilitiesComponent({
       try {
         if (
           utility.claimed_status &&
-          utility.claimed_user_id === loggedInUser.id
+          utility.claimed_user_id === loggedInUser?.id
         ) {
           // Disclaim the utility if it is already claimed by the logged-in user
           await updateDoc(utilityDocRef, {
@@ -99,7 +108,7 @@ function UtilitiesComponent({
           // Claim the utility
           await updateDoc(utilityDocRef, {
             claimed_status: true,
-            claimed_user_id: loggedInUser.id,
+            claimed_user_id: loggedInUser?.id,
           });
           console.log("Utility claimed successfully!");
         }
@@ -113,13 +122,19 @@ function UtilitiesComponent({
     //setIsUtiliyClicked(false);
   };
 
+  const handleCheckNFTPageType = () => {
+    if (pageName === "nftsingle") {
+      setIsUtiliyClicked(true);
+    }
+  }
+
   const modalStyle = useMemo(() => ({ top: "20px", right: "20px" }), []);
 
   // console.log(status);
   return (
     <>
       <div
-        onClick={() => setIsUtiliyClicked(true)}
+        onClick={handleCheckNFTPageType}
         className="nft-collection-overview-utilities-one-container"
       >
         <div className="nft-collection-overview-utilities-one-wrap">
@@ -157,7 +172,7 @@ function UtilitiesComponent({
             <span style={{ color: "red", marginLeft: 10 }}>
               {utility?.claimed_status &&
               utility?.claimed_user_id &&
-              utility?.claimed_user_id === loggedInUser.id
+              utility?.claimed_user_id === loggedInUser?.id
                 ? "Réclamé"
                 : ""}
             </span>

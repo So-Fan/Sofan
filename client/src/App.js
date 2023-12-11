@@ -598,7 +598,7 @@ function App() {
                   />
                   <Route
                     path="/nftsingle/:contractAddress/:nftId"
-                    element={<NftSingle />}
+                    element={<NftSingle isLogged={loggedInUser} />}
                   />
                   <Route path="signupathlete" element={<SignUpAthletePage />} />
                   <Route path="/settings" element={<SettingsPage />} />

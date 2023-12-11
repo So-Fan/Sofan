@@ -21,13 +21,13 @@ function UtilityClaimModal({
             className="utility-pop-up-title"
             style={
               utility.claimed_status &&
-              utility.claimed_user_id === loggedInUser.id
+              utility.claimed_user_id === loggedInUser?.id
                 ? { color: "red" }
                 : {}
             }
           >
             {utility.claimed_status &&
-            utility.claimed_user_id === loggedInUser.id
+            utility.claimed_user_id === loggedInUser?.id
               ? "Utilité déjà réclamée"
               : "Réclamer l'Utilité"}
           </span>
