@@ -11,7 +11,8 @@ function NftCollectionOverview({
   latestBidsArray,
   ethPrice,
   loggedInUser,
-  currentAthleteCollectionCreator
+  currentAthleteCollectionCreator,
+  collectionNameApi
 }) {
 
   console.log(currentAthleteCollectionCreator);
@@ -31,6 +32,7 @@ function NftCollectionOverview({
             utilityDate={utility?.date ? new Date(utility.date.seconds * 1000).toDateString() : 'N/A'}
             launchpadCollectionLiveUtilities={true}
             collectionOwner={currentAthleteCollectionCreator}
+            collectionNameApi={collectionNameApi}
           />
         ))}
       </div>

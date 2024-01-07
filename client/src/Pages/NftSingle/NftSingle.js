@@ -1188,6 +1188,9 @@ const NftSingle = ({ isLogged }) => {
               // }
               ethPrice={ethPrice}
               currentAthleteCollectionCreator={currentAthleteCollectionCreator}
+              collectionNameApi={
+                currentNftCollectionInfoFromBackend?.collection_title
+              }
             />
           )}
           {/* {isSubMenuClicked[1] && (

@@ -12,24 +12,27 @@ function UtilityClaimModal({
   isloggedUserNftHolder,
   setIsloggedUserNftHolder,
   isClaimConfirmed,
+  isUtilityClaimed, // New prop added here
+  claimedUserEmail, // New prop: the email of the user who claimed the utility
 }) {
+  const isClaimedByLoggedInUser =
+    isUtilityClaimed && loggedInUser?.email === claimedUserEmail;
+
   return (
     <>
       {!isClaimConfirmed ? (
         <div className="utility-pop-up-container">
           <span
             className="utility-pop-up-title"
-            style={
-              utility.claimed_status &&
-              utility.claimed_user_id === loggedInUser?.id
-                ? { color: "red" }
-                : {}
-            }
+            style={{ color: isUtilityClaimed ? "red" : "inherit" }}
           >
-            {utility.claimed_status &&
-            utility.claimed_user_id === loggedInUser?.id
-              ? "Utilité déjà réclamée"
-              : "Réclamer l'Utilité"}
+            {
+              isClaimedByLoggedInUser
+                ? "Réclamé par vous" // If the logged-in user claimed the utility
+                : isUtilityClaimed
+                ? "Utilité déjà réclamée" // If some other user claimed the utility
+                : "Réclamer l'Utilité" // If the utility is not claimed
+            }
           </span>
 
           <div className="utility-info-data">
@@ -48,10 +51,7 @@ function UtilityClaimModal({
               // If isloggedUserNftHolder is true, the user is logged in, and the utility is not claimed by the logged-in user
               isloggedUserNftHolder &&
               loggedInUser &&
-              !(
-                utility.claimed_status &&
-                utility.claimed_user_id === loggedInUser.id
-              ) ? (
+              !isClaimedByLoggedInUser ? (
                 <Button
                   text={"Réclamer"}
                   style={ClaimButtonStyle.inlineStyle}

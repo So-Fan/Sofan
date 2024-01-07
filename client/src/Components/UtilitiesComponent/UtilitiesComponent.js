@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import meetingsLogo from "../../Assets/Image/meetings-logo.svg";
-import liveLogo from "../../Assets/Image/live-logo.svg";
-import merchLogo from "../../Assets/Image/merch-logo.svg";
+//import liveLogo from "../../Assets/Image/live-logo.svg";
+//import merchLogo from "../../Assets/Image/merch-logo.svg";
 import { useLocation, useParams } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import "./UtilitiesComponent.css";
@@ -17,7 +17,7 @@ import {
   collection,
   deleteField,
   addDoc,
-  Timestamp
+  Timestamp,
 } from "firebase/firestore";
 
 function UtilitiesComponent({
@@ -30,12 +30,14 @@ function UtilitiesComponent({
   utilityDate,
   launchpadCollectionLiveUtilities,
   collectionOwner,
+  collectionNameApi,
 }) {
   const [status, setStatus] = useState();
   const [isUtiliyClicked, setIsUtiliyClicked] = useState(false);
   const { contractAddress } = useParams();
+  const [isUtilityClaimed, setIsUtilityClaimed] = useState(false); // Fetch url info
+  const [claimedUserEmail, setClaimedUserEmail] = useState(null);
 
-  // Fetch url info
   const location = useLocation();
   const segments = location.pathname.split("/");
   const pageName = segments[1];
@@ -53,13 +55,13 @@ function UtilitiesComponent({
     }
   }
 
-  console.log(utilityStatus);
+
 
   //   console.log(utilityStatus)
   useEffect(() => {
     const test = () => displayStatusColor();
     test();
-  }, []);
+  });
 
   const handleClaimClick = async (e) => {
     e.preventDefault();
@@ -102,10 +104,10 @@ function UtilitiesComponent({
           utility.claimed_user_id === loggedInUser?.id
         ) {
           // Disclaim the utility if it is already claimed by the logged-in user
-          await updateDoc(utilityDocRef, {
-            claimed_status: false,
-            claimed_user_id: deleteField(),
-          });
+          // await updateDoc(utilityDocRef, {
+          //   claimed_status: false,
+          //   claimed_user_id: deleteField(),
+          // });
           console.log("Utility disclaimed successfully!");
         } else {
           // Claim the utility
@@ -115,6 +117,59 @@ function UtilitiesComponent({
           });
           console.log("Utility claimed successfully!");
         }
+
+        // Now, send the email
+        const sendEmail = async () => {
+          const claimedDate = new Date(); // Or the date you get from the claim
+          const formatter = new Intl.DateTimeFormat("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "2-digit",
+          });
+          const formatter2 = new Intl.DateTimeFormat('fr-FR', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit'
+          });
+          const formattedDate = formatter.format(claimedDate);
+          const formattedUtilityDate = formatter2.format(new Date(utilityDate));
+
+          const functionUrl =
+            "https://us-central1-sofan-app.cloudfunctions.net/sendUserClaimUtilityEmail";
+          const emailData = {
+            email: loggedInUser.email, // assuming this is the user's email
+            display_name: loggedInUser?.displayName, // or however you get the user's display name
+            nftId: nftId,
+            athleteName: collectionOwner?.display_name, // Replace with actual data
+            claimed_date: formattedDate, // or format claimed_date as needed
+            collectionName: collectionNameApi,
+            title: utilityTitle,
+            description: utilityDescription,
+            utility_date: formattedUtilityDate,
+          };
+
+          try {
+            const response = await fetch(functionUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(emailData),
+            });
+
+            if (response.ok) {
+              console.log("Email sent successfully!");
+            } else {
+              console.error("Failed to send email", await response.text());
+            }
+          } catch (error) {
+            console.error("Error sending email:", error);
+          }
+        };
+
+        // Call the sendEmail function
+        sendEmail();
       } catch (err) {
         console.error("Error updating document: ", err);
       }
@@ -134,6 +189,7 @@ function UtilitiesComponent({
         nft_id: nftId, // from provided variable mappings
         utility_id: utilityId, // from provided variable mappings
         claimed_date: Timestamp.now(), // current date and time
+        claimed_status: true,
       };
 
       try {
@@ -151,6 +207,32 @@ function UtilitiesComponent({
     setIsClaimConfirmed(true);
     //setIsUtiliyClicked(false);
   };
+
+  useEffect(() => {
+    if (pageName === "nftsingle") {
+      const checkIfUtilityIsClaimed = async () => {
+        const q = query(
+          collection(db, "claimed_nft_utility"),
+          where("nft_id", "==", nftId),
+          where("nft_collection_address", "==", contractAddress),
+          where("utility_id", "==", utilityId)
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          // Assuming there's only one document that matches the criteria
+          const docData = querySnapshot.docs[0].data();
+          setIsUtilityClaimed(true);
+          setClaimedUserEmail(docData.claimed_user_email); // Set the claimed user's email
+        } else {
+          setIsUtilityClaimed(false);
+          setClaimedUserEmail(null); // Reset if no document is found
+        }
+      };
+
+      checkIfUtilityIsClaimed();
+    }
+  }, [pageName, nftId, contractAddress, utilityId]); // Dependencies
 
   const handleCheckNFTPageType = () => {
     if (pageName === "nftsingle") {
@@ -200,11 +282,7 @@ function UtilitiesComponent({
           <div className="nft-collection-overview-utilities-one-date">
             Date de l'utilité: {utilityDate}{" "}
             <span style={{ color: "red", marginLeft: 10 }}>
-              {utility?.claimed_status &&
-              utility?.claimed_user_id &&
-              utility?.claimed_user_id === loggedInUser?.id
-                ? "Réclamé"
-                : ""}
+              {isUtilityClaimed ? "Réclamé" : ""}
             </span>
           </div>
         </div>
@@ -224,6 +302,8 @@ function UtilitiesComponent({
             setIsloggedUserNftHolder={setIsloggedUserNftHolder}
             setIsClaimConfirmed={setIsClaimConfirmed}
             isClaimConfirmed={isClaimConfirmed}
+            isUtilityClaimed={isUtilityClaimed}
+            claimedUserEmail={claimedUserEmail}
           />
         </Modal>
       )}
