@@ -125,6 +125,51 @@ exports.sendUserClaimUtilityEmail = functions.https.onRequest((req, res) => {
   });
 });
 
+exports.sendAthleteClaimUtilityEmail = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    if (req.method !== "POST") {
+      return res.status(405).send("Method Not Allowed");
+    }
+
+    const {
+      athleteEmail, // Ensure to include the athlete's email in the request
+      athleteName,
+      userName,
+      nftId,
+      collectionName,
+      title,
+      description,
+      claimed_date,
+    } = req.body;
+
+    const htmlContent = generateAthleteClaimUtilityEmailHTML({
+      athleteName,
+      userName,
+      nftId,
+      collectionName,
+      title,
+      description,
+      claimed_date,
+    });
+
+    const mailOptions = {
+      from: `"Sofan" <${functions.config().email.user}>`,
+      to: athleteEmail, // Send to the athlete's email
+      subject: "Notification: Un utilisateur a réclamé une utilité de votre collection NFT - Sofan",
+      html: htmlContent,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      functions.logger.log("Email sent to athlete successfully");
+      res.send({ success: "Email sent to athlete successfully" });
+    } catch (err) {
+      functions.logger.error("Error sending email to athlete:", err);
+      res.status(500).send({ error: "Error sending email to athlete", details: err });
+    }
+  });
+});
+
 const admin = require("firebase-admin");
 //const functions = require('firebase-functions');
 admin.initializeApp();

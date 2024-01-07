@@ -55,8 +55,6 @@ function UtilitiesComponent({
     }
   }
 
-
-
   //   console.log(utilityStatus)
   useEffect(() => {
     const test = () => displayStatusColor();
@@ -118,27 +116,27 @@ function UtilitiesComponent({
           console.log("Utility claimed successfully!");
         }
 
-        // Now, send the email
-        const sendEmail = async () => {
+        // Now, send the emails
+        const sendEmails = async () => {
           const claimedDate = new Date(); // Or the date you get from the claim
           const formatter = new Intl.DateTimeFormat("fr-FR", {
             year: "numeric",
             month: "long",
             day: "2-digit",
           });
-          const formatter2 = new Intl.DateTimeFormat('fr-FR', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: '2-digit'
+          const formatter2 = new Intl.DateTimeFormat("fr-FR", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "2-digit",
           });
           const formattedDate = formatter.format(claimedDate);
           const formattedUtilityDate = formatter2.format(new Date(utilityDate));
 
-          const functionUrl =
+          const userFunctionUrl =
             "https://us-central1-sofan-app.cloudfunctions.net/sendUserClaimUtilityEmail";
-          const emailData = {
-            email: loggedInUser.email, // assuming this is the user's email
+          const userEmailData = {
+            email: loggedInUser?.email, // assuming this is the user's email
             display_name: loggedInUser?.displayName, // or however you get the user's display name
             nftId: nftId,
             athleteName: collectionOwner?.display_name, // Replace with actual data
@@ -149,27 +147,60 @@ function UtilitiesComponent({
             utility_date: formattedUtilityDate,
           };
 
+          const athleteFunctionUrl =
+            "https://us-central1-sofan-app.cloudfunctions.net/sendAthleteClaimUtilityEmail";
+          const athleteEmailData = {
+            athleteEmail: collectionOwner?.email, // assuming this is the athlete's email
+            athleteName: collectionOwner?.displayName, // replace with actual data
+            userName: loggedInUser.displayName, // user who claimed the utility
+            nftId: nftId,
+            collectionName: collectionNameApi,
+            title: utilityTitle,
+            description: utilityDescription,
+            claimed_date: formattedDate,
+          };
+
           try {
-            const response = await fetch(functionUrl, {
+            // Send email to the user
+            const userResponse = await fetch(userFunctionUrl, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(emailData),
+              body: JSON.stringify(userEmailData),
             });
-
-            if (response.ok) {
-              console.log("Email sent successfully!");
+            if (userResponse.ok) {
+              console.log("Email sent to user successfully!");
             } else {
-              console.error("Failed to send email", await response.text());
+              console.error(
+                "Failed to send email to user",
+                await userResponse.text()
+              );
+            }
+
+            // Send email to the athlete
+            const athleteResponse = await fetch(athleteFunctionUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(athleteEmailData),
+            });
+            if (athleteResponse.ok) {
+              console.log("Email sent to athlete successfully!");
+            } else {
+              console.error(
+                "Failed to send email to athlete",
+                await athleteResponse.text()
+              );
             }
           } catch (error) {
-            console.error("Error sending email:", error);
+            console.error("Error sending emails:", error);
           }
         };
 
-        // Call the sendEmail function
-        sendEmail();
+        // Call the sendEmails function
+        sendEmails();
       } catch (err) {
         console.error("Error updating document: ", err);
       }

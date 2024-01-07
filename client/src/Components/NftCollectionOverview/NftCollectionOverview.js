@@ -15,7 +15,6 @@ function NftCollectionOverview({
   collectionNameApi
 }) {
 
-  console.log(currentAthleteCollectionCreator);
   return (
     <section className="nft-collection-overview-container">
       <div className="nft-collection-overview-utilities-container">
