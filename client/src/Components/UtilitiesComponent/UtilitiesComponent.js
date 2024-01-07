@@ -16,27 +16,30 @@ import {
   where,
   collection,
   deleteField,
+  addDoc,
+  Timestamp
 } from "firebase/firestore";
 
 function UtilitiesComponent({
   utility,
   loggedInUser,
-  unilityId,
+  utilityId,
   utilityTitle,
   utilityStatus,
   utilityDescription,
   utilityDate,
   launchpadCollectionLiveUtilities,
+  collectionOwner,
 }) {
   const [status, setStatus] = useState();
   const [isUtiliyClicked, setIsUtiliyClicked] = useState(false);
-  const { collectionAddress } = useParams();
+  const { contractAddress } = useParams();
 
   // Fetch url info
   const location = useLocation();
   const segments = location.pathname.split("/");
   const pageName = segments[1];
-
+  const nftId = segments[3];
 
   // A changer pour un nft holder de l'athleth
   const [isloggedUserNftHolder, setIsloggedUserNftHolder] = useState(true);
@@ -62,11 +65,11 @@ function UtilitiesComponent({
     e.preventDefault();
     //console.log(utility.id, "claimed by", loggedInUser.display_name);
 
-    // Query to find the document with the specific collectionAddress field
+    // Query to find the document with the specific contractAddress field
     const querySnapshot = await getDocs(
       query(
         collection(db, "nft_collections"),
-        where("collection_address", "==", collectionAddress)
+        where("collection_address", "==", contractAddress)
       )
     );
 
@@ -118,6 +121,33 @@ function UtilitiesComponent({
     } else {
       console.error("No such document to update!");
     }
+
+    // add in claimed Utiliy COllection
+    // This goes after the existing logic for claiming or disclaiming utilities.
+    // Ensure this runs only if the loggedInUser is present and a utility has been claimed or updated.
+    if (loggedInUser && docSnap.exists()) {
+      // Prepare the new document data
+      const newClaimedNFTUtility = {
+        athlete_email: collectionOwner.email, // from provided variable mappings
+        claimed_user_email: loggedInUser.email, // from provided variable mappings
+        nft_collection_address: contractAddress, // from provided variable mappings
+        nft_id: nftId, // from provided variable mappings
+        utility_id: utilityId, // from provided variable mappings
+        claimed_date: Timestamp.now(), // current date and time
+      };
+
+      try {
+        // Add the new document to 'claimed_nft_utility' collection
+        await addDoc(
+          collection(db, "claimed_nft_utility"),
+          newClaimedNFTUtility
+        );
+        console.log("New utility claim recorded in claimed_nft_utility.");
+      } catch (err) {
+        console.error("Error creating document in claimed_nft_utility: ", err);
+      }
+    }
+
     setIsClaimConfirmed(true);
     //setIsUtiliyClicked(false);
   };
@@ -126,7 +156,7 @@ function UtilitiesComponent({
     if (pageName === "nftsingle") {
       setIsUtiliyClicked(true);
     }
-  }
+  };
 
   const modalStyle = useMemo(() => ({ top: "20px", right: "20px" }), []);
 

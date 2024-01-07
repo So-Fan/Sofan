@@ -10,10 +10,11 @@ function NftCollectionOverview({
   knowMoreAboutCollection,
   latestBidsArray,
   ethPrice,
-  loggedInUser
+  loggedInUser,
+  currentAthleteCollectionCreator
 }) {
 
-  console.log(loggedInUser);
+  console.log(currentAthleteCollectionCreator);
   return (
     <section className="nft-collection-overview-container">
       <div className="nft-collection-overview-utilities-container">
@@ -23,12 +24,13 @@ function NftCollectionOverview({
             key={uuidv4()}
             utility={utility}
             loggedInUser={loggedInUser}
-            unilityId={utility?.id}
+            utilityId={utility?.id}
             utilityTitle={utility?.title}
             utilityStatus={utility?.claimed_status}
             utilityDescription={utility?.description}
             utilityDate={utility?.date ? new Date(utility.date.seconds * 1000).toDateString() : 'N/A'}
             launchpadCollectionLiveUtilities={true}
+            collectionOwner={currentAthleteCollectionCreator}
           />
         ))}
       </div>

@@ -1187,6 +1187,7 @@ const NftSingle = ({ isLogged }) => {
               //   dataSinglePageNftCollection.overviewData[0].latestBids
               // }
               ethPrice={ethPrice}
+              currentAthleteCollectionCreator={currentAthleteCollectionCreator}
             />
           )}
           {/* {isSubMenuClicked[1] && (
