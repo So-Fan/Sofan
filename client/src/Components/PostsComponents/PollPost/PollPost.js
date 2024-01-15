@@ -87,6 +87,11 @@ const PollPost = ({
         choice3: false,
         choice4: false,
       });
+      // créer un tableau dans l'index 0 du tableau choices qui est déjà dans firebase
+      // dans firebase choices est un tableau avec 4 index.
+      // quand l'index est 0 par exemple alors on push l'id de l'utilisateur dans un tableau que l'on créer dans l'index 0 de choices
+      // shajeedpoll
+
     } else if (choiceNameEl.innerText === choiceName[1]) {
       setChoiceSelected({
         choice1: false,
@@ -176,6 +181,7 @@ const PollPost = ({
             <div className="ageofpost-and-timeleft-poll">
               <div>
                 {/* {pollTotalVote}  */}
+                {/* shajeedpoll */}
                 votes</div>
               <div>-</div>
               <div>
