@@ -198,10 +198,8 @@ function Home({
             querySnapshot.forEach((doc) => {
               const tempNftcollectionInfo = doc.data();
               tempAllAthleteCollection.push(tempNftcollectionInfo);
-              // console.log("Collection found");
             });
           } else {
-            // console.log("No collection found");
           }
 
           let currentUserWallet;
@@ -232,7 +230,6 @@ function Home({
             }
 
             if (balanceOf > 0) {
-              // console.log("balance of nft from user");
               isUserFan = true;
               break;
             }
@@ -255,52 +252,43 @@ function Home({
         // console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
-      // console.log("appel de la fontion feedDataFrom");
       feedDataFromAlchemyAndFirebase();
 
-      // if (loggedInUser.metamask) {
-      //   const temp = loggedInUser.metamask.toLowerCase();
-      //   fansCounterApi.includes(temp) === true
-      //     ? setIsUserFan(true)
-      //     : setIsUserFan(false);
-      // } else if (loggedInUser.web3auth) {
-      //   const temp = loggedInUser.web3auth.toLowerCase();
-      //   fansCounterApi.includes(temp) === true
-      //     ? setIsUserFan(true)
-      //     : setIsUserFan(false);
-      // }
+      
     }
   }, [dataPost, loggedInUser]);
 
   const getCommentCount = (postId) => {
     const commentsRef = collection(db, `feed_post/${postId}/post_comments`);
     const q = query(commentsRef, where("status", "==", true));
-  
+
     // Real-time listener for comments
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const commentCount = querySnapshot.size;
-      setCommentCounts((prevState) => ({ ...prevState, [postId]: commentCount }));
+      setCommentCounts((prevState) => ({
+        ...prevState,
+        [postId]: commentCount,
+      }));
     });
-  
+
     // Save this unsubscribe somewhere so you can call it when you don't need it anymore.
     return unsubscribe;
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-  
+
       const userIdToFind = loggedInUser?.id;
       const usersRef = collection(db, "users");
       const q1 = query(usersRef, where("account_type", "==", "athlete"));
-  
+
       const querySnapshot1 = await getDocs(q1);
       const foundAthletes = [];
       for (let doc of querySnapshot1.docs) {
         const athleteId = doc.id;
         const userData = doc.data();
-  
+
         // Accéder à la collection athlete_data pour l'athlète spécifique
         const athleteDataRef = collection(
           db,
@@ -308,7 +296,7 @@ function Home({
           athleteId,
           "athlete_data"
         );
-  
+
         // Récupérer le document
         const athleteDataSnapshot = await getDocs(athleteDataRef);
         athleteDataSnapshot.forEach((doc) => {
@@ -329,16 +317,16 @@ function Home({
         });
       }
       setAthletesFollowing(foundAthletes);
-  
+
       const unsubscribes = []; // To keep track of all unsubscribe functions for comments
-  
+
       const feedPostCollectionRef = collection(db, "feed_post");
       const q2 = query(
         feedPostCollectionRef,
         where("status", "==", true),
         orderBy("createdAt", "desc")
       );
-  
+
       // Real-time listener for feed posts
       const unsubscribePosts = onSnapshot(q2, (querySnapshot) => {
         const feedData = [];
@@ -351,30 +339,30 @@ function Home({
         });
         setPostData(feedData);
         setIsLoading(false);
-  
-        unsubscribes.forEach(unsub => unsub()); // Unsubscribe previous comment listeners
+
+        unsubscribes.forEach((unsub) => unsub()); // Unsubscribe previous comment listeners
         unsubscribes.length = 0; // Reset unsubscribe array
-  
+
         feedData.forEach((post) => {
           const unsubscribeComments = getCommentCount(post.id);
           unsubscribes.push(unsubscribeComments);
         });
       });
-  
+
       return () => {
         unsubscribePosts(); // Cleanup: unsubscribe from real-time posts listener
-        unsubscribes.forEach(unsub => unsub()); // Cleanup: unsubscribe from all real-time comment listeners
+        unsubscribes.forEach((unsub) => unsub()); // Cleanup: unsubscribe from all real-time comment listeners
       };
     };
-  
+
     fetchData();
-  
+
     // Cleanup could also go here if needed for other async operations
     return () => {
       // ...
     };
   }, [loggedInUser]); // or whatever dependency array makes sense here
-  
+
   // retrouver les athlete supportés
 
   const handleDropdownPostFeedClick = useCallback(
@@ -384,8 +372,6 @@ function Home({
           e.currentTarget.id === dataPost[i].id &&
           dataPost[i].isDropdownClicked === false
         ) {
-          // console.log(e.currentTarget.id);
-          // console.log(dataPost[i].id);
           const newData = [...dataPost];
           newData[i].isDropdownClicked = true;
           setPostData(newData);
@@ -399,7 +385,6 @@ function Home({
     setIsCreatePostButtonClicked(true);
   };
 
-  // console.log(isLogged?.account_type);
   useEffect(() => {
     async function getSuggestionsAthletes() {
       // Create a query against the collection
@@ -424,22 +409,16 @@ function Home({
     }
     getSuggestionsAthletes();
   }, []);
-  // console.log(isLogged)
   function handleClickCopyPostLink(postId) {
     navigator.clipboard.writeText(`https://staging.sofan.app/post/${postId}`);
-    // console.log(postId);
     setIsCopyPostLinkClicked(true);
-    // const timeOutAnimationCopyClicked =
     setTimeout(() => {
       setCopyPostAnimationHide(true);
     }, 5000);
-    // clearTimeout(timeOutAnimationCopyClicked);
-    // const timeOutHideCopyClicked =
     setTimeout(() => {
       setIsCopyPostLinkClicked(false);
       setCopyPostAnimationHide(false);
     }, 5700);
-    // clearTimeout(timeOutHideCopyClicked);
   }
   useEffect(() => {
     // get Nfts from Owner and Contracts
@@ -482,7 +461,6 @@ function Home({
         currentProfileWalletAddresses = isLogged.web3auth;
         setCurrentProfileUserWallet(isLogged.web3auth);
       }
-      // console.log(currentProfileWalletAddresses);
 
       try {
         const nftsFromOwner = await alchemy.nft.getNftsForOwner(
@@ -491,7 +469,6 @@ function Home({
             contractAddresses: arraySofanCollection,
           }
         );
-        // console.log("nftsFromOwner --> ", nftsFromOwner);
         let athletesSupportingArray = [];
         for (let i = 0; i < nftsFromOwner.ownedNfts.length; i++) {
           const elementFromAlchemy = nftsFromOwner.ownedNfts[i];
@@ -540,9 +517,7 @@ function Home({
           athletesSupportingArray
         );
         setAthletesSupportingData(uniqueAthleteSupportingArray);
-        // setAthletesSupportingData(athletesSupportingArray);
         setNftsFromOwner(nftsFromOwner?.ownedNfts);
-        // console.log("yess", nftsFromOwner);
       } catch (error) {
         console.error(error);
       }
@@ -564,80 +539,37 @@ function Home({
   }, []);
 
   const modalStyle = useMemo(() => ({ top: "24px", right: "20px" }), []);
+  const year = new Date().getFullYear();
   return (
     <>
       <section className="home-component">
-        {/* {isLogged?.account_type === "admin" ? <></>: <></>} */}
+        
         <div
           className="home-left-container"
-          style={
-            (() => {
-              if (
-                isLogged?.account_type === "admin" ||
-                isLogged?.account_type === "athlete"
-              ) {
-                if (windowWidth < 950) {
-                  return { height: "500px" };
-                } else {
-                  return { height: "726px", maxHeight: "726px" };
-                }
-              } else if (
-                athletesFollowing.length === 0 &&
-                athletesSupportingData.length === 0
-              ) {
-                return { height: "398px" };
+          style={(() => {
+            if (
+              isLogged?.account_type === "admin" ||
+              isLogged?.account_type === "athlete"
+            ) {
+              if (windowWidth < 950) {
+                return { height: "500px" };
               } else {
-                return { maxHeight: "580px" };
+                return { height: "726px", maxHeight: "726px" };
               }
-            })()
-            // isLogged?.account_type === "athlete"
-            //   ? windowWidth < 950
-            //     ? { height: "500px" }
-            //     : { height: "726px", maxHeight: "726px" }
-            //   : athletesFollowing.length === 0 &&
-            //     athletesSupportingData.length === 0
-            //   ? { height: "398px" }
-            //   : { maxHeight: "580px" }
-          }
+            } else if (
+              athletesFollowing.length === 0 &&
+              athletesSupportingData.length === 0
+            ) {
+              return { height: "398px" };
+            } else {
+              return { maxHeight: "580px" };
+            }
+          })()}
         >
           <div
             className="home-navlink-create-post-wrap"
-            style={
-              { height: "0px" }
-              // isLogged?.account_type === "athlete"
-              //   ? { height: "0px" }
-              //   : { height: "0px" }
-            }
+            style={{ height: "0px" }}
           >
-            {/* <div className="home-feedsidenavlink-wrap">
-              <FeedSideNavLink
-                href="/launchpad"
-                svg={World}
-                alt="world"
-                title="Découverte"
-                imgWidth="20px"
-                gap="11px"
-              />
-              <FeedSideNavLink
-                href="/"
-                svg={Star}
-                alt="world"
-                title="Abonnements"
-                imgWidth="22.83px"
-                gap="8.59px"
-              />
-            </div> */}
-            {/* {isLogged?.account_type === "athlete" && (
-              <Button
-                createPostButtonclassName="button-component-create-post"
-                style={CreatePostButtonStyle.inlineStyle}
-                customMediaQueries={CreatePostButtonStyle.customMediaQueries}
-                text="Créer une publication"
-                onClick={handleCreatePostClick}
-                hover="button-hover-props"
-                active="button-active-props"
-              />
-            )} */}
             {(() => {
               if (
                 isLogged?.account_type === "admin" ||
@@ -685,7 +617,7 @@ function Home({
             className="home-legals-mentions-container"
           >
             <a target="_blank" href="/mentions-legales">
-              © 2023 Sofan
+              © {year} Sofan
             </a>{" "}
             Tout droits réservés
           </div>

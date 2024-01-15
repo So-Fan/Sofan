@@ -17,7 +17,6 @@ function UtilityClaimModal({
 }) {
   const isClaimedByLoggedInUser =
     isUtilityClaimed && loggedInUser?.email === claimedUserEmail;
-
   return (
     <>
       {!isClaimConfirmed ? (
@@ -28,10 +27,10 @@ function UtilityClaimModal({
           >
             {
               isClaimedByLoggedInUser
-                ? "Réclamé par vous" // If the logged-in user claimed the utility
+                ? "Déjà réclamé" // If the logged-in user claimed the utility
                 : isUtilityClaimed
                 ? "Utilité déjà réclamée" // If some other user claimed the utility
-                : "Réclamer l'Utilité" // If the utility is not claimed
+                : "Réclamer l'utilité" // If the utility is not claimed
             }
           </span>
 
@@ -71,7 +70,7 @@ function UtilityClaimModal({
                       marginTop: "20px",
                     }}
                   >
-                    Achetez un NFT ou une collection NFT pour réclamer cette
+                    Achetez un NFT de la collection pour réclamer cette
                     utilité
                   </p>
                 )
@@ -85,7 +84,7 @@ function UtilityClaimModal({
             <img src={validationLogo} alt="" />
           </div>
           <span className="utility-pop-up-title">
-            Utilié Reclamer en success
+          L'utilité a bien été réclamé ! Veuillez vérifier vos mails !
           </span>
         </div>
       )}

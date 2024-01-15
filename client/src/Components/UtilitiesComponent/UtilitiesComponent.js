@@ -31,6 +31,7 @@ function UtilitiesComponent({
   launchpadCollectionLiveUtilities,
   collectionOwner,
   collectionNameApi,
+  currentTokenIdOwner,
 }) {
   const [status, setStatus] = useState();
   const [isUtiliyClicked, setIsUtiliyClicked] = useState(false);
@@ -43,7 +44,7 @@ function UtilitiesComponent({
   const pageName = segments[1];
   const nftId = segments[3];
 
-  //TODO: A changer pour un nft holder de l'athleth 
+  //TODO: A changer pour un nft holder de l'athleth
   const [isloggedUserNftHolder, setIsloggedUserNftHolder] = useState(true);
   const [isClaimConfirmed, setIsClaimConfirmed] = useState(false);
   // console.log("loggedInUser --> ",loggedInUser)
@@ -56,6 +57,7 @@ function UtilitiesComponent({
     }
   }
 
+  console.log("currentTokenIdOwner --> ", currentTokenIdOwner);
   //   console.log(utilityStatus)
   useEffect(() => {
     const test = () => displayStatusColor();
@@ -232,12 +234,12 @@ function UtilitiesComponent({
           newClaimedNFTUtility
         );
         console.log("New utility claim recorded in claimed_nft_utility.");
+        setIsClaimConfirmed(true);
       } catch (err) {
         console.error("Error creating document in claimed_nft_utility: ", err);
       }
     }
 
-    setIsClaimConfirmed(true);
     //setIsUtiliyClicked(false);
   };
 
@@ -265,14 +267,23 @@ function UtilitiesComponent({
 
       checkIfUtilityIsClaimed();
     }
-  }, [pageName, nftId, contractAddress, utilityId]); // Dependencies
+  }, [pageName, nftId, contractAddress, utilityId, isClaimConfirmed]);
 
   const handleCheckNFTPageType = () => {
     if (pageName === "nftsingle") {
       setIsUtiliyClicked(true);
     }
+    verifyUserIsHolder();
   };
-
+  function verifyUserIsHolder() {
+    if (currentTokenIdOwner?.id === loggedInUser?.id) {
+      // console.log("il est holder");
+      setIsloggedUserNftHolder(true);
+    } else {
+      // console.log("c'est un imposteur");
+      setIsloggedUserNftHolder(false);
+    }
+  }
   const modalStyle = useMemo(() => ({ top: "20px", right: "20px" }), []);
 
   // console.log(status);
@@ -332,7 +343,7 @@ function UtilitiesComponent({
             isUtiliyClicked={isUtiliyClicked}
             handleClaimClick={handleClaimClick}
             isloggedUserNftHolder={isloggedUserNftHolder}
-            setIsloggedUserNftHolder={setIsloggedUserNftHolder}
+            // setIsloggedUserNftHolder={setIsloggedUserNftHolder}
             setIsClaimConfirmed={setIsClaimConfirmed}
             isClaimConfirmed={isClaimConfirmed}
             isUtilityClaimed={isUtilityClaimed}

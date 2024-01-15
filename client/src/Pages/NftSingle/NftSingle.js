@@ -1191,6 +1191,7 @@ const NftSingle = ({ isLogged }) => {
               collectionNameApi={
                 currentNftCollectionInfoFromBackend?.collection_title
               }
+              currentTokenIdOwner={currentTokenIdOwner}
             />
           )}
           {/* {isSubMenuClicked[1] && (

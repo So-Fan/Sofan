@@ -12,7 +12,8 @@ function NftCollectionOverview({
   ethPrice,
   loggedInUser,
   currentAthleteCollectionCreator,
-  collectionNameApi
+  collectionNameApi,
+  currentTokenIdOwner
 }) {
 
   return (
@@ -32,6 +33,7 @@ function NftCollectionOverview({
             launchpadCollectionLiveUtilities={true}
             collectionOwner={currentAthleteCollectionCreator}
             collectionNameApi={collectionNameApi}
+            currentTokenIdOwner={currentTokenIdOwner}
           />
         ))}
       </div>
