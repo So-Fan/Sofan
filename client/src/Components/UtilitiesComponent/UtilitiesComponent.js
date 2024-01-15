@@ -43,7 +43,7 @@ function UtilitiesComponent({
   const pageName = segments[1];
   const nftId = segments[3];
 
-  // A changer pour un nft holder de l'athleth
+  //TODO: A changer pour un nft holder de l'athleth 
   const [isloggedUserNftHolder, setIsloggedUserNftHolder] = useState(true);
   const [isClaimConfirmed, setIsClaimConfirmed] = useState(false);
   // console.log("loggedInUser --> ",loggedInUser)
