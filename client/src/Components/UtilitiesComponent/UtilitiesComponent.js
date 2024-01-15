@@ -46,7 +46,8 @@ function UtilitiesComponent({
   // A changer pour un nft holder de l'athleth
   const [isloggedUserNftHolder, setIsloggedUserNftHolder] = useState(true);
   const [isClaimConfirmed, setIsClaimConfirmed] = useState(false);
-
+  // console.log("loggedInUser --> ",loggedInUser)
+  // console.log("collectionOwner --> ",collectionOwner)
   function displayStatusColor() {
     if (utilityStatus === "Disponible") {
       setStatus(true);
@@ -137,7 +138,7 @@ function UtilitiesComponent({
             "https://us-central1-sofan-app.cloudfunctions.net/sendUserClaimUtilityEmail";
           const userEmailData = {
             email: loggedInUser?.email, // assuming this is the user's email
-            display_name: loggedInUser?.displayName, // or however you get the user's display name
+            display_name: loggedInUser?.display_name, // or however you get the user's display name
             nftId: nftId,
             athleteName: collectionOwner?.display_name, // Replace with actual data
             claimed_date: formattedDate, // or format claimed_date as needed
@@ -151,15 +152,15 @@ function UtilitiesComponent({
             "https://us-central1-sofan-app.cloudfunctions.net/sendAthleteClaimUtilityEmail";
           const athleteEmailData = {
             athleteEmail: collectionOwner?.email, // assuming this is the athlete's email
-            athleteName: collectionOwner?.displayName, // replace with actual data
-            userName: loggedInUser.displayName, // user who claimed the utility
+            athleteName: collectionOwner?.display_name, // replace with actual data
+            userName: loggedInUser.display_name, // user who claimed the utility
             nftId: nftId,
             collectionName: collectionNameApi,
             title: utilityTitle,
             description: utilityDescription,
             claimed_date: formattedDate,
           };
-
+          console.log(athleteEmailData);
           try {
             // Send email to the user
             const userResponse = await fetch(userFunctionUrl, {
@@ -186,6 +187,7 @@ function UtilitiesComponent({
               },
               body: JSON.stringify(athleteEmailData),
             });
+            console.log(athleteResponse);
             if (athleteResponse.ok) {
               console.log("Email sent to athlete successfully!");
             } else {

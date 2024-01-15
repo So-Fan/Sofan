@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const generateVerificationCodeEmailHTML = require("./generateVerificationCodeEmailHTML");
 const generateWelcomeEmailHTML = require("./generateWelcomeEmailHTML");
 const generateUserClaimUtilityEmailHTML = require("./generateUserClaimUtilityEmailHTML");
+const generateAthleteClaimUtilityEmailHTML = require("./generateAthleteClaimUtilityEmailHTML");
 
 const transporter = nodemailer.createTransport({
   host: "mail.gandi.net",
@@ -41,11 +42,12 @@ exports.sendVerificationEmail = functions.https.onRequest((req, res) => {
       subject: "Sign Up Verification Code",
       html: htmlContent,
     };
-
+    console.log("console.log mail Option -->", mailOptions);
+    functions.logger.log("functions logger mail Option -->",mailOptions);
     try {
       await transporter.sendMail(mailOptions);
       functions.logger.log("Email sent successfully");
-      res.send({ success: "Email sent successfully" }); // Send success response
+      res.status(200).send({ success: "Email sent successfully" }); // Send success response
     } catch (err) {
       functions.logger.error("Error sending email:", err);
       res.status(500).send({ error: "Error sending email", details: err }); // Send error details
@@ -155,7 +157,8 @@ exports.sendAthleteClaimUtilityEmail = functions.https.onRequest((req, res) => {
     const mailOptions = {
       from: `"Sofan" <${functions.config().email.user}>`,
       to: athleteEmail, // Send to the athlete's email
-      subject: "Notification: Un utilisateur a réclamé une utilité de votre collection NFT - Sofan",
+      subject:
+        "Notification: Un utilisateur a réclamé une utilité de votre collection NFT - Sofan",
       html: htmlContent,
     };
 
@@ -165,7 +168,9 @@ exports.sendAthleteClaimUtilityEmail = functions.https.onRequest((req, res) => {
       res.send({ success: "Email sent to athlete successfully" });
     } catch (err) {
       functions.logger.error("Error sending email to athlete:", err);
-      res.status(500).send({ error: "Error sending email to athlete", details: err });
+      res
+        .status(500)
+        .send({ error: "Error sending email to athlete", details: err });
     }
   });
 });
