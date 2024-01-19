@@ -112,6 +112,9 @@ function PostsFeed({
           pollFourthChoiceNumber={pollFourthChoiceNumber}
           // pollDate={pollDate}
           pollDateType={pollDateType}
+          postId={id}
+          loggedInUser={loggedInUser}
+          polldata={polldata}
           // pollTotalVote={pollTotalVote}
         />
       );

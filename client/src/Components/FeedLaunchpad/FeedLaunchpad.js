@@ -24,9 +24,9 @@ const FeedLaunchpad = () => {
         return {
           // launchpad: feedLaunchpad,
           launch_date: feedLaunchpad.launch_date,
-          collection_avatar: nftCollectionsData.collection_avatar,
-          collection_title: nftCollectionsData.collection_title,
-          collection_address: nftCollectionsData.collection_address,
+          collection_avatar: nftCollectionsData?.collection_avatar,
+          collection_title: nftCollectionsData?.collection_title,
+          collection_address: nftCollectionsData?.collection_address,
           athlete_id: userData.id,
           display_name: userData.display_name,
           profile_avatar: userData.profile_avatar,
