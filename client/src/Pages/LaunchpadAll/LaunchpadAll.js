@@ -65,9 +65,9 @@ function LaunchpadAll({
         resolvedData.forEach(async (item) => {
           console.log(
             "Current collection_address:",
-            item.nftCollection.collection_address
+            item.nftCollection?.collection_address
           );
-          if (item.nftCollection.collection_address === "") {
+          if (item.nftCollection?.collection_address === "") {
             const docRef = doc(db, "nft_collections", item.nftCollection.id); // Assurez-vous que item.launchpad.id est correct
             await updateDoc(docRef, {
               collection_address: "0xeD8263C7E0df64bc1E9D69C5A72734DfB85Ba32c",
@@ -82,7 +82,6 @@ function LaunchpadAll({
 
     fetchData();
   }, []);
-
   return (
     <div className="launchpadall-page">
       <div className="launchpadall-wrap">

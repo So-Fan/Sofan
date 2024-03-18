@@ -89,7 +89,7 @@ function AthleteSuggestPopUp({ suggestionsAthletes, handleClick }) {
         <div className="athlete-suggest-container">
           {suggestionsAthletes.map((notification) => (
             <Link
-              to={`/userprofile/${notification.id}`}
+              to={`/athleteprofile/${notification.id}`}
               className="athlete-suggest-container-athlete-suggest-wrap"
             >
               <img

@@ -5,7 +5,7 @@
   margin-top: 95px;
   max-width: 1285px;
 }
-.launchpadall-wrap{
+.launchpadall-wrap {
   width: 100%;
   max-width: 97%;
   display: flex;
@@ -35,7 +35,7 @@
   }
 }
 @media (max-width: 1300px) {
-  .launchpadall-page {
-    /* width: 94%; */
+  .launchpadall-wrap {
+    max-width: 95vw;
   }
 }

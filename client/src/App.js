@@ -272,6 +272,7 @@ function App() {
   console.log("re rendu");
   const [crossmintPayloadLocationdata, setCrossmintPayloadLocationdata] =
     useState(null);
+    const year = new Date().getFullYear();
   return (
     <UserContext.Provider
       value={{
@@ -430,7 +431,7 @@ function App() {
                           </div>
                           <div className="app-sofan-block-access-mentions-legales">
                             <a target="_blank" href="/mentions-legales">
-                              © 2023 Sofan
+                              © {year} Sofan
                             </a>{" "}
                             Tout droits réservés
                           </div>

@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from "react";
+=======
+import React, { useEffect } from "react";
+>>>>>>> Stashed changes
 import "./Modal.css";
 import CrossBlack from "../../Assets/Image/cross.svg";
 import CrossWhite from "../../Assets/Image/cross_white.svg";
