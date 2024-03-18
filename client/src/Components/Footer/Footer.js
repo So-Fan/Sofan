@@ -8,13 +8,13 @@ const links = [
     { icon: InstagramLogo, url: 'https://www.instagram.com/sofan_app/' },
     { icon: LinkedInLogo, url: 'https://www.linkedin.com/company/sofan-app/' }
   ];
-
+  const year = new Date().getFullYear();
 function Footer() {
     return (
         <footer className='footer-container'>
             <SocialLinks links={links} />
             <div className='copyright-section'>
-                <p>&copy; 2023 Copyright: Sofan</p>
+                <p>&copy; {year} Copyright: Sofan</p>
             </div>
         </footer>
     );

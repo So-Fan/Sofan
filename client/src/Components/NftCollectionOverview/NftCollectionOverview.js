@@ -10,18 +10,30 @@ function NftCollectionOverview({
   knowMoreAboutCollection,
   latestBidsArray,
   ethPrice,
+  loggedInUser,
+  currentAthleteCollectionCreator,
+  collectionNameApi,
+  currentTokenIdOwner
 }) {
+
   return (
     <section className="nft-collection-overview-container">
       <div className="nft-collection-overview-utilities-container">
         <div className="nft-collection-overview-utilities-title">Utilités</div>
-        {utilitiesArray.map((element) => (
+        {utilitiesArray.map((utility) => (
           <UtilitiesComponent
             key={uuidv4()}
-            utilitiesTitle={element.title}
-            utilitiesStatus={element.status}
-            utilitiesDescription={element.description}
-            utilitiesDate={element.date}
+            utility={utility}
+            loggedInUser={loggedInUser}
+            utilityId={utility?.id}
+            utilityTitle={utility?.title}
+            utilityStatus={utility?.claimed_status}
+            utilityDescription={utility?.description}
+            utilityDate={utility?.date ? new Date(utility.date.seconds * 1000).toDateString() : 'N/A'}
+            launchpadCollectionLiveUtilities={true}
+            collectionOwner={currentAthleteCollectionCreator}
+            collectionNameApi={collectionNameApi}
+            currentTokenIdOwner={currentTokenIdOwner}
           />
         ))}
       </div>

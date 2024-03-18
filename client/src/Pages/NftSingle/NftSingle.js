@@ -19,13 +19,13 @@ import useEth from "../../contexts/EthContext/useEth";
 import PopUpAddFundToWallet from "../../Components/PopUpAddFundToWallet/PopUpAddFundToWallet";
 import { formatCurrentBalance } from "../../Utils/formatCurrentBalance";
 import { useLocation } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../Configs/firebase";
 import Web3 from "web3";
 import { concatStringFromTo } from "../../Utils/concatString";
 import { removeDuplicatesFromArray } from "../../Utils/removeDuplicatesFromArray";
 import useToggleNetwork from "../../contexts/ToggleNetwork/useToggleNetwork";
-const NftSingle = () => {
+const NftSingle = ({ isLogged }) => {
   // functionnal states
   const [isSubMenuClicked, setIsSubMenuClicked] = useState([
     true,
@@ -70,6 +70,13 @@ const NftSingle = () => {
   const [displayPopUpAddFundToWallet, setDisplayPopUpAddFundToWallet] =
     useState();
   const [currentBalance, setCurrentBalance] = useState(null);
+
+  // --------------- Shajeed -----------------------
+
+  const [utilities, setUtilities] = useState([]);
+
+  // -----------------------------------------------
+
   const [
     currentNftCollectionInfoFromBackend,
     setCurrentNftCollectionInfoFromBackend,
@@ -173,6 +180,41 @@ const NftSingle = () => {
     setNftPicture(nftsFromContract?.media[0]?.gateway);
     setNftIdApi(nftsFromContract?.tokenId);
   }
+
+
+ // ----------------------- Shajeed -------------------------
+
+ useEffect(() => {
+  const q = query(
+    collection(db, "nft_collections"),
+    where("collection_address", "==", collectionAddress)
+  );
+
+  getDocs(q).then((querySnapshot) => {
+    const docData = querySnapshot.docs[0];
+    if (docData) {
+      const docId = docData.id;
+      const unsub = onSnapshot(
+        collection(db, "nft_collections", docId, "utilities"),
+        (snapshot) => {
+          const utilitiesData = snapshot.docs.map((doc) => ({
+            id: doc.id, // include the id here
+            ...doc.data(),
+          }));
+          setUtilities(utilitiesData);
+        }
+      );
+
+      return () => {
+        unsub();
+      };
+    }
+  });
+}, [collectionAddress]);
+
+// ---------------------------------------------------------
+
+
 
   useEffect(() => {
     if (alchemy) {
@@ -285,7 +327,7 @@ const NftSingle = () => {
   // }, []);
 
   // retirer le scroll lock lorsque le modal n'est plus la
-  document.querySelector("body").classList.remove("scroll-lock");
+  //document.querySelector("body").classList.remove("scroll-lock");
 
   //
   function handleClickSubMenuButton(e) {
@@ -884,6 +926,7 @@ const NftSingle = () => {
 
     // Call blockchain si c'est bon alors setIsListed(true) sinon false
   };
+
   const handleListClosed = () => {
     setIsListed(false);
     setIsListClicked(false);
@@ -1132,9 +1175,11 @@ const NftSingle = () => {
           </div>
           {isSubMenuClicked[0] && (
             <NftCollectionOverview
-              utilitiesArray={
-                dataSinglePageNftCollection.overviewData[0].utilities
-              }
+              // utilitiesArray={
+              //   dataSinglePageNftCollection.overviewData[0].utilities
+              // }
+              utilitiesArray={utilities}
+              loggedInUser={isLogged}
               knowMoreAboutCollection={
                 currentNftCollectionInfoFromBackend?.know_more_collection
               }
@@ -1142,6 +1187,11 @@ const NftSingle = () => {
               //   dataSinglePageNftCollection.overviewData[0].latestBids
               // }
               ethPrice={ethPrice}
+              currentAthleteCollectionCreator={currentAthleteCollectionCreator}
+              collectionNameApi={
+                currentNftCollectionInfoFromBackend?.collection_title
+              }
+              currentTokenIdOwner={currentTokenIdOwner}
             />
           )}
           {/* {isSubMenuClicked[1] && (

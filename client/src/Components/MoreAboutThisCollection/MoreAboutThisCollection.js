@@ -32,8 +32,6 @@ function MoreAboutThisCollection({
         }
       >
         {knowMoreAboutCollection}
-        {knowMoreAboutCollection}
-        {knowMoreAboutCollection}
       </div>
     </div>
   );

@@ -2,27 +2,28 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import Modal from "../Modal/Modal";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "../LoginSignupPopUp/SetupProfile/CanvasUtils";
-// import {
-//   db,
-//   storage,
-//   ref,
-//   uploadBytes,
-//   getDownloadURL,
-// } from "../../Configs/firebase";
-// import {
-//   collection,
-//   addDoc,
-//   updateDoc,
-//   query,
-//   where,
-//   getDocs,
-// } from "firebase/firestore";
+import {
+  db,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "../../Configs/firebase";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import previousArrow from "../../Assets/Image/arrow-previous.svg";
 import Img from "../../Assets/Image/img.svg";
 import "./PopUpEditProfile.css";
 import greenCross from "../../Assets/Image/greencross-offers.svg";
 import redCross from "../../Assets/Image/redcross-offers.svg";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import { ImageUrlToFile } from "../../Utils/fileFunctions";
 // import LoadingAnimation from "../LoadingEllipsisAnimation/LoadingAnimation";
 
 // afficher les infos de la bdd en provenance de la page user/athlete + J'ai mis en commentaire les mêmes fonctions liés au backend que dans signup garde ce que tu as à garder et supprime le reste
@@ -54,6 +55,8 @@ const PopUpEditProfile = ({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState();
   const [croppedBanner, setCroppedBanner] = useState();
   const [croppedAvatar, setCroppedAvatar] = useState();
+  const [retrievedBanner, setRetrievedBanner] = useState();
+  const [retrievedAvatar, setRetrievedAvatar] = useState();
   const [loadingEditProfile, setLoadingEditProfile] = useState();
   const [validationEditProfile, setValidationEditProfile] = useState();
   const [errorEditProfile, setErrorEditProfile] = useState(false);
@@ -61,113 +64,139 @@ const PopUpEditProfile = ({
     isProfileEditPopupHasModifications,
     setIsProfileEditPopupHasModifications,
   ] = useState(false);
+  
   useEffect(() => {
-    if (!banner) return;
+    if (!retrievedBanner) return;
     // setCurrentlyCropping(true);
-    let tmp = URL.createObjectURL(banner);
+    let tmp = URL.createObjectURL(retrievedBanner);
     setPreviewBanner(tmp);
     setCurrentlyCroppingBanner(true);
-    URL.revokeObjectURL(banner);
-    setBanner();
-  }, [banner]);
+    URL.revokeObjectURL(retrievedBanner);
+  }, [retrievedBanner]);
   // tambouriner le crop easy
   useEffect(() => {
-    if (!profile) return;
-    let tmp = URL.createObjectURL(profile);
+    if (!retrievedAvatar) return;
+    let tmp = URL.createObjectURL(retrievedAvatar);
     setPreviewProfile(tmp);
     setCurrentlyCroppingAvatar(true);
-    URL.revokeObjectURL(profile);
-    setProfile();
-  }, [profile]);
+    URL.revokeObjectURL(retrievedAvatar);
+  }, [retrievedAvatar]);
+
   function handlePreviousStepCroppClick() {
     setCurrentlyCroppingAvatar(false);
     setCurrentlyCroppingBanner(false);
   }
-  // const updateBannerPath = async (uid, path) => {
-  //   try {
-  //     const q = query(collection(db, "users"), where("id", "==", uid));
-  //     const querySnapshot = await getDocs(q);
-
-  //     if (!querySnapshot.empty) {
-  //       querySnapshot.forEach((doc) => {
-  //         const userRef = doc.ref;
-  //         const updatedData = { profile_banner: path };
-
-  //         updateDoc(userRef, updatedData)
-  //           .then(() => {
-  //             console.log("Banner path updated successfully!");
-  //           })
-  //           .catch((error) => {
-  //             console.error("Error updating banner path:", error);
-  //           });
-  //       });
-  //     } else {
-  //       console.log("No user found");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     throw err;
-  //   }
-  // };
-
-  // const updateAvatarPath = async (uid, path) => {
-  //   try {
-  //     const q = query(collection(db, "users"), where("id", "==", uid));
-  //     const querySnapshot = await getDocs(q);
-
-  //     if (!querySnapshot.empty) {
-  //       querySnapshot.forEach((doc) => {
-  //         const userRef = doc.ref;
-  //         const updatedData = { profile_avatar: path };
-
-  //         updateDoc(userRef, updatedData)
-  //           .then(() => {
-  //             console.log("Avatar path updated successfully!");
-  //           })
-  //           .catch((error) => {
-  //             console.error("Error updating Avatar path:", error);
-  //           });
-  //       });
-  //     } else {
-  //       console.log("No user found");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     throw err;
-  //   }
-  // };
-
-  const handleBannerUpload = async (event) => {
-    const file = event.target.files[0];
+  const handleBannerUpload = async (file, croppedImage) => {
     console.log(file);
     if (file && file.type.substr(0, 5) === "image") {
-      // //const imagePath = file.name ? `user_profile/banners/`
-      // try {
-      //   // Upload the file to Firebase Storage
-      //   //shajeed
-      //   const createdAt = new Date();
-      //   const imagePath = `user_profile/banners/sofan_user_#${
-      //     allUserInfo.id
-      //   }#_banner_${createdAt.getTime()}_${file.name}`;
-      //   const imageRef = ref(storage, imagePath);
-      //   uploadBytes(imageRef, file).then(() => {
-      //     getDownloadURL(ref(storage, imagePath)).then((url) => {
-      //       updateBannerPath(allUserInfo.id, url);
-      //     });
-      //     console.log("Uploaded a blob or file!");
-      //   });
+      try {
+        let newFile = await ImageUrlToFile(croppedImage, file.name);
+        // Upload the file to Firebase Storage
+        const createdAt = new Date();
+        const imagePath = `user_profile/banners/sofan_user_#${
+          allUserInfo.id
+        }#_banner_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, newFile).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+            updateBannerPath(allUserInfo.id, url);
+          });
+          console.log("Uploaded a blob or file!");
+        });
 
-      //   // TODO: Save the image URL to Firestore or perform any additional actions
-
-      //   console.log("Image uploaded successfully!");
-      // } catch (error) {
-      //   console.error("Error uploading image:", error);
-      // }
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
       setBanner(file);
     } else {
       console.log("File is not an image.");
     }
   };
+
+  const handleAvatarUpload = async (file, croppedImage) => {
+    // Access the selected file(s) using fileInputRef.current.files
+    // Process the files as needed
+    if (file && file.type.substr(0, 5) === "image") {
+      try {
+        let newFile = await ImageUrlToFile(croppedImage, file.name);
+        const createdAt = new Date();
+        const imagePath = `user_profile/avatars/sofan_user_#${
+          allUserInfo.id
+        }#_avatar_${createdAt.getTime()}_${file.name}`;
+        const imageRef = ref(storage, imagePath);
+        uploadBytes(imageRef, newFile).then(() => {
+          getDownloadURL(ref(storage, imagePath)).then((url) => {
+            updateAvatarPath(allUserInfo.id, url);
+          });
+          console.log("Uploaded a blob or file!");
+        });
+
+        console.log("Image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+      setProfile(file);
+    } else {
+      console.log("profile is not an image.");
+    }
+  };
+
+  const updateBannerPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_banner: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Banner path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating banner path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+  const updateAvatarPath = async (uid, path) => {
+    try {
+      const q = query(collection(db, "users"), where("id", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { profile_avatar: path };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Avatar path updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Avatar path:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
+  
   // console.log(allUserInfo);
   const handleProfileImageInputChange = () => {
     // Access the selected file(s) using fileInputRef.current.files
@@ -258,8 +287,43 @@ const PopUpEditProfile = ({
     }
   }, [previewProfile, croppedAreaPixels]);
 
-  function handleSaveProfile() {
+  async function handleSaveProfile() {
     setLoadingEditProfile(true);
+    try {
+      handleBannerUpload(retrievedBanner, croppedBanner);
+      handleAvatarUpload(retrievedAvatar, croppedAvatar);
+    } catch (err) {
+      console.error("Upload Image error Line 790: ", err);
+    }
+
+    try {
+      const q = query(
+        collection(db, "users"),
+        where("id", "==", allUserInfo.id)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userRef = doc.ref;
+          const updatedData = { bio: bioText ? bioText : "" };
+
+          updateDoc(userRef, updatedData)
+            .then(() => {
+              console.log("Bio updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating Bio:", error);
+            });
+        });
+      } else {
+        console.log("No user found");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+
   }
   useEffect(() => {
     if (loadingEditProfile === true) {
@@ -359,7 +423,7 @@ const PopUpEditProfile = ({
                 // classes={{containerClassName : "popup-edit-profile-cursor-container", mediaClassName: "", cropAreaClassName: ""}}
               />
             </div>
-            <div className="popup-edit-profile-cropeasy-input-and-button-container">
+            <div className="controls-setup-profile popup-edit-profile-cropeasy-input-and-button-container">
               <input
                 type="range"
                 value={zoom}
@@ -426,7 +490,7 @@ const PopUpEditProfile = ({
               <input
                 type="file"
                 accept="image/*"
-                onChange={handleBannerUpload}
+                onChange={(e) => setRetrievedBanner(e.target.files[0])}
                 style={{ display: "none" }}
                 id="image-upload"
               />
@@ -458,7 +522,7 @@ const PopUpEditProfile = ({
               <label
                 htmlFor="profile-pic-upload"
                 className="popup-edit-profile-profile-pic-add-button"
-                // onClick={handleDisplayPreview}
+                //onClick={handleDisplayPreview}
               >
                 <img src={Img} alt="BOUTON LOGO IMAGE AJOUTER BANNIERE" />
                 <input
@@ -468,7 +532,7 @@ const PopUpEditProfile = ({
                   accept="image/*"
                   style={{ display: "none" }}
                   multiple={false}
-                  onChange={handleProfileImageInputChange}
+                  onChange={(e) => setRetrievedAvatar(e.target.files[0])}
                 />
               </label>
             </div>

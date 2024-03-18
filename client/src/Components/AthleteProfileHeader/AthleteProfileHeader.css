@@ -7,8 +7,10 @@
 }
 .athleteprofileheader-bannerandprofilepicture-wrap {
   max-height: 300px;
-  max-width: 1246px;
+  width: 1246px;
+  max-width: 100%;
   position: relative;
+  /* background-color: red; */
 }
 .athleteprofileheader-bannerandprofilepicture-wrap > img {
   width: 100%;
@@ -217,7 +219,7 @@
 }
 .athleteprofileheader-content-container-button-wrap
   > button:nth-child(2):active {
- transform: scale(0.85);
+  transform: scale(0.85);
 }
 .athleteprofileheader-content-container-button-wrap > button:nth-child(4) {
   margin-left: 11px;

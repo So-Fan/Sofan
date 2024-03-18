@@ -28,8 +28,8 @@ const generateWelcomeEmailHTML = () => {
    </a>
    <div style="text-align: center; color: #888; font-size: 14px; margin-top: 20px;">
     Si vous avez des questions sur les sports, les athlètes ou les NFTs, n'hésitez pas à nous contacter à
-    <a href="mailto:support@sofan.com" style="color: blue;">
-     support@sofan.com
+    <a href="mailto:contact@sofan.app" style="color: blue;">
+     contact@sofan.app
     </a>
    </div>
   </div>

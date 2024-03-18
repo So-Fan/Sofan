@@ -1,5 +1,5 @@
-.nft-collection-overview-utilities-one-container{
-    width: 100%;
+.nft-collection-overview-utilities-one-container {
+  width: 100%;
   height: 185px;
   display: flex;
   justify-content: center;
@@ -8,21 +8,27 @@
   border-radius: 10px;
   /* background-color: brown; */
   margin-bottom: 20px;
+  transition: 0.5s;
 }
-.nft-collection-overview-utilities-one-container:first-child{
-margin-top: 20px !important;
-}
-.nft-collection-overview-utilities-one-container:last-child{
-margin-bottom: 0;
-}
-.nft-collection-overview-utilities-one-wrap{
-    width: 574.64px;
-    height: 125px;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    /* background-color: darkolivegreen; */
 
+.nft-collection-overview-utilities-one-container:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 12px #f6d463;
+}
+
+.nft-collection-overview-utilities-one-container:first-child {
+  margin-top: 20px !important;
+}
+.nft-collection-overview-utilities-one-container:last-child {
+  margin-bottom: 0;
+}
+.nft-collection-overview-utilities-one-wrap {
+  width: 574.64px;
+  height: 125px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* background-color: darkolivegreen; */
 }
 .nft-collection-overview-utilities-one-header {
   height: 24px;
@@ -56,7 +62,7 @@ margin-bottom: 0;
   font-size: 20px;
 }
 .nft-collection-overview-one-header-status {
-    width: auto;
+  width: auto;
   max-width: 170px !important;
   height: 17px;
   display: flex;
@@ -69,42 +75,42 @@ margin-bottom: 0;
   padding: 1px;
 }
 .nft-collectin-overview-one-header-status-color-available {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    margin: 3px;
-    margin-right: 4px;
-    background: #85D87E;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 3px;
+  margin-right: 4px;
+  background: #85d87e;
 }
 .nft-collectin-overview-one-header-status-color-unavailable {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    margin: 3px;
-    margin-right: 4px;
-    background: #EE4D4D;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 3px;
+  margin-right: 4px;
+  background: #ee4d4d;
 }
-.nft-collection-overview-one-header-status-text{
-    max-width: 109px;
-    height: 14px;
-    padding-right: 5px;
-    font-size: 12px;
-    font-family: "britanica-heavy";
+.nft-collection-overview-one-header-status-text {
+  max-width: 109px;
+  height: 14px;
+  padding-right: 5px;
+  font-size: 12px;
+  font-family: "britanica-heavy";
 }
-.nft-collection-overview-utilities-one-description{
-    max-width: 542px;
-    height: 57px;
-    max-height: 57px;
-    margin-top: 10px;
-    margin-left:32.64px ;
-    /* background-color: mediumvioletred; */
-    text-align: justify;
+.nft-collection-overview-utilities-one-description {
+  max-width: 542px;
+  height: 57px;
+  max-height: 57px;
+  margin-top: 10px;
+  margin-left: 32.64px;
+  /* background-color: mediumvioletred; */
+  text-align: justify;
 }
-.nft-collection-overview-utilities-one-date{
-    max-width: 495px;
-    max-height: 14px;
-    margin-top: 20px;
-    margin-left:32.64px ;
-    font-family: "britanica-black";
-    /* background-color: lime; */
+.nft-collection-overview-utilities-one-date {
+  max-width: 495px;
+  max-height: 14px;
+  margin-top: 20px;
+  margin-left: 32.64px;
+  font-family: "britanica-black";
+  /* background-color: lime; */
 }

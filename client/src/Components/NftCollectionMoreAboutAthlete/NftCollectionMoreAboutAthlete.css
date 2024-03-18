@@ -74,7 +74,7 @@
   height: 31px;
   position: absolute;
   left: 6.9591%;
-  bottom: 36.1064802%;
+  bottom: 17.1064802%;
   font-size: 19px;
   font-family: "britanica-heavy-expanded";
 }
@@ -82,7 +82,7 @@
   border: none;
   cursor: pointer;
   left: 6.9591%;
-  bottom: 26.1231%;
+  bottom: 10.1231%;
   position: absolute;
   width: 166px;
   height: 44px;
@@ -114,7 +114,29 @@
   }
   .nft-collection-more-about-athlete-description {
     bottom: 50.25623%;
+    height: 200px !important;
+    /* background-color: red; */
+    overflow-y: scroll;
   }
+
+/*  */
+.nft-collection-more-about-athlete-description::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+  border-radius: 10px;
+}
+.nft-collection-more-about-athlete-description::-webkit-track {
+  background: transparent; /* Set the track background */
+}
+.nft-collection-more-about-athlete-description::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar */
+  border-radius: 10px; /* Set the border-radius */
+}
+
+.nft-collection-more-about-athlete-description::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color when hovered */
+}
+
+/*  */
   .nft-collection-more-about-athlete-fans-count {
     left: 6.9591%;
   }

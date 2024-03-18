@@ -29,7 +29,7 @@ const generateVerificationCodeEmailHTML = ({ code }) => {
             <p>Préparez-vous à vivre une expérience unique.</p>
           </div>
           <div style="${footerStyle}">
-            <p>Si vous avez besoin d'aide, n'hésitez pas à contacter notre équipe de support dédiée à <a href="mailto:support@sofan.com">support@sofan.app</a>.</p>
+            <p>Si vous avez besoin d'aide, n'hésitez pas à contacter notre équipe de support dédiée à <a href="mailto:contact@sofan.app">contact@sofan.app</a>.</p>
             <p>Merci d'avoir choisi Sofan! Nous sommes impatients de vous servir.</p>
           </div>
         </div>

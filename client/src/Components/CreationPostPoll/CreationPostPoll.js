@@ -11,7 +11,7 @@ import {
   uploadBytes,
   getDownloadURL,
 } from "../../Configs/firebase";
-import { collection, addDoc, getDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, getDoc, doc, updateDoc, Timestamp } from "firebase/firestore";
 
 const CreationPostPoll = ({ userId }) => {
   const [file, setFile] = useState(null);
@@ -25,7 +25,8 @@ const CreationPostPoll = ({ userId }) => {
   const [text, setText] = useState("");
   const [loadingPublishPost, setLoadingPublishPost] = useState(false);
   const [validationPublishPost, setValidationPublishPost] = useState(false);
-
+  const [dateTimeValue, setDateTimeValue] = useState();
+  console.log(dateTimeValue);
   const [pollData, setPollData] = useState({
     choices: [
       { id: 1, text: "" },
@@ -103,6 +104,7 @@ const CreationPostPoll = ({ userId }) => {
           pollData,
           likes: [],
           status: true,
+          ...(dateTimeValue && { publish_timestamp: Timestamp.fromMillis(dateTimeValue * 1000) })
         };
       } else {
         const postType = "poll";
@@ -116,6 +118,7 @@ const CreationPostPoll = ({ userId }) => {
           pollData,
           likes: [],
           status: true,
+          ...(dateTimeValue && { publish_timestamp: Timestamp.fromMillis(dateTimeValue * 1000) })
         };
       }
 
@@ -124,7 +127,8 @@ const CreationPostPoll = ({ userId }) => {
       try {
         // Upload the post object to Firestore
         // const postRef = collection(db, "scheduled_posts");
-        const postRef = collection(db, "feed_post");
+        const collectionName = dateTimeValue ? "scheduled_posts" : "feed_post";
+        const postRef = collection(db, collectionName);
         let postUid;
         await addDoc(postRef, post).then((snapshot) => {
           postUid = snapshot.id;
@@ -275,6 +279,7 @@ const CreationPostPoll = ({ userId }) => {
             handleTextChange={handleTextChange}
             pollData={pollData}
             setPollData={setPollData}
+            setDateTimeValue={setDateTimeValue}
           />
         ) : loadingPublishPost ? (
           <>

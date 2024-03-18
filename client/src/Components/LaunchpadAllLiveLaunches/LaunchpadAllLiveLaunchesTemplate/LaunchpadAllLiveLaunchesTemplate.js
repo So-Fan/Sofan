@@ -125,7 +125,7 @@ const LaunchpadAllLiveLaunchesTemplate = ({
   }, []);
 
   function redirectTo() {
-    window.location.href = `/collectionlive/${launchpadlive.nftCollection.athlete_id}/${launchpadlive.nftCollection.collection_address}`;
+    window.location.href = `/collectionlive/${launchpadlive?.nftCollection?.athlete_id}/${launchpadlive.nftCollection?.collection_address}`;
   }
   return (
     <div
@@ -134,7 +134,7 @@ const LaunchpadAllLiveLaunchesTemplate = ({
       }`}
     >
       <Link
-        to={`/collectionlive/${launchpadlive.nftCollection.athlete_id}/${launchpadlive.nftCollection.collection_address}`}
+        to={`/collectionlive/${launchpadlive?.nftCollection?.athlete_id}/${launchpadlive.nftCollection?.collection_address}`}
         className="launchpadalllivelaunchestemplate-link"
       >
         <img
@@ -166,7 +166,7 @@ const LaunchpadAllLiveLaunchesTemplate = ({
             <Link
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
-              to={`/athleteprofile/${launchpadlive.nftCollection.athlete_id}`}
+              to={`/athleteprofile/${launchpadlive.nftCollection?.athlete_id}`}
               className="launchpadalllivelaunchestemplate-data-image-and-name"
             >
               <div

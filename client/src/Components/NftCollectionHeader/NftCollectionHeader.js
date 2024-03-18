@@ -70,7 +70,7 @@ function NftCollectionHeader({
   let ethBidPriceConverted = (nftBidEth * ethPrice).toLocaleString("fr-FR", {
     maximumFractionDigits: 2,
   });
-  console.log(currentOwnerInfo);
+  //console.log(currentOwnerInfo);
   return (
     <section className="nft-collection-header-container">
       <div className="nft-collection-header-picture">

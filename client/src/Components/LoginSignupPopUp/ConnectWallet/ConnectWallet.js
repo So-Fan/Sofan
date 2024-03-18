@@ -82,6 +82,7 @@ function ConnectWallet({
       });
     } catch (error) {
       console.error(error);
+      setIsWeb3authConnectLoading(false);
     }
     setWeb3authProvider(web3authProvider);
 
