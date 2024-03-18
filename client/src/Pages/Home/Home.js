@@ -252,6 +252,7 @@ function Home({
         // console.log(tempIsUserFanArray);
         setIsUserFanArray(tempIsUserFanArray);
       };
+// console.log("appel de la fontion feedDataFrom")
       feedDataFromAlchemyAndFirebase();
 
       

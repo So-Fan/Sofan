@@ -269,7 +269,7 @@ function App() {
     reset();
     return () => ref.current.forEach(clearTimeout);
   }, [isUserLogged]);
-  console.log("re rendu");
+  // console.log("re rendu");
   const [crossmintPayloadLocationdata, setCrossmintPayloadLocationdata] =
     useState(null);
     const year = new Date().getFullYear();
